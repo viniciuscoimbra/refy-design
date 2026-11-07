@@ -28,7 +28,7 @@ Consumidores React 18/19 instalados por tarball: menu e Combobox dentro de Modal
 ## Reproduzir
 
 ```bash
-node scripts/prepare-css-catalog.mjs /caminho/refy-design-web-1.0.0.tgz /tmp/refy-catalog-new
+node scripts/prepare-css-catalog.mjs /caminho/refy-design-web-1.1.0.tgz /tmp/refy-catalog-new
 # No consumidor gerado:
 npx vite preview --host 127.0.0.1 --port 6190 --strictPort
 # Na raiz Refy:

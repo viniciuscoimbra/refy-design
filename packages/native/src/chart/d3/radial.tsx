@@ -1,3 +1,5 @@
+import { en } from "../../messages/en";
+import type { RefyMessages } from "../../messages/en";
 import { arc, pie, lineRadial, curveLinearClosed } from "d3-shape";
 import { scaleLinear } from "d3-scale";
 import type { ChartLayout, ChartMark, ChartScene, D3ChartProps } from "./types";
@@ -7,6 +9,7 @@ export function radialScene(
   props: D3ChartProps,
   layout: ChartLayout,
   hidden: string[],
+  text: RefyMessages["d3Chart"] = en.d3Chart,
 ): ChartScene {
   const { width: w, height: h, top: t, bottom: b, left: l, right: r } = layout;
   const cx = (l + w - r) / 2,
@@ -17,19 +20,19 @@ export function radialScene(
     props.series.forEach((s) =>
       s.data.forEach((p) => {
         finite([p.y]);
-        if (p.y < 0) throw Error("Radar exige valores não negativos.");
+        if (p.y < 0) throw Error("Radar requires non-negative values.");
       }),
     );
     const categories = [
       ...new Set(props.series.flatMap((s) => s.data.map((p) => formatX(p.x)))),
     ];
     if (categories.length && categories.length < 3)
-      throw Error("Radar exige pelo menos três dimensões.");
+      throw Error("Radar requires at least three dimensions.");
     const maximum =
       props.max ??
       Math.max(1, ...props.series.flatMap((s) => s.data.map((p) => p.y)));
     if (!Number.isFinite(maximum) || maximum <= 0)
-      throw Error("O máximo deve ser positivo.");
+      throw Error("The maximum must be positive.");
     const scale = scaleLinear().domain([0, maximum]).range([0, R]);
     const point = (index: number, value: number) => ({
       x:
@@ -57,7 +60,7 @@ export function radialScene(
               id: `${s.id}-${i}`,
               label: categories[i],
               seriesId: s.id,
-              values: { Série: s.label, Valor: v },
+              values: { [text.series]: s.label, [text.value]: v },
             },
             color,
             ...point(i, v),
@@ -137,7 +140,7 @@ export function radialScene(
   props.items.forEach((item) => {
     finite([item.value]);
     if (item.value < 0)
-      throw Error("Gráficos radiais exigem valores não negativos.");
+      throw Error("Radial charts require non-negative values.");
   });
   const legend = props.items.map((s, i) => ({
     id: s.id,
@@ -156,10 +159,10 @@ export function radialScene(
     props.cornerRadius ?? (props.type === "pie" ? 0 : 3),
   ]);
   if (end <= start || end - start > 2 * Math.PI + 0.001)
-    throw Error("O intervalo angular deve estar entre 0 e 2π radianos.");
+    throw Error("The angular range must be between 0 and 2π radians.");
   const inner = props.innerRadius ?? (props.type === "pie" ? 0 : 0.68);
   if (inner < 0 || inner >= 1)
-    throw Error("innerRadius deve estar entre 0 e 1 (exclusivo).");
+    throw Error("innerRadius must be between 0 and 1 (exclusive).");
   const shape = arc()
     .cornerRadius(
       Math.max(0, props.cornerRadius ?? (props.type === "pie" ? 0 : 3)),
@@ -171,11 +174,11 @@ export function radialScene(
   let marks: ChartMark[];
   if (props.type === "radial-bar" || props.type === "gauge") {
     if (props.type === "gauge" && items.length > 1)
-      throw Error("Gauge aceita um único indicador.");
+      throw Error("Gauge accepts a single indicator.");
     const maximum =
       props.max ?? Math.max(1, ...props.items.map((v) => v.value));
     if (!Number.isFinite(maximum) || maximum <= 0)
-      throw Error("O máximo deve ser finito e maior que zero.");
+      throw Error("The maximum must be finite and greater than zero.");
     const band = R / Math.max(2, items.length + 1);
     marks = items.map((item, i) => {
       const outer = R - i * band,
@@ -203,7 +206,7 @@ export function radialScene(
           id: item.id,
           label: item.label,
           seriesId: item.id,
-          values: { Valor: item.value, Máximo: maximum },
+          values: { [text.value]: item.value, [text.maximum]: maximum },
         },
         color: legend.find((v) => v.id === item.id)!.color,
         x: cx + (Math.sin((start + angle) / 2) * (outer + ir)) / 2,
@@ -252,8 +255,8 @@ export function radialScene(
           label: a.data.label,
           seriesId: a.data.id,
           values: {
-            Valor: a.value,
-            Percentual: props.items.reduce((n, i) => n + i.value, 0)
+            [text.value]: a.value,
+            [text.percent]: props.items.reduce((n, i) => n + i.value, 0)
               ? Math.round(
                   (a.value / props.items.reduce((n, i) => n + i.value, 0)) *
                     10000,

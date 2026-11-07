@@ -2,6 +2,10 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/). As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.1.0 (07/11/2026)
+
+- Novo pacote `@refy-design/mobile`: os componentes do Refy em React Native, com o mesmo contrato de props da web (`npx expo install @refy-design/mobile react-native-svg`).
+
 ## 1.0.0 (07/11/2026)
 
 Primeira versão pública.

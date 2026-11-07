@@ -63,8 +63,8 @@ describe.each(cases)("gráfico %s", (_, props) => {
 
 test("mesmo erro que a web para X repetido", () => {
   const props: D3ChartProps = { type: "line", title: "E", label: "E", series: [{ id: "a", label: "A", data: [{ x: 1, y: 1 }, { x: 1, y: 2 }] }] };
-  expect(() => lineScene(props, layout, [])).toThrow("Cada série deve ter coordenadas X únicas.");
-  expect(() => cartesianScene(props as WebChartProps, layout, [])).toThrow("Cada série deve ter coordenadas X únicas.");
+  expect(() => lineScene(props, layout, [])).toThrow("Each series must have unique X coordinates.");
+  expect(() => cartesianScene(props as WebChartProps, layout, [])).toThrow("Each series must have unique X coordinates.");
 });
 
 test("painel ancorado vira de lado e encosta na borda como na web", () => {
@@ -118,7 +118,8 @@ describe("Charts nativos com a geometria da web (largura 520, a padrão da web)"
 
 test("cenas do D3Chart nativo são cópia fiel das da web", () => {
   for (const file of ["shared.tsx", "cartesian.tsx", "radial.tsx", "hierarchy.tsx", "relations.tsx", "types.ts"]) {
-    const web = readFileSync(join(root, "src/components/Charts/d3", file), "utf8").replace('import styles from "../D3Chart.module.css";', 'import styles from "./styles";');
+    const web = readFileSync(join(root, "src/components/Charts/d3", file), "utf8").replace('import styles from "../D3Chart.module.css";', 'import styles from "./styles";').replaceAll('"../../../lib/messages/en"', '"../../messages/en"');
     expect(readFileSync(join(root, "packages/native/src/chart/d3", file), "utf8")).toBe(web);
   }
+  expect(readFileSync(join(root, "packages/native/src/messages/en.ts"), "utf8")).toBe(readFileSync(join(root, "src/lib/messages/en.ts"), "utf8"));
 });

@@ -26,7 +26,7 @@ npm pack
 Copie `examples/react-starter` para uma pasta nova fora do repo. Nessa pasta:
 
 ```bash
-npm install /caminho/refy-design-web-1.0.0.tgz
+npm install /caminho/refy-design-web-1.1.0.tgz
 npm run build
 npm run dev
 ```
@@ -69,7 +69,7 @@ npx playwright test tests/consumer-export.spec.ts --project=chromium --workers=1
 npm pack --pack-destination "$REFY_DEMO_ROOT" --json
 REFY_THEME_EXPORT_PATH="$REFY_DEMO_ROOT/theme.json" \
 REFY_BLOCK_EXPORT_DIR="$REFY_DEMO_ROOT/block" \
-node scripts/verify-local-package.mjs "$REFY_DEMO_ROOT/refy-design-web-1.0.0.tgz" "$REFY_DEMO_ROOT/consumers"
+node scripts/verify-local-package.mjs "$REFY_DEMO_ROOT/refy-design-web-1.1.0.tgz" "$REFY_DEMO_ROOT/consumers"
 ```
 
 O exportador acima é automação de teste, não uma dependência do consumidor. O verificador preserva chamadas antigas sem as duas variáveis; com elas injeta a jornada adicional somente nos projetos de teste. Ele recusa saída existente, tema inválido, nomes inesperados e links nos arquivos do Block. Reutiliza a validação do editor e restaura o ambiente após carregá-la, para que a medição não inclua React de desenvolvimento.

@@ -30,7 +30,7 @@ O acréscimo medido dos controles cai de 43.688 para 1.394 bytes gzip; o custo t
 npm run check
 mkdir -p /tmp/refy-candidate
 npm pack --pack-destination /tmp/refy-candidate
-node scripts/verify-local-package.mjs /tmp/refy-candidate/refy-design-web-1.0.0.tgz /tmp/refy-cost-new
+node scripts/verify-local-package.mjs /tmp/refy-candidate/refy-design-web-1.1.0.tgz /tmp/refy-cost-new
 ```
 
 report.json separa React, controles, D3, CodeBlock e starter com fixtures completas, com tamanhos raw/gzip, módulos renderizados e tempo. O verificador falha se Button/Input retiverem módulos D3/Prism. O mesmo teste recusou a distribuição antiga. Não há orçamento numérico de performance aprovado pelo mantenedor; estes resultados são a referência para sua revisão.

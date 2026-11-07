@@ -31,11 +31,11 @@ export const colorAt = (index: number, colors?: string[]) =>
   ];
 export const keyX = (value: ChartX) =>
   value instanceof Date ? value.toISOString() : String(value);
-export const formatX = (value: ChartX) =>
+export const formatX = (value: ChartX, locale = "en") =>
   value instanceof Date
-    ? value.toLocaleDateString("pt-BR")
+    ? value.toLocaleDateString(locale)
     : typeof value === "number"
-      ? value.toLocaleString("pt-BR", { maximumFractionDigits: 2 })
+      ? value.toLocaleString(locale, { maximumFractionDigits: 2 })
       : value;
 export function numericScale(
   domain: [number, number],
@@ -45,10 +45,10 @@ export function numericScale(
   const input = axis?.domain?.map(Number) as [number, number] | undefined;
   const d = input ?? domain;
   if (!d.every(Number.isFinite) || d[0] >= d[1])
-    throw Error("O domínio deve ter dois limites finitos em ordem crescente.");
+    throw Error("The domain must have two finite bounds in ascending order.");
   if (axis?.scale === "log" && d[0] <= 0)
     throw Error(
-      "A escala logarítmica exige valores e limites maiores que zero.",
+      "A logarithmic scale requires values and bounds greater than zero.",
     );
   const scale = axis?.createScale
     ? axis.createScale()
@@ -64,7 +64,7 @@ export function numericScale(
   if (
     ![scale(scale.domain()[0]), scale(scale.domain()[1])].every(Number.isFinite)
   )
-    throw Error("A escala configurada não representa este domínio.");
+    throw Error("The configured scale cannot represent this domain.");
   return scale;
 }
 export function xCoordinates(
@@ -119,7 +119,7 @@ export function xCoordinates(
     lo = Math.min(...numbers),
     hi = Math.max(...numbers);
   if (axis?.scale === "log" && lo <= 0)
-    throw Error("A escala logarítmica exige valores maiores que zero.");
+    throw Error("A logarithmic scale requires values greater than zero.");
   if (unique[0] instanceof Date || axis?.scale === "time") {
     const d = axis?.domain ?? [
       new Date(lo),
@@ -206,7 +206,7 @@ export function axes(
           {xAxis?.ticks !== false &&
             xticks.map((v, i) => (
               <text key={i} x={x.at(v)} y={h - b + 20} textAnchor="middle">
-                {xAxis?.format?.(v) ?? formatX(v)}
+                {xAxis?.format?.(v) ?? formatX(v, options.locale)}
               </text>
             ))}
           {xAxis?.title && (
@@ -224,7 +224,7 @@ export function axes(
           {yAxis?.ticks !== false &&
             yticks.map((v, i) => (
               <text key={i} x={l - 10} y={y(v) + 4} textAnchor="end">
-                {yAxis?.format?.(v) ?? formatX(v)}
+                {yAxis?.format?.(v) ?? formatX(v, options.locale)}
               </text>
             ))}
           {yAxis?.title && (
@@ -239,9 +239,9 @@ export function axes(
 }
 export function finite(values: number[]) {
   if (values.some((v) => !Number.isFinite(v)))
-    throw Error("Há valores inválidos. Use apenas números finitos.");
+    throw Error("There are invalid values. Use finite numbers only.");
 }
 export function uniqueIds(items: { id: string }[]) {
   if (new Set(items.map((i) => i.id)).size !== items.length)
-    throw Error("Cada série ou item deve ter um id único.");
+    throw Error("Each series or item must have a unique id.");
 }

@@ -33,15 +33,17 @@ jobs:
           VERSION="${TAG#v}"
           test "$(node -p "require('./package.json').version")" = "$VERSION"
           npm pack
+          # O pacote mobile sai do mesmo commit, com a versão do próprio package.json.
+          (cd packages/native && npm ci --no-audit --no-fund && npm pack --pack-destination ../..)
           awk -v v="$VERSION" '$0 ~ "^## "v"( |$)" {on=1; next} on && /^## / {exit} on' CHANGELOG.md > notas.md
           test -s notas.md
       - name: Release no GitHub
         run: |
           VERSION="${TAG#v}"
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" "refy-design-web-$VERSION.tgz" --clobber
+            gh release upload "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz --clobber
           else
-            gh release create "$TAG" "refy-design-web-$VERSION.tgz" --verify-tag --title "refy $VERSION" --notes-file notas.md
+            gh release create "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz --verify-tag --title "refy $VERSION" --notes-file notas.md
           fi
       - name: npm
         env:

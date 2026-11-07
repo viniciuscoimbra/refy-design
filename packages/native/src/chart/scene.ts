@@ -1,3 +1,4 @@
+import { en } from "../messages/en";
 // Cena line/area: o mesmo cálculo de cartesianScene na web, sem JSX, para o renderizador
 // nativo desenhar com react-native-svg.
 import { area, line, stack, stackOffsetDiverging, stackOffsetExpand } from "d3-shape";
@@ -36,7 +37,7 @@ export function lineScene(props: D3ChartProps, layout: ChartLayout, hidden: stri
   );
   const legend = series.map((s, i) => ({ id: s.id, label: s.label, color: s.color ?? colorAt(i, props.colors) }));
   const visible = series.filter((s) => !hidden.includes(s.id));
-  if (series.some((s) => new Set(s.data.map((p) => keyX(p.x))).size !== s.data.length)) throw Error("Cada série deve ter coordenadas X únicas.");
+  if (series.some((s) => new Set(s.data.map((p) => keyX(p.x))).size !== s.data.length)) throw Error("Each series must have unique X coordinates.");
   const allX = [...new Map(series.flatMap((s) => s.data.map((p) => [keyX(p.x), p.x] as const))).values()];
   const empty: LineScene = { marks: [], paths: [], legend, xTicks: [], yTicks: [] };
   if (!allX.length || !visible.length) return empty;
@@ -70,7 +71,7 @@ export function lineScene(props: D3ChartProps, layout: ChartLayout, hidden: stri
       paths.push({ id: `${s.id}-area`, kind: "area", color, d: area<(typeof points)[number]>().x((v) => x.at(v.p.x)).y0((v) => y(v.lo)).y1((v) => y(v.hi)).curve(curve)(points) ?? "" });
     paths.push({ id: `${s.id}-line`, kind: "line", color, d: line<(typeof points)[number]>().x((v) => x.at(v.p.x)).y((v) => y(v.hi)).curve(curve)(points) ?? "" });
     points.forEach(({ p, i, hi }) => {
-      const datum = row(`${s.id}-${i}`, formatX(p.x), { Série: s.label, Valor: p.y, ...(p.size === undefined ? {} : { Tamanho: p.size }) }, s.id);
+      const datum = row(`${s.id}-${i}`, formatX(p.x, props.locale), { [en.d3Chart.series]: s.label, [en.d3Chart.value]: p.y, ...(p.size === undefined ? {} : { [en.d3Chart.size]: p.size }) }, s.id);
       marks.push({ id: datum.id, datum, color, x: x.at(p.x), y: y(hi) });
     });
   });
@@ -79,8 +80,8 @@ export function lineScene(props: D3ChartProps, layout: ChartLayout, hidden: stri
     marks,
     paths,
     legend,
-    xTicks: x.ticks.map((value) => ({ value, at: x.at(value), text: props.xAxis?.format?.(value) ?? String(formatX(value)) })),
-    yTicks: yValues.map((value) => ({ value, at: y(value), text: yAxis?.format?.(value) ?? String(formatX(value)) })),
+    xTicks: x.ticks.map((value) => ({ value, at: x.at(value), text: props.xAxis?.format?.(value) ?? String(formatX(value, props.locale)) })),
+    yTicks: yValues.map((value) => ({ value, at: y(value), text: yAxis?.format?.(value) ?? String(formatX(value, props.locale)) })),
     xScale: x.at,
     yScale: y,
   };

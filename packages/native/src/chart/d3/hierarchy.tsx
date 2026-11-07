@@ -1,3 +1,5 @@
+import { en } from "../../messages/en";
+import type { RefyMessages } from "../../messages/en";
 import {
   hierarchy,
   treemap,
@@ -22,6 +24,7 @@ export function hierarchyScene(
   props: D3ChartProps,
   layout: ChartLayout,
   hidden: string[],
+  text: RefyMessages["d3Chart"] = en.d3Chart,
 ): ChartScene {
   if (!("root" in props)) return { marks: [] };
   const { width: w, height: h, top: t, bottom: b, left: l, right: r } = layout,
@@ -33,7 +36,7 @@ export function hierarchyScene(
     if (n.data.value !== undefined) {
       finite([n.data.value]);
       if (n.data.value < 0)
-        throw Error("Hierarquias exigem valores não negativos.");
+        throw Error("Hierarchies require non-negative values.");
     }
   });
   const root = input
@@ -59,11 +62,11 @@ export function hierarchyScene(
       .map((v) => v.data.name)
       .join(" / "),
     seriesId: branchOf(n).data.id,
-    values: { Valor: n.value ?? 0, Nível: n.depth },
+    values: { [text.value]: n.value ?? 0, [text.level]: n.depth },
   });
   const padding = props.padding ?? 4;
   finite([padding]);
-  if (padding < 0) throw Error("O espaçamento deve ser não negativo.");
+  if (padding < 0) throw Error("Padding must be non-negative.");
   if (props.type === "treemap") {
     const result = treemap<ChartNode>().size([W, H]).padding(padding)(root);
     const marks = result

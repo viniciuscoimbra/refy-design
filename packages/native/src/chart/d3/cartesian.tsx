@@ -1,3 +1,5 @@
+import { en } from "../../messages/en";
+import type { RefyMessages } from "../../messages/en";
 import { bin, quantileSorted } from "d3-array";
 import { scaleBand, scaleSqrt } from "d3-scale";
 import {
@@ -64,12 +66,18 @@ export function cartesianScene(
   layout: ChartLayout,
   hidden: string[],
   viewport?: ChartViewport,
+  text: RefyMessages["d3Chart"] = en.d3Chart,
 ): ChartScene {
-  const { width: w, height: h, top: t, right: r, bottom: b, left: l } = layout;
+  const { width: w, height: h, top: t, right: r, bottom: b } = layout;
+  let l = layout.left;
   if (props.type === "heatmap") {
     props.cells.forEach((c) => finite([c.value]));
     const xs = [...new Set(props.cells.map((c) => c.x))],
       ys = [...new Set(props.cells.map((c) => c.y))];
+    // Category names on the y axis vary in length (and by language): reserve room for the longest
+    // one unless the consumer set the margin. Estimate at 7px per character of the axis font.
+    if (props.yAxis?.visible !== false && props.margin?.left === undefined)
+      l = Math.max(l, 16 + 7 * Math.max(0, ...ys.map((v) => String(props.yAxis?.format?.(v) ?? v).length)));
     const x = scaleBand()
         .domain(xs)
         .range([l, w - r])
@@ -82,7 +90,7 @@ export function cartesianScene(
     return {
       marks: props.cells.map((c, i) => ({
         id: `cell-${i}`,
-        datum: row(`cell-${i}`, `${c.x} · ${c.y}`, { Valor: c.value }),
+        datum: row(`cell-${i}`, `${c.x} · ${c.y}`, { [text.value]: c.value }),
         color:
           props.colorScale?.(c.value) ??
           colorAt(c.value < 0 ? 3 : 0, props.colors),
@@ -164,13 +172,13 @@ export function cartesianScene(
             g.id,
             g.label,
             {
-              Mínimo: lo,
+              [text.minimum]: lo,
               Q1: q1,
-              Mediana: q2,
+              [text.median]: q2,
               Q3: q3,
-              Máximo: hi,
-              Extremos:
-                v.filter((n) => n < lo || n > hi).join(", ") || "Nenhum",
+              [text.maximum]: hi,
+              [text.outliers]:
+                v.filter((n) => n < lo || n > hi).join(", ") || text.none,
             },
             g.id,
           ),
@@ -250,16 +258,16 @@ export function cartesianScene(
           props.thresholds < 1 ||
           props.thresholds > 500)
       )
-        throw Error("Use de 1 a 500 intervalos.");
+        throw Error("Use between 1 and 500 bins.");
       histogram.thresholds(props.thresholds ?? 10);
     }
     const bins = histogram(props.values);
     series = [
       {
         id: "frequency",
-        label: "Frequência",
+        label: text.frequency,
         data: bins.map((v) => ({
-          x: `${formatX(v.x0!)}–${formatX(v.x1!)}`,
+          x: `${formatX(v.x0!, props.locale)}–${formatX(v.x1!, props.locale)}`,
           y: v.length,
         })),
       },
@@ -276,7 +284,7 @@ export function cartesianScene(
         ),
       ]);
       if (p.x instanceof Date && !Number.isFinite(+p.x))
-        throw Error("Data inválida no eixo X.");
+        throw Error("Invalid date on the X axis.");
       if (typeof p.x === "number") finite([p.x]);
     }),
   );
@@ -291,7 +299,7 @@ export function cartesianScene(
       (s) => new Set(s.data.map((p) => keyX(p.x))).size !== s.data.length,
     )
   )
-    throw Error("Cada série deve ter coordenadas X únicas.");
+    throw Error("Each series must have unique X coordinates.");
   const allX = [
     ...new Map(
       series.flatMap((s) => s.data.map((p) => [keyX(p.x), p.x] as const)),
@@ -302,7 +310,7 @@ export function cartesianScene(
   const valueAxis = horizontal ? props.xAxis : props.yAxis;
   const stacked = "stacked" in props && props.stacked;
   if (stacked === "percent" && visible.some((s) => s.data.some((p) => p.y < 0)))
-    throw Error("Empilhamento percentual exige valores não negativos.");
+    throw Error("Percent stacking requires non-negative values.");
   const dataByX = allX.map((x) =>
     Object.fromEntries(
       visible.map((s) => [
@@ -329,7 +337,7 @@ export function cartesianScene(
     ? stacks.flatMap((s) => s.flatMap((v) => [v[0], v[1]]))
     : bounds;
   if (valueAxis?.scale === "log" && bounds.some((v) => v <= 0))
-    throw Error("A escala logarítmica exige valores maiores que zero.");
+    throw Error("A logarithmic scale requires values greater than zero.");
   const min =
       valueAxis?.scale === "log" ? Math.min(...extent) : Math.min(0, ...extent),
     max = Math.max(...extent);
@@ -431,11 +439,11 @@ export function cartesianScene(
     points.forEach(({ p, i, lo, hi }) => {
       const datum = row(
         `${s.id}-${i}`,
-        formatX(p.x),
+        formatX(p.x, props.locale),
         {
-          Série: s.label,
-          Valor: p.y,
-          ...(p.size === undefined ? {} : { Tamanho: p.size }),
+          [text.series]: s.label,
+          [text.value]: p.y,
+          ...(p.size === undefined ? {} : { [text.size]: p.size }),
         },
         s.id,
       );
@@ -483,14 +491,14 @@ export function cartesianScene(
           p.high! < Math.max(p.open!, p.close!)
         )
           throw Error(
-            "Candlestick exige low ≤ open/close ≤ high em cada ponto.",
+            "Candlestick requires low ≤ open/close ≤ high at every point.",
           );
         const bw = Math.min(26, x.bandwidth * 0.7);
         Object.assign(datum.values, {
-          Abertura: p.open!,
-          Fechamento: p.close!,
-          Mínima: p.low!,
-          Máxima: p.high!,
+          [text.open]: p.open!,
+          [text.close]: p.close!,
+          [text.low]: p.low!,
+          [text.high]: p.high!,
         });
         element = (
           <g stroke="currentColor">
@@ -507,7 +515,7 @@ export function cartesianScene(
         );
       } else {
         if ((p.size ?? 1) < 0)
-          throw Error("O tamanho de uma bolha não pode ser negativo.");
+          throw Error("A bubble size cannot be negative.");
         const show =
           props.type === "scatter" ||
           props.type === "bubble" ||
@@ -541,7 +549,7 @@ export function cartesianScene(
               />
             )}
             <text x={y(v)} y={h - b + 20} textAnchor="middle">
-              {props.xAxis?.format?.(v) ?? formatX(v)}
+              {props.xAxis?.format?.(v) ?? formatX(v, props.locale)}
             </text>
           </g>
         ))}
@@ -553,7 +561,7 @@ export function cartesianScene(
             y={(band(keyX(v)) ?? t) + band.bandwidth() / 2 + 4}
             textAnchor="end"
           >
-            {props.yAxis?.format?.(v) ?? formatX(v)}
+            {props.yAxis?.format?.(v) ?? formatX(v, props.locale)}
           </text>
         ))}
     </g>

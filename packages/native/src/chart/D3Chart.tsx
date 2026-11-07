@@ -32,7 +32,7 @@ function resolveColor(t: RefyContext, value: string): string {
  * pontos e mostra o tooltip; com leitor de tela, o gráfico é "ajustável" e deslizar para
  * cima ou para baixo anda ponto a ponto.
  */
-const chartKeys = ["type", "title", "label", "showTitle", "series", "curve", "stacked", "dots", "strokeWidth", "fillOpacity", "height", "margin", "colors", "xAxis", "yAxis", "grid", "legend", "tooltip", "onSelect", "onHover"] as const satisfies readonly (keyof Props)[];
+const chartKeys = ["type", "title", "label", "locale", "showTitle", "series", "curve", "stacked", "dots", "strokeWidth", "fillOpacity", "height", "margin", "colors", "xAxis", "yAxis", "grid", "legend", "tooltip", "onSelect", "onHover"] as const satisfies readonly (keyof Props)[];
 type MissingKey = Exclude<keyof Props, (typeof chartKeys)[number]>;
 // Erro de tipo aqui = chave nova em Props sem entrar em chartKeys.
 const allKeysListed: MissingKey extends never ? true : false = true;

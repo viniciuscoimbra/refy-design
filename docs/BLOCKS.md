@@ -23,7 +23,7 @@ O viewport é um documento HTML/React local independente, sem carregar outro Sto
 ## Usar no projeto
 
 1. No repositório local do Refy, execute `npm pack` para gerar o pacote. Isso não publica nada.
-2. Instale o arquivo gerado na aplicação: `npm install /caminho/refy-design-web-1.0.0.tgz`.
+2. Instale o arquivo gerado na aplicação: `npm install /caminho/refy-design-web-1.1.0.tgz`.
 3. Importe uma vez `@refy-design/web/tokens.css`; o CSS dos componentes é carregado automaticamente pelo bundler. Use `global.css` se desejar o reset e `fonts.css` se usar as fontes fornecidas.
 4. Na aba Código, copie **todos** os arquivos da variante para a mesma pasta. Use `page.tsx` como entrada ou importe sua composição no roteador da aplicação. CSS Modules precisa estar habilitado, como no Vite/Next.
 5. Para herdar um tema próprio, coloque a página dentro do `ThemeProvider` da aplicação. Consulte [THEMING.md](THEMING.md).

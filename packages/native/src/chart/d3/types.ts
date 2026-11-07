@@ -122,8 +122,10 @@ export interface ChartOptions {
   stream?: ChartStreamOptions;
   height?: number;
   margin?: Partial<Pick<ChartLayout, "top" | "right" | "bottom" | "left">>;
+  /** BCP 47 tag for axis dates and numbers. Default: the `LocaleProvider` language. */
+  locale?: string;
   colors?: string[];
-  /** Cor por valor: células do heatmap e barras (bar/histogram). */
+  /** Color by value: heatmap cells and bars (bar/histogram). */
   colorScale?: (value: number) => string;
   xAxis?: ChartAxis;
   yAxis?: ChartAxis;
@@ -145,7 +147,7 @@ export interface ChartOptions {
 export interface D3ChartBaseProps extends ChartOptions {
   title: string;
   label: string;
-  /** Tabela de dados: "disclosure" (padrão) mostra "Ver dados de…"; "screen-reader" a mantém só para leitores de tela. */
+  /** Data table: "disclosure" (default) shows "See data for…"; "screen-reader" keeps it only for screen readers. */
   dataTable?: "disclosure" | "screen-reader";
   showTitle?: boolean;
   className?: string;

@@ -17,3 +17,8 @@ export const installCommands: Record<"npm" | "pnpm" | "yarn" | "bun", string> = 
   yarn: `yarn add ${packageName}`,
   bun: `bun add ${packageName}`,
 };
+
+// O pacote mobile tem número próprio. Fica false até `npm view @refy-design/mobile version`
+// responder: antes disso a página Mobile não mostra comando de instalação.
+export const mobilePublished = false;
+export const mobileInstall = "npx expo install @refy-design/mobile react-native-svg";

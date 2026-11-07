@@ -67,6 +67,8 @@ export interface D3ChartProps {
   type: "line" | "area";
   title: string;
   label: string;
+  /** BCP 47 tag for axis dates and numbers, as on the web. Default: "en". */
+  locale?: string;
   showTitle?: boolean;
   series: ChartSeries[];
   curve?: ChartCurve;

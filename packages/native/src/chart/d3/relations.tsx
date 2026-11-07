@@ -1,3 +1,5 @@
+import { en } from "../../messages/en";
+import type { RefyMessages } from "../../messages/en";
 import {
   forceSimulation,
   forceManyBody,
@@ -16,6 +18,7 @@ export function relationScene(
   props: D3ChartProps,
   layout: ChartLayout,
   hidden: string[],
+  text: RefyMessages["d3Chart"] = en.d3Chart,
 ): ChartScene {
   const { width: w, height: h, left: l, right: r, top: t, bottom: b } = layout,
     W = w - l - r,
@@ -25,18 +28,18 @@ export function relationScene(
       props.features?.type !== "FeatureCollection" ||
       !Array.isArray(props.features.features)
     )
-      throw Error("Forneça um GeoJSON FeatureCollection válido.");
+      throw Error("Provide a valid GeoJSON FeatureCollection.");
     function checkCoordinates(value: unknown): void {
-      if (!Array.isArray(value)) throw Error("Coordenadas GeoJSON inválidas.");
+      if (!Array.isArray(value)) throw Error("Invalid GeoJSON coordinates.");
       if (value.every((v) => typeof v === "number")) finite(value as number[]);
       else value.forEach(checkCoordinates);
     }
     props.features.features.forEach((f) => {
-      if (!f.geometry) throw Error("Uma região não possui geometria.");
+      if (!f.geometry) throw Error("A region has no geometry.");
       if ("coordinates" in f.geometry) checkCoordinates(f.geometry.coordinates);
       else
         throw Error(
-          "GeometryCollection não é suportada; forneça suas geometrias como features individuais.",
+          "GeometryCollection is not supported; provide its geometries as individual features.",
         );
       if (f.properties?.value !== undefined)
         finite([Number(f.properties.value)]);
@@ -68,17 +71,17 @@ export function relationScene(
     );
     const marks: ChartMark[] = props.features.features.map((f, i) => {
       const id = String(f.id ?? i),
-        name = String(f.properties?.name ?? `Região ${i + 1}`),
+        name = String(f.properties?.name ?? text.region(i + 1)),
         value = Number(f.properties?.value ?? 0),
         d = path(f) ?? "",
         c = path.centroid(f);
       if (/NaN|Infinity/.test(d))
         throw Error(
-          "A projeção não produziu coordenadas finitas para esta geometria.",
+          "The projection produced no finite coordinates for this geometry.",
         );
       return {
         id,
-        datum: { id, label: name, values: { Valor: value } },
+        datum: { id, label: name, values: { [text.value]: value } },
         color:
           props.colorScale?.(value) ?? colorAt(value < 0 ? 3 : 0, props.colors),
         x: c[0],
@@ -103,12 +106,12 @@ export function relationScene(
   links.forEach((link) => {
     finite([link.value]);
     if (link.value < 0)
-      throw Error("O peso de um vínculo deve ser não negativo.");
+      throw Error("A link weight must be non-negative.");
     if (
       !nodes.some((n) => n.id === link.source) ||
       !nodes.some((n) => n.id === link.target)
     )
-      throw Error("Há vínculos com nós inexistentes.");
+      throw Error("Some links point to missing nodes.");
   });
   const legend = nodes.map((n, i) => ({
     id: n.id,
@@ -152,7 +155,7 @@ export function relationScene(
           id,
           label: `${source.label} → ${target.label}`,
           seriesId: source.id,
-          values: { Fluxo: link.value },
+          values: { [text.flow]: link.value },
         },
         color: color(source.id),
         x: (source.x1! + target.x0!) / 2,
@@ -178,7 +181,7 @@ export function relationScene(
             id: `node:${n.id}`,
             label: n.label,
             seriesId: n.id,
-            values: { Fluxo: n.value ?? 0 },
+            values: { [text.flow]: n.value ?? 0 },
           },
           color: color(n.id),
           x: (n.x0! + n.x1!) / 2,
@@ -237,7 +240,7 @@ export function relationScene(
           id,
           label: `${source.label} → ${target.label}`,
           seriesId: source.id,
-          values: { Fluxo: ch.source.value },
+          values: { [text.flow]: ch.source.value },
         },
         color: color(source.id),
         x: cx + ((Math.sin(a) + Math.sin(b)) * R) / 4,
@@ -265,7 +268,7 @@ export function relationScene(
               id: `node:${node.id}`,
               label: node.label,
               seriesId: node.id,
-              values: { Fluxo: group.value },
+              values: { [text.flow]: group.value },
             },
             color: color(node.id),
             x: cx + Math.sin(a) * (R - 6),
@@ -347,7 +350,7 @@ export function relationScene(
           label: n.label,
           seriesId: n.id,
           values: {
-            Conexões: active.filter(
+            [text.connections]: active.filter(
               (v) => v.source === n.id || v.target === n.id,
             ).length,
           },

@@ -1,6 +1,6 @@
 {
   "name": "@refy-design/web",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Refy Design System — componentes React atômicos.",
   "license": "MIT",
   "type": "module",

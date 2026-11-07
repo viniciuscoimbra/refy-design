@@ -17,8 +17,8 @@ export const palette = [
 ];
 export const colorAt = (index: number, colors?: string[]) => (colors?.length ? colors : palette)[index % (colors?.length || palette.length)];
 export const keyX = (value: ChartX) => (value instanceof Date ? value.toISOString() : String(value));
-export const formatX = (value: ChartX) =>
-  value instanceof Date ? value.toLocaleDateString("pt-BR") : typeof value === "number" ? value.toLocaleString("pt-BR", { maximumFractionDigits: 2 }) : value;
+export const formatX = (value: ChartX, locale = "en") =>
+  value instanceof Date ? value.toLocaleDateString(locale) : typeof value === "number" ? value.toLocaleString(locale, { maximumFractionDigits: 2 }) : value;
 
 const curves = {
   linear: curveLinear,

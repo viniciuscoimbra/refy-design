@@ -5,7 +5,7 @@ import { Heading, SideNav, Toc } from "./SiteCatalog";
 import styles from "./RefySitePage.module.css";
 import { useSiteLocale } from "./i18n";
 import type { Locale } from "./i18n";
-import { installCommands, packageName, packagePublished, packageVersion } from "./packageRelease";
+import { installCommands, mobileInstall, mobilePublished, packageName, packagePublished, packageVersion } from "./packageRelease";
 
 // Docs técnica: uma página por assunto, menu da esquerda lista as páginas e o sumário da
 // direita lista as seções da página aberta. Texto curto, só o que o pacote faz hoje.
@@ -191,8 +191,15 @@ const pt: Record<DocTopic, DocPage> = {
   mobile: {
     label: "Mobile", group: "use",
     description: "@refy-design/mobile usa o mesmo JSON de tema e o mesmo contrato de props da web.",
-    sections: [["uso", "Uso"], ["componentes", "Componentes"], ["requisitos", "Requisitos"]],
+    sections: [...(mobilePublished ? [["instalacao-mobile", "Instalação"] as [string, string]] : []), ["uso", "Uso"], ["componentes", "Componentes"], ["requisitos", "Requisitos"]],
     body: (<>
+      {mobilePublished && (
+        <section id="instalacao-mobile">
+          <h2>Instalação</h2>
+          <p>Num app Expo, instale o pacote e o <code>react-native-svg</code>:</p>
+          <CodeBlock label="Terminal" language="bash" code={mobileInstall} />
+        </section>
+      )}
       <section id="uso">
         <h2>Uso</h2>
         <CodeBlock label="App.tsx" language="tsx" code={nativeCodeFor("tema.json", "Sincronizado", "Salvar", "salvar")} />
@@ -284,8 +291,15 @@ const en: Record<DocTopic, DocPage> = {
   mobile: {
     label: "Mobile", group: "use",
     description: "@refy-design/mobile uses the same theme JSON and the same props contract as the web.",
-    sections: [["uso", "Usage"], ["componentes", "Components"], ["requisitos", "Requirements"]],
+    sections: [...(mobilePublished ? [["instalacao-mobile", "Installation"] as [string, string]] : []), ["uso", "Usage"], ["componentes", "Components"], ["requisitos", "Requirements"]],
     body: (<>
+      {mobilePublished && (
+        <section id="instalacao-mobile">
+          <h2>Installation</h2>
+          <p>In an Expo app, install the package and <code>react-native-svg</code>:</p>
+          <CodeBlock label="Terminal" language="bash" code={mobileInstall} />
+        </section>
+      )}
       <section id="uso">
         <h2>Usage</h2>
         <CodeBlock label="App.tsx" language="tsx" code={nativeCodeFor("theme.json", "Synced", "Save", "save")} />
@@ -377,8 +391,15 @@ const es: Record<DocTopic, DocPage> = {
   mobile: {
     label: "Móvil", group: "use",
     description: "@refy-design/mobile usa el mismo JSON de tema y el mismo contrato de props que la web.",
-    sections: [["uso", "Uso"], ["componentes", "Componentes"], ["requisitos", "Requisitos"]],
+    sections: [...(mobilePublished ? [["instalacao-mobile", "Instalación"] as [string, string]] : []), ["uso", "Uso"], ["componentes", "Componentes"], ["requisitos", "Requisitos"]],
     body: (<>
+      {mobilePublished && (
+        <section id="instalacao-mobile">
+          <h2>Instalación</h2>
+          <p>En una app Expo, instala el paquete y <code>react-native-svg</code>:</p>
+          <CodeBlock label="Terminal" language="bash" code={mobileInstall} />
+        </section>
+      )}
       <section id="uso">
         <h2>Uso</h2>
         <CodeBlock label="App.tsx" language="tsx" code={nativeCodeFor("tema.json", "Sincronizado", "Guardar", "guardar")} />

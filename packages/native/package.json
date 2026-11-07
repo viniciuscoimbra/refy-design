@@ -1,22 +1,47 @@
 {
   "name": "@refy-design/mobile",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.1.0",
   "description": "Componentes do Refy em React Native, com o mesmo contrato de props da web.",
   "license": "MIT",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
-  "react-native": "src/index.ts",
+  "author": "Vinícius Coimbra",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viniciuscoimbra/refy-design.git",
+    "directory": "packages/native"
+  },
+  "homepage": "https://refy.design/docs/mobile",
+  "bugs": {
+    "url": "https://github.com/viniciuscoimbra/refy-design/issues"
+  },
+  "keywords": [
+    "react-native",
+    "design-system",
+    "refy",
+    "expo"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "react-native": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "sideEffects": false,
   "files": [
-    "src"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
+    "build": "node build.mjs",
+    "prepack": "node build.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "test": "jest"
   },
   "dependencies": {
-    "@refy/tokens": "file:../tokens",
     "d3-array": "^3.2.4",
     "d3-chord": "^3.0.1",
     "d3-force": "^3.0.0",
@@ -24,22 +49,50 @@
     "d3-hierarchy": "^3.1.2",
     "d3-sankey": "^0.12.3",
     "d3-scale": "^4.0.2",
-    "d3-shape": "^3.2.0"
+    "d3-shape": "^3.2.0",
+    "@types/d3-geo": "^3.1.1",
+    "@types/d3-scale": "^4.0.9",
+    "@types/d3-shape": "^3.2.0",
+    "@types/geojson": "^7946.0.16"
   },
   "peerDependencies": {
-    "@refy-design/web": "*",
     "react": ">=19.1",
     "react-native": ">=0.76",
     "react-native-svg": ">=15"
   },
-  "peerDependenciesMeta": {
-    "@refy-design/web": {
-      "optional": true
-    }
+  "devDependencies": {
+    "@react-native/babel-preset": "^0.81.4",
+    "@types/d3-array": "^3.2.2",
+    "@types/d3-chord": "^3.0.6",
+    "@types/d3-force": "^3.0.10",
+    "@types/d3-geo": "^3.1.1",
+    "@types/d3-hierarchy": "^3.1.7",
+    "@types/d3-sankey": "^0.12.5",
+    "@types/d3-scale": "^4.0.9",
+    "@types/d3-shape": "^3.2.0",
+    "@types/geojson": "^7946.0.16",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.20.5",
+    "@types/react": "~19.1.10",
+    "@types/react-test-renderer": "^19.3.1",
+    "babel-jest": "^29.7.0",
+    "esbuild": "^0.25.12",
+    "jest": "^29.7.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-native": "^0.81.4",
+    "react-native-svg": "^15.12.1",
+    "react-test-renderer": "^19.1.0",
+    "typescript": "~5.9.2"
   },
   "jest": {
     "preset": "react-native",
     "moduleNameMapper": {
+      "^react$": "<rootDir>/node_modules/react",
+      "^react/(.*)$": "<rootDir>/node_modules/react/$1",
+      "^react-native$": "<rootDir>/node_modules/react-native",
+      "^react-native/(.*)$": "<rootDir>/node_modules/react-native/$1",
+      "^react-native-svg$": "<rootDir>/node_modules/react-native-svg",
       "^@refy-design/web/contracts$": "<rootDir>/../../src/contracts/index.ts",
       "^@refy/tokens$": "<rootDir>/../tokens/dist/index.js",
       "\\.module\\.css$": "<rootDir>/test/css-stub.cjs"
@@ -49,6 +102,9 @@
     ],
     "transform": {
       "^.+\\.(js|jsx|ts|tsx|mjs)$": "babel-jest"
-    }
+    },
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules"
+    ]
   }
 }

@@ -1,8 +1,10 @@
 # @refy-design/mobile
 
-Os componentes do Refy em React Native. O contrato de props é o de `@refy-design/web/contracts`, o mesmo da web; os tokens vêm de `@refy/tokens`, resolvidos para o modo e o tema do app.
+Os componentes do Refy em React Native, com o mesmo contrato de props da web e os tokens resolvidos para o modo e o tema do app. O pacote traz os contratos e os tokens dentro dele: não depende de `@refy-design/web`.
 
-Pacote privado. Não há versão publicada.
+```sh
+npx expo install @refy-design/mobile react-native-svg
+```
 
 ## Uso
 
@@ -39,9 +41,10 @@ O que muda em relação à web está em [DIVERGENCIAS.md](DIVERGENCIAS.md).
 ## Verificação
 
 ```sh
-npm --prefix ../tokens run build
+npm install
 npm run typecheck   # tsc, inclui test/contract-types.ts
 npm test            # jest: galeria inteira em 5 temas (mais 2 com REFY_EXTRA_THEME), acessibilidade, paridade com a web
+npm run build       # dist/index.js e dist/types, com contratos e tokens embutidos
 ```
 
 - `test/contract-types.ts`: cada componente nativo implementa o contrato da web com os mesmos tipos. Tem um controle negativo que precisa falhar.

@@ -7,7 +7,7 @@ import { useReducedMotion } from "../hooks";
 import { renderText } from "../primitives";
 
 export interface StickyBarProps extends StickyBarCoreProps, Omit<ViewProps, "children"> {}
-export interface StickyFooterProps extends StickyFooterCoreProps, ViewProps {
+export interface StickyFooterProps extends StickyFooterCoreProps, Omit<ViewProps, "children"> {
   /** Espaço da área segura embaixo (barra de gestos). O Refy não depende de safe-area-context: o app passa o número. */
   bottomInset?: number;
 }
