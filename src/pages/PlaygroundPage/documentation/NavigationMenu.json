@@ -1,0 +1,73 @@
+{
+  "id": "NavigationMenu",
+  "description": "Main navigation with groups and supporting content.",
+  "usage": {
+    "howToUse": [
+      "Use it for the main navigation of a site or a simple app, at the top: Product, Docs, Pricing.",
+      "Pass the `items` and mark the page open with `activeId`. Group related pages under one item with a panel."
+    ],
+    "alternatives": [
+      "An app with many areas: Sidebar.",
+      "Actions, not places: Menu."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one item to the next."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the page, or the panel of a group. On a group, `Space` also works."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "NavigationMenu",
+  "selected": "Interativo",
+  "import": "import { NavigationMenu } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Menu"
+  ],
+  "api": [
+    {
+      "name": "NavigationMenu",
+      "props": [
+        {
+          "name": "items",
+          "type": "NavigationMenuItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "activeId",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onNavigate",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { NavigationMenu } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction NavigationMenuExample() {\n  const [active, setActive] = useState('overview');\n  return (\n    <div style={stack}>\n      <NavigationMenu\n        activeId={active}\n        onNavigate={setActive}\n        items={[\n          { id: 'overview', label: 'Overview' },\n          { id: 'library', label: 'Library' },\n          {\n            id: 'resources',\n            label: 'Resources',\n            entries: [\n              { id: 'guides', label: 'Guides' },\n              { id: 'templates', label: 'Templates' },\n            ],\n          },\n        ]}\n      />\n      <h3>\n        {\n          (\n            {\n              overview: 'Project overview',\n              library: 'Library materials',\n              guides: 'Usage guides',\n              templates: 'Available templates',\n            } as Record<string, string>\n          )[active]\n        }\n      </h3>\n    </div>\n  );\n}\nexport function Example() {\n  return <NavigationMenuExample />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "id": "Label",
+  "description": "Form label tied to a control by the htmlFor attribute.",
+  "usage": {
+    "howToUse": [
+      "Use it to name a field when you build your own control and it does not have a `label` prop.",
+      "Point `htmlFor` to the `id` of the field: clicking the label focuses the field, and screen readers read the name."
+    ],
+    "alternatives": [
+      "Input, Select and the other fields already have `label`: use it.",
+      "A label with an explanation: HelpField."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The label does not receive focus. Clicking it focuses the field."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Label",
+  "selected": "Interativo",
+  "import": "import { Label } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Label",
+      "props": [
+        {
+          "name": "htmlFor",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLLabelElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLLabelElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLLabelElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLLabelElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLLabelElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Input } from '@refy-design/web';\nimport { Label } from '@refy-design/web';\nimport { useId } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction LabelExample() {\n  const id = useId();\n  return (\n    <div style={stack}>\n      <Label htmlFor={id}>Display name</Label>\n      <Input id={id} placeholder=\"Your name\" />\n    </div>\n  );\n}\nexport function Example() {\n  return <LabelExample />;\n}"
+    }
+  ]
+}

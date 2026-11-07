@@ -1,0 +1,124 @@
+{
+  "id": "ScrollArea",
+  "description": "Area with limited height and its own scrolling, keyboard accessible.",
+  "usage": {
+    "howToUse": [
+      "Use it for a part of the page with its own scroll and a fixed height: a long list in a panel, a log, terms of use.",
+      "Set `maxHeight` and an `aria-label` that names the area. Avoid one scroll inside another."
+    ],
+    "alternatives": [
+      "Messages of a conversation: MessageScroller."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the area."
+      },
+      {
+        "keys": "`↓` `↑` `PageDown` `PageUp`",
+        "action": "Scroll the content."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ScrollArea",
+  "selected": "Interativo",
+  "import": "import { ScrollArea } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "ScrollArea",
+      "props": [
+        {
+          "name": "maxHeight",
+          "defaultValue": "240",
+          "type": "string | number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { ScrollArea } from '@refy-design/web';\nfunction ScrollAreaExample() {\n  return (\n    <ScrollArea role=\"region\" aria-label=\"Scrollable materials\" maxHeight={180}>\n      <ul>\n        {Array.from({ length: 20 }, (_, i) => (\n          <li key={i} style={{ paddingBlock: 10 }}>\n            Reference material {i + 1}\n          </li>\n        ))}\n      </ul>\n    </ScrollArea>\n  );\n}\nexport function Example() {\n  return <ScrollAreaExample />;\n}"
+    }
+  ]
+}

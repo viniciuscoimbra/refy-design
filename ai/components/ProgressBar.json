@@ -1,0 +1,173 @@
+{
+  "id": "ProgressBar",
+  "description": "Progress of a task or usage of a quota, with tone and loading state.",
+  "usage": {
+    "howToUse": [
+      "Use it to show how much of a task is done: upload, import, steps of a sign-up.",
+      "Pass `value` from 0 to 100, and write the number or the step next to it (\"3 of 5\").",
+      "Use `indeterminate` when the end is unknown. Use `tone=\"warning\"` or `\"danger\"` when the value means trouble."
+    ],
+    "alternatives": [
+      "Usage of a plan against its limit: UsageMeter.",
+      "A short wait inside a button or small area: Spinner."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The bar does not receive focus. Screen readers read the value."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ProgressBar",
+  "selected": "Saudavel",
+  "import": "import { ProgressBar } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "ProgressBar",
+      "props": [
+        {
+          "name": "value",
+          "defaultValue": "0",
+          "type": "number | undefined",
+          "required": false,
+          "description": "0–100. Ignored (and optional) when `indeterminate`."
+        },
+        {
+          "name": "tone",
+          "defaultValue": "\"primary\"",
+          "type": "ProgressTone | undefined",
+          "required": false,
+          "description": "Fill color. `neutral` (ink) is the tone of the quota bars\nin settings screens: informative, without judging state."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "\"sm\" | \"md\" | undefined",
+          "required": false,
+          "description": "Track height."
+        },
+        {
+          "name": "indeterminate",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Loading without known progress: the fill slides in a loop.\nExposes `aria-busy` and omits `aria-valuenow`. With `prefers-reduced-motion`\nthe animation stops (track filled at half opacity)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Saudavel",
+      "label": "Healthy",
+      "description": "",
+      "code": "import { ProgressBar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ProgressBar>, 'value' | 'tone' | 'size'> = {\n    value: 49,\n    tone: 'primary',\n    size: 'md',\n  };\n  return (\n    <div style={{ width: 320 }}>\n      <ProgressBar {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Atencao",
+      "label": "Warning",
+      "description": "",
+      "code": "import { ProgressBar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ProgressBar>, 'value' | 'tone' | 'size'> = {\n    value: 72,\n    tone: 'warn',\n    size: 'md',\n  };\n  return (\n    <div style={{ width: 320 }}>\n      <ProgressBar {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Critico",
+      "label": "Critical",
+      "description": "",
+      "code": "import { ProgressBar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ProgressBar>, 'value' | 'tone' | 'size'> = {\n    value: 94,\n    tone: 'critical',\n    size: 'md',\n  };\n  return (\n    <div style={{ width: 320 }}>\n      <ProgressBar {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "CotaNeutra",
+      "label": "Neutral quota",
+      "description": "Neutral tone (ink): informative quota bar for settings screens, a ratio without judging state (e.g. \"5 / 20 active projects\").",
+      "code": "import { ProgressBar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ProgressBar>, 'value' | 'tone' | 'size'> = {\n    value: 25,\n    tone: 'neutral',\n    size: 'md',\n  };\n  return (\n    <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 8 }}>\n      <ProgressBar {...args} aria-label=\"5 of 20 active projects\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ValorAnimado",
+      "label": "Animated value",
+      "description": "The fill width is animated (motion token): click the buttons and watch the bar \"grow\"/\"shrink\" to the new value instead of jumping.",
+      "code": "import { Button } from '@refy-design/web';\nimport { ProgressBar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ProgressBar>, 'value' | 'tone' | 'size'> = {\n    value: 49,\n    tone: 'primary',\n    size: 'md',\n  };\n  const [value, setValue] = useState(20);\n  return (\n    <div style={{ width: 320, display: 'flex', flexDirection: 'column', gap: 12 }}>\n      <ProgressBar {...args} value={value} />\n      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>\n        <Button\n          size=\"sm\"\n          variant=\"secondary\"\n          onClick={() => setValue((v) => Math.max(0, v - 25))}\n        >\n          −25\n        </Button>\n        <Button\n          size=\"sm\"\n          variant=\"secondary\"\n          onClick={() => setValue((v) => Math.min(100, v + 25))}\n        >\n          +25\n        </Button>\n        <code\n          style={{\n            fontFamily: 'var(--font-mono)',\n            fontSize: 12,\n            color: 'var(--ink-2)',\n          }}\n        >\n          value = {value}\n        </code>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Carregando",
+      "label": "Loading",
+      "description": "`indeterminate`: continuous loading without a known percentage; the fill slides in a loop. Accessibility: `aria-busy`, no `aria-valuenow`. With `prefers-reduced-motion`, the animation stops and the track is filled at half opacity.",
+      "code": "import { ProgressBar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ProgressBar>,\n    'value' | 'tone' | 'size' | 'indeterminate'\n  > = { value: 49, tone: 'primary', size: 'md', indeterminate: true };\n  return (\n    <div style={{ width: 320 }}>\n      <ProgressBar {...args} aria-label=\"Loading\" />\n    </div>\n  );\n}"
+    }
+  ]
+}

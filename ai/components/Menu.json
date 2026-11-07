@@ -1,0 +1,150 @@
+{
+  "id": "Menu",
+  "description": "Contextual list of actions, separators and labels, with keyboard navigation; no nested submenus.",
+  "usage": {
+    "howToUse": [
+      "Use it for actions about one thing that do not fit on screen: the \"more\" of a row, of a card or of a header.",
+      "Write each item as a verb (\"Rename\", \"Duplicate\"), separate groups with a separator, and leave the action that deletes for last.",
+      "Open it from an IconButton or Button and handle the choice in `onSelect`.",
+      "It has one level only: no submenus."
+    ],
+    "alternatives": [
+      "Choosing a value for a form: Select or Combobox.",
+      "Right-click on an area: ContextMenu.",
+      "Searching among many commands: Command."
+    ],
+    "keyboard": [
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Moves between the items."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Goes to the first or last item."
+      },
+      {
+        "keys": "A letter",
+        "action": "Goes to the next item that starts with it."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the item."
+      },
+      {
+        "keys": "`Escape` or `Tab`",
+        "action": "Closes the menu."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Menu",
+  "selected": "Interativo",
+  "import": "import { Menu } from '@refy-design/web';",
+  "composition": [
+    "Kbd"
+  ],
+  "api": [
+    {
+      "name": "Menu",
+      "props": [
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "anchorPoint",
+          "type": "{ x: number; y: number; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "matchWidth",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Follows the width of the anchor group, also in compositions."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "description": "Visible menu (controlled)."
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": true,
+          "description": "Close request: Esc, click outside or selection."
+        },
+        {
+          "name": "entries",
+          "type": "MenuEntry[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onSelect",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": "Fired when any item is chosen."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Anchor element (trigger)."
+        },
+        {
+          "name": "align",
+          "defaultValue": "\"start\"",
+          "type": "\"start\" | \"end\" | undefined",
+          "required": false,
+          "description": "Menu edge aligned to the start or end of the trigger. Default `start`."
+        },
+        {
+          "name": "side",
+          "defaultValue": "\"bottom\"",
+          "type": "\"top\" | \"bottom\" | undefined",
+          "required": false,
+          "description": "Opening side relative to the trigger. Default `bottom`."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Account menu with sections, shortcut and a destructive item.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Menu } from '@refy-design/web';\nimport type { MenuEntry } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst UserIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"12\" cy=\"7\" r=\"4\" />\n    <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\" />\n  </svg>\n);\nconst GearIcon = (\n  <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\">\n    <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n  </svg>\n);\nconst PlusIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n  >\n    <path d=\"M12 5v14M5 12h14\" />\n  </svg>\n);\nconst TrashIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <polyline points=\"3 6 5 6 21 6\" />\n    <path d=\"M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6\" />\n  </svg>\n);\nconst entries: MenuEntry[] = [\n  { type: 'label', label: 'Account' },\n  { id: 'profile', label: 'Profile', icon: UserIcon, shortcut: '⌘P' },\n  { id: 'config', label: 'Settings', icon: GearIcon },\n  { type: 'separator' },\n  { type: 'label', label: 'Actions' },\n  { id: 'new', label: 'New project', icon: PlusIcon },\n  { type: 'separator' },\n  { id: 'delete', label: 'Delete analysis', icon: TrashIcon, danger: true },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Menu>,\n    'open' | 'onOpenChange' | 'entries' | 'children'\n  > = { open: false, onOpenChange: () => {}, entries, children: null };\n  const [open, setOpen] = useState(args.open);\n  return (\n    <Menu {...args} open={open} onOpenChange={setOpen}>\n      <Button onClick={() => setOpen(!open)}>Actions ▾</Button>\n    </Menu>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport { Menu } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction MenuExample() {\n  const [open, setOpen] = useState(false),\n    [name, setName] = useState('Content guide'),\n    [draft, setDraft] = useState(name),\n    [editing, setEditing] = useState(false),\n    [archived, setArchived] = useState(false);\n  return (\n    <div style={stack}>\n      <Menu\n        open={open}\n        onOpenChange={setOpen}\n        entries={[\n          {\n            id: 'rename',\n            label: 'Rename',\n            onSelect: () => {\n              setDraft(name);\n              setEditing(true);\n            },\n          },\n          {\n            id: 'archive',\n            label: archived ? 'Restore' : 'Archive',\n            onSelect: () => setArchived(!archived),\n          },\n        ]}\n      >\n        <Button onClick={() => setOpen(!open)}>Actions ▾</Button>\n      </Menu>\n      <p>\n        {name} · {archived ? 'Archived' : 'Available'}\n      </p>\n      {editing && (\n        <form\n          style={stack}\n          onSubmit={(e) => {\n            e.preventDefault();\n            if (draft.trim()) {\n              setName(draft.trim());\n              setEditing(false);\n            }\n          }}\n        >\n          <Input\n            label=\"Material name\"\n            required\n            value={draft}\n            onChange={(e) => setDraft(e.target.value)}\n          />\n          <Button type=\"submit\">Save name</Button>\n          <Button type=\"button\" variant=\"ghost\" onClick={() => setEditing(false)}>\n            Cancel\n          </Button>\n        </form>\n      )}\n    </div>\n  );\n}\nexport function Example() {\n  return <MenuExample />;\n}"
+    },
+    {
+      "id": "ComItemDesabilitado",
+      "label": "With disabled item",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Menu } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [open, setOpen] = useState(true);\n  return (\n    <Menu\n      open={open}\n      onOpenChange={setOpen}\n      ariaLabel=\"Available actions\"\n      entries={[\n        { id: 'view', label: 'View' },\n        { id: 'edit', label: 'Edit unavailable', disabled: true },\n      ]}\n    >\n      <Button onClick={() => setOpen(!open)} aria-expanded={open}>\n        Actions\n      </Button>\n    </Menu>\n  );\n}"
+    }
+  ]
+}

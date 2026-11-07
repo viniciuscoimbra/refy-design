@@ -1,0 +1,3 @@
+[
+  { "file": "src/components/GoogleButton/GoogleButton.tsx", "kind": "literal", "count": 4, "reason": "Cores do logotipo G do Google. É arte da marca de terceiro, exigida pelas diretrizes do Google; não é parâmetro de interface." }
+]

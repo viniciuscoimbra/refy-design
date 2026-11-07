@@ -1,0 +1,111 @@
+{
+  "captured": "2026-10-23",
+  "width": 373,
+  "height": 460,
+  "reference": "https://ui.shadcn.com/charts/area#charts",
+  "variants": [
+    {
+      "id": "default",
+      "source": "https://ui.shadcn.com/r/styles/new-york-v4/chart-area-default.json",
+      "labels": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun"
+      ],
+      "desktop": [
+        186,
+        305,
+        237,
+        73,
+        209,
+        214
+      ],
+      "mobile": [],
+      "curve": "natural",
+      "captures": {
+        "light": {
+          "file": "default-light.jpg",
+          "sha256": "c62d93bf0243b2137a25e19c33643139ca1b110bda57f47f73773493933b88e9"
+        },
+        "dark": {
+          "file": "default-dark.jpg",
+          "sha256": "ba69d29e9ac9aeb5b51b4c082b23acf3e717bded0a5fa25455b56d151f3ab161"
+        }
+      }
+    },
+    {
+      "id": "linear",
+      "source": "https://ui.shadcn.com/r/styles/new-york-v4/chart-area-linear.json",
+      "labels": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun"
+      ],
+      "desktop": [
+        186,
+        305,
+        237,
+        73,
+        209,
+        214
+      ],
+      "mobile": [],
+      "curve": "linear",
+      "captures": {
+        "light": {
+          "file": "linear-light.jpg",
+          "sha256": "e6a48a6323e5c58701e57d6895c4e1dc967048c77f5ed8f2461c4d434469cf99"
+        },
+        "dark": {
+          "file": "linear-dark.jpg",
+          "sha256": "1c36a8a2d3948b0ae0109557dfeafdb8789b95b47b9776b0683818c2cd9c78bc"
+        }
+      }
+    },
+    {
+      "id": "stacked",
+      "source": "https://ui.shadcn.com/r/styles/new-york-v4/chart-area-stacked.json",
+      "labels": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun"
+      ],
+      "desktop": [
+        186,
+        305,
+        237,
+        73,
+        209,
+        214
+      ],
+      "mobile": [
+        80,
+        200,
+        120,
+        190,
+        130,
+        140
+      ],
+      "curve": "natural",
+      "captures": {
+        "light": {
+          "file": "stacked-light.jpg",
+          "sha256": "0d66e6d26b7d391eceeed84c70036795d9c936330de10299f3cbd7fd1976442a"
+        },
+        "dark": {
+          "file": "stacked-dark.jpg",
+          "sha256": "59ea286c6d378c01ba68b8ed511a1470b98223cc1a597932ba1481acbba1eb79"
+        }
+      }
+    }
+  ]
+}

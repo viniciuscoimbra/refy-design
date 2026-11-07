@@ -1,0 +1,132 @@
+{
+  "id": "FabMenu",
+  "description": "Floating action that reveals a set of related actions.",
+  "usage": {
+    "howToUse": [
+      "Use it when the main action of the screen has three to five variants: new note, new photo, new list.",
+      "List them in `actions` with short labels, and give the closed button a `label` (\"Create\").",
+      "Handle the choice in `onSelect`."
+    ],
+    "alternatives": [
+      "Only one action: Fab.",
+      "Places people visit, not actions: Sidebar or NavigationMenu."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the menu."
+      },
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Moves between the actions."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Goes to the first or last action."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the menu and returns focus to the button."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "FabMenu",
+  "selected": "FluxoLocal",
+  "import": "import { FabMenu } from '@refy-design/web';",
+  "composition": [
+    "Fab",
+    "Menu"
+  ],
+  "api": [
+    {
+      "name": "FabMenu",
+      "props": [
+        {
+          "name": "actions",
+          "type": "FabMenuAction[]",
+          "required": true,
+          "description": "Three to five short actions is the recommended use."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible name of the closed trigger."
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultOpen",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onSelect",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "align",
+          "defaultValue": "\"end\"",
+          "type": "\"start\" | \"end\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Fechado",
+      "label": "Closed",
+      "description": "",
+      "code": "import { FabMenu } from '@refy-design/web';\nimport type { FabMenuAction } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport type { ReactNode } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nconst actions: FabMenuAction[] = [\n  { id: 'client', label: 'New client', icon: Icons.plus },\n  { id: 'search', label: 'Search content', icon: Icons.search },\n  { id: 'import', label: 'Import contact', icon: Icons.download },\n  { id: 'help', label: 'Ask for help', icon: Icons.help },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof FabMenu>, 'actions' | 'label'> = {\n    actions,\n    label: 'Open actions',\n  };\n  return <FabMenu {...args} />;\n}"
+    },
+    {
+      "id": "Aberto",
+      "label": "Open",
+      "description": "",
+      "code": "import { FabMenu } from '@refy-design/web';\nimport type { FabMenuAction } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport type { ReactNode } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nconst actions: FabMenuAction[] = [\n  { id: 'client', label: 'New client', icon: Icons.plus },\n  { id: 'search', label: 'Search content', icon: Icons.search },\n  { id: 'import', label: 'Import contact', icon: Icons.download },\n  { id: 'help', label: 'Ask for help', icon: Icons.help },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof FabMenu>,\n    'actions' | 'label' | 'defaultOpen'\n  > = { actions, label: 'Open actions', defaultOpen: true };\n  return <FabMenu {...args} />;\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { FabMenu } from '@refy-design/web';\nimport type { FabMenuAction } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport type { ReactNode } from 'react';\nimport { useState } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nconst actions: FabMenuAction[] = [\n  { id: 'client', label: 'New client', icon: Icons.plus },\n  { id: 'search', label: 'Search content', icon: Icons.search },\n  { id: 'import', label: 'Import contact', icon: Icons.download },\n  { id: 'help', label: 'Ask for help', icon: Icons.help },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof FabMenu>, 'actions' | 'label'> = {\n    actions,\n    label: 'Open actions',\n  };\n  const [selection, setSelection] = useState('No action run yet.');\n  return (\n    <div>\n      <FabMenu {...args} onSelect={(id) => setSelection(`Action run: ${id}.`)} />\n      <p\n        role=\"status\"\n        aria-live=\"polite\"\n        style={{ margin: '16px 0 0', color: 'var(--ink-2)' }}\n      >\n        {selection}\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "FluxoLocal",
+      "label": "Local flow",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport { FabMenu } from '@refy-design/web';\nimport { FileUpload } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction FabMenuExample() {\n  const [panel, setPanel] = useState(''),\n    [query, setQuery] = useState(''),\n    [name, setName] = useState(''),\n    [materials, setMaterials] = useState(['Content guide', 'Visual references']);\n  return (\n    <div style={stack}>\n      <FabMenu\n        actions={[\n          { id: 'create', label: 'New material' },\n          { id: 'search', label: 'Search content' },\n          { id: 'import', label: 'Import file' },\n        ]}\n        onSelect={setPanel}\n      />\n      <p>{materials.length} materials in the demo.</p>\n      <Drawer\n        open={Boolean(panel)}\n        onOpenChange={(open) => {\n          if (!open) setPanel('');\n        }}\n        title={\n          panel === 'search'\n            ? 'Search content'\n            : panel === 'import'\n              ? 'Import file'\n              : 'New material'\n        }\n      >\n        {panel === 'search' ? (\n          <div style={stack}>\n            <Input\n              label=\"Search materials\"\n              value={query}\n              onChange={(event) => setQuery(event.target.value)}\n            />\n            <ul>\n              {materials\n                .filter((item) => item.toLowerCase().includes(query.toLowerCase()))\n                .map((item, i) => (\n                  <li key={i}>{item}</li>\n                ))}\n            </ul>\n          </div>\n        ) : panel === 'import' ? (\n          <FileUpload\n            label=\"Add local file\"\n            onFilesChange={(files) => {\n              setMaterials((items) => [...items, ...files.map((file) => file.name)]);\n            }}\n          />\n        ) : (\n          <form\n            style={stack}\n            onSubmit={(event) => {\n              event.preventDefault();\n              if (name.trim()) {\n                setMaterials((items) => [...items, name.trim()]);\n                setName('');\n                setPanel('');\n              }\n            }}\n          >\n            <Input\n              label=\"New material name\"\n              required\n              value={name}\n              onChange={(event) => setName(event.target.value)}\n            />\n            <Button type=\"submit\" variant=\"primary\">\n              Create material\n            </Button>\n          </form>\n        )}\n      </Drawer>\n    </div>\n  );\n}\nexport function Example() {\n  return <FabMenuExample />;\n}"
+    },
+    {
+      "id": "ComAcaoDesabilitada",
+      "label": "With disabled action",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { FabMenu } from '@refy-design/web';\nimport type { FabMenuAction } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport type { ReactNode } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nconst actions: FabMenuAction[] = [\n  { id: 'client', label: 'New client', icon: Icons.plus },\n  { id: 'search', label: 'Search content', icon: Icons.search },\n  { id: 'import', label: 'Import contact', icon: Icons.download },\n  { id: 'help', label: 'Ask for help', icon: Icons.help },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof FabMenu>,\n    'actions' | 'label' | 'defaultOpen'\n  > = {\n    actions: actions.map((action) => ({ ...action, disabled: action.id === 'import' })),\n    label: 'Open actions',\n    defaultOpen: true,\n  };\n  return <FabMenu {...args} />;\n}"
+    }
+  ]
+}

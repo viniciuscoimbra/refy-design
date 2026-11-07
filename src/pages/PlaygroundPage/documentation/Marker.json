@@ -1,0 +1,113 @@
+{
+  "id": "Marker",
+  "description": "Marking a piece of text with the theme's colors and shape.",
+  "usage": {
+    "howToUse": [
+      "Use it to highlight a word or a short passage in a text: the term searched, the key part of a title.",
+      "The color and the shape come from the theme."
+    ],
+    "alternatives": [
+      "A state that must be read: Badge."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The marker does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Marker",
+  "selected": "Interativo",
+  "import": "import { Marker } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Marker",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Marker } from '@refy-design/web';\nfunction MarkerExample() {\n  return (\n    <p>\n      {'Quickly find the passages '}\n      <Marker>that matter for the decision</Marker> without losing the context of the\n      content.\n    </p>\n  );\n}\nexport function Example() {\n  return <MarkerExample />;\n}"
+    }
+  ]
+}

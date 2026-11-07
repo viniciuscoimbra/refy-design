@@ -1,0 +1,114 @@
+{
+  "id": "Direction",
+  "description": "Container that sets the reading direction, left to right or reversed.",
+  "usage": {
+    "howToUse": [
+      "Use it around content in languages written right to left, such as Arabic and Hebrew.",
+      "Set `dir=\"rtl\"`: the refy components inside flip. In your own layout, use start and end instead of left and right."
+    ],
+    "alternatives": [
+      "The whole app in one language: set `dir` on the `<html>` tag."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "Direction does not receive focus. Arrows inside it follow the reading direction."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Direction",
+  "selected": "Interativo",
+  "import": "import { Direction } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Direction",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "defaultValue": "'ltr'",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Direction } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction DirectionExample() {\n  const [dir, setDir] = useState<'ltr' | 'rtl'>('ltr');\n  return (\n    <div style={stack}>\n      <div>\n        <Button onClick={() => setDir('ltr')} aria-pressed={dir === 'ltr'}>\n          Left to right\n        </Button>\n        <Button onClick={() => setDir('rtl')} aria-pressed={dir === 'rtl'}>\n          Right to left\n        </Button>\n      </div>\n      <Direction dir={dir}>\n        <p>Home / Library / Material</p>\n        <Input label=\"Material name\" placeholder=\"Write a name\" />\n      </Direction>\n    </div>\n  );\n}\nexport function Example() {\n  return <DirectionExample />;\n}"
+    }
+  ]
+}

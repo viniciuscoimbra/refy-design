@@ -1,0 +1,206 @@
+{
+  "id": "Input",
+  "description": "Text input with label, help, prefixes and error messaging.",
+  "usage": {
+    "howToUse": [
+      "Use it for one line of free text: name, e-mail, link, amount.",
+      "Always give it a `label`. Use `hint` for the format expected (\"Only numbers\"), and `error` to say what is wrong and how to fix it.",
+      "Set the right `type` (`email`, `url`, `tel`, `number`): the mobile keyboard changes with it.",
+      "Use `prefix` and `suffix` for fixed parts, such as a currency symbol or a domain."
+    ],
+    "alternatives": [
+      "Several lines of text: Textarea.",
+      "Picking from known options: Select or Combobox.",
+      "Phone, postal code or verification code: PhoneInput, PostalCodeInput or Otp."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the field."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Submits the form the field is in, as in any browser field."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Input",
+  "selected": "InputPadrao",
+  "import": "import { Input } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Input",
+      "props": [
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Uppercase mono label above the field."
+        },
+        {
+          "name": "hint",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Help text below the field."
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Error message (replaces the hint and colors the border)."
+        },
+        {
+          "name": "prefix",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Fixed content on the left (icon or a prefix like \"example.com/\")."
+        },
+        {
+          "name": "suffix",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Fixed content on the right (icon or suffix)."
+        },
+        {
+          "name": "block",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "type",
+          "type": "HTMLInputTypeAttribute | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLInputElement, HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "InputPadrao",
+      "label": "Default input",
+      "description": "",
+      "code": "import { Input } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Input>, 'label' | 'placeholder' | 'block'> = {\n    label: 'Workspace name',\n    placeholder: 'Example team',\n    block: true,\n  };\n  return <Input {...args} />;\n}"
+    },
+    {
+      "id": "InputComHint",
+      "label": "Input with hint",
+      "description": "",
+      "code": "import { Input } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Input>,\n    'label' | 'placeholder' | 'block' | 'hint'\n  > = {\n    label: 'Billing email',\n    placeholder: 'billing@company.com',\n    block: true,\n    hint: 'Receives the invoices.',\n  };\n  return <Input {...args} />;\n}"
+    },
+    {
+      "id": "InputComErro",
+      "label": "Input with error",
+      "description": "",
+      "code": "import { Input } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Input>,\n    'label' | 'placeholder' | 'block' | 'error' | 'defaultValue'\n  > = {\n    label: 'URL',\n    placeholder: 'Example team',\n    block: true,\n    error: 'Enter a valid URL.',\n    defaultValue: 'globo',\n  };\n  return <Input {...args} />;\n}"
+    },
+    {
+      "id": "InputComPrefixo",
+      "label": "Input with prefix",
+      "description": "",
+      "code": "import { Input } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Input>, 'label' | 'placeholder' | 'block'> = {\n    label: 'Workspace name',\n    placeholder: 'Example team',\n    block: true,\n  };\n  return (\n    <Input\n      {...args}\n      label=\"Workspace URL\"\n      prefix=\"example.com/\"\n      defaultValue=\"globo-editorial\"\n    />\n  );\n}"
+    },
+    {
+      "id": "InputDesabilitado",
+      "label": "Disabled input",
+      "description": "",
+      "code": "import { Input } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Input>,\n    'label' | 'placeholder' | 'block' | 'defaultValue' | 'disabled'\n  > = {\n    label: 'Plan',\n    placeholder: 'Example team',\n    block: true,\n    defaultValue: 'Pro Yearly',\n    disabled: true,\n  };\n  return <Input {...args} />;\n}"
+    }
+  ]
+}

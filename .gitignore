@@ -1,0 +1,20 @@
+node_modules/
+dist/
+storybook-static/
+*.tgz
+.env
+.env.*
+!.env.example
+.DS_Store
+graft/
+test-results/
+playwright-report/
+
+.local-release/
+# builds do site (dist-site, dist-site-v2, ...)
+dist-site*/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example

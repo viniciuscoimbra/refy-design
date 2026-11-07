@@ -1,0 +1,71 @@
+{
+  "id": "MessageScroller",
+  "description": "Message area with scrolling and access to the latest messages.",
+  "usage": {
+    "howToUse": [
+      "Use it for the area that holds the messages of a conversation and scrolls on its own.",
+      "Set `maxHeight` and a `label` (\"Conversation with support\"). When people scroll up, a button takes them back to the latest messages."
+    ],
+    "alternatives": [
+      "Any content with its own scroll: ScrollArea."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the area."
+      },
+      {
+        "keys": "`↓` `↑` `PageDown` `PageUp`",
+        "action": "Scroll the messages."
+      },
+      {
+        "keys": "`Enter` or `Space` on the button",
+        "action": "Goes back to the latest messages."
+      }
+    ]
+  },
+  "collections": [
+    "conversation"
+  ],
+  "publicName": "MessageScroller",
+  "selected": "Interativo",
+  "import": "import { MessageScroller } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "ScrollArea"
+  ],
+  "api": [
+    {
+      "name": "MessageScroller",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "maxHeight",
+          "defaultValue": "280",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Message } from '@refy-design/web';\nimport { MessageScroller } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction MessageScrollerExample() {\n  const [messages, setMessages] = useState(\n    Array.from({ length: 8 }, (_, i) => `Project update ${i + 1}.`),\n  );\n  return (\n    <div style={stack}>\n      <MessageScroller>\n        {messages.map((text, i) => (\n          <Message\n            key={i}\n            author={i % 3 === 1 ? 'You' : 'Ana Lima'}\n            initials={i % 3 === 1 ? 'VC' : 'AL'}\n            time={`10:${String(30 + i).padStart(2, '0')}`}\n            side={i % 3 === 1 ? 'end' : 'start'}\n          >\n            {text}\n          </Message>\n        ))}\n      </MessageScroller>\n      <Button\n        onClick={() =>\n          setMessages((rows) => [...rows, `Project update ${rows.length + 1}.`])\n        }\n      >\n        New message\n      </Button>\n    </div>\n  );\n}\nexport function Example() {\n  return <MessageScrollerExample />;\n}"
+    }
+  ]
+}

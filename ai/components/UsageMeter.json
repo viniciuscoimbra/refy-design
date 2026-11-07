@@ -1,0 +1,269 @@
+{
+  "id": "UsageMeter",
+  "description": "Resource usage against a limit, with a value and a visual state.",
+  "usage": {
+    "howToUse": [
+      "Use it in plan and billing screens to show what was used of a limit: credits, storage, seats.",
+      "Pass `label`, `used`, `limit` and `unit`. Put the detail in `meta` (\"8 analyses this month\").",
+      "The color changes by itself at `warnAt` and `criticalAt`. Next to it, offer what to do when it is about to run out."
+    ],
+    "alternatives": [
+      "Progress of a task: ProgressBar.",
+      "A number with a trend, with no limit: Stat."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The meter does not receive focus. Screen readers read the name, the value and the limit."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "UsageMeter",
+  "selected": "Saudavel",
+  "import": "import { UsageMeter } from '@refy-design/web';",
+  "composition": [
+    "ProgressBar"
+  ],
+  "api": [
+    {
+      "name": "UsageMeter",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Name of the measured resource. E.g. \"Cycle credits\"."
+        },
+        {
+          "name": "used",
+          "type": "number",
+          "required": true,
+          "description": "Amount used."
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "required": true,
+          "description": "Resource limit."
+        },
+        {
+          "name": "unit",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Unit shown after the numbers. E.g. \"credits\"."
+        },
+        {
+          "name": "meta",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Secondary line. E.g. \"8 standard analyses · 0 syntheses\"."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string) | undefined",
+          "required": false,
+          "description": "Number formatting (default: pt-BR, e.g. 2.500)."
+        },
+        {
+          "name": "warnAt",
+          "defaultValue": "80",
+          "type": "number | undefined",
+          "required": false,
+          "description": "% from which the tone turns to warning (default 80)."
+        },
+        {
+          "name": "criticalAt",
+          "defaultValue": "100",
+          "type": "number | undefined",
+          "required": false,
+          "description": "% from which the tone turns critical (default 100)."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "\"sm\" | \"md\" | undefined",
+          "required": false,
+          "description": "Bar height (passed to ProgressBar)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    },
+    {
+      "name": "UsageMeterGroup",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Saudavel",
+      "label": "Healthy",
+      "description": "",
+      "code": "import { UsageMeter } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof UsageMeter>,\n    'label' | 'used' | 'limit' | 'unit' | 'meta'\n  > = {\n    label: 'Cycle credits',\n    used: 800,\n    limit: 2500,\n    unit: 'credits',\n    meta: '8 standard analyses · 0 deep syntheses',\n  };\n  return (\n    <div style={{ width: 'min(100%, 360px)' }}>\n      <UsageMeter {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Atencao",
+      "label": "Warning (≥80%)",
+      "description": "",
+      "code": "import { UsageMeter } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof UsageMeter>,\n    'label' | 'used' | 'limit' | 'meta'\n  > = { label: 'Projects', used: 17, limit: 20, meta: '3 available' };\n  return (\n    <div style={{ width: 'min(100%, 360px)' }}>\n      <UsageMeter {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Critico",
+      "label": "Critical (limit reached)",
+      "description": "",
+      "code": "import { UsageMeter } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof UsageMeter>,\n    'label' | 'used' | 'limit' | 'meta'\n  > = { label: 'Members', used: 3, limit: 3, meta: 'Pro plan limit reached' };\n  return (\n    <div style={{ width: 'min(100%, 360px)' }}>\n      <UsageMeter {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ListaPorProjeto",
+      "label": "List (UsageMeterGroup)",
+      "description": "List of meters with dividers, as in \"Usage by project\" on the Usage screen.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { CardHeader } from '@refy-design/web';\nimport { UsageMeter } from '@refy-design/web';\nimport { UsageMeterGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Card style={{ maxWidth: 480 }}>\n      <CardHeader\n        title=\"Usage by project\"\n        count=\"800 / 2.500\"\n        action={\n          <Button variant=\"ghost\" size=\"sm\">\n            Export\n          </Button>\n        }\n      />\n      <UsageMeterGroup>\n        <UsageMeter\n          label=\"Globo · Aurora project desk\"\n          used={600}\n          limit={700}\n          size=\"sm\"\n          meta=\"3 analyses · 1 deep synthesis\"\n        />\n        <UsageMeter\n          label=\"Quem · Celebrities & Origin project\"\n          used={200}\n          limit={700}\n          size=\"sm\"\n          meta=\"2 analyses\"\n        />\n        <UsageMeter\n          label=\"Origin team · Decor\"\n          used={0}\n          limit={700}\n          size=\"sm\"\n          meta=\"0 analyses · monitoring on\"\n        />\n      </UsageMeterGroup>\n    </Card>\n  );\n}"
+    }
+  ]
+}

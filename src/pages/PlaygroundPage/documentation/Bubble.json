@@ -1,0 +1,120 @@
+{
+  "id": "Bubble",
+  "description": "Bubble that shows a piece of a conversation and identifies its source.",
+  "usage": {
+    "howToUse": [
+      "Use it for one piece of a conversation: a message, a quick reply, a system notice in a chat.",
+      "Set `side` to tell who speaks: the person on one side, the other party on the other."
+    ],
+    "alternatives": [
+      "A message with author, time and state: Message."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The bubble does not receive focus. Links inside it do."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Bubble",
+  "selected": "Interativo",
+  "import": "import { Bubble } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Bubble",
+      "props": [
+        {
+          "name": "side",
+          "defaultValue": "'start'",
+          "type": "\"start\" | \"end\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Bubble } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction BubbleExample() {\n  const [sent, setSent] = useState(false);\n  return (\n    <div style={stack}>\n      <Bubble>Can we review the material today?</Bubble>\n      {sent && <Bubble side=\"end\">Yes, the review is confirmed.</Bubble>}\n      <Button onClick={() => setSent(!sent)}>{sent ? 'Clear answer' : 'Reply'}</Button>\n    </div>\n  );\n}\nexport function Example() {\n  return <BubbleExample />;\n}"
+    }
+  ]
+}

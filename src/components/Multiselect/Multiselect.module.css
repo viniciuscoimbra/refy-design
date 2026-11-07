@@ -1,0 +1,207 @@
+.field {
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+  max-width: 540px;
+  font-family: var(--font-body);
+}
+
+.wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* Chips inteiros que cabem; o excedente usa o mesmo Chip como contador. */
+.shell {
+  height: calc(var(--field-height, 38px) - 2 * var(--field-border-width, 1px));
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-1) 0 10px;
+
+  overflow: hidden;
+  cursor: text;
+}
+.chips {
+  min-width: 0;
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: nowrap;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+.chips::-webkit-scrollbar {
+  display: none;
+}
+.chips:empty {
+  display: none;
+}
+
+.input {
+  flex: 1;
+  min-width: var(--multiselect-input-min-width, 80px);
+  height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: var(--field-font-size, var(--text-sm));
+  font-weight: var(--weight-medium);
+  color: var(--ink-1, var(--on-surface));
+}
+.input::placeholder {
+  color: var(--ink-4, var(--on-surface-variant));
+}
+
+.caret {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  flex: none;
+  width: var(--embedded-caret-size, 24px);
+  height: var(--embedded-caret-size, 28px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ink-3, var(--on-surface-variant));
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-mid) var(--ease-out);
+}
+.caret svg {
+  width: 14px;
+  height: 14px;
+}
+.caret:hover {
+  background: var(--surface-2, var(--surface-container-high));
+  color: var(--ink-1, var(--on-surface));
+}
+.open .caret {
+  transform: rotate(180deg);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: var(--space-2) 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--field-font-size, var(--text-sm));
+  font-weight: var(--weight-medium);
+  color: var(--ink-1, var(--on-surface));
+  cursor: pointer;
+  transition: background-color var(--duration-instant) var(--ease-out);
+}
+.optionActive {
+  background: var(--surface-2, var(--surface-container-high));
+}
+.optionSelected {
+  background: color-mix(in srgb, var(--primary) 6%, transparent);
+}
+.optionSelected.optionActive {
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+.optionDisabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.check {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-sm);
+  border: var(--control-border-width, 1.5px) solid var(--border);
+  background: var(--field-background, var(--surface));
+  color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+.check svg {
+  width: 11px;
+  height: 11px;
+}
+.optionSelected .check {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary, var(--surface));
+}
+
+.empty {
+  padding: 18px 14px;
+  font-size: var(--text-xs);
+  color: var(--ink-3, var(--on-surface-variant));
+  text-align: center;
+}
+
+.help {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--ink-3, var(--on-surface-variant));
+  line-height: var(--leading-snug);
+}
+.helpError {
+  color: var(--critical, var(--error));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .caret,
+  .option,
+  .check {
+    transition: none;
+  }
+  .open .caret {
+    transform: none;
+  }
+}
+
+/* check aparece com pop (motion do DS) */
+.check svg {
+  animation: check-pop var(--duration-fast) var(--ease-spring);
+}
+@keyframes check-pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .check svg {
+    animation: none;
+  }
+}
+
+.measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  width: max-content;
+  left: 0;
+  top: 0;
+}
+.withSelection .input {
+  flex: 0 1 auto;
+  width: var(--multiselect-input-min-width, 8px);
+  min-width: 8px;
+  max-width: 50%;
+}

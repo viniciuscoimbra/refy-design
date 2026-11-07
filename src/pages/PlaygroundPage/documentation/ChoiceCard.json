@@ -1,0 +1,183 @@
+{
+  "id": "ChoiceCard",
+  "description": "Choice shown in a card, with single or multiple selection and explanatory content.",
+  "usage": {
+    "howToUse": [
+      "Use it for choices that need more than a label to decide: plans with price, delivery options with deadline, templates with a preview.",
+      "Put the cards inside ChoiceCardGroup and give the group a `label` with the question.",
+      "Use `mode=\"single\"` when only one can be chosen, and `mode=\"multiple\"` when several can.",
+      "Set `columns` by how many fit side by side; `columns={1}` stacks them on mobile."
+    ],
+    "alternatives": [
+      "Short options that a label explains: RadioGroup or Checkbox."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Enters the group and leaves it on the next Tab."
+      },
+      {
+        "keys": "`←` `→` `↑` `↓`",
+        "action": "Moves between the cards. With `mode=\"single\"`, also selects."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Goes to the first or last card."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Selects the card in focus, or clears it with `mode=\"multiple\"`."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ChoiceCardGroup",
+  "selected": "EscolhaDeTema",
+  "import": "import { ChoiceCardGroup } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "ChoiceCard",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "description": "Unique value within the group."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Option title."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Short description below the title."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Small inline icon before the title (slot)."
+        },
+        {
+          "name": "preview",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Large preview above the text (slot, e.g. theme sample)."
+        },
+        {
+          "name": "meta",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Meta/price (mono) below or to the right of the text."
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    },
+    {
+      "name": "ChoiceCardGroup",
+      "props": [
+        {
+          "name": "mode",
+          "defaultValue": "\"single\"",
+          "type": "ChoiceCardMode | undefined",
+          "required": false,
+          "description": "`single` = radio semantics (default); `multiple` = checkboxes."
+        },
+        {
+          "name": "value",
+          "type": "string | string[] | undefined",
+          "required": false,
+          "description": "Controlled value: string (single) or string[] (multiple)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[] | undefined",
+          "required": false,
+          "description": "Uncontrolled initial value."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string | string[]) => void) | undefined",
+          "required": false,
+          "description": "Callback: receives string (single) or string[] (multiple)."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible label of the group (required without a visible external label)."
+        },
+        {
+          "name": "columns",
+          "defaultValue": "3",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Grid columns (default 3; 1 = stacked list)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "EscolhaDeTema",
+      "label": "Theme choice (single)",
+      "description": "",
+      "code": "import { ChoiceCard } from '@refy-design/web';\nimport { ChoiceCardGroup } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst themePreview = (bg: string, fg: string, label: string) => (\n  <span\n    style={{\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n      width: '100%',\n      alignSelf: 'stretch',\n      minHeight: 78,\n      background: bg,\n      color: fg,\n      fontFamily: 'var(--font-headline)',\n      fontSize: 14,\n      fontWeight: 600,\n    }}\n  >\n    {label}\n  </span>\n);\nconst roomPreview = (\n  <svg\n    viewBox=\"0 0 320 120\"\n    role=\"img\"\n    aria-label=\"Bright living room with a window and plants\"\n    style={{ display: 'block', width: '100%', minHeight: 78 }}\n  >\n    <rect width=\"320\" height=\"120\" fill=\"#e9f0f2\" />\n    <rect x=\"30\" y=\"20\" width=\"110\" height=\"70\" rx=\"4\" fill=\"#b8d8ea\" />\n    <path d=\"M30 55h110M85 20v70\" stroke=\"#fff\" strokeWidth=\"4\" />\n    <rect x=\"172\" y=\"55\" width=\"105\" height=\"44\" rx=\"12\" fill=\"#f47a42\" />\n    <circle cx=\"260\" cy=\"37\" r=\"18\" fill=\"#76a66e\" />\n    <rect x=\"256\" y=\"37\" width=\"8\" height=\"38\" fill=\"#6b4a32\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ChoiceCardGroup>,\n    'mode' | 'columns' | 'label'\n  > = { mode: 'single', columns: 3, label: 'Options' };\n  return (\n    <ChoiceCardGroup {...args} label=\"Interface theme\" defaultValue=\"light\">\n      <ChoiceCard\n        value=\"light\"\n        title=\"Light\"\n        description=\"White background, dark ink.\"\n        preview={themePreview('var(--surface)', 'var(--ink-1)', 'Aa')}\n      />\n      <ChoiceCard\n        value=\"dark\"\n        title=\"Dark\"\n        description=\"Light ink on a dark background.\"\n        preview={themePreview('var(--legacy-ink-1)', 'var(--legacy-white)', 'Aa')}\n      />\n      <ChoiceCard\n        value=\"system\"\n        title=\"System\"\n        description=\"Follows the device setting.\"\n        preview={roomPreview}\n      />\n    </ChoiceCardGroup>\n  );\n}"
+    },
+    {
+      "id": "PacotesDeCreditos",
+      "label": "Credit packs (with meta/price)",
+      "description": "",
+      "code": "import { ChoiceCard } from '@refy-design/web';\nimport { ChoiceCardGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <ChoiceCardGroup label=\"Credit pack\" defaultValue=\"200\">\n      <ChoiceCard\n        value=\"100\"\n        title=\"100 credits\"\n        description=\"Occasional use.\"\n        meta=\"R$ 90 · R$ 0.90/credit\"\n      />\n      <ChoiceCard\n        value=\"200\"\n        title=\"200 credits\"\n        description=\"Best value.\"\n        meta=\"R$ 160 · R$ 0.80/credit\"\n      />\n      <ChoiceCard\n        value=\"500\"\n        title=\"500 credits\"\n        description=\"Heavy use.\"\n        meta=\"R$ 350 · R$ 0.70/credit\"\n      />\n    </ChoiceCardGroup>\n  );\n}"
+    },
+    {
+      "id": "PerfisDeRecomendacao",
+      "label": "Recommendation engine profiles (future case)",
+      "description": "",
+      "code": "import { ChoiceCard } from '@refy-design/web';\nimport { ChoiceCardGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <ChoiceCardGroup label=\"Recommendation profile\" defaultValue=\"balanced\">\n      <ChoiceCard\n        value=\"careful\"\n        title=\"Strict\"\n        description=\"Recommends only with high confidence; fewer, sharper suggestions.\"\n      />\n      <ChoiceCard\n        value=\"balanced\"\n        title=\"Balanced\"\n        description=\"Balances confidence and coverage; the default for most.\"\n      />\n      <ChoiceCard\n        value=\"explorer\"\n        title=\"Explorer\"\n        description=\"Suggests more options, including bets outside the client's usual pattern.\"\n      />\n    </ChoiceCardGroup>\n  );\n}"
+    },
+    {
+      "id": "MultiplaControlada",
+      "label": "Controlled multiple (checkbox)",
+      "description": "",
+      "code": "import { ChoiceCard } from '@refy-design/web';\nimport { ChoiceCardGroup } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [values, setValues] = useState<string[]>(['globo']);\n  return (\n    <div style={{ display: 'grid', gap: 12 }}>\n      <ChoiceCardGroup\n        mode=\"multiple\"\n        columns={1}\n        label=\"Available collections\"\n        value={values}\n        onChange={(v) => setValues(v as string[])}\n      >\n        <ChoiceCard\n          value=\"globo\"\n          title=\"sc-domain:example.com\"\n          meta=\"42 mil cliques / 28d\"\n        />\n        <ChoiceCard\n          value=\"vogue\"\n          title=\"sc-domain:design.example.com\"\n          meta=\"8 mil cliques / 28d\"\n        />\n        <ChoiceCard\n          value=\"casavogue\"\n          title=\"sc-domain:colecao.example.com\"\n          meta=\"3 mil cliques / 28d\"\n        />\n      </ChoiceCardGroup>\n      <span\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--ink-3)' }}\n      >\n        selected: {values.join(', ') || 'none'}\n      </span>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComOpcaoDesabilitada",
+      "label": "With disabled option",
+      "description": "",
+      "code": "import { ChoiceCard } from '@refy-design/web';\nimport { ChoiceCardGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <ChoiceCardGroup label=\"Analysis plan\" defaultValue=\"default\">\n      <ChoiceCard value=\"default\" title=\"Default\" description=\"Full site analysis.\" />\n      <ChoiceCard value=\"quick\" title=\"Quick\" description=\"Main pages only.\" />\n      <ChoiceCard\n        value=\"deep\"\n        title=\"Deep\"\n        description=\"Available on the Growth plan.\"\n        disabled\n      />\n    </ChoiceCardGroup>\n  );\n}"
+    }
+  ]
+}

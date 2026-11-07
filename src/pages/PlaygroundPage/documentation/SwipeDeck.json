@@ -1,0 +1,144 @@
+{
+  "id": "SwipeDeck",
+  "description": "Sequence of decision cards with navigation, gestures and explicit actions.",
+  "usage": {
+    "howToUse": [
+      "Use it to decide on items one at a time, like or skip: candidates, listings, suggestions.",
+      "Save each decision in `onAction`. The buttons do the same as the gesture, so people who do not swipe can decide too.",
+      "Offer to start over in `onReset` when the cards end. In new code, import it as DecisionDeck."
+    ],
+    "alternatives": [
+      "Slides with no decision: Carousel.",
+      "Comparing several items side by side: a grid of ContentCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`←`",
+        "action": "Skips the card."
+      },
+      {
+        "keys": "`→`",
+        "action": "Keeps the card."
+      },
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the action buttons."
+      }
+    ]
+  },
+  "collections": [
+    "media"
+  ],
+  "publicName": "DecisionDeck",
+  "selected": "Gesto",
+  "import": "import { DecisionDeck } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "ContentCard",
+    "DecisionActions",
+    "EmptyState"
+  ],
+  "api": [
+    {
+      "name": "DecisionDeck",
+      "props": [
+        {
+          "name": "items",
+          "type": "SwipeDeckItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "index",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultIndex",
+          "defaultValue": "0",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onIndexChange",
+          "type": "((index: number) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onAction",
+          "type": "((action: PropertyAction, item: SwipeDeckItem) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onReset",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "gestureEnabled",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "motion",
+          "defaultValue": "\"auto\"",
+          "type": "\"auto\" | \"reduced\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content title."
+        },
+        {
+          "name": "instructions",
+          "defaultValue": "\"visible\"",
+          "type": "\"hidden\" | \"visible\" | undefined",
+          "required": false,
+          "description": "\"hidden\" removes the gesture and keyboard instructions from the screen and keeps them for screen readers."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Gesto",
+      "label": "Gesture",
+      "description": "",
+      "code": "import type { ContentCardProps } from '@refy-design/web';\nimport { DecisionDeck } from '@refy-design/web';\nimport type { DecisionDeckItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst sampleContent: ContentCardProps = {\n  title: 'Collaboration guide',\n  subtitle: 'Reference collection · updated today',\n  value: '12 files',\n  media: [\n    { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n    { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n    { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n  ],\n  badges: [\n    { label: 'New', tone: 'info' },\n    { label: 'Available', tone: 'success' },\n  ],\n  facts: [\n    { label: 'Format', value: 'PDF and images' },\n    { label: 'Size', value: '24 MB' },\n    { label: 'Version', value: '1.2' },\n  ],\n  summary:\n    'References and guidelines to organize work and share decisions with the team.',\n};\nconst items: DecisionDeckItem[] = [\n  { id: 'a', ...sampleContent },\n  {\n    id: 'b',\n    ...sampleContent,\n    title: 'Interface references',\n    subtitle: 'Design collection · updated yesterday',\n    media: [{ src: sampleArtwork('#cbd4e4'), alt: 'Interface references preview' }],\n  },\n  {\n    id: 'c',\n    ...sampleContent,\n    title: 'File organization',\n    subtitle: 'Team collection · version 2',\n    media: [{ src: sampleArtwork('#e5d5bd'), alt: 'File organization preview' }],\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof DecisionDeck>, 'items' | 'gestureEnabled'> = {\n    items,\n    gestureEnabled: true,\n  };\n  const [event, setEvent] = useState('No decision recorded.');\n  return (\n    <div>\n      <DecisionDeck\n        {...args}\n        onAction={(action, item) => setEvent(`Event: ${action} · ${item.title}`)}\n        onReset={() => setEvent('Queue restarted.')}\n      />\n      <p role=\"status\">{event}</p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Teclado",
+      "label": "Keyboard",
+      "description": "",
+      "code": "import type { ContentCardProps } from '@refy-design/web';\nimport { DecisionDeck } from '@refy-design/web';\nimport type { DecisionDeckItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst sampleContent: ContentCardProps = {\n  title: 'Collaboration guide',\n  subtitle: 'Reference collection · updated today',\n  value: '12 files',\n  media: [\n    { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n    { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n    { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n  ],\n  badges: [\n    { label: 'New', tone: 'info' },\n    { label: 'Available', tone: 'success' },\n  ],\n  facts: [\n    { label: 'Format', value: 'PDF and images' },\n    { label: 'Size', value: '24 MB' },\n    { label: 'Version', value: '1.2' },\n  ],\n  summary:\n    'References and guidelines to organize work and share decisions with the team.',\n};\nconst items: DecisionDeckItem[] = [\n  { id: 'a', ...sampleContent },\n  {\n    id: 'b',\n    ...sampleContent,\n    title: 'Interface references',\n    subtitle: 'Design collection · updated yesterday',\n    media: [{ src: sampleArtwork('#cbd4e4'), alt: 'Interface references preview' }],\n  },\n  {\n    id: 'c',\n    ...sampleContent,\n    title: 'File organization',\n    subtitle: 'Team collection · version 2',\n    media: [{ src: sampleArtwork('#e5d5bd'), alt: 'File organization preview' }],\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof DecisionDeck>, 'items' | 'gestureEnabled'> = {\n    items,\n    gestureEnabled: true,\n  };\n  return <DecisionDeck {...args} />;\n}"
+    },
+    {
+      "id": "MovimentoReduzido",
+      "label": "Reduced motion",
+      "description": "",
+      "code": "import type { ContentCardProps } from '@refy-design/web';\nimport { DecisionDeck } from '@refy-design/web';\nimport type { DecisionDeckItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst sampleContent: ContentCardProps = {\n  title: 'Collaboration guide',\n  subtitle: 'Reference collection · updated today',\n  value: '12 files',\n  media: [\n    { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n    { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n    { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n  ],\n  badges: [\n    { label: 'New', tone: 'info' },\n    { label: 'Available', tone: 'success' },\n  ],\n  facts: [\n    { label: 'Format', value: 'PDF and images' },\n    { label: 'Size', value: '24 MB' },\n    { label: 'Version', value: '1.2' },\n  ],\n  summary:\n    'References and guidelines to organize work and share decisions with the team.',\n};\nconst items: DecisionDeckItem[] = [\n  { id: 'a', ...sampleContent },\n  {\n    id: 'b',\n    ...sampleContent,\n    title: 'Interface references',\n    subtitle: 'Design collection · updated yesterday',\n    media: [{ src: sampleArtwork('#cbd4e4'), alt: 'Interface references preview' }],\n  },\n  {\n    id: 'c',\n    ...sampleContent,\n    title: 'File organization',\n    subtitle: 'Team collection · version 2',\n    media: [{ src: sampleArtwork('#e5d5bd'), alt: 'File organization preview' }],\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof DecisionDeck>, 'items' | 'motion'> = {\n    items,\n    motion: 'reduced',\n  };\n  return <DecisionDeck {...args} />;\n}"
+    },
+    {
+      "id": "FimDaFila",
+      "label": "End of queue",
+      "description": "",
+      "code": "import type { ContentCardProps } from '@refy-design/web';\nimport { DecisionDeck } from '@refy-design/web';\nimport type { DecisionDeckItem } from '@refy-design/web';\nimport { useState } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst sampleContent: ContentCardProps = {\n  title: 'Collaboration guide',\n  subtitle: 'Reference collection · updated today',\n  value: '12 files',\n  media: [\n    { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n    { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n    { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n  ],\n  badges: [\n    { label: 'New', tone: 'info' },\n    { label: 'Available', tone: 'success' },\n  ],\n  facts: [\n    { label: 'Format', value: 'PDF and images' },\n    { label: 'Size', value: '24 MB' },\n    { label: 'Version', value: '1.2' },\n  ],\n  summary:\n    'References and guidelines to organize work and share decisions with the team.',\n};\nconst items: DecisionDeckItem[] = [\n  { id: 'a', ...sampleContent },\n  {\n    id: 'b',\n    ...sampleContent,\n    title: 'Interface references',\n    subtitle: 'Design collection · updated yesterday',\n    media: [{ src: sampleArtwork('#cbd4e4'), alt: 'Interface references preview' }],\n  },\n  {\n    id: 'c',\n    ...sampleContent,\n    title: 'File organization',\n    subtitle: 'Team collection · version 2',\n    media: [{ src: sampleArtwork('#e5d5bd'), alt: 'File organization preview' }],\n  },\n];\nexport function Example() {\n  const [index, setIndex] = useState(items.length);\n  return <DecisionDeck items={items} index={index} onReset={() => setIndex(0)} />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "id": "NavCard",
+  "description": "Navigation destination shown as an actionable card.",
+  "usage": {
+    "howToUse": [
+      "Use it for a destination that needs a line of context: a project, a settings area, the next page of a guide.",
+      "With `href` it is a link; without it, a button that runs `onClick`.",
+      "Mark the page people are on with `current`. Use `variant=\"dashed\"` for \"Create new…\" at the end of a list.",
+      "Put an `Avatar` or icon in `leading`, and a count or role in `meta`."
+    ],
+    "alternatives": [
+      "An action that changes data: Button.",
+      "Content with image to read, not a destination: ContentCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the card. A disabled card is skipped."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the destination. Without `href`, `Space` also works."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "NavCard",
+  "selected": "Playground",
+  "import": "import { NavCard } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "NavCard",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Destination title (main line)."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Optional secondary line (destination description/metadata)."
+        },
+        {
+          "name": "meta",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Meta on the right, before the chevron (e.g. role pill, counter)."
+        },
+        {
+          "name": "leading",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Optional leading slot: `Avatar` or icon via ReactNode."
+        },
+        {
+          "name": "href",
+          "type": "string | undefined",
+          "required": false,
+          "description": "With `href` it renders `<a>`; without `href` it renders `<button>`."
+        },
+        {
+          "name": "target",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link `target` (only when `href` is used)."
+        },
+        {
+          "name": "rel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link `rel` (only when `href` is used)."
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLButtonElement | HTMLAnchorElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables the card (no click, no Tab focus on the link)."
+        },
+        {
+          "name": "current",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Marks as the current destination (primary border + background, `aria-current`)."
+        },
+        {
+          "name": "variant",
+          "defaultValue": "\"solid\"",
+          "type": "\"solid\" | \"dashed\" | undefined",
+          "required": false,
+          "description": "`dashed` variant = create action (\"create new…\"), dashed border."
+        },
+        {
+          "name": "showChevron",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Hides the \">\" chevron on the right."
+        },
+        {
+          "name": "eyebrow",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Short label above the title (e.g. \"Next\", \"Previous\")."
+        },
+        {
+          "name": "direction",
+          "type": "\"back\" | \"forward\" | undefined",
+          "required": false,
+          "description": "`back` points the chevron backwards and puts it on the left; `forward` aligns the text to the right. Default: chevron on the right, text on the left."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: button (no href), with avatar and meta.",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { NavCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof NavCard>,\n    'title' | 'description' | 'leading' | 'meta'\n  > = {\n    title: 'Example team',\n    description: 'example.com · Refy Pro · 4 members',\n    leading: <Avatar initials=\"GE\" size=\"lg\" />,\n    meta: <span>Admin</span>,\n  };\n  const [selected, setSelected] = useState(false);\n  return (\n    <div>\n      <NavCard {...args} current={selected} onClick={() => setSelected(true)} />\n      <p role=\"status\">\n        {selected\n          ? 'Example team selected in this example.'\n          : 'Select the team to try it.'}\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComoLink",
+      "label": "As a link (href)",
+      "description": "As a link: renders `<a href>`; native keyboard navigation.",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { NavCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof NavCard>,\n    'title' | 'description' | 'leading' | 'href'\n  > = {\n    title: 'Flora Bem-Estar',\n    description: 'florabemestar.com.br · Refy Starter',\n    leading: <Avatar initials=\"FB\" size=\"lg\" />,\n    href: '#flora',\n  };\n  return <NavCard {...args} />;\n}"
+    },
+    {
+      "id": "Atual",
+      "label": "Current",
+      "description": "Current destination: `current` turns on primary border/background + `aria-current`.",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { NavCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof NavCard>,\n    'title' | 'description' | 'leading' | 'current' | 'href'\n  > = {\n    title: 'Example team',\n    description: 'Workspace you are in now',\n    leading: <Avatar initials=\"GE\" size=\"lg\" />,\n    current: true,\n    href: '#current',\n  };\n  return <NavCard {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Disabled: no click and no Tab focus (link) / `disabled` (button).",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { NavCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof NavCard>,\n    'title' | 'description' | 'leading' | 'disabled'\n  > = {\n    title: 'Paper Studio',\n    description: \"Invite pending. Wait for the admin's approval\",\n    leading: <Avatar initials=\"EP\" size=\"lg\" />,\n    disabled: true,\n  };\n  return <NavCard {...args} />;\n}"
+    },
+    {
+      "id": "CriarNovo",
+      "label": "Create new (dashed)",
+      "description": "Dashed variant: a create action at the end of a list.",
+      "code": "import { NavCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof NavCard>,\n    'title' | 'description' | 'variant' | 'leading'\n  > = {\n    title: 'Create new workspace',\n    description: 'For a new site, client or brand. Separate plan and billing.',\n    variant: 'dashed',\n    leading: (\n      <svg\n        width=\"20\"\n        height=\"20\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        strokeWidth={2}\n        strokeLinecap=\"round\"\n        strokeLinejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M12 5v14M5 12h14\" />\n      </svg>\n    ),\n  };\n  return <NavCard {...args} />;\n}"
+    },
+    {
+      "id": "ListaDeWorkspaces",
+      "label": "Environment list",
+      "description": "Full list, the same composition as the `workspace_picker` screen.",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { NavCard } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div\n      style={{\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 10,\n        width: '100%',\n        maxWidth: 560,\n      }}\n    >\n      <NavCard\n        title=\"Example team\"\n        description=\"example.com · Refy Pro · 4 members · 3 projects\"\n        leading={<Avatar initials=\"GE\" size=\"lg\" />}\n        meta={<span>Admin · owner</span>}\n        current\n        href=\"#globo\"\n      />\n      <NavCard\n        title=\"Flora Bem-Estar\"\n        description=\"florabemestar.com.br · Refy Starter · 1 member\"\n        leading={<Avatar initials=\"FB\" size=\"lg\" />}\n        meta={<span>Admin</span>}\n        href=\"#flora\"\n      />\n      <NavCard\n        title=\"Create new workspace\"\n        description=\"For a new site, client or brand.\"\n        variant=\"dashed\"\n        leading={\n          <svg\n            width=\"20\"\n            height=\"20\"\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            strokeWidth={2}\n            strokeLinecap=\"round\"\n            strokeLinejoin=\"round\"\n            aria-hidden=\"true\"\n          >\n            <path d=\"M12 5v14M5 12h14\" />\n          </svg>\n        }\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "PreviousNext",
+      "label": "Previous Next",
+      "description": "Previous and next: footer of a documentation page.",
+      "code": "import { NavCard } from '@refy-design/web';\nexport function Example() {\n  return (\n    <nav\n      aria-label=\"Pages\"\n      style={{\n        display: 'grid',\n        gridTemplateColumns: '1fr 1fr',\n        gap: 16,\n        width: '100%',\n        maxWidth: 560,\n      }}\n    >\n      <NavCard\n        direction=\"back\"\n        eyebrow=\"Previous\"\n        title=\"Installation\"\n        href=\"#installation\"\n      />\n      <NavCard\n        direction=\"forward\"\n        eyebrow=\"Next\"\n        title=\"Theme from a file\"\n        href=\"#theme\"\n      />\n    </nav>\n  );\n}"
+    }
+  ]
+}

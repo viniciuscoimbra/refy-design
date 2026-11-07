@@ -1,0 +1,949 @@
+{
+  "description": "Auditoria estática de cobertura, não aprovação visual/performance. Indicadores contínuos e progressEffect legado não representam reações finitas.",
+  "families": [
+    {
+      "component": "Button",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "IconButton",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "ButtonGroup",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "SplitButton",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "OAuthButton",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "GoogleButton",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Fab",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "FabMenu",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "DecisionActions",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Input",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Textarea",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Select",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Combobox",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Multiselect",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "presença delegada à superfície canônica"
+    },
+    {
+      "component": "Checkbox",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "RadioGroup",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Switch",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Segmented",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "ToggleGroup",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Range",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Slider",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Otp",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "PhoneInput",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "PostalCodeInput",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Calendar",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "SchedulePicker",
+      "purpose": "composition",
+      "behavior": "Sem entrada de página: delegar feedback aos componentes reais",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "ChoiceCard",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "FileUpload",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "GeoAreaPicker",
+      "purpose": "composition",
+      "behavior": "Sem entrada de página: delegar feedback aos componentes reais",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Breadcrumb",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Tabs",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "NavCard",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Pagination",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "SettingsSubnav",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "TableOfContents",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "movimento específico da interação com tokens e preferências"
+    },
+    {
+      "component": "WorkspaceSwitcher",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "presença delegada à superfície canônica"
+    },
+    {
+      "component": "UserMenu",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "HelpMenu",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "WizardStepper",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Menu",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "presença delegada à superfície canônica"
+    },
+    {
+      "component": "Badge",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Chip",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "StatusDot",
+      "purpose": "activity",
+      "behavior": "Indicar trabalho em curso ou progresso, não entrada decorativa",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Callout",
+      "purpose": "notice",
+      "behavior": "Confirmar resultado sem tomar foco; saída curta ao dispensar",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "EmptyState",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Skeleton",
+      "purpose": "activity",
+      "behavior": "Indicar trabalho em curso ou progresso, não entrada decorativa",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "ProgressBar",
+      "purpose": "activity",
+      "behavior": "Indicar trabalho em curso ou progresso, não entrada decorativa",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "UsageMeter",
+      "purpose": "activity",
+      "behavior": "Indicar trabalho em curso ou progresso, não entrada decorativa",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Toast",
+      "purpose": "notice",
+      "behavior": "Confirmar resultado sem tomar foco; saída curta ao dispensar",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Snackbar",
+      "purpose": "notice",
+      "behavior": "Confirmar resultado sem tomar foco; saída curta ao dispensar",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "NotificationBell",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "presença delegada à superfície canônica"
+    },
+    {
+      "component": "Tooltip",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Popover",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "presença delegada à superfície canônica"
+    },
+    {
+      "component": "HoverCard",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "presença delegada à superfície canônica"
+    },
+    {
+      "component": "HelpField",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "GuidedTour",
+      "purpose": "orientation",
+      "behavior": "Transferir foco ou reorganizar espaço conforme a geometria real",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Modal",
+      "purpose": "orientation",
+      "behavior": "Transferir foco ou reorganizar espaço conforme a geometria real",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "presença delegada à superfície canônica"
+    },
+    {
+      "component": "Drawer",
+      "purpose": "orientation",
+      "behavior": "Transferir foco ou reorganizar espaço conforme a geometria real",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Command",
+      "purpose": "orientation",
+      "behavior": "Transferir foco ou reorganizar espaço conforme a geometria real",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "presença delegada à superfície canônica"
+    },
+    {
+      "component": "Table",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Charts",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Stat",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "ScoreGauge",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Matrix2x2",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "ActivityItem",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Timeline",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "ActivityTimeline",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "KanbanCard",
+      "purpose": "decision",
+      "behavior": "Acompanhar gesto e confirmar destino sem espera fixa",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "KanbanBoard",
+      "purpose": "decision",
+      "behavior": "Acompanhar gesto e confirmar destino sem espera fixa",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "movimento específico da interação com tokens e preferências"
+    },
+    {
+      "component": "ApprovalWorkbench",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Avatar",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "AvatarGroup",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "BrandLogo",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "PersonCell",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Card",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Accordion",
+      "purpose": "expansion",
+      "behavior": "Abrir espaço com slide sem fade do conteúdo",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "slide de altura compartilhado, sem fade; layout deliberado"
+    },
+    {
+      "component": "CodeBlock",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "ContentCard",
+      "purpose": "composition",
+      "behavior": "Sem entrada de página: delegar feedback aos componentes reais",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Coverflow",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "movimento específico da interação com tokens e preferências"
+    },
+    {
+      "component": "MediaGallery",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "movimento específico da interação com tokens e preferências"
+    },
+    {
+      "component": "DecisionDeck",
+      "purpose": "decision",
+      "behavior": "Acompanhar gesto e confirmar destino sem espera fixa",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "movimento específico da interação com tokens e preferências"
+    },
+    {
+      "component": "VoiceRecorder",
+      "purpose": "activity",
+      "behavior": "Indicar trabalho em curso ou progresso, não entrada decorativa",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "IntentComposer",
+      "purpose": "composition",
+      "behavior": "Sem entrada de página: delegar feedback aos componentes reais",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Kbd",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "AppShell",
+      "purpose": "composition",
+      "behavior": "Sem entrada de página: delegar feedback aos componentes reais",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Sidebar",
+      "purpose": "orientation",
+      "behavior": "Transferir foco ou reorganizar espaço conforme a geometria real",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Topbar",
+      "purpose": "composition",
+      "behavior": "Sem entrada de página: delegar feedback aos componentes reais",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "PageHeader",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "SectionHeader",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Divider",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "StickyBar",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "StickyFooter",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "SettingRow",
+      "purpose": "feedback",
+      "behavior": "Confirmar estado do controle sem deslocar a página",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "PlanCard",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "BillingCard",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "ConnectorCard",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "DangerZone",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "AlertDialog",
+      "purpose": "orientation",
+      "behavior": "Transferir foco ou reorganizar espaço conforme a geometria real",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "presença delegada à superfície canônica"
+    },
+    {
+      "component": "AspectRatio",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Bubble",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Carousel",
+      "purpose": "navigation",
+      "behavior": "Orientar seleção e posição, mantendo conteúdo legível",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Collapsible",
+      "purpose": "expansion",
+      "behavior": "Abrir espaço com slide sem fade do conteúdo",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "slide de altura compartilhado, sem fade; layout deliberado"
+    },
+    {
+      "component": "ContextMenu",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "DatePicker",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Direction",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Item",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Label",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Marker",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Menubar",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Message",
+      "purpose": "conversation",
+      "behavior": "Histórico estável; orientar apenas nova mensagem inserida",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "apresentação estável; inserção pertence a MessageScroller"
+    },
+    {
+      "component": "MessageScroller",
+      "purpose": "conversation",
+      "behavior": "Histórico estável; orientar apenas nova mensagem inserida",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "movimento específico da interação com tokens e preferências"
+    },
+    {
+      "component": "NavigationMenu",
+      "purpose": "context",
+      "behavior": "Revelar superfície na origem e sair para a mesma origem",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Questionnaire",
+      "purpose": "composition",
+      "behavior": "Sem entrada de página: delegar feedback aos componentes reais",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Resizable",
+      "purpose": "decision",
+      "behavior": "Acompanhar gesto e confirmar destino sem espera fixa",
+      "level": "Moléculas",
+      "policy": "context",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "ScrollArea",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Spinner",
+      "purpose": "activity",
+      "behavior": "Indicar trabalho em curso ou progresso, não entrada decorativa",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "regras próprias e tokens"
+    },
+    {
+      "component": "Trace",
+      "purpose": "data",
+      "behavior": "Manter dados legíveis e evidenciar mudança/seleção local",
+      "level": "Organismos",
+      "policy": "orientation",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    },
+    {
+      "component": "Prose",
+      "purpose": "stable",
+      "behavior": "Apresentação estável; sem efeito de entrada obrigatório",
+      "level": "Átomos",
+      "policy": "feedback",
+      "application": "estático ou composição de componentes; sem animação de entrada obrigatória"
+    }
+  ]
+}

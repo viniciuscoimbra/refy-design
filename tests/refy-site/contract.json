@@ -1,0 +1,1048 @@
+{
+  "version": 1,
+  "theme": "src/themes/refy-site.json",
+  "acceptance": {
+    "differentPixels": 0,
+    "channelTolerance": 0,
+    "resize": false,
+    "masks": [],
+    "baselineUpdate": false
+  },
+  "references": [
+    {
+      "id": "01-inicio",
+      "origin": "exec-d90ef450-641d-4b6d-8854-162be81c7f51.png",
+      "file": "tests/refy-site/references/01-inicio.png",
+      "sha256": "d2766c6a2f8f6a34944e07970689118d0052ac2b4793670ea57b243ef921a727",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "01-inicio",
+          "storyId": "refy-site--inicio",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "02-instalacao",
+      "origin": "exec-7f94b193-4cb0-466e-9971-ef2c8827dfd4.png",
+      "file": "tests/refy-site/references/02-instalacao.png",
+      "sha256": "78938d1779246424af2f7860e31e550a13b0055dccb00de10f6dbf583bf121d9",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "02-instalacao",
+          "storyId": "refy-site--instalacao",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "03-componentes",
+      "origin": "exec-3b3b8409-9155-48ba-bc53-d71906810e67.png",
+      "file": "tests/refy-site/references/03-componentes.png",
+      "sha256": "4d3b272091a9f79553b893ee197b2326f200791389555b26b6ee0d5d9f34e20b",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "03-componentes",
+          "storyId": "refy-site--componentes",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "04-accordion",
+      "origin": "exec-b2d9e3b7-6b11-4a25-81a9-133ff78851da.png",
+      "file": "tests/refy-site/references/04-accordion.png",
+      "sha256": "5085e764211950ce0f59d40b40baf43182738d1386d230d2b1a1b8ff161e88f9",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "04-accordion",
+          "storyId": "refy-site--accordion",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "05-blocks",
+      "origin": "exec-8f8c8652-57db-409d-b4ad-59566d27cfc2.png",
+      "file": "tests/refy-site/references/05-blocks.png",
+      "sha256": "6b57d732d65c9738f320017f643c2f94d4007b59e2427e65cb436ed5f00209bd",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "05-blocks",
+          "storyId": "refy-site--blocks",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "06-charts",
+      "origin": "exec-bedf5cfa-f969-45eb-9672-da3b53fa4d2e.png",
+      "file": "tests/refy-site/references/06-charts.png",
+      "sha256": "85182b990abb75398f67c181922dbf462555041802a345d48768aeb236151cdc",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "06-charts",
+          "storyId": "refy-site--charts",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "07-temas",
+      "origin": "exec-c3cc7ed0-7ebe-41aa-b736-e3f3c5c6f0f2.png",
+      "file": "tests/refy-site/references/07-temas.png",
+      "sha256": "6c34a5bc3dd824f2baa8bdd1ee2b8a741339c76c27a39bbe97a45758b5566ad8",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "07-temas",
+          "storyId": "refy-site--temas",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "08-para-ias",
+      "origin": "exec-ecbb56f7-39ea-4ba4-8979-eaa95fac7f5c.png",
+      "file": "tests/refy-site/references/08-para-ias.png",
+      "sha256": "668cca042fc0c600d613ca6defae0e0f9f9b6d75ef3938228fec50213823a9fd",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "08-para-ias",
+          "storyId": "refy-site--para-i-as",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "09-escuro",
+      "origin": "exec-00eda77e-7734-4fad-ad45-8614d595a047.png",
+      "file": "tests/refy-site/references/09-escuro.png",
+      "sha256": "bb0efc6ec0b6bbbf90c6ec8a505c74840fe933b2759b95d20f74f26b19ce3701",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "09-escuro",
+          "storyId": "refy-site--escuro",
+          "mode": "dark",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "10-mobile",
+      "origin": "exec-b792ef0d-8264-41fe-829e-e0851663f995.png",
+      "file": "tests/refy-site/references/10-mobile.png",
+      "sha256": "31a63a52bf65230b45e669ebbaa04bff91fb6aba02a2895e8a22068d0f96be9b",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "10a-mobile-inicio",
+          "storyId": "refy-site--mobile-inicio",
+          "mode": "light",
+          "crop": {
+            "x": 106,
+            "y": 87,
+            "width": 403,
+            "height": 897
+          }
+        },
+        {
+          "id": "10b-mobile-menu",
+          "storyId": "refy-site--mobile-menu",
+          "mode": "light",
+          "crop": {
+            "x": 565,
+            "y": 87,
+            "width": 405,
+            "height": 897
+          }
+        },
+        {
+          "id": "10c-mobile-accordion",
+          "storyId": "refy-site--mobile-accordion",
+          "mode": "light",
+          "crop": {
+            "x": 1027,
+            "y": 87,
+            "width": 404,
+            "height": 897
+          }
+        }
+      ]
+    },
+    {
+      "id": "11-busca",
+      "origin": "exec-c7abc023-bd90-4b49-b7d7-fa29a7132659.png",
+      "file": "tests/refy-site/references/11-busca.png",
+      "sha256": "2ee484497d44cfc38c24f0b40a5d274455b5e0b5624fece478a3c3e05320eda3",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "11-busca",
+          "storyId": "refy-site--busca",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    },
+    {
+      "id": "12-tipografia",
+      "origin": "exec-6fc1e04f-0e2c-4060-9e32-1b841a497572.png",
+      "file": "tests/refy-site/references/12-tipografia.png",
+      "sha256": "3b3575dcefb280d1e7dc50869b5d93928f5d6e6c5f23a69af83a56c8fe5f5d6d",
+      "width": 1536,
+      "height": 1024,
+      "frames": [
+        {
+          "id": "12-tipografia",
+          "storyId": "refy-site--tipografia",
+          "mode": "light",
+          "crop": {
+            "x": 0,
+            "y": 0,
+            "width": 1536,
+            "height": 1024
+          }
+        }
+      ]
+    }
+  ],
+  "families": [
+    {
+      "id": "Button",
+      "label": "Button",
+      "story": "TodasVariantes",
+      "storyId": "components-atoms-button--todas-variantes"
+    },
+    {
+      "id": "IconButton",
+      "label": "IconButton",
+      "story": "GhostIcon",
+      "storyId": "components-atoms-iconbutton--ghost-icon"
+    },
+    {
+      "id": "ButtonGroup",
+      "label": "ButtonGroup",
+      "story": "Horizontal",
+      "storyId": "components-molecules-buttongroup--horizontal"
+    },
+    {
+      "id": "SplitButton",
+      "label": "SplitButton",
+      "story": "FluxoLocal",
+      "storyId": "components-molecules-splitbutton--fluxo-local"
+    },
+    {
+      "id": "OAuthButton",
+      "label": "OAuthButton",
+      "story": "Provedores",
+      "storyId": "components-molecules-oauthbutton--provedores"
+    },
+    {
+      "id": "GoogleButton",
+      "label": "GoogleButton",
+      "story": "Continuar",
+      "storyId": "components-atoms-googlebutton--continuar"
+    },
+    {
+      "id": "Fab",
+      "label": "Fab",
+      "story": "FabPadrao",
+      "storyId": "components-atoms-fab--fab-padrao"
+    },
+    {
+      "id": "FabMenu",
+      "label": "FabMenu",
+      "story": "FluxoLocal",
+      "storyId": "components-molecules-fabmenu--fluxo-local"
+    },
+    {
+      "id": "PropertyActionGroup",
+      "label": "DecisionActions",
+      "story": "Interativo",
+      "storyId": "components-molecules-propertyactiongroup--interativo"
+    },
+    {
+      "id": "Input",
+      "label": "Input",
+      "story": "InputPadrao",
+      "storyId": "components-atoms-input--input-padrao"
+    },
+    {
+      "id": "Textarea",
+      "label": "Textarea",
+      "story": "TextareaPadrao",
+      "storyId": "components-atoms-textarea--textarea-padrao"
+    },
+    {
+      "id": "Select",
+      "label": "Select",
+      "story": "SelectPadrao",
+      "storyId": "components-atoms-select--select-padrao"
+    },
+    {
+      "id": "Combobox",
+      "label": "Combobox",
+      "story": "Controlled",
+      "storyId": "components-molecules-combobox--controlled"
+    },
+    {
+      "id": "Multiselect",
+      "label": "Multiselect",
+      "story": "Controlled",
+      "storyId": "components-molecules-multiselect--controlled"
+    },
+    {
+      "id": "Checkbox",
+      "label": "Checkbox",
+      "story": "CheckboxPadrao",
+      "storyId": "components-atoms-checkbox--checkbox-padrao"
+    },
+    {
+      "id": "RadioGroup",
+      "label": "RadioGroup",
+      "story": "CicloDeCobranca",
+      "storyId": "components-atoms-radiogroup--ciclo-de-cobranca"
+    },
+    {
+      "id": "Switch",
+      "label": "Switch",
+      "story": "Desligado",
+      "storyId": "components-atoms-switch--desligado"
+    },
+    {
+      "id": "Segmented",
+      "label": "Segmented",
+      "story": "Controlled",
+      "storyId": "components-atoms-segmented--controlled"
+    },
+    {
+      "id": "ToggleGroup",
+      "label": "ToggleGroup",
+      "story": "Controlled",
+      "storyId": "components-atoms-togglegroup--controlled"
+    },
+    {
+      "id": "Range",
+      "label": "Range",
+      "story": "Controlled",
+      "storyId": "components-atoms-range--controlled"
+    },
+    {
+      "id": "Slider",
+      "label": "Slider",
+      "story": "Controlled",
+      "storyId": "components-atoms-slider--controlled"
+    },
+    {
+      "id": "Otp",
+      "label": "Otp",
+      "story": "Controlled",
+      "storyId": "components-atoms-otp--controlled"
+    },
+    {
+      "id": "PhoneInput",
+      "label": "PhoneInput",
+      "story": "Padrao",
+      "storyId": "components-molecules-phoneinput--padrao"
+    },
+    {
+      "id": "PostalCodeInput",
+      "label": "PostalCodeInput",
+      "story": "Padrao",
+      "storyId": "components-molecules-postalcodeinput--padrao"
+    },
+    {
+      "id": "Calendar",
+      "label": "Calendar",
+      "story": "SingleControlled",
+      "storyId": "components-molecules-calendar--single-controlled"
+    },
+    {
+      "id": "VisitSchedulePicker",
+      "label": "SchedulePicker",
+      "story": "MultiDia",
+      "storyId": "components-organisms-visitschedulepicker--multi-dia"
+    },
+    {
+      "id": "ChoiceCard",
+      "label": "ChoiceCard",
+      "story": "EscolhaDeTema",
+      "storyId": "components-molecules-choicecard--escolha-de-tema"
+    },
+    {
+      "id": "FileUpload",
+      "label": "FileUpload",
+      "story": "Selecao",
+      "storyId": "components-molecules-fileupload--selecao"
+    },
+    {
+      "id": "GeoAreaPicker",
+      "label": "GeoAreaPicker",
+      "story": "SemMapa",
+      "storyId": "components-organisms-geoareapicker--sem-mapa"
+    },
+    {
+      "id": "Breadcrumb",
+      "label": "Breadcrumb",
+      "story": "Interativo",
+      "storyId": "components-molecules-breadcrumb--interativo"
+    },
+    {
+      "id": "Tabs",
+      "label": "Tabs",
+      "story": "Sublinhado",
+      "storyId": "components-molecules-tabs--sublinhado"
+    },
+    {
+      "id": "NavCard",
+      "label": "NavCard",
+      "story": "Playground",
+      "storyId": "components-molecules-navcard--playground"
+    },
+    {
+      "id": "Pagination",
+      "label": "Pagination",
+      "story": "Playground",
+      "storyId": "components-atoms-pagination--playground"
+    },
+    {
+      "id": "SettingsSubnav",
+      "label": "SettingsSubnav",
+      "story": "Playground",
+      "storyId": "components-molecules-settingssubnav--playground"
+    },
+    {
+      "id": "TableOfContents",
+      "label": "TableOfContents",
+      "story": "Playground",
+      "storyId": "components-molecules-tableofcontents--playground"
+    },
+    {
+      "id": "WorkspaceSwitcher",
+      "label": "WorkspaceSwitcher",
+      "story": "Controlled",
+      "storyId": "components-molecules-workspaceswitcher--controlled"
+    },
+    {
+      "id": "UserMenu",
+      "label": "UserMenu",
+      "story": "Interativo",
+      "storyId": "components-molecules-usermenu--interativo"
+    },
+    {
+      "id": "HelpMenu",
+      "label": "HelpMenu",
+      "story": "Interativo",
+      "storyId": "components-molecules-helpmenu--interativo"
+    },
+    {
+      "id": "WizardStepper",
+      "label": "WizardStepper",
+      "story": "Horizontal",
+      "storyId": "components-molecules-wizardstepper--horizontal"
+    },
+    {
+      "id": "Menu",
+      "label": "Menu",
+      "story": "Interativo",
+      "storyId": "components-molecules-menu--interativo"
+    },
+    {
+      "id": "Badge",
+      "label": "Badge",
+      "story": "Todos",
+      "storyId": "components-atoms-badge--todos"
+    },
+    {
+      "id": "Chip",
+      "label": "Chip",
+      "story": "Semanticos",
+      "storyId": "components-atoms-chip--semanticos"
+    },
+    {
+      "id": "StatusDot",
+      "label": "StatusDot",
+      "story": "Tons",
+      "storyId": "components-atoms-statusdot--tons"
+    },
+    {
+      "id": "Callout",
+      "label": "Callout",
+      "story": "Info",
+      "storyId": "components-molecules-callout--info"
+    },
+    {
+      "id": "EmptyState",
+      "label": "EmptyState",
+      "story": "Interativo",
+      "storyId": "components-molecules-emptystate--interativo"
+    },
+    {
+      "id": "Skeleton",
+      "label": "Skeleton",
+      "story": "Playground",
+      "storyId": "components-atoms-skeleton--playground"
+    },
+    {
+      "id": "ProgressBar",
+      "label": "ProgressBar",
+      "story": "Saudavel",
+      "storyId": "components-atoms-progressbar--saudavel"
+    },
+    {
+      "id": "UsageMeter",
+      "label": "UsageMeter",
+      "story": "Saudavel",
+      "storyId": "components-molecules-usagemeter--saudavel"
+    },
+    {
+      "id": "Toast",
+      "label": "Toast",
+      "story": "FluxoLocal",
+      "storyId": "components-molecules-toast--fluxo-local"
+    },
+    {
+      "id": "Snackbar",
+      "label": "Snackbar",
+      "story": "Desfazer",
+      "storyId": "components-molecules-snackbar--desfazer"
+    },
+    {
+      "id": "NotificationBell",
+      "label": "NotificationBell",
+      "story": "FluxoCompleto",
+      "storyId": "components-molecules-notificationbell--fluxo-completo"
+    },
+    {
+      "id": "Tooltip",
+      "label": "Tooltip",
+      "story": "NoBotao",
+      "storyId": "components-molecules-tooltip--no-botao"
+    },
+    {
+      "id": "Popover",
+      "label": "Popover",
+      "story": "Interativo",
+      "storyId": "components-molecules-popover--interativo"
+    },
+    {
+      "id": "HoverCard",
+      "label": "HoverCard",
+      "story": "Interativo",
+      "storyId": "components-molecules-hovercard--interativo"
+    },
+    {
+      "id": "HelpField",
+      "label": "HelpField",
+      "story": "ComDrawerDoApp",
+      "storyId": "components-molecules-helpfield--com-drawer-do-app"
+    },
+    {
+      "id": "GuidedTour",
+      "label": "GuidedTour",
+      "story": "Fechado",
+      "storyId": "components-organisms-guidedtour--fechado"
+    },
+    {
+      "id": "Modal",
+      "label": "Modal",
+      "story": "SemTituloVisivel",
+      "storyId": "components-organisms-modal--sem-titulo-visivel"
+    },
+    {
+      "id": "Drawer",
+      "label": "Drawer",
+      "story": "Direita",
+      "storyId": "components-organisms-drawer--direita"
+    },
+    {
+      "id": "Command",
+      "label": "Command",
+      "story": "ComAtalho",
+      "storyId": "components-organisms-command--com-atalho"
+    },
+    {
+      "id": "Table",
+      "label": "Table",
+      "story": "DataTable",
+      "storyId": "components-organisms-table--data-table"
+    },
+    {
+      "id": "Charts",
+      "label": "Charts",
+      "story": "Line",
+      "storyId": "components-organisms-charts--line"
+    },
+    {
+      "id": "Stat",
+      "label": "Stat",
+      "story": "ComDelta",
+      "storyId": "components-molecules-stat--com-delta"
+    },
+    {
+      "id": "ScoreGauge",
+      "label": "ScoreGauge",
+      "story": "ValorVivo",
+      "storyId": "components-molecules-scoregauge--valor-vivo"
+    },
+    {
+      "id": "Matrix2x2",
+      "label": "Matrix2x2",
+      "story": "Selecionavel",
+      "storyId": "components-organisms-matrix2x2--selecionavel"
+    },
+    {
+      "id": "ActivityItem",
+      "label": "ActivityItem",
+      "story": "ComAutoria",
+      "storyId": "components-molecules-activityitem--com-autoria"
+    },
+    {
+      "id": "Timeline",
+      "label": "Timeline",
+      "story": "Vertical",
+      "storyId": "components-organisms-timeline--vertical"
+    },
+    {
+      "id": "EventTimeline",
+      "label": "ActivityTimeline",
+      "story": "Cronologia",
+      "storyId": "components-organisms-eventtimeline--cronologia"
+    },
+    {
+      "id": "KanbanCard",
+      "label": "KanbanCard",
+      "story": "Completo",
+      "storyId": "components-molecules-kanbancard--completo"
+    },
+    {
+      "id": "KanbanBoard",
+      "label": "KanbanBoard",
+      "story": "Padrao",
+      "storyId": "components-organisms-kanbanboard--padrao"
+    },
+    {
+      "id": "ApprovalWorkbench",
+      "label": "ApprovalWorkbench",
+      "story": "EmAnalise",
+      "storyId": "components-organisms-approvalworkbench--em-analise"
+    },
+    {
+      "id": "Avatar",
+      "label": "Avatar",
+      "story": "Iniciais",
+      "storyId": "components-atoms-avatar--iniciais"
+    },
+    {
+      "id": "AvatarGroup",
+      "label": "AvatarGroup",
+      "story": "Interativo",
+      "storyId": "components-molecules-avatargroup--interativo"
+    },
+    {
+      "id": "BrandLogo",
+      "label": "BrandLogo",
+      "story": "Assinatura",
+      "storyId": "components-atoms-brandlogo--assinatura"
+    },
+    {
+      "id": "PersonCell",
+      "label": "PersonCell",
+      "story": "Pessoa",
+      "storyId": "components-molecules-personcell--pessoa"
+    },
+    {
+      "id": "Card",
+      "label": "Card",
+      "story": "Simples",
+      "storyId": "components-molecules-card--simples"
+    },
+    {
+      "id": "Accordion",
+      "label": "Accordion",
+      "story": "AccordionSingle",
+      "storyId": "components-molecules-accordion--accordion-single"
+    },
+    {
+      "id": "CodeBlock",
+      "label": "CodeBlock",
+      "story": "Snippet",
+      "storyId": "components-molecules-codeblock--snippet"
+    },
+    {
+      "id": "PropertyCard",
+      "label": "ContentCard",
+      "story": "Grid",
+      "storyId": "components-organisms-propertycard--grid"
+    },
+    {
+      "id": "PropertyMedia",
+      "label": "MediaGallery",
+      "story": "Paisagem",
+      "storyId": "components-molecules-propertymedia--paisagem"
+    },
+    {
+      "id": "SwipeDeck",
+      "label": "DecisionDeck",
+      "story": "Gesto",
+      "storyId": "components-organisms-swipedeck--gesto"
+    },
+    {
+      "id": "VoiceRecorder",
+      "label": "VoiceRecorder",
+      "story": "Idle",
+      "storyId": "components-molecules-voicerecorder--idle"
+    },
+    {
+      "id": "IntentComposer",
+      "label": "IntentComposer",
+      "story": "Idle",
+      "storyId": "components-organisms-intentcomposer--idle"
+    },
+    {
+      "id": "Kbd",
+      "label": "Kbd",
+      "story": "Playground",
+      "storyId": "components-atoms-kbd--playground"
+    },
+    {
+      "id": "AppShell",
+      "label": "AppShell",
+      "story": "Completo",
+      "storyId": "components-organisms-appshell--completo"
+    },
+    {
+      "id": "Sidebar",
+      "label": "Sidebar",
+      "story": "Expandida",
+      "storyId": "components-organisms-sidebar--expandida"
+    },
+    {
+      "id": "Topbar",
+      "label": "Topbar",
+      "story": "Padrao",
+      "storyId": "components-organisms-topbar--padrao"
+    },
+    {
+      "id": "PageHeader",
+      "label": "PageHeader",
+      "story": "Interativo",
+      "storyId": "components-molecules-pageheader--interativo"
+    },
+    {
+      "id": "SectionHeader",
+      "label": "SectionHeader",
+      "story": "Playground",
+      "storyId": "components-molecules-sectionheader--playground"
+    },
+    {
+      "id": "Divider",
+      "label": "Divider",
+      "story": "Horizontal",
+      "storyId": "components-atoms-divider--horizontal"
+    },
+    {
+      "id": "StickyBar",
+      "label": "StickyBar",
+      "story": "Interativo",
+      "storyId": "components-molecules-stickybar--interativo"
+    },
+    {
+      "id": "StickyFooter",
+      "label": "StickyFooter",
+      "story": "Interativo",
+      "storyId": "components-molecules-stickyfooter--interativo"
+    },
+    {
+      "id": "SettingRow",
+      "label": "SettingRow",
+      "story": "Interativo",
+      "storyId": "components-molecules-settingrow--interativo"
+    },
+    {
+      "id": "PlanCard",
+      "label": "PlanCard",
+      "story": "Interativo",
+      "storyId": "components-molecules-plancard--interativo"
+    },
+    {
+      "id": "BillingCard",
+      "label": "BillingCard",
+      "story": "Interativo",
+      "storyId": "components-molecules-billingcard--interativo"
+    },
+    {
+      "id": "ConnectorCard",
+      "label": "ConnectorCard",
+      "story": "Interativo",
+      "storyId": "components-molecules-connectorcard--interativo"
+    },
+    {
+      "id": "DangerZone",
+      "label": "DangerZone",
+      "story": "Interativo",
+      "storyId": "components-molecules-dangerzone--interativo"
+    },
+    {
+      "id": "AlertDialog",
+      "label": "AlertDialog",
+      "story": "Interativo",
+      "storyId": "components-organisms-alertdialog--interativo"
+    },
+    {
+      "id": "AspectRatio",
+      "label": "AspectRatio",
+      "story": "Interativo",
+      "storyId": "components-atoms-aspectratio--interativo"
+    },
+    {
+      "id": "Bubble",
+      "label": "Bubble",
+      "story": "Interativo",
+      "storyId": "components-atoms-bubble--interativo"
+    },
+    {
+      "id": "Carousel",
+      "label": "Carousel",
+      "story": "Interativo",
+      "storyId": "components-molecules-carousel--interativo"
+    },
+    {
+      "id": "Collapsible",
+      "label": "Collapsible",
+      "story": "Interativo",
+      "storyId": "components-molecules-collapsible--interativo"
+    },
+    {
+      "id": "ContextMenu",
+      "label": "ContextMenu",
+      "story": "Interativo",
+      "storyId": "components-molecules-contextmenu--interativo"
+    },
+    {
+      "id": "DatePicker",
+      "label": "DatePicker",
+      "story": "Interativo",
+      "storyId": "components-molecules-datepicker--interativo"
+    },
+    {
+      "id": "Direction",
+      "label": "Direction",
+      "story": "Interativo",
+      "storyId": "components-atoms-direction--interativo"
+    },
+    {
+      "id": "Item",
+      "label": "Item",
+      "story": "Interativo",
+      "storyId": "components-molecules-item--interativo"
+    },
+    {
+      "id": "Label",
+      "label": "Label",
+      "story": "Interativo",
+      "storyId": "components-atoms-label--interativo"
+    },
+    {
+      "id": "Marker",
+      "label": "Marker",
+      "story": "Interativo",
+      "storyId": "components-atoms-marker--interativo"
+    },
+    {
+      "id": "Menubar",
+      "label": "Menubar",
+      "story": "Interativo",
+      "storyId": "components-molecules-menubar--interativo"
+    },
+    {
+      "id": "Message",
+      "label": "Message",
+      "story": "Interativo",
+      "storyId": "components-molecules-message--interativo"
+    },
+    {
+      "id": "MessageScroller",
+      "label": "MessageScroller",
+      "story": "Interativo",
+      "storyId": "components-molecules-messagescroller--interativo"
+    },
+    {
+      "id": "NavigationMenu",
+      "label": "NavigationMenu",
+      "story": "Interativo",
+      "storyId": "components-molecules-navigationmenu--interativo"
+    },
+    {
+      "id": "Questionnaire",
+      "label": "Questionnaire",
+      "story": "Interativo",
+      "storyId": "components-organisms-questionnaire--interativo"
+    },
+    {
+      "id": "Resizable",
+      "label": "Resizable",
+      "story": "Interativo",
+      "storyId": "components-molecules-resizable--interativo"
+    },
+    {
+      "id": "ScrollArea",
+      "label": "ScrollArea",
+      "story": "Interativo",
+      "storyId": "components-atoms-scrollarea--interativo"
+    },
+    {
+      "id": "Spinner",
+      "label": "Spinner",
+      "story": "Interativo",
+      "storyId": "components-atoms-spinner--interativo"
+    },
+    {
+      "id": "Trace",
+      "label": "Trace",
+      "story": "Interativo",
+      "storyId": "components-organisms-trace--interativo"
+    },
+    {
+      "id": "Prose",
+      "label": "Prose",
+      "story": "Interativo",
+      "storyId": "components-atoms-prose--interativo"
+    },
+    {
+      "id": "Coverflow",
+      "label": "Coverflow",
+      "story": "Capas",
+      "storyId": "components-organisms-coverflow--capas"
+    },
+    {
+      "id": "Hero",
+      "label": "Hero",
+      "story": "Playground",
+      "storyId": "components-organisms-hero--playground"
+    },
+    {
+      "id": "Section",
+      "label": "Section",
+      "story": "Playground",
+      "storyId": "components-organisms-section--playground"
+    },
+    {
+      "id": "DeviceFrame",
+      "label": "DeviceFrame",
+      "story": "Playground",
+      "storyId": "components-molecules-deviceframe--playground"
+    },
+    {
+      "id": "SiteFooter",
+      "label": "SiteFooter",
+      "story": "Playground",
+      "storyId": "components-organisms-sitefooter--playground"
+    }
+  ],
+  "coverage": {
+    "modes": [
+      "light",
+      "dark"
+    ],
+    "widths": [
+      390,
+      800
+    ],
+    "contexts": [
+      "consumer",
+      "story",
+      "playground",
+      "site"
+    ],
+    "states": [
+      "default",
+      "focus",
+      "active",
+      "disabled",
+      "open",
+      "selected",
+      "error",
+      "loading"
+    ],
+    "statePolicy": "Each family must explicitly enumerate applicable states and evidence. Missing or unobserved states never pass."
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "id": "IntentComposer",
+  "description": "Composing a request, with suggestions and processing states.",
+  "usage": {
+    "howToUse": [
+      "Use it as the box where people describe what they want in their own words, by text or voice: a search, an order, a question to an assistant.",
+      "Offer `examples` of good requests and the `filters` that narrow it. Handle the request in `onSubmit`.",
+      "While your service processes, set `state`; then show what was understood in `understoodSummary`, with a way to edit.",
+      "The component does not run AI: your application interprets the text."
+    ],
+    "alternatives": [
+      "A plain form field: Input or Textarea.",
+      "Messages of a conversation: Message and MessageScroller."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the filters, the text, the voice button and Continue."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "In the text, starts a new line. Sending is on the Continue button."
+      }
+    ]
+  },
+  "collections": [
+    "conversation"
+  ],
+  "publicName": "IntentComposer",
+  "selected": "Idle",
+  "import": "import { IntentComposer } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Callout",
+    "Chip",
+    "IconButton",
+    "Multiselect",
+    "ProgressBar",
+    "Segmented",
+    "Textarea",
+    "VoiceRecorder"
+  ],
+  "api": [
+    {
+      "name": "IntentComposer",
+      "props": [
+        {
+          "name": "state",
+          "defaultValue": "\"idle\"",
+          "type": "IntentComposerState | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "filters",
+          "defaultValue": "[]",
+          "type": "IntentFilterGroup[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "filterValues",
+          "type": "Record<string, string[]> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultFilterValues",
+          "defaultValue": "{}",
+          "type": "Record<string, string[]> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFilterValuesChange",
+          "type": "((values: Record<string, string[]>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "\"\"",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "examples",
+          "defaultValue": "[]",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "submitLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "understoodSummary",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "errorMessage",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onSubmit",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onVoiceStart",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onEditRequest",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onEditDetails",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "voiceRecorderProps",
+          "type": "VoiceRecorderProps | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "leadingActions",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "submitIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "voiceButtonVariant",
+          "defaultValue": "\"ghost\"",
+          "type": "IconButtonVariant | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "actionSize",
+          "defaultValue": "\"md\"",
+          "type": "IconButtonSize | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "showVoiceControl",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "processingContent",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Idle",
+      "label": "Idle",
+      "description": "Filters above; examples and actions in the inner footer; no attachment icon.",
+      "code": "import { IntentComposer } from '@refy-design/web';\nimport type { IntentComposerState } from '@refy-design/web';\nimport type { IntentFilterGroup } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useRef } from 'react';\nimport { useState } from 'react';\nconst initialText =\n  'I want to organize reference documents and images for a shared project, with versions and owners.';\nconst filters: IntentFilterGroup[] = [\n  {\n    id: 'operation',\n    label: 'Operation',\n    mode: 'single',\n    options: [\n      { value: 'create', label: 'Create' },\n      { value: 'organize', label: 'Organize' },\n    ],\n  },\n  {\n    id: 'types',\n    label: 'Format',\n    mode: 'multiple',\n    options: [\n      { value: 'document', label: 'Document' },\n      { value: 'image', label: 'Image' },\n      { value: 'video', label: 'Video' },\n    ],\n  },\n  {\n    id: 'teams',\n    label: 'Teams',\n    mode: 'multiple',\n    options: [\n      { value: 'design', label: 'Design' },\n      { value: 'product', label: 'Product' },\n      { value: 'operations', label: 'Operations' },\n    ],\n  },\n];\nfunction ComposerDemo({ initialState }: { initialState: IntentComposerState }) {\n  const [state, setState] = useState<IntentComposerState>(initialState);\n  const [voiceState, setVoiceState] = useState<VoiceRecorderState>('listening');\n  const [text, setText] = useState(initialText);\n  const [filterValues, setFilterValues] = useState<Record<string, string[]>>({\n    operation: ['create'],\n    types: ['document', 'image'],\n    teams: ['design'],\n  });\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  const timer = useRef<number | undefined>(undefined);\n  useEffect(() => () => window.clearTimeout(timer.current), []);\n  function process() {\n    setState('processing');\n    setMessage('Request in progress.');\n    timer.current = window.setTimeout(() => {\n      setState('understood');\n      setMessage('Request understood and ready for detailed review.');\n    }, 1800);\n  }\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 980 }}>\n      <IntentComposer\n        state={state}\n        filters={filters}\n        filterValues={filterValues}\n        onFilterValuesChange={setFilterValues}\n        value={text}\n        onChange={setText}\n        examples={[\n          'Organize references for a new project',\n          'Prepare a collection to share',\n        ]}\n        understoodSummary=\"You want a shared collection with documents, images, versions and set owners.\"\n        onSubmit={process}\n        onVoiceStart={() => {\n          setVoiceState('listening');\n          setState('listening');\n          setMessage('Voice capture open.');\n        }}\n        onEditRequest={() => {\n          window.clearTimeout(timer.current);\n          setState('idle');\n          setMessage('Request open for editing.');\n        }}\n        onEditDetails={() =>\n          setMessage('Detailed editing requested for the next wizard step.')\n        }\n        voiceRecorderProps={{\n          state: voiceState,\n          duration: 24,\n          level: 68,\n          onPause: () => setVoiceState('paused'),\n          onResume: () => setVoiceState('listening'),\n          onCancel: () => {\n            setState('idle');\n            setMessage('Voice cancelled; text kept.');\n          },\n          onFinish: () => {\n            setState('idle');\n            setMessage('Voice done; text ready to correct.');\n          },\n        }}\n      />\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <ComposerDemo initialState=\"idle\" />;\n}"
+    },
+    {
+      "id": "Escutando",
+      "label": "Listening",
+      "description": "VoiceRecorder built into the field, keeping the text visible and editable when done.",
+      "code": "import { IntentComposer } from '@refy-design/web';\nimport type { IntentComposerState } from '@refy-design/web';\nimport type { IntentFilterGroup } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useRef } from 'react';\nimport { useState } from 'react';\nconst initialText =\n  'I want to organize reference documents and images for a shared project, with versions and owners.';\nconst filters: IntentFilterGroup[] = [\n  {\n    id: 'operation',\n    label: 'Operation',\n    mode: 'single',\n    options: [\n      { value: 'create', label: 'Create' },\n      { value: 'organize', label: 'Organize' },\n    ],\n  },\n  {\n    id: 'types',\n    label: 'Format',\n    mode: 'multiple',\n    options: [\n      { value: 'document', label: 'Document' },\n      { value: 'image', label: 'Image' },\n      { value: 'video', label: 'Video' },\n    ],\n  },\n  {\n    id: 'teams',\n    label: 'Teams',\n    mode: 'multiple',\n    options: [\n      { value: 'design', label: 'Design' },\n      { value: 'product', label: 'Product' },\n      { value: 'operations', label: 'Operations' },\n    ],\n  },\n];\nfunction ComposerDemo({ initialState }: { initialState: IntentComposerState }) {\n  const [state, setState] = useState<IntentComposerState>(initialState);\n  const [voiceState, setVoiceState] = useState<VoiceRecorderState>('listening');\n  const [text, setText] = useState(initialText);\n  const [filterValues, setFilterValues] = useState<Record<string, string[]>>({\n    operation: ['create'],\n    types: ['document', 'image'],\n    teams: ['design'],\n  });\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  const timer = useRef<number | undefined>(undefined);\n  useEffect(() => () => window.clearTimeout(timer.current), []);\n  function process() {\n    setState('processing');\n    setMessage('Request in progress.');\n    timer.current = window.setTimeout(() => {\n      setState('understood');\n      setMessage('Request understood and ready for detailed review.');\n    }, 1800);\n  }\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 980 }}>\n      <IntentComposer\n        state={state}\n        filters={filters}\n        filterValues={filterValues}\n        onFilterValuesChange={setFilterValues}\n        value={text}\n        onChange={setText}\n        examples={[\n          'Organize references for a new project',\n          'Prepare a collection to share',\n        ]}\n        understoodSummary=\"You want a shared collection with documents, images, versions and set owners.\"\n        onSubmit={process}\n        onVoiceStart={() => {\n          setVoiceState('listening');\n          setState('listening');\n          setMessage('Voice capture open.');\n        }}\n        onEditRequest={() => {\n          window.clearTimeout(timer.current);\n          setState('idle');\n          setMessage('Request open for editing.');\n        }}\n        onEditDetails={() =>\n          setMessage('Detailed editing requested for the next wizard step.')\n        }\n        voiceRecorderProps={{\n          state: voiceState,\n          duration: 24,\n          level: 68,\n          onPause: () => setVoiceState('paused'),\n          onResume: () => setVoiceState('listening'),\n          onCancel: () => {\n            setState('idle');\n            setMessage('Voice cancelled; text kept.');\n          },\n          onFinish: () => {\n            setState('idle');\n            setMessage('Voice done; text ready to correct.');\n          },\n        }}\n      />\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <ComposerDemo initialState=\"listening\" />;\n}"
+    },
+    {
+      "id": "Processando",
+      "label": "Processing",
+      "description": "Explicit load with an “I want to edit” action on the right.",
+      "code": "import { IntentComposer } from '@refy-design/web';\nimport type { IntentComposerState } from '@refy-design/web';\nimport type { IntentFilterGroup } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useRef } from 'react';\nimport { useState } from 'react';\nconst initialText =\n  'I want to organize reference documents and images for a shared project, with versions and owners.';\nconst filters: IntentFilterGroup[] = [\n  {\n    id: 'operation',\n    label: 'Operation',\n    mode: 'single',\n    options: [\n      { value: 'create', label: 'Create' },\n      { value: 'organize', label: 'Organize' },\n    ],\n  },\n  {\n    id: 'types',\n    label: 'Format',\n    mode: 'multiple',\n    options: [\n      { value: 'document', label: 'Document' },\n      { value: 'image', label: 'Image' },\n      { value: 'video', label: 'Video' },\n    ],\n  },\n  {\n    id: 'teams',\n    label: 'Teams',\n    mode: 'multiple',\n    options: [\n      { value: 'design', label: 'Design' },\n      { value: 'product', label: 'Product' },\n      { value: 'operations', label: 'Operations' },\n    ],\n  },\n];\nfunction ComposerDemo({ initialState }: { initialState: IntentComposerState }) {\n  const [state, setState] = useState<IntentComposerState>(initialState);\n  const [voiceState, setVoiceState] = useState<VoiceRecorderState>('listening');\n  const [text, setText] = useState(initialText);\n  const [filterValues, setFilterValues] = useState<Record<string, string[]>>({\n    operation: ['create'],\n    types: ['document', 'image'],\n    teams: ['design'],\n  });\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  const timer = useRef<number | undefined>(undefined);\n  useEffect(() => () => window.clearTimeout(timer.current), []);\n  function process() {\n    setState('processing');\n    setMessage('Request in progress.');\n    timer.current = window.setTimeout(() => {\n      setState('understood');\n      setMessage('Request understood and ready for detailed review.');\n    }, 1800);\n  }\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 980 }}>\n      <IntentComposer\n        state={state}\n        filters={filters}\n        filterValues={filterValues}\n        onFilterValuesChange={setFilterValues}\n        value={text}\n        onChange={setText}\n        examples={[\n          'Organize references for a new project',\n          'Prepare a collection to share',\n        ]}\n        understoodSummary=\"You want a shared collection with documents, images, versions and set owners.\"\n        onSubmit={process}\n        onVoiceStart={() => {\n          setVoiceState('listening');\n          setState('listening');\n          setMessage('Voice capture open.');\n        }}\n        onEditRequest={() => {\n          window.clearTimeout(timer.current);\n          setState('idle');\n          setMessage('Request open for editing.');\n        }}\n        onEditDetails={() =>\n          setMessage('Detailed editing requested for the next wizard step.')\n        }\n        voiceRecorderProps={{\n          state: voiceState,\n          duration: 24,\n          level: 68,\n          onPause: () => setVoiceState('paused'),\n          onResume: () => setVoiceState('listening'),\n          onCancel: () => {\n            setState('idle');\n            setMessage('Voice cancelled; text kept.');\n          },\n          onFinish: () => {\n            setState('idle');\n            setMessage('Voice done; text ready to correct.');\n          },\n        }}\n      />\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <ComposerDemo initialState=\"processing\" />;\n}"
+    },
+    {
+      "id": "Entendido",
+      "label": "Understood",
+      "description": "Natural-language summary before detailed editing by route.",
+      "code": "import { IntentComposer } from '@refy-design/web';\nimport type { IntentComposerState } from '@refy-design/web';\nimport type { IntentFilterGroup } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useRef } from 'react';\nimport { useState } from 'react';\nconst initialText =\n  'I want to organize reference documents and images for a shared project, with versions and owners.';\nconst filters: IntentFilterGroup[] = [\n  {\n    id: 'operation',\n    label: 'Operation',\n    mode: 'single',\n    options: [\n      { value: 'create', label: 'Create' },\n      { value: 'organize', label: 'Organize' },\n    ],\n  },\n  {\n    id: 'types',\n    label: 'Format',\n    mode: 'multiple',\n    options: [\n      { value: 'document', label: 'Document' },\n      { value: 'image', label: 'Image' },\n      { value: 'video', label: 'Video' },\n    ],\n  },\n  {\n    id: 'teams',\n    label: 'Teams',\n    mode: 'multiple',\n    options: [\n      { value: 'design', label: 'Design' },\n      { value: 'product', label: 'Product' },\n      { value: 'operations', label: 'Operations' },\n    ],\n  },\n];\nfunction ComposerDemo({ initialState }: { initialState: IntentComposerState }) {\n  const [state, setState] = useState<IntentComposerState>(initialState);\n  const [voiceState, setVoiceState] = useState<VoiceRecorderState>('listening');\n  const [text, setText] = useState(initialText);\n  const [filterValues, setFilterValues] = useState<Record<string, string[]>>({\n    operation: ['create'],\n    types: ['document', 'image'],\n    teams: ['design'],\n  });\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  const timer = useRef<number | undefined>(undefined);\n  useEffect(() => () => window.clearTimeout(timer.current), []);\n  function process() {\n    setState('processing');\n    setMessage('Request in progress.');\n    timer.current = window.setTimeout(() => {\n      setState('understood');\n      setMessage('Request understood and ready for detailed review.');\n    }, 1800);\n  }\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 980 }}>\n      <IntentComposer\n        state={state}\n        filters={filters}\n        filterValues={filterValues}\n        onFilterValuesChange={setFilterValues}\n        value={text}\n        onChange={setText}\n        examples={[\n          'Organize references for a new project',\n          'Prepare a collection to share',\n        ]}\n        understoodSummary=\"You want a shared collection with documents, images, versions and set owners.\"\n        onSubmit={process}\n        onVoiceStart={() => {\n          setVoiceState('listening');\n          setState('listening');\n          setMessage('Voice capture open.');\n        }}\n        onEditRequest={() => {\n          window.clearTimeout(timer.current);\n          setState('idle');\n          setMessage('Request open for editing.');\n        }}\n        onEditDetails={() =>\n          setMessage('Detailed editing requested for the next wizard step.')\n        }\n        voiceRecorderProps={{\n          state: voiceState,\n          duration: 24,\n          level: 68,\n          onPause: () => setVoiceState('paused'),\n          onResume: () => setVoiceState('listening'),\n          onCancel: () => {\n            setState('idle');\n            setMessage('Voice cancelled; text kept.');\n          },\n          onFinish: () => {\n            setState('idle');\n            setMessage('Voice done; text ready to correct.');\n          },\n        }}\n      />\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <ComposerDemo initialState=\"understood\" />;\n}"
+    },
+    {
+      "id": "Erro",
+      "label": "Error",
+      "description": "A persistent error uses critical and keeps the request available for correction.",
+      "code": "import { IntentComposer } from '@refy-design/web';\nimport type { IntentComposerState } from '@refy-design/web';\nimport type { IntentFilterGroup } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useRef } from 'react';\nimport { useState } from 'react';\nconst initialText =\n  'I want to organize reference documents and images for a shared project, with versions and owners.';\nconst filters: IntentFilterGroup[] = [\n  {\n    id: 'operation',\n    label: 'Operation',\n    mode: 'single',\n    options: [\n      { value: 'create', label: 'Create' },\n      { value: 'organize', label: 'Organize' },\n    ],\n  },\n  {\n    id: 'types',\n    label: 'Format',\n    mode: 'multiple',\n    options: [\n      { value: 'document', label: 'Document' },\n      { value: 'image', label: 'Image' },\n      { value: 'video', label: 'Video' },\n    ],\n  },\n  {\n    id: 'teams',\n    label: 'Teams',\n    mode: 'multiple',\n    options: [\n      { value: 'design', label: 'Design' },\n      { value: 'product', label: 'Product' },\n      { value: 'operations', label: 'Operations' },\n    ],\n  },\n];\nfunction ComposerDemo({ initialState }: { initialState: IntentComposerState }) {\n  const [state, setState] = useState<IntentComposerState>(initialState);\n  const [voiceState, setVoiceState] = useState<VoiceRecorderState>('listening');\n  const [text, setText] = useState(initialText);\n  const [filterValues, setFilterValues] = useState<Record<string, string[]>>({\n    operation: ['create'],\n    types: ['document', 'image'],\n    teams: ['design'],\n  });\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  const timer = useRef<number | undefined>(undefined);\n  useEffect(() => () => window.clearTimeout(timer.current), []);\n  function process() {\n    setState('processing');\n    setMessage('Request in progress.');\n    timer.current = window.setTimeout(() => {\n      setState('understood');\n      setMessage('Request understood and ready for detailed review.');\n    }, 1800);\n  }\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 980 }}>\n      <IntentComposer\n        state={state}\n        filters={filters}\n        filterValues={filterValues}\n        onFilterValuesChange={setFilterValues}\n        value={text}\n        onChange={setText}\n        examples={[\n          'Organize references for a new project',\n          'Prepare a collection to share',\n        ]}\n        understoodSummary=\"You want a shared collection with documents, images, versions and set owners.\"\n        onSubmit={process}\n        onVoiceStart={() => {\n          setVoiceState('listening');\n          setState('listening');\n          setMessage('Voice capture open.');\n        }}\n        onEditRequest={() => {\n          window.clearTimeout(timer.current);\n          setState('idle');\n          setMessage('Request open for editing.');\n        }}\n        onEditDetails={() =>\n          setMessage('Detailed editing requested for the next wizard step.')\n        }\n        voiceRecorderProps={{\n          state: voiceState,\n          duration: 24,\n          level: 68,\n          onPause: () => setVoiceState('paused'),\n          onResume: () => setVoiceState('listening'),\n          onCancel: () => {\n            setState('idle');\n            setMessage('Voice cancelled; text kept.');\n          },\n          onFinish: () => {\n            setState('idle');\n            setMessage('Voice done; text ready to correct.');\n          },\n        }}\n      />\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <ComposerDemo initialState=\"error\" />;\n}"
+    }
+  ]
+}

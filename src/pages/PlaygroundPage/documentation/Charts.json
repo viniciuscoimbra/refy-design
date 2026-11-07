@@ -1,0 +1,761 @@
+{
+  "id": "Charts",
+  "description": "D3 charts: cartesian, radial, statistical, hierarchical, networks, flows and maps; accessible legends, axes, tooltip and data.",
+  "usage": {
+    "howToUse": [
+      "Use it to show numbers that change or compare: sales by month, share by channel, distribution of values.",
+      "Choose the chart by the question: line for time, bars to compare, pie only for parts of a whole with few slices.",
+      "Always set `title`, the axis titles (`yTitle`, `xTitle`) and `formatY` with the unit.",
+      "Offer the data as a table next to it when people need the exact values."
+    ],
+    "alternatives": [
+      "One number with its trend: Stat.",
+      "A score from 0 to 100: ScoreGauge.",
+      "Exact values to look up: Table."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the chart."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "Moves between the points or bars, and reads the value."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Goes to the first or last point."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Highlights the point in focus."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Clears the highlight."
+      }
+    ]
+  },
+  "collections": [
+    "analytics"
+  ],
+  "publicName": "LineChart",
+  "selected": "Line",
+  "import": "import { LineChart } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Range",
+    "Table"
+  ],
+  "api": [
+    {
+      "name": "AreaChart",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Visible chart title."
+        },
+        {
+          "name": "max",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Maximum axis value. Default: D3 `nice()` scale."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible chart description."
+        },
+        {
+          "name": "showTitle",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows the title inside the figure. Turn it off when the container already shows it."
+        },
+        {
+          "name": "data",
+          "type": "number[] | undefined",
+          "required": false,
+          "description": "Single series (shortcut)…"
+        },
+        {
+          "name": "series",
+          "type": "LineSeries[] | undefined",
+          "required": false,
+          "description": "…or multiple series with a legend."
+        },
+        {
+          "name": "xLabels",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "X axis labels, spread across the points (e.g. [\"Aug\", \"Sep\", \"Oct\", \"Today\"])."
+        },
+        {
+          "name": "pointLabels",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "Label for each point in the tooltip (default: nearest X label or index)."
+        },
+        {
+          "name": "yTitle",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Y axis title (unit, e.g. \"Visits/month\")."
+        },
+        {
+          "name": "xTitle",
+          "type": "string | undefined",
+          "required": false,
+          "description": "X axis title (e.g. \"Last 90 days\")."
+        },
+        {
+          "name": "formatY",
+          "type": "((value: number) => string) | undefined",
+          "required": false,
+          "description": "Formats values (Y axis and tooltip)."
+        },
+        {
+          "name": "showLegend",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Legend with each series' name + color. Default: automatic with 2+ series."
+        },
+        {
+          "name": "stacked",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "curve",
+          "type": "\"step\" | \"smooth\" | \"linear\" | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "LineChart",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Visible chart title."
+        },
+        {
+          "name": "showTitle",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows the title inside the figure. Turn it off when the container already shows it."
+        },
+        {
+          "name": "data",
+          "type": "number[] | undefined",
+          "required": false,
+          "description": "Single series (shortcut)…"
+        },
+        {
+          "name": "series",
+          "type": "LineSeries[] | undefined",
+          "required": false,
+          "description": "…or multiple series with a legend."
+        },
+        {
+          "name": "xLabels",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "X axis labels, spread across the points (e.g. [\"Aug\", \"Sep\", \"Oct\", \"Today\"])."
+        },
+        {
+          "name": "pointLabels",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "Label for each point in the tooltip (default: nearest X label or index)."
+        },
+        {
+          "name": "yTitle",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Y axis title (unit, e.g. \"Visits/month\")."
+        },
+        {
+          "name": "xTitle",
+          "type": "string | undefined",
+          "required": false,
+          "description": "X axis title (e.g. \"Last 90 days\")."
+        },
+        {
+          "name": "formatY",
+          "type": "((value: number) => string) | undefined",
+          "required": false,
+          "description": "Formats values (Y axis and tooltip)."
+        },
+        {
+          "name": "max",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Maximum axis value. Default: D3 `nice()` scale."
+        },
+        {
+          "name": "area",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Gradient area under the line (only with 1 series). Default true."
+        },
+        {
+          "name": "showLegend",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Legend with each series' name + color. Default: automatic with 2+ series."
+        },
+        {
+          "name": "stacked",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "curve",
+          "defaultValue": "\"smooth\"",
+          "type": "\"step\" | \"smooth\" | \"linear\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible chart description."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    },
+    {
+      "name": "BarChart",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Visible chart title."
+        },
+        {
+          "name": "showTitle",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows the title inside the figure. Turn it off when the container already shows it."
+        },
+        {
+          "name": "items",
+          "type": "BarChartItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "formatValue",
+          "defaultValue": "(v) => String(v)",
+          "type": "((value: number) => string) | undefined",
+          "required": false,
+          "description": "Formats the values (ruler and bar end)."
+        },
+        {
+          "name": "valueTitle",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Value axis title (unit)."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    },
+    {
+      "name": "DonutChart",
+      "props": [
+        {
+          "name": "value",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Filled fraction, 0–100 (progress mode)…"
+        },
+        {
+          "name": "segments",
+          "type": "DonutSegment[] | undefined",
+          "required": false,
+          "description": "…or multiple segments (distribution mode)."
+        },
+        {
+          "name": "centerLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Large central text (default: the value)."
+        },
+        {
+          "name": "caption",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Smaller line under the central text."
+        },
+        {
+          "name": "showLegend",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Side legend with a value per segment. Default: automatic with `segments`."
+        },
+        {
+          "name": "formatValue",
+          "defaultValue": "(v) => String(v)",
+          "type": "((value: number) => string) | undefined",
+          "required": false,
+          "description": "Formats the legend values."
+        },
+        {
+          "name": "size",
+          "defaultValue": "220",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Diameter in px. Default 220."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    },
+    {
+      "name": "Sparkline",
+      "props": [
+        {
+          "name": "data",
+          "type": "number[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "tone",
+          "defaultValue": "\"good\"",
+          "type": "\"good\" | \"bad\" | undefined",
+          "required": false,
+          "description": "`good` (emerald, default) or `bad` (critical)."
+        },
+        {
+          "name": "width",
+          "defaultValue": "100",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "height",
+          "defaultValue": "28",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    },
+    {
+      "name": "D3Chart",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "dataTable",
+          "type": "\"disclosure\" | \"screen-reader\" | undefined",
+          "required": false,
+          "description": "Data table: \"disclosure\" (default) shows \"See data for…\"; \"screen-reader\" keeps it only for screen readers."
+        },
+        {
+          "name": "showTitle",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "zoom",
+          "type": "boolean | { maxScale?: number | undefined; wheel?: boolean | undefined; onChange?: ((viewport: ChartViewport) => void) | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "brush",
+          "type": "boolean | { onChange?: ((selection: ChartBrushSelection | null) => void) | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "stream",
+          "type": "ChartStreamOptions | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "margin",
+          "type": "Partial<Pick<ChartLayout, \"top\" | \"bottom\" | \"left\" | \"right\">> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "description": "BCP 47 tag for axis dates and numbers. Default: the `LocaleProvider` language."
+        },
+        {
+          "name": "colors",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "colorScale",
+          "type": "((value: number) => string) | undefined",
+          "required": false,
+          "description": "Color by value: heatmap cells and bars (bar/histogram)."
+        },
+        {
+          "name": "xAxis",
+          "type": "ChartAxis | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "yAxis",
+          "type": "ChartAxis | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "grid",
+          "type": "boolean | \"x\" | \"y\" | \"both\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "legend",
+          "type": "boolean | { position?: \"top\" | \"bottom\" | \"right\" | undefined; interactive?: boolean | undefined; marker?: \"circle\" | \"square\" | \"line\" | undefined; render?: ((item: ChartLegendItem) => ReactNode) | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean | { render?: ((datum: ChartDatum) => ReactNode) | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onSelect",
+          "type": "((datum: ChartDatum) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onHover",
+          "type": "((datum: ChartDatum | null) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "renderMark",
+          "type": "((mark: ChartMark, context: ChartLayout) => ReactNode) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "renderOverlay",
+          "type": "((context: ChartLayout & { scene: ChartScene; }) => ReactNode) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "\"histogram\" | CartesianType | \"boxplot\" | \"candlestick\" | \"heatmap\" | RadialType | \"radar\" | HierarchyType | RelationType | \"geo\"",
+          "required": true,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Line",
+      "label": "LineChart",
+      "description": "Line chart with area: organic traffic over 90 days.",
+      "code": "import { LineChart } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst traffic = [\n  3200, 3600, 3400, 4800, 5200, 6100, 6800, 7400, 8600, 8900, 10200, 11400,\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof LineChart>,\n    | 'title'\n    | 'data'\n    | 'xLabels'\n    | 'pointLabels'\n    | 'formatY'\n    | 'yTitle'\n    | 'xTitle'\n    | 'label'\n  > = {\n    title: 'Organic traffic',\n    data: traffic,\n    xLabels: ['Aug', 'Sep', 'Oct', 'Today'],\n    pointLabels: [\n      'Wk 1',\n      'Wk 2',\n      'Wk 3',\n      'Wk 4',\n      'Wk 5',\n      'Wk 6',\n      'Wk 7',\n      'Wk 8',\n      'Wk 9',\n      'Wk 10',\n      'Wk 11',\n      'Wk 12',\n    ],\n    formatY: (v: number) => `${(v / 1000).toFixed(1)}k`,\n    yTitle: 'Visits/month',\n    xTitle: 'Last 90 days',\n    label: 'Organic traffic (90 days)',\n  };\n  return (\n    <div style={{ maxWidth: 680 }}>\n      <LineChart {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "MultiSerie",
+      "label": "LineChart · 2 series",
+      "description": "Two series with a legend: you × project.",
+      "code": "import { LineChart } from '@refy-design/web';\nconst traffic = [\n  3200, 3600, 3400, 4800, 5200, 6100, 6800, 7400, 8600, 8900, 10200, 11400,\n];\nexport function Example() {\n  return (\n    <div style={{ maxWidth: 680 }}>\n      <LineChart\n        title=\"Traffic compared\"\n        label=\"Traffic: you × project\"\n        series={[\n          { name: 'refy.com.br', data: traffic, tone: 'primary' },\n          {\n            name: 'aurora.example.com',\n            data: [\n              5200, 5400, 5600, 5300, 5800, 6200, 6100, 6600, 7000, 6800, 7400, 7800,\n            ],\n            tone: 'info',\n          },\n        ]}\n        xLabels={['Aug', 'Sep', 'Oct', 'Today']}\n        formatY={(v: number) => `${(v / 1000).toFixed(1)}k`}\n        yTitle=\"Visits/month\"\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Bar",
+      "label": "BarChart",
+      "description": "Bars with a value axis (rulers + measures + unit).",
+      "code": "import { BarChart } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ maxWidth: 680 }}>\n      <BarChart\n        title=\"Occurrences by category\"\n        label=\"Issues by category\"\n        valueTitle=\"Issues abertas\"\n        items={[\n          { label: 'Content', value: 320 },\n          { label: 'Links', value: 220, tone: 'info' },\n          { label: 'Performance', value: 180, tone: 'warn' },\n          { label: 'Schema', value: 120 },\n          { label: 'Mobile', value: 60, tone: 'critical' },\n        ]}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Donut",
+      "label": "DonutChart · progress",
+      "description": "Progress ring with a central value.",
+      "code": "import { DonutChart } from '@refy-design/web';\nexport function Example() {\n  return <DonutChart value={74} caption=\"Completion rate\" label=\"Completion rate\" />;\n}"
+    },
+    {
+      "id": "DonutSegmentos",
+      "label": "DonutChart · segments",
+      "description": "Distribution in segments with semantic tones.",
+      "code": "import { DonutChart } from '@refy-design/web';\nexport function Example() {\n  return (\n    <DonutChart\n      label=\"Issues by severity\"\n      centerLabel=\"128\"\n      caption=\"Issues\"\n      segments={[\n        { value: 34, tone: 'critical', label: 'Critical' },\n        { value: 52, tone: 'warn', label: 'Medium' },\n        { value: 28, tone: 'primary', label: 'Resolved' },\n        { value: 14, tone: 'muted', label: 'Ignored' },\n      ]}\n      formatValue={(v) => `${v} issues`}\n    />\n  );\n}"
+    },
+    {
+      "id": "Sparklines",
+      "label": "Sparkline",
+      "description": "Mini trends for table cells and cards.",
+      "code": "import { Sparkline } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>\n      <Sparkline data={[4, 6, 5, 8, 7, 11, 9, 13]} label=\"Traffic trend (rising)\" />\n      <Sparkline\n        data={[13, 10, 11, 9, 6, 7, 4, 2]}\n        tone=\"bad\"\n        label=\"Position trend (falling)\"\n      />\n      <Sparkline data={[5, 6, 8, 7, 10, 9, 11, 12]} label=\"Keyword trend\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "VisaoGeral",
+      "label": "All charts",
+      "description": "The four visualizations share the same identity.",
+      "code": "import { BarChart } from '@refy-design/web';\nimport { DonutChart } from '@refy-design/web';\nimport { LineChart } from '@refy-design/web';\nimport { Sparkline } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst traffic = [\n  3200, 3600, 3400, 4800, 5200, 6100, 6800, 7400, 8600, 8900, 10200, 11400,\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof LineChart>, 'data' | 'label'> = {\n    data: traffic,\n    label: 'Visits over time',\n  };\n  return (\n    <div style={{ display: 'grid', gap: 28, maxWidth: 680 }}>\n      <LineChart {...args} title=\"Visits over time\" />\n      <BarChart\n        title=\"Deliveries by team\"\n        label=\"Deliveries by team\"\n        items={[\n          { label: 'Creative', value: 24 },\n          { label: 'Content', value: 18, tone: 'info' },\n          { label: 'Product', value: 30 },\n        ]}\n      />\n      <div\n        style={{\n          display: 'flex',\n          flexWrap: 'wrap',\n          alignItems: 'center',\n          gap: 32,\n        }}\n      >\n        <DonutChart value={74} caption=\"Completed\" label=\"Cycle completion\" />\n        <Sparkline data={[4, 6, 5, 8, 7, 11]} label=\"Delivery trend\" />\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Explorador",
+      "label": "Explorer",
+      "description": "",
+      "code": "import { ChartExplorer } from '@refy-design/web';\nexport function Example() {\n  return <ChartExplorer />;\n}"
+    },
+    {
+      "id": "Area",
+      "label": "Area",
+      "description": "Area to compare a series' volume over the period.",
+      "code": "import { AreaChart } from '@refy-design/web';\nimport { LineChart } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst traffic = [\n  3200, 3600, 3400, 4800, 5200, 6100, 6800, 7400, 8600, 8900, 10200, 11400,\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof LineChart>, 'data' | 'label' | 'title'> = {\n    data: traffic,\n    label: 'Visits over time',\n    title: 'Visits in the period',\n  };\n  return <AreaChart {...args} />;\n}"
+    },
+    {
+      "id": "D3Line",
+      "label": "D3 · Lines",
+      "description": "Two series over time. Curves and points are configurable.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Line: D3ChartProps = {\n  type: 'line',\n  title: 'Visits by device',\n  label: 'Visits from January to June',\n  series: [\n    {\n      id: 'desktop',\n      label: 'Desktop',\n      data: [\n        {\n          x: 'Jan',\n          y: 186,\n        },\n        {\n          x: 'Feb',\n          y: 305,\n        },\n        {\n          x: 'Mar',\n          y: 237,\n        },\n        {\n          x: 'Apr',\n          y: 73,\n        },\n        {\n          x: 'May',\n          y: 209,\n        },\n        {\n          x: 'Jun',\n          y: 214,\n        },\n      ],\n    },\n    {\n      id: 'mobile',\n      label: 'Mobile',\n      data: [\n        {\n          x: 'Jan',\n          y: 80,\n        },\n        {\n          x: 'Feb',\n          y: 200,\n        },\n        {\n          x: 'Mar',\n          y: 120,\n        },\n        {\n          x: 'Apr',\n          y: 190,\n        },\n        {\n          x: 'May',\n          y: 130,\n        },\n        {\n          x: 'Jun',\n          y: 140,\n        },\n      ],\n    },\n  ],\n  curve: 'natural',\n  dots: true,\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Line} />;\n}"
+    },
+    {
+      "id": "D3Area",
+      "label": "D3 · Areas",
+      "description": "Accumulated volume, stacked in absolute or percent terms.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Area: D3ChartProps = {\n  type: 'area',\n  title: 'Visits by device',\n  label: 'Visits area by device',\n  series: [\n    {\n      id: 'desktop',\n      label: 'Desktop',\n      data: [\n        {\n          x: 'Jan',\n          y: 186,\n        },\n        {\n          x: 'Feb',\n          y: 305,\n        },\n        {\n          x: 'Mar',\n          y: 237,\n        },\n        {\n          x: 'Apr',\n          y: 73,\n        },\n        {\n          x: 'May',\n          y: 209,\n        },\n        {\n          x: 'Jun',\n          y: 214,\n        },\n      ],\n    },\n    {\n      id: 'mobile',\n      label: 'Mobile',\n      data: [\n        {\n          x: 'Jan',\n          y: 80,\n        },\n        {\n          x: 'Feb',\n          y: 200,\n        },\n        {\n          x: 'Mar',\n          y: 120,\n        },\n        {\n          x: 'Apr',\n          y: 190,\n        },\n        {\n          x: 'May',\n          y: 130,\n        },\n        {\n          x: 'Jun',\n          y: 140,\n        },\n      ],\n    },\n  ],\n  stacked: true,\n  curve: 'natural',\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Area} />;\n}"
+    },
+    {
+      "id": "D3Bar",
+      "label": "D3 · Bars",
+      "description": "Compare categories with grouped, stacked or horizontal bars.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Bar: D3ChartProps = {\n  type: 'bar',\n  title: 'Visits by device',\n  label: 'Monthly visits comparison',\n  series: [\n    {\n      id: 'desktop',\n      label: 'Desktop',\n      data: [\n        {\n          x: 'Jan',\n          y: 186,\n        },\n        {\n          x: 'Feb',\n          y: 305,\n        },\n        {\n          x: 'Mar',\n          y: 237,\n        },\n        {\n          x: 'Apr',\n          y: 73,\n        },\n        {\n          x: 'May',\n          y: 209,\n        },\n        {\n          x: 'Jun',\n          y: 214,\n        },\n      ],\n    },\n    {\n      id: 'mobile',\n      label: 'Mobile',\n      data: [\n        {\n          x: 'Jan',\n          y: 80,\n        },\n        {\n          x: 'Feb',\n          y: 200,\n        },\n        {\n          x: 'Mar',\n          y: 120,\n        },\n        {\n          x: 'Apr',\n          y: 190,\n        },\n        {\n          x: 'May',\n          y: 130,\n        },\n        {\n          x: 'Jun',\n          y: 140,\n        },\n      ],\n    },\n  ],\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Bar} />;\n}"
+    },
+    {
+      "id": "D3Scatter",
+      "label": "D3 · Scatter",
+      "description": "Relation between two numeric variables.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Scatter: D3ChartProps = {\n  type: 'scatter',\n  title: 'Time and quality',\n  label: 'Time versus quality',\n  series: [\n    {\n      id: 'sample',\n      label: 'Samples',\n      data: [\n        {\n          x: 12,\n          y: 34,\n        },\n        {\n          x: 18,\n          y: 48,\n        },\n        {\n          x: 24,\n          y: 41,\n        },\n        {\n          x: 31,\n          y: 72,\n        },\n        {\n          x: 38,\n          y: 65,\n        },\n        {\n          x: 44,\n          y: 88,\n        },\n        {\n          x: 52,\n          y: 79,\n        },\n      ],\n    },\n  ],\n  xAxis: {\n    title: 'Time (min)',\n  },\n  yAxis: {\n    title: 'Quality',\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Scatter} />;\n}"
+    },
+    {
+      "id": "D3Bubble",
+      "label": "D3 · Bubbles",
+      "description": "A third variable sets the bubble area.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Bubble: D3ChartProps = {\n  type: 'bubble',\n  title: 'Time, quality and volume',\n  label: 'Scatter with volume per bubble',\n  series: [\n    {\n      id: 'sample',\n      label: 'Samples',\n      data: [\n        {\n          x: 12,\n          y: 34,\n          size: 20,\n        },\n        {\n          x: 18,\n          y: 48,\n          size: 35,\n        },\n        {\n          x: 24,\n          y: 41,\n          size: 12,\n        },\n        {\n          x: 31,\n          y: 72,\n          size: 50,\n        },\n        {\n          x: 38,\n          y: 65,\n          size: 28,\n        },\n        {\n          x: 44,\n          y: 88,\n          size: 40,\n        },\n      ],\n    },\n  ],\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Bubble} />;\n}"
+    },
+    {
+      "id": "D3Histogram",
+      "label": "D3 · Histogram",
+      "description": "D3 computes bins and frequencies from the observations.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Histogram: D3ChartProps = {\n  type: 'histogram',\n  title: 'Reading time',\n  label: 'Reading time distribution',\n  values: [\n    18, 22, 24, 24, 28, 31, 32, 33, 34, 35, 35, 37, 39, 42, 44, 48, 52, 58, 64, 72,\n  ],\n  thresholds: 8,\n  xAxis: {\n    title: 'Minutes',\n  },\n  yAxis: {\n    title: 'Frequency',\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Histogram} />;\n}"
+    },
+    {
+      "id": "D3Boxplot",
+      "label": "D3 · Boxplot",
+      "description": "Median, quartiles, 1.5 IQR limits and outliers.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Boxplot: D3ChartProps = {\n  type: 'boxplot',\n  title: 'Time by group',\n  label: 'Distribution by group',\n  groups: [\n    {\n      id: 'a',\n      label: 'Group A',\n      values: [\n        18, 22, 24, 24, 28, 31, 32, 33, 34, 35, 35, 37, 39, 42, 44, 48, 52, 58, 64, 72,\n      ],\n    },\n    {\n      id: 'b',\n      label: 'Group B',\n      values: [\n        24.6, 27.4, 28.799999999999997, 28.799999999999997, 31.599999999999998, 33.7,\n        34.4, 35.099999999999994, 35.8, 36.5, 36.5, 37.9, 39.3, 41.4, 42.8,\n        45.599999999999994, 48.4, 52.599999999999994, 56.8, 62.4,\n      ],\n    },\n    {\n      id: 'c',\n      label: 'Group C',\n      values: [14, 18, 19, 21, 24, 27, 30, 32, 34, 38, 95],\n    },\n  ],\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Boxplot} />;\n}"
+    },
+    {
+      "id": "D3Candlestick",
+      "label": "D3 · Candlestick",
+      "description": "Open, close, low and high. A hollow body means a drop.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Candlestick: D3ChartProps = {\n  type: 'candlestick',\n  title: 'Change by period',\n  label: 'Open and close by period',\n  series: [\n    {\n      id: 'price',\n      label: 'Quote',\n      data: [\n        {\n          x: 'Mon',\n          y: 28,\n          open: 22,\n          close: 28,\n          low: 20,\n          high: 31,\n        },\n        {\n          x: 'Tue',\n          y: 24,\n          open: 28,\n          close: 24,\n          low: 22,\n          high: 33,\n        },\n        {\n          x: 'Wed',\n          y: 32,\n          open: 24,\n          close: 32,\n          low: 23,\n          high: 35,\n        },\n        {\n          x: 'Thu',\n          y: 30,\n          open: 32,\n          close: 30,\n          low: 27,\n          high: 36,\n        },\n        {\n          x: 'Fri',\n          y: 36,\n          open: 30,\n          close: 36,\n          low: 28,\n          high: 39,\n        },\n      ],\n    },\n  ],\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Candlestick} />;\n}"
+    },
+    {
+      "id": "D3Heatmap",
+      "label": "D3 · Heat map",
+      "description": "Intensity across two categories; values are available in the tooltip and the table.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Heatmap: D3ChartProps = {\n  type: 'heatmap',\n  title: 'Activity by day',\n  label: 'Activity by day and time of day',\n  cells: [\n    {\n      x: 'Mon',\n      y: 'Morning',\n      value: 12,\n    },\n    {\n      x: 'Mon',\n      y: 'Afternoon',\n      value: 38,\n    },\n    {\n      x: 'Mon',\n      y: 'Night',\n      value: 24,\n    },\n    {\n      x: 'Tue',\n      y: 'Morning',\n      value: 62,\n    },\n    {\n      x: 'Tue',\n      y: 'Afternoon',\n      value: 48,\n    },\n    {\n      x: 'Tue',\n      y: 'Night',\n      value: 27,\n    },\n    {\n      x: 'Wed',\n      y: 'Morning',\n      value: 74,\n    },\n    {\n      x: 'Wed',\n      y: 'Afternoon',\n      value: 51,\n    },\n    {\n      x: 'Wed',\n      y: 'Night',\n      value: 33,\n    },\n    {\n      x: 'Thu',\n      y: 'Morning',\n      value: 41,\n    },\n    {\n      x: 'Thu',\n      y: 'Afternoon',\n      value: 81,\n    },\n    {\n      x: 'Thu',\n      y: 'Night',\n      value: 22,\n    },\n    {\n      x: 'Fri',\n      y: 'Morning',\n      value: 58,\n    },\n    {\n      x: 'Fri',\n      y: 'Afternoon',\n      value: 67,\n    },\n    {\n      x: 'Fri',\n      y: 'Night',\n      value: 19,\n    },\n  ],\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Heatmap} />;\n}"
+    },
+    {
+      "id": "D3Pie",
+      "label": "D3 · Pie",
+      "description": "Categories with angular geometry computed by D3.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Pie: D3ChartProps = {\n  type: 'pie',\n  title: 'Visit sources',\n  label: 'Share by source',\n  items: [\n    {\n      id: 'search',\n      label: 'Search',\n      value: 420,\n    },\n    {\n      id: 'direct',\n      label: 'Direct',\n      value: 280,\n    },\n    {\n      id: 'referral',\n      label: 'References',\n      value: 190,\n    },\n    {\n      id: 'other',\n      label: 'Other',\n      value: 110,\n    },\n  ],\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Pie} />;\n}"
+    },
+    {
+      "id": "D3Donut",
+      "label": "D3 · Donut",
+      "description": "Categories with angular geometry computed by D3.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Donut: D3ChartProps = {\n  type: 'donut',\n  title: 'Visit sources',\n  label: 'Share by source',\n  items: [\n    {\n      id: 'search',\n      label: 'Search',\n      value: 420,\n    },\n    {\n      id: 'direct',\n      label: 'Direct',\n      value: 280,\n    },\n    {\n      id: 'referral',\n      label: 'References',\n      value: 190,\n    },\n    {\n      id: 'other',\n      label: 'Other',\n      value: 110,\n    },\n  ],\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Donut} />;\n}"
+    },
+    {
+      "id": "D3RadialBar",
+      "label": "D3 · Radial bars",
+      "description": "Categories with angular geometry computed by D3.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3RadialBar: D3ChartProps = {\n  type: 'radial-bar',\n  title: 'Visit sources',\n  label: 'Share by source',\n  items: [\n    {\n      id: 'search',\n      label: 'Search',\n      value: 420,\n    },\n    {\n      id: 'direct',\n      label: 'Direct',\n      value: 280,\n    },\n    {\n      id: 'referral',\n      label: 'References',\n      value: 190,\n    },\n    {\n      id: 'other',\n      label: 'Other',\n      value: 110,\n    },\n  ],\n};\nexport function Example() {\n  return <D3Chart {...exampleD3RadialBar} />;\n}"
+    },
+    {
+      "id": "D3Gauge",
+      "label": "D3 · Gauge",
+      "description": "Progress of an indicator with an explicit maximum.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Gauge: D3ChartProps = {\n  type: 'gauge',\n  title: 'Reading goal',\n  label: 'Reading goal:72 of100',\n  items: [\n    {\n      id: 'goal',\n      label: 'Meta',\n      value: 72,\n    },\n  ],\n  max: 100,\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Gauge} />;\n}"
+    },
+    {
+      "id": "D3Radar",
+      "label": "D3 · Radar",
+      "description": "Profiles on equivalent dimensions, on a common scale.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Radar: D3ChartProps = {\n  type: 'radar',\n  title: 'Usage profile',\n  label: 'Profile comparison by dimension',\n  max: 100,\n  series: [\n    {\n      id: 'a',\n      label: 'Profile A',\n      data: [\n        {\n          x: 'Reading',\n          y: 85,\n        },\n        {\n          x: 'Search',\n          y: 65,\n        },\n        {\n          x: 'Creative',\n          y: 72,\n        },\n        {\n          x: 'Review',\n          y: 91,\n        },\n        {\n          x: 'Sharing',\n          y: 58,\n        },\n      ],\n    },\n    {\n      id: 'b',\n      label: 'Profile B',\n      data: [\n        {\n          x: 'Reading',\n          y: 58,\n        },\n        {\n          x: 'Search',\n          y: 87,\n        },\n        {\n          x: 'Creative',\n          y: 91,\n        },\n        {\n          x: 'Review',\n          y: 62,\n        },\n        {\n          x: 'Sharing',\n          y: 78,\n        },\n      ],\n    },\n  ],\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Radar} />;\n}"
+    },
+    {
+      "id": "D3Treemap",
+      "label": "D3 · Treemap",
+      "description": "Parent/child structure. Area and proportion use the leaf values; tree and dendrogram show relations.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Treemap: D3ChartProps = {\n  type: 'treemap',\n  title: 'Collection structure',\n  label: 'Collection hierarchy',\n  root: {\n    id: 'root',\n    name: 'Archive',\n    children: [\n      {\n        id: 'content',\n        name: 'Content',\n        children: [\n          {\n            id: 'articles',\n            name: 'Articles',\n            value: 42,\n          },\n          {\n            id: 'guides',\n            name: 'Guides',\n            value: 28,\n          },\n        ],\n      },\n      {\n        id: 'media',\n        name: 'Media',\n        children: [\n          {\n            id: 'images',\n            name: 'Images',\n            value: 32,\n          },\n          {\n            id: 'videos',\n            name: 'Videos',\n            value: 18,\n          },\n        ],\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Treemap} />;\n}"
+    },
+    {
+      "id": "D3Pack",
+      "label": "D3 · Circle packing",
+      "description": "Parent/child structure. Area and proportion use the leaf values; tree and dendrogram show relations.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Pack: D3ChartProps = {\n  type: 'pack',\n  title: 'Collection structure',\n  label: 'Collection hierarchy',\n  root: {\n    id: 'root',\n    name: 'Archive',\n    children: [\n      {\n        id: 'content',\n        name: 'Content',\n        children: [\n          {\n            id: 'articles',\n            name: 'Articles',\n            value: 42,\n          },\n          {\n            id: 'guides',\n            name: 'Guides',\n            value: 28,\n          },\n        ],\n      },\n      {\n        id: 'media',\n        name: 'Media',\n        children: [\n          {\n            id: 'images',\n            name: 'Images',\n            value: 32,\n          },\n          {\n            id: 'videos',\n            name: 'Videos',\n            value: 18,\n          },\n        ],\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Pack} />;\n}"
+    },
+    {
+      "id": "D3Tree",
+      "label": "D3 · Tree",
+      "description": "Parent/child structure. Area and proportion use the leaf values; tree and dendrogram show relations.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Tree: D3ChartProps = {\n  type: 'tree',\n  title: 'Collection structure',\n  label: 'Collection hierarchy',\n  root: {\n    id: 'root',\n    name: 'Archive',\n    children: [\n      {\n        id: 'content',\n        name: 'Content',\n        children: [\n          {\n            id: 'articles',\n            name: 'Articles',\n            value: 42,\n          },\n          {\n            id: 'guides',\n            name: 'Guides',\n            value: 28,\n          },\n        ],\n      },\n      {\n        id: 'media',\n        name: 'Media',\n        children: [\n          {\n            id: 'images',\n            name: 'Images',\n            value: 32,\n          },\n          {\n            id: 'videos',\n            name: 'Videos',\n            value: 18,\n          },\n        ],\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Tree} />;\n}"
+    },
+    {
+      "id": "D3Cluster",
+      "label": "D3 · Dendrogram",
+      "description": "Parent/child structure. Area and proportion use the leaf values; tree and dendrogram show relations.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Cluster: D3ChartProps = {\n  type: 'cluster',\n  title: 'Collection structure',\n  label: 'Collection hierarchy',\n  root: {\n    id: 'root',\n    name: 'Archive',\n    children: [\n      {\n        id: 'content',\n        name: 'Content',\n        children: [\n          {\n            id: 'articles',\n            name: 'Articles',\n            value: 42,\n          },\n          {\n            id: 'guides',\n            name: 'Guides',\n            value: 28,\n          },\n        ],\n      },\n      {\n        id: 'media',\n        name: 'Media',\n        children: [\n          {\n            id: 'images',\n            name: 'Images',\n            value: 32,\n          },\n          {\n            id: 'videos',\n            name: 'Videos',\n            value: 18,\n          },\n        ],\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Cluster} />;\n}"
+    },
+    {
+      "id": "D3Partition",
+      "label": "D3 · Partition",
+      "description": "Parent/child structure. Area and proportion use the leaf values; tree and dendrogram show relations.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Partition: D3ChartProps = {\n  type: 'partition',\n  title: 'Collection structure',\n  label: 'Collection hierarchy',\n  root: {\n    id: 'root',\n    name: 'Archive',\n    children: [\n      {\n        id: 'content',\n        name: 'Content',\n        children: [\n          {\n            id: 'articles',\n            name: 'Articles',\n            value: 42,\n          },\n          {\n            id: 'guides',\n            name: 'Guides',\n            value: 28,\n          },\n        ],\n      },\n      {\n        id: 'media',\n        name: 'Media',\n        children: [\n          {\n            id: 'images',\n            name: 'Images',\n            value: 32,\n          },\n          {\n            id: 'videos',\n            name: 'Videos',\n            value: 18,\n          },\n        ],\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Partition} />;\n}"
+    },
+    {
+      "id": "D3Sunburst",
+      "label": "D3 · Sunburst",
+      "description": "Parent/child structure. Area and proportion use the leaf values; tree and dendrogram show relations.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Sunburst: D3ChartProps = {\n  type: 'sunburst',\n  title: 'Collection structure',\n  label: 'Collection hierarchy',\n  root: {\n    id: 'root',\n    name: 'Archive',\n    children: [\n      {\n        id: 'content',\n        name: 'Content',\n        children: [\n          {\n            id: 'articles',\n            name: 'Articles',\n            value: 42,\n          },\n          {\n            id: 'guides',\n            name: 'Guides',\n            value: 28,\n          },\n        ],\n      },\n      {\n        id: 'media',\n        name: 'Media',\n        children: [\n          {\n            id: 'images',\n            name: 'Images',\n            value: 32,\n          },\n          {\n            id: 'videos',\n            name: 'Videos',\n            value: 18,\n          },\n        ],\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Sunburst} />;\n}"
+    },
+    {
+      "id": "D3Network",
+      "label": "D3 · Network",
+      "description": "Relations between nodes, laid out by D3 forces.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Network: D3ChartProps = {\n  type: 'network',\n  title: 'Entry journey',\n  label: 'Links between sources, site and destinations',\n  network: {\n    nodes: [\n      {\n        id: 'search',\n        label: 'Search',\n      },\n      {\n        id: 'social',\n        label: 'Social',\n      },\n      {\n        id: 'site',\n        label: 'Site',\n      },\n      {\n        id: 'signup',\n        label: 'Sign-up',\n      },\n      {\n        id: 'return',\n        label: 'Return',\n      },\n    ],\n    links: [\n      {\n        source: 'search',\n        target: 'site',\n        value: 120,\n      },\n      {\n        source: 'social',\n        target: 'site',\n        value: 80,\n      },\n      {\n        source: 'site',\n        target: 'signup',\n        value: 110,\n      },\n      {\n        source: 'site',\n        target: 'return',\n        value: 90,\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Network} />;\n}"
+    },
+    {
+      "id": "D3Chord",
+      "label": "D3 · Chords",
+      "description": "Directed exchanges between groups, arranged in a circle.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Chord: D3ChartProps = {\n  type: 'chord',\n  title: 'Entry journey',\n  label: 'Links between sources, site and destinations',\n  network: {\n    nodes: [\n      {\n        id: 'search',\n        label: 'Search',\n      },\n      {\n        id: 'social',\n        label: 'Social',\n      },\n      {\n        id: 'site',\n        label: 'Site',\n      },\n      {\n        id: 'signup',\n        label: 'Sign-up',\n      },\n      {\n        id: 'return',\n        label: 'Return',\n      },\n    ],\n    links: [\n      {\n        source: 'search',\n        target: 'site',\n        value: 120,\n      },\n      {\n        source: 'social',\n        target: 'site',\n        value: 80,\n      },\n      {\n        source: 'site',\n        target: 'signup',\n        value: 110,\n      },\n      {\n        source: 'site',\n        target: 'return',\n        value: 90,\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Chord} />;\n}"
+    },
+    {
+      "id": "D3Sankey",
+      "label": "D3 · Sankey",
+      "description": "Directed flows with no cycles, with thickness proportional to value.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Sankey: D3ChartProps = {\n  type: 'sankey',\n  title: 'Entry journey',\n  label: 'Links between sources, site and destinations',\n  network: {\n    nodes: [\n      {\n        id: 'search',\n        label: 'Search',\n      },\n      {\n        id: 'social',\n        label: 'Social',\n      },\n      {\n        id: 'site',\n        label: 'Site',\n      },\n      {\n        id: 'signup',\n        label: 'Sign-up',\n      },\n      {\n        id: 'return',\n        label: 'Return',\n      },\n    ],\n    links: [\n      {\n        source: 'search',\n        target: 'site',\n        value: 120,\n      },\n      {\n        source: 'social',\n        target: 'site',\n        value: 80,\n      },\n      {\n        source: 'site',\n        target: 'signup',\n        value: 110,\n      },\n      {\n        source: 'site',\n        target: 'return',\n        value: 90,\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Sankey} />;\n}"
+    },
+    {
+      "id": "D3Geo",
+      "label": "D3 · Geographic map",
+      "description": "The consumer's local GeoJSON, with no map fetched from the network. Demo regions, not official borders.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Geo: D3ChartProps = {\n  type: 'geo',\n  title: 'Regional distribution',\n  label: 'Values across sample geographic regions',\n  projection: 'mercator',\n  features: {\n    type: 'FeatureCollection',\n    features: [\n      {\n        type: 'Feature',\n        id: 'a',\n        properties: {\n          name: 'Region A',\n          value: 84,\n        },\n        geometry: {\n          type: 'Polygon',\n          coordinates: [\n            [\n              [-70, -10],\n              [-60, -10],\n              [-60, -20],\n              [-70, -20],\n              [-70, -10],\n            ],\n          ],\n        },\n      },\n      {\n        type: 'Feature',\n        id: 'b',\n        properties: {\n          name: 'Region B',\n          value: 52,\n        },\n        geometry: {\n          type: 'Polygon',\n          coordinates: [\n            [\n              [-59, -10],\n              [-49, -10],\n              [-49, -20],\n              [-59, -20],\n              [-59, -10],\n            ],\n          ],\n        },\n      },\n      {\n        type: 'Feature',\n        id: 'c',\n        properties: {\n          name: 'Region C',\n          value: 31,\n        },\n        geometry: {\n          type: 'Polygon',\n          coordinates: [\n            [\n              [-59, -21],\n              [-49, -21],\n              [-49, -31],\n              [-59, -31],\n              [-59, -21],\n            ],\n          ],\n        },\n      },\n    ],\n  },\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Geo} />;\n}"
+    },
+    {
+      "id": "Exploracao",
+      "label": "D3 · Zoom and brush",
+      "description": "Zoom recomputes the axis; the brush bounds the window with the mouse or with Range from the keyboard.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport type { D3ChartProps } from '@refy-design/web';\nconst exampleD3Line: D3ChartProps = {\n  type: 'line',\n  title: 'Visits by device',\n  label: 'Visits from January to June',\n  series: [\n    {\n      id: 'desktop',\n      label: 'Desktop',\n      data: [\n        {\n          x: 'Jan',\n          y: 186,\n        },\n        {\n          x: 'Feb',\n          y: 305,\n        },\n        {\n          x: 'Mar',\n          y: 237,\n        },\n        {\n          x: 'Apr',\n          y: 73,\n        },\n        {\n          x: 'May',\n          y: 209,\n        },\n        {\n          x: 'Jun',\n          y: 214,\n        },\n      ],\n    },\n    {\n      id: 'mobile',\n      label: 'Mobile',\n      data: [\n        {\n          x: 'Jan',\n          y: 80,\n        },\n        {\n          x: 'Feb',\n          y: 200,\n        },\n        {\n          x: 'Mar',\n          y: 120,\n        },\n        {\n          x: 'Apr',\n          y: 190,\n        },\n        {\n          x: 'May',\n          y: 130,\n        },\n        {\n          x: 'Jun',\n          y: 140,\n        },\n      ],\n    },\n  ],\n  curve: 'natural',\n  dots: true,\n};\nexport function Example() {\n  return <D3Chart {...exampleD3Line} zoom brush />;\n}"
+    }
+  ]
+}

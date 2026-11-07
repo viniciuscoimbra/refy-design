@@ -1,0 +1,130 @@
+{
+  "id": "UserMenu",
+  "description": "Account menu with identity and actions provided by the application.",
+  "usage": {
+    "howToUse": [
+      "Use it for the account of the person signed in: profile, settings and sign out.",
+      "Put it at the end of the top bar with `compact` (avatar only), or at the foot of the sidebar with `side=\"top\"`, showing name and e-mail.",
+      "Change the items in `entries` and handle them in `onSelect`. Signing out is your application's job."
+    ],
+    "alternatives": [
+      "Switching company or workspace: WorkspaceSwitcher."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the menu."
+      },
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Moves between the items."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Goes to the first or last item."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the menu and returns focus to the button."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "UserMenu",
+  "selected": "Interativo",
+  "import": "import { UserMenu } from '@refy-design/web';",
+  "composition": [
+    "Avatar",
+    "Menu"
+  ],
+  "api": [
+    {
+      "name": "UserMenu",
+      "props": [
+        {
+          "name": "user",
+          "type": "UserMenuUser",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "entries",
+          "type": "MenuEntry[] | undefined",
+          "required": false,
+          "description": "Menu items. Default: Profile, Settings, ─, Sign out."
+        },
+        {
+          "name": "onSelect",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "compact",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Avatar only (topbar); default shows name + email (sidebar)."
+        },
+        {
+          "name": "side",
+          "defaultValue": "\"bottom\"",
+          "type": "\"top\" | \"bottom\" | undefined",
+          "required": false,
+          "description": "Menu opens above the trigger (sidebar footer)."
+        },
+        {
+          "name": "align",
+          "type": "\"start\" | \"end\" | undefined",
+          "required": false,
+          "description": "Menu edge aligned to the start or end of the trigger. Default: full width\nin default mode; `end` in compact."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Full block (sidebar): click to open.",
+      "code": "import { UserMenu } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst user = { name: 'João Mendes', email: 'joao@example.com', initials: 'JM' };\nexport function Example() {\n  const args: Pick<ComponentProps<typeof UserMenu>, 'user'> = { user };\n  return <UserMenu {...args} />;\n}"
+    },
+    {
+      "id": "Compact",
+      "label": "Compact",
+      "description": "Compact (topbar): avatar only, menu aligned to the end.",
+      "code": "import { UserMenu } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst user = { name: 'João Mendes', email: 'joao@example.com', initials: 'JM' };\nexport function Example() {\n  const args: Pick<ComponentProps<typeof UserMenu>, 'user' | 'compact'> = {\n    user,\n    compact: true,\n  };\n  return <UserMenu {...args} />;\n}"
+    },
+    {
+      "id": "ParaCima",
+      "label": "Opening upward",
+      "description": "Opening upward (sidebar footer): menu as wide as the trigger.",
+      "code": "import { UserMenu } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst user = { name: 'João Mendes', email: 'joao@example.com', initials: 'JM' };\nexport function Example() {\n  const args: Pick<ComponentProps<typeof UserMenu>, 'user' | 'side'> = {\n    user,\n    side: 'top',\n  };\n  return <UserMenu {...args} />;\n}"
+    },
+    {
+      "id": "SemIcones",
+      "label": "No icons",
+      "description": "Items without icons, aligned to the start.",
+      "code": "import { UserMenu } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst user = { name: 'João Mendes', email: 'joao@example.com', initials: 'JM' };\nexport function Example() {\n  const args: Pick<ComponentProps<typeof UserMenu>, 'user' | 'align' | 'entries'> = {\n    user,\n    align: 'start',\n    entries: [\n      { id: 'profile', label: 'Profile' },\n      { id: 'billing', label: 'Billing' },\n      { id: 'team', label: 'Team' },\n      { type: 'separator' },\n      { id: 'logout', label: 'Sign out', danger: true },\n    ],\n  };\n  return <UserMenu {...args} />;\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport { Switch } from '@refy-design/web';\nimport { UserMenu } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction UserMenuExample() {\n  const [panel, setPanel] = useState(''),\n    [name, setName] = useState('João Mendes'),\n    [draft, setDraft] = useState(name),\n    [signedIn, setSignedIn] = useState(true),\n    [notifications, setNotifications] = useState(true);\n  return (\n    <div style={stack}>\n      {signedIn ? (\n        <UserMenu\n          user={{ name, email: 'joao@example.com', initials: 'JM' }}\n          onSelect={(id) => {\n            if (id === 'logout') setSignedIn(false);\n            else {\n              setDraft(name);\n              setPanel(id);\n            }\n          }}\n        />\n      ) : (\n        <>\n          <p role=\"status\">You signed out of the sample session.</p>\n          <Button onClick={() => setSignedIn(true)}>Sign in again</Button>\n        </>\n      )}\n      <Drawer\n        open={Boolean(panel)}\n        onOpenChange={(open) => {\n          if (!open) setPanel('');\n        }}\n        title={panel === 'profile' ? 'Profile' : 'Account settings'}\n      >\n        <form\n          style={stack}\n          onSubmit={(e) => {\n            e.preventDefault();\n            setName(draft);\n            setPanel('');\n          }}\n        >\n          <Input\n            label=\"Name\"\n            required\n            value={draft}\n            onChange={(e) => setDraft(e.target.value)}\n          />\n          <Switch\n            label=\"Get notifications\"\n            checked={notifications}\n            onChange={(e) => setNotifications(e.target.checked)}\n          />\n          <Button type=\"submit\">Save profile</Button>\n        </form>\n      </Drawer>\n    </div>\n  );\n}\nexport function Example() {\n  return <UserMenuExample />;\n}"
+    }
+  ]
+}

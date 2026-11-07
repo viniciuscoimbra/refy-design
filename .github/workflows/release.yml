@@ -1,0 +1,53 @@
+name: Release
+# Depois que o CI passa numa tag vX.Y.Z do repositório público, anexa o pacote ao
+# release (o README instala por esse link) e publica no npm quando houver token.
+on:
+  workflow_run:
+    workflows: ["Validar biblioteca"]
+    types: [completed]
+permissions:
+  contents: write
+  id-token: write
+jobs:
+  release:
+    if: >-
+      github.repository == 'viniciuscoimbra/refy-design' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      startsWith(github.event.workflow_run.head_branch, 'v')
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.workflow_run.head_branch }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci --no-audit --no-fund
+      - name: Pacote
+        run: |
+          VERSION="${TAG#v}"
+          test "$(node -p "require('./package.json').version")" = "$VERSION"
+          npm pack
+          awk -v v="$VERSION" '$0 ~ "^## "v"( |$)" {on=1; next} on && /^## / {exit} on' CHANGELOG.md > notas.md
+          test -s notas.md
+      - name: Release no GitHub
+        run: |
+          VERSION="${TAG#v}"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "refy-design-web-$VERSION.tgz" --clobber
+          else
+            gh release create "$TAG" "refy-design-web-$VERSION.tgz" --verify-tag --title "refy $VERSION" --notes-file notas.md
+          fi
+      - name: npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          VERSION="${TAG#v}"
+          if [ -z "$NODE_AUTH_TOKEN" ]; then echo "Sem NPM_TOKEN: pacote só no release."; exit 0; fi
+          if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1; then echo "@refy-design/web@$VERSION já está no npm."; exit 0; fi
+          npm publish "refy-design-web-$VERSION.tgz" --access public --provenance

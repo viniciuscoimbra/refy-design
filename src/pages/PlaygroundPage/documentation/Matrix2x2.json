@@ -1,0 +1,108 @@
+{
+  "id": "Matrix2x2",
+  "description": "Points distributed in four quadrants, with axes, labels and selection.",
+  "usage": {
+    "howToUse": [
+      "Use it to place items by two criteria and see which quadrant each one falls in: impact and effort, risk and likelihood.",
+      "Name the axes with `xLabel` and `yLabel`, and each quadrant in `quadrants` (\"Do now\", \"Plan\").",
+      "Pass the `points` in order of priority; open the detail of the chosen point in `onPointClick`."
+    ],
+    "alternatives": [
+      "Values over time: Charts.",
+      "A ranked list: Table with sorting."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one point to the next, in order of priority."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Selects the point in focus, or clears it."
+      }
+    ]
+  },
+  "collections": [
+    "analytics"
+  ],
+  "publicName": "Matrix2x2",
+  "selected": "Selecionavel",
+  "import": "import { Matrix2x2 } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Matrix2x2",
+      "props": [
+        {
+          "name": "points",
+          "type": "MatrixPoint[]",
+          "required": true,
+          "description": "Points in priority order: color goes from critical (1st) to info (last)."
+        },
+        {
+          "name": "xLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "yLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "quadrants",
+          "type": "{ topLeft?: ReactNode; topRight?: ReactNode; bottomLeft?: ReactNode; bottomRight?: ReactNode; } | undefined",
+          "required": false,
+          "description": "Quadrant labels."
+        },
+        {
+          "name": "legend",
+          "type": "[string, string] | undefined",
+          "required": false,
+          "description": "Legend of the priority scale (e.g. [\"High priority\", \"low\"])."
+        },
+        {
+          "name": "selectedId",
+          "type": "string | null | undefined",
+          "required": false,
+          "description": "Selected point (controlled). `null` = none."
+        },
+        {
+          "name": "defaultSelectedId",
+          "defaultValue": "null",
+          "type": "string | null | undefined",
+          "required": false,
+          "description": "Initial selection (uncontrolled)."
+        },
+        {
+          "name": "onPointClick",
+          "type": "((point: MatrixPoint | null) => void) | undefined",
+          "required": false,
+          "description": "Fired when a point is clicked (or `null` when deselected)."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Prioritizing improvements: impact × effort.",
+      "code": "import { Matrix2x2 } from '@refy-design/web';\nimport type { MatrixPoint } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst points: MatrixPoint[] = [\n  { id: 'p1', label: '\"How the scheme worked\" block', x: 55, y: 88, prioritized: true },\n  { id: 'p2', label: 'Investigation timeline', x: 18, y: 66 },\n  { id: 'p3', label: 'Answer real questions', x: 22, y: 78 },\n  { id: 'p4', label: 'Title with an explanatory promise', x: 18, y: 34 },\n  { id: 'p5', label: 'Context FAQ', x: 30, y: 82 },\n  { id: 'p6', label: 'Context links', x: 24, y: 32 },\n  { id: 'p7', label: 'Rewrite meta description', x: 62, y: 55 },\n  { id: 'p8', label: 'Merge duplicate pages', x: 74, y: 70 },\n  { id: 'p9', label: 'Move to SSR', x: 88, y: 60 },\n  { id: 'p10', label: 'Fix alt text', x: 40, y: 20 },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Matrix2x2>,\n    'points' | 'xLabel' | 'yLabel' | 'quadrants'\n  > = {\n    points,\n    xLabel: 'Effort →',\n    yLabel: 'Impact →',\n    quadrants: {\n      topLeft: (\n        <>\n          <b>Do it now</b>High impact, low effort.\n        </>\n      ),\n      topRight: (\n        <>\n          <b>Foundation</b>High impact, needs planning.\n        </>\n      ),\n      bottomLeft: (\n        <>\n          <b>Fine-tune</b>Quick, marginal gain.\n        </>\n      ),\n      bottomRight: (\n        <>\n          <b>Reassess</b>High cost, low return.\n        </>\n      ),\n    },\n  };\n  return <Matrix2x2 {...args} />;\n}"
+    },
+    {
+      "id": "Selecionavel",
+      "label": "With selection",
+      "description": "Controlled selection: click a point and see the item below.",
+      "code": "import { Matrix2x2 } from '@refy-design/web';\nimport type { MatrixPoint } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst points: MatrixPoint[] = [\n  { id: 'p1', label: '\"How the scheme worked\" block', x: 55, y: 88, prioritized: true },\n  { id: 'p2', label: 'Investigation timeline', x: 18, y: 66 },\n  { id: 'p3', label: 'Answer real questions', x: 22, y: 78 },\n  { id: 'p4', label: 'Title with an explanatory promise', x: 18, y: 34 },\n  { id: 'p5', label: 'Context FAQ', x: 30, y: 82 },\n  { id: 'p6', label: 'Context links', x: 24, y: 32 },\n  { id: 'p7', label: 'Rewrite meta description', x: 62, y: 55 },\n  { id: 'p8', label: 'Merge duplicate pages', x: 74, y: 70 },\n  { id: 'p9', label: 'Move to SSR', x: 88, y: 60 },\n  { id: 'p10', label: 'Fix alt text', x: 40, y: 20 },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Matrix2x2>, 'points'> = { points };\n  const [selected, setSelected] = useState<MatrixPoint | null>(null);\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n      <Matrix2x2\n        {...args}\n        selectedId={selected?.id ?? null}\n        onPointClick={setSelected}\n      />\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-3)' }}\n      >\n        selected: {selected ? selected.label : 'no selection'}\n      </code>\n    </div>\n  );\n}"
+    }
+  ]
+}

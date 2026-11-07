@@ -1,0 +1,158 @@
+.block {
+  background: var(--code-surface, var(--surface-2));
+  border: var(--code-border-width, 0px) solid var(--code-border, transparent);
+  border-radius: var(--code-radius, var(--radius-lg-token));
+  overflow: hidden;
+}
+
+/* ===== Cabeçalho (label / linguagem / ações) ===== */
+.head {
+  background: var(--code-header-background, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  /* Left inset matches the code body (--space-5), so the label lines up with the code. */
+  padding: var(--code-header-padding, var(--space-2) var(--space-2) var(--space-2) var(--space-5));
+  border-bottom: 1px solid var(--code-border, var(--line));
+}
+.headInfo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  color: var(--code-text, var(--ink-1));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.language {
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--code-accent, var(--primary-ink));
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ===== Corpo ===== */
+.body {
+  position: relative;
+}
+.pre {
+  margin: 0;
+  padding: var(--code-body-padding, var(--space-4) var(--space-5));
+  overflow-x: auto;
+}
+.pre:focus-visible {
+  outline: 2px solid var(--primary-ink);
+  outline-offset: -2px;
+}
+.code {
+  font-family: var(--font-mono);
+  font-size: var(--code-font-size, var(--text-sm));
+  line-height: var(--code-line-height, 1.75);
+  color: var(--code-text, var(--ink-1));
+  white-space: pre;
+}
+.wrap {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Ações flutuantes quando não há cabeçalho */
+.overlay {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+}
+
+/* ===== Ações ===== */
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+.copied {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--code-accent, var(--primary-ink));
+}
+.copied:empty {
+  display: none;
+}
+.actions .action {
+  color: var(--code-action-text, var(--ink-3));
+}
+.actions .action:hover {
+  background: var(--code-action-hover, var(--line-soft));
+  color: var(--code-text, var(--ink-1));
+}
+.actions .action:focus-visible {
+  outline: 2px solid var(--primary-ink);
+  outline-offset: 1px;
+}
+.actions .actionCopied {
+  color: var(--code-accent, var(--primary-ink));
+}
+.actions .actionCopied:hover {
+  color: var(--code-accent, var(--primary-ink));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .block *,
+  .actions .action {
+    transition: none !important;
+  }
+}
+
+/* Syntax colors are theme tokens; React keeps source text escaped. */
+.code [data-syntax] {
+  color: var(--code-syntax-text, var(--code-text, var(--ink-1)));
+}
+.code [data-syntax="comment"],
+.code [data-syntax="prolog"],
+.code [data-syntax="doctype"] {
+  color: var(--code-syntax-comment);
+}
+.code [data-syntax="keyword"],
+.code [data-syntax="boolean"],
+.code [data-syntax="atrule"] {
+  color: var(--code-syntax-keyword);
+}
+.code [data-syntax="string"],
+.code [data-syntax="attr-value"],
+.code [data-syntax="template-string"],
+.code [data-syntax="char"] {
+  color: var(--code-syntax-string);
+}
+.code [data-syntax="number"],
+.code [data-syntax="constant"] {
+  color: var(--code-syntax-number);
+}
+.code [data-syntax="tag"],
+.code [data-syntax="class-name"],
+.code [data-syntax="builtin"] {
+  color: var(--code-syntax-tag);
+}
+.code [data-syntax="function"],
+.code [data-syntax="function-variable"] {
+  color: var(--code-syntax-function);
+}
+.code [data-syntax="attr-name"],
+.code [data-syntax="property"],
+.code [data-syntax="variable"] {
+  color: var(--code-syntax-property);
+}
+.code [data-syntax="operator"],
+.code [data-syntax="punctuation"] {
+  color: var(--code-syntax-punctuation);
+}

@@ -1,0 +1,165 @@
+{
+  "id": "KanbanCard",
+  "description": "Work card with composed opening, metadata and actions. The same molecule is used in the column and in the KanbanBoard drag preview.",
+  "usage": {
+    "howToUse": [
+      "Use it for one work item on a board: title, owner, due date, tags.",
+      "Open the detail in `onOpen`, usually in a Drawer. Put quick actions in `actions`.",
+      "Inside KanbanBoard the drag handle comes from the board; alone, the card only shows the item."
+    ],
+    "alternatives": [
+      "A full board with columns: KanbanBoard.",
+      "Content to read, with image: ContentCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the title, which opens the card, and to the actions."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the card or runs the action in focus."
+      }
+    ]
+  },
+  "collections": [
+    "operations"
+  ],
+  "publicName": "KanbanCard",
+  "selected": "Completo",
+  "import": "import { KanbanCard } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Card"
+  ],
+  "api": [
+    {
+      "name": "KanbanCard",
+      "props": [
+        {
+          "name": "item",
+          "type": "KanbanCardItem",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onOpen",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "dragHandle",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "tone",
+          "type": "CardTone | undefined",
+          "required": false,
+          "description": "Surface tone. `inverted` = dark (ink) surface with a radial brand\ngradient and inverted text tokens scoped to the card, the base of the\nbilling/usage heroes (plan-summary, usage-hero)."
+        },
+        {
+          "name": "elevation",
+          "defaultValue": "1",
+          "type": "0 | 4 | 1 | 2 | 3 | undefined",
+          "required": false,
+          "description": "Shadow elevation (0–4). 0 = flat; 4 = overlay."
+        },
+        {
+          "name": "padding",
+          "type": "\"sm\" | \"md\" | \"none\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Completo",
+      "label": "Complete",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { Badge } from '@refy-design/web';\nimport { KanbanCard } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof KanbanCard>, 'item'> = {\n    item: {\n      id: 'review',\n      title: 'Review documentation',\n      description: 'Check the guidelines and share the review with the team.',\n      meta: (\n        <>\n          <Badge tone=\"warn\">High priority</Badge>\n          <span>Oct 23</span>\n        </>\n      ),\n      footer: (\n        <>\n          <span>2 attachments · 5 comments</span>\n          <Avatar size=\"xs\" initials=\"AS\" alt=\"Ana Silva\" />\n        </>\n      ),\n    },\n  };\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <KanbanCard {...args} style={{ maxWidth: 320 }} onOpen={() => setOpen(true)} />\n      <Modal open={open} onClose={() => setOpen(false)} title={args.item.title}>\n        {args.item.description}\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "id": "SemMetadados",
+      "label": "No metadata",
+      "description": "",
+      "code": "import { KanbanCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof KanbanCard>, 'item'> = {\n    item: {\n      id: 'simple',\n      title: 'Organize references',\n      description: 'Set the next step.',\n    },\n  };\n  return <KanbanCard {...args} />;\n}"
+    }
+  ]
+}

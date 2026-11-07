@@ -1,0 +1,167 @@
+{
+  "id": "Coverflow",
+  "description": "Finite browsing of visual content with selection by identity, navigation, gesture and explicit activation.",
+  "usage": {
+    "howToUse": [
+      "Use it to browse a finite set of covers or visual references and pick one: albums, themes, templates.",
+      "Draw each item with `renderItem` using only image and text: links and buttons inside it do not work.",
+      "Selecting moves the item to the center (`onSelectionChange`); opening it is a separate step (`onActivate`)."
+    ],
+    "alternatives": [
+      "A long list to read: a list or a grid of ContentCard.",
+      "Slides that people only go through: Carousel."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the item in the center and to the controls."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "Selects the previous or next item."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Selects the first or last item."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the item in the center."
+      }
+    ]
+  },
+  "collections": [
+    "media"
+  ],
+  "publicName": "Coverflow",
+  "selected": "Capas",
+  "import": "import { Coverflow } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "IconButton"
+  ],
+  "api": [
+    {
+      "name": "Coverflow",
+      "props": [
+        {
+          "name": "items",
+          "type": "readonly T[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "renderItem",
+          "type": "(item: T, state: { selected: boolean; index: number; }) => ReactNode",
+          "required": true,
+          "description": "Non-interactive visual content: do not include links, buttons or fields."
+        },
+        {
+          "name": "selectedId",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultSelectedId",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onSelectionChange",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onActivate",
+          "type": "((item: T) => void) | undefined",
+          "required": false,
+          "description": "Activating a selected item is different from just selecting it."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "emptyContent",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return <Coverflow items={items} renderItem={renderItem} />;\n}"
+    },
+    {
+      "id": "Controlado",
+      "label": "Controlled",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Coverflow } from '@refy-design/web';\nimport { useState } from 'react';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  const [selected, setSelected] = useState('one'),\n    [activated, setActivated] = useState('No item activated'),\n    [reversed, setReversed] = useState(false),\n    [short, setShort] = useState(false);\n  return (\n    <div data-coverflow-example=\"controlled\">\n      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>\n        <Button onClick={() => setSelected('three')}>\n          Select the third one externally\n        </Button>\n        <Button onClick={() => setReversed(!reversed)}>Reverse order</Button>\n        <Button onClick={() => setShort(!short)}>Toggle short list</Button>\n      </div>\n      <Coverflow\n        items={short ? items.slice(0, 1) : reversed ? [...items].reverse() : items}\n        selectedId={selected}\n        onSelectionChange={setSelected}\n        onActivate={(item) => setActivated(item.label)}\n        renderItem={renderItem}\n      />\n      <p role=\"status\">Activation: {activated}</p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Vazio",
+      "label": "Empty",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return <Coverflow items={[]} renderItem={renderItem} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return <Coverflow items={items} disabled renderItem={renderItem} />;\n}"
+    },
+    {
+      "id": "ItensLongos",
+      "label": "Long items",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return (\n    <Coverflow\n      items={items.map((item) => ({\n        ...item,\n        label: `${item.label}: a long description that must stay readable in a narrow viewport`,\n      }))}\n      renderItem={renderItem}\n    />\n  );\n}"
+    },
+    {
+      "id": "UmItem",
+      "label": "One item",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return <Coverflow items={items.slice(0, 1)} renderItem={renderItem} />;\n}"
+    },
+    {
+      "id": "MovimentoReduzido",
+      "label": "Reduced motion",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Reduced motion',\n        tokens: { '--motion-reduced': '1' },\n      }}\n    >\n      <Coverflow items={items} renderItem={renderItem} />\n    </ThemeProvider>\n  );\n}"
+    },
+    {
+      "id": "TemaConfigurado",
+      "label": "Configured theme",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Configured example',\n        tokens: {\n          '--font-body': 'monospace',\n          '--coverflow-item-width': '12rem',\n          '--radius-md': '0',\n        },\n      }}\n    >\n      <Coverflow items={items} renderItem={renderItem} />\n    </ThemeProvider>\n  );\n}"
+    },
+    {
+      "id": "Capas",
+      "label": "Covers",
+      "description": "Abstract covers made for the demo, with no albums, artists or external assets.",
+      "code": "import { AspectRatio } from '@refy-design/web';\nimport { Coverflow } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [active, setActive] = useState<string | null>(null);\n  return (\n    <>\n      <Coverflow\n        label=\"Browse content covers\"\n        items={[\n          { id: 'lines', label: 'Volume 01 — Lines' },\n          { id: 'orbits', label: 'Volume 02 — Orbits' },\n          { id: 'layers', label: 'Volume 03 — Layers' },\n          { id: 'paths', label: 'Volume 04 — Paths' },\n        ]}\n        onActivate={(item) => setActive(item.label)}\n        renderItem={(item, state) => (\n          <span style={{ display: 'grid', width: '100%', gap: 'var(--space-3)' }}>\n            <AspectRatio ratio={1}>\n              <svg\n                viewBox=\"0 0 200 200\"\n                width=\"100%\"\n                height=\"100%\"\n                aria-hidden=\"true\"\n                style={{ background: 'var(--surface-2)' }}\n              >\n                <circle\n                  cx={62 + state.index * 19}\n                  cy=\"92\"\n                  r={48 + state.index * 5}\n                  fill=\"var(--primary-soft)\"\n                />\n                <path\n                  d={`M20 ${130 - state.index * 12} L180 ${60 + state.index * 18}`}\n                  stroke=\"var(--primary)\"\n                  strokeWidth=\"3\"\n                />\n                <circle\n                  cx=\"100\"\n                  cy=\"100\"\n                  r={22 + state.index * 8}\n                  fill=\"none\"\n                  stroke=\"var(--ink-2)\"\n                  strokeWidth=\"1\"\n                />\n                <text\n                  x=\"20\"\n                  y=\"178\"\n                  fill=\"var(--ink-1)\"\n                  style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-h2)' }}\n                >\n                  {String(state.index + 1).padStart(2, '0')}\n                </text>\n              </svg>\n            </AspectRatio>\n            <strong>{item.label}</strong>\n          </span>\n        )}\n      />\n      <p>Select a cover to center it. Activate the selected one to open its details.</p>\n      <Modal\n        open={active !== null}\n        onClose={() => setActive(null)}\n        title={active ?? 'Content details'}\n      >\n        <p>Sample content. Activation comes from the app, with no external service.</p>\n      </Modal>\n    </>\n  );\n}"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+.root {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.slide {
+  min-width: 0;
+  flex: 0 0 100%;
+  width: 100%;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+.viewport { min-width: 0; overflow: hidden; }
+.track { display: flex; align-items: flex-start; transition: transform var(--motion-context-duration) var(--motion-ease-enter); }
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transition: none;
+  }
+}

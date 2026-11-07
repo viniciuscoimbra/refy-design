@@ -1,0 +1,8 @@
+.app { min-height:100vh; padding:24px; }
+.header { max-width:960px; margin:0 auto; display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between; padding-bottom:24px; border-bottom:1px solid var(--line); }
+.content { max-width:960px; margin:48px auto; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+.content h1 { font:var(--weight-semi) var(--text-h1)/1.2 var(--font-heading); text-wrap:balance; color:var(--ink-1); margin:0 0 24px; }
+.content p { color:var(--ink-3); line-height:var(--leading-normal); }
+.eyebrow { font:var(--weight-semi) var(--text-sm)/1.4 var(--font-body); }
+.stack { display:grid; gap:var(--space-5); min-width:0; }
+@media(max-width:700px) { .content { grid-template-columns:minmax(0,1fr); gap:24px; } }

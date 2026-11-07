@@ -1,0 +1,98 @@
+{
+  "id": "HoverCard",
+  "description": "Extra information revealed on hover or focus of an element.",
+  "usage": {
+    "howToUse": [
+      "Use it for a preview of a person, link or item when the pointer rests on it: profile, page summary, product.",
+      "Put the preview in `content`. Adjust `openDelay` so it does not open when the pointer just passes by.",
+      "The element that opens it must also work alone, such as a link to the full profile: touch screens have no hover."
+    ],
+    "alternatives": [
+      "Content people need to act on: Popover.",
+      "A short label: Tooltip."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Focusing the element opens the card."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the card."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "HoverCard",
+  "selected": "Interativo",
+  "import": "import { HoverCard } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "HoverCard",
+      "props": [
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Rich preview shown when hovering the trigger."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Reference that triggers the card (link, mention, avatar)."
+        },
+        {
+          "name": "openDelay",
+          "defaultValue": "500",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Delay before opening, in ms. Default 500."
+        },
+        {
+          "name": "closeDelay",
+          "defaultValue": "200",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Delay before closing on leave, in ms. Default 200."
+        },
+        {
+          "name": "side",
+          "defaultValue": "\"bottom\"",
+          "type": "HoverCardSide | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Hover the link (500ms delay).",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { Badge } from '@refy-design/web';\nimport { HoverCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction DomainProfile() {\n  return (\n    <div>\n      <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>\n        <Avatar initials=\"RD\" />\n        <div>\n          <div style={{ fontWeight: 600, fontSize: 'var(--text-sm)' }}>\n            aurora.example.com\n          </div>\n          <div style={{ fontSize: 'var(--text-2xs)', color: 'var(--ink-3)' }}>\n            Project · tracked for 12 days\n          </div>\n        </div>\n      </div>\n      <div\n        style={{\n          marginTop: 12,\n          color: 'var(--ink-2)',\n          lineHeight: 'var(--leading-normal)',\n        }}\n      >\n        12 tasks · 142 keywords in the top 10 · 23k backlinks\n      </div>\n      <div style={{ display: 'flex', gap: 6, marginTop: 12 }}>\n        <Badge tone=\"success\">Healthy</Badge>\n        <Badge tone=\"neutral\">SaaS B2B</Badge>\n      </div>\n    </div>\n  );\n}\nexport function Example() {\n  const args: Pick<ComponentProps<typeof HoverCard>, 'content' | 'children'> = {\n    content: null,\n    children: null,\n  };\n  return (\n    <HoverCard {...args} content={<DomainProfile />}>\n      <a\n        href=\"#example\"\n        style={{\n          color: 'var(--primary-ink, var(--primary))',\n          fontWeight: 600,\n          fontSize: 14,\n        }}\n      >\n        aurora.example.com\n      </a>\n    </HoverCard>\n  );\n}"
+    },
+    {
+      "id": "SemDelay",
+      "label": "No delay",
+      "description": "No delay (openDelay 0), for an immediate demo.",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { Badge } from '@refy-design/web';\nimport { HoverCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction DomainProfile() {\n  return (\n    <div>\n      <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>\n        <Avatar initials=\"RD\" />\n        <div>\n          <div style={{ fontWeight: 600, fontSize: 'var(--text-sm)' }}>\n            aurora.example.com\n          </div>\n          <div style={{ fontSize: 'var(--text-2xs)', color: 'var(--ink-3)' }}>\n            Project · tracked for 12 days\n          </div>\n        </div>\n      </div>\n      <div\n        style={{\n          marginTop: 12,\n          color: 'var(--ink-2)',\n          lineHeight: 'var(--leading-normal)',\n        }}\n      >\n        12 tasks · 142 keywords in the top 10 · 23k backlinks\n      </div>\n      <div style={{ display: 'flex', gap: 6, marginTop: 12 }}>\n        <Badge tone=\"success\">Healthy</Badge>\n        <Badge tone=\"neutral\">SaaS B2B</Badge>\n      </div>\n    </div>\n  );\n}\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof HoverCard>,\n    'content' | 'children' | 'openDelay'\n  > = { content: null, children: null, openDelay: 0 };\n  return (\n    <HoverCard {...args} content={<DomainProfile />}>\n      <a\n        href=\"#example\"\n        style={{\n          color: 'var(--primary-ink, var(--primary))',\n          fontWeight: 600,\n          fontSize: 14,\n        }}\n      >\n        aurora.example.com\n      </a>\n    </HoverCard>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { HoverCard } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport { PersonCell } from '@refy-design/web';\nimport { useState } from 'react';\nfunction HoverCardExample() {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <HoverCard\n        content={<PersonCell name=\"Ana Lima\" secondary=\"Designer · Creative team\" />}\n      >\n        <Button variant=\"ghost\" onClick={() => setOpen(true)}>\n          Ana Lima\n        </Button>\n      </HoverCard>\n      <Modal open={open} onClose={() => setOpen(false)} title=\"Ana Lima's profile\">\n        <PersonCell name=\"Ana Lima\" secondary=\"ana@example.com\" />\n        <p>Owns the library and the material reviews.</p>\n      </Modal>\n    </>\n  );\n}\nexport function Example() {\n  return <HoverCardExample />;\n}"
+    }
+  ]
+}

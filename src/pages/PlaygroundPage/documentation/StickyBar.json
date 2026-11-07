@@ -1,0 +1,150 @@
+{
+  "id": "StickyBar",
+  "description": "Action bar tied to the context, kept during scrolling.",
+  "usage": {
+    "howToUse": [
+      "Use it to keep the context and the actions of a long page in view while scrolling: the item open, its state, Save.",
+      "Show it with `visible` once the original header leaves the screen. Fill `title`, `status` and `actions`."
+    ],
+    "alternatives": [
+      "Save and cancel at the end of a form: StickyFooter."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the actions of the bar."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "StickyBar",
+  "selected": "Interativo",
+  "import": "import { StickyBar } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "StickyBar",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "meta",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "visible",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { StickyBar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof StickyBar>,\n    'title' | 'meta' | 'status' | 'actions'\n  > = {\n    title: 'Horizon Business',\n    meta: 'TNT-002',\n    status: (\n      <Badge tone=\"warn\" dot>\n        Under review\n      </Badge>\n    ),\n    actions: (\n      <Button variant=\"primary\" size=\"sm\">\n        Approve organization\n      </Button>\n    ),\n  };\n  return <StickyBar {...args} />;\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { StickyBar } from '@refy-design/web';\nimport { useState } from 'react';\nfunction StickyBarExample() {\n  const [approved, setApproved] = useState(false);\n  return (\n    <StickyBar\n      title=\"Material review\"\n      status={\n        <Badge tone={approved ? 'success' : 'warn'}>\n          {approved ? 'Approved' : 'In review'}\n        </Badge>\n      }\n      actions={\n        <Button onClick={() => setApproved(!approved)}>\n          {approved ? 'Reopen review' : 'Approve material'}\n        </Button>\n      }\n    />\n  );\n}\nexport function Example() {\n  return <StickyBarExample />;\n}"
+    }
+  ]
+}

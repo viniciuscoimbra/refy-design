@@ -1,0 +1,72 @@
+{
+  "id": "ContextMenu",
+  "description": "Context menu triggered on a specific area or item.",
+  "usage": {
+    "howToUse": [
+      "Use it for the actions of an item that people open with a right-click or a long press: a file, a card, a table row.",
+      "Pass the actions in `entries`, handle them in `onSelect`, and name the area with `label`.",
+      "Offer the same actions in a visible place too, such as a Menu on the item: many people never right-click."
+    ],
+    "alternatives": [
+      "A visible \"more\" button: Menu."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Shift` + `F10` or the menu key",
+        "action": "Opens the menu in the area in focus."
+      },
+      {
+        "keys": "`↓` `↑` `Enter` `Escape`",
+        "action": "Same as Menu: move, run, close."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ContextMenu",
+  "selected": "Interativo",
+  "import": "import { ContextMenu } from '@refy-design/web';",
+  "composition": [
+    "Menu"
+  ],
+  "api": [
+    {
+      "name": "ContextMenu",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "entries",
+          "type": "MenuEntry[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "onSelect",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { ContextMenu } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction ContextMenuExample() {\n  const [value, setValue] = useState('Material available');\n  return (\n    <div style={stack}>\n      <ContextMenu\n        entries={[\n          { id: 'copy', label: 'Duplicate material' },\n          { id: 'archive', label: 'Archive material' },\n        ]}\n        onSelect={(id) =>\n          setValue(id === 'copy' ? 'Material copy created' : 'Material archived')\n        }\n      >\n        Right-click or use Shift + F10.\n      </ContextMenu>\n      <p role=\"status\">{value}</p>\n    </div>\n  );\n}\nexport function Example() {\n  return <ContextMenuExample />;\n}"
+    }
+  ]
+}

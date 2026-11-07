@@ -1,0 +1,246 @@
+{
+  "id": "GoogleButton",
+  "description": "Google sign-in action, keeping the provider's identity and the control's states.",
+  "usage": {
+    "howToUse": [
+      "Use it for \"Sign in with Google\" when Google is the only provider, or the main one.",
+      "Start the sign-in in `onClick` and keep `loading` on until Google answers.",
+      "Use `block` on narrow screens, where it takes the full width like the other sign-in buttons."
+    ],
+    "alternatives": [
+      "Several providers on the same screen: OAuthButton."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the button."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Starts the sign-in. Nothing happens while it is loading."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "GoogleButton",
+  "selected": "Continuar",
+  "import": "import { GoogleButton } from '@refy-design/web';",
+  "composition": [
+    "Button"
+  ],
+  "api": [
+    {
+      "name": "GoogleButton",
+      "props": [
+        {
+          "name": "appearance",
+          "type": "\"default\" | \"field\" | undefined",
+          "required": false,
+          "description": "Web: `field` makes the button read as a field (search, picker), with field background and text."
+        },
+        {
+          "name": "href",
+          "type": "string | undefined",
+          "required": false,
+          "description": "With `href`, the button is a link (`<a>`) with the same look. Disabled or loading, it goes back to being a button."
+        },
+        {
+          "name": "target",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link target when there is an `href`."
+        },
+        {
+          "name": "rel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link `rel`; with `target=\"_blank\"` the default is `noreferrer`."
+        },
+        {
+          "name": "interactionState",
+          "type": "\"hover\" | \"pressed\" | undefined",
+          "required": false,
+          "description": "Visual preview of a linked gesture; it does not click or change disabled."
+        },
+        {
+          "name": "size",
+          "type": "ButtonSize | undefined",
+          "required": false,
+          "description": "Size variant."
+        },
+        {
+          "name": "trailingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon to the right of the label."
+        },
+        {
+          "name": "loading",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows a spinner and blocks clicks."
+        },
+        {
+          "name": "status",
+          "type": "ButtonStatus | undefined",
+          "required": false,
+          "description": "Explicit state to show completion or error; `loading` stays compatible."
+        },
+        {
+          "name": "progressEffect",
+          "type": "ButtonProgressEffect | undefined",
+          "required": false,
+          "description": "Loading: spinner, fill or line. Older spin/shrink options use the line without hiding the label."
+        },
+        {
+          "name": "loadingLabel",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Accessible/visible label while processing."
+        },
+        {
+          "name": "block",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Takes 100% of the container width."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "type",
+          "type": "\"submit\" | \"reset\" | \"button\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLButtonElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Continuar",
+      "label": "Continue",
+      "description": "",
+      "code": "import { GoogleButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof GoogleButton>, 'children'> = {\n    children: 'Continue with Google',\n  };\n  return <GoogleButton {...args} />;\n}"
+    },
+    {
+      "id": "Entrar",
+      "label": "Sign in",
+      "description": "",
+      "code": "import { GoogleButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof GoogleButton>, 'children'> = {\n    children: 'Sign in with Google',\n  };\n  return <GoogleButton {...args} />;\n}"
+    },
+    {
+      "id": "CriarConta",
+      "label": "Create account",
+      "description": "",
+      "code": "import { GoogleButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof GoogleButton>, 'children'> = {\n    children: 'Sign up with Google',\n  };\n  return <GoogleButton {...args} />;\n}"
+    },
+    {
+      "id": "Carregando",
+      "label": "Loading",
+      "description": "",
+      "code": "import { GoogleButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof GoogleButton>,\n    'children' | 'loading' | 'loadingLabel'\n  > = {\n    children: 'Continue with Google',\n    loading: true,\n    loadingLabel: 'Connecting to Google',\n  };\n  return <GoogleButton {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "",
+      "code": "import { GoogleButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof GoogleButton>, 'children' | 'disabled'> = {\n    children: 'Continue with Google',\n    disabled: true,\n  };\n  return <GoogleButton {...args} />;\n}"
+    },
+    {
+      "id": "LarguraTotal",
+      "label": "Full width",
+      "description": "",
+      "code": "import { GoogleButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof GoogleButton>, 'children' | 'block'> = {\n    children: 'Continue with Google',\n    block: true,\n  };\n  return <GoogleButton {...args} />;\n}"
+    },
+    {
+      "id": "Erro",
+      "label": "Error",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { GoogleButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof GoogleButton>, 'children' | 'status'> = {\n    children: 'Try connecting to Google again',\n    status: 'error',\n  };\n  return <GoogleButton {...args} />;\n}"
+    }
+  ]
+}

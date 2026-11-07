@@ -1,0 +1,128 @@
+{
+  "id": "Segmented",
+  "description": "Choice between related alternatives shown in a segmented control.",
+  "usage": {
+    "howToUse": [
+      "Use it to switch between two to five views or modes of the same content: day, week and month; list and grid.",
+      "Keep labels short and of similar length. With `iconOnly`, the labels become the accessible names and tooltips.",
+      "Give the group a `label` that names what changes (\"Period\")."
+    ],
+    "alternatives": [
+      "More than five options: Select.",
+      "Several options on at once: ToggleGroup.",
+      "Separate sections with different content: Tabs."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the selected option."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "Selects the previous or next option."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Selects the option in focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Segmented",
+  "selected": "Controlled",
+  "import": "import { Segmented } from '@refy-design/web';",
+  "composition": [
+    "Tooltip"
+  ],
+  "api": [
+    {
+      "name": "Segmented",
+      "props": [
+        {
+          "name": "options",
+          "type": "SegmentedOption[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Selected value (controlled)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initial selection (uncontrolled). Default: first option."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible group label."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "sliding",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "iconOnly",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Icons only; text labels become accessible names and tooltips."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Three views: click or use ←/→.",
+      "code": "import { Segmented } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst views = [\n  { value: 'list', label: 'List' },\n  { value: 'kanban', label: 'Kanban' },\n  { value: 'timeline', label: 'Timeline' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Segmented>,\n    'options' | 'label' | 'defaultValue'\n  > = { options: views, label: 'Overview', defaultValue: 'list' };\n  return <Segmented {...args} />;\n}"
+    },
+    {
+      "id": "Controlled",
+      "label": "Controlled",
+      "description": "Controlled.",
+      "code": "import { Segmented } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst views = [\n  { value: 'list', label: 'List' },\n  { value: 'kanban', label: 'Kanban' },\n  { value: 'timeline', label: 'Timeline' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Segmented>, 'options' | 'label'> = {\n    options: views,\n    label: 'Overview',\n  };\n  const [view, setView] = useState('kanban');\n  return (\n    <div\n      style={{\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 12,\n        alignItems: 'flex-start',\n      }}\n    >\n      <Segmented {...args} value={view} onChange={setView} />\n      <code\n        style={{\n          fontFamily: 'var(--font-mono)',\n          fontSize: 12,\n          color: 'var(--ink-3)',\n        }}\n      >\n        {view}\n      </code>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComDisabled",
+      "label": "Disabled option",
+      "description": "With a disabled option.",
+      "code": "import { Segmented } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst views = [\n  { value: 'list', label: 'List' },\n  { value: 'kanban', label: 'Kanban' },\n  { value: 'timeline', label: 'Timeline' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Segmented>, 'label' | 'options'> = {\n    label: 'Overview',\n    options: [...views.slice(0, 2), { value: 'map', label: 'Map', disabled: true }],\n  };\n  return <Segmented {...args} />;\n}"
+    },
+    {
+      "id": "Icones",
+      "label": "Icons and tooltips",
+      "description": "Icons with tooltip and arrow navigation.",
+      "code": "import { Segmented } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Segmented>,\n    'label' | 'iconOnly' | 'sliding' | 'defaultValue' | 'options'\n  > = {\n    label: 'Device',\n    iconOnly: true,\n    sliding: true,\n    defaultValue: 'desktop',\n    options: [\n      {\n        value: 'desktop',\n        label: 'Desktop',\n        icon: (\n          <svg\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            strokeWidth=\"1.7\"\n            aria-hidden=\"true\"\n          >\n            <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n            <path d=\"M8 21h8M12 16v5\" />\n          </svg>\n        ),\n      },\n      {\n        value: 'tablet',\n        label: 'Tablet',\n        icon: (\n          <svg\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            strokeWidth=\"1.7\"\n            aria-hidden=\"true\"\n          >\n            <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n            <path d=\"M11 17h2\" />\n          </svg>\n        ),\n      },\n      {\n        value: 'mobile',\n        label: 'Phone',\n        icon: (\n          <svg\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            strokeWidth=\"1.7\"\n            aria-hidden=\"true\"\n          >\n            <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n            <path d=\"M11 18h2\" />\n          </svg>\n        ),\n      },\n    ],\n  };\n  return <Segmented {...args} />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "id": "WizardStepper",
+  "description": "The steps of a flow, with current, done and pending states.",
+  "usage": {
+    "howToUse": [
+      "Use it at the top of a flow split into steps that follow an order: sign-up, checkout, onboarding.",
+      "Pass the `steps` and the `current` one. By default people can go back to done steps but not skip ahead; `allowFutureNavigation` lets them.",
+      "Give the flow a `label` (\"Create account\"), which is announced with the progress. On narrow screens it turns compact by itself.",
+      "Check the fields of a step before moving on: the stepper does not validate."
+    ],
+    "alternatives": [
+      "Questions asked one at a time: Questionnaire.",
+      "Areas with no order: SettingsSubnav or Tabs."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the steps people can open."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "Moves between those steps."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Goes to the first or last of them."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the step in focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "WizardStepper",
+  "selected": "Horizontal",
+  "import": "import { WizardStepper } from '@refy-design/web';",
+  "composition": [
+    "IconButton",
+    "ProgressBar"
+  ],
+  "api": [
+    {
+      "name": "WizardStepper",
+      "props": [
+        {
+          "name": "steps",
+          "type": "WizardStep[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "current",
+          "type": "string",
+          "required": true,
+          "description": "Current step ID."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Journey title, announced together with the progress."
+        },
+        {
+          "name": "variant",
+          "defaultValue": "\"auto\"",
+          "type": "\"horizontal\" | \"auto\" | \"compact\" | undefined",
+          "required": false,
+          "description": "`auto` goes compact through a container query; the other options force the layout."
+        },
+        {
+          "name": "allowFutureNavigation",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "By default only completed steps and the current one can be opened."
+        },
+        {
+          "name": "onStepChange",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBack",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "Back action; uses the canonical IconButton."
+        },
+        {
+          "name": "backLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Horizontal",
+      "label": "Horizontal",
+      "description": "A real journey: Request → About you → other criteria → Review.",
+      "code": "import type { WizardStep } from '@refy-design/web';\nimport { WizardStepper } from '@refy-design/web';\nimport { useState } from 'react';\nconst steps: WizardStep[] = [\n  { id: 'order', label: 'Goal' },\n  { id: 'about', label: 'Details' },\n  { id: 'types', label: 'Format' },\n  { id: 'team', label: 'Team' },\n  { id: 'permissions', label: 'Permissions' },\n  { id: 'preferences', label: 'Preferences' },\n  { id: 'review', label: 'Review' },\n];\nexport function Example() {\n  const args = {};\n  const [current, setCurrent] = useState('team');\n  const index = steps.findIndex((step) => step.id === current);\n  return (\n    <div style={{ display: 'grid', gap: 16, maxWidth: 980 }}>\n      <WizardStepper\n        {...args}\n        steps={steps}\n        current={current}\n        variant=\"horizontal\"\n        label=\"Setting up your project\"\n        onStepChange={setCurrent}\n        onBack={() => setCurrent(steps[Math.max(index - 1, 0)].id)}\n      />\n      <p\n        aria-live=\"polite\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        Open step: {steps.find((step) => step.id === current)?.label}.\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Compacto",
+      "label": "Compact",
+      "description": "Mobile/narrow containers: keeps context, back and progress without squeezing seven labels.",
+      "code": "import type { WizardStep } from '@refy-design/web';\nimport { WizardStepper } from '@refy-design/web';\nimport { useState } from 'react';\nconst steps: WizardStep[] = [\n  { id: 'order', label: 'Goal' },\n  { id: 'about', label: 'Details' },\n  { id: 'types', label: 'Format' },\n  { id: 'team', label: 'Team' },\n  { id: 'permissions', label: 'Permissions' },\n  { id: 'preferences', label: 'Preferences' },\n  { id: 'review', label: 'Review' },\n];\nexport function Example() {\n  const args = {};\n  const [current, setCurrent] = useState('about');\n  const index = steps.findIndex((step) => step.id === current);\n  return (\n    <div style={{ maxWidth: 390 }}>\n      <WizardStepper\n        {...args}\n        steps={steps}\n        current={current}\n        variant=\"compact\"\n        label=\"Setting up your project\"\n        onStepChange={setCurrent}\n        onBack={() => setCurrent(steps[Math.max(index - 1, 0)].id)}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Estados",
+      "label": "States",
+      "description": "Done, current, upcoming and unavailable upcoming in the same composition.",
+      "code": "import type { WizardStep } from '@refy-design/web';\nimport { WizardStepper } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst steps: WizardStep[] = [\n  { id: 'order', label: 'Goal' },\n  { id: 'about', label: 'Details' },\n  { id: 'types', label: 'Format' },\n  { id: 'team', label: 'Team' },\n  { id: 'permissions', label: 'Permissions' },\n  { id: 'preferences', label: 'Preferences' },\n  { id: 'review', label: 'Review' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof WizardStepper>,\n    'steps' | 'current' | 'variant' | 'label' | 'onStepChange'\n  > = {\n    steps: steps.map((step) =>\n      step.id === 'permissions' ? { ...step, disabled: true } : step,\n    ),\n    current: 'types',\n    variant: 'horizontal',\n    label: 'Step states',\n    onStepChange: () => {},\n  };\n  return <WizardStepper {...args} />;\n}"
+    },
+    {
+      "id": "Concluido",
+      "label": "Done",
+      "description": "At the end, every earlier step stays reviewable.",
+      "code": "import type { WizardStep } from '@refy-design/web';\nimport { WizardStepper } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst steps: WizardStep[] = [\n  { id: 'order', label: 'Goal' },\n  { id: 'about', label: 'Details' },\n  { id: 'types', label: 'Format' },\n  { id: 'team', label: 'Team' },\n  { id: 'permissions', label: 'Permissions' },\n  { id: 'preferences', label: 'Preferences' },\n  { id: 'review', label: 'Review' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof WizardStepper>,\n    'steps' | 'current' | 'variant' | 'label' | 'onStepChange'\n  > = {\n    steps,\n    current: 'review',\n    variant: 'auto',\n    label: 'Profile ready for review',\n    onStepChange: () => {},\n  };\n  return <WizardStepper {...args} />;\n}"
+    }
+  ]
+}

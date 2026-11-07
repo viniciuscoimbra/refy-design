@@ -1,0 +1,174 @@
+{
+  "id": "BrandLogo",
+  "description": "Refy wordmark and symbol with sizes and display variants.",
+  "usage": {
+    "howToUse": [
+      "Use it for the refy brand in headers, footers and splash screens.",
+      "Use `markOnly` where only the symbol fits, and `tone` for dark or light backgrounds. The symbol takes the main color of the theme.",
+      "For your product's brand, pass it in `brand` with an `aria-label` that names it."
+    ],
+    "alternatives": [
+      "A person or company in a list: Avatar."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The logo does not receive focus. When it links to the home page, the link receives it."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "BrandLogo",
+  "selected": "Assinatura",
+  "import": "import { BrandLogo } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "BrandLogo",
+      "props": [
+        {
+          "name": "brand",
+          "defaultValue": "\"refy\"",
+          "type": "\"refy\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"sm\"",
+          "type": "BrandLogoSize | undefined",
+          "required": false,
+          "description": "Size variant."
+        },
+        {
+          "name": "tone",
+          "defaultValue": "\"default\"",
+          "type": "\"default\" | \"inverse\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "animated",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "markOnly",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "symbol",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "The refy symbol before the word. The word's shape and font are fixed in any theme;\nthe symbol color comes from the theme's `--brand-mark` token."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Brand provided by the consumer. Refy includes no third-party assets."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLSpanElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Assinatura",
+      "label": "Signature",
+      "description": "",
+      "code": "import { BrandLogo } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof BrandLogo>, 'size'> = { size: 'md' };\n  return <BrandLogo {...args} />;\n}"
+    },
+    {
+      "id": "Simbolo",
+      "label": "Symbol",
+      "description": "",
+      "code": "import { BrandLogo } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof BrandLogo>, 'size' | 'markOnly'> = {\n    size: 'md',\n    markOnly: true,\n  };\n  return <BrandLogo {...args} />;\n}"
+    },
+    {
+      "id": "SemAnimacao",
+      "label": "No animation",
+      "description": "",
+      "code": "import { BrandLogo } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof BrandLogo>, 'size' | 'animated'> = {\n    size: 'md',\n    animated: false,\n  };\n  return <BrandLogo {...args} />;\n}"
+    },
+    {
+      "id": "SoSimbolo",
+      "label": "Symbol only",
+      "description": "Symbol only, for narrow spaces like the closed side bar. The color comes from `--brand-mark`.",
+      "code": "import { BrandLogo } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof BrandLogo>, 'size' | 'symbol' | 'markOnly'> = {\n    size: 'md',\n    symbol: true,\n    markOnly: true,\n  };\n  return <BrandLogo {...args} />;\n}"
+    }
+  ]
+}

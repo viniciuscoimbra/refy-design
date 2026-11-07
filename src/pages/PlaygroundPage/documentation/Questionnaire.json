@@ -1,0 +1,66 @@
+{
+  "id": "Questionnaire",
+  "description": "A sequence of questions with answer selection, navigation and completion.",
+  "usage": {
+    "howToUse": [
+      "Use it for questions asked one at a time: onboarding, a short survey, a quiz to recommend something.",
+      "Pass the `questions` with their answers, and save the result in `onSubmit`. Keep it short: five to seven questions."
+    ],
+    "alternatives": [
+      "A long form with sections: WizardStepper with fields."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the answers and the back and next buttons."
+      },
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Changes the answer, as in RadioGroup."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Goes to the next question."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Questionnaire",
+  "selected": "Interativo",
+  "import": "import { Questionnaire } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Input",
+    "ProgressBar",
+    "RadioGroup"
+  ],
+  "api": [
+    {
+      "name": "Questionnaire",
+      "props": [
+        {
+          "name": "questions",
+          "type": "Question[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onSubmit",
+          "type": "(answers: Record<string, string>) => void",
+          "required": true,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Questionnaire } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction QuestionnaireExample() {\n  const [value, setValue] = useState('');\n  return (\n    <div style={stack}>\n      <Questionnaire\n        questions={[\n          { id: 'name', title: \"What is the project's name?\", required: true },\n          {\n            id: 'goal',\n            title: 'What is the goal?',\n            required: true,\n            options: [\n              { value: 'organize', label: 'Organize materials' },\n              { value: 'review', label: 'Review deliveries' },\n            ],\n          },\n        ]}\n        onSubmit={(answers) =>\n          setValue(\n            `Project ${answers.name}: ${answers.goal === 'organize' ? 'organize materials' : 'review deliveries'}.`,\n          )\n        }\n      />\n      {value && <p role=\"status\">{value}</p>}\n    </div>\n  );\n}\nexport function Example() {\n  return <QuestionnaireExample />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--chip-height, 30px);
+  padding: 0 10px;
+  border: var(--control-border-width, 1px) solid var(--chip-border, var(--line));
+  border-radius: var(--chip-radius, var(--radius-pill));
+  background: var(--chip-surface, var(--surface));
+  color: var(--chip-ink, var(--ink-2));
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-instant) var(--ease-out);
+}
+.chip:hover {
+  border-color: var(--line-strong, var(--legacy-line-strong));
+  color: var(--chip-ink, var(--ink-1));
+  transform: translateY(-0.5px);
+}
+.chip:active:not(.selected) {
+  background: color-mix(in srgb, var(--ink-1) 6%, var(--surface));
+}
+.chip:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--legacy-ring);
+}
+.chip:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.chip:disabled:hover {
+  border-color: var(--line);
+  color: var(--ink-2);
+  transform: none;
+}
+.selected,
+.selected:hover {
+  border-color: var(--chip-ink, var(--ink-1));
+  background: var(--chip-ink, var(--ink-1));
+  color: var(--surface);
+}
+
+.icon {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+}
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+.label {
+  line-height: 1;
+}
+.count {
+  font-family: var(--interface-detail-font, var(--font-mono));
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semi);
+  color: var(--ink-3);
+  background: var(--surface-2);
+  border-radius: var(--chip-radius, var(--radius-pill));
+  padding: 1px 6px;
+}
+.selected .count {
+  color: inherit;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+}
+.check {
+  display: inline-flex;
+  width: 0;
+  height: 14px;
+  margin-right: -6px;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.7) rotate(-90deg);
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--motion-feedback-duration) var(--ease-out);
+}
+.check svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.selected .check {
+  width: 14px;
+  margin-right: 0;
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+}
+.tone-critical {
+  --chip-ink: var(--critical-ink);
+  --chip-surface: var(--critical-soft);
+}
+.tone-warning {
+  --chip-ink: var(--weak-ink);
+  --chip-surface: var(--weak-soft);
+}
+.tone-success {
+  --chip-ink: var(--good-ink);
+  --chip-surface: var(--good-soft);
+}
+.tone-info {
+  --chip-ink: var(--info-ink);
+  --chip-surface: var(--info-soft);
+}
+.tone-critical,
+.tone-warning,
+.tone-success,
+.tone-info {
+  --chip-border: color-mix(in srgb, var(--chip-ink) 45%, var(--surface));
+}
+.remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--chip-radius, var(--radius-pill));
+  color: inherit;
+  margin-right: -2px;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+.remove:hover {
+  background: var(--critical);
+  color: var(--on-critical);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip,
+  .check {
+    transition-duration: 0.01ms;
+  }
+  .chip:hover {
+    transform: none;
+  }
+}
+
+/* A seleção embutida e seu contador usam a mesma receita atômica. */
+.selection,
+.selection:hover {
+  flex: none;
+  height: var(--selection-chip-height, 26px);
+  min-width: 0;
+  padding: 0 10px;
+  gap: var(--space-1);
+  border-color: transparent;
+  border-radius: var(--selection-chip-radius, var(--radius-pill));
+  background: var(--primary-soft);
+  color: var(--ink-1);
+  font-size: var(--text-xs);
+  line-height: var(--leading-snug);
+  transform: none;
+}
+.selection .label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: inherit;
+}
+.selection .remove {
+  flex: none;
+  width: var(--embedded-action-size, 18px);
+  height: var(--embedded-action-size, 18px);
+  opacity: 0.65;
+}
+.selection .remove svg {
+  width: 10px;
+  height: 10px;
+}

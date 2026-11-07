@@ -1,0 +1,81 @@
+{
+  "id": "Carousel",
+  "description": "Sequence of navigable content, with position indicator and forward controls.",
+  "usage": {
+    "howToUse": [
+      "Use it for a few slides that people go through in order: highlights, onboarding screens, testimonials.",
+      "Give it a `label` and keep each slide readable on its own. It does not move by itself.",
+      "Control the position with `index` and `onIndexChange` when the page needs to know it."
+    ],
+    "alternatives": [
+      "Deciding on each item: DecisionDeck.",
+      "Photos of one item: MediaGallery.",
+      "Content people compare: a grid."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the carousel and to the previous and next buttons."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "Shows the previous or next slide."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Carousel",
+  "selected": "Interativo",
+  "import": "import { Carousel } from '@refy-design/web';",
+  "composition": [
+    "IconButton"
+  ],
+  "api": [
+    {
+      "name": "Carousel",
+      "props": [
+        {
+          "name": "items",
+          "type": "CarouselItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "index",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultIndex",
+          "defaultValue": "0",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onIndexChange",
+          "type": "((index: number) => void) | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Card } from '@refy-design/web';\nimport { Carousel } from '@refy-design/web';\nfunction CarouselExample() {\n  return (\n    <Carousel\n      items={['Research', 'Prototype', 'Validation'].map((label, index) => ({\n        id: label,\n        label,\n        content: (\n          <Card>\n            <p>Stage {index + 1}</p>\n            <h3>{label}</h3>\n            <p>\n              {\n                [\n                  \"Organize the project's references and needs.\",\n                  'Try the layout with the existing components.',\n                  'Review the experience before sharing.',\n                ][index]\n              }\n            </p>\n          </Card>\n        ),\n      }))}\n    />\n  );\n}\nexport function Example() {\n  return <CarouselExample />;\n}"
+    }
+  ]
+}

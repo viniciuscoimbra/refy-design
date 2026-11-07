@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.panel {
+  min-width: 0;
+  flex-grow: 1;
+  padding: var(--space-4);
+  overflow: auto;
+}
+.handle {
+  flex: none;
+  width: 14px;
+  display: grid;
+  place-items: center;
+  cursor: col-resize;
+  background: var(--surface-2);
+  color: var(--ink-3);
+  touch-action: none;
+}
+.handle:focus-visible {
+  outline: 2px solid var(--primary-ink);
+  outline-offset: -2px;
+}

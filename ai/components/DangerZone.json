@@ -1,0 +1,252 @@
+{
+  "id": "DangerZone",
+  "description": "Area for sensitive actions, with explanation and callbacks; the application provides the confirmation before running.",
+  "usage": {
+    "howToUse": [
+      "Use it at the end of a settings page for actions that delete or cannot be undone: delete project, transfer ownership.",
+      "Say what is lost in each action, in plain words.",
+      "Each button opens an AlertDialog before running: the zone does not confirm by itself."
+    ],
+    "alternatives": [
+      "The confirmation itself: AlertDialog."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the actions of the zone."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the confirmation of the action."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "DangerZone",
+  "selected": "Interativo",
+  "import": "import { DangerZone } from '@refy-design/web';",
+  "composition": [
+    "Button"
+  ],
+  "api": [
+    {
+      "name": "DangerZone",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Zone title (critical tone). Optional when the section is already titled outside."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "`DangerZoneRow`(s), stacked with a dashed divider."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    },
+    {
+      "name": "DangerZoneRow",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "What the action does (e.g. \"Delete account João Mendes\")."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Consequence, always explicit (e.g. \"This action cannot be undone…\")."
+        },
+        {
+          "name": "actionLabel",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Destructive button label."
+        },
+        {
+          "name": "onConfirm",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "Confirmation hook: called on click. The app opens the confirmation\nModal and only then runs it; the row destroys nothing directly."
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables the action (e.g. pending prerequisite)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "ExcluirConta",
+      "label": "Delete account",
+      "description": "",
+      "code": "import { DangerZone } from '@refy-design/web';\nimport { DangerZoneRow } from '@refy-design/web';\nexport function Example() {\n  return (\n    <DangerZone style={{ maxWidth: 640 }}>\n      <DangerZoneRow\n        title=\"Delete João Mendes's account\"\n        description=\"This cannot be undone. Analyses and backlog stay with the workspace, not with you.\"\n        actionLabel=\"Delete account\"\n        onConfirm={() => console.log('open confirmation Modal')}\n      />\n    </DangerZone>\n  );\n}"
+    },
+    {
+      "id": "ComTituloEVariasLinhas",
+      "label": "With title and several rows",
+      "description": "",
+      "code": "import { DangerZone } from '@refy-design/web';\nimport { DangerZoneRow } from '@refy-design/web';\nexport function Example() {\n  return (\n    <DangerZone title=\"Danger zone\" style={{ maxWidth: 640 }}>\n      <DangerZoneRow\n        title=\"Cancel subscription\"\n        description=\"The workspace returns to the free plan at the end of the cycle. Analyses over the quota become read-only.\"\n        actionLabel=\"Cancel subscription\"\n        onConfirm={() => console.log('open Modal')}\n      />\n      <DangerZoneRow\n        title=\"Delete workspace\"\n        description=\"Permanently deletes projects, analyses and members. This cannot be undone.\"\n        actionLabel=\"Delete workspace\"\n        onConfirm={() => console.log('open Modal')}\n      />\n    </DangerZone>\n  );\n}"
+    },
+    {
+      "id": "AcaoBloqueada",
+      "label": "Blocked action (prerequisite)",
+      "description": "",
+      "code": "import { DangerZone } from '@refy-design/web';\nimport { DangerZoneRow } from '@refy-design/web';\nexport function Example() {\n  return (\n    <DangerZone style={{ maxWidth: 640 }}>\n      <DangerZoneRow\n        title=\"Delete account\"\n        description=\"Transfer the workspaces you admin before deleting the account.\"\n        actionLabel=\"Delete account\"\n        disabled\n      />\n    </DangerZone>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { AlertDialog } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { DangerZone } from '@refy-design/web';\nimport { DangerZoneRow } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction DangerZoneExample() {\n  const [open, setOpen] = useState(false),\n    [deleted, setDeleted] = useState(false);\n  return (\n    <div style={stack}>\n      {deleted ? (\n        <>\n          <p role=\"status\">Sample account deleted in this session.</p>\n          <Button onClick={() => setDeleted(false)}>Restore demo</Button>\n        </>\n      ) : (\n        <DangerZone>\n          <DangerZoneRow\n            title=\"Delete sample account\"\n            description=\"This flow only removes the made-up data in this demo.\"\n            actionLabel=\"Delete account\"\n            onConfirm={() => setOpen(true)}\n          />\n        </DangerZone>\n      )}\n      <AlertDialog\n        open={open}\n        onOpenChange={setOpen}\n        title=\"Delete sample account?\"\n        destructive\n        confirmLabel=\"Confirm deletion\"\n        onConfirm={() => {\n          setDeleted(true);\n          setOpen(false);\n        }}\n      >\n        Only this demo will be reset. No real account is affected.\n      </AlertDialog>\n    </div>\n  );\n}\nexport function Example() {\n  return <DangerZoneExample />;\n}"
+    }
+  ]
+}

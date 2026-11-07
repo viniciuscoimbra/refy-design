@@ -1,0 +1,134 @@
+{
+  "id": "Toast",
+  "description": "Result notice with configurable action, dismissal and duration.",
+  "usage": {
+    "howToUse": [
+      "Use it for the result of an action that does not need a decision: \"Invoice sent\", \"Copied\".",
+      "Put ToastRegion once in the app and keep the list of toasts in your state; remove them in `onDismiss`.",
+      "Add an action when it helps, such as \"Undo\". The toast stays while the pointer or the focus is on it."
+    ],
+    "alternatives": [
+      "An error in a field: the `error` of the field.",
+      "A message that must stay on the page: Callout.",
+      "A decision: AlertDialog."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the action and to the close button of the toast."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the action or closes the toast."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ToastRegion",
+  "selected": "FluxoLocal",
+  "import": "import { ToastRegion } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Toast",
+      "props": [
+        {
+          "name": "onDismiss",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "description",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Supporting text."
+        },
+        {
+          "name": "tone",
+          "defaultValue": "\"default\"",
+          "type": "ToastTone | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "{ label: string; onClick: () => void; } | undefined",
+          "required": false,
+          "description": "Inline action (e.g. Undo)."
+        },
+        {
+          "name": "duration",
+          "defaultValue": "5000",
+          "type": "number | null | undefined",
+          "required": false,
+          "description": "ms until auto-dismiss. `null` = stays until closed. Default 5000."
+        }
+      ]
+    },
+    {
+      "name": "ToastRegion",
+      "props": [
+        {
+          "name": "toasts",
+          "type": "ToastData[]",
+          "required": true,
+          "description": "Toast stack (controlled: the app owns the list)."
+        },
+        {
+          "name": "onDismiss",
+          "type": "(id: string) => void",
+          "required": true,
+          "description": "Removes a toast from the list (auto-dismiss, ×, or after the action)."
+        },
+        {
+          "name": "position",
+          "defaultValue": "\"bottom-right\"",
+          "type": "\"bottom-right\" | \"bottom-left\" | \"top-right\" | undefined",
+          "required": false,
+          "description": "Screen corner. Default `bottom-right`."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Fire toasts with the buttons: auto-dismiss in 5s, × closes earlier.",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ToastData } from '@refy-design/web';\nimport { ToastRegion } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useRef } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ToastRegion>, 'toasts' | 'onDismiss'> = {\n    toasts: [],\n    onDismiss: () => {},\n  };\n  const [toasts, setToasts] = useState<ToastData[]>([]);\n  const seq = useRef(0);\n  function push(toast: Omit<ToastData, 'id'>) {\n    seq.current += 1;\n    setToasts((t) => [...t, { ...toast, id: `t-${seq.current}` }]);\n  }\n  const dismiss = (id: string) => setToasts((t) => t.filter((x) => x.id !== id));\n  return (\n    <div\n      style={{\n        minHeight: 380,\n        padding: 24,\n        display: 'flex',\n        gap: 8,\n        alignItems: 'flex-start',\n      }}\n    >\n      <Button\n        onClick={() =>\n          push({\n            title: 'Review complete',\n            description: '84 pages crawled, 12 critical.',\n            tone: 'success',\n          })\n        }\n      >\n        Success\n      </Button>\n      <Button\n        onClick={() =>\n          push({\n            title: 'Export failed',\n            description: 'The server did not respond.',\n            tone: 'danger',\n          })\n        }\n      >\n        Error\n      </Button>\n      <Button\n        onClick={() =>\n          push({\n            title: 'Issue moved to Tasks',\n            action: { label: 'Undo', onClick: () => {} },\n          })\n        }\n      >\n        With action\n      </Button>\n      <ToastRegion {...args} toasts={toasts} onDismiss={dismiss} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Isolado",
+      "label": "Single toast",
+      "description": "Anatomy of a single toast (no stack, no timer).",
+      "code": "import { Toast } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div\n      style={{\n        padding: 24,\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 10,\n        alignItems: 'flex-start',\n      }}\n    >\n      <Toast\n        id=\"a\"\n        title=\"Review complete\"\n        description=\"84 pages crawled.\"\n        tone=\"success\"\n        duration={null}\n      />\n      <Toast\n        id=\"b\"\n        title=\"Export failed\"\n        description=\"The server did not respond.\"\n        tone=\"danger\"\n        duration={null}\n      />\n      <Toast\n        id=\"c\"\n        title=\"Issue moved to Tasks\"\n        action={{ label: 'Undo', onClick: () => {} }}\n        duration={null}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "FluxoLocal",
+      "label": "Local flow",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ToastData } from '@refy-design/web';\nimport { ToastRegion } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nconst actions = { display: 'flex', flexWrap: 'wrap', gap: 8 } as const;\nfunction ToastExample() {\n  const [location, setLocation] = useState('Library'),\n    [toasts, setToasts] = useState<ToastData[]>([]);\n  return (\n    <div style={stack}>\n      <p>Material location: {location}</p>\n      <div style={actions}>\n        <Button\n          onClick={() =>\n            setToasts([{ id: 'success', title: 'Preferences saved', tone: 'success' }])\n          }\n        >\n          Success\n        </Button>\n        <Button\n          onClick={() =>\n            setToasts([\n              {\n                id: 'error',\n                title: 'Could not save',\n                description: 'Simulated error to test the message.',\n                tone: 'danger',\n              },\n            ])\n          }\n        >\n          Error\n        </Button>\n        <Button\n          onClick={() => {\n            setLocation('File');\n            setToasts([\n              {\n                id: 'move',\n                title: 'Material moved to Archive',\n                duration: null,\n                action: {\n                  label: 'Undo',\n                  onClick: () => {\n                    setLocation('Library');\n                    setToasts([]);\n                  },\n                },\n              },\n            ]);\n          }}\n        >\n          With action\n        </Button>\n      </div>\n      <ToastRegion\n        toasts={toasts}\n        onDismiss={(id) => setToasts((rows) => rows.filter((row) => row.id !== id))}\n      />\n    </div>\n  );\n}\nexport function Example() {\n  return <ToastExample />;\n}"
+    }
+  ]
+}

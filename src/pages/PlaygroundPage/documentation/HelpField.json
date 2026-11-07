@@ -1,0 +1,115 @@
+{
+  "id": "HelpField",
+  "description": "Help tied to a field, with an explanation and optional deeper detail.",
+  "usage": {
+    "howToUse": [
+      "Use it as the label of a form field that needs an explanation: a tax term, a rule, a field people often get wrong.",
+      "Write `label` in the person's words and `helpText` in one or two sentences. Link the field with `htmlFor`.",
+      "When the topic needs more, use `onLearnMore` to open a Drawer with the full explanation."
+    ],
+    "alternatives": [
+      "Help for the whole app: HelpMenu.",
+      "Telling what is wrong with the value: the `error` of the field."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Focusing the help icon shows the explanation."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Hides the explanation."
+      },
+      {
+        "keys": "`Enter` on \"Learn more\"",
+        "action": "Runs `onLearnMore`."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "HelpField",
+  "selected": "ComDrawerDoApp",
+  "import": "import { HelpField } from '@refy-design/web';",
+  "composition": [
+    "HoverCard",
+    "IconButton"
+  ],
+  "api": [
+    {
+      "name": "HelpField",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Plain field label (never the internal technical name)."
+        },
+        {
+          "name": "helpText",
+          "type": "string",
+          "required": true,
+          "description": "Short explanation shown in the icon's rich help."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "The field itself (Input, Select, Combobox…). Gets `aria-describedby` from the help text."
+        },
+        {
+          "name": "onLearnMore",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "\"Learn more\" link hook; the app opens the help Drawer (the component does not ship it)."
+        },
+        {
+          "name": "learnMoreLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link text. Default \"Learn more\"."
+        },
+        {
+          "name": "htmlFor",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Field `id`, to link the `<label>` (htmlFor)."
+        },
+        {
+          "name": "side",
+          "defaultValue": "\"top\"",
+          "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | undefined",
+          "required": false,
+          "description": "Tooltip side. Default \"top\"."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Guide case: capacity allocation, a plain name + help, never a raw `share_pct`.",
+      "code": "import { HelpField } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof HelpField>,\n    'label' | 'helpText' | 'htmlFor' | 'onLearnMore' | 'children'\n  > = {\n    label: 'Capacity allocation',\n    helpText:\n      'Percentage reserved for the owning team. The rest follows the project settings.',\n    htmlFor: 'share-input',\n    onLearnMore: () => console.log('open help Drawer'),\n    children: <Input id=\"share-input\" placeholder=\"E.g. 40\" suffix=\"%\" />,\n  };\n  return <HelpField {...args} />;\n}"
+    },
+    {
+      "id": "SemSaberMais",
+      "label": "Without \"Learn more\"",
+      "description": "Without `onLearnMore`: tooltip with text only (no link).",
+      "code": "import { HelpField } from '@refy-design/web';\nimport { Select } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof HelpField>,\n    'label' | 'helpText' | 'htmlFor' | 'children'\n  > = {\n    label: 'Distribution queue',\n    helpText: 'Order in which new tasks are assigned to owners.',\n    htmlFor: 'queue-select',\n    children: (\n      <Select id=\"queue-select\">\n        <option value=\"rr\">Round robin</option>\n        <option value=\"top\">Best performance</option>\n      </Select>\n    ),\n  };\n  return <HelpField {...args} />;\n}"
+    },
+    {
+      "id": "ComDrawerDoApp",
+      "label": "With the app's Drawer",
+      "description": "Full integration: \"Learn more\" opens the APP's help Drawer (the Drawer is not part of HelpField).",
+      "code": "import { Drawer } from '@refy-design/web';\nimport { HelpField } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof HelpField>,\n    'label' | 'helpText' | 'children'\n  > = {\n    label: 'Capacity allocation',\n    helpText: 'Percentage reserved for the owning team.',\n    children: <Input id=\"share-drawer\" placeholder=\"E.g. 40\" suffix=\"%\" />,\n  };\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <HelpField {...args} onLearnMore={() => setOpen(true)} />\n      <Drawer\n        open={open}\n        onOpenChange={setOpen}\n        side=\"right\"\n        title=\"Capacity allocation\"\n      >\n        <p style={{ margin: 0, lineHeight: 1.6 }}>\n          Long in-app help: how the settings assign tasks between person and team, with\n          examples and rules.\n        </p>\n      </Drawer>\n    </>\n  );\n}"
+    }
+  ]
+}

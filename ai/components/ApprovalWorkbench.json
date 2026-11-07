@@ -1,0 +1,152 @@
+{
+  "id": "ApprovalWorkbench",
+  "description": "Reusable review area, with information, progress and decision actions.",
+  "usage": {
+    "howToUse": [
+      "Use it for a queue of items reviewed one by one: documents to approve, submissions to check, claims to analyse.",
+      "Pass the `items`; the list stays on one side and the item in `activeId` opens in the panel. Change it in `onActiveChange`.",
+      "Your application decides and saves the outcome of each item."
+    ],
+    "alternatives": [
+      "A decision on a single item: DecisionActions.",
+      "A list to browse, with no decision: Table."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the list items and the panel actions."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the item in focus, or runs the action."
+      }
+    ]
+  },
+  "collections": [
+    "operations"
+  ],
+  "publicName": "ApprovalWorkbench",
+  "selected": "EmAnalise",
+  "import": "import { ApprovalWorkbench } from '@refy-design/web';",
+  "composition": [
+    "Badge",
+    "ProgressBar"
+  ],
+  "api": [
+    {
+      "name": "ApprovalWorkbench",
+      "props": [
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible name and title of the work list."
+        },
+        {
+          "name": "items",
+          "type": "ApprovalWorkbenchItem[]",
+          "required": true,
+          "description": "Items evaluated in this review."
+        },
+        {
+          "name": "activeId",
+          "type": "string",
+          "required": true,
+          "description": "Item shown in the panel."
+        },
+        {
+          "name": "onActiveChange",
+          "type": "(id: string) => void",
+          "required": true,
+          "description": "Selects another item without changing page."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Editor for the active item."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "EmAnalise",
+      "label": "Under review",
+      "description": "",
+      "code": "import { ApprovalWorkbench } from '@refy-design/web';\nimport type { ApprovalWorkbenchItem } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { SectionHeader } from '@refy-design/web';\nimport { useState } from 'react';\nconst items: ApprovalWorkbenchItem[] = [\n  {\n    id: 'company',\n    label: 'Company details',\n    meta: '3 of 3 reviewed',\n    state: 'complete',\n  },\n  { id: 'address', label: 'Address', meta: '1 of 3 reviewed', state: 'in-progress' },\n  {\n    id: 'registration',\n    label: 'Professional license',\n    meta: '0 of 3 reviewed',\n    state: 'not-started',\n  },\n];\nexport function Example() {\n  const [active, setActive] = useState('address');\n  const item = items.find((entry) => entry.id === active) ?? items[0];\n  return (\n    <ApprovalWorkbench items={items} activeId={active} onActiveChange={setActive}>\n      <Card>\n        <SectionHeader\n          title={item.label}\n          sub=\"Check the sources and record the result of each criterion.\"\n        />\n      </Card>\n    </ApprovalWorkbench>\n  );\n}"
+    },
+    {
+      "id": "Concluida",
+      "label": "Completed",
+      "description": "",
+      "code": "import { ApprovalWorkbench } from '@refy-design/web';\nimport type { ApprovalWorkbenchItem } from '@refy-design/web';\nimport { EmptyState } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst items: ApprovalWorkbenchItem[] = [\n  {\n    id: 'company',\n    label: 'Company details',\n    meta: '3 of 3 reviewed',\n    state: 'complete',\n  },\n  { id: 'address', label: 'Address', meta: '1 of 3 reviewed', state: 'in-progress' },\n  {\n    id: 'registration',\n    label: 'Professional license',\n    meta: '0 of 3 reviewed',\n    state: 'not-started',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ApprovalWorkbench>,\n    'items' | 'activeId' | 'onActiveChange' | 'children'\n  > = {\n    items: items.map((item) => ({\n      ...item,\n      meta: '3 of 3 reviewed',\n      state: 'complete',\n    })),\n    activeId: 'company',\n    onActiveChange: () => undefined,\n    children: (\n      <EmptyState\n        title=\"Review complete\"\n        message=\"Every item has a result and a note.\"\n      />\n    ),\n  };\n  return <ApprovalWorkbench {...args} />;\n}"
+    },
+    {
+      "id": "Carregando",
+      "label": "Loading",
+      "description": "",
+      "code": "import { ApprovalWorkbench } from '@refy-design/web';\nimport type { ApprovalWorkbenchItem } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { Skeleton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst items: ApprovalWorkbenchItem[] = [\n  {\n    id: 'company',\n    label: 'Company details',\n    meta: '3 of 3 reviewed',\n    state: 'complete',\n  },\n  { id: 'address', label: 'Address', meta: '1 of 3 reviewed', state: 'in-progress' },\n  {\n    id: 'registration',\n    label: 'Professional license',\n    meta: '0 of 3 reviewed',\n    state: 'not-started',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ApprovalWorkbench>,\n    'items' | 'activeId' | 'onActiveChange' | 'children'\n  > = {\n    items,\n    activeId: 'address',\n    onActiveChange: () => undefined,\n    children: (\n      <Card aria-busy=\"true\">\n        <div style={{ display: 'grid', gap: 16 }}>\n          <Skeleton width=\"38%\" height={20} />\n          <Skeleton />\n          <Skeleton />\n          <Skeleton width=\"72%\" />\n        </div>\n      </Card>\n    ),\n  };\n  return <ApprovalWorkbench {...args} />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "id": "CodeBlock",
+  "description": "Code with syntax colors, monospaced font and copy of the original content.",
+  "usage": {
+    "howToUse": [
+      "Use it for code people copy: install commands, examples, API keys.",
+      "Set `language` for the colors and `label` for the file name or the purpose (\"Production API key\").",
+      "Use `secret` for keys: the value stays hidden, shows only the last characters, and the copy button copies the full value."
+    ],
+    "alternatives": [
+      "A word of code inside a sentence: `<code>`.",
+      "Text people edit: Textarea."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the copy button and, with `secret`, to the show button."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Copies the code, or shows and hides the secret."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "CodeBlock",
+  "selected": "Snippet",
+  "import": "import { CodeBlock } from '@refy-design/web';",
+  "composition": [
+    "IconButton"
+  ],
+  "api": [
+    {
+      "name": "CodeBlock",
+      "props": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "description": "Actual block content: what the copy button puts on the clipboard."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom rendering (e.g. highlight). Ignored while `secret` is masked."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Block label. E.g. \"Production API key\"."
+        },
+        {
+          "name": "language",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Language for automatic highlighting: tsx, ts, js, json, css, html, bash. Unknown uses plain text."
+        },
+        {
+          "name": "secret",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Masks the content (API keys) with a reveal toggle. Copy copies the real value."
+        },
+        {
+          "name": "visibleChars",
+          "defaultValue": "4",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Number of trailing characters visible in `secret` mode."
+        },
+        {
+          "name": "copyLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "aria-label of the copy button."
+        },
+        {
+          "name": "copiedLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Visible/announced feedback after copying."
+        },
+        {
+          "name": "revealLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "aria-label of the toggle when masked."
+        },
+        {
+          "name": "hideLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "aria-label of the toggle when revealed."
+        },
+        {
+          "name": "onCopy",
+          "type": "((code: string) => void) | undefined",
+          "required": false,
+          "description": "Called after a successful copy."
+        },
+        {
+          "name": "wrap",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Wraps long lines instead of scrolling horizontally (narrow columns). Default `false`."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Snippet",
+      "label": "Snippet",
+      "description": "",
+      "code": "import { CodeBlock } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst curlSnippet = `curl https://api.example.com/v1/items \\\\\n  -H \"Authorization: Bearer $API_TOKEN\" \\\\\n  -H \"Content-Type: application/json\" \\\\\n  -d '{ \"category\": \"design\", \"limit\": 3 }'`;\nexport function Example() {\n  const args: Pick<ComponentProps<typeof CodeBlock>, 'code' | 'label' | 'language'> = {\n    code: curlSnippet,\n    label: 'Search items',\n    language: 'bash',\n  };\n  return (\n    <div style={{ maxWidth: 560 }}>\n      <CodeBlock {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "SaidaDoLint",
+      "label": "Lint output",
+      "description": "",
+      "code": "import { CodeBlock } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof CodeBlock>, 'code' | 'label' | 'language'> = {\n    code: \"src/search.ts:18:7  error  'category' is assigned but never used  no-unused-vars\",\n    label: 'npm run lint',\n    language: 'text',\n  };\n  return (\n    <div style={{ maxWidth: 720 }}>\n      <CodeBlock {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "SemCabecalho",
+      "label": "No header (floating copy)",
+      "description": "",
+      "code": "import { CodeBlock } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof CodeBlock>, 'code'> = {\n    code: 'npm install @refy-design/web',\n  };\n  return (\n    <div style={{ maxWidth: 560 }}>\n      <CodeBlock {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ChaveSecreta",
+      "label": "Secret key (secret)",
+      "description": "",
+      "code": "import { CodeBlock } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof CodeBlock>, 'code' | 'label' | 'secret'> = {\n    code: 'example_sk_8f2hd92hd8a2b1c9d0e4f7a3cN9k',\n    label: 'API key · Production',\n    secret: true,\n  };\n  return (\n    <div style={{ maxWidth: 560 }}>\n      <CodeBlock {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "OverflowHorizontal",
+      "label": "Horizontal overflow",
+      "description": "",
+      "code": "import { CodeBlock } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof CodeBlock>, 'code' | 'label' | 'language'> = {\n    code: `https://api.example.com/v1/items?category=design&type=document&limit=3&sort=updated`,\n    label: 'Signed URL',\n    language: 'http',\n  };\n  return (\n    <div style={{ maxWidth: 420 }}>\n      <CodeBlock {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "QuebraDeLinha",
+      "label": "Line wrap",
+      "description": "",
+      "code": "import { CodeBlock } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof CodeBlock>,\n    'code' | 'label' | 'language' | 'wrap'\n  > = {\n    code: `https://api.example.com/v1/items?category=design&type=document&limit=3&sort=updated`,\n    label: 'Signed URL',\n    language: 'http',\n    wrap: true,\n  };\n  return (\n    <div style={{ maxWidth: 420 }}>\n      <CodeBlock {...args} />\n    </div>\n  );\n}"
+    }
+  ]
+}

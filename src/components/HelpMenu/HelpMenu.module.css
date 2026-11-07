@@ -1,0 +1,5 @@
+/* Element plus class outranks IconButton's base rule, whichever file the bundle puts last. */
+button.open {
+  background: var(--surface-2, var(--surface-container-low));
+  color: var(--ink-1, var(--on-surface));
+}

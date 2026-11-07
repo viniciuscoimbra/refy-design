@@ -1,0 +1,73 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  --status-dot-color: var(--good-ink);
+  --status-dot-ink: var(--good-ink);
+}
+
+.good {
+  --status-dot-color: var(--good-ink);
+  --status-dot-ink: var(--good-ink);
+}
+.ok {
+  --status-dot-color: var(--ok-ink);
+  --status-dot-ink: var(--ok-ink);
+}
+.warn {
+  --status-dot-color: var(--weak-ink);
+  --status-dot-ink: var(--weak-ink);
+}
+.critical {
+  --status-dot-color: var(--critical-ink);
+  --status-dot-ink: var(--critical-ink);
+}
+.info {
+  --status-dot-color: var(--info-ink);
+  --status-dot-ink: var(--info-ink);
+}
+.neutral {
+  --status-dot-color: var(--ink-4);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--status-dot-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--status-dot-color) 18%, transparent);
+}
+
+.label {
+  font-family: var(--interface-detail-font, var(--font-mono));
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  text-transform: var(--interface-label-transform, uppercase);
+  letter-spacing: var(--interface-label-tracking, 0.08em);
+  color: var(--status-dot-ink);
+  line-height: var(--leading-snug);
+}
+.neutral .label {
+  color: var(--ink-3);
+}
+
+/* pulse — "ao vivo": o halo respira */
+.pulse {
+  animation: statusdot-pulse calc(var(--motion-feedback-duration) * 4) var(--ease-out) infinite;
+}
+@keyframes statusdot-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--status-dot-color) 18%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--status-dot-color) 8%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
+}

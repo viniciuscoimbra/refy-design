@@ -1,0 +1,120 @@
+{
+  "id": "AspectRatio",
+  "description": "Container that keeps the aspect ratio of images, videos and other media.",
+  "usage": {
+    "howToUse": [
+      "Use it to keep the shape of an image, video or map while it loads and on every screen width: 16:9 video, square cover.",
+      "Pass `ratio` (16/9, 1, 4/3) and the media as children."
+    ],
+    "alternatives": [
+      "Several photos with navigation: MediaGallery."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The box does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "AspectRatio",
+  "selected": "Interativo",
+  "import": "import { AspectRatio } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "AspectRatio",
+      "props": [
+        {
+          "name": "ratio",
+          "defaultValue": "16 / 9",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { AspectRatio } from '@refy-design/web';\nfunction AspectRatioExample() {\n  return (\n    <AspectRatio\n      ratio={16 / 9}\n      style={{\n        display: 'grid',\n        placeItems: 'center',\n        background: 'var(--primary-soft)',\n        borderRadius: 'var(--radius-lg)',\n        color: 'var(--primary-ink)',\n      }}\n    >\n      16:9 ratio\n    </AspectRatio>\n  );\n}\nexport function Example() {\n  return <AspectRatioExample />;\n}"
+    }
+  ]
+}

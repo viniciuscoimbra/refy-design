@@ -1,0 +1,168 @@
+.frame {
+  margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-family: var(--font-body);
+  color: var(--ink-1);
+}
+.title {
+  margin: 0;
+  font: var(--weight-semi) var(--text-lg, 18px)/1.4 var(--font-heading);
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+  position: relative;
+}
+.body[data-position="right"] {
+  flex-direction: row;
+  align-items: center;
+}
+.plot {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+}
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: pan-y;
+  overflow: hidden;
+}
+.svg:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+.axes text {
+  fill: var(--ink-3);
+  font: var(--text-xs)/1.3 var(--font-body);
+}
+.grid {
+  stroke: var(--line);
+  stroke-width: 1;
+  opacity: 0.4;
+}
+.axisLine,
+.links {
+  stroke: var(--ink-4);
+  stroke-width: 1;
+}
+.track {
+  fill: var(--surface-2);
+}
+.markLabel {
+  fill: var(--ink-1);
+  stroke: none;
+  font: var(--text-xs)/1.4 var(--font-body);
+}
+.centerValue {
+  fill: var(--ink-1);
+  font: var(--weight-semi) var(--text-h3)/1.2 var(--font-body);
+}
+.mark {
+  cursor: default;
+  transition: opacity var(--motion-feedback-duration) var(--ease-out);
+}
+.mark[data-muted="true"] {
+  opacity: 0.35;
+}
+.marker {
+  fill: none;
+  stroke: var(--ink-1);
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+}
+.body[data-position="right"] .legend {
+  flex-direction: column;
+  flex: 0 0 120px;
+  max-height: 300px;
+  overflow: auto;
+}
+.tooltip {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  pointer-events: none;
+  max-width: min(260px, calc(100% - 24px));
+  padding: var(--space-4);
+  border: var(--surface-border-width, 1px) solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elev-2);
+  background: var(--surface);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+.tooltip dl {
+  margin: var(--space-2) 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-1) var(--space-3);
+}
+.tooltip dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.data {
+  font-size: var(--text-sm);
+  min-width: 0;
+}
+.data summary {
+  color: var(--ink-3);
+  cursor: pointer;
+  margin-block: var(--space-2);
+}
+.status {
+  padding-block: var(--space-6);
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .body[data-position="right"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .body[data-position="right"] .legend {
+    flex: auto;
+    flex-direction: row;
+    max-height: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mark {
+    transition: none;
+  }
+}
+:global([data-refy-motion="reduce"]) .mark {
+  transition: none;
+}
+
+.frame[data-selectable=true] .mark { cursor: pointer; }
+
+.navigation { display:flex; flex-wrap:wrap; gap:var(--space-2); align-items:center; font-size:var(--text-xs); }
+.navigation > span { color:var(--ink-3); font-variant-numeric:tabular-nums; }
+.brushSection { display:grid; gap:var(--space-2); min-width:0; }
+.brushSvg { display:block; width:100%; height:auto; touch-action:none; overflow:hidden; }
+.brushSvg :global(.selection) { fill:var(--primary-soft); fill-opacity:.7; stroke:var(--primary); stroke-width:var(--control-border-width,1px); }
+.brushSvg :global(.handle) { fill:var(--primary); }

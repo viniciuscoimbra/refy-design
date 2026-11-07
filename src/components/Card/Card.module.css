@@ -1,0 +1,156 @@
+.card {
+  transition: box-shadow var(--duration-fast) var(--ease-out);
+  background: var(--card-background, var(--surface));
+  border: var(--card-border-width, 1px) var(--control-border-style, solid)
+    var(--border);
+  border-radius: var(--card-radius, var(--radius-lg-token));
+}
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
+.p-none {
+  padding: 0;
+}
+.p-sm {
+  padding: var(--space-3);
+}
+.p-md {
+  padding: var(--card-padding, var(--space-5));
+}
+.e0 {
+  box-shadow: none;
+}
+
+/* tone="inverted" — superfície tinta com radial da marca (plan-summary,
+ * usage-hero). Re-escopa os tokens de tinta/linha para que átomos filhos
+ * (CardHeader, Stat, ProgressBar, Badge…) leiam texto claro sem prop extra. */
+.inverted {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--legacy-ink-1) 0%,
+    color-mix(in srgb, var(--legacy-ink-1) 93%, var(--legacy-white)) 100%
+  );
+  border-color: color-mix(in srgb, var(--legacy-white) 12%, transparent);
+  color: var(--legacy-white);
+  --ink-1: var(--legacy-white);
+  --ink-2: color-mix(in srgb, var(--legacy-white) 78%, transparent);
+  --ink-3: color-mix(in srgb, var(--legacy-white) 60%, transparent);
+  --ink-4: color-mix(in srgb, var(--legacy-white) 40%, transparent);
+  --surface: transparent;
+  --surface-2: color-mix(in srgb, var(--legacy-white) 8%, transparent);
+  --border: color-mix(in srgb, var(--legacy-white) 14%, transparent);
+  --line: color-mix(in srgb, var(--legacy-white) 16%, transparent);
+  --line-soft: color-mix(in srgb, var(--legacy-white) 10%, transparent);
+}
+.inverted::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      color-mix(in srgb, var(--primary) 18%, transparent),
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      color-mix(in srgb, var(--primary) 10%, transparent),
+      transparent 60%
+    );
+  pointer-events: none;
+}
+.inverted > * {
+  position: relative;
+}
+.e1 {
+  box-shadow: var(--elev-1);
+}
+.e2 {
+  box-shadow: var(--elev-2);
+}
+.e3 {
+  box-shadow: var(--elev-3);
+}
+.e4 {
+  box-shadow: var(--elev-4);
+}
+
+.header {
+  display: flex;
+  align-items: var(--card-header-align, center);
+  flex-wrap: wrap;
+  gap: var(--card-header-gap, var(--space-3));
+  margin-bottom: var(--card-header-margin-bottom, var(--space-3));
+}
+.headingContent {
+  flex: 1;
+  min-width: 0;
+}
+.description {
+  margin: var(--card-description-gap, 4px) 0 0;
+  color: var(--ink-3);
+  font-size: var(--card-description-size, var(--text-sm));
+  line-height: var(--card-description-leading, var(--leading-normal));
+}
+.icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--card-icon-size, 48px);
+  height: var(--card-icon-size, 48px);
+  border-radius: var(--card-icon-radius, var(--radius-sm));
+  background: var(--card-icon-background, var(--primary-soft));
+  color: var(--card-icon-color, var(--primary-ink));
+}
+.icon > svg {
+  width: var(--card-icon-glyph-size, 24px);
+  height: var(--card-icon-glyph-size, 24px);
+}
+.title {
+  font-family: var(--font-headline);
+  font-size: var(--card-title-size, var(--text-h5));
+  line-height: var(--card-title-leading, inherit);
+  font-weight: var(--card-title-weight, var(--weight-semi));
+  letter-spacing: -0.01em;
+  color: var(--ink-1);
+  margin: 0;
+  white-space: var(--card-title-white-space, normal);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.count {
+  font-family: var(--interface-detail-font, var(--font-mono));
+  font-size: var(--text-2xs);
+  color: var(--ink-3);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.action {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.headerSm .title {
+  font-size: var(--card-sm-title-size, var(--text-base));
+}
+.headerSm .description {
+  font-size: var(
+    --card-sm-description-size,
+    var(--card-description-size, var(--text-sm))
+  );
+}
+.headerSm .icon {
+  width: var(--card-sm-icon-size, 32px);
+  height: var(--card-sm-icon-size, 32px);
+}
+.headerSm .icon > svg {
+  width: var(--card-sm-icon-glyph-size, 16px);
+  height: var(--card-sm-icon-glyph-size, 16px);
+}

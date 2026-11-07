@@ -1,0 +1,178 @@
+{
+  "id": "EventTimeline",
+  "description": "Activity history grouped by date: author next to content, context and actions. ActivityTimeline also builds compact widgets. EventTimeline is a compatibility alias. For milestones of a journey, use Timeline.",
+  "usage": {
+    "howToUse": [
+      "Use it for the history of a record: comments, changes and system events, grouped by day.",
+      "Pass the `events` with author and time; set `locale` and `timezone` of the people reading.",
+      "Show loading failures with `error` and `onRetry`, and an empty history with `emptyTitle` and `emptyMessage`.",
+      "For a small widget, use `density=\"compact\"` and `groupByDate={false}`. In new code, import it as ActivityTimeline."
+    ],
+    "alternatives": [
+      "Milestones of a journey: Timeline.",
+      "A single event: ActivityItem."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through links, actions and \"Load more\", in reading order."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the link or runs the action."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ActivityTimeline",
+  "selected": "Cronologia",
+  "import": "import { ActivityTimeline } from '@refy-design/web';",
+  "composition": [
+    "ActivityItem",
+    "Button",
+    "Callout",
+    "EmptyState",
+    "StatusDot"
+  ],
+  "api": [
+    {
+      "name": "ActivityTimeline",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content title."
+        },
+        {
+          "name": "context",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "events",
+          "type": "TimelineEvent[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "timezone",
+          "defaultValue": "\"America/Sao_Paulo\"",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onRetry",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "emptyTitle",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "emptyMessage",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "density",
+          "defaultValue": "\"default\"",
+          "type": "\"default\" | \"compact\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "showHeader",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "groupByDate",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Remove day separators when composing a compact widget."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Cronologia",
+      "label": "Chronology",
+      "description": "",
+      "code": "import type { ActivityEvent } from '@refy-design/web';\nimport { ActivityTimeline } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst messageIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M4 5h16v12H9l-5 4V5Z\" />\n  </svg>\n);\nconst checkIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"m5 12 4 4L19 6\" />\n  </svg>\n);\nconst fileIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M7 3h7l4 4v14H7V3Z M14 3v5h4 M10 12h5 M10 16h5\" />\n  </svg>\n);\nconst events: ActivityEvent[] = [\n  {\n    id: '1',\n    timestamp: '2026-10-23T14:30:00-03:00',\n    title: 'commented on the references',\n    description:\n      'We can go with the second proposal. It makes navigation clearer and keeps the review context.',\n    actor: { name: 'Ana Silva', initials: 'AS' },\n    icon: messageIcon,\n    badge: { label: 'Comment', tone: 'info' },\n    metadata: 'Aurora project · References',\n  },\n  {\n    id: '2',\n    timestamp: '2026-10-23T11:42:00-03:00',\n    title: 'finished the content review',\n    description: 'The guidelines were updated and are already available to the team.',\n    actor: { name: 'Bruno Costa', initials: 'BC' },\n    icon: checkIcon,\n    status: { label: 'Completed', tone: 'good' },\n    badge: { label: 'Review', tone: 'success' },\n    metadata: 'Content guide',\n  },\n  {\n    id: '3',\n    timestamp: '2026-10-23T09:10:00-03:00',\n    title: 'added a file to the collection',\n    description: 'Navigation references.pdf · 2.4 MB',\n    actor: { name: 'Camila Lima', initials: 'CL' },\n    icon: fileIcon,\n    badge: { label: 'File', tone: 'neutral' },\n    metadata: 'Team collection',\n  },\n  {\n    id: '4',\n    timestamp: '2026-10-22T16:20:00-03:00',\n    title: 'Sync complete',\n    description: 'The files in this collection are up to date.',\n    icon: checkIcon,\n    status: { label: 'Updated', tone: 'good' },\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityTimeline>,\n    'events' | 'title' | 'context'\n  > = {\n    events,\n    title: 'Team activity',\n    context: 'Comments, reviews and files in a single history.',\n  };\n  const [selected, setSelected] = useState<ActivityEvent | null>(null);\n  return (\n    <>\n      <ActivityTimeline\n        {...args}\n        events={args.events.map((event) => ({\n          ...event,\n          action: (\n            <Button size=\"sm\" variant=\"ghost\" onClick={() => setSelected(event)}>\n              View activity\n            </Button>\n          ),\n        }))}\n      />\n      <Drawer\n        open={!!selected}\n        onOpenChange={(open) => {\n          if (!open) setSelected(null);\n        }}\n        title=\"Activity details\"\n      >\n        <ActivityTimeline events={selected ? [selected] : []} showHeader={false} />\n      </Drawer>\n    </>\n  );\n}"
+    },
+    {
+      "id": "Compacto",
+      "label": "Compact",
+      "description": "",
+      "code": "import type { ActivityEvent } from '@refy-design/web';\nimport { ActivityTimeline } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst messageIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M4 5h16v12H9l-5 4V5Z\" />\n  </svg>\n);\nconst checkIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"m5 12 4 4L19 6\" />\n  </svg>\n);\nconst fileIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M7 3h7l4 4v14H7V3Z M14 3v5h4 M10 12h5 M10 16h5\" />\n  </svg>\n);\nconst events: ActivityEvent[] = [\n  {\n    id: '1',\n    timestamp: '2026-10-23T14:30:00-03:00',\n    title: 'commented on the references',\n    description:\n      'We can go with the second proposal. It makes navigation clearer and keeps the review context.',\n    actor: { name: 'Ana Silva', initials: 'AS' },\n    icon: messageIcon,\n    badge: { label: 'Comment', tone: 'info' },\n    metadata: 'Aurora project · References',\n  },\n  {\n    id: '2',\n    timestamp: '2026-10-23T11:42:00-03:00',\n    title: 'finished the content review',\n    description: 'The guidelines were updated and are already available to the team.',\n    actor: { name: 'Bruno Costa', initials: 'BC' },\n    icon: checkIcon,\n    status: { label: 'Completed', tone: 'good' },\n    badge: { label: 'Review', tone: 'success' },\n    metadata: 'Content guide',\n  },\n  {\n    id: '3',\n    timestamp: '2026-10-23T09:10:00-03:00',\n    title: 'added a file to the collection',\n    description: 'Navigation references.pdf · 2.4 MB',\n    actor: { name: 'Camila Lima', initials: 'CL' },\n    icon: fileIcon,\n    badge: { label: 'File', tone: 'neutral' },\n    metadata: 'Team collection',\n  },\n  {\n    id: '4',\n    timestamp: '2026-10-22T16:20:00-03:00',\n    title: 'Sync complete',\n    description: 'The files in this collection are up to date.',\n    icon: checkIcon,\n    status: { label: 'Updated', tone: 'good' },\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityTimeline>,\n    'events' | 'title' | 'context' | 'density'\n  > = {\n    events,\n    title: 'Team activity',\n    context: 'Comments, reviews and files in a single history.',\n    density: 'compact',\n  };\n  return <ActivityTimeline {...args} />;\n}"
+    },
+    {
+      "id": "Agrupamento",
+      "label": "Grouping",
+      "description": "",
+      "code": "import type { ActivityEvent } from '@refy-design/web';\nimport { ActivityTimeline } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst messageIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M4 5h16v12H9l-5 4V5Z\" />\n  </svg>\n);\nconst checkIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"m5 12 4 4L19 6\" />\n  </svg>\n);\nconst fileIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M7 3h7l4 4v14H7V3Z M14 3v5h4 M10 12h5 M10 16h5\" />\n  </svg>\n);\nconst events: ActivityEvent[] = [\n  {\n    id: '1',\n    timestamp: '2026-10-23T14:30:00-03:00',\n    title: 'commented on the references',\n    description:\n      'We can go with the second proposal. It makes navigation clearer and keeps the review context.',\n    actor: { name: 'Ana Silva', initials: 'AS' },\n    icon: messageIcon,\n    badge: { label: 'Comment', tone: 'info' },\n    metadata: 'Aurora project · References',\n  },\n  {\n    id: '2',\n    timestamp: '2026-10-23T11:42:00-03:00',\n    title: 'finished the content review',\n    description: 'The guidelines were updated and are already available to the team.',\n    actor: { name: 'Bruno Costa', initials: 'BC' },\n    icon: checkIcon,\n    status: { label: 'Completed', tone: 'good' },\n    badge: { label: 'Review', tone: 'success' },\n    metadata: 'Content guide',\n  },\n  {\n    id: '3',\n    timestamp: '2026-10-23T09:10:00-03:00',\n    title: 'added a file to the collection',\n    description: 'Navigation references.pdf · 2.4 MB',\n    actor: { name: 'Camila Lima', initials: 'CL' },\n    icon: fileIcon,\n    badge: { label: 'File', tone: 'neutral' },\n    metadata: 'Team collection',\n  },\n  {\n    id: '4',\n    timestamp: '2026-10-22T16:20:00-03:00',\n    title: 'Sync complete',\n    description: 'The files in this collection are up to date.',\n    icon: checkIcon,\n    status: { label: 'Updated', tone: 'good' },\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityTimeline>,\n    'events' | 'title' | 'context'\n  > = {\n    events: [...events].reverse(),\n    title: 'Team activity',\n    context: 'Comments, reviews and files in a single history.',\n  };\n  return <ActivityTimeline {...args} />;\n}"
+    },
+    {
+      "id": "Widget",
+      "label": "Widget",
+      "description": "",
+      "code": "import { ActivityTimeline } from '@refy-design/web';\nimport { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { CardHeader } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst fileIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M7 3h7l4 4v14H7V3Z M14 3v5h4 M10 12h5 M10 16h5\" />\n  </svg>\n);\nconst messageIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M4 5h16v12H9l-5 4V5Z\" />\n  </svg>\n);\nconst checkIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"m5 12 4 4L19 6\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityTimeline>,\n    'events' | 'title' | 'context'\n  > = {\n    events: [\n      {\n        id: 'import',\n        timestamp: '2026-10-23T14:30:00-03:00',\n        title: 'Import complete',\n        description: 'The files are now available in the team collection.',\n        icon: fileIcon,\n      },\n      {\n        id: 'review',\n        timestamp: '2026-10-23T11:42:00-03:00',\n        title: 'Review received',\n        description: 'The comments were gathered for the next step.',\n        icon: messageIcon,\n      },\n      {\n        id: 'scheduled',\n        timestamp: '2026-10-23T09:10:00-03:00',\n        title: 'Publishing scheduled',\n        description: 'The content will be published on the date set by the team.',\n        icon: checkIcon,\n      },\n      {\n        id: 'sync',\n        timestamp: '2026-10-22T16:20:00-03:00',\n        title: 'Sync complete',\n        description: 'All changes were saved.',\n        icon: checkIcon,\n      },\n    ],\n    title: 'Team activity',\n    context: 'Comments, reviews and files in a single history.',\n  };\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Card style={{ maxWidth: 520 }}>\n        <CardHeader\n          title=\"Activity\"\n          action={\n            <Badge tone=\"success\" dot>\n              Updated\n            </Badge>\n          }\n        />\n        <ActivityTimeline\n          {...args}\n          density=\"compact\"\n          showHeader={false}\n          groupByDate={false}\n        />\n        <Button\n          variant=\"secondary\"\n          style={{ marginTop: 'var(--space-5)', width: '100%' }}\n          onClick={() => setOpen(true)}\n        >\n          See full history\n        </Button>\n      </Card>\n      <Drawer open={open} onOpenChange={setOpen} title=\"Activity history\">\n        <ActivityTimeline {...args} showHeader={false} />\n      </Drawer>\n    </>\n  );\n}"
+    },
+    {
+      "id": "Notificacoes",
+      "label": "Notifications",
+      "description": "",
+      "code": "import type { ActivityEvent } from '@refy-design/web';\nimport { ActivityTimeline } from '@refy-design/web';\nimport { IconButton } from '@refy-design/web';\nimport { Popover } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst messageIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M4 5h16v12H9l-5 4V5Z\" />\n  </svg>\n);\nconst checkIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"m5 12 4 4L19 6\" />\n  </svg>\n);\nconst fileIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M7 3h7l4 4v14H7V3Z M14 3v5h4 M10 12h5 M10 16h5\" />\n  </svg>\n);\nconst events: ActivityEvent[] = [\n  {\n    id: '1',\n    timestamp: '2026-10-23T14:30:00-03:00',\n    title: 'commented on the references',\n    description:\n      'We can go with the second proposal. It makes navigation clearer and keeps the review context.',\n    actor: { name: 'Ana Silva', initials: 'AS' },\n    icon: messageIcon,\n    badge: { label: 'Comment', tone: 'info' },\n    metadata: 'Aurora project · References',\n  },\n  {\n    id: '2',\n    timestamp: '2026-10-23T11:42:00-03:00',\n    title: 'finished the content review',\n    description: 'The guidelines were updated and are already available to the team.',\n    actor: { name: 'Bruno Costa', initials: 'BC' },\n    icon: checkIcon,\n    status: { label: 'Completed', tone: 'good' },\n    badge: { label: 'Review', tone: 'success' },\n    metadata: 'Content guide',\n  },\n  {\n    id: '3',\n    timestamp: '2026-10-23T09:10:00-03:00',\n    title: 'added a file to the collection',\n    description: 'Navigation references.pdf · 2.4 MB',\n    actor: { name: 'Camila Lima', initials: 'CL' },\n    icon: fileIcon,\n    badge: { label: 'File', tone: 'neutral' },\n    metadata: 'Team collection',\n  },\n  {\n    id: '4',\n    timestamp: '2026-10-22T16:20:00-03:00',\n    title: 'Sync complete',\n    description: 'The files in this collection are up to date.',\n    icon: checkIcon,\n    status: { label: 'Updated', tone: 'good' },\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityTimeline>,\n    'events' | 'title' | 'context'\n  > = {\n    events,\n    title: 'Team activity',\n    context: 'Comments, reviews and files in a single history.',\n  };\n  const [open, setOpen] = useState(false);\n  return (\n    <Popover\n      label=\"Recent activity\"\n      open={open}\n      onOpenChange={setOpen}\n      align=\"end\"\n      content={\n        <div style={{ width: 'min(360px, 75vw)' }}>\n          <ActivityTimeline\n            {...args}\n            title=\"Recent activity\"\n            context={undefined}\n            density=\"compact\"\n            groupByDate={false}\n          />\n        </div>\n      }\n    >\n      <IconButton\n        aria-label=\"Open recent activity\"\n        onClick={() => setOpen(!open)}\n        icon={messageIcon}\n      />\n    </Popover>\n  );\n}"
+    },
+    {
+      "id": "Vazio",
+      "label": "Empty",
+      "description": "",
+      "code": "import { ActivityTimeline } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityTimeline>,\n    'events' | 'title' | 'context'\n  > = {\n    events: [],\n    title: 'Team activity',\n    context: 'Comments, reviews and files in a single history.',\n  };\n  return <ActivityTimeline {...args} />;\n}"
+    },
+    {
+      "id": "Erro",
+      "label": "Error",
+      "description": "",
+      "code": "import type { ActivityEvent } from '@refy-design/web';\nimport { ActivityTimeline } from '@refy-design/web';\nimport { useState } from 'react';\nconst messageIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M4 5h16v12H9l-5 4V5Z\" />\n  </svg>\n);\nconst checkIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"m5 12 4 4L19 6\" />\n  </svg>\n);\nconst fileIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M7 3h7l4 4v14H7V3Z M14 3v5h4 M10 12h5 M10 16h5\" />\n  </svg>\n);\nconst events: ActivityEvent[] = [\n  {\n    id: '1',\n    timestamp: '2026-10-23T14:30:00-03:00',\n    title: 'commented on the references',\n    description:\n      'We can go with the second proposal. It makes navigation clearer and keeps the review context.',\n    actor: { name: 'Ana Silva', initials: 'AS' },\n    icon: messageIcon,\n    badge: { label: 'Comment', tone: 'info' },\n    metadata: 'Aurora project · References',\n  },\n  {\n    id: '2',\n    timestamp: '2026-10-23T11:42:00-03:00',\n    title: 'finished the content review',\n    description: 'The guidelines were updated and are already available to the team.',\n    actor: { name: 'Bruno Costa', initials: 'BC' },\n    icon: checkIcon,\n    status: { label: 'Completed', tone: 'good' },\n    badge: { label: 'Review', tone: 'success' },\n    metadata: 'Content guide',\n  },\n  {\n    id: '3',\n    timestamp: '2026-10-23T09:10:00-03:00',\n    title: 'added a file to the collection',\n    description: 'Navigation references.pdf · 2.4 MB',\n    actor: { name: 'Camila Lima', initials: 'CL' },\n    icon: fileIcon,\n    badge: { label: 'File', tone: 'neutral' },\n    metadata: 'Team collection',\n  },\n  {\n    id: '4',\n    timestamp: '2026-10-22T16:20:00-03:00',\n    title: 'Sync complete',\n    description: 'The files in this collection are up to date.',\n    icon: checkIcon,\n    status: { label: 'Updated', tone: 'good' },\n  },\n];\nexport function Example() {\n  const [error, setError] = useState('The connection to the history was lost.');\n  return (\n    <ActivityTimeline\n      events={error ? [] : events}\n      error={error || undefined}\n      onRetry={() => setError('')}\n    />\n  );\n}"
+    },
+    {
+      "id": "ConteudoLongo",
+      "label": "Long content",
+      "description": "",
+      "code": "import type { ActivityEvent } from '@refy-design/web';\nimport { ActivityTimeline } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst messageIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M4 5h16v12H9l-5 4V5Z\" />\n  </svg>\n);\nconst checkIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"m5 12 4 4L19 6\" />\n  </svg>\n);\nconst fileIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"1.7\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M7 3h7l4 4v14H7V3Z M14 3v5h4 M10 12h5 M10 16h5\" />\n  </svg>\n);\nconst events: ActivityEvent[] = [\n  {\n    id: '1',\n    timestamp: '2026-10-23T14:30:00-03:00',\n    title: 'commented on the references',\n    description:\n      'We can go with the second proposal. It makes navigation clearer and keeps the review context.',\n    actor: { name: 'Ana Silva', initials: 'AS' },\n    icon: messageIcon,\n    badge: { label: 'Comment', tone: 'info' },\n    metadata: 'Aurora project · References',\n  },\n  {\n    id: '2',\n    timestamp: '2026-10-23T11:42:00-03:00',\n    title: 'finished the content review',\n    description: 'The guidelines were updated and are already available to the team.',\n    actor: { name: 'Bruno Costa', initials: 'BC' },\n    icon: checkIcon,\n    status: { label: 'Completed', tone: 'good' },\n    badge: { label: 'Review', tone: 'success' },\n    metadata: 'Content guide',\n  },\n  {\n    id: '3',\n    timestamp: '2026-10-23T09:10:00-03:00',\n    title: 'added a file to the collection',\n    description: 'Navigation references.pdf · 2.4 MB',\n    actor: { name: 'Camila Lima', initials: 'CL' },\n    icon: fileIcon,\n    badge: { label: 'File', tone: 'neutral' },\n    metadata: 'Team collection',\n  },\n  {\n    id: '4',\n    timestamp: '2026-10-22T16:20:00-03:00',\n    title: 'Sync complete',\n    description: 'The files in this collection are up to date.',\n    icon: checkIcon,\n    status: { label: 'Updated', tone: 'good' },\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityTimeline>,\n    'events' | 'title' | 'context'\n  > = {\n    events: [\n      {\n        ...events[0],\n        id: 'long',\n        title:\n          'updated the project references, the file organization, the responsibilities and the guidelines for the next review',\n        description:\n          'A long entry to check that the history keeps author, time, status and actions without hiding content, even when the event has many details that must be read inside a narrow widget.',\n      },\n    ],\n    title: 'Team activity',\n    context: 'Comments, reviews and files in a single history.',\n  };\n  return <ActivityTimeline {...args} />;\n}"
+    }
+  ]
+}

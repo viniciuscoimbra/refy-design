@@ -1,0 +1,22 @@
+{
+  "en": {
+    "Primeira versão pública.": "First public version.",
+    "118 famílias de componentes React e TypeScript em átomos, moléculas e organismos, com API, exemplos e teclado documentados.": "118 React and TypeScript component families in atoms, molecules and organisms, with API, examples and keyboard documented.",
+    "Tema por arquivo: um JSON define cor, fonte, forma, espaço e movimento. Temas Refy, Fluido, Terracota e Cobalto incluídos.": "Theme as a file: one JSON sets color, font, shape, spacing and motion. Refy, Fluido, Terracota and Cobalto themes included.",
+    "Kit para agentes de código (`refy-agent catalog`, `component`, `inspect`, `check`) instalado junto com o pacote.": "Kit for coding agents (`refy-agent catalog`, `component`, `inspect`, `check`) installed with the package.",
+    "Site [refy.design](https://refy.design) com páginas estáticas por rota, sitemap, `llms.txt` e `llms-full.txt`.": "[refy.design](https://refy.design) site with static pages per route, sitemap, `llms.txt` and `llms-full.txt`.",
+    "Código de conduta, governança e mantenedores publicados.": "Code of conduct, governance and maintainers published.",
+    "Pacote `@refy-design/web` no npm (`npm install @refy-design/web`), com o `.tgz` também anexado ao release `v1.0.0`.": "Package `@refy-design/web` on npm (`npm install @refy-design/web`), with the `.tgz` also attached to the `v1.0.0` release.",
+    "Testes de navegador em Chromium, Firefox e WebKit no CI público, e a publicação passa por varredura de segredos no código e no pacote.": "Browser tests on Chromium, Firefox and WebKit in the public CI, and publishing runs a secret scan over the code and the package."
+  },
+  "es": {
+    "Primeira versão pública.": "Primera versión pública.",
+    "118 famílias de componentes React e TypeScript em átomos, moléculas e organismos, com API, exemplos e teclado documentados.": "118 familias de componentes React y TypeScript en átomos, moléculas y organismos, con API, ejemplos y teclado documentados.",
+    "Tema por arquivo: um JSON define cor, fonte, forma, espaço e movimento. Temas Refy, Fluido, Terracota e Cobalto incluídos.": "Tema por archivo: un JSON define color, fuente, forma, espacio y movimiento. Incluye los temas Refy, Fluido, Terracota y Cobalto.",
+    "Kit para agentes de código (`refy-agent catalog`, `component`, `inspect`, `check`) instalado junto com o pacote.": "Kit para agentes de código (`refy-agent catalog`, `component`, `inspect`, `check`) instalado junto con el paquete.",
+    "Site [refy.design](https://refy.design) com páginas estáticas por rota, sitemap, `llms.txt` e `llms-full.txt`.": "Sitio [refy.design](https://refy.design) con páginas estáticas por ruta, sitemap, `llms.txt` y `llms-full.txt`.",
+    "Código de conduta, governança e mantenedores publicados.": "Código de conducta, gobernanza y mantenedores publicados.",
+    "Pacote `@refy-design/web` no npm (`npm install @refy-design/web`), com o `.tgz` também anexado ao release `v1.0.0`.": "Paquete `@refy-design/web` en npm (`npm install @refy-design/web`), con el `.tgz` también adjunto al release `v1.0.0`.",
+    "Testes de navegador em Chromium, Firefox e WebKit no CI público, e a publicação passa por varredura de segredos no código e no pacote.": "Pruebas de navegador en Chromium, Firefox y WebKit en el CI público, y la publicación pasa por un escaneo de secretos en el código y en el paquete."
+  }
+}

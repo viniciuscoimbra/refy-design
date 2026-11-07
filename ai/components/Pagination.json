@@ -1,0 +1,84 @@
+{
+  "id": "Pagination",
+  "description": "Navigation between result pages, with current position and bounds.",
+  "usage": {
+    "howToUse": [
+      "Use it below a list or table that shows one page of results at a time.",
+      "Pass the current `page` and the total `pageCount`, and load the new page in `onPageChange`.",
+      "After changing page, take the person back to the top of the list."
+    ],
+    "alternatives": [
+      "A feed people scroll without counting pages: a \"Load more\" Button.",
+      "A table with built-in pages: the `pagination` of Table."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through previous, the page numbers and next."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Goes to the page in focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Pagination",
+  "selected": "Playground",
+  "import": "import { Pagination } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Pagination",
+      "props": [
+        {
+          "name": "page",
+          "type": "number",
+          "required": true,
+          "description": "Current page (1-based, controlled)."
+        },
+        {
+          "name": "pageCount",
+          "type": "number",
+          "required": true,
+          "description": "Total pages."
+        },
+        {
+          "name": "onPageChange",
+          "type": "(page: number) => void",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "siblingCount",
+          "defaultValue": "1",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Visible neighbors on each side of the current page. Default 1."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "12 pages with ellipses: navigate with numbers and arrows.",
+      "code": "import { Pagination } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Pagination>,\n    'page' | 'pageCount' | 'onPageChange'\n  > = { page: 2, pageCount: 12, onPageChange: () => {} };\n  const [page, setPage] = useState(2);\n  return <Pagination {...args} page={page} onPageChange={setPage} />;\n}"
+    },
+    {
+      "id": "Curta",
+      "label": "Short",
+      "description": "Few pages, no ellipses.",
+      "code": "import { Pagination } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Pagination>,\n    'page' | 'pageCount' | 'onPageChange'\n  > = { page: 1, pageCount: 4, onPageChange: () => {} };\n  const [page, setPage] = useState(1);\n  return <Pagination {...args} page={page} pageCount={4} onPageChange={setPage} />;\n}"
+    }
+  ]
+}

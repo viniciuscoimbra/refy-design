@@ -1,0 +1,101 @@
+{
+  "id": "Resizable",
+  "description": "Split of an area into resizable panels.",
+  "usage": {
+    "howToUse": [
+      "Use it for two panels side by side whose width people adjust: list and detail, code and preview.",
+      "Pass the panels in `first` and `second`, the start size in `defaultSize`, and limits in `min` and `max`. Save the size in `onSizeChange` to keep it.",
+      "On mobile, show one panel at a time."
+    ],
+    "alternatives": [
+      "A fixed split: a CSS grid."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the divider."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "Moves the divider by 2%."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Moves it to the minimum or the maximum."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Resizable",
+  "selected": "Interativo",
+  "import": "import { Resizable } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Resizable",
+      "props": [
+        {
+          "name": "first",
+          "type": "ReactNode",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "second",
+          "type": "ReactNode",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "defaultSize",
+          "defaultValue": "50",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Size variant."
+        },
+        {
+          "name": "onSizeChange",
+          "type": "((size: number) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "min",
+          "defaultValue": "20",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "defaultValue": "80",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Resizable } from '@refy-design/web';\nfunction ResizableExample() {\n  return (\n    <Resizable\n      first={\n        <>\n          <strong>Library</strong>\n          <p>References and guides</p>\n        </>\n      }\n      second={\n        <>\n          <strong>Preview</strong>\n          <p>Drag the divider or use the arrows while it has focus.</p>\n        </>\n      }\n    />\n  );\n}\nexport function Example() {\n  return <ResizableExample />;\n}"
+    }
+  ]
+}

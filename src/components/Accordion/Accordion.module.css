@@ -1,0 +1,142 @@
+.wrap {
+  display: grid;
+  gap: var(--accordion-gap, 0px);
+  border: var(--accordion-border-width, var(--surface-border-width, 1px)) solid
+    var(--line);
+  border-radius: var(--radius-md, 10px);
+  overflow: hidden;
+  background: var(--accordion-surface, var(--surface));
+  font-family: var(--font-body, "Switzer", sans-serif);
+}
+.item {
+  border: var(--accordion-item-border-width, 0px) solid var(--line);
+  border-radius: var(--accordion-item-radius, 0px);
+  overflow: hidden;
+}
+.item + .item {
+  border-top: var(--accordion-divider-width, 1px) solid var(--line);
+}
+/* The open title and its panel are one block: the open fill covers both. */
+.itemOpen {
+  background: var(--accordion-open-background, transparent);
+}
+.heading {
+  margin: 0;
+  font: inherit;
+}
+.plain {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.plain .item {
+  border-inline: 0;
+  border-bottom: 0;
+  border-radius: 0;
+}
+.plain .trigger {
+  padding-inline: 0;
+}
+.plain .panelInner {
+  padding-inline: 0;
+}
+.joined {
+  gap: 0;
+  border: var(--surface-border-width, 1px) solid var(--line);
+}
+.joined .item { border: 0; border-radius: 0; }
+.joined .item + .item { border-top: var(--accordion-divider-width, 1px) solid var(--line); }
+.joined .itemOpen { background: var(--accordion-joined-open-background, transparent); }
+.small .trigger {
+  padding: var(--accordion-sm-trigger-padding, var(--space-2) var(--space-3));
+  font-size: var(--accordion-sm-trigger-size, var(--text-sm));
+  line-height: var(--accordion-sm-leading, 1.4);
+}
+.small .panelInner { padding: var(--accordion-sm-content-padding, 0 var(--space-3) var(--space-2)); }
+.small .panelInner p { font-size: var(--accordion-sm-content-size, var(--text-xs)); }
+.trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: var(--accordion-trigger-padding, var(--space-3) var(--space-4));
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--accordion-trigger-font, inherit);
+  font-size: var(--accordion-trigger-size, var(--text-base));
+  line-height: var(--accordion-trigger-leading, normal);
+  font-weight: 600;
+  color: var(--ink-1);
+  text-align: start;
+  transition: background var(--motion-context-duration);
+}
+/* Hover marks a closed title only; on an open item it would split the block. */
+.item:not(.itemOpen) .trigger:hover {
+  background: var(--legacy-surface-hover);
+}
+.trigger:disabled {
+  color: var(--ink-4);
+  cursor: not-allowed;
+}
+.trigger:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+.title {
+  min-width: 0;
+}
+.lead {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--ink-2);
+  transition: transform var(--motion-context-exit-duration) var(--motion-ease-exit);
+}
+.itemOpen .lead {
+  transform: rotate(90deg);
+}
+/* indentContent: the answer starts where the title text starts: arrow (14px), the trigger's 12px gap and the lead gap. */
+.indented .panelInner > * {
+  margin-inline-start: calc(14px + 12px + var(--accordion-lead-gap, 10px));
+}
+.lead + .title {
+  flex: 1;
+  margin-inline-start: var(--accordion-lead-gap, 10px);
+  text-align: start;
+}
+.chevron {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--ink-3);
+  transition: transform var(--motion-context-exit-duration)
+    var(--motion-ease-exit);
+}
+.itemOpen .chevron {
+  transform: rotate(180deg);
+  transition-duration: var(--motion-context-duration);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+/* Altura natural fora da expansão compartilhada. */
+.panel[hidden] {
+  display: none;
+}
+/* Bottom padding equals the title's, so content has equal space above and below. */
+.panelInner {
+  padding: var(--accordion-content-padding, 0 var(--space-4) var(--space-3));
+}
+.panelInner :global(p) {
+  margin: 0;
+  font-size: var(--accordion-content-size, var(--text-sm));
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+}

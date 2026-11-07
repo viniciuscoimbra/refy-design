@@ -1,0 +1,259 @@
+{
+  "id": "Stat",
+  "description": "Display of a value with optional label, change and trend.",
+  "usage": {
+    "howToUse": [
+      "Use it for the main numbers of a dashboard or plan: revenue, active users, limit per minute.",
+      "Write the name in `label`, the number in `value` and the unit in `unit`. Explain the number in `description` when it is not obvious.",
+      "Show the change with `delta` and a small trend in `chart`. Your application calculates both."
+    ],
+    "alternatives": [
+      "Usage against a limit: UsageMeter.",
+      "A score from 0 to 100: ScoreGauge."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The number does not receive focus. Screen readers read the name, the value and the change."
+      }
+    ]
+  },
+  "collections": [
+    "analytics"
+  ],
+  "publicName": "Stat",
+  "selected": "ComDelta",
+  "import": "import { Stat } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Stat",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Mono uppercase label above the number. E.g. \"Rate limit\"."
+        },
+        {
+          "name": "value",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Main value (large tabular number). E.g. \"3,700\" or \"60 req/min\"."
+        },
+        {
+          "name": "unit",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Smaller suffix next to the value. E.g. \"credits\", \"/ 2,500\"."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Secondary line under the value. E.g. \"per API key, 429 when exceeded\"."
+        },
+        {
+          "name": "delta",
+          "type": "StatDelta | undefined",
+          "required": false,
+          "description": "Change with up/down arrow and semantic color."
+        },
+        {
+          "name": "chart",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Mini chart slot (e.g. `<Sparkline />` from Charts) under the content."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "StatSize | undefined",
+          "required": false,
+          "description": "Value scale (default: \"md\")."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    },
+    {
+      "name": "StatGroup",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Basico",
+      "label": "Basic",
+      "description": "",
+      "code": "import { Stat } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Stat>,\n    'label' | 'value' | 'unit' | 'description'\n  > = {\n    label: 'Rate limit',\n    value: '60',\n    unit: 'req/min',\n    description: 'per API key; 429 is returned once exceeded.',\n  };\n  return <Stat {...args} />;\n}"
+    },
+    {
+      "id": "ComDelta",
+      "label": "With delta (up/down)",
+      "description": "",
+      "code": "import { Stat } from '@refy-design/web';\nimport { StatGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <StatGroup style={{ maxWidth: 560 }}>\n      <Stat\n        label=\"Analyses this cycle\"\n        value=\"128\"\n        delta={{ value: '+12%', trend: 'up' }}\n        description=\"vs previous cycle\"\n      />\n      <Stat\n        label=\"Average progress\"\n        value=\"74\"\n        delta={{ value: '-3 pts', trend: 'down' }}\n        description=\"vs previous cycle\"\n      />\n      <Stat\n        label=\"Cost per analysis\"\n        value=\"18\"\n        unit=\"credits\"\n        delta={{ value: '+2', trend: 'up', sentiment: 'negative' }}\n        description=\"going up is bad here, inverted sentiment\"\n      />\n    </StatGroup>\n  );\n}"
+    },
+    {
+      "id": "ComSparkline",
+      "label": "With Sparkline (chart slot)",
+      "description": "",
+      "code": "import { Sparkline } from '@refy-design/web';\nimport { Stat } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Stat>,\n    'label' | 'value' | 'delta' | 'chart'\n  > = {\n    label: 'Analyses / day',\n    value: '42',\n    delta: { value: '+8%', trend: 'up' },\n    chart: (\n      <Sparkline\n        data={[12, 18, 14, 22, 26, 24, 31, 29, 38, 42]}\n        label=\"Analyses per day trend\"\n      />\n    ),\n  };\n  return <Stat {...args} />;\n}"
+    },
+    {
+      "id": "GrupoEmGrid",
+      "label": "StatGroup (API limits)",
+      "description": "Tile grid as in \"Usage limits\" on the Developer page.",
+      "code": "import { Card } from '@refy-design/web';\nimport { CardHeader } from '@refy-design/web';\nimport { Stat } from '@refy-design/web';\nimport { StatGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Card style={{ maxWidth: 640 }}>\n      <CardHeader title=\"Usage limits\" />\n      <StatGroup>\n        <Stat\n          size=\"sm\"\n          label=\"Rate limit\"\n          value=\"60\"\n          unit=\"req/min\"\n          description=\"per API key, 429 once exceeded.\"\n        />\n        <Stat\n          size=\"sm\"\n          label=\"Parallel analyses\"\n          value=\"3\"\n          unit=\"concurrent\"\n          description=\"Pro plan · upgrading unlocks 10.\"\n        />\n        <Stat\n          size=\"sm\"\n          label=\"Webhook timeout\"\n          value=\"10s\"\n          unit=\"· 5 retries\"\n          description=\"exponential backoff 30s → 4h.\"\n        />\n      </StatGroup>\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "SuperficieInvertida",
+      "label": "Inverted surface (hero)",
+      "description": "On an inverted panel (usage hero): tokens flip via data-theme on the container.",
+      "code": "import { Stat } from '@refy-design/web';\nimport { StatGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div\n      data-theme=\"dark\"\n      style={{\n        background: 'var(--surface-container-low)',\n        borderRadius: 'var(--radius-xl)',\n        padding: 'var(--space-6)',\n        maxWidth: 640,\n      }}\n    >\n      <StatGroup>\n        <Stat\n          size=\"lg\"\n          label=\"Total available balance\"\n          value=\"3.700\"\n          unit=\"credits\"\n          description=\"2,500 from the Pro plan · 1,200 saved\"\n        />\n        <Stat\n          size=\"lg\"\n          label=\"Used this cycle\"\n          value=\"800\"\n          unit=\"/ 2.500\"\n          description=\"8 standard analyses · 0 syntheses\"\n        />\n        <Stat\n          size=\"lg\"\n          label=\"Extra packs\"\n          value=\"2.000\"\n          unit=\"restantes\"\n          description=\"2,000 cr pack · bought May 2\"\n        />\n      </StatGroup>\n    </div>\n  );\n}"
+    }
+  ]
+}

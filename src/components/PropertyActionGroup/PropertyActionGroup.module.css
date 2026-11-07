@@ -1,0 +1,9 @@
+.root { container-type: inline-size; display: grid; gap: var(--space-2); width: 100%; }
+.actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
+.action { min-width: 0; min-height: var(--button-height-md, 34px); height: auto; padding-block: var(--space-2); white-space: normal; line-height: var(--control-line-height, var(--leading-normal)); }
+.status { color: var(--ink-3); font-size: var(--text-xs); line-height: var(--leading-normal); text-align: center; }
+.vertical .actions { grid-template-columns: 1fr; }
+
+@container (max-width: 360px) { .auto .actions { grid-template-columns: 1fr; } }
+
+.active { outline: var(--control-border-width, 1px) solid currentColor; outline-offset: 2px; }

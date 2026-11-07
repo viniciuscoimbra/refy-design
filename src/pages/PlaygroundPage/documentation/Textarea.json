@@ -1,0 +1,180 @@
+{
+  "id": "Textarea",
+  "description": "Multi-line text input with label, help and error.",
+  "usage": {
+    "howToUse": [
+      "Use it for text that can take more than one line: description, comment, message.",
+      "Give it a `label`, and a `hint` with the limit or the tone expected (\"Up to 500 characters\").",
+      "Show `error` below the field, saying how to fix it."
+    ],
+    "alternatives": [
+      "One line: Input.",
+      "A message in a chat, with send and attachments: IntentComposer."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the field."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Starts a new line."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Textarea",
+  "selected": "TextareaPadrao",
+  "import": "import { Textarea } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Textarea",
+      "props": [
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "hint",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "block",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLTextAreaElement, HTMLTextAreaElement> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLTextAreaElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLTextAreaElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLTextAreaElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLTextAreaElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "TextareaPadrao",
+      "label": "Default textarea",
+      "description": "",
+      "code": "import { Textarea } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Textarea>,\n    'label' | 'placeholder' | 'block' | 'rows'\n  > = {\n    label: 'Role description',\n    placeholder: 'What is this role for?',\n    block: true,\n    rows: 3,\n  };\n  return <Textarea {...args} />;\n}"
+    },
+    {
+      "id": "TextareaComHint",
+      "label": "Textarea with hint",
+      "description": "",
+      "code": "import { Textarea } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Textarea>,\n    'label' | 'placeholder' | 'block' | 'rows' | 'hint' | 'defaultValue'\n  > = {\n    label: 'Role description',\n    placeholder: 'What is this role for?',\n    block: true,\n    rows: 3,\n    hint: \"Shows in the team's role list.\",\n    defaultValue: 'Runs analyses but does not publish.',\n  };\n  return <Textarea {...args} />;\n}"
+    },
+    {
+      "id": "TextareaComErro",
+      "label": "Textarea with error",
+      "description": "",
+      "code": "import { Textarea } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Textarea>,\n    'label' | 'placeholder' | 'block' | 'rows' | 'error'\n  > = {\n    label: 'Role description',\n    placeholder: 'What is this role for?',\n    block: true,\n    rows: 3,\n    error: 'Up to 280 characters.',\n  };\n  return <Textarea {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { Textarea } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Textarea>,\n    'label' | 'placeholder' | 'block' | 'rows' | 'disabled' | 'defaultValue'\n  > = {\n    label: 'Role description',\n    placeholder: 'What is this role for?',\n    block: true,\n    rows: 3,\n    disabled: true,\n    defaultValue: 'Content available read-only.',\n  };\n  return <Textarea {...args} />;\n}"
+    }
+  ]
+}

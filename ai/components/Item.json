@@ -1,0 +1,98 @@
+{
+  "id": "Item",
+  "description": "Content row with title, description, visuals and optional action.",
+  "usage": {
+    "howToUse": [
+      "Use it for a row of a list: a file, a contact, a result, with title, description, picture and actions.",
+      "Pass `onClick` when the row opens something; mark the chosen one with `selected`.",
+      "Use `variant` without surface when the row sits inside a Card."
+    ],
+    "alternatives": [
+      "Data compared in columns: Table.",
+      "A settings row: SettingRow."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "With `onClick`, moves to the row; then to the actions."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the row."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Item",
+  "selected": "Interativo",
+  "import": "import { Item } from '@refy-design/web';",
+  "composition": [
+    "Button"
+  ],
+  "api": [
+    {
+      "name": "Item",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Supporting text."
+        },
+        {
+          "name": "media",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "Activation callback."
+        },
+        {
+          "name": "selected",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "defaultValue": "'default'",
+          "type": "\"default\" | \"plain\" | undefined",
+          "required": false,
+          "description": "Removes the surface to compose metadata inside another surface."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { Item } from '@refy-design/web';\nimport { useState } from 'react';\nfunction ItemExample() {\n  const [selected, setSelected] = useState(false);\n  return (\n    <Item\n      title=\"Content guide\"\n      description={selected ? 'Material selected' : '12 pages · updated today'}\n      media={<Avatar initials=\"GC\" shape=\"square\" />}\n      selected={selected}\n      onClick={() => setSelected(!selected)}\n    />\n  );\n}\nexport function Example() {\n  return <ItemExample />;\n}"
+    },
+    {
+      "id": "Metadados",
+      "label": "Metadata",
+      "description": "",
+      "code": "import { Item } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Item\n      variant=\"plain\"\n      title=\"12 components\"\n      description=\"In development\"\n      media={\n        <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n          <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" />\n        </svg>\n      }\n    />\n  );\n}"
+    }
+  ]
+}

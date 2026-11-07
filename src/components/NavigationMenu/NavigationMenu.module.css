@@ -1,0 +1,41 @@
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--navigation-menu-gap, var(--space-2));
+  height: var(--navigation-menu-height, auto);
+}
+.item, .link {
+  position: relative;
+}
+.item {
+  height: var(--navigation-menu-item-height, var(--button-height-md, 34px));
+  font-weight: var(--navigation-menu-item-weight, var(--control-font-weight, var(--weight-semi)));
+  border-radius: var(--navigation-menu-item-radius, var(--button-radius, var(--radius-default)));
+}
+/* Theme hooks for top-bar menus: resting color and horizontal padding of each item. */
+.menu .item {
+  padding-inline: var(--navigation-menu-item-padding-inline, var(--button-padding-md, 14px));
+  font-size: var(--navigation-menu-font-size, var(--control-font-size, var(--text-sm)));
+}
+.menu .item:not([aria-current="page"]):not(:hover) {
+  color: var(--navigation-menu-item-color, var(--button-ghost-foreground, var(--ink-2)));
+}
+.link {
+  color: var(--ink-1);
+  font: inherit;
+  padding: var(--space-2);
+}
+.item[aria-current="page"], .link[aria-current="page"] {
+  font-weight: var(--navigation-menu-active-weight, var(--navigation-menu-item-weight, var(--control-font-weight, var(--weight-semi))));
+}
+.item[aria-current="page"] { color: var(--navigation-menu-active-color, var(--button-ghost-foreground, var(--ink-2))); }
+.link[aria-current="page"] { color: var(--navigation-menu-active-color, var(--ink-1)); font-weight: var(--navigation-menu-active-weight, inherit); }
+.item[aria-current="page"]::after, .link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  inset-inline: var(--navigation-menu-indicator-inset, 0px);
+  height: var(--navigation-menu-indicator-size, 0px);
+  background: var(--navigation-menu-active-color, var(--primary));
+}

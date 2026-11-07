@@ -1,0 +1,29 @@
+{
+  "name": "refy-native-gallery",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "ios": "expo start --ios",
+    "android": "expo start --android"
+  },
+  "dependencies": {
+    "expo": "~54.0.0",
+    "react": "19.1.0",
+    "react-native": "0.81.4",
+    "react-native-svg": "15.12.1",
+    "d3-scale": "^4.0.2",
+    "d3-shape": "^3.2.0",
+    "d3-array": "^3.2.4",
+    "d3-chord": "^3.0.1",
+    "d3-force": "^3.0.0",
+    "d3-geo": "^3.1.1",
+    "d3-hierarchy": "^3.1.2",
+    "d3-sankey": "^0.12.3"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2",
+    "@types/react": "~19.1.10"
+  }
+}

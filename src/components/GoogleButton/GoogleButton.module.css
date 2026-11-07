@@ -1,0 +1,31 @@
+.googleButton[data-status="idle"],
+.googleButton[data-status="loading"] {
+  height: var(--button-height-md, 40px);
+  padding-inline: 12px;
+  gap: 10px;
+  border-color: var(--auth-control-border);
+  background: var(--auth-control-bg);
+  box-shadow: var(--control-shadow, none);
+  color: var(--auth-control-text);
+  font-family: var(--auth-control-font, "Google Sans", Roboto, Arial, sans-serif);
+  font-size: var(--control-font-size, 14px);
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.googleButton[data-status="idle"]:not(:disabled):hover {
+  border-color: var(--auth-control-border);
+  background: var(--auth-control-hover);
+}
+
+.googleButton[data-status="idle"]:not(:disabled):active {
+  background: var(--auth-control-active);
+  color: var(--auth-control-text);
+}
+
+.googleButton :global(svg) {
+  width: 18px;
+  height: 18px;
+}
+
+.googleButton:disabled { box-shadow: var(--control-disabled-shadow, var(--control-shadow, none)); }

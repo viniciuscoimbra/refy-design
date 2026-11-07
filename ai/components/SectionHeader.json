@@ -1,0 +1,165 @@
+{
+  "id": "SectionHeader",
+  "description": "Section title with count, description and optional action.",
+  "usage": {
+    "howToUse": [
+      "Use it to open each section of a page: \"Members\", \"Recent invoices\", \"API keys\".",
+      "The `title` becomes an `<h2>`. Show how many items there are in `count` and put a link or small button in `action` (\"Manage\").",
+      "Give it an `id` when the page has a TableOfContents. Use `rule` on dashboards."
+    ],
+    "alternatives": [
+      "The top of the page: PageHeader."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the action, when there is one."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "SectionHeader",
+  "selected": "Playground",
+  "import": "import { SectionHeader } from '@refy-design/web';",
+  "composition": [
+    "Badge"
+  ],
+  "api": [
+    {
+      "name": "SectionHeader",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Section title (becomes `<h2>`)."
+        },
+        {
+          "name": "sub",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Subtitle/description under the title (max 62ch, secondary color)."
+        },
+        {
+          "name": "count",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Section counter, rendered as a neutral `Badge` (e.g. \"3 projects\")."
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Inline action on the right (link \"Manage →\", `Button` sm, etc.)."
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Section anchor `id`, matches `TableOfContents` (scrollspy).\nThe component already applies `scroll-margin-top` for the fixed header."
+        },
+        {
+          "name": "rule",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Compact variant with a rule to the edge (dashboard pattern): 12px uppercase title + line filling the space."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: title + sub (settings pattern).",
+      "code": "import { SectionHeader } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof SectionHeader>, 'title' | 'sub' | 'id'> = {\n    title: 'Active sessions',\n    sub: 'Devices signed in to your account. End any suspicious session.',\n    id: 'sessions',\n  };\n  return <SectionHeader {...args} />;\n}"
+    },
+    {
+      "id": "ComCountEAcao",
+      "label": "With count and action",
+      "description": "With count and action: neutral Badge next to the title, action on the right.",
+      "code": "import { Button } from '@refy-design/web';\nimport { SectionHeader } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SectionHeader>,\n    'title' | 'sub' | 'count' | 'action' | 'id'\n  > = {\n    title: 'Connections',\n    sub: 'Sign-in providers connected to your account.',\n    count: '3',\n    action: (\n      <Button size=\"sm\" variant=\"ghost\">\n        Add provider\n      </Button>\n    ),\n    id: 'connections',\n  };\n  return <SectionHeader {...args} />;\n}"
+    },
+    {
+      "id": "ComRegua",
+      "label": "With rule",
+      "description": "rule variant: compact uppercase title + rule to the edge (dashboard).",
+      "code": "import { SectionHeader } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SectionHeader>,\n    'title' | 'count' | 'rule' | 'action' | 'id'\n  > = {\n    title: 'Projects',\n    count: '3 projects · 2 active',\n    rule: true,\n    action: (\n      <a href=\"#projects\" style={{ font: 'inherit' }}>\n        Manage →\n      </a>\n    ),\n    id: 'projects',\n  };\n  return <SectionHeader {...args} />;\n}"
+    },
+    {
+      "id": "AncoraToc",
+      "label": "Anchor for TableOfContents",
+      "description": "TOC anchor: sections with `id` match `TableOfContents` (scrollspy).",
+      "code": "import { SectionHeader } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div\n      style={{\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 32,\n        maxWidth: 640,\n      }}\n    >\n      <SectionHeader\n        id=\"anchor-profile\"\n        title=\"Profile\"\n        sub=\"Name, email and avatar shown to the team.\"\n      />\n      <SectionHeader\n        id=\"anchor-connections\"\n        title=\"Connections\"\n        count=\"3\"\n        sub=\"Sign-in providers connected to your account.\"\n      />\n      <SectionHeader\n        id=\"anchor-sessions\"\n        title=\"Active sessions\"\n        count=\"2\"\n        sub=\"Each `id` above is the anchor the TableOfContents watches.\"\n      />\n    </div>\n  );\n}"
+    }
+  ]
+}

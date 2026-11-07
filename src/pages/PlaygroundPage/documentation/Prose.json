@@ -1,0 +1,121 @@
+{
+  "id": "Prose",
+  "description": "Typography for editorial content, including headings, paragraphs, lists, links and tables.",
+  "usage": {
+    "howToUse": [
+      "Use it around long text written by people: articles, documentation, terms, release notes.",
+      "Headings, paragraphs, lists, links, quotes and tables inside it take the theme's type. Use `measure=\"text\"` to limit the line to a comfortable reading width.",
+      "Clean HTML that comes from outside before showing it."
+    ],
+    "alternatives": [
+      "Text people edit: Textarea."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "Prose does not receive focus. Its links do."
+      }
+    ]
+  },
+  "collections": [
+    "content"
+  ],
+  "publicName": "Prose",
+  "selected": "Interativo",
+  "import": "import { Prose } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Prose",
+      "props": [
+        {
+          "name": "measure",
+          "defaultValue": "'text'",
+          "type": "\"text\" | \"full\" | undefined",
+          "required": false,
+          "description": "`text` limits the line to the reading measure (`--prose-measure`) and centers it; `full` fills the whole column, for docs with a menu and table of contents beside it. Default `text`."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Prose } from '@refy-design/web';\nfunction ProseExample() {\n  return (\n    <Prose>\n      <h2>Clarity before form</h2>\n      <p>\n        A consistent interface organizes information, guides choices and makes work\n        simpler. Typography has to help that reading.\n      </p>\n      <h3>A predictable hierarchy</h3>\n      <ul>\n        <li>Headings introduce the topic.</li>\n        <li>Paragraphs develop one idea at a time.</li>\n        <li>Links connect related content.</li>\n      </ul>\n      <blockquote>\n        The component must keep the content while the theme changes.\n      </blockquote>\n      <p>\n        Use <code>ThemeProvider</code> to apply your product's identity.\n      </p>\n    </Prose>\n  );\n}\nexport function Example() {\n  return <ProseExample />;\n}"
+    }
+  ]
+}

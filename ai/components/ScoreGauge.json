@@ -1,0 +1,166 @@
+{
+  "id": "ScoreGauge",
+  "description": "Score indicator with bands, label and size variations.",
+  "usage": {
+    "howToUse": [
+      "Use it for a score from 0 to 100 shown at a glance: quality, health, match.",
+      "Pick `size` by place: `sm` in table rows, `md` in cards, `lg` at the top of a page.",
+      "Set the bands with `okAt` and `warnAt`, and say next to it what the score measures."
+    ],
+    "alternatives": [
+      "A number with unit and trend: Stat.",
+      "Progress of a task: ProgressBar."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The gauge does not receive focus. Screen readers read the score and its label."
+      }
+    ]
+  },
+  "collections": [
+    "analytics"
+  ],
+  "publicName": "ScoreGauge",
+  "selected": "ValorVivo",
+  "import": "import { ScoreGauge } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "ScoreGauge",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": true,
+          "description": "Score from 0 to 100 (out-of-range values are clamped)."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Short label under the number (e.g. \"Editorial\"). Hidden at size sm."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "ScoreGaugeSize | undefined",
+          "required": false,
+          "description": "Diameter: sm 32px (rows), md 56px (cards, default), lg 96px (hero)."
+        },
+        {
+          "name": "okAt",
+          "defaultValue": "70",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Minimum score of the ok band (default 70)."
+        },
+        {
+          "name": "warnAt",
+          "defaultValue": "40",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Minimum score of the warn band (default 40; below = critical)."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => ReactNode) | undefined",
+          "required": false,
+          "description": "Formatting of the central number (default: rounded integer)."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible text of the meter. Required if `label` is not a string."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Basico",
+      "label": "Basic (ok band)",
+      "description": "",
+      "code": "import { ScoreGauge } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ScoreGauge>, 'value' | 'label'> = {\n    value: 74,\n    label: 'Score',\n  };\n  return <ScoreGauge {...args} />;\n}"
+    },
+    {
+      "id": "Bandas",
+      "label": "Threshold bands",
+      "description": "",
+      "code": "import { ScoreGauge } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 'var(--space-8)', alignItems: 'center' }}>\n      <ScoreGauge value={86} label=\"good\" aria-label=\"Score 86, good band\" />\n      <ScoreGauge value={54} label=\"median\" aria-label=\"Score 54, average band\" />\n      <ScoreGauge value={23} label=\"weak\" aria-label=\"Score 23, weak band\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Tamanhos",
+      "label": "Sizes",
+      "description": "",
+      "code": "import { ScoreGauge } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 'var(--space-8)', alignItems: 'center' }}>\n      <ScoreGauge size=\"sm\" value={74} aria-label=\"Score 74\" />\n      <ScoreGauge size=\"md\" value={74} label=\"Score\" />\n      <ScoreGauge size=\"lg\" value={74} label=\"Overall\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ValorVivo",
+      "label": "Animation on value change",
+      "description": "The arc transitions smoothly when the value changes (and the color changes band with it).",
+      "code": "import { Button } from '@refy-design/web';\nimport { ScoreGauge } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [value, setValue] = useState(30);\n  return (\n    <div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'center' }}>\n      <ScoreGauge size=\"lg\" value={value} label=\"Score\" />\n      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>\n        {[23, 54, 86].map((v) => (\n          <Button\n            key={v}\n            size=\"sm\"\n            variant={value === v ? 'primary' : 'secondary'}\n            onClick={() => setValue(v)}\n          >\n            {v}\n          </Button>\n        ))}\n      </div>\n    </div>\n  );\n}"
+    }
+  ]
+}

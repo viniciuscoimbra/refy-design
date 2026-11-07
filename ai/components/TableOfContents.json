@@ -1,0 +1,128 @@
+{
+  "id": "TableOfContents",
+  "description": "Anchor table of contents that follows the visible section of a document.",
+  "usage": {
+    "howToUse": [
+      "Use it next to a long page, such as documentation or terms, to jump between its sections.",
+      "List the sections in `items`, in the order of the page, with the `id` of each heading.",
+      "Turn on `scrollSpy` to mark the section being read, and `sticky` to keep the list on screen while scrolling."
+    ],
+    "alternatives": [
+      "Going to other pages: SettingsSubnav or Sidebar."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one section to the next."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Jumps to the section."
+      }
+    ]
+  },
+  "collections": [
+    "content"
+  ],
+  "publicName": "TableOfContents",
+  "selected": "Playground",
+  "import": "import { TableOfContents } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "TableOfContents",
+      "props": [
+        {
+          "name": "items",
+          "type": "TocItem[]",
+          "required": true,
+          "description": "Anchors, in the order they appear on the page."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Rail label (visible + `aria-label` of the `<nav>`)."
+        },
+        {
+          "name": "activeId",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Controlled active item; turns off the scrollspy."
+        },
+        {
+          "name": "defaultActiveId",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initial active item (uncontrolled). Default: first item."
+        },
+        {
+          "name": "onActiveChange",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": "Fired when the active item changes (scrollspy or click)."
+        },
+        {
+          "name": "scrollSpy",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Turns on the scrollspy via IntersectionObserver (ignored if `activeId` is passed)."
+        },
+        {
+          "name": "rootMargin",
+          "defaultValue": "\"-80px 0px -60% 0px\"",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Reading band; vertical percentages relative to the container height."
+        },
+        {
+          "name": "root",
+          "defaultValue": "null",
+          "type": "Element | null | undefined",
+          "required": false,
+          "description": "Scrollable container watched by the scrollspy (`root` of the\nIntersectionObserver). Default: `null` (viewport). Pass the element with\n`overflow-y: auto` when the scrolling is NOT the page's."
+        },
+        {
+          "name": "sticky",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Sticks the rail while scrolling (`position: sticky`)."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "",
+      "code": "import { TableOfContents } from '@refy-design/web';\nimport type { TableOfContentsProps } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useId } from 'react';\nimport { useState } from 'react';\nconst SECTIONS = [\n  {\n    id: 'profile',\n    label: 'Profile',\n    body: 'Your name, photo and public workspace details. Your name shows in comments, mentions and the activity history, so keep it recognizable to the team. The photo is optional but helps in large teams.',\n  },\n  {\n    id: 'password',\n    label: 'Password',\n    body: 'Use a unique password and change it if you suspect it leaked. A strong password has 12+ characters and mixes uppercase, numbers and symbols. If you signed in with SSO, this section is read-only.',\n  },\n  {\n    id: 'twofa',\n    label: 'Two-step verification',\n    body: 'Two-step verification protects your account even if the password leaks. We recommend an authenticator app (TOTP) over SMS. Keep the recovery codes somewhere safe; each one works only once.',\n  },\n  {\n    id: 'connections',\n    label: 'Connections',\n    body: 'External apps allowed to access your account: calendar, email, CRM integrations. Review this list from time to time and revoke what you no longer use; every active connection is a way in.',\n  },\n  {\n    id: 'sessions',\n    label: 'Active sessions',\n    body: 'Every device with an open session on this account, with browser, approximate IP and last access. End sessions you do not recognize right away, then change your password.',\n  },\n  {\n    id: 'remove',\n    label: 'Delete account',\n    body: 'Permanent action: removes your access and transfers or deletes your data according to the workspace policy. Projects you solely own must be transferred first. This cannot be undone.',\n  },\n];\nfunction ContentsDemo({\n  controlled = false,\n  items,\n  ...props\n}: TableOfContentsProps & {\n  controlled?: boolean;\n}) {\n  const prefix = useId();\n  const localItems = items.map((item) => ({\n    ...item,\n    id: `${prefix}-${item.id}`,\n  }));\n  const [scroller, setScroller] = useState<HTMLDivElement | null>(null);\n  const [active, setActive] = useState(`${prefix}-senha`);\n  return (\n    <div\n      ref={setScroller}\n      data-testid=\"toc-scroller\"\n      style={{\n        height: 420,\n        overflowY: 'auto',\n        display: 'grid',\n        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',\n        gap: 32,\n        border: '1px solid var(--line)',\n        borderRadius: 'var(--radius-default)',\n        padding: '0 var(--space-6)',\n        background: 'var(--surface)',\n      }}\n    >\n      <div>\n        {localItems.map((item, index) => (\n          <section\n            key={item.id}\n            id={item.id}\n            style={{ minHeight: 340, paddingTop: 24 }}\n          >\n            <h2\n              style={{\n                fontFamily: 'var(--font-heading)',\n                color: 'var(--ink-1)',\n              }}\n            >\n              {item.label}\n            </h2>\n            <p style={{ color: 'var(--ink-2)', lineHeight: 1.6 }}>\n              {SECTIONS.find((section) => section.id === items[index].id)?.body ??\n                `Content of the ${item.label} section.`}\n            </p>\n            <p style={{ color: 'var(--ink-3)' }}>\n              Scroll this panel or select an item in the outline.\n            </p>\n          </section>\n        ))}\n      </div>\n      <div\n        style={{\n          position: 'sticky',\n          top: 24,\n          alignSelf: 'start',\n          paddingTop: 24,\n        }}\n      >\n        <TableOfContents\n          {...props}\n          items={localItems}\n          root={scroller}\n          rootMargin=\"-24px 0px -60% 0px\"\n          defaultActiveId={\n            props.defaultActiveId ? `${prefix}-${props.defaultActiveId}` : undefined\n          }\n          activeId={controlled ? active : undefined}\n          onActiveChange={controlled ? setActive : props.onActiveChange}\n        />\n        {controlled && (\n          <p role=\"status\" style={{ color: 'var(--ink-2)' }}>\n            Current section:{' '}\n            {localItems.find((item) => item.id === active)?.label ?? 'None'}\n          </p>\n        )}\n      </div>\n    </div>\n  );\n}\nconst ITEMS = SECTIONS.map(({ id, label }) => ({ id, label }));\nexport function Example() {\n  const args: Pick<ComponentProps<typeof TableOfContents>, 'items'> = { items: ITEMS };\n  return <ContentsDemo {...args} />;\n}"
+    },
+    {
+      "id": "Controlado",
+      "label": "Controlled",
+      "description": "Active state controlled by the parent, with its own target for each anchor.",
+      "code": "import { TableOfContents } from '@refy-design/web';\nimport type { TableOfContentsProps } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useId } from 'react';\nimport { useState } from 'react';\nconst SECTIONS = [\n  {\n    id: 'profile',\n    label: 'Profile',\n    body: 'Your name, photo and public workspace details. Your name shows in comments, mentions and the activity history, so keep it recognizable to the team. The photo is optional but helps in large teams.',\n  },\n  {\n    id: 'password',\n    label: 'Password',\n    body: 'Use a unique password and change it if you suspect it leaked. A strong password has 12+ characters and mixes uppercase, numbers and symbols. If you signed in with SSO, this section is read-only.',\n  },\n  {\n    id: 'twofa',\n    label: 'Two-step verification',\n    body: 'Two-step verification protects your account even if the password leaks. We recommend an authenticator app (TOTP) over SMS. Keep the recovery codes somewhere safe; each one works only once.',\n  },\n  {\n    id: 'connections',\n    label: 'Connections',\n    body: 'External apps allowed to access your account: calendar, email, CRM integrations. Review this list from time to time and revoke what you no longer use; every active connection is a way in.',\n  },\n  {\n    id: 'sessions',\n    label: 'Active sessions',\n    body: 'Every device with an open session on this account, with browser, approximate IP and last access. End sessions you do not recognize right away, then change your password.',\n  },\n  {\n    id: 'remove',\n    label: 'Delete account',\n    body: 'Permanent action: removes your access and transfers or deletes your data according to the workspace policy. Projects you solely own must be transferred first. This cannot be undone.',\n  },\n];\nfunction ContentsDemo({\n  controlled = false,\n  items,\n  ...props\n}: TableOfContentsProps & {\n  controlled?: boolean;\n}) {\n  const prefix = useId();\n  const localItems = items.map((item) => ({\n    ...item,\n    id: `${prefix}-${item.id}`,\n  }));\n  const [scroller, setScroller] = useState<HTMLDivElement | null>(null);\n  const [active, setActive] = useState(`${prefix}-senha`);\n  return (\n    <div\n      ref={setScroller}\n      data-testid=\"toc-scroller\"\n      style={{\n        height: 420,\n        overflowY: 'auto',\n        display: 'grid',\n        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',\n        gap: 32,\n        border: '1px solid var(--line)',\n        borderRadius: 'var(--radius-default)',\n        padding: '0 var(--space-6)',\n        background: 'var(--surface)',\n      }}\n    >\n      <div>\n        {localItems.map((item, index) => (\n          <section\n            key={item.id}\n            id={item.id}\n            style={{ minHeight: 340, paddingTop: 24 }}\n          >\n            <h2\n              style={{\n                fontFamily: 'var(--font-heading)',\n                color: 'var(--ink-1)',\n              }}\n            >\n              {item.label}\n            </h2>\n            <p style={{ color: 'var(--ink-2)', lineHeight: 1.6 }}>\n              {SECTIONS.find((section) => section.id === items[index].id)?.body ??\n                `Content of the ${item.label} section.`}\n            </p>\n            <p style={{ color: 'var(--ink-3)' }}>\n              Scroll this panel or select an item in the outline.\n            </p>\n          </section>\n        ))}\n      </div>\n      <div\n        style={{\n          position: 'sticky',\n          top: 24,\n          alignSelf: 'start',\n          paddingTop: 24,\n        }}\n      >\n        <TableOfContents\n          {...props}\n          items={localItems}\n          root={scroller}\n          rootMargin=\"-24px 0px -60% 0px\"\n          defaultActiveId={\n            props.defaultActiveId ? `${prefix}-${props.defaultActiveId}` : undefined\n          }\n          activeId={controlled ? active : undefined}\n          onActiveChange={controlled ? setActive : props.onActiveChange}\n        />\n        {controlled && (\n          <p role=\"status\" style={{ color: 'var(--ink-2)' }}>\n            Current section:{' '}\n            {localItems.find((item) => item.id === active)?.label ?? 'None'}\n          </p>\n        )}\n      </div>\n    </div>\n  );\n}\nconst ITEMS = SECTIONS.map(({ id, label }) => ({ id, label }));\nexport function Example() {\n  const args: Pick<ComponentProps<typeof TableOfContents>, 'items'> = { items: ITEMS };\n  return <ContentsDemo {...args} controlled />;\n}"
+    },
+    {
+      "id": "ComNiveis",
+      "label": "With levels",
+      "description": "Levels: `level: 2`/`3` indent sub-items.",
+      "code": "import { TableOfContents } from '@refy-design/web';\nimport type { TableOfContentsProps } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useId } from 'react';\nimport { useState } from 'react';\nconst SECTIONS = [\n  {\n    id: 'profile',\n    label: 'Profile',\n    body: 'Your name, photo and public workspace details. Your name shows in comments, mentions and the activity history, so keep it recognizable to the team. The photo is optional but helps in large teams.',\n  },\n  {\n    id: 'password',\n    label: 'Password',\n    body: 'Use a unique password and change it if you suspect it leaked. A strong password has 12+ characters and mixes uppercase, numbers and symbols. If you signed in with SSO, this section is read-only.',\n  },\n  {\n    id: 'twofa',\n    label: 'Two-step verification',\n    body: 'Two-step verification protects your account even if the password leaks. We recommend an authenticator app (TOTP) over SMS. Keep the recovery codes somewhere safe; each one works only once.',\n  },\n  {\n    id: 'connections',\n    label: 'Connections',\n    body: 'External apps allowed to access your account: calendar, email, CRM integrations. Review this list from time to time and revoke what you no longer use; every active connection is a way in.',\n  },\n  {\n    id: 'sessions',\n    label: 'Active sessions',\n    body: 'Every device with an open session on this account, with browser, approximate IP and last access. End sessions you do not recognize right away, then change your password.',\n  },\n  {\n    id: 'remove',\n    label: 'Delete account',\n    body: 'Permanent action: removes your access and transfers or deletes your data according to the workspace policy. Projects you solely own must be transferred first. This cannot be undone.',\n  },\n];\nfunction ContentsDemo({\n  controlled = false,\n  items,\n  ...props\n}: TableOfContentsProps & {\n  controlled?: boolean;\n}) {\n  const prefix = useId();\n  const localItems = items.map((item) => ({\n    ...item,\n    id: `${prefix}-${item.id}`,\n  }));\n  const [scroller, setScroller] = useState<HTMLDivElement | null>(null);\n  const [active, setActive] = useState(`${prefix}-senha`);\n  return (\n    <div\n      ref={setScroller}\n      data-testid=\"toc-scroller\"\n      style={{\n        height: 420,\n        overflowY: 'auto',\n        display: 'grid',\n        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',\n        gap: 32,\n        border: '1px solid var(--line)',\n        borderRadius: 'var(--radius-default)',\n        padding: '0 var(--space-6)',\n        background: 'var(--surface)',\n      }}\n    >\n      <div>\n        {localItems.map((item, index) => (\n          <section\n            key={item.id}\n            id={item.id}\n            style={{ minHeight: 340, paddingTop: 24 }}\n          >\n            <h2\n              style={{\n                fontFamily: 'var(--font-heading)',\n                color: 'var(--ink-1)',\n              }}\n            >\n              {item.label}\n            </h2>\n            <p style={{ color: 'var(--ink-2)', lineHeight: 1.6 }}>\n              {SECTIONS.find((section) => section.id === items[index].id)?.body ??\n                `Content of the ${item.label} section.`}\n            </p>\n            <p style={{ color: 'var(--ink-3)' }}>\n              Scroll this panel or select an item in the outline.\n            </p>\n          </section>\n        ))}\n      </div>\n      <div\n        style={{\n          position: 'sticky',\n          top: 24,\n          alignSelf: 'start',\n          paddingTop: 24,\n        }}\n      >\n        <TableOfContents\n          {...props}\n          items={localItems}\n          root={scroller}\n          rootMargin=\"-24px 0px -60% 0px\"\n          defaultActiveId={\n            props.defaultActiveId ? `${prefix}-${props.defaultActiveId}` : undefined\n          }\n          activeId={controlled ? active : undefined}\n          onActiveChange={controlled ? setActive : props.onActiveChange}\n        />\n        {controlled && (\n          <p role=\"status\" style={{ color: 'var(--ink-2)' }}>\n            Current section:{' '}\n            {localItems.find((item) => item.id === active)?.label ?? 'None'}\n          </p>\n        )}\n      </div>\n    </div>\n  );\n}\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof TableOfContents>,\n    'items' | 'defaultActiveId' | 'scrollSpy'\n  > = {\n    items: [\n      { id: 'profile', label: 'Profile' },\n      { id: 'avatar', label: 'Photo', level: 2 },\n      { id: 'data', label: 'Personal details', level: 2 },\n      { id: 'password', label: 'Password' },\n      { id: 'requirements', label: 'Requirements', level: 2 },\n      { id: 'history', label: 'History', level: 3 },\n    ],\n    defaultActiveId: 'data',\n    scrollSpy: false,\n  };\n  return <ContentsDemo {...args} />;\n}"
+    },
+    {
+      "id": "RotuloCustom",
+      "label": "Custom label",
+      "description": "Custom label.",
+      "code": "import { TableOfContents } from '@refy-design/web';\nimport type { TableOfContentsProps } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useId } from 'react';\nimport { useState } from 'react';\nconst SECTIONS = [\n  {\n    id: 'profile',\n    label: 'Profile',\n    body: 'Your name, photo and public workspace details. Your name shows in comments, mentions and the activity history, so keep it recognizable to the team. The photo is optional but helps in large teams.',\n  },\n  {\n    id: 'password',\n    label: 'Password',\n    body: 'Use a unique password and change it if you suspect it leaked. A strong password has 12+ characters and mixes uppercase, numbers and symbols. If you signed in with SSO, this section is read-only.',\n  },\n  {\n    id: 'twofa',\n    label: 'Two-step verification',\n    body: 'Two-step verification protects your account even if the password leaks. We recommend an authenticator app (TOTP) over SMS. Keep the recovery codes somewhere safe; each one works only once.',\n  },\n  {\n    id: 'connections',\n    label: 'Connections',\n    body: 'External apps allowed to access your account: calendar, email, CRM integrations. Review this list from time to time and revoke what you no longer use; every active connection is a way in.',\n  },\n  {\n    id: 'sessions',\n    label: 'Active sessions',\n    body: 'Every device with an open session on this account, with browser, approximate IP and last access. End sessions you do not recognize right away, then change your password.',\n  },\n  {\n    id: 'remove',\n    label: 'Delete account',\n    body: 'Permanent action: removes your access and transfers or deletes your data according to the workspace policy. Projects you solely own must be transferred first. This cannot be undone.',\n  },\n];\nfunction ContentsDemo({\n  controlled = false,\n  items,\n  ...props\n}: TableOfContentsProps & {\n  controlled?: boolean;\n}) {\n  const prefix = useId();\n  const localItems = items.map((item) => ({\n    ...item,\n    id: `${prefix}-${item.id}`,\n  }));\n  const [scroller, setScroller] = useState<HTMLDivElement | null>(null);\n  const [active, setActive] = useState(`${prefix}-senha`);\n  return (\n    <div\n      ref={setScroller}\n      data-testid=\"toc-scroller\"\n      style={{\n        height: 420,\n        overflowY: 'auto',\n        display: 'grid',\n        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',\n        gap: 32,\n        border: '1px solid var(--line)',\n        borderRadius: 'var(--radius-default)',\n        padding: '0 var(--space-6)',\n        background: 'var(--surface)',\n      }}\n    >\n      <div>\n        {localItems.map((item, index) => (\n          <section\n            key={item.id}\n            id={item.id}\n            style={{ minHeight: 340, paddingTop: 24 }}\n          >\n            <h2\n              style={{\n                fontFamily: 'var(--font-heading)',\n                color: 'var(--ink-1)',\n              }}\n            >\n              {item.label}\n            </h2>\n            <p style={{ color: 'var(--ink-2)', lineHeight: 1.6 }}>\n              {SECTIONS.find((section) => section.id === items[index].id)?.body ??\n                `Content of the ${item.label} section.`}\n            </p>\n            <p style={{ color: 'var(--ink-3)' }}>\n              Scroll this panel or select an item in the outline.\n            </p>\n          </section>\n        ))}\n      </div>\n      <div\n        style={{\n          position: 'sticky',\n          top: 24,\n          alignSelf: 'start',\n          paddingTop: 24,\n        }}\n      >\n        <TableOfContents\n          {...props}\n          items={localItems}\n          root={scroller}\n          rootMargin=\"-24px 0px -60% 0px\"\n          defaultActiveId={\n            props.defaultActiveId ? `${prefix}-${props.defaultActiveId}` : undefined\n          }\n          activeId={controlled ? active : undefined}\n          onActiveChange={controlled ? setActive : props.onActiveChange}\n        />\n        {controlled && (\n          <p role=\"status\" style={{ color: 'var(--ink-2)' }}>\n            Current section:{' '}\n            {localItems.find((item) => item.id === active)?.label ?? 'None'}\n          </p>\n        )}\n      </div>\n    </div>\n  );\n}\nconst ITEMS = SECTIONS.map(({ id, label }) => ({ id, label }));\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof TableOfContents>,\n    'items' | 'label' | 'defaultActiveId' | 'scrollSpy'\n  > = {\n    items: ITEMS,\n    label: 'In this guide',\n    defaultActiveId: 'connections',\n    scrollSpy: false,\n  };\n  return <ContentsDemo {...args} />;\n}"
+    }
+  ]
+}

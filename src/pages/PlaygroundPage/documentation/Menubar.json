@@ -1,0 +1,71 @@
+{
+  "id": "Menubar",
+  "description": "Bar of related menus, with options organized by purpose.",
+  "usage": {
+    "howToUse": [
+      "Use it for a toolbar of menus in a tool-like app: File, Edit, View.",
+      "Pass the menus in `items` and handle the commands in `onSelect`. Name the bar with `label`."
+    ],
+    "alternatives": [
+      "Navigation of a site: NavigationMenu.",
+      "One menu of actions: Menu."
+    ],
+    "keyboard": [
+      {
+        "keys": "`←` or `→`",
+        "action": "Moves between the menus of the bar."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Goes to the first or last menu."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the menu. Inside it, the keys of Menu apply."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Menubar",
+  "selected": "Interativo",
+  "import": "import { Menubar } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Menu"
+  ],
+  "api": [
+    {
+      "name": "Menubar",
+      "props": [
+        {
+          "name": "items",
+          "type": "MenubarItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "onSelect",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Menubar } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction MenubarExample() {\n  const [value, setValue] = useState('No command run.');\n  return (\n    <div style={stack}>\n      <Menubar\n        items={[\n          {\n            id: 'file',\n            label: 'File',\n            entries: [\n              { id: 'new', label: 'New document' },\n              { id: 'save', label: 'Save document' },\n            ],\n          },\n          {\n            id: 'edit',\n            label: 'Edit',\n            entries: [\n              { id: 'undo', label: 'Undo change' },\n              { id: 'redo', label: 'Redo change' },\n            ],\n          },\n        ]}\n        onSelect={(id) =>\n          setValue(\n            (\n              {\n                new: 'Document created.',\n                save: 'Document saved.',\n                undo: 'Change undone.',\n                redo: 'Change redone.',\n              } as Record<string, string>\n            )[id],\n          )\n        }\n      />\n      <p role=\"status\">{value}</p>\n    </div>\n  );\n}\nexport function Example() {\n  return <MenubarExample />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+.root {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-4);
+}
+.pending {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}

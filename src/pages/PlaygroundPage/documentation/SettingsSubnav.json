@@ -1,0 +1,107 @@
+{
+  "id": "SettingsSubnav",
+  "description": "Navigation between settings areas, with groups and the current section marked.",
+  "usage": {
+    "howToUse": [
+      "Use it on the left of a settings screen, to move between its areas: Profile, Team, Billing, Security.",
+      "Split long lists with `groups`, and mark the area open with `activeHref`.",
+      "Pass your router's link in `renderLink`, so the navigation does not reload the page."
+    ],
+    "alternatives": [
+      "Steps that must be followed in order: WizardStepper.",
+      "Sections of the same long page: TableOfContents."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one area to the next."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the area in focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "SettingsSubnav",
+  "selected": "Playground",
+  "import": "import { SettingsSubnav } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "SettingsSubnav",
+      "props": [
+        {
+          "name": "items",
+          "type": "SettingsSubnavItem[] | undefined",
+          "required": false,
+          "description": "Ungrouped items. Ignored if `groups` is passed."
+        },
+        {
+          "name": "groups",
+          "type": "SettingsSubnavGroup[] | undefined",
+          "required": false,
+          "description": "Items grouped with a section title."
+        },
+        {
+          "name": "activeHref",
+          "type": "string | undefined",
+          "required": false,
+          "description": "`href` of the active item (gets `aria-current=\"page\"`)."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "`aria-label` of the `<nav>`."
+        },
+        {
+          "name": "renderLink",
+          "type": "((item: SettingsSubnavItem, linkProps: SettingsSubnavLinkProps) => ReactElement<unknown, string | JSXElementConstructor<any>>) | undefined",
+          "required": false,
+          "description": "Injectable link rendering, matches the router Link without coupling:\n`renderLink={(item, p) => <Link {...p} href={item.href} />}`.\nDefault: `<a {...p} />`."
+        },
+        {
+          "name": "onNavigate",
+          "type": "((item: SettingsSubnavItem) => void) | undefined",
+          "required": false,
+          "description": "Fired on any item click (besides navigation)."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Grouped with descriptions, a replica of the `settings_*` screens column.",
+      "code": "import { SettingsSubnav } from '@refy-design/web';\nimport type { SettingsSubnavGroup } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst GROUPS: SettingsSubnavGroup[] = [\n  {\n    title: 'Personal',\n    items: [\n      { href: '#account', label: 'Account', description: 'Profile, password, 2FA' },\n      {\n        href: '#general',\n        label: 'Overall',\n        description: 'Language, theme, notifications',\n      },\n    ],\n  },\n  {\n    title: 'Workspace',\n    items: [\n      { href: '#workspace', label: 'Workspace', description: 'Name, domain, logo' },\n      { href: '#team', label: 'Team', description: 'Members and roles' },\n      { href: '#projects', label: 'Projects', description: 'Team work areas' },\n      { href: '#billing', label: 'Billing', description: 'Plan, payment, invoices' },\n    ],\n  },\n  {\n    title: 'Integrations',\n    items: [\n      { href: '#connectors', label: 'Connectors', description: 'External apps' },\n      { href: '#api', label: 'API & Webhooks', description: 'Keys and endpoints' },\n    ],\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof SettingsSubnav>, 'groups' | 'activeHref'> = {\n    groups: GROUPS,\n    activeHref: '#account',\n  };\n  const [active, setActive] = useState(args.activeHref);\n  return (\n    <div style={{ maxWidth: '100%', width: 280 }}>\n      <SettingsSubnav\n        {...args}\n        activeHref={active}\n        renderLink={(item, props) => (\n          <a\n            {...props}\n            onClick={(event) => {\n              event.preventDefault();\n              setActive(item.href);\n            }}\n          />\n        )}\n      />\n      <p role=\"status\">\n        Selected section:{' '}\n        {\n          GROUPS.flatMap((group) => group.items).find((item) => item.href === active)\n            ?.label\n        }\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Flat",
+      "label": "Flat",
+      "description": "Flat: only `items`, no groups or description.",
+      "code": "import { SettingsSubnav } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof SettingsSubnav>, 'items' | 'activeHref'> = {\n    items: [\n      { href: '#account', label: 'Account' },\n      { href: '#general', label: 'Overall' },\n      { href: '#time', label: 'Team' },\n      { href: '#projects', label: 'Projects' },\n    ],\n    activeHref: '#general',\n  };\n  return (\n    <div\n      style={{\n        width: 200,\n        padding: 16,\n        background: 'var(--surface-2)',\n        borderRadius: 8,\n      }}\n    >\n      <SettingsSubnav {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComIcones",
+      "label": "With icons",
+      "description": "With icons via a ReactNode prop (icons are never bundled).",
+      "code": "import { SettingsSubnav } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst userIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={2}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\" />\n    <circle cx=\"12\" cy=\"7\" r=\"4\" />\n  </svg>\n);\nconst gearIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={2}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<ComponentProps<typeof SettingsSubnav>, 'items' | 'activeHref'> = {\n    items: [\n      {\n        href: '#account',\n        label: 'Account',\n        icon: userIcon,\n        description: 'Profile, password, 2FA',\n      },\n      {\n        href: '#general',\n        label: 'Overall',\n        icon: gearIcon,\n        description: 'Language, theme',\n      },\n    ],\n    activeHref: '#account',\n  };\n  return (\n    <div\n      style={{\n        width: 220,\n        padding: 16,\n        background: 'var(--surface-2)',\n        borderRadius: 8,\n      }}\n    >\n      <SettingsSubnav {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "RenderLinkInjetado",
+      "label": "Injected renderLink (router)",
+      "description": "Injectable `renderLink`, here simulating a router Link that intercepts navigation and switches the active item by state (same signature as Next `<Link>`).",
+      "code": "import { SettingsSubnav } from '@refy-design/web';\nimport type { SettingsSubnavGroup } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst GROUPS: SettingsSubnavGroup[] = [\n  {\n    title: 'Personal',\n    items: [\n      { href: '#account', label: 'Account', description: 'Profile, password, 2FA' },\n      {\n        href: '#general',\n        label: 'Overall',\n        description: 'Language, theme, notifications',\n      },\n    ],\n  },\n  {\n    title: 'Workspace',\n    items: [\n      { href: '#workspace', label: 'Workspace', description: 'Name, domain, logo' },\n      { href: '#team', label: 'Team', description: 'Members and roles' },\n      { href: '#projects', label: 'Projects', description: 'Team work areas' },\n      { href: '#billing', label: 'Billing', description: 'Plan, payment, invoices' },\n    ],\n  },\n  {\n    title: 'Integrations',\n    items: [\n      { href: '#connectors', label: 'Connectors', description: 'External apps' },\n      { href: '#api', label: 'API & Webhooks', description: 'Keys and endpoints' },\n    ],\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof SettingsSubnav>, 'groups'> = {\n    groups: GROUPS,\n  };\n  const [active, setActive] = useState('#account');\n  return (\n    <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>\n      <div\n        style={{\n          width: 220,\n          padding: 16,\n          background: 'var(--surface-2)',\n          borderRadius: 8,\n        }}\n      >\n        <SettingsSubnav\n          {...args}\n          activeHref={active}\n          renderLink={(item, p) => (\n            <a\n              {...p}\n              onClick={(e) => {\n                e.preventDefault();\n                setActive(item.href);\n              }}\n            />\n          )}\n        />\n      </div>\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-2)' }}\n      >\n        current route: {active}\n      </code>\n    </div>\n  );\n}"
+    }
+  ]
+}

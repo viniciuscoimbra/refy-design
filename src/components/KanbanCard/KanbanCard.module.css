@@ -1,0 +1,11 @@
+.card { min-width: 0; display: grid; gap: var(--space-2); color: var(--ink-1); font-family: var(--font-body); }
+.header { display: flex; align-items: flex-start; gap: var(--space-2); }
+.header h3 { min-height: 24px; flex: 1; min-width: 0; margin: 0; font-family: var(--font-body); font-size: var(--text-sm); font-weight: var(--weight-semi); line-height: var(--leading-normal); overflow-wrap: anywhere; }
+.header h3 button { padding: 0; height: auto; min-height: 24px; border: 0; background: transparent; color: inherit; font: inherit; white-space: normal; max-width: 100%; justify-content: flex-start; text-align: start; overflow-wrap: anywhere; }
+.header h3 button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.controls { display: flex; align-items: center; flex: none; gap: var(--space-1); margin-block: calc(var(--space-1) * -1); }
+.leading { display: flex; align-items: center; flex: none; min-height: 24px; color: var(--ink-3); }
+.leading > svg { width: 16px; height: 16px; }
+.description { color: var(--ink-3); font-size: var(--text-xs); line-height: var(--leading-normal); overflow-wrap: anywhere; }
+.meta { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); color: var(--ink-2); font-size: var(--text-xs); overflow-wrap: anywhere; }
+.card footer { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); padding-top: var(--space-1); overflow-wrap: anywhere; }

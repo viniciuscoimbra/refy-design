@@ -1,0 +1,196 @@
+{
+  "id": "Callout",
+  "description": "Contextual message with a semantic tone, content and optional actions.",
+  "usage": {
+    "howToUse": [
+      "Use it for a message about the page or the section it sits in: a limit about to end, a change of rules, a tip.",
+      "Choose the `tone` by meaning, write a short `title`, and say what to do in the text.",
+      "Put the action in `action` (\"Upgrade plan\"). Use `dismissible` only when the message can really be ignored."
+    ],
+    "alternatives": [
+      "A short result after an action (\"Saved\"): Toast or Snackbar.",
+      "A decision people must take before going on: AlertDialog.",
+      "The error of one field: the `error` of the field."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the action and to the close button, when there are."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the action in focus, or closes the message."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Callout",
+  "selected": "Info",
+  "import": "import { Callout } from '@refy-design/web';",
+  "composition": [
+    "IconButton"
+  ],
+  "api": [
+    {
+      "name": "Callout",
+      "props": [
+        {
+          "name": "tone",
+          "defaultValue": "\"info\"",
+          "type": "CalloutTone | undefined",
+          "required": false,
+          "description": "Banner semantic tone (default: \"info\")."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon on the left (the DS bundles no icons; pass one by prop)."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Banner title."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Banner body."
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Optional action on the right (e.g. `<Button size=\"sm\">Upgrade</Button>`)."
+        },
+        {
+          "name": "dismissible",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows the close button. The banner leaves with a transition and unmounts."
+        },
+        {
+          "name": "onDismiss",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "Called after the banner leaves (end of the transition)."
+        },
+        {
+          "name": "dismissLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible label of the close button (default: \"Dismiss notice\", in the active language)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Info",
+      "label": "Info (first-run hint)",
+      "description": "",
+      "code": "import { Callout } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst iconInfo = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"12\" cy=\"12\" r=\"10\" />\n    <path d=\"M12 16v-4M12 8h.01\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Callout>,\n    'tone' | 'icon' | 'title' | 'children'\n  > = {\n    tone: 'info',\n    icon: iconInfo,\n    title: 'Your collection is being prepared',\n    children:\n      'The files are being organized. You can keep working and you will be notified when the collection is ready.',\n  };\n  return (\n    <div style={{ maxWidth: 560 }}>\n      <Callout {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Nota",
+      "label": "Note (explanatory note)",
+      "description": "",
+      "code": "import { Callout } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Callout>, 'tone' | 'title' | 'children'> = {\n    tone: 'note',\n    title: 'Shortcuts work on every screen',\n    children:\n      'Search (⌘K) and keyboard navigation work across the whole app, including inside modals.',\n  };\n  return (\n    <div style={{ maxWidth: 560 }}>\n      <Callout {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Aviso",
+      "label": "Warn (limit close)",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Callout } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst iconWarn = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z\" />\n    <path d=\"M12 9v4M12 17h.01\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Callout>,\n    'tone' | 'icon' | 'title' | 'children' | 'action'\n  > = {\n    tone: 'warn',\n    icon: iconWarn,\n    title: 'Cycle credits almost gone',\n    children:\n      '120 of 2,500 credits left. New analyses pause when the balance runs out.',\n    action: (\n      <Button size=\"sm\" variant=\"secondary\">\n        View usage\n      </Button>\n    ),\n  };\n  return (\n    <div style={{ maxWidth: 560 }}>\n      <Callout {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ErroPersistente",
+      "label": "Danger (persistent failure)",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Callout } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst iconWarn = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z\" />\n    <path d=\"M12 9v4M12 17h.01\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Callout>,\n    'tone' | 'icon' | 'title' | 'children' | 'action' | 'role'\n  > = {\n    tone: 'danger',\n    icon: iconWarn,\n    title: 'Could not access the microphone',\n    children: 'Check the browser permission or continue with the keyboard.',\n    action: (\n      <Button size=\"sm\" variant=\"secondary\">\n        Try again\n      </Button>\n    ),\n    role: 'alert',\n  };\n  return (\n    <div style={{ maxWidth: 560 }}>\n      <Callout {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Upsell",
+      "label": "Upsell (plan lock banner)",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Callout } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst iconLock = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" />\n    <path d=\"M7 11V7a5 5 0 0 1 10 0v4\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Callout>,\n    'tone' | 'icon' | 'title' | 'children' | 'action'\n  > = {\n    tone: 'upsell',\n    icon: iconLock,\n    title: 'Advanced connectors are on the Business plan',\n    children:\n      'GitHub, GA4 and BigQuery become available when you upgrade. Your current data is kept.',\n    action: <Button size=\"sm\">Upgrade</Button>,\n  };\n  return (\n    <div style={{ maxWidth: 560 }}>\n      <Callout {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Dispensavel",
+      "label": "Dismissible",
+      "description": "Closes with a transition (motion token) and unmounts; `onDismiss` notifies the app.",
+      "code": "import { Callout } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst iconInfo = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"12\" cy=\"12\" r=\"10\" />\n    <path d=\"M12 16v-4M12 8h.01\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Callout>,\n    'tone' | 'icon' | 'title' | 'children' | 'dismissible'\n  > = {\n    tone: 'info',\n    icon: iconInfo,\n    title: 'Tip: drag columns to reorder',\n    children: 'This notice fades out when closed; reload the story to see it again.',\n    dismissible: true,\n  };\n  return (\n    <div style={{ maxWidth: 560 }}>\n      <Callout {...args} />\n    </div>\n  );\n}"
+    }
+  ]
+}

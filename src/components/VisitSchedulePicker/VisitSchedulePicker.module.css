@@ -1,0 +1,132 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
+  gap: var(--space-6);
+  align-items: start;
+  width: 100%;
+}
+.main {
+  flex: 2 1 42rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: var(--space-6);
+  min-width: 0;
+}
+.calendarWrap,
+.schedule,
+.summary {
+  min-width: 0;
+  padding: var(--space-5);
+  border: var(--surface-border-width, 1px) solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.calendarWrap {
+  align-self: start;
+  margin: 0;
+}
+.calendarWrap > h3,
+.sectionHeading h3,
+.timesHeading h3,
+.summaryHeading h3 {
+  margin: 0;
+  color: var(--ink-1);
+  font-family: var(--font-headline);
+  font-size: var(--text-h5);
+}
+.calendarWrap > p,
+.sectionHeading p,
+.timesHeading p,
+.summaryHeading p {
+  margin: var(--space-1) 0 var(--space-4);
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+.calendarWrap > :last-child {
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.schedule {
+  display: grid;
+  gap: var(--space-5);
+}
+.sectionHeading,
+.timesHeading,
+.summaryHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.sectionHeading p,
+.timesHeading p,
+.summaryHeading p {
+  margin-bottom: 0;
+}
+.days {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+}
+.times {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 4.25rem), 1fr));
+  gap: var(--space-2);
+}
+.times > :global(button) {
+  justify-content: center;
+  min-height: 40px;
+  font-variant-numeric: tabular-nums;
+}
+.summary {
+  flex: 1 1 19rem;
+  display: grid;
+  gap: var(--space-4);
+}
+.summaryList {
+  display: grid;
+  gap: var(--space-2);
+}
+.summaryDay {
+  display: grid;
+  gap: 3px;
+  padding: var(--space-3);
+  border: var(--surface-border-width, 1px) solid var(--line-soft);
+  border-radius: var(--radius-default);
+  background: var(--surface-2);
+}
+.summaryDay strong {
+  color: var(--ink-1);
+  font-size: var(--text-sm);
+}
+/* Só a primeira letra: "capitalize" virava "Quinta-Feira, 12 De Nov.". */
+.summaryDay strong::first-letter {
+  text-transform: uppercase;
+}
+.summaryDay span {
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+.timezone {
+  margin: 0;
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.calendarWrap > :last-child {
+  display: flex;
+  justify-content: center;
+}
+.summaryDay,
+.timezone,
+.sectionHeading,
+.timesHeading,
+.summaryHeading {
+  overflow-wrap: anywhere;
+}
+
+.calendarWrap:disabled {
+  opacity: 0.55;
+}

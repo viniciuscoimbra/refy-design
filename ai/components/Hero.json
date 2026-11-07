@@ -1,0 +1,151 @@
+{
+  "id": "Hero",
+  "description": "A page's first fold with title, accent, lead and actions; the composition comes from the theme.",
+  "usage": {
+    "howToUse": [
+      "Use it for the first screen of a public page: the main title, one sentence and the main actions.",
+      "Write the `title` as the promise of the page, the `lead` as the proof in one sentence, and put one primary and one secondary action in `actions`.",
+      "The layout comes from the theme: switching the theme changes the hero without code."
+    ],
+    "alternatives": [
+      "The title of an app screen: PageHeader."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the actions. The title does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Hero",
+  "selected": "Playground",
+  "import": "import { Hero } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Hero",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Main title (becomes `<h1>`)."
+        },
+        {
+          "name": "accent",
+          "type": "ReactNode",
+          "required": false,
+          "description": "End of the title in the theme's accent color (e.g. the period)."
+        },
+        {
+          "name": "lead",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Lead sentence under the title."
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Main actions (buttons, links)."
+        },
+        {
+          "name": "top",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Strip above the title: switcher, badge or overline."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content below the hero (demo, image)."
+        },
+        {
+          "name": "transitionNames",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Gives View Transition names to the parts, so the theme switch animates each one."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Hero } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Hero>,\n    'title' | 'accent' | 'lead' | 'actions'\n  > = {\n    title: 'Your design, your way',\n    accent: '.',\n    lead: 'Build extensible UIs with native AI.',\n    actions: (\n      <>\n        <Button variant=\"primary\" size=\"lg\">\n          Open in Playground →\n        </Button>\n        <Button size=\"lg\" href=\"#docs\">\n          Read the docs\n        </Button>\n      </>\n    ),\n  };\n  return <Hero {...args} />;\n}"
+    }
+  ]
+}

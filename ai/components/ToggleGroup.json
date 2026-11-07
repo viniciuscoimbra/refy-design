@@ -1,0 +1,102 @@
+{
+  "id": "ToggleGroup",
+  "description": "A set of independent toggles with multiple values; for exclusive choice, use Segmented or RadioGroup.",
+  "usage": {
+    "howToUse": [
+      "Use it to turn on several filters or formats that stay visible: bold, italic and underline; critical, warnings and info.",
+      "Each button shows whether it is on; the value is the list of options on.",
+      "Give the group a `label` that names the set (\"Severity\")."
+    ],
+    "alternatives": [
+      "Only one option at a time: Segmented or RadioGroup.",
+      "Many options: Multiselect."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one button to the next."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Turns the option in focus on or off."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ToggleGroup",
+  "selected": "Controlled",
+  "import": "import { ToggleGroup } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "ToggleGroup",
+      "props": [
+        {
+          "name": "options",
+          "type": "ToggleOption[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "Values on (controlled)."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "[]",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "Initial state (uncontrolled)."
+        },
+        {
+          "name": "onChange",
+          "type": "((values: string[]) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible group label."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Several independent toggles.",
+      "code": "import { ToggleGroup } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst layers = [\n  { value: 'critical', label: 'Critical' },\n  { value: 'notices', label: 'Warnings' },\n  { value: 'resolved', label: 'Resolved' },\n  { value: 'info', label: 'Info' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ToggleGroup>,\n    'options' | 'label' | 'defaultValue'\n  > = { options: layers, label: 'Layers', defaultValue: ['critical', 'notices'] };\n  return <ToggleGroup {...args} />;\n}"
+    },
+    {
+      "id": "Controlled",
+      "label": "Controlled",
+      "description": "Controlled.",
+      "code": "import { ToggleGroup } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst layers = [\n  { value: 'critical', label: 'Critical' },\n  { value: 'notices', label: 'Warnings' },\n  { value: 'resolved', label: 'Resolved' },\n  { value: 'info', label: 'Info' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ToggleGroup>, 'options' | 'label'> = {\n    options: layers,\n    label: 'Layers',\n  };\n  const [values, setValues] = useState<string[]>(['critical']);\n  return (\n    <div\n      style={{\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 12,\n        alignItems: 'flex-start',\n      }}\n    >\n      <ToggleGroup {...args} value={values} onChange={setValues} />\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-3)' }}\n      >\n        [{values.join(', ') || 'empty'}]\n      </code>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { ToggleGroup } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst layers = [\n  { value: 'critical', label: 'Critical' },\n  { value: 'notices', label: 'Warnings' },\n  { value: 'resolved', label: 'Resolved' },\n  { value: 'info', label: 'Info' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ToggleGroup>,\n    'options' | 'label' | 'defaultValue' | 'disabled'\n  > = {\n    options: layers,\n    label: 'Layers unavailable',\n    defaultValue: ['critical'],\n    disabled: true,\n  };\n  return <ToggleGroup {...args} />;\n}"
+    }
+  ]
+}

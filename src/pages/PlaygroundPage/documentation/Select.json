@@ -1,0 +1,195 @@
+{
+  "id": "Select",
+  "description": "Native selection of one option, with groups, label and help.",
+  "usage": {
+    "howToUse": [
+      "Use it to pick one option from a short, known list: country, size, sort order.",
+      "Give it a `label` and start with the most common option selected, or with an empty option that asks for a choice.",
+      "Group long lists with `optgroup`.",
+      "The list that opens is the browser's own; on mobile it is the phone's picker."
+    ],
+    "alternatives": [
+      "Long list where typing helps: Combobox.",
+      "Two to five options that should all stay visible: Segmented or RadioGroup."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the field."
+      },
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Changes the option, or opens the list, depending on the browser and the system."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the list or confirms the option."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the list without changing the value."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Select",
+  "selected": "SelectPadrao",
+  "import": "import { Select } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Select",
+      "props": [
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "hint",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "block",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLSelectElement, HTMLSelectElement> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLSelectElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLSelectElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLSelectElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLSelectElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "SelectPadrao",
+      "label": "Default select",
+      "description": "",
+      "code": "import { Select } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Select>, 'label' | 'block'> = {\n    label: 'Role',\n    block: true,\n  };\n  return (\n    <Select {...args}>\n      <option>Member</option>\n      <option>Admin</option>\n      <option>Viewer</option>\n    </Select>\n  );\n}"
+    },
+    {
+      "id": "SelectComGrupos",
+      "label": "Select with groups",
+      "description": "",
+      "code": "import { Select } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Select>, 'label' | 'block'> = {\n    label: 'Role',\n    block: true,\n  };\n  return (\n    <Select {...args} label=\"Invitee role\">\n      <optgroup label=\"Built-in\">\n        <option>Member</option>\n        <option>Admin</option>\n        <option>Viewer</option>\n      </optgroup>\n      <optgroup label=\"Custom\">\n        <option>External researcher</option>\n        <option>Client (read-only)</option>\n      </optgroup>\n    </Select>\n  );\n}"
+    },
+    {
+      "id": "SelectComHint",
+      "label": "Select with hint",
+      "description": "",
+      "code": "import { Select } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Select>, 'label' | 'block'> = {\n    label: 'Role',\n    block: true,\n  };\n  return (\n    <Select {...args} label=\"Default market\" hint=\"Applied to every new analysis.\">\n      <option>Brazil · pt-BR</option>\n      <option>Portugal · pt-PT</option>\n      <option>USA · en-US</option>\n    </Select>\n  );\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { Select } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Select>, 'label' | 'block'> = {\n    label: 'Role',\n    block: true,\n  };\n  return (\n    <Select {...args} disabled defaultValue=\"Member\">\n      <option>Member</option>\n      <option>Admin</option>\n    </Select>\n  );\n}"
+    },
+    {
+      "id": "ComErro",
+      "label": "With error",
+      "description": "",
+      "code": "import { Select } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Select>, 'label' | 'block'> = {\n    label: 'Role',\n    block: true,\n  };\n  return (\n    <Select {...args} error=\"Select an available role.\" defaultValue=\"\">\n      <option value=\"\">Select a role</option>\n      <option>Member</option>\n    </Select>\n  );\n}"
+    },
+    {
+      "id": "DescricoesAssociadas",
+      "label": "Linked descriptions",
+      "description": "Descriptions from the consumer are kept with the field's help and validation.",
+      "code": "import { Select } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'grid', gap: 16 }}>\n      <p id=\"select-context\">Set the invitee's access permissions.</p>\n      <Select\n        id=\"select-role\"\n        label=\"Role\"\n        aria-describedby=\"select-context\"\n        aria-invalid={false}\n        error=\"Select an available role.\"\n        defaultValue=\"\"\n      >\n        <option value=\"\">Select a role</option>\n        <option>Member</option>\n        <option>Admin</option>\n      </Select>\n      <Select\n        id=\"select-market\"\n        label=\"Market\"\n        aria-describedby=\"select-context\"\n        hint=\"Applied to every new analysis.\"\n        defaultValue=\"Brazil\"\n      >\n        <option>Brazil</option>\n        <option>Portugal</option>\n      </Select>\n    </div>\n  );\n}"
+    }
+  ]
+}

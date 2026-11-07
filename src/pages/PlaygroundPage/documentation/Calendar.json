@@ -1,0 +1,187 @@
+{
+  "id": "Calendar",
+  "description": "Calendar to pick a date or a range, with limits and navigation between months.",
+  "usage": {
+    "howToUse": [
+      "Use it when the calendar stays open on the screen: booking, availability, a period for a report.",
+      "Use `mode=\"range\"` for start and end, with `numberOfMonths={2}` so both fit side by side.",
+      "Block the days that cannot be chosen with `min` and `max`.",
+      "Set `weekStartsOn` and `locale` for the country of the people using it."
+    ],
+    "alternatives": [
+      "A date inside a form, where the calendar opens from a field: DatePicker.",
+      "Days with available times: SchedulePicker."
+    ],
+    "keyboard": [
+      {
+        "keys": "`←` or `→`",
+        "action": "Moves one day."
+      },
+      {
+        "keys": "`↑` or `↓`",
+        "action": "Moves one week."
+      },
+      {
+        "keys": "`PageUp` or `PageDown`",
+        "action": "Goes to the previous or next month."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Selects the day in focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Calendar",
+  "selected": "SingleControlled",
+  "import": "import { Calendar } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Calendar",
+      "props": [
+        {
+          "name": "mode",
+          "defaultValue": "\"single\"",
+          "type": "CalendarMode | undefined",
+          "required": false,
+          "description": "`single` (one date) or `range` (start → end, e.g. round trip)."
+        },
+        {
+          "name": "value",
+          "type": "Date | DateRange | null | undefined",
+          "required": false,
+          "description": "Controlled value. `Date | null` in single mode; `DateRange` in range mode."
+        },
+        {
+          "name": "defaultValue",
+          "type": "Date | DateRange | null | undefined",
+          "required": false,
+          "description": "Initial value (uncontrolled)."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: Date | DateRange) => void) | undefined",
+          "required": false,
+          "description": "Fired on each selection. `Date` in single, `DateRange` in range."
+        },
+        {
+          "name": "numberOfMonths",
+          "defaultValue": "1",
+          "type": "1 | 2 | undefined",
+          "required": false,
+          "description": "How many months side by side (useful in range). Default 1."
+        },
+        {
+          "name": "fixedWeeks",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Keeps six weeks for a fixed height; false uses the month's weeks."
+        },
+        {
+          "name": "month",
+          "type": "Date | undefined",
+          "required": false,
+          "description": "Controlled visible month (1st day of the month)."
+        },
+        {
+          "name": "defaultMonth",
+          "type": "Date | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onMonthChange",
+          "type": "((month: Date) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "min",
+          "type": "Date | undefined",
+          "required": false,
+          "description": "Selection limits."
+        },
+        {
+          "name": "max",
+          "type": "Date | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "weekStartsOn",
+          "defaultValue": "0",
+          "type": "0 | 1 | undefined",
+          "required": false,
+          "description": "0 = Sunday (default), 1 = Monday."
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "monthLabelStyle",
+          "defaultValue": "\"long\"",
+          "type": "\"compact\" | \"long\" | undefined",
+          "required": false,
+          "description": "Month label: \"long\" uses the language format (\"October 2026\"); \"compact\" joins only month and year (\"October 2026\"). Default \"long\"."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: change `mode`, `numberOfMonths` and `weekStartsOn` in the controls.",
+      "code": "import { Calendar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Calendar>,\n    'mode' | 'numberOfMonths' | 'weekStartsOn' | 'defaultValue'\n  > = { mode: 'single', numberOfMonths: 1, weekStartsOn: 0, defaultValue: new Date() };\n  return <Calendar {...args} />;\n}"
+    },
+    {
+      "id": "SingleDefault",
+      "label": "Single · default",
+      "description": "One date, uncontrolled. Click a day and it selects itself.",
+      "code": "import { Calendar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Calendar>, 'mode' | 'defaultValue'> = {\n    mode: 'single',\n    defaultValue: new Date(),\n  };\n  return <Calendar {...args} />;\n}"
+    },
+    {
+      "id": "SingleControlled",
+      "label": "Single · controlled",
+      "description": "One date, controlled: the state lives in the parent and shows below.",
+      "code": "import { Calendar } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const args = {};\n  const [date, setDate] = useState<Date | null>(new Date());\n  return (\n    <div\n      style={{\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 12,\n        alignItems: 'flex-start',\n      }}\n    >\n      <Calendar\n        {...args}\n        mode=\"single\"\n        value={date}\n        onChange={(v) => setDate(v as Date)}\n      />\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-2)' }}\n      >\n        {date ? date.toISOString().slice(0, 10) : 'no date'}\n      </code>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "RangeDualMonth",
+      "label": "Range · round trip",
+      "description": "A range across two months, the round-trip case for a journey.",
+      "code": "import { Calendar } from '@refy-design/web';\nimport type { DateRange } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const args = {};\n  const [range, setRange] = useState<DateRange>({ start: null, end: null });\n  const fmt = (d: Date | null) => (d ? d.toISOString().slice(0, 10) : '—');\n  return (\n    <div\n      style={{\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 12,\n        alignItems: 'flex-start',\n      }}\n    >\n      <Calendar\n        {...args}\n        mode=\"range\"\n        numberOfMonths={2}\n        value={range}\n        onChange={(v) => setRange(v as DateRange)}\n      />\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-2)' }}\n      >\n        {fmt(range.start)} → {fmt(range.end)}\n      </code>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "RangeSingleMonth",
+      "label": "Range · 1 month",
+      "description": "A range within a single month.",
+      "code": "import { Calendar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Calendar>, 'mode' | 'numberOfMonths'> = {\n    mode: 'range',\n    numberOfMonths: 1,\n  };\n  return <Calendar {...args} />;\n}"
+    },
+    {
+      "id": "MinLimit",
+      "label": "With minimum limit",
+      "description": "Only allows picking from today on (past days disabled).",
+      "code": "import { Calendar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Calendar>, 'mode' | 'min'> = {\n    mode: 'single',\n    min: new Date(),\n  };\n  return <Calendar {...args} />;\n}"
+    },
+    {
+      "id": "WeekStartsMonday",
+      "label": "Week starts Monday",
+      "description": "Week starting on Monday.",
+      "code": "import { Calendar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Calendar>,\n    'mode' | 'weekStartsOn' | 'defaultValue'\n  > = { mode: 'single', weekStartsOn: 1, defaultValue: new Date() };\n  return <Calendar {...args} />;\n}"
+    }
+  ]
+}

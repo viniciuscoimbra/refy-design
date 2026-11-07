@@ -1,0 +1,120 @@
+{
+  "id": "Kbd",
+  "description": "Visual representation of a key or shortcut combination.",
+  "usage": {
+    "howToUse": [
+      "Use it to write a key or a shortcut in text, menus and tooltips: ⌘K, Esc, Enter.",
+      "One Kbd per key; join combinations with \"+\" between them.",
+      "It only shows the key: your application listens for the shortcut."
+    ],
+    "alternatives": [
+      "Code people copy: CodeBlock."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "Kbd does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Kbd",
+  "selected": "Playground",
+  "import": "import { Kbd } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Kbd",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "",
+      "code": "import { Kbd } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Kbd>, 'children'> = { children: '⌘K' };\n  return <Kbd {...args} />;\n}"
+    },
+    {
+      "id": "Combinacoes",
+      "label": "Combinations",
+      "description": "",
+      "code": "import { Kbd } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>\n      <Kbd>⌘K</Kbd>\n      <Kbd>esc</Kbd>\n      <Kbd>↵</Kbd>\n      <Kbd>⇧⌘P</Kbd>\n    </div>\n  );\n}"
+    }
+  ]
+}

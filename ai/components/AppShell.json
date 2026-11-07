@@ -1,0 +1,102 @@
+{
+  "id": "AppShell",
+  "description": "Application structure combining side navigation, top bar and content area.",
+  "usage": {
+    "howToUse": [
+      "Use it as the frame of an app: sidebar on the left, top bar and the content of the page.",
+      "Configure the sidebar in `sidebar` and the top bar in `topbar`; the page goes in `children`.",
+      "Turn on `responsiveSidebar` so the sidebar becomes a drawer on mobile. Limit the reading width with `contentMaxWidth`."
+    ],
+    "alternatives": [
+      "A public site page: Hero, Section and SiteFooter."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Goes through the sidebar, then the top bar, then the page."
+      },
+      {
+        "keys": "Other keys",
+        "action": "Each part keeps its own: see Sidebar, Topbar and WorkspaceSwitcher."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "AppShell",
+  "selected": "Completo",
+  "import": "import { AppShell } from '@refy-design/web';",
+  "composition": [
+    "BrandLogo",
+    "Drawer",
+    "IconButton",
+    "Sidebar",
+    "Topbar"
+  ],
+  "api": [
+    {
+      "name": "AppShell",
+      "props": [
+        {
+          "name": "sidebar",
+          "type": "SidebarProps",
+          "required": true,
+          "description": "Props passed to the Sidebar."
+        },
+        {
+          "name": "topbar",
+          "type": "TopbarProps",
+          "required": true,
+          "description": "Props passed to the Topbar."
+        },
+        {
+          "name": "contentMaxWidth",
+          "defaultValue": "1240",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Maximum width of the content column. Default 1240px."
+        },
+        {
+          "name": "responsiveSidebar",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "navigationLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "theme",
+          "type": "\"light\" | \"dark\" | \"editorial\" | undefined",
+          "required": false,
+          "description": "Explicit theme. When omitted, inherits the global Storybook/app theme."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Completo",
+      "label": "Complete",
+      "description": "Full layout of the signed-in app, built purely from the real components: Sidebar (WorkspaceSwitcher + UserMenu), Topbar (Breadcrumb + Command trigger), NotificationBell, HelpMenu and a working ⌘K palette.",
+      "code": "import { AppShell } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { Command } from '@refy-design/web';\nimport type { CommandItem } from '@refy-design/web';\nimport { HelpMenu } from '@refy-design/web';\nimport { NotificationBell } from '@refy-design/web';\nimport type { NotificationItem } from '@refy-design/web';\nimport { UserMenu } from '@refy-design/web';\nimport type { Workspace } from '@refy-design/web';\nimport { createContext } from 'react';\nimport type { ReactNode } from 'react';\nimport type { RefObject } from 'react';\nimport { useContext } from 'react';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nconst workspaces: Workspace[] = [\n  {\n    id: 'horizonte',\n    name: 'Horizon team',\n    role: 'Team · Pro',\n    initials: 'HI',\n  },\n  { id: 'coimbra', name: 'Ana Silva', role: 'Professional', initials: 'VC' },\n  {\n    id: 'pampulha',\n    name: 'South team',\n    role: 'Team · Starter',\n    initials: 'PL',\n  },\n];\nconst user = { name: 'João Mendes', email: 'joao@example.com', initials: 'JM' };\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nconst sidebar = {\n  brand: 'refy',\n  defaultActiveId: 'dashboard',\n  workspaces,\n  account: user,\n  cta: { label: 'New client', icon: Icons.plus },\n  groups: [\n    {\n      section: 'Work',\n      items: [\n        { id: 'dashboard', label: 'Overview', icon: Icons.dashboard },\n        { id: 'projects', label: 'Content', icon: Icons.projects },\n        { id: 'backlog', label: 'Clients', icon: Icons.backlog, badge: 12 },\n        { id: 'monitor', label: 'Activity', icon: Icons.monitor },\n        { id: 'competitors', label: 'People', icon: Icons.competitors },\n      ],\n    },\n    {\n      section: 'System',\n      items: [\n        {\n          id: 'notifications',\n          label: 'Notifications',\n          icon: Icons.bell,\n          badge: 3,\n        },\n        { id: 'settings', label: 'Settings', icon: Icons.settings },\n      ],\n    },\n  ],\n};\nconst notifications: NotificationItem[] = [\n  {\n    id: 'n1',\n    title: 'New content saved',\n    description: 'Marina saved an item to the collection.',\n    time: '5 min ago',\n    unread: true,\n  },\n  {\n    id: 'n2',\n    title: 'Review requested',\n    description: 'Three time slots were sent for confirmation.',\n    time: '2h ago',\n    unread: true,\n  },\n  {\n    id: 'n3',\n    title: 'New member',\n    description: 'Ana Costa joined the team.',\n    time: '3d ago',\n  },\n];\nconst ExampleScope = createContext<RefObject<HTMLDivElement | null> | null>(null);\nfunction useCommandShortcut(onOpen: () => void, enabled = true) {\n  const scope = useContext(ExampleScope);\n  useEffect(() => {\n    if (!enabled) return;\n    const onKey = (event: KeyboardEvent) => {\n      if (\n        event.defaultPrevented ||\n        (scope && !scope.current?.contains(event.target as Node))\n      )\n        return;\n      if (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)) {\n        event.preventDefault();\n        onOpen();\n      }\n    };\n    window.addEventListener('keydown', onKey);\n    return () => window.removeEventListener('keydown', onKey);\n  }, [scope, onOpen, enabled]);\n}\nconst commands: CommandItem[] = [\n  { id: 'new', label: 'Add person', group: 'Actions', shortcut: '⌘N' },\n  {\n    id: 'visit',\n    label: 'See upcoming activity',\n    group: 'Actions',\n    shortcut: '⌘V',\n  },\n  {\n    id: 'property',\n    label: 'Collection · References',\n    group: 'Recent content',\n    lead: 'IT',\n  },\n];\nexport function Example() {\n  const [activeId, setActiveId] = useState('dashboard');\n  const activeLabel =\n    sidebar.groups.flatMap((group) => group.items).find((item) => item.id === activeId)\n      ?.label ?? 'Overview';\n  const [commandOpen, setCommandOpen] = useState(false);\n  const [items, setItems] = useState(notifications);\n  useCommandShortcut(() => setCommandOpen(true));\n  return (\n    <>\n      <AppShell\n        responsiveSidebar\n        sidebar={{\n          ...sidebar,\n          activeId,\n          onNavigate: (item) => setActiveId(item.id),\n        }}\n        topbar={{\n          crumbs: [{ label: 'Horizon team', href: '#' }, { label: activeLabel }],\n          onSearchClick: () => setCommandOpen(true),\n          actions: (\n            <>\n              <NotificationBell\n                items={items}\n                onMarkAllRead={() =>\n                  setItems((l) => l.map((n) => ({ ...n, unread: false })))\n                }\n              />\n              <HelpMenu />\n              <UserMenu user={user} compact />\n            </>\n          ),\n        }}\n      >\n        <p\n          style={{\n            fontFamily: 'var(--font-mono)',\n            fontSize: 10,\n            textTransform: 'uppercase',\n            letterSpacing: '.16em',\n            color: 'var(--ink-3)',\n            margin: '0 0 8px',\n          }}\n        >\n          Organization · Horizon team\n        </p>\n        <h1\n          style={{\n            fontFamily: 'var(--font-headline)',\n            fontSize: 30,\n            fontWeight: 700,\n            letterSpacing: '-.025em',\n            color: 'var(--ink-1)',\n            margin: '0 0 20px',\n          }}\n        >\n          {activeLabel}\n        </h1>\n        <div\n          style={{\n            display: 'grid',\n            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',\n            gap: 14,\n            marginBottom: 20,\n          }}\n        >\n          <Card>\n            <div\n              style={{\n                fontFamily: 'var(--font-mono)',\n                fontSize: 10,\n                textTransform: 'uppercase',\n                letterSpacing: '.12em',\n                color: 'var(--ink-3)',\n              }}\n            >\n              Active clients\n            </div>\n            <div\n              style={{\n                fontFamily: 'var(--font-headline)',\n                fontSize: 26,\n                fontWeight: 600,\n                color: 'var(--ink-1)',\n                marginTop: 6,\n              }}\n            >\n              128\n            </div>\n          </Card>\n          <Card>\n            <div\n              style={{\n                fontFamily: 'var(--font-mono)',\n                fontSize: 10,\n                textTransform: 'uppercase',\n                letterSpacing: '.12em',\n                color: 'var(--ink-3)',\n              }}\n            >\n              Activity · week\n            </div>\n            <div\n              style={{\n                fontFamily: 'var(--font-headline)',\n                fontSize: 26,\n                fontWeight: 600,\n                color: 'var(--ink-1)',\n                marginTop: 6,\n              }}\n            >\n              24\n            </div>\n          </Card>\n          <Card>\n            <div\n              style={{\n                fontFamily: 'var(--font-mono)',\n                fontSize: 10,\n                textTransform: 'uppercase',\n                letterSpacing: '.12em',\n                color: 'var(--ink-3)',\n              }}\n            >\n              Active content\n            </div>\n            <div\n              style={{\n                fontFamily: 'var(--font-headline)',\n                fontSize: 26,\n                fontWeight: 600,\n                color: 'var(--ink-1)',\n                marginTop: 6,\n              }}\n            >\n              386\n            </div>\n          </Card>\n        </div>\n        <Card>\n          <div\n            style={{\n              display: 'flex',\n              flexWrap: 'wrap',\n              gap: 16,\n              justifyContent: 'space-between',\n              alignItems: 'center',\n            }}\n          >\n            <div>\n              <div\n                style={{\n                  fontWeight: 600,\n                  color: 'var(--ink-1)',\n                  fontSize: 14,\n                }}\n              >\n                New client\n              </div>\n              <div\n                style={{\n                  fontSize: 12.5,\n                  color: 'var(--ink-3)',\n                  marginTop: 2,\n                }}\n              >\n                Add content and organize your projects.\n              </div>\n            </div>\n            <Button variant=\"primary\" leadingIcon={Icons.plus}>\n              Add person\n            </Button>\n          </div>\n        </Card>\n      </AppShell>\n      <Command open={commandOpen} onOpenChange={setCommandOpen} items={commands} />\n    </>\n  );\n}"
+    }
+  ]
+}

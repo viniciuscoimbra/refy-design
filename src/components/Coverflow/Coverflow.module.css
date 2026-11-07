@@ -1,0 +1,92 @@
+.root {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.viewport {
+  container-type: inline-size;
+  min-width: 0;
+  overflow: hidden;
+  perspective: var(--coverflow-perspective, 900px);
+  touch-action: pan-y;
+  padding-block: var(--space-5);
+  cursor: grab;
+}
+.viewport[data-dragging] {
+  cursor: grabbing;
+  user-select: none;
+}
+.track {
+  display: flex;
+  width: max-content;
+  align-items: stretch;
+  gap: var(--coverflow-gap, var(--space-4));
+  padding-inline: calc(
+    (
+        100cqw -
+          min(var(--coverflow-item-width, 16rem), 100cqw - var(--space-8))
+      ) /
+      2
+  );
+  transition: transform var(--motion-context-duration) var(--motion-ease-enter);
+}
+.item {
+  flex: 0 0 auto;
+  width: min(var(--coverflow-item-width, 16rem), calc(100cqw - var(--space-8)));
+  min-width: 0;
+  transform: perspective(var(--coverflow-perspective, 900px))
+    rotateY(calc(var(--coverflow-side) * var(--coverflow-angle, -12deg)))
+    scale(calc(1 - var(--coverflow-distance) * 0.04));
+  transition: transform var(--motion-context-duration) var(--motion-ease-enter);
+}
+.surface {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
+  padding: var(--coverflow-item-padding, var(--space-4));
+}
+.surface[aria-pressed="true"] {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary-ink);
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+.controls > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+.empty {
+  padding: var(--space-5);
+  color: var(--ink-3);
+}
+.viewport[data-dragging] .track,
+.viewport[data-dragging] .item {
+  transition: none;
+}
+.root[data-reduced-motion] .track,
+.root[data-reduced-motion] .item {
+  transition: none;
+}
+.root[data-reduced-motion] .item {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .item {
+    transition: none;
+  }
+  .item {
+    transform: none;
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "id": "Checkbox",
+  "description": "Independent choice, with label, description and selected or disabled states.",
+  "usage": {
+    "howToUse": [
+      "Use it for an option that can be on or off regardless of the others: accept terms, receive news, one item of a list.",
+      "Write the `label` as the statement that becomes true when marked (\"Send me the weekly summary\").",
+      "Use `description` for the consequence, and `boxed` when each option is a row the person compares.",
+      "The change only takes effect when the form is saved."
+    ],
+    "alternatives": [
+      "Only one option of the group can be chosen: RadioGroup.",
+      "A setting that takes effect right away: Switch."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the box."
+      },
+      {
+        "keys": "`Space`",
+        "action": "Marks or clears the box."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Checkbox",
+  "selected": "CheckboxPadrao",
+  "import": "import { Checkbox } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Checkbox",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Label to the right of the box."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Supporting text below the label."
+        },
+        {
+          "name": "tag",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Inline tag after the label (e.g. `<Badge tone=\"danger\">destructive</Badge>`\non a dangerous permission). Slot: the atom does not bundle text."
+        },
+        {
+          "name": "meta",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Mono meta on the right of the row (e.g. \"42k clicks / 28d\")."
+        },
+        {
+          "name": "boxed",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Boxed variant: a selectable row with a border (property lists,\nchoices in a modal). The border lights up when checked."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLInputElement, HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "CheckboxPadrao",
+      "label": "Default checkbox",
+      "description": "",
+      "code": "import { Checkbox } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Checkbox>, 'label' | 'defaultChecked'> = {\n    label: 'Auto top-up',\n    defaultChecked: true,\n  };\n  return <Checkbox {...args} />;\n}"
+    },
+    {
+      "id": "CheckboxComDescricao",
+      "label": "Checkbox with description",
+      "description": "",
+      "code": "import { Checkbox } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Checkbox>,\n    'label' | 'defaultChecked' | 'description'\n  > = {\n    label: 'analyses:create',\n    defaultChecked: true,\n    description: 'Runs new analyses (uses workspace credits).',\n  };\n  return <Checkbox {...args} />;\n}"
+    },
+    {
+      "id": "CheckboxDesabilitado",
+      "label": "Disabled checkbox",
+      "description": "",
+      "code": "import { Checkbox } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Checkbox>,\n    'label' | 'defaultChecked' | 'description' | 'disabled'\n  > = {\n    label: 'billing',\n    defaultChecked: false,\n    description: 'Views and changes the plan.',\n    disabled: true,\n  };\n  return <Checkbox {...args} />;\n}"
+    },
+    {
+      "id": "CheckboxComTagDestrutiva",
+      "label": "With destructive tag",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Checkbox } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Checkbox>,\n    'label' | 'defaultChecked' | 'description' | 'tag'\n  > = {\n    label: 'analyses:delete',\n    defaultChecked: false,\n    description: 'Deletes analyses permanently.',\n    tag: <Badge tone=\"danger\">destructive</Badge>,\n  };\n  return <Checkbox {...args} />;\n}"
+    },
+    {
+      "id": "CheckboxBoxed",
+      "label": "Boxed (selectable row)",
+      "description": "",
+      "code": "import { Checkbox } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 440 }}>\n      <Checkbox\n        boxed\n        label=\"sc-domain:example.com\"\n        meta=\"42 mil cliques / 28d\"\n        defaultChecked\n      />\n      <Checkbox\n        boxed\n        label=\"sc-domain:design.example.com\"\n        meta=\"8 mil cliques / 28d\"\n        defaultChecked\n      />\n      <Checkbox\n        boxed\n        label=\"sc-domain:colecao.example.com\"\n        meta=\"3 mil cliques / 28d\"\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "CheckboxGrupo",
+      "label": "Checkbox group",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Checkbox } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 380 }}>\n      <Checkbox\n        label=\"analyses:read\"\n        description=\"Reads workspace analyses.\"\n        defaultChecked\n      />\n      <Checkbox\n        label=\"analyses:create\"\n        description=\"Runs new analyses.\"\n        defaultChecked\n      />\n      <Checkbox label=\"analyses:publish\" description=\"Publishes to Viewers.\" />\n      <Checkbox\n        label=\"analyses:delete\"\n        description=\"Deletes analyses permanently.\"\n        tag={<Badge tone=\"danger\">destructive</Badge>}\n      />\n    </div>\n  );\n}"
+    }
+  ]
+}

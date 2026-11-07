@@ -1,0 +1,157 @@
+{
+  "id": "DeviceFrame",
+  "description": "Browser or phone frame with the live page at the device's real width.",
+  "usage": {
+    "howToUse": [
+      "Use it to show a page working inside a browser window or a phone, at the real width of the device.",
+      "Pass the page in `src` with a `frameTitle`, and the device size in `viewport`; it scales to fit.",
+      "The page inside does not react to clicks. Offer a link to open it for real."
+    ],
+    "alternatives": [
+      "A plain screenshot with no frame: an `<img>` in AspectRatio."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The page inside does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "DeviceFrame",
+  "selected": "Playground",
+  "import": "import { DeviceFrame } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "DeviceFrame",
+      "props": [
+        {
+          "name": "variant",
+          "defaultValue": "\"browser\"",
+          "type": "DeviceFrameVariant | undefined",
+          "required": false,
+          "description": "`browser`: window with an address bar; `phone`: device with a rounded screen."
+        },
+        {
+          "name": "src",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Live page: rendered by an iframe at the real width and scaled to fit."
+        },
+        {
+          "name": "frameTitle",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible iframe title (required with `src`)."
+        },
+        {
+          "name": "viewport",
+          "type": "{ width: number; height: number; } | undefined",
+          "required": false,
+          "description": "Real screen width and height, in px (default 1280×800 in the browser, 390×844 on the phone)."
+        },
+        {
+          "name": "address",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Address bar text (`browser`)."
+        },
+        {
+          "name": "caption",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Caption under the frame."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Static content in place of the iframe (e.g. a real capture of a native app)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "",
+      "code": "import { DeviceFrame } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst page =\n  'iframe.html?id=components-molecules-sectionheader--playground&viewMode=story';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof DeviceFrame>,\n    'variant' | 'src' | 'frameTitle' | 'address' | 'caption'\n  > = {\n    variant: 'browser',\n    src: page,\n    frameTitle: 'Browser example',\n    address: 'refy.design',\n    caption: 'Browser, 1280 px',\n  };\n  return (\n    <div style={{ maxWidth: 640 }}>\n      <DeviceFrame {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Celular",
+      "label": "Phone",
+      "description": "",
+      "code": "import { DeviceFrame } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst page =\n  'iframe.html?id=components-molecules-sectionheader--playground&viewMode=story';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof DeviceFrame>,\n    'variant' | 'src' | 'frameTitle' | 'caption'\n  > = {\n    variant: 'phone',\n    src: page,\n    frameTitle: 'Phone example',\n    caption: 'Phone, 390 px',\n  };\n  return (\n    <div style={{ maxWidth: 220 }}>\n      <DeviceFrame {...args} />\n    </div>\n  );\n}"
+    }
+  ]
+}

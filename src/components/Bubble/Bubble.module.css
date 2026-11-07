@@ -1,0 +1,17 @@
+.bubble {
+  max-width: 65ch;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-2);
+  color: var(--ink-1);
+  border: var(--surface-border-width, 1px) solid var(--line);
+  border-radius: var(--radius-lg);
+  font: inherit;
+  line-height: var(--leading-normal);
+  overflow-wrap: anywhere;
+}
+.end {
+  background: var(--primary-soft);
+  border-color: var(--primary-ink);
+  color: var(--primary-ink);
+  margin-inline-start: auto;
+}

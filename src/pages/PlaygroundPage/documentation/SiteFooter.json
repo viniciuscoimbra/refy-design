@@ -1,0 +1,161 @@
+{
+  "id": "SiteFooter",
+  "description": "Site footer with brand, link columns and credits.",
+  "usage": {
+    "howToUse": [
+      "Use it at the end of public pages: brand, link columns, credits and legal notes.",
+      "Give each column a title; each one becomes a navigation named by it. Links to other sites open in a new tab and show ↗.",
+      "Put language and color mode in `settings`."
+    ],
+    "alternatives": [
+      "Navigation inside an app: Sidebar."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the links, column by column."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the link."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "SiteFooter",
+  "selected": "Playground",
+  "import": "import { SiteFooter } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "SiteFooter",
+      "props": [
+        {
+          "name": "brand",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Brand (e.g. `BrandLogo`)."
+        },
+        {
+          "name": "tagline",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Short line under the brand."
+        },
+        {
+          "name": "columns",
+          "type": "SiteFooterColumn[]",
+          "required": true,
+          "description": "Link columns, each with its own title and navigation."
+        },
+        {
+          "name": "credits",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Credits on the left of the bottom line."
+        },
+        {
+          "name": "legal",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Year, license or notice on the right of the bottom line."
+        },
+        {
+          "name": "layout",
+          "defaultValue": "\"columns\"",
+          "type": "\"inline\" | \"columns\" | undefined",
+          "required": false,
+          "description": "`columns` stacks the links under the title; `inline` puts brand and links in a single band, for sites with few links."
+        },
+        {
+          "name": "settings",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Site preferences, such as language and color mode, aligned to the right below the links."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "",
+      "code": "import { BrandLogo } from '@refy-design/web';\nimport { SiteFooter } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SiteFooter>,\n    'brand' | 'tagline' | 'columns' | 'credits' | 'legal'\n  > = {\n    brand: <BrandLogo size=\"sm\" symbol aria-label=\"Refy\" />,\n    tagline:\n      'Ready components, themes made of tokens and rules the AI reads before building the screen.',\n    columns: [\n      {\n        title: 'Product',\n        links: [\n          { label: 'Docs', href: '#docs' },\n          { label: 'Components', href: '#components' },\n        ],\n      },\n      {\n        title: 'Project',\n        links: [\n          { label: 'Repository', href: 'https://example.com/refy', external: true },\n        ],\n      },\n    ],\n    credits: 'Created by Vinícius Coimbra.',\n    legal: '© 2026 refy · MIT License',\n  };\n  return <SiteFooter {...args} />;\n}"
+    }
+  ]
+}

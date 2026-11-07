@@ -1,0 +1,190 @@
+{
+  "id": "PropertyActionGroup",
+  "description": "Related decision actions, with processing, done and unavailable states.",
+  "usage": {
+    "howToUse": [
+      "Use it for the decision on one item: accept or decline, approve or reject, save or skip.",
+      "Handle the choice in `onAction`. While your server answers, set `state` to processing; when it confirms, to done.",
+      "Turn off an action that does not apply with `disabledActions`, and say why in `statusMessage`."
+    ],
+    "alternatives": [
+      "Deciding item after item by swiping cards: DecisionDeck.",
+      "A single action: Button."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves between the available actions."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the action in focus. Nothing happens while it is processing."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "DecisionActions",
+  "selected": "Interativo",
+  "import": "import { DecisionActions } from '@refy-design/web';",
+  "composition": [
+    "Button"
+  ],
+  "api": [
+    {
+      "name": "DecisionActions",
+      "props": [
+        {
+          "name": "state",
+          "defaultValue": "\"idle\"",
+          "type": "PropertyActionGroupState | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "activeAction",
+          "type": "PropertyAction | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onAction",
+          "type": "((action: PropertyAction) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "orientation",
+          "defaultValue": "\"auto\"",
+          "type": "\"horizontal\" | \"vertical\" | \"auto\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabledActions",
+          "defaultValue": "[]",
+          "type": "PropertyAction[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "statusMessage",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "labels",
+          "type": "Partial<Record<PropertyAction, string>> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "TresAcoes",
+      "label": "Three actions",
+      "description": "",
+      "code": "import type { DecisionAction } from '@refy-design/web';\nimport { DecisionActions } from '@refy-design/web';\nimport type { PropertyActionGroupState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useRef } from 'react';\nimport { useState } from 'react';\nfunction FunctionalActions() {\n  const [active, setActive] = useState<DecisionAction>();\n  const [state, setState] = useState<PropertyActionGroupState>('idle');\n  const timers = useRef<number[]>([]);\n  useEffect(() => () => timers.current.forEach(window.clearTimeout), []);\n  function act(action: DecisionAction) {\n    setActive(action);\n    setState('processing');\n    timers.current.forEach(window.clearTimeout);\n    timers.current = [\n      window.setTimeout(() => setState('completed'), 700),\n      window.setTimeout(() => {\n        setState('idle');\n        setActive(undefined);\n      }, 1800),\n    ];\n  }\n  return <DecisionActions activeAction={active} state={state} onAction={act} />;\n}\nexport function Example() {\n  return <FunctionalActions />;\n}"
+    },
+    {
+      "id": "Processando",
+      "label": "Processing",
+      "description": "",
+      "code": "import { DecisionActions } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof DecisionActions>, 'state' | 'activeAction'> = {\n    state: 'processing',\n    activeAction: 'select',\n  };\n  return <DecisionActions {...args} />;\n}"
+    },
+    {
+      "id": "Concluido",
+      "label": "Done",
+      "description": "",
+      "code": "import { DecisionActions } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof DecisionActions>, 'state' | 'activeAction'> = {\n    state: 'completed',\n    activeAction: 'save',\n  };\n  return <DecisionActions {...args} />;\n}"
+    },
+    {
+      "id": "Indisponivel",
+      "label": "Unavailable",
+      "description": "",
+      "code": "import { DecisionActions } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof DecisionActions>, 'state'> = {\n    state: 'unavailable',\n  };\n  return <DecisionActions {...args} />;\n}"
+    },
+    {
+      "id": "Vertical",
+      "label": "Vertical",
+      "description": "",
+      "code": "import { DecisionActions } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof DecisionActions>, 'orientation'> = {\n    orientation: 'vertical',\n  };\n  return <DecisionActions {...args} />;\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { DecisionAction } from '@refy-design/web';\nimport { DecisionActions } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction DecisionActionsExample() {\n  const [selected, setSelected] = useState<DecisionAction>();\n  return (\n    <div style={stack}>\n      <DecisionActions\n        activeAction={selected}\n        state={selected ? 'completed' : 'idle'}\n        onAction={setSelected}\n        statusMessage={\n          selected\n            ? `Decision recorded: ${selected === 'save' ? 'save' : selected === 'reject' ? 'discard' : 'select'}.`\n            : undefined\n        }\n      />\n      {selected && (\n        <Button onClick={() => setSelected(undefined)}>Review decision</Button>\n      )}\n    </div>\n  );\n}\nexport function Example() {\n  return <DecisionActionsExample />;\n}"
+    }
+  ]
+}

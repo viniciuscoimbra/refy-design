@@ -1,0 +1,123 @@
+{
+  "id": "PostalCodeInput",
+  "description": "Postal code (CEP) input and lookup, with searching, result and error states.",
+  "usage": {
+    "howToUse": [
+      "Use it on address forms, so the street, district and city fill in from the postal code (CEP).",
+      "Pass your lookup service in `lookup` and fill the other fields in `onAddressFound`.",
+      "The search runs when the CEP is complete and the field loses focus, or on the Search button. If it fails, people can still type the address."
+    ],
+    "alternatives": [
+      "An address outside Brazil, or a free search for places: Input or Combobox.",
+      "Picking an area on a map: GeoAreaPicker."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from the field to the Search button. Leaving a complete CEP also starts the search."
+      },
+      {
+        "keys": "`Enter` or `Space` on Search",
+        "action": "Searches the CEP."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "PostalCodeInput",
+  "selected": "Padrao",
+  "import": "import { PostalCodeInput } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Input"
+  ],
+  "api": [
+    {
+      "name": "PostalCodeInput",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLInputElement>",
+          "required": true,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "lookup",
+          "type": "(postalCode: string) => Promise<PostalCodeAddress | null>",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onAddressFound",
+          "type": "(address: PostalCodeAddress) => void",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "name",
+          "defaultValue": "\"postalCode\"",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { PostalCodeInput } from '@refy-design/web';\nimport { useState } from 'react';\nfunction AddressLookup() {\n  const [value, setValue] = useState('30140-091');\n  const [address, setAddress] = useState('');\n  return (\n    <div>\n      <PostalCodeInput\n        value={value}\n        onChange={(event) => setValue(event.target.value)}\n        lookup={async (postalCode) => {\n          await new Promise((resolve) => window.setTimeout(resolve, 600));\n          return postalCode === '30140091'\n            ? {\n                postalCode: '30140-091',\n                street: 'Rua Gonçalves Dias',\n                neighborhood: 'Employees',\n                city: 'Belo Horizonte',\n                state: 'MG',\n              }\n            : null;\n        }}\n        onAddressFound={(next) =>\n          setAddress(\n            `${next.street}, ${next.neighborhood}, ${next.city}, ${next.state}`,\n          )\n        }\n      />\n      {address && <p>{address}</p>}\n    </div>\n  );\n}\nexport function Example() {\n  return <AddressLookup />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "",
+      "code": "import { PostalCodeInput } from '@refy-design/web';\nexport function Example() {\n  return (\n    <PostalCodeInput\n      value=\"30140-091\"\n      onChange={() => {}}\n      lookup={async () => null}\n      onAddressFound={() => {}}\n      disabled\n    />\n  );\n}"
+    },
+    {
+      "id": "ComErro",
+      "label": "With error",
+      "description": "",
+      "code": "import { PostalCodeInput } from '@refy-design/web';\nexport function Example() {\n  return (\n    <PostalCodeInput\n      value=\"30140\"\n      onChange={() => {}}\n      lookup={async () => null}\n      onAddressFound={() => {}}\n      error=\"Enter a postal code with 8 digits.\"\n    />\n  );\n}"
+    },
+    {
+      "id": "ConsultaPendente",
+      "label": "Pending lookup",
+      "description": "Local lookup pending until explicit confirmation; it does not depend on network or timers.",
+      "code": "import { Button } from '@refy-design/web';\nimport type { PostalCodeAddress } from '@refy-design/web';\nimport { PostalCodeInput } from '@refy-design/web';\nimport { useRef } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const [value, setValue] = useState('30140-091');\n  const [pending, setPending] = useState(false);\n  const complete = useRef<(() => void) | null>(null);\n  return (\n    <div>\n      <PostalCodeInput\n        value={value}\n        onChange={(event) => setValue(event.target.value)}\n        lookup={() =>\n          new Promise<PostalCodeAddress | null>((resolve) => {\n            setPending(true);\n            complete.current = () => {\n              resolve({\n                postalCode: '30140-091',\n                street: 'Sample Street',\n                neighborhood: 'Downtown',\n                city: 'Belo Horizonte',\n                state: 'MG',\n              });\n              setPending(false);\n              complete.current = null;\n            };\n          })\n        }\n        onAddressFound={() => {}}\n      />\n      <Button disabled={!pending} onClick={() => complete.current?.()}>\n        Finish simulated lookup\n      </Button>\n    </div>\n  );\n}"
+    }
+  ]
+}

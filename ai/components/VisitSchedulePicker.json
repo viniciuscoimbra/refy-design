@@ -1,0 +1,153 @@
+{
+  "id": "VisitSchedulePicker",
+  "description": "Selection of available days and times, with summary and time zone.",
+  "usage": {
+    "howToUse": [
+      "Use it to book a time: a visit, an appointment, a call. The person picks a day, then one of the times available that day.",
+      "Pass the free times your server computed, and mark the busy ones with `unavailable`. Limit the days with `minDate` and `maxDate`.",
+      "Set `timezone` whenever the person and the place can be in different time zones; the summary shows it.",
+      "Confirm the booking on your server before saying it is done: the time can be taken in the meantime."
+    ],
+    "alternatives": [
+      "Only a date, with no time: DatePicker or Calendar."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from the calendar to the times and then to the summary."
+      },
+      {
+        "keys": "`←` `→` `↑` `↓` in the calendar",
+        "action": "Moves one day or one week, as in Calendar."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Selects the day or the time in focus."
+      }
+    ]
+  },
+  "collections": [
+    "operations"
+  ],
+  "publicName": "SchedulePicker",
+  "selected": "MultiDia",
+  "import": "import { SchedulePicker } from '@refy-design/web';",
+  "composition": [
+    "Badge",
+    "Calendar",
+    "ChoiceCard",
+    "ChoiceCardGroup",
+    "ToggleGroup"
+  ],
+  "api": [
+    {
+      "name": "SchedulePicker",
+      "props": [
+        {
+          "name": "value",
+          "type": "VisitAvailability | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "{}",
+          "type": "VisitAvailability | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: VisitAvailability) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "defaultActiveDate",
+          "defaultValue": "new Date()",
+          "type": "Date | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "minDate",
+          "defaultValue": "new Date()",
+          "type": "Date | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "maxDate",
+          "type": "Date | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "timezone",
+          "defaultValue": "\"America/Sao_Paulo\"",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "unavailable",
+          "defaultValue": "{}",
+          "type": "VisitAvailability | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "MultiDia",
+      "label": "Multiple days",
+      "description": "",
+      "code": "import { SchedulePicker } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst july23 = new Date(2026, 6, 23);\nconst selected = {\n  '2026-07-23': ['09:00', '09:30', '10:00', '10:30'],\n  '2026-07-24': ['08:00', '08:30', '15:00', '15:30'],\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SchedulePicker>,\n    'defaultActiveDate' | 'minDate' | 'maxDate' | 'defaultValue'\n  > = {\n    defaultActiveDate: july23,\n    minDate: new Date(2026, 6, 21),\n    maxDate: new Date(2026, 7, 31),\n    defaultValue: selected,\n  };\n  return <SchedulePicker {...args} />;\n}"
+    },
+    {
+      "id": "Horario08As19",
+      "label": "Hours 08 to 19",
+      "description": "",
+      "code": "import { SchedulePicker } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst july23 = new Date(2026, 6, 23);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SchedulePicker>,\n    'defaultActiveDate' | 'minDate' | 'maxDate' | 'defaultValue'\n  > = {\n    defaultActiveDate: july23,\n    minDate: new Date(2026, 6, 21),\n    maxDate: new Date(2026, 7, 31),\n    defaultValue: { '2026-07-23': [] },\n  };\n  return <SchedulePicker {...args} />;\n}"
+    },
+    {
+      "id": "SlotsDe30Min",
+      "label": "30-minute slots",
+      "description": "",
+      "code": "import { SchedulePicker } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst july23 = new Date(2026, 6, 23);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SchedulePicker>,\n    'defaultActiveDate' | 'minDate' | 'maxDate' | 'defaultValue' | 'unavailable'\n  > = {\n    defaultActiveDate: july23,\n    minDate: new Date(2026, 6, 21),\n    maxDate: new Date(2026, 7, 31),\n    defaultValue: { '2026-07-23': ['08:00', '08:30', '09:00'] },\n    unavailable: { '2026-07-23': ['10:30', '14:00'] },\n  };\n  return <SchedulePicker {...args} />;\n}"
+    },
+    {
+      "id": "ResumoAgrupado",
+      "label": "Grouped summary",
+      "description": "",
+      "code": "import { SchedulePicker } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst july23 = new Date(2026, 6, 23);\nconst selected = {\n  '2026-07-23': ['09:00', '09:30', '10:00', '10:30'],\n  '2026-07-24': ['08:00', '08:30', '15:00', '15:30'],\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SchedulePicker>,\n    'defaultActiveDate' | 'minDate' | 'maxDate' | 'defaultValue'\n  > = {\n    defaultActiveDate: july23,\n    minDate: new Date(2026, 6, 21),\n    maxDate: new Date(2026, 7, 31),\n    defaultValue: selected,\n  };\n  return <SchedulePicker {...args} />;\n}"
+    },
+    {
+      "id": "Timezone",
+      "label": "Timezone",
+      "description": "",
+      "code": "import { SchedulePicker } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst july23 = new Date(2026, 6, 23);\nconst selected = {\n  '2026-07-23': ['09:00', '09:30', '10:00', '10:30'],\n  '2026-07-24': ['08:00', '08:30', '15:00', '15:30'],\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SchedulePicker>,\n    'defaultActiveDate' | 'minDate' | 'maxDate' | 'defaultValue' | 'timezone'\n  > = {\n    defaultActiveDate: july23,\n    minDate: new Date(2026, 6, 21),\n    maxDate: new Date(2026, 7, 31),\n    defaultValue: selected,\n    timezone: 'America/Sao_Paulo',\n  };\n  return <SchedulePicker {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { SchedulePicker } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst july23 = new Date(2026, 6, 23);\nconst selected = {\n  '2026-07-23': ['09:00', '09:30', '10:00', '10:30'],\n  '2026-07-24': ['08:00', '08:30', '15:00', '15:30'],\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SchedulePicker>,\n    'defaultActiveDate' | 'minDate' | 'maxDate' | 'defaultValue' | 'disabled'\n  > = {\n    defaultActiveDate: july23,\n    minDate: new Date(2026, 6, 21),\n    maxDate: new Date(2026, 7, 31),\n    defaultValue: selected,\n    disabled: true,\n  };\n  return <SchedulePicker {...args} />;\n}"
+    }
+  ]
+}

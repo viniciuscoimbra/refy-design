@@ -1,0 +1,178 @@
+{
+  "id": "Topbar",
+  "description": "Top bar with path, search, tabs or segments and slots for actions; notifications, help and account are compositions by the consumer.",
+  "usage": {
+    "howToUse": [
+      "Use it at the top of each app page: where the person is, search, and the global actions.",
+      "Show the path in `crumbs`, open the search in `onSearchClick`, and switch views with `tabs` or `segments`.",
+      "Put NotificationBell, HelpMenu and UserMenu in `actions`."
+    ],
+    "alternatives": [
+      "The title and actions of one page: PageHeader."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the path, search, tabs and actions."
+      },
+      {
+        "keys": "Other keys",
+        "action": "Each part keeps its own: see Breadcrumb, Tabs, Segmented and Menu."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Topbar",
+  "selected": "Padrao",
+  "import": "import { Topbar } from '@refy-design/web';",
+  "composition": [
+    "BrandLogo",
+    "Breadcrumb",
+    "Kbd",
+    "Segmented",
+    "Tabs"
+  ],
+  "api": [
+    {
+      "name": "Topbar",
+      "props": [
+        {
+          "name": "crumbs",
+          "defaultValue": "[]",
+          "type": "Crumb[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "brand",
+          "defaultValue": "\"refy\"",
+          "type": "\"refy\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "showBrand",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "composition",
+          "defaultValue": "\"search\"",
+          "type": "TopbarComposition | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onSearchClick",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "tabs",
+          "defaultValue": "[]",
+          "type": "TabItem[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "tabValue",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "tabDefaultValue",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onTabChange",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "segments",
+          "defaultValue": "[]",
+          "type": "SegmentedOption[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "segmentValue",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "segmentDefaultValue",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onSegmentChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "leading",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "Live Topbar: all components integrated and working together.",
+      "code": "import { Command } from '@refy-design/web';\nimport type { CommandItem } from '@refy-design/web';\nimport { HelpMenu } from '@refy-design/web';\nimport { NotificationBell } from '@refy-design/web';\nimport type { NotificationItem } from '@refy-design/web';\nimport { Topbar } from '@refy-design/web';\nimport { UserMenu } from '@refy-design/web';\nimport { createContext } from 'react';\nimport type { RefObject } from 'react';\nimport { useContext } from 'react';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nconst notifications: NotificationItem[] = [\n  {\n    id: 'n1',\n    title: 'Review complete',\n    description: 'refy.com.br: 84 pages, 12 critical.',\n    time: '5 min ago',\n    unread: true,\n  },\n  {\n    id: 'n2',\n    title: 'Project moved ahead 4 steps',\n    description: 'Aurora project in the current cycle.',\n    time: '2h ago',\n    unread: true,\n  },\n  {\n    id: 'n3',\n    title: 'Invite accepted',\n    description: 'Ana Costa joined the workspace.',\n    time: '3d ago',\n  },\n];\nconst ExampleScope = createContext<RefObject<HTMLDivElement | null> | null>(null);\nfunction useCommandShortcut(onOpen: () => void, enabled = true) {\n  const scope = useContext(ExampleScope);\n  useEffect(() => {\n    if (!enabled) return;\n    const onKey = (event: KeyboardEvent) => {\n      if (\n        event.defaultPrevented ||\n        (scope && !scope.current?.contains(event.target as Node))\n      )\n        return;\n      if (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)) {\n        event.preventDefault();\n        onOpen();\n      }\n    };\n    window.addEventListener('keydown', onKey);\n    return () => window.removeEventListener('keydown', onKey);\n  }, [scope, onOpen, enabled]);\n}\nconst commands: CommandItem[] = [\n  { id: 'new', label: 'Create new project', group: 'Actions', shortcut: '⌘N' },\n  { id: 'rerun', label: 'Re-run last update', group: 'Actions', shortcut: '⌘R' },\n  { id: 'rd', label: 'aurora.example.com', group: 'Recent projects', lead: 'RD' },\n];\nexport function Example() {\n  const [commandOpen, setCommandOpen] = useState(false);\n  const [items, setItems] = useState(notifications);\n  useCommandShortcut(() => setCommandOpen(true));\n  return (\n    <div style={{ minHeight: 480 }}>\n      <Topbar\n        brand=\"refy\"\n        crumbs={[{ label: 'Example team', href: '#' }, { label: 'Overview' }]}\n        onSearchClick={() => setCommandOpen(true)}\n        actions={\n          <>\n            <NotificationBell\n              items={items}\n              onItemClick={(item) =>\n                setItems((l) =>\n                  l.map((n) => (n.id === item.id ? { ...n, unread: false } : n)),\n                )\n              }\n              onMarkAllRead={() =>\n                setItems((l) => l.map((n) => ({ ...n, unread: false })))\n              }\n            />\n            <HelpMenu />\n            <UserMenu\n              user={{ name: 'João Mendes', email: 'joao@example.com', initials: 'JM' }}\n              compact\n            />\n          </>\n        }\n      />\n      <p\n        style={{\n          padding: 24,\n          fontFamily: 'var(--font-mono)',\n          fontSize: 12,\n          color: 'var(--ink-3)',\n        }}\n      >\n        Click search or press ⌘K · bell, help and avatar open too.\n      </p>\n      <Command open={commandOpen} onOpenChange={setCommandOpen} items={commands} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "TabsPill",
+      "label": "Tabs Pill",
+      "description": "Composition with canonical pill Tabs and real navigation.",
+      "code": "import { Topbar } from '@refy-design/web';\nimport { UserMenu } from '@refy-design/web';\nimport { useState } from 'react';\nconst appTabs = [\n  { id: 'view', label: 'Overview' },\n  { id: 'clients', label: 'Clients', badge: 18 },\n  { id: 'contents', label: 'Content' },\n  { id: 'activities', label: 'Activity', badge: 4 },\n];\nexport function Example() {\n  const [tab, setTab] = useState('view');\n  return (\n    <div style={{ minHeight: 360 }}>\n      <Topbar\n        brand=\"refy\"\n        composition=\"tabs\"\n        crumbs={[{ label: 'Portfolio' }, { label: 'Overview' }]}\n        tabs={appTabs}\n        tabValue={tab}\n        onTabChange={setTab}\n        actions={\n          <UserMenu\n            user={{ name: 'Ana Silva', email: 'ana@example.com', initials: 'AS' }}\n            compact\n          />\n        }\n      />\n      <p role=\"status\" style={{ padding: 24, color: 'var(--ink-2)' }}>\n        Active area: {tab}.\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "DensaSegmentada",
+      "label": "Dense segmented",
+      "description": "Dense composition with canonical Segmented.",
+      "code": "import { Topbar } from '@refy-design/web';\nimport { UserMenu } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [view, setView] = useState('list');\n  return (\n    <div style={{ minHeight: 360 }}>\n      <Topbar\n        brand=\"refy\"\n        composition=\"dense\"\n        crumbs={[{ label: 'Clients' }, { label: '18 active' }]}\n        segments={[\n          { value: 'list', label: 'List' },\n          { value: 'kanban', label: 'Kanban' },\n          { value: 'matrix', label: 'Matrix' },\n        ]}\n        segmentValue={view}\n        onSegmentChange={setView}\n        actions={\n          <UserMenu\n            user={{ name: 'Ana Silva', email: 'ana@example.com', initials: 'AS' }}\n            compact\n          />\n        }\n      />\n      <p role=\"status\" style={{ padding: 24, color: 'var(--ink-2)' }}>\n        View: {view}.\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Responsiva",
+      "label": "Responsive",
+      "description": "A narrow container proves the Topbar's local response, without depending on the documentation viewport.",
+      "code": "import { Topbar } from '@refy-design/web';\nimport { UserMenu } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ minHeight: 320 }}>\n      <Topbar\n        brand=\"refy\"\n        crumbs={[{ label: 'Portfolio' }, { label: 'Activities scheduled this week' }]}\n        onSearchClick={() => {}}\n        actions={\n          <UserMenu\n            user={{ name: 'Ana Silva', email: 'ana@example.com', initials: 'AS' }}\n            compact\n          />\n        }\n      />\n    </div>\n  );\n}"
+    }
+  ]
+}

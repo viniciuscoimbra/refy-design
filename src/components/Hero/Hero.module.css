@@ -1,0 +1,70 @@
+.hero {
+  display: grid;
+  gap: var(--hero-media-gap, var(--space-6));
+}
+.fold {
+  display: grid;
+  grid-template-columns: var(--hero-columns, minmax(0, 1fr));
+  grid-template-areas: var(--hero-areas, "top" "title" "lead" "actions");
+  align-items: end;
+  column-gap: var(--hero-column-gap, var(--space-8, 48px));
+  padding: var(--hero-padding, var(--space-6) 0);
+  text-align: var(--hero-align, center);
+}
+.top {
+  grid-area: top;
+  justify-self: var(--hero-align, center);
+}
+.title {
+  grid-area: title;
+  margin: var(--hero-title-margin, 4px 0 1px);
+  /* Room for descenders under a clipped fill (gradient text); the margin gives it back. */
+  padding-bottom: var(--hero-title-descender, 0.12em);
+  margin-bottom: calc(var(--hero-title-descender, 0.12em) * -1);
+  color: var(--hero-title-color, var(--ink-1));
+  background: var(--hero-title-fill, none);
+  -webkit-background-clip: text;
+  background-clip: text;
+  font: var(--hero-title-weight, 800) var(--hero-title-size, clamp(44px, 6.3vw, var(--text-display))) / var(--hero-title-leading, 1.1) var(--font-heading);
+  letter-spacing: var(--hero-title-tracking, -0.05em);
+  text-transform: var(--hero-title-case, none);
+}
+.accent {
+  color: var(--hero-accent, var(--primary));
+}
+.lead {
+  grid-area: lead;
+  margin: var(--hero-lead-margin, 4px 0 0);
+  color: var(--hero-lead-color, var(--ink-1));
+  font: var(--hero-lead-weight, 500) var(--hero-lead-size, clamp(22px, 2.5vw, 36px)) / 1.25 var(--font-heading);
+  letter-spacing: var(--hero-lead-tracking, -0.04em);
+}
+.actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: var(--hero-actions-justify, center);
+  /* The box hugs its buttons, so a theme switch moves them instead of stretching a full-width row. */
+  justify-self: var(--hero-actions-justify, center);
+  width: fit-content;
+  max-width: 100%;
+  gap: var(--space-3, 12px);
+  margin-top: var(--hero-actions-margin, var(--space-8, 40px));
+}
+.media {
+  min-width: 0;
+}
+.named .title { view-transition-name: hero-title; }
+.named .lead { view-transition-name: hero-lead; }
+.named .actions { view-transition-name: hero-actions; }
+.named .media { view-transition-name: hero-media; }
+@media (max-width: 720px) {
+  .fold {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "top" "title" "lead" "actions";
+    text-align: start;
+  }
+  .top { justify-self: start; }
+  .actions { justify-content: stretch; justify-self: stretch; width: auto; }
+}

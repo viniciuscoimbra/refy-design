@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": [
+      "react",
+      "jest",
+      "node"
+    ],
+    "paths": {
+      "@refy-design/web/contracts": [
+        "../../src/contracts/index.ts"
+      ],
+      "@refy/tokens": [
+        "../tokens/dist/index.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "test",
+    "example"
+  ],
+  "exclude": [
+    "example/index.ts",
+    "example/metro.config.js"
+  ]
+}

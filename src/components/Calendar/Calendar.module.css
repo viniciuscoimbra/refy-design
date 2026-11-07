@@ -1,0 +1,133 @@
+.wrap {
+  max-width: var(--calendar-max-width, 100%);
+  flex-wrap: var(--calendar-wrap, wrap);
+  display: inline-flex;
+  gap: 20px;
+  background: var(--surface);
+  border: var(--calendar-border-width, var(--surface-border-width, 1px)) solid var(--line);
+  border-radius: var(--radius-md, 10px);
+  padding: var(--calendar-padding, 14px);
+  font-family: var(--font-body, "Switzer", sans-serif);
+  color: var(--ink-1);
+  user-select: none;
+}
+.month {
+  width: var(--calendar-month-width, 252px);
+  max-width: 100%;
+}
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.monthLabel {
+  font-weight: 600;
+  font-size: var(--calendar-month-size, var(--text-base));
+  letter-spacing: -0.01em;
+  flex: 1;
+  text-align: var(--calendar-label-align, center);
+  order: var(--calendar-label-order, initial);
+}
+.nav {
+  box-shadow: var(--control-shadow, none);
+  width: var(--calendar-nav-size, 30px); height: var(--calendar-nav-size, 30px);
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: var(--calendar-nav-border-width, var(--surface-border-width, 1px)) solid var(--line);
+  border-radius: var(--calendar-control-radius, 7px);
+  background: var(--surface);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background var(--motion-context-duration), border-color var(--motion-context-duration), color var(--motion-context-duration);
+}
+.nav:hover { background: var(--legacy-surface-hover); border-color: var(--legacy-line-strong); color: var(--ink-1); }
+.nav svg { width: var(--control-icon-size-sm, 15px); height: var(--control-icon-size-sm, 15px); }
+.navSpacer { width: var(--calendar-nav-size, 30px); height: var(--calendar-nav-size, 30px); flex-shrink: 0; }
+
+.weekRow, .grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.weekRow { margin-bottom: 4px; }
+.weekday {
+  text-align: center;
+  font-family: var(--calendar-weekday-font, var(--font-mono, "Geist Mono", monospace));
+  font-size: var(--calendar-weekday-size, 10px);
+  font-weight: 500;
+  text-transform: var(--interface-label-transform, uppercase);
+  letter-spacing: var(--interface-label-tracking, 0.06em);
+  color: var(--ink-3);
+  padding: 4px 0;
+}
+
+/* célula ocupa toda a área; o número vira um alvo circular interno.
+   assim a faixa de intervalo (.inBand) é contínua, sem gaps. */
+.day {
+  position: relative;
+  aspect-ratio: var(--calendar-day-aspect, 1 / 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  padding: 1px;
+  font-family: inherit;
+  font-size: var(--text-sm);
+  color: var(--ink-1);
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+.dayNum {
+  position: relative;
+  z-index: 1;
+  width: var(--calendar-day-size, 30px); height: var(--calendar-day-size, 30px);
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--calendar-day-radius, var(--radius-pill));
+  transition: background var(--motion-context-duration), color var(--motion-context-duration);
+}
+.day:hover .dayNum { background: var(--legacy-neutral-soft); }
+.day:focus-visible { outline: none; }
+.day:focus-visible .dayNum { outline: 2px solid var(--primary); outline-offset: 1px; }
+
+.outside .dayNum { color: var(--ink-4); }
+.today .dayNum { box-shadow: inset 0 0 0 1px var(--primary); color: var(--primary-ink); font-weight: 600; }
+.selected .dayNum { background: var(--button-primary-background, var(--primary)); color: var(--button-primary-foreground, var(--on-primary)); font-weight: 600; }
+.selected:hover .dayNum { background: var(--button-primary-background-hover, var(--primary-hover)); color: var(--button-primary-foreground-hover, var(--on-primary)); }
+
+/* faixa do intervalo (dias entre início e fim) */
+.inBand::before {
+  content: "";
+  position: absolute;
+  inset: 1px 0;
+  background: var(--primary-soft);
+  z-index: 0;
+}
+.inBand .dayNum { color: var(--primary-ink); }
+.inBand:hover .dayNum { background: var(--primary-soft); }
+/* meia-faixa nos extremos, pra conectar visualmente com os vizinhos */
+.rangeStart::before {
+  content: "";
+  position: absolute;
+  inset: 1px 0 1px 50%;
+  background: var(--primary-soft);
+  z-index: 0;
+}
+.rangeEnd::before {
+  content: "";
+  position: absolute;
+  inset: 1px 50% 1px 0;
+  background: var(--primary-soft);
+  z-index: 0;
+}
+
+.disabled { cursor: not-allowed; }
+.disabled .dayNum { color: var(--legacy-line); }
+.disabled:hover .dayNum { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .dayNum { transition: none; }
+}
+
+.nav:focus-visible { outline: var(--control-focus-outline, 2px solid var(--primary)); outline-offset: var(--control-focus-offset, 2px); }

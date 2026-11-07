@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "collections": [
+    {
+      "id": "core",
+      "label": "Core",
+      "kind": "core",
+      "description": "Componentes de propósito geral para compor interfaces. Não indica certificação ou estabilidade.",
+      "keywords": [
+        "geral",
+        "fundação",
+        "interface"
+      ]
+    },
+    {
+      "id": "media",
+      "label": "Mídia e entretenimento",
+      "kind": "specialized",
+      "description": "Apresentação, navegação e captura de mídia.",
+      "keywords": [
+        "imagem",
+        "áudio",
+        "vídeo",
+        "galeria",
+        "música",
+        "capas",
+        "álbuns",
+        "entretenimento"
+      ]
+    },
+    {
+      "id": "geolocation",
+      "label": "Geolocalização",
+      "kind": "specialized",
+      "description": "Seleção de áreas e contexto geográfico com provedores externos opcionais.",
+      "keywords": [
+        "mapa",
+        "bairro",
+        "localização",
+        "raio",
+        "território",
+        "região",
+        "geografia"
+      ]
+    },
+    {
+      "id": "conversation",
+      "label": "Conversação e IA",
+      "kind": "specialized",
+      "description": "Mensagens, composição de intenções e interação conversacional.",
+      "keywords": [
+        "chat",
+        "mensagem",
+        "conversa",
+        "voz",
+        "IA",
+        "assistente",
+        "inteligência artificial"
+      ]
+    },
+    {
+      "id": "analytics",
+      "label": "Dados e análise",
+      "kind": "specialized",
+      "description": "Visualização e exploração de indicadores e dados.",
+      "keywords": [
+        "gráfico",
+        "chart",
+        "indicador",
+        "métrica",
+        "d3",
+        "dados",
+        "análise"
+      ]
+    },
+    {
+      "id": "operations",
+      "label": "Trabalho e colaboração",
+      "kind": "specialized",
+      "description": "Fluxos de trabalho, revisão e agendamento.",
+      "keywords": [
+        "kanban",
+        "aprovação",
+        "agenda",
+        "processo",
+        "trabalho",
+        "colaboração",
+        "equipe"
+      ]
+    },
+    {
+      "id": "commerce",
+      "label": "Comércio e assinaturas",
+      "kind": "specialized",
+      "description": "Apresentação de planos e composição de contratação.",
+      "keywords": [
+        "plano",
+        "preço",
+        "assinatura",
+        "compra",
+        "comércio"
+      ]
+    },
+    {
+      "id": "finance",
+      "label": "Financeiro",
+      "kind": "specialized",
+      "description": "Apresentação de cobrança e informações financeiras.",
+      "keywords": [
+        "cobrança",
+        "fatura",
+        "pagamento",
+        "financeiro",
+        "finanças"
+      ]
+    },
+    {
+      "id": "content",
+      "label": "Conteúdo e aprendizagem",
+      "kind": "specialized",
+      "description": "Leitura e navegação de conteúdo editorial.",
+      "keywords": [
+        "artigo",
+        "texto",
+        "sumário",
+        "editorial",
+        "conteúdo",
+        "aprendizagem",
+        "leitura"
+      ]
+    }
+  ],
+  "memberships": {
+    "PropertyMedia": [
+      "media"
+    ],
+    "SwipeDeck": [
+      "media"
+    ],
+    "VoiceRecorder": [
+      "media",
+      "conversation"
+    ],
+    "GeoAreaPicker": [
+      "geolocation"
+    ],
+    "Message": [
+      "conversation"
+    ],
+    "MessageScroller": [
+      "conversation"
+    ],
+    "IntentComposer": [
+      "conversation"
+    ],
+    "Charts": [
+      "analytics"
+    ],
+    "ScoreGauge": [
+      "analytics"
+    ],
+    "Matrix2x2": [
+      "analytics"
+    ],
+    "Stat": [
+      "analytics"
+    ],
+    "KanbanBoard": [
+      "operations"
+    ],
+    "KanbanCard": [
+      "operations"
+    ],
+    "ApprovalWorkbench": [
+      "operations"
+    ],
+    "VisitSchedulePicker": [
+      "operations"
+    ],
+    "PlanCard": [
+      "commerce"
+    ],
+    "BillingCard": [
+      "commerce",
+      "finance"
+    ],
+    "Prose": [
+      "content"
+    ],
+    "TableOfContents": [
+      "content"
+    ],
+    "Coverflow": [
+      "media"
+    ]
+  }
+}

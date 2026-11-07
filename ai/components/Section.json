@@ -1,0 +1,153 @@
+{
+  "id": "Section",
+  "description": "Page block with text and proof side by side, stacked or in the theme's columns.",
+  "usage": {
+    "howToUse": [
+      "Use it for each block of a public page: an argument with its proof, such as text next to an image, a demo or numbers.",
+      "Put the proof in `aside`. Use `layout=\"split\"` for side by side, and `reverse` to alternate sides down the page.",
+      "On mobile the parts stack, and screen readers always read the text first."
+    ],
+    "alternatives": [
+      "Data grids inside an app: Table or Card."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the links and buttons of the section, in reading order."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Section",
+  "selected": "Playground",
+  "import": "import { Section } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Section",
+      "props": [
+        {
+          "name": "layout",
+          "defaultValue": "\"split\"",
+          "type": "SectionLayout | undefined",
+          "required": false,
+          "description": "`split`: text and proof side by side; `stacked`: text above the proof; `columns`: the theme's column grid."
+        },
+        {
+          "name": "reverse",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "In `split`, puts the proof before the text on wide screens (zigzag). On the phone, the text comes first."
+        },
+        {
+          "name": "wide",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "In `split`, gives the proof more width."
+        },
+        {
+          "name": "aside",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The section's proof or media (in `split` and `stacked`)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "",
+      "code": "import { Card } from '@refy-design/web';\nimport { Section } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Section>,\n    'layout' | 'reverse' | 'children' | 'aside'\n  > = {\n    layout: 'split',\n    reverse: false,\n    children: (\n      <div>\n        <h2>Build new components from the ones that exist.</h2>\n        <p>Combine atoms into a new molecule.</p>\n      </div>\n    ),\n    aside: <Card>Proof</Card>,\n  };\n  return <Section {...args} />;\n}"
+    },
+    {
+      "id": "Invertida",
+      "label": "Inverted",
+      "description": "",
+      "code": "import { Card } from '@refy-design/web';\nimport { Section } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Section>,\n    'layout' | 'reverse' | 'children' | 'aside'\n  > = {\n    layout: 'split',\n    reverse: true,\n    children: (\n      <div>\n        <h2>Build new components from the ones that exist.</h2>\n        <p>Combine atoms into a new molecule.</p>\n      </div>\n    ),\n    aside: <Card>Proof</Card>,\n  };\n  return <Section {...args} />;\n}"
+    },
+    {
+      "id": "Colunas",
+      "label": "Columns",
+      "description": "",
+      "code": "import { Card } from '@refy-design/web';\nimport { Section } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Section>, 'layout' | 'children'> = {\n    layout: 'columns',\n    children: [\n      <Card key=\"a\">First</Card>,\n      <Card key=\"b\">Second</Card>,\n      <Card key=\"c\">Third</Card>,\n    ],\n  };\n  return <Section {...args} />;\n}"
+    }
+  ]
+}

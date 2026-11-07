@@ -1,0 +1,114 @@
+{
+  "id": "WorkspaceSwitcher",
+  "description": "Selecting and searching a workspace, with management actions.",
+  "usage": {
+    "howToUse": [
+      "Use it at the top of the sidebar when the same person works in several workspaces or companies.",
+      "Pass the list in `workspaces` and switch the data of the app in `onChange`; show an error if the switch fails.",
+      "Use `compact` when the sidebar is collapsed: only the avatar shows."
+    ],
+    "alternatives": [
+      "The account of the person, with profile and sign out: UserMenu."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the list."
+      },
+      {
+        "keys": "Typing",
+        "action": "Filters the workspaces by name."
+      },
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Moves between the results."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Switches to the highlighted workspace."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the list and returns focus to the button."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "WorkspaceSwitcher",
+  "selected": "Controlled",
+  "import": "import { WorkspaceSwitcher } from '@refy-design/web';",
+  "composition": [
+    "Avatar"
+  ],
+  "api": [
+    {
+      "name": "WorkspaceSwitcher",
+      "props": [
+        {
+          "name": "workspaces",
+          "type": "Workspace[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Current workspace id (controlled)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initial workspace (uncontrolled). Default: first."
+        },
+        {
+          "name": "onChange",
+          "type": "((workspace: Workspace) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "compact",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Avatar only, no name (collapsed sidebar)."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "5 workspaces: opens with search.",
+      "code": "import type { Workspace } from '@refy-design/web';\nimport { WorkspaceSwitcher } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst workspaces: Workspace[] = [\n  { id: 'globo', name: 'Example team', role: 'Workspace · Pro', initials: 'GE' },\n  { id: 'refy', name: 'Refy Labs', role: 'Workspace · Interno', initials: 'RL' },\n  { id: 'acme', name: 'Acme Marketing', role: 'Workspace · Starter', initials: 'AM' },\n  { id: 'nexus', name: 'North team', role: 'Workspace · Pro', initials: 'NI' },\n  {\n    id: 'vertex',\n    name: 'Vertex Consulting',\n    role: 'Workspace · Trial',\n    initials: 'VC',\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof WorkspaceSwitcher>, 'workspaces'> = {\n    workspaces,\n  };\n  return <WorkspaceSwitcher {...args} />;\n}"
+    },
+    {
+      "id": "Controlled",
+      "label": "Controlled",
+      "description": "Controlled: the selection lives in the parent.",
+      "code": "import type { Workspace } from '@refy-design/web';\nimport { WorkspaceSwitcher } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst workspaces: Workspace[] = [\n  { id: 'globo', name: 'Example team', role: 'Workspace · Pro', initials: 'GE' },\n  { id: 'refy', name: 'Refy Labs', role: 'Workspace · Interno', initials: 'RL' },\n  { id: 'acme', name: 'Acme Marketing', role: 'Workspace · Starter', initials: 'AM' },\n  { id: 'nexus', name: 'North team', role: 'Workspace · Pro', initials: 'NI' },\n  {\n    id: 'vertex',\n    name: 'Vertex Consulting',\n    role: 'Workspace · Trial',\n    initials: 'VC',\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof WorkspaceSwitcher>, 'workspaces'> = {\n    workspaces,\n  };\n  const [id, setId] = useState('globo');\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n      <WorkspaceSwitcher {...args} value={id} onChange={(w) => setId(w.id)} />\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-3)' }}\n      >\n        {id}\n      </code>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "SemBusca",
+      "label": "No search (< 5)",
+      "description": "Few workspaces: no search.",
+      "code": "import type { Workspace } from '@refy-design/web';\nimport { WorkspaceSwitcher } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst workspaces: Workspace[] = [\n  { id: 'globo', name: 'Example team', role: 'Workspace · Pro', initials: 'GE' },\n  { id: 'refy', name: 'Refy Labs', role: 'Workspace · Interno', initials: 'RL' },\n  { id: 'acme', name: 'Acme Marketing', role: 'Workspace · Starter', initials: 'AM' },\n  { id: 'nexus', name: 'North team', role: 'Workspace · Pro', initials: 'NI' },\n  {\n    id: 'vertex',\n    name: 'Vertex Consulting',\n    role: 'Workspace · Trial',\n    initials: 'VC',\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof WorkspaceSwitcher>, 'workspaces'> = {\n    workspaces: workspaces.slice(0, 3),\n  };\n  return <WorkspaceSwitcher {...args} />;\n}"
+    }
+  ]
+}

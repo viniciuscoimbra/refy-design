@@ -1,0 +1,237 @@
+{
+  "id": "OAuthButton",
+  "description": "Sign-in buttons for Google, Facebook, LinkedIn, Spotify, GitHub, X, Apple and Microsoft. They compose Button/GoogleButton; the application implements the OAuth flow.",
+  "usage": {
+    "howToUse": [
+      "Use it on sign-in and sign-up screens, one button per provider, stacked with the same width.",
+      "Pick the provider with `provider`; the label and the logo come with it.",
+      "Start the sign-in in `onClick` and keep `loading` on until the provider answers. Show the cancel or the error next to the buttons.",
+      "The button does not authenticate: your application runs the OAuth flow."
+    ],
+    "alternatives": [
+      "Only Google: GoogleButton.",
+      "Connecting an account to an integration after sign-in: ConnectorCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one provider to the next."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Starts the sign-in. Nothing happens while it is loading."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "OAuthButton",
+  "selected": "Provedores",
+  "import": "import { OAuthButton } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "GoogleButton"
+  ],
+  "api": [
+    {
+      "name": "OAuthButton",
+      "props": [
+        {
+          "name": "provider",
+          "type": "\"x\" | \"google\" | \"facebook\" | \"linkedin\" | \"spotify\" | \"github\" | \"apple\" | \"microsoft\"",
+          "required": true,
+          "description": "Provider identified by label and symbol. The application provides the OAuth flow."
+        },
+        {
+          "name": "appearance",
+          "type": "\"default\" | \"field\" | undefined",
+          "required": false,
+          "description": "Web: `field` makes the button read as a field (search, picker), with field background and text."
+        },
+        {
+          "name": "href",
+          "type": "string | undefined",
+          "required": false,
+          "description": "With `href`, the button is a link (`<a>`) with the same look. Disabled or loading, it goes back to being a button."
+        },
+        {
+          "name": "target",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link target when there is an `href`."
+        },
+        {
+          "name": "rel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link `rel`; with `target=\"_blank\"` the default is `noreferrer`."
+        },
+        {
+          "name": "interactionState",
+          "type": "\"hover\" | \"pressed\" | undefined",
+          "required": false,
+          "description": "Visual preview of a linked gesture; it does not click or change disabled."
+        },
+        {
+          "name": "size",
+          "type": "ButtonSize | undefined",
+          "required": false,
+          "description": "Size variant."
+        },
+        {
+          "name": "trailingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon to the right of the label."
+        },
+        {
+          "name": "loading",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows a spinner and blocks clicks."
+        },
+        {
+          "name": "status",
+          "type": "ButtonStatus | undefined",
+          "required": false,
+          "description": "Explicit state to show completion or error; `loading` stays compatible."
+        },
+        {
+          "name": "progressEffect",
+          "type": "ButtonProgressEffect | undefined",
+          "required": false,
+          "description": "Loading: spinner, fill or line. Older spin/shrink options use the line without hiding the label."
+        },
+        {
+          "name": "loadingLabel",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Accessible/visible label while processing."
+        },
+        {
+          "name": "block",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Takes 100% of the container width."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "type",
+          "type": "\"submit\" | \"reset\" | \"button\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLButtonElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Provedores",
+      "label": "Providers",
+      "description": "",
+      "code": "import { OAuthButton } from '@refy-design/web';\nimport { oauthProviders } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [selected, setSelected] = useState('');\n  return (\n    <div\n      style={{\n        display: 'grid',\n        gap: 'var(--space-4)',\n        maxWidth: 420,\n        width: '100%',\n      }}\n    >\n      {(Object.keys(oauthProviders) as (keyof typeof oauthProviders)[]).map(\n        (provider) => (\n          <OAuthButton\n            key={provider}\n            provider={provider}\n            block\n            onClick={() => setSelected(oauthProviders[provider])}\n          />\n        ),\n      )}\n      <p role=\"status\">\n        {selected\n          ? `${selected} selected. Connect the callback to your project's OAuth flow.`\n          : 'Choose a provider. Local demo.'}\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Carregando",
+      "label": "Loading",
+      "description": "",
+      "code": "import { OAuthButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof OAuthButton>,\n    'provider' | 'loading' | 'loadingLabel'\n  > = { provider: 'github', loading: true, loadingLabel: 'Connecting to GitHub' };\n  return <OAuthButton {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "",
+      "code": "import { OAuthButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof OAuthButton>, 'provider' | 'disabled'> = {\n    provider: 'apple',\n    disabled: true,\n  };\n  return <OAuthButton {...args} />;\n}"
+    },
+    {
+      "id": "Erro",
+      "label": "Error",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { OAuthButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof OAuthButton>,\n    'provider' | 'status' | 'children'\n  > = {\n    provider: 'github',\n    status: 'error',\n    children: 'Try connecting to GitHub again',\n  };\n  return <OAuthButton {...args} />;\n}"
+    }
+  ]
+}

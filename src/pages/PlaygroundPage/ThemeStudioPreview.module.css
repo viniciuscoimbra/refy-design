@@ -1,0 +1,2 @@
+/* The body column may shrink below the table's width: the table scrolls inside its card instead of widening the app. */
+.body { grid-template-columns: minmax(0, 1fr); }

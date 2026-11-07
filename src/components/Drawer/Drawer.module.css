@@ -1,0 +1,166 @@
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: var(--legacy-modal-scrim);
+  animation: scrim-in var(--motion-orientation-duration) var(--motion-ease-enter);
+}
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.panel {
+  position: fixed;
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  background: var(--drawer-surface, var(--drawer-default-surface, var(--surface, var(--surface-container))));
+  font-family: var(--font-body);
+  color: var(--ink-1, var(--on-surface));
+}
+
+.left,
+.right {
+  top: 0;
+  bottom: 0;
+  width: var(--drawer-width, 320px);
+  max-width: 90vw;
+}
+.left {
+  left: 0;
+  border-radius: 0 var(--drawer-radius, 0px) var(--drawer-radius, 0px) 0;
+  border-right: 1px solid var(--line, var(--surface-container-high));
+  animation: slide-left var(--motion-orientation-duration) var(--motion-ease-enter);
+}
+.right {
+  right: 0;
+  border-radius: var(--drawer-radius, 0px) 0 0 var(--drawer-radius, 0px);
+  border-left: 1px solid var(--line, var(--surface-container-high));
+  animation: slide-right var(--motion-orientation-duration) var(--motion-ease-enter);
+}
+.bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 85vh;
+  border-top: 1px solid var(--line, var(--surface-container-high));
+  border-top-left-radius: var(--drawer-radius, 20px);
+  border-top-right-radius: var(--drawer-radius, 20px);
+  box-shadow: var(--elev-5);
+  animation: slide-up var(--motion-orientation-duration) var(--motion-ease-enter);
+}
+
+@keyframes slide-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slide-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.grab {
+  display: block;
+  width: 36px;
+  height: 4px;
+  border-radius: var(--radius-sm);
+  background: var(--line, var(--surface-container-high));
+  margin: 12px auto 0;
+  flex: none;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--line-soft, var(--surface-container-high));
+  flex: none;
+}
+.bottom .head {
+  border-bottom: 0;
+  padding-bottom: var(--space-2);
+}
+.title {
+  flex: 1;
+  margin: 0;
+  font-family: var(--font-headline);
+  font-size: var(--text-h5);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.01em;
+}
+/* IconButton composto — só o posicionamento é local */
+.close {
+  margin-left: auto;
+  flex: none;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--drawer-body-padding, var(--drawer-default-body-padding, var(--space-4)));
+  font-size: var(--text-sm);
+  color: var(--ink-2, var(--on-surface-variant));
+  line-height: var(--leading-normal);
+}
+
+.foot {
+  flex: none;
+  padding: var(--space-4) 22px;
+  border-top: 1px solid var(--line-soft, var(--surface-container-high));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrim,
+  .left,
+  .right,
+  .bottom {
+    animation: none;
+  }
+}
+
+.full {
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  animation: widget-in var(--motion-orientation-duration) var(--motion-ease-enter);
+}
+@keyframes widget-in {
+  from { opacity: 0; transform: translateY(var(--space-3)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) { .full { animation: none; } }
+
+.scrim[data-motion-state="closing"] { animation: drawer-scrim-out var(--motion-orientation-exit-duration) var(--motion-ease-exit) both; pointer-events: none; }
+.panel[data-motion-state="closing"] { animation-duration: var(--motion-orientation-exit-duration); animation-timing-function: var(--motion-ease-exit); animation-fill-mode: both; pointer-events: none; }
+.left[data-motion-state="closing"] { animation-name: drawer-left-out; }
+.right[data-motion-state="closing"] { animation-name: drawer-right-out; }
+.bottom[data-motion-state="closing"] { animation-name: drawer-bottom-out; }
+.full[data-motion-state="closing"] { animation-name: drawer-full-out; }
+@keyframes drawer-scrim-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes drawer-left-out { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes drawer-right-out { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes drawer-bottom-out { from { transform: translateY(0); } to { transform: translateY(100%); } }
+@keyframes drawer-full-out { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(var(--space-3)); } }

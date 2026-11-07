@@ -1,0 +1,168 @@
+{
+  "id": "Switch",
+  "description": "Toggle of a preference between on and off.",
+  "usage": {
+    "howToUse": [
+      "Use it for a setting that takes effect as soon as it changes: notifications, dark mode, auto-save.",
+      "Write the `label` as the thing being turned on (\"E-mail notifications\"), not as a question.",
+      "Save the change in `onChange`. If saving fails, switch it back and say why."
+    ],
+    "alternatives": [
+      "The change only counts after the person saves the form: Checkbox.",
+      "An action that deletes or cannot be undone: Button with confirmation."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the switch."
+      },
+      {
+        "keys": "`Space`",
+        "action": "Turns it on or off."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Switch",
+  "selected": "Desligado",
+  "import": "import { Switch } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Switch",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible label when there is no associated visible <label>."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "appearance",
+          "defaultValue": "\"plain\"",
+          "type": "\"plain\" | \"control\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLInputElement, HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Desligado",
+      "label": "Off",
+      "description": "",
+      "code": "import { Switch } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Switch>, 'aria-label' | 'defaultChecked'> = {\n    'aria-label': 'Turn on auto top-up',\n    defaultChecked: false,\n  };\n  return <Switch {...args} />;\n}"
+    },
+    {
+      "id": "Ligado",
+      "label": "On",
+      "description": "",
+      "code": "import { Switch } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Switch>, 'aria-label' | 'defaultChecked'> = {\n    'aria-label': 'Turn on auto top-up',\n    defaultChecked: true,\n  };\n  return <Switch {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "",
+      "code": "import { Switch } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Switch>,\n    'aria-label' | 'defaultChecked' | 'disabled'\n  > = { 'aria-label': 'Turn on auto top-up', defaultChecked: true, disabled: true };\n  return <Switch {...args} />;\n}"
+    }
+  ]
+}

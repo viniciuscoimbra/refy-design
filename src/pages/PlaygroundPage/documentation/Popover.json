@@ -1,0 +1,114 @@
+{
+  "id": "Popover",
+  "description": "Contextual content anchored to a control, with controllable open and close.",
+  "usage": {
+    "howToUse": [
+      "Use it for a small task attached to a button, that does not need the whole screen: filters, a short form, a color picker.",
+      "Control it with `open` and `onOpenChange`, and put the content in `content`. Give it a `label` that names the task.",
+      "The rest of the screen stays usable while it is open."
+    ],
+    "alternatives": [
+      "A task that blocks everything until it is done: Modal.",
+      "A list of actions: Menu.",
+      "Text only, with no controls: Tooltip."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Enter` or `Space` on the button",
+        "action": "Opens the popover and moves focus to its first control."
+      },
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the controls inside."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes it and returns focus to the button."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Popover",
+  "selected": "Interativo",
+  "import": "import { Popover } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Popover",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "description": "Visible popover (controlled; the overlay has no internal state)."
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": true,
+          "description": "Close request: Esc or click outside."
+        },
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Interactive floating content (short form, filters…)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Anchor element (trigger)."
+        },
+        {
+          "name": "side",
+          "defaultValue": "\"bottom\"",
+          "type": "PopoverSide | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "align",
+          "defaultValue": "\"start\"",
+          "type": "PopoverAlign | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible label of the floating dialog."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Filters in a popover: click the button to open/close.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Checkbox } from '@refy-design/web';\nimport { Popover } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nfunction StageFilter() {\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, maxWidth: 280 }}>\n      <span\n        style={{\n          fontFamily: 'var(--font-mono)',\n          fontSize: 'var(--text-eyebrow)',\n          textTransform: 'uppercase',\n          letterSpacing: 'var(--tracking-uppercase)',\n          color: 'var(--ink-3)',\n          marginBottom: 6,\n        }}\n      >\n        Filter by stage\n      </span>\n      <Checkbox label=\"Diagnosis\" defaultChecked />\n      <Checkbox label=\"Tasks\" />\n      <Checkbox label=\"In progress\" />\n      <Checkbox label=\"Resolved\" />\n    </div>\n  );\n}\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Popover>,\n    'open' | 'onOpenChange' | 'content' | 'children' | 'label'\n  > = {\n    open: false,\n    onOpenChange: () => {},\n    content: null,\n    children: null,\n    label: 'Filters',\n  };\n  const [open, setOpen] = useState(args.open);\n  return (\n    <Popover {...args} open={open} onOpenChange={setOpen} content={<StageFilter />}>\n      <Button onClick={() => setOpen(!open)}>Filter</Button>\n    </Popover>\n  );\n}"
+    },
+    {
+      "id": "TopEnd",
+      "label": "Top · end",
+      "description": "Aligned to the end, opening upward.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Checkbox } from '@refy-design/web';\nimport { Popover } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nfunction StageFilter() {\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, maxWidth: 280 }}>\n      <span\n        style={{\n          fontFamily: 'var(--font-mono)',\n          fontSize: 'var(--text-eyebrow)',\n          textTransform: 'uppercase',\n          letterSpacing: 'var(--tracking-uppercase)',\n          color: 'var(--ink-3)',\n          marginBottom: 6,\n        }}\n      >\n        Filter by stage\n      </span>\n      <Checkbox label=\"Diagnosis\" defaultChecked />\n      <Checkbox label=\"Tasks\" />\n      <Checkbox label=\"In progress\" />\n      <Checkbox label=\"Resolved\" />\n    </div>\n  );\n}\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Popover>,\n    'open' | 'onOpenChange' | 'content' | 'children' | 'side' | 'align'\n  > = {\n    open: false,\n    onOpenChange: () => {},\n    content: null,\n    children: null,\n    side: 'top',\n    align: 'end',\n  };\n  const [open, setOpen] = useState(args.open);\n  return (\n    <Popover {...args} open={open} onOpenChange={setOpen} content={<StageFilter />}>\n      <Button onClick={() => setOpen(!open)}>Filter</Button>\n    </Popover>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Checkbox } from '@refy-design/web';\nimport { Popover } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction PopoverExample() {\n  const [open, setOpen] = useState(false),\n    [draft, setDraft] = useState(false),\n    [onlyApproved, setOnlyApproved] = useState(false);\n  const rows = [\n    { name: 'Content guide', approved: true },\n    { name: 'Visual references', approved: false },\n  ];\n  return (\n    <div style={stack}>\n      <Popover\n        open={open}\n        onOpenChange={setOpen}\n        label=\"Filters\"\n        content={\n          <div style={stack}>\n            <Checkbox\n              label=\"Approved only\"\n              checked={draft}\n              onChange={(e) => setDraft(e.target.checked)}\n            />\n            <Button\n              onClick={() => {\n                setOnlyApproved(draft);\n                setOpen(false);\n              }}\n            >\n              Apply filters\n            </Button>\n          </div>\n        }\n      >\n        <Button\n          onClick={() => {\n            setDraft(onlyApproved);\n            setOpen(!open);\n          }}\n        >\n          Filter\n        </Button>\n      </Popover>\n      <ul>\n        {rows\n          .filter((row) => !onlyApproved || row.approved)\n          .map((row) => (\n            <li key={row.name}>\n              {row.name} · {row.approved ? 'Approved' : 'In review'}\n            </li>\n          ))}\n      </ul>\n    </div>\n  );\n}\nexport function Example() {\n  return <PopoverExample />;\n}"
+    }
+  ]
+}

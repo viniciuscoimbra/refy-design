@@ -1,0 +1,132 @@
+{
+  "id": "Tabs",
+  "description": "Related content organized in tabs with keyboard navigation.",
+  "usage": {
+    "howToUse": [
+      "Use it to split related content of the same page into parts that people see one at a time: Overview, Activity, Settings.",
+      "Keep the labels short, in two or three words, and start with the tab most people need.",
+      "Use `variant=\"pill\"` inside cards and panels, and `wrap` when the tabs do not fit on one line."
+    ],
+    "alternatives": [
+      "Switching the view of the same data (list, grid): Segmented.",
+      "Going to another page of the app: NavigationMenu or Sidebar."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Enters the tab list on the active tab, and the next Tab goes to the content."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "Opens the previous or next tab. With `orientation=\"vertical\"`, use `↑` or `↓`."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Opens the first or last tab."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Tabs",
+  "selected": "Sublinhado",
+  "import": "import { Tabs } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Tabs",
+      "props": [
+        {
+          "name": "items",
+          "type": "TabItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Controlled active tab."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "onChange",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "variant",
+          "defaultValue": "\"underline\"",
+          "type": "\"underline\" | \"pill\" | undefined",
+          "required": false,
+          "description": "underline (default) or pill."
+        },
+        {
+          "name": "orientation",
+          "defaultValue": "\"horizontal\"",
+          "type": "\"horizontal\" | \"vertical\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "wrap",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Lets the tabs wrap onto lines when there is not enough width."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Sublinhado",
+      "label": "Underline",
+      "description": "",
+      "code": "import { Tabs } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst items = [\n  {\n    id: 'general',\n    label: 'Overview',\n    content: <p style={{ color: 'var(--ink-2)' }}>Coverage panel.</p>,\n  },\n  {\n    id: 'issues',\n    label: 'Issues',\n    badge: 14,\n    content: <p style={{ color: 'var(--ink-2)' }}>14 issues mapped.</p>,\n  },\n  {\n    id: 'backlog',\n    label: 'Tasks',\n    badge: 23,\n    content: <p style={{ color: 'var(--ink-2)' }}>Tasks prioritized.</p>,\n  },\n  {\n    id: 'hist',\n    label: 'History',\n    content: <p style={{ color: 'var(--ink-2)' }}>Previous analyses.</p>,\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Tabs>, 'items' | 'variant'> = {\n    items,\n    variant: 'underline',\n  };\n  return <Tabs {...args} />;\n}"
+    },
+    {
+      "id": "Pilula",
+      "label": "Pill",
+      "description": "",
+      "code": "import { Tabs } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst items = [\n  {\n    id: 'general',\n    label: 'Overview',\n    content: <p style={{ color: 'var(--ink-2)' }}>Coverage panel.</p>,\n  },\n  {\n    id: 'issues',\n    label: 'Issues',\n    badge: 14,\n    content: <p style={{ color: 'var(--ink-2)' }}>14 issues mapped.</p>,\n  },\n  {\n    id: 'backlog',\n    label: 'Tasks',\n    badge: 23,\n    content: <p style={{ color: 'var(--ink-2)' }}>Tasks prioritized.</p>,\n  },\n  {\n    id: 'hist',\n    label: 'History',\n    content: <p style={{ color: 'var(--ink-2)' }}>Previous analyses.</p>,\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Tabs>, 'items' | 'variant'> = {\n    items,\n    variant: 'pill',\n  };\n  return <Tabs {...args} />;\n}"
+    },
+    {
+      "id": "EstadosDoCadastro",
+      "label": "Sign-up states",
+      "description": "Use the states only when each tab is a part that is saved independently.",
+      "code": "import { Tabs } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Tabs>, 'items'> = {\n    items: [\n      {\n        id: 'company',\n        label: 'Company',\n        status: 'complete',\n        content: <p>Company details saved.</p>,\n      },\n      {\n        id: 'contact',\n        label: 'Address and contact',\n        content: <p>Part not filled in yet.</p>,\n      },\n      {\n        id: 'assignee',\n        label: 'Owner',\n        status: 'warning',\n        content: <p>Some fields need attention.</p>,\n      },\n      { id: 'documents', label: 'Documents', content: <p>Documents not sent yet.</p> },\n    ],\n  };\n  return <Tabs {...args} />;\n}"
+    },
+    {
+      "id": "Vertical",
+      "label": "Vertical",
+      "description": "",
+      "code": "import { Tabs } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst items = [\n  {\n    id: 'general',\n    label: 'Overview',\n    content: <p style={{ color: 'var(--ink-2)' }}>Coverage panel.</p>,\n  },\n  {\n    id: 'issues',\n    label: 'Issues',\n    badge: 14,\n    content: <p style={{ color: 'var(--ink-2)' }}>14 issues mapped.</p>,\n  },\n  {\n    id: 'backlog',\n    label: 'Tasks',\n    badge: 23,\n    content: <p style={{ color: 'var(--ink-2)' }}>Tasks prioritized.</p>,\n  },\n  {\n    id: 'hist',\n    label: 'History',\n    content: <p style={{ color: 'var(--ink-2)' }}>Previous analyses.</p>,\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Tabs>, 'items' | 'orientation'> = {\n    items: [\n      ...items.slice(0, 2),\n      { id: 'unavailable', label: 'Unavailable', disabled: true, content: null },\n      ...items.slice(2),\n    ],\n    orientation: 'vertical',\n  };\n  return <Tabs {...args} />;\n}"
+    },
+    {
+      "id": "ConteudoExtremo",
+      "label": "Extreme content",
+      "description": "",
+      "code": "import { Tabs } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Tabs>, 'items' | 'variant'> = {\n    items: [\n      {\n        id: 'short',\n        label: 'Overall',\n        content: <p style={{ color: 'var(--ink-2)' }}>Short content.</p>,\n      },\n      {\n        id: 'long',\n        label: 'Documents waiting for final review confirmation',\n        badge: 128,\n        content: (\n          <p style={{ color: 'var(--ink-2)', maxWidth: 760 }}>\n            A deliberately long tab stays on one line and the list gets a quiet\n            horizontal scroll when needed.\n          </p>\n        ),\n      },\n      {\n        id: 'other',\n        label: 'Full assignment and support history',\n        content: <p style={{ color: 'var(--ink-2)' }}>History.</p>,\n      },\n    ],\n    variant: 'underline',\n  };\n  return <Tabs {...args} />;\n}"
+    },
+    {
+      "id": "ComQuebraDeLinha",
+      "label": "With line wrap",
+      "description": "Tabs can wrap onto lines in narrow panels, without hiding options.",
+      "code": "import { Tabs } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst items = [\n  {\n    id: 'general',\n    label: 'Overview',\n    content: <p style={{ color: 'var(--ink-2)' }}>Coverage panel.</p>,\n  },\n  {\n    id: 'issues',\n    label: 'Issues',\n    badge: 14,\n    content: <p style={{ color: 'var(--ink-2)' }}>14 issues mapped.</p>,\n  },\n  {\n    id: 'backlog',\n    label: 'Tasks',\n    badge: 23,\n    content: <p style={{ color: 'var(--ink-2)' }}>Tasks prioritized.</p>,\n  },\n  {\n    id: 'hist',\n    label: 'History',\n    content: <p style={{ color: 'var(--ink-2)' }}>Previous analyses.</p>,\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Tabs>, 'items' | 'wrap' | 'variant'> = {\n    items,\n    wrap: true,\n    variant: 'pill',\n  };\n  return <Tabs {...args} />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,273 @@
+{
+  "id": "Combobox",
+  "description": "Search field and selection of one option, with keyboard navigation.",
+  "usage": {
+    "howToUse": [
+      "Use it to pick one option from a long list, where typing a few letters is faster than scrolling: city, customer, product.",
+      "Give it a `label` and, when it helps, a `hint` saying what can be searched (\"Name or tax ID\").",
+      "Group long lists with `group` on each option, and add `description` or `avatar` when the label alone does not tell two options apart.",
+      "Turn on `clearable` when \"no choice\" is a valid answer.",
+      "Set `emptyMessage` to say what to do when nothing matches."
+    ],
+    "alternatives": [
+      "Fewer than about seven options: Select or RadioGroup.",
+      "More than one choice: Multiselect.",
+      "A list of actions, not values: Menu or Command."
+    ],
+    "keyboard": [
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Opens the list. With the list open, moves to the next or previous option."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "With the list open, goes to the first or last option."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Picks the highlighted option."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the list and keeps the typed text."
+      },
+      {
+        "keys": "`Tab`",
+        "action": "Closes the list and moves on to the next field."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Combobox",
+  "selected": "Controlled",
+  "import": "import { Combobox } from '@refy-design/web';",
+  "composition": [
+    "Avatar"
+  ],
+  "api": [
+    {
+      "name": "Combobox",
+      "props": [
+        {
+          "name": "options",
+          "type": "ComboboxOption[]",
+          "required": true,
+          "description": "Suggested options. With `filter` (default) they are filtered by the typed text."
+        },
+        {
+          "name": "value",
+          "type": "string | null | undefined",
+          "required": false,
+          "description": "`value` of the selected option (controlled). `null` = nothing selected."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "null",
+          "type": "string | null | undefined",
+          "required": false,
+          "description": "Initial selection (uncontrolled)."
+        },
+        {
+          "name": "onChange",
+          "type": "((option: ComboboxOption | null) => void) | undefined",
+          "required": false,
+          "description": "Fired when an option is selected (or `null` when cleared)."
+        },
+        {
+          "name": "inputValue",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Controlled input text (for async suggest, filter outside and pass `filter={false}`)."
+        },
+        {
+          "name": "onInputValueChange",
+          "type": "((text: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Field label (mono eyebrow above the input)."
+        },
+        {
+          "name": "filter",
+          "defaultValue": "true",
+          "type": "boolean | ((option: ComboboxOption, query: string) => boolean) | undefined",
+          "required": false,
+          "description": "Filters options by the typed text. `false` = the list comes already filtered."
+        },
+        {
+          "name": "icon",
+          "defaultValue": "SearchIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon on the left of the input (default: magnifier)."
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Message when no option matches the search."
+        },
+        {
+          "name": "defaultOpen",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Starts with the list open (uncontrolled), as in previews and catalogs. Default `false`."
+        },
+        {
+          "name": "clearable",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows the clear button when there is text. Default `true`."
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "type",
+          "type": "HTMLInputTypeAttribute | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: type \"aurora\" to see filtering + highlight.",
+      "code": "import { Combobox } from '@refy-design/web';\nimport type { ComboboxOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst projects: ComboboxOption[] = [\n  {\n    value: 'aurora',\n    label: 'aurora.example.com',\n    lead: 'RS',\n    meta: '12 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'horizonte',\n    label: 'horizonte.example.com',\n    lead: 'RS',\n    meta: '8 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'origin',\n    label: 'origem.example.com',\n    lead: 'RR',\n    meta: '5 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'atlas',\n    label: 'atlas.example.com',\n    lead: 'RD',\n    meta: '4 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'north',\n    label: 'north.example.com',\n    lead: 'RB',\n    meta: '6 tasks',\n    group: 'Suggestions',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Combobox>,\n    'label' | 'placeholder' | 'options'\n  > = { label: 'Project', placeholder: 'Search projects…', options: projects };\n  return <Combobox {...args} />;\n}"
+    },
+    {
+      "id": "Default",
+      "label": "Default · uncontrolled",
+      "description": "Uncontrolled with an initial selection.",
+      "code": "import { Combobox } from '@refy-design/web';\nimport type { ComboboxOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst projects: ComboboxOption[] = [\n  {\n    value: 'aurora',\n    label: 'aurora.example.com',\n    lead: 'RS',\n    meta: '12 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'horizonte',\n    label: 'horizonte.example.com',\n    lead: 'RS',\n    meta: '8 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'origin',\n    label: 'origem.example.com',\n    lead: 'RR',\n    meta: '5 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'atlas',\n    label: 'atlas.example.com',\n    lead: 'RD',\n    meta: '4 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'north',\n    label: 'north.example.com',\n    lead: 'RB',\n    meta: '6 tasks',\n    group: 'Suggestions',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Combobox>,\n    'label' | 'placeholder' | 'options' | 'defaultValue'\n  > = {\n    label: 'Project',\n    placeholder: 'Search projects…',\n    options: projects,\n    defaultValue: 'aurora',\n  };\n  return <Combobox {...args} />;\n}"
+    },
+    {
+      "id": "Controlled",
+      "label": "Controlled",
+      "description": "Controlled: the selection lives in the parent and shows below.",
+      "code": "import { Combobox } from '@refy-design/web';\nimport type { ComboboxOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst projects: ComboboxOption[] = [\n  {\n    value: 'aurora',\n    label: 'aurora.example.com',\n    lead: 'RS',\n    meta: '12 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'horizonte',\n    label: 'horizonte.example.com',\n    lead: 'RS',\n    meta: '8 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'origin',\n    label: 'origem.example.com',\n    lead: 'RR',\n    meta: '5 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'atlas',\n    label: 'atlas.example.com',\n    lead: 'RD',\n    meta: '4 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'north',\n    label: 'north.example.com',\n    lead: 'RB',\n    meta: '6 tasks',\n    group: 'Suggestions',\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Combobox>, 'label' | 'options'> = {\n    label: 'Project',\n    options: projects,\n  };\n  const [selected, setSelected] = useState<string | null>(null);\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n      <Combobox\n        {...args}\n        value={selected}\n        onChange={(option) => setSelected(option?.value ?? null)}\n      />\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-3)' }}\n      >\n        selected: {selected ?? '—'}\n      </code>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Grouped",
+      "label": "With sections",
+      "description": "Multiple sections via `group`: Recent + Most visited.",
+      "code": "import { Combobox } from '@refy-design/web';\nimport type { ComboboxOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst pages: ComboboxOption[] = [\n  {\n    value: '/checkout/confirmacao',\n    label: '/checkout/confirmacao',\n    lead: '/',\n    meta: '2.3k/mo',\n    group: 'Recent',\n  },\n  {\n    value: '/checkout/pix',\n    label: '/checkout/pix',\n    lead: '/',\n    meta: '980/mo',\n    group: 'Recent',\n  },\n  {\n    value: '/planos',\n    label: '/planos',\n    lead: '/',\n    meta: '5.1k/mo',\n    group: 'Most visited',\n  },\n  {\n    value: '/guias/primeiros-passos',\n    label: '/guias/primeiros-passos',\n    lead: '/',\n    meta: '3.4k/mo',\n    group: 'Most visited',\n  },\n  {\n    value: '/precos',\n    label: '/precos',\n    lead: '/',\n    meta: '1.9k/mo',\n    group: 'Most visited',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Combobox>,\n    'label' | 'placeholder' | 'options'\n  > = { label: 'Search page', placeholder: 'Type a path…', options: pages };\n  return <Combobox {...args} />;\n}"
+    },
+    {
+      "id": "Empty",
+      "label": "No results",
+      "description": "No results for the search.",
+      "code": "import { Combobox } from '@refy-design/web';\nimport type { ComboboxOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst projects: ComboboxOption[] = [\n  {\n    value: 'aurora',\n    label: 'aurora.example.com',\n    lead: 'RS',\n    meta: '12 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'horizonte',\n    label: 'horizonte.example.com',\n    lead: 'RS',\n    meta: '8 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'origin',\n    label: 'origem.example.com',\n    lead: 'RR',\n    meta: '5 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'atlas',\n    label: 'atlas.example.com',\n    lead: 'RD',\n    meta: '4 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'north',\n    label: 'north.example.com',\n    lead: 'RB',\n    meta: '6 tasks',\n    group: 'Suggestions',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Combobox>,\n    'label' | 'options' | 'inputValue' | 'emptyMessage'\n  > = {\n    label: 'Project',\n    options: projects,\n    inputValue: 'zzz',\n    emptyMessage: 'No domain found',\n  };\n  return <Combobox {...args} />;\n}"
+    },
+    {
+      "id": "WithError",
+      "label": "With error",
+      "description": "Error state with a message.",
+      "code": "import { Combobox } from '@refy-design/web';\nimport type { ComboboxOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst projects: ComboboxOption[] = [\n  {\n    value: 'aurora',\n    label: 'aurora.example.com',\n    lead: 'RS',\n    meta: '12 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'horizonte',\n    label: 'horizonte.example.com',\n    lead: 'RS',\n    meta: '8 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'origin',\n    label: 'origem.example.com',\n    lead: 'RR',\n    meta: '5 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'atlas',\n    label: 'atlas.example.com',\n    lead: 'RD',\n    meta: '4 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'north',\n    label: 'north.example.com',\n    lead: 'RB',\n    meta: '6 tasks',\n    group: 'Suggestions',\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Combobox>, 'label' | 'options' | 'error'> = {\n    label: 'Project',\n    options: projects,\n    error: 'Select a valid project.',\n  };\n  return <Combobox {...args} />;\n}"
+    },
+    {
+      "id": "ComAvatar",
+      "label": "With avatar (people)",
+      "description": "Guide case, transferring ownership: SOURCE owner (selected, avatar in the input) on top; TARGET below. Each option shows Avatar + name + team.",
+      "code": "import { Combobox } from '@refy-design/web';\nimport type { ComboboxOption } from '@refy-design/web';\nconst people: ComboboxOption[] = [\n  {\n    value: 'joana',\n    label: 'Joana Martins',\n    avatar: { name: 'Joana Martins' },\n    description: 'Design · Aurora team',\n  },\n  {\n    value: 'marcos',\n    label: 'Marcos Silva',\n    avatar: { name: 'Marcos Silva', color: 'var(--legacy-ink-2)' },\n    description: 'Product · Aurora team',\n  },\n  {\n    value: 'renata',\n    label: 'Renata Costa',\n    avatar: { name: 'Renata Costa' },\n    description: 'Content · Horizon team',\n  },\n  {\n    value: 'paulo',\n    label: 'Paulo Braga',\n    avatar: { name: 'Paulo Braga', color: 'var(--legacy-ink-3)' },\n    description: 'Design · Horizon team',\n  },\n  {\n    value: 'ana',\n    label: 'Ana Lúcia Prado',\n    avatar: { name: 'Ana Lúcia Prado' },\n    description: 'Operations · Origin team',\n  },\n];\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>\n      <Combobox\n        label=\"Source owner\"\n        placeholder=\"Search people…\"\n        options={people}\n        defaultValue=\"joana\"\n      />\n      <Combobox\n        label=\"Destination owner\"\n        placeholder=\"Search people…\"\n        options={people.filter((c) => c.value !== 'joana')}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Disabled",
+      "label": "Disabled",
+      "description": "Disabled field.",
+      "code": "import { Combobox } from '@refy-design/web';\nimport type { ComboboxOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst projects: ComboboxOption[] = [\n  {\n    value: 'aurora',\n    label: 'aurora.example.com',\n    lead: 'RS',\n    meta: '12 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'horizonte',\n    label: 'horizonte.example.com',\n    lead: 'RS',\n    meta: '8 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'origin',\n    label: 'origem.example.com',\n    lead: 'RR',\n    meta: '5 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'atlas',\n    label: 'atlas.example.com',\n    lead: 'RD',\n    meta: '4 tasks',\n    group: 'Suggestions',\n  },\n  {\n    value: 'north',\n    label: 'north.example.com',\n    lead: 'RB',\n    meta: '6 tasks',\n    group: 'Suggestions',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Combobox>,\n    'label' | 'options' | 'disabled' | 'placeholder'\n  > = {\n    label: 'Project',\n    options: projects,\n    disabled: true,\n    placeholder: 'Unavailable',\n  };\n  return <Combobox {...args} />;\n}"
+    }
+  ]
+}

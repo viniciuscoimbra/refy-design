@@ -1,0 +1,86 @@
+name: Validar biblioteca
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm install --global @fission-ai/openspec@1.5.0
+      - run: npm run check:specs
+      - run: npm run check
+      - run: npm run build-storybook
+      - run: npm pack --dry-run
+  # Chromium roda a suíte inteira; Firefox e WebKit rodam só os testes em que o
+  # navegador muda o comportamento (foco, select nativo, portal). A lista fica em
+  # playwright.config.ts.
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # A imagem já traz os navegadores e as dependências do sistema: instalar pelo apt
+    # do runner baixava 114 MB a ~30 KB/s e estourava o tempo antes do primeiro teste.
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+    # O Firefox só abre com HOME do usuário do container; o GitHub troca o HOME dos
+    # passos, então ele vai no env do job, que vale para cada passo.
+    env:
+      HOME: /root
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npm run build-storybook
+      - run: npx playwright test --project=${{ matrix.project }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-evidence-${{ matrix.project }}
+          path: |
+            playwright-report/
+            test-results/
+  # Instala o pacote do npm pack em consumidores React 18 e 19 e testa o build deles.
+  consumers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # A imagem já traz os navegadores e as dependências do sistema: instalar pelo apt
+    # do runner baixava 114 MB a ~30 KB/s e estourava o tempo antes do primeiro teste.
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+    # O Firefox só abre com HOME do usuário do container; o GitHub troca o HOME dos
+    # passos, então ele vai no env do job, que vale para cada passo.
+    env:
+      HOME: /root
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npm run build-storybook
+      - run: node scripts/test-consumers.mjs -- --project=chromium
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: consumer-evidence
+          path: |
+            playwright-report/
+            test-results/

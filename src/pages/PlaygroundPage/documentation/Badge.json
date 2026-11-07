@@ -1,0 +1,141 @@
+{
+  "id": "Badge",
+  "description": "Compact label to convey category, quantity or state.",
+  "usage": {
+    "howToUse": [
+      "Use it for a short label next to something: state (\"Paid\"), category (\"Design\"), count (\"12\").",
+      "Choose the `tone` by meaning: success, warning, danger, info or neutral. Write the state in the text too, not only in the color.",
+      "Add `dot` for a state that changes, such as online or offline."
+    ],
+    "alternatives": [
+      "Something people click to filter or remove: Chip.",
+      "A message that needs a sentence: Callout."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The badge does not receive focus. Screen readers read its text with the content around it."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Badge",
+  "selected": "Todos",
+  "import": "import { Badge } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Badge",
+      "props": [
+        {
+          "name": "tone",
+          "defaultValue": "\"neutral\"",
+          "type": "BadgeTone | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "dot",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Colored dot on the left (status)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLSpanElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Success",
+      "label": "Success",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Badge>, 'tone' | 'children' | 'dot'> = {\n    tone: 'success',\n    children: 'Paid',\n    dot: false,\n  };\n  return <Badge {...args} />;\n}"
+    },
+    {
+      "id": "ComDot",
+      "label": "With dot",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Badge>, 'tone' | 'children' | 'dot'> = {\n    tone: 'success',\n    children: 'Active',\n    dot: true,\n  };\n  return <Badge {...args} />;\n}"
+    },
+    {
+      "id": "Todos",
+      "label": "All",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>\n      <Badge tone=\"success\">Paid</Badge>\n      <Badge tone=\"info\">Agency plan</Badge>\n      <Badge tone=\"warn\">Pending</Badge>\n      <Badge tone=\"danger\">Failed</Badge>\n      <Badge tone=\"neutral\">Archived</Badge>\n    </div>\n  );\n}"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "id": "Timeline",
+  "description": "Milestones of a journey with dates and a time axis. Alternating vertical or horizontal, with optional media and actions. For events by people and systems, use ActivityTimeline.",
+  "usage": {
+    "howToUse": [
+      "Use it for the milestones of a journey: an order from purchase to delivery, a project from kick-off to launch.",
+      "Pass the `items` in the order they happen, each with date and title; add media or an action when a milestone needs them.",
+      "Use `orientation=\"horizontal\"` for few milestones in a wide area; vertical works on mobile."
+    ],
+    "alternatives": [
+      "Many events by people and systems: ActivityTimeline.",
+      "Steps the person still has to do: WizardStepper."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "In horizontal, moves focus to the timeline."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "In horizontal, scrolls to the previous or next milestones."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "In horizontal, goes to the first or last milestone."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Timeline",
+  "selected": "Vertical",
+  "import": "import { Timeline } from '@refy-design/web';",
+  "composition": [
+    "Badge",
+    "Card",
+    "EmptyState",
+    "StatusDot"
+  ],
+  "api": [
+    {
+      "name": "Timeline",
+      "props": [
+        {
+          "name": "items",
+          "type": "TimelineMilestone[]",
+          "required": true,
+          "description": "The order of milestones is set by the consumer, not by the visual state."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content title."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Supporting text."
+        },
+        {
+          "name": "orientation",
+          "defaultValue": "\"vertical\"",
+          "type": "\"horizontal\" | \"vertical\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "locale",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "timezone",
+          "defaultValue": "\"America/Sao_Paulo\"",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "emptyMessage",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Vertical",
+      "label": "Vertical",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport { Timeline } from '@refy-design/web';\nimport type { TimelineMilestone } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst items: TimelineMilestone[] = [\n  {\n    id: 'discovery',\n    timestamp: '2026-08-05T12:00:00-03:00',\n    title: 'The start of the journey',\n    description: \"We got the team together and set the project's first goals.\",\n    media: (\n      <>\n        <img src={sampleArtwork()} alt=\"First visual proposal\" width={80} height={54} />\n        <img\n          src={sampleArtwork('#cbd4e4')}\n          alt=\"Second visual proposal\"\n          width={80}\n          height={54}\n        />\n      </>\n    ),\n    status: 'completed',\n  },\n  {\n    id: 'prototype',\n    timestamp: '2026-09-12T12:00:00-03:00',\n    title: 'First version validated',\n    description:\n      'The prototype was tested and the key decisions were shared with the team.',\n    status: 'completed',\n  },\n  {\n    id: 'delivery',\n    timestamp: '2026-10-23T12:00:00-03:00',\n    title: 'Preparing the launch',\n    description:\n      'We reviewed the details and organized the materials for the next step.',\n    status: 'current',\n  },\n  {\n    id: 'launch',\n    timestamp: '2026-11-10T12:00:00-03:00',\n    title: 'Launch',\n    description:\n      'A new stage to track results and learn from the people who use the product.',\n    status: 'upcoming',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Timeline>,\n    'items' | 'title' | 'description'\n  > = {\n    items,\n    title: 'From idea to launch',\n    description: 'The moments that built this journey.',\n  };\n  const [selected, setSelected] = useState<TimelineMilestone | null>(null);\n  return (\n    <>\n      <Timeline\n        {...args}\n        items={args.items.map((item) => ({\n          ...item,\n          action: (\n            <Button size=\"sm\" variant=\"ghost\" onClick={() => setSelected(item)}>\n              View milestone\n            </Button>\n          ),\n        }))}\n      />\n      <Modal\n        open={!!selected}\n        onClose={() => setSelected(null)}\n        title={selected?.title ?? 'Milestone details'}\n      >\n        {selected?.description}\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "id": "Horizontal",
+      "label": "Horizontal",
+      "description": "",
+      "code": "import { Timeline } from '@refy-design/web';\nimport type { TimelineMilestone } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst items: TimelineMilestone[] = [\n  {\n    id: 'discovery',\n    timestamp: '2026-08-05T12:00:00-03:00',\n    title: 'The start of the journey',\n    description: \"We got the team together and set the project's first goals.\",\n    media: (\n      <>\n        <img src={sampleArtwork()} alt=\"First visual proposal\" width={80} height={54} />\n        <img\n          src={sampleArtwork('#cbd4e4')}\n          alt=\"Second visual proposal\"\n          width={80}\n          height={54}\n        />\n      </>\n    ),\n    status: 'completed',\n  },\n  {\n    id: 'prototype',\n    timestamp: '2026-09-12T12:00:00-03:00',\n    title: 'First version validated',\n    description:\n      'The prototype was tested and the key decisions were shared with the team.',\n    status: 'completed',\n  },\n  {\n    id: 'delivery',\n    timestamp: '2026-10-23T12:00:00-03:00',\n    title: 'Preparing the launch',\n    description:\n      'We reviewed the details and organized the materials for the next step.',\n    status: 'current',\n  },\n  {\n    id: 'launch',\n    timestamp: '2026-11-10T12:00:00-03:00',\n    title: 'Launch',\n    description:\n      'A new stage to track results and learn from the people who use the product.',\n    status: 'upcoming',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Timeline>,\n    'items' | 'title' | 'description' | 'orientation'\n  > = {\n    items,\n    title: 'From idea to launch',\n    description: 'The moments that built this journey.',\n    orientation: 'horizontal',\n  };\n  return <Timeline {...args} />;\n}"
+    },
+    {
+      "id": "CaixaEstreita",
+      "label": "Narrow box",
+      "description": "",
+      "code": "import { Timeline } from '@refy-design/web';\nimport type { TimelineMilestone } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst items: TimelineMilestone[] = [\n  {\n    id: 'discovery',\n    timestamp: '2026-08-05T12:00:00-03:00',\n    title: 'The start of the journey',\n    description: \"We got the team together and set the project's first goals.\",\n    media: (\n      <>\n        <img src={sampleArtwork()} alt=\"First visual proposal\" width={80} height={54} />\n        <img\n          src={sampleArtwork('#cbd4e4')}\n          alt=\"Second visual proposal\"\n          width={80}\n          height={54}\n        />\n      </>\n    ),\n    status: 'completed',\n  },\n  {\n    id: 'prototype',\n    timestamp: '2026-09-12T12:00:00-03:00',\n    title: 'First version validated',\n    description:\n      'The prototype was tested and the key decisions were shared with the team.',\n    status: 'completed',\n  },\n  {\n    id: 'delivery',\n    timestamp: '2026-10-23T12:00:00-03:00',\n    title: 'Preparing the launch',\n    description:\n      'We reviewed the details and organized the materials for the next step.',\n    status: 'current',\n  },\n  {\n    id: 'launch',\n    timestamp: '2026-11-10T12:00:00-03:00',\n    title: 'Launch',\n    description:\n      'A new stage to track results and learn from the people who use the product.',\n    status: 'upcoming',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Timeline>,\n    'items' | 'title' | 'description'\n  > = {\n    items,\n    title: 'From idea to launch',\n    description: 'The moments that built this journey.',\n  };\n  return (\n    <div style={{ width: 320, maxWidth: '100%' }}>\n      <Timeline {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "TextoLongo",
+      "label": "Long text",
+      "description": "",
+      "code": "import { Timeline } from '@refy-design/web';\nimport type { TimelineMilestone } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst items: TimelineMilestone[] = [\n  {\n    id: 'discovery',\n    timestamp: '2026-08-05T12:00:00-03:00',\n    title: 'The start of the journey',\n    description: \"We got the team together and set the project's first goals.\",\n    media: (\n      <>\n        <img src={sampleArtwork()} alt=\"First visual proposal\" width={80} height={54} />\n        <img\n          src={sampleArtwork('#cbd4e4')}\n          alt=\"Second visual proposal\"\n          width={80}\n          height={54}\n        />\n      </>\n    ),\n    status: 'completed',\n  },\n  {\n    id: 'prototype',\n    timestamp: '2026-09-12T12:00:00-03:00',\n    title: 'First version validated',\n    description:\n      'The prototype was tested and the key decisions were shared with the team.',\n    status: 'completed',\n  },\n  {\n    id: 'delivery',\n    timestamp: '2026-10-23T12:00:00-03:00',\n    title: 'Preparing the launch',\n    description:\n      'We reviewed the details and organized the materials for the next step.',\n    status: 'current',\n  },\n  {\n    id: 'launch',\n    timestamp: '2026-11-10T12:00:00-03:00',\n    title: 'Launch',\n    description:\n      'A new stage to track results and learn from the people who use the product.',\n    status: 'upcoming',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Timeline>,\n    'items' | 'title' | 'description'\n  > = {\n    items: [\n      {\n        ...items[0],\n        title:\n          'An important stage with a long title that must stay readable at any width',\n        description:\n          'The same milestone can hold context, decisions and extra information without losing its place in the journey. The text grows naturally and is never hidden behind the axis, the date or the actions.',\n      },\n      ...items.slice(1),\n    ],\n    title: 'From idea to launch',\n    description: 'The moments that built this journey.',\n  };\n  return <Timeline {...args} />;\n}"
+    },
+    {
+      "id": "Vazio",
+      "label": "Empty",
+      "description": "",
+      "code": "import { Timeline } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Timeline>,\n    'items' | 'title' | 'description'\n  > = {\n    items: [],\n    title: 'From idea to launch',\n    description: 'The moments that built this journey.',\n  };\n  return <Timeline {...args} />;\n}"
+    }
+  ]
+}

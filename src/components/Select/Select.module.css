@@ -1,0 +1,41 @@
+.field {
+  min-width: 0;
+  max-width: 100%; display: inline-flex; flex-direction: column; gap: var(--field-label-gap, 6px); }
+.block { display: flex; width: 100%; }
+
+.shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--field-height, 38px);
+}
+.select {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 34px 0 var(--field-padding-inline, 12px);
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: var(--field-font-size, var(--text-sm));
+  color: var(--ink-1);
+  appearance: none;
+  cursor: pointer;
+}
+.caret {
+  position: absolute;
+  right: 11px;
+  width: 14px;
+  height: 14px;
+  color: var(--ink-3);
+  pointer-events: none;
+}
+
+.select option, .select optgroup {
+  background: var(--field-background, var(--surface));
+  color: var(--ink-1);
+}
+
+.help { margin: 0; font-size: var(--text-xs); color: var(--ink-3); line-height: var(--leading-snug); }
+.helpError { color: var(--critical); }

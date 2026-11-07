@@ -1,0 +1,210 @@
+{
+  "id": "Otp",
+  "description": "Verification code input, with multiple slots and paste support.",
+  "usage": {
+    "howToUse": [
+      "Use it for the code sent by SMS, e-mail or an authenticator app.",
+      "Set `length` to the size of the code, and `groupSize` to split long codes (\"392 114\").",
+      "Verify in `onComplete`, which fires when the last digit is filled. Show `error` when the code is wrong, and a resend link below.",
+      "Your application sends and checks the code, and controls expiry and attempts."
+    ],
+    "alternatives": [
+      "A password or any free text: Input."
+    ],
+    "keyboard": [
+      {
+        "keys": "Typing or pasting",
+        "action": "Fills the boxes in order; a pasted code fills all of them."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "Moves to the previous or next box."
+      },
+      {
+        "keys": "`Backspace`",
+        "action": "Deletes the digit and goes back one box."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Otp",
+  "selected": "Controlled",
+  "import": "import { Otp } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Otp",
+      "props": [
+        {
+          "name": "length",
+          "defaultValue": "6",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Number of digits. Default 6."
+        },
+        {
+          "name": "groupSize",
+          "type": "number | undefined",
+          "required": false,
+          "description": "\"—\" separator every N digits (e.g. 3 → `392 — 114`)."
+        },
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Controlled code (string with up to `length` characters)."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "\"\"",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initial code (uncontrolled)."
+        },
+        {
+          "name": "onChange",
+          "type": "((code: string) => void) | undefined",
+          "required": false,
+          "description": "Fired on each keystroke with the current code."
+        },
+        {
+          "name": "onComplete",
+          "type": "((code: string) => void) | undefined",
+          "required": false,
+          "description": "Fired when every digit is filled."
+        },
+        {
+          "name": "alphanumeric",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Accepts letters besides numbers. Default digits only."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible group label."
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "autoFocus",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Focuses the first field on mount."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: 6 digits with a separator every 3. Paste \"392114\" to test.",
+      "code": "import { Otp } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Otp>, 'length' | 'groupSize'> = {\n    length: 6,\n    groupSize: 3,\n  };\n  return <Otp {...args} />;\n}"
+    },
+    {
+      "id": "Pin4",
+      "label": "4-digit PIN",
+      "description": "No separator, 4 digits (short PIN).",
+      "code": "import { Otp } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Otp>, 'length'> = { length: 4 };\n  return <Otp {...args} />;\n}"
+    },
+    {
+      "id": "Preenchido",
+      "label": "Prefilled",
+      "description": "Partially filled (uncontrolled).",
+      "code": "import { Otp } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Otp>,\n    'length' | 'groupSize' | 'defaultValue'\n  > = { length: 6, groupSize: 3, defaultValue: '392' };\n  return <Otp {...args} />;\n}"
+    },
+    {
+      "id": "Controlled",
+      "label": "Controlled",
+      "description": "Controlled: fires `onComplete` on the last digit.",
+      "code": "import { Otp } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Otp>, 'length' | 'groupSize'> = {\n    length: 6,\n    groupSize: 3,\n  };\n  const [code, setCode] = useState('');\n  const [done, setDone] = useState(false);\n  return (\n    <div\n      style={{\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 12,\n        alignItems: 'flex-start',\n      }}\n    >\n      <Otp\n        {...args}\n        value={code}\n        onChange={(c) => {\n          setCode(c);\n          setDone(false);\n        }}\n        onComplete={() => setDone(true)}\n      />\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-3)' }}\n      >\n        code: \"{code}\" {done && '✓ complete'}\n      </code>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComErro",
+      "label": "With error",
+      "description": "Wrong code.",
+      "code": "import { Otp } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Otp>,\n    'length' | 'groupSize' | 'defaultValue' | 'error'\n  > = {\n    length: 6,\n    groupSize: 3,\n    defaultValue: '392114',\n    error: 'Wrong code. Try again.',\n  };\n  return <Otp {...args} />;\n}"
+    },
+    {
+      "id": "Disabled",
+      "label": "Disabled",
+      "description": "Disabled.",
+      "code": "import { Otp } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Otp>,\n    'length' | 'groupSize' | 'defaultValue' | 'disabled'\n  > = { length: 6, groupSize: 3, defaultValue: '392', disabled: true };\n  return <Otp {...args} />;\n}"
+    }
+  ]
+}

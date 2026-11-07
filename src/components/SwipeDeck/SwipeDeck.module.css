@@ -1,0 +1,44 @@
+.root { display: grid; gap: var(--space-4); width: min(100%, 52rem); margin-inline: auto; }
+.queueMeta { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); color: var(--ink-1); }
+.queueMeta strong { font-family: var(--font-headline); font-size: var(--text-h4); }
+.queueMeta span { color: var(--ink-3); font-size: var(--text-sm); white-space: nowrap; }
+
+.stage { position: relative; min-width: 0; padding-bottom: var(--space-3); }
+.backCard { position: absolute; inset: var(--space-3) var(--space-6) 0; border: var(--surface-border-width, 1px) solid var(--line-soft); border-radius: var(--radius-xl); background: var(--surface); box-shadow: var(--shadow-1); }
+.backTwo { transform: translateY(16px) scale(.94); opacity: .45; }
+.backOne { transform: translateY(8px) scale(.97); opacity: .7; }
+.current { animation: card-enter var(--motion-orientation-duration) var(--ease-out); position: relative; z-index: 2; min-width: 0; touch-action: pan-y; cursor: grab; transform-origin: 50% 100%; transition: transform var(--motion-context-duration) var(--motion-ease-enter); }
+.leaving-reject { animation: reject-away var(--motion-orientation-exit-duration) var(--motion-ease-exit) forwards; }
+.leaving-save { animation: none; transform-origin: 50% 50%; }
+.leaving-visit { animation: select-away var(--motion-orientation-exit-duration) var(--motion-ease-exit) forwards; }
+@keyframes reject-away { to { transform: translateX(-110%) rotate(-6deg); } }
+@keyframes select-away { to { transform: translateX(110%) rotate(6deg); } }
+.current:active { cursor: grabbing; }
+.current:focus-visible { outline: 2px solid var(--primary-ink); outline-offset: 4px; border-radius: var(--radius-xl); }
+
+.gestureLabel { position: absolute; z-index: 8; top: var(--space-8); padding: var(--space-2) var(--space-4); border: 3px solid currentColor; border-radius: var(--radius-default); background: color-mix(in srgb, var(--surface) 88%, transparent); font-family: var(--font-headline); font-size: var(--text-h3); font-weight: 800; text-transform: var(--interface-label-transform, uppercase); letter-spacing: var(--interface-label-tracking, .04em); pointer-events: none; }
+.rejectLabel { left: var(--space-6); color: var(--critical); transform: rotate(8deg); }
+.visitLabel { right: var(--space-6); color: var(--primary-ink); transform: rotate(-8deg); }
+.saveLabel { left: 50%; translate: -50% 0; color: var(--primary-ink); }
+.actions { position: relative; z-index: 4; }
+.end { width: min(100%, 42rem); margin: var(--space-8) auto; }
+
+.reduced .current { transition: none; animation: none; }
+
+@media (max-width: 38rem) {
+  .root { gap: var(--space-3); }
+  .queueMeta strong { font-size: var(--text-h5); }
+  .queueMeta span { font-size: var(--text-xs); }
+  .gestureLabel { font-size: var(--text-h4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .current { transition: none; animation: none; }
+}
+
+.hint { margin: 0; max-width: 70ch; color: var(--ink-3); font-size: var(--text-sm); line-height: var(--leading-normal); }
+.dragging { transition: none; user-select: none; }
+@keyframes card-enter { from { translate: 0 8px; scale: .97; } to { translate: 0 0; scale: 1; } }
+
+.reduced .current img { animation: none; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

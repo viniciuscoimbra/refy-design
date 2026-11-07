@@ -1,0 +1,189 @@
+{
+  "id": "Sidebar",
+  "description": "The app's side navigation, with expanded, compact and collapsed versions.",
+  "usage": {
+    "howToUse": [
+      "Use it for the main places of an app, always visible on the side: Home, Projects, Reports, Settings.",
+      "Split items into `groups`, mark the page open with `activeId`, and put the main creation action in `cta` (\"New project\").",
+      "Use `workspaces` to switch companies at the top, and `account` for the person at the foot."
+    ],
+    "alternatives": [
+      "Areas inside a settings page: SettingsSubnav.",
+      "A site with few pages: NavigationMenu."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the items, in reading order."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the item in focus."
+      },
+      {
+        "keys": "Menus",
+        "action": "The workspace and account menus use the keys of WorkspaceSwitcher and Menu."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Sidebar",
+  "selected": "Expandida",
+  "import": "import { Sidebar } from '@refy-design/web';",
+  "composition": [
+    "Avatar",
+    "Badge",
+    "BrandLogo",
+    "Button",
+    "IconButton",
+    "Tooltip",
+    "UserMenu",
+    "WorkspaceSwitcher"
+  ],
+  "api": [
+    {
+      "name": "Sidebar",
+      "props": [
+        {
+          "name": "groups",
+          "type": "SidebarNavGroup[]",
+          "required": true,
+          "description": "Navigation groups."
+        },
+        {
+          "name": "activeId",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Active item id (controlled)."
+        },
+        {
+          "name": "defaultActiveId",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initial active item (uncontrolled); clicking changes it on its own."
+        },
+        {
+          "name": "workspace",
+          "type": "{ name: string; role?: string | undefined; initials: string; } | undefined",
+          "required": false,
+          "description": "Current workspace (static). Prefer `workspaces` for the full switcher."
+        },
+        {
+          "name": "workspaces",
+          "type": "Workspace[] | undefined",
+          "required": false,
+          "description": "List of workspaces; becomes a `WorkspaceSwitcher` (combobox)."
+        },
+        {
+          "name": "workspaceId",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Current workspace id when `workspaces` is used."
+        },
+        {
+          "name": "onWorkspaceChange",
+          "type": "((workspace: Workspace) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "account",
+          "type": "{ name: string; email?: string | undefined; initials: string; seed?: string | undefined; src?: string | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "footerActions",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "showHeader",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "accountMenu",
+          "type": "MenuEntry[] | undefined",
+          "required": false,
+          "description": "Account menu items (opens above the footer). Default: Profile/Settings/Sign out."
+        },
+        {
+          "name": "onAccountSelect",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "cta",
+          "type": "{ label: string; icon?: ReactNode; onClick?: (() => void) | undefined; href?: string | undefined; } | undefined",
+          "required": false,
+          "description": "Primary CTA at the top (e.g. New project)."
+        },
+        {
+          "name": "brand",
+          "defaultValue": "\"refy\"",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Wordmark/logo shown at the top. Accepts text or markup (e.g. `<img>`). Default `\"refy\"`."
+        },
+        {
+          "name": "defaultCollapsed",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Starts collapsed."
+        },
+        {
+          "name": "mode",
+          "type": "SidebarMode | undefined",
+          "required": false,
+          "description": "Controlled mode; `rail` shows icon + label and `compact` icon only."
+        },
+        {
+          "name": "defaultMode",
+          "type": "SidebarMode | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onModeChange",
+          "type": "((mode: SidebarMode) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onNavigate",
+          "type": "((item: SidebarNavItem) => void) | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Expandida",
+      "label": "Expanded",
+      "description": "Working workspace switcher + user menu: click them.",
+      "code": "import { Sidebar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport type { ReactNode } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Sidebar>,\n    'brand' | 'defaultActiveId' | 'workspaces' | 'account' | 'cta' | 'groups'\n  > = {\n    brand: 'refy',\n    defaultActiveId: 'dashboard',\n    workspaces: [\n      { id: 'horizonte', name: 'Horizon team', role: 'Team · Pro', initials: 'HI' },\n      { id: 'coimbra', name: 'Ana Silva', role: 'Professional', initials: 'VC' },\n      { id: 'pampulha', name: 'South team', role: 'Team · Starter', initials: 'PL' },\n    ],\n    account: { name: 'João Mendes', email: 'joao@example.com', initials: 'JM' },\n    cta: { label: 'New client', icon: Icons.plus },\n    groups: [\n      {\n        section: 'Work',\n        items: [\n          { id: 'dashboard', label: 'Overview', icon: Icons.dashboard },\n          { id: 'projects', label: 'Content', icon: Icons.projects },\n          { id: 'backlog', label: 'Clients', icon: Icons.backlog, badge: 12 },\n          { id: 'monitor', label: 'Activity', icon: Icons.monitor },\n          { id: 'competitors', label: 'People', icon: Icons.competitors },\n        ],\n      },\n      {\n        section: 'System',\n        items: [\n          { id: 'notifications', label: 'Notifications', icon: Icons.bell, badge: 3 },\n          { id: 'settings', label: 'Settings', icon: Icons.settings },\n        ],\n      },\n    ],\n  };\n  return <Sidebar {...args} />;\n}"
+    },
+    {
+      "id": "Rail",
+      "label": "Rail",
+      "description": "Rail (72px): icons and short labels, with the same items and badges.",
+      "code": "import { Sidebar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport type { ReactNode } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Sidebar>,\n    | 'brand'\n    | 'defaultActiveId'\n    | 'workspaces'\n    | 'account'\n    | 'cta'\n    | 'groups'\n    | 'defaultMode'\n  > = {\n    brand: 'refy',\n    defaultActiveId: 'dashboard',\n    workspaces: [\n      { id: 'horizonte', name: 'Horizon team', role: 'Team · Pro', initials: 'HI' },\n      { id: 'coimbra', name: 'Ana Silva', role: 'Professional', initials: 'VC' },\n      { id: 'pampulha', name: 'South team', role: 'Team · Starter', initials: 'PL' },\n    ],\n    account: { name: 'João Mendes', email: 'joao@example.com', initials: 'JM' },\n    cta: { label: 'New client', icon: Icons.plus },\n    groups: [\n      {\n        section: 'Work',\n        items: [\n          { id: 'dashboard', label: 'Overview', icon: Icons.dashboard },\n          { id: 'projects', label: 'Content', icon: Icons.projects },\n          { id: 'backlog', label: 'Clients', icon: Icons.backlog, badge: 12 },\n          { id: 'monitor', label: 'Activity', icon: Icons.monitor },\n          { id: 'competitors', label: 'People', icon: Icons.competitors },\n        ],\n      },\n      {\n        section: 'System',\n        items: [\n          { id: 'notifications', label: 'Notifications', icon: Icons.bell, badge: 3 },\n          { id: 'settings', label: 'Settings', icon: Icons.settings },\n        ],\n      },\n    ],\n    defaultMode: 'rail',\n  };\n  return <Sidebar {...args} />;\n}"
+    },
+    {
+      "id": "Compacta",
+      "label": "Compact",
+      "description": "Compact (56px): icons only; labels stay in the accessible name and tooltip.",
+      "code": "import { Sidebar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport type { ReactNode } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Sidebar>,\n    | 'brand'\n    | 'defaultActiveId'\n    | 'workspaces'\n    | 'account'\n    | 'cta'\n    | 'groups'\n    | 'defaultMode'\n  > = {\n    brand: 'refy',\n    defaultActiveId: 'dashboard',\n    workspaces: [\n      { id: 'horizonte', name: 'Horizon team', role: 'Team · Pro', initials: 'HI' },\n      { id: 'coimbra', name: 'Ana Silva', role: 'Professional', initials: 'VC' },\n      { id: 'pampulha', name: 'South team', role: 'Team · Starter', initials: 'PL' },\n    ],\n    account: { name: 'João Mendes', email: 'joao@example.com', initials: 'JM' },\n    cta: { label: 'New client', icon: Icons.plus },\n    groups: [\n      {\n        section: 'Work',\n        items: [\n          { id: 'dashboard', label: 'Overview', icon: Icons.dashboard },\n          { id: 'projects', label: 'Content', icon: Icons.projects },\n          { id: 'backlog', label: 'Clients', icon: Icons.backlog, badge: 12 },\n          { id: 'monitor', label: 'Activity', icon: Icons.monitor },\n          { id: 'competitors', label: 'People', icon: Icons.competitors },\n        ],\n      },\n      {\n        section: 'System',\n        items: [\n          { id: 'notifications', label: 'Notifications', icon: Icons.bell, badge: 3 },\n          { id: 'settings', label: 'Settings', icon: Icons.settings },\n        ],\n      },\n    ],\n    defaultMode: 'compact',\n  };\n  return <Sidebar {...args} />;\n}"
+    }
+  ]
+}

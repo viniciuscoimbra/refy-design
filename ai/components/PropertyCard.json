@@ -1,0 +1,183 @@
+{
+  "id": "PropertyCard",
+  "description": "Content card with media, information and actions, in different compositions.",
+  "usage": {
+    "howToUse": [
+      "Use it for items people browse and compare by picture and facts: listings, products, places, courses.",
+      "Fill `title`, `media` and a few `facts`; add `badges`, `summary` or `matchScore` when they help decide.",
+      "Choose `layout` by place: vertical in grids, horizontal in lists. Put the actions in `actions`.",
+      "In new code, import it as ContentCard."
+    ],
+    "alternatives": [
+      "A destination with one line of context: NavCard.",
+      "Deciding on items one at a time: DecisionDeck."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the media controls and the actions of the card."
+      },
+      {
+        "keys": "`←` or `→` on the media",
+        "action": "Shows the previous or next photo, as in MediaGallery."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ContentCard",
+  "selected": "Grid",
+  "import": "import { ContentCard } from '@refy-design/web';",
+  "composition": [
+    "Badge",
+    "Card",
+    "DecisionActions",
+    "MediaGallery",
+    "ScoreGauge"
+  ],
+  "api": [
+    {
+      "name": "ContentCard",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "subtitle",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "valueSuffix",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "address",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "price",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "priceSuffix",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "media",
+          "type": "PropertyMediaItem[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "mediaProps",
+          "type": "Omit<PropertyMediaProps, \"items\"> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "layout",
+          "defaultValue": "\"grid\"",
+          "type": "PropertyCardLayout | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "matchScore",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "badges",
+          "defaultValue": "[]",
+          "type": "PropertyCardBadge[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "facts",
+          "defaultValue": "[]",
+          "type": "PropertyCardFact[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "actions",
+          "type": "false | Omit<PropertyActionGroupProps, \"className\"> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "headerAction",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "detailsAction",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Grid",
+      "label": "Grid",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { ContentCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ContentCard>,\n    | 'title'\n    | 'subtitle'\n    | 'value'\n    | 'media'\n    | 'badges'\n    | 'facts'\n    | 'summary'\n    | 'detailsAction'\n    | 'layout'\n    | 'actions'\n  > = {\n    title: 'Collaboration guide',\n    subtitle: 'Reference collection · updated today',\n    value: '12 files',\n    media: [\n      { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n      { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n      { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n    ],\n    badges: [\n      { label: 'New', tone: 'info' },\n      { label: 'Available', tone: 'success' },\n    ],\n    facts: [\n      { label: 'Format', value: 'PDF and images' },\n      { label: 'Size', value: '24 MB' },\n      { label: 'Version', value: '1.2' },\n    ],\n    summary:\n      'References and guidelines to organize work and share decisions with the team.',\n    detailsAction: <Button size=\"sm\">View details</Button>,\n    layout: 'grid',\n    actions: false,\n  };\n  return (\n    <div style={{ maxWidth: 440 }}>\n      <ContentCard {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Lista",
+      "label": "List",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { ContentCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ContentCard>,\n    | 'title'\n    | 'subtitle'\n    | 'value'\n    | 'media'\n    | 'badges'\n    | 'facts'\n    | 'summary'\n    | 'detailsAction'\n    | 'layout'\n    | 'actions'\n  > = {\n    title: 'Collaboration guide',\n    subtitle: 'Reference collection · updated today',\n    value: '12 files',\n    media: [\n      { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n      { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n      { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n    ],\n    badges: [\n      { label: 'New', tone: 'info' },\n      { label: 'Available', tone: 'success' },\n    ],\n    facts: [\n      { label: 'Format', value: 'PDF and images' },\n      { label: 'Size', value: '24 MB' },\n      { label: 'Version', value: '1.2' },\n    ],\n    summary:\n      'References and guidelines to organize work and share decisions with the team.',\n    detailsAction: <Button size=\"sm\">View details</Button>,\n    layout: 'list',\n    actions: false,\n  };\n  return <ContentCard {...args} />;\n}"
+    },
+    {
+      "id": "Deck",
+      "label": "Deck",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { ContentCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ContentCard>,\n    | 'title'\n    | 'subtitle'\n    | 'value'\n    | 'media'\n    | 'badges'\n    | 'facts'\n    | 'summary'\n    | 'detailsAction'\n    | 'layout'\n    | 'actions'\n  > = {\n    title: 'Collaboration guide',\n    subtitle: 'Reference collection · updated today',\n    value: '12 files',\n    media: [\n      { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n      { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n      { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n    ],\n    badges: [\n      { label: 'New', tone: 'info' },\n      { label: 'Available', tone: 'success' },\n    ],\n    facts: [\n      { label: 'Format', value: 'PDF and images' },\n      { label: 'Size', value: '24 MB' },\n      { label: 'Version', value: '1.2' },\n    ],\n    summary:\n      'References and guidelines to organize work and share decisions with the team.',\n    detailsAction: <Button size=\"sm\">View details</Button>,\n    layout: 'deck',\n    actions: {},\n  };\n  return (\n    <div style={{ maxWidth: 600 }}>\n      <ContentCard {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ConteudoExtremo",
+      "label": "Extreme content",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { ContentCard } from '@refy-design/web';\nimport type { ContentCardProps } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst sampleContent: ContentCardProps = {\n  title: 'Collaboration guide',\n  subtitle: 'Reference collection · updated today',\n  value: '12 files',\n  media: [\n    { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n    { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n    { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n  ],\n  badges: [\n    { label: 'New', tone: 'info' },\n    { label: 'Available', tone: 'success' },\n  ],\n  facts: [\n    { label: 'Format', value: 'PDF and images' },\n    { label: 'Size', value: '24 MB' },\n    { label: 'Version', value: '1.2' },\n  ],\n  summary:\n    'References and guidelines to organize work and share decisions with the team.',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ContentCard>,\n    | 'title'\n    | 'subtitle'\n    | 'value'\n    | 'media'\n    | 'badges'\n    | 'facts'\n    | 'summary'\n    | 'detailsAction'\n    | 'layout'\n    | 'valueSuffix'\n  > = {\n    title:\n      'A complete collaboration guide with detailed references for teams that need to organize decisions, files and responsibilities',\n    subtitle:\n      'Shared collection / Work guidelines / Documents reviewed by the operations team',\n    value: '1,240 files',\n    media: [\n      { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n      { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n      { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n    ],\n    badges: [\n      { label: 'New', tone: 'info' },\n      { label: 'Available', tone: 'success' },\n    ],\n    facts: [...sampleContent.facts!, { label: 'Update', value: '3 minutes ago' }],\n    summary:\n      'This long content checks reading, media alignment and access to actions in a real layout, including long values and several attributes.',\n    detailsAction: <Button size=\"sm\">View details</Button>,\n    layout: 'list',\n    valueSuffix: 'in 18 collections',\n  };\n  return <ContentCard {...args} />;\n}"
+    }
+  ]
+}

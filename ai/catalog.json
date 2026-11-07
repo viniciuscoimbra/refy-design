@@ -1,0 +1,4136 @@
+{
+  "schemaVersion": 1,
+  "package": "@refy-design/web",
+  "packageVersion": "1.0.0",
+  "sourceSha256": "e076f64242e87891ddf068cefa1359df642559446ab24fa392010c5c75f2faa5",
+  "collections": [
+    {
+      "id": "core",
+      "label": "Core",
+      "kind": "core",
+      "description": "Componentes de propósito geral para compor interfaces. Não indica certificação ou estabilidade.",
+      "keywords": [
+        "geral",
+        "fundação",
+        "interface"
+      ],
+      "count": 102
+    },
+    {
+      "id": "media",
+      "label": "Mídia e entretenimento",
+      "kind": "specialized",
+      "description": "Apresentação, navegação e captura de mídia.",
+      "keywords": [
+        "imagem",
+        "áudio",
+        "vídeo",
+        "galeria",
+        "música",
+        "capas",
+        "álbuns",
+        "entretenimento"
+      ],
+      "count": 4
+    },
+    {
+      "id": "geolocation",
+      "label": "Geolocalização",
+      "kind": "specialized",
+      "description": "Seleção de áreas e contexto geográfico com provedores externos opcionais.",
+      "keywords": [
+        "mapa",
+        "bairro",
+        "localização",
+        "raio",
+        "território",
+        "região",
+        "geografia"
+      ],
+      "count": 1
+    },
+    {
+      "id": "conversation",
+      "label": "Conversação e IA",
+      "kind": "specialized",
+      "description": "Mensagens, composição de intenções e interação conversacional.",
+      "keywords": [
+        "chat",
+        "mensagem",
+        "conversa",
+        "voz",
+        "IA",
+        "assistente",
+        "inteligência artificial"
+      ],
+      "count": 4
+    },
+    {
+      "id": "analytics",
+      "label": "Dados e análise",
+      "kind": "specialized",
+      "description": "Visualização e exploração de indicadores e dados.",
+      "keywords": [
+        "gráfico",
+        "chart",
+        "indicador",
+        "métrica",
+        "d3",
+        "dados",
+        "análise"
+      ],
+      "count": 4
+    },
+    {
+      "id": "operations",
+      "label": "Trabalho e colaboração",
+      "kind": "specialized",
+      "description": "Fluxos de trabalho, revisão e agendamento.",
+      "keywords": [
+        "kanban",
+        "aprovação",
+        "agenda",
+        "processo",
+        "trabalho",
+        "colaboração",
+        "equipe"
+      ],
+      "count": 4
+    },
+    {
+      "id": "commerce",
+      "label": "Comércio e assinaturas",
+      "kind": "specialized",
+      "description": "Apresentação de planos e composição de contratação.",
+      "keywords": [
+        "plano",
+        "preço",
+        "assinatura",
+        "compra",
+        "comércio"
+      ],
+      "count": 2
+    },
+    {
+      "id": "finance",
+      "label": "Financeiro",
+      "kind": "specialized",
+      "description": "Apresentação de cobrança e informações financeiras.",
+      "keywords": [
+        "cobrança",
+        "fatura",
+        "pagamento",
+        "financeiro",
+        "finanças"
+      ],
+      "count": 1
+    },
+    {
+      "id": "content",
+      "label": "Conteúdo e aprendizagem",
+      "kind": "specialized",
+      "description": "Leitura e navegação de conteúdo editorial.",
+      "keywords": [
+        "artigo",
+        "texto",
+        "sumário",
+        "editorial",
+        "conteúdo",
+        "aprendizagem",
+        "leitura"
+      ],
+      "count": 2
+    }
+  ],
+  "themeTokens": [
+    "--accordion-border-width",
+    "--accordion-content-padding",
+    "--accordion-content-size",
+    "--accordion-divider-width",
+    "--accordion-gap",
+    "--accordion-item-border-width",
+    "--accordion-item-radius",
+    "--accordion-joined-open-background",
+    "--accordion-lead-gap",
+    "--accordion-open-background",
+    "--accordion-sm-content-padding",
+    "--accordion-sm-content-size",
+    "--accordion-sm-leading",
+    "--accordion-sm-trigger-padding",
+    "--accordion-sm-trigger-size",
+    "--accordion-surface",
+    "--accordion-trigger-font",
+    "--accordion-trigger-leading",
+    "--accordion-trigger-padding",
+    "--accordion-trigger-size",
+    "--app-shell-body-padding",
+    "--auth-control-active",
+    "--auth-control-bg",
+    "--auth-control-border",
+    "--auth-control-font",
+    "--auth-control-hover",
+    "--auth-control-text",
+    "--avatar-background",
+    "--avatar-custom-text",
+    "--avatar-group-overlap-lg",
+    "--avatar-group-overlap-md",
+    "--avatar-group-overlap-sm",
+    "--avatar-group-ring",
+    "--avatar-radius",
+    "--avatar-size-md",
+    "--avatar-square-radius",
+    "--avatar-text",
+    "--bg",
+    "--border",
+    "--border-soft",
+    "--brand",
+    "--brand-clear-space-scale",
+    "--brand-copa-blue",
+    "--brand-copa-green",
+    "--brand-copa-yellow",
+    "--brand-divider-gap-scale",
+    "--brand-divider-height-scale",
+    "--brand-dot-background",
+    "--brand-dot-radius",
+    "--brand-dot-shadow",
+    "--brand-glow",
+    "--brand-gradient",
+    "--brand-icon-mobile-120",
+    "--brand-icon-mobile-152",
+    "--brand-icon-mobile-167",
+    "--brand-icon-mobile-180",
+    "--brand-icon-mobile-192",
+    "--brand-icon-mobile-512",
+    "--brand-icon-site-128",
+    "--brand-icon-site-16",
+    "--brand-icon-site-32",
+    "--brand-icon-site-48",
+    "--brand-icon-site-64",
+    "--brand-icon-site-96",
+    "--brand-inverse-primary",
+    "--brand-lockup-gap-scale",
+    "--brand-logo-font",
+    "--brand-logo-gap",
+    "--brand-logo-inverse",
+    "--brand-logo-line-black",
+    "--brand-logo-line-theme",
+    "--brand-logo-line-white",
+    "--brand-logo-mono",
+    "--brand-logo-orange",
+    "--brand-logo-solid-black",
+    "--brand-logo-solid-black-bg",
+    "--brand-logo-solid-black-fg",
+    "--brand-logo-solid-theme",
+    "--brand-logo-solid-theme-bg",
+    "--brand-logo-solid-theme-end",
+    "--brand-logo-solid-theme-fg",
+    "--brand-logo-solid-theme-start",
+    "--brand-logo-solid-white",
+    "--brand-logo-solid-white-bg",
+    "--brand-logo-solid-white-fg",
+    "--brand-logo-solid-wordmark",
+    "--brand-logo-symbol",
+    "--brand-logo-wordmark",
+    "--brand-mark",
+    "--brand-on-primary",
+    "--brand-on-primary-container",
+    "--brand-pride-blue",
+    "--brand-pride-green",
+    "--brand-pride-orange",
+    "--brand-pride-pink",
+    "--brand-pride-purple",
+    "--brand-pride-red",
+    "--brand-pride-yellow",
+    "--brand-primary",
+    "--brand-primary-container",
+    "--brand-soft",
+    "--brand-trans-blue",
+    "--brand-trans-pink",
+    "--brand-trans-white",
+    "--brand-wordmark",
+    "--brand-wordmark-scale",
+    "--breadcrumb-item-max",
+    "--breadcrumb-wrap",
+    "--button-border-width",
+    "--button-danger-background",
+    "--button-danger-background-active",
+    "--button-danger-background-hover",
+    "--button-danger-border",
+    "--button-danger-border-hover",
+    "--button-danger-foreground",
+    "--button-field-background",
+    "--button-field-border",
+    "--button-field-border-hover",
+    "--button-field-foreground",
+    "--button-field-weight",
+    "--button-ghost-background",
+    "--button-ghost-background-active",
+    "--button-ghost-background-hover",
+    "--button-ghost-foreground",
+    "--button-ghost-foreground-hover",
+    "--button-height-lg",
+    "--button-height-md",
+    "--button-height-sm",
+    "--button-padding-lg",
+    "--button-padding-md",
+    "--button-padding-sm",
+    "--button-primary-background",
+    "--button-primary-background-active",
+    "--button-primary-background-hover",
+    "--button-primary-border",
+    "--button-primary-foreground",
+    "--button-primary-foreground-active",
+    "--button-primary-foreground-hover",
+    "--button-primary-shadow",
+    "--button-radius",
+    "--button-secondary-background",
+    "--button-secondary-background-active",
+    "--button-secondary-background-hover",
+    "--button-secondary-border",
+    "--button-secondary-border-hover",
+    "--button-secondary-foreground",
+    "--calendar-border-width",
+    "--calendar-control-radius",
+    "--calendar-day-aspect",
+    "--calendar-day-radius",
+    "--calendar-day-size",
+    "--calendar-label-align",
+    "--calendar-label-order",
+    "--calendar-max-width",
+    "--calendar-month-size",
+    "--calendar-month-width",
+    "--calendar-nav-border-width",
+    "--calendar-nav-size",
+    "--calendar-padding",
+    "--calendar-weekday-font",
+    "--calendar-weekday-size",
+    "--calendar-wrap",
+    "--callout-description-gap",
+    "--callout-description-size",
+    "--callout-gap",
+    "--callout-icon-size",
+    "--callout-note-background",
+    "--callout-note-icon-background",
+    "--callout-note-icon-color",
+    "--callout-padding",
+    "--callout-radius",
+    "--callout-success-background",
+    "--callout-success-border",
+    "--callout-success-icon-background",
+    "--callout-success-icon-color",
+    "--card-background",
+    "--card-border-width",
+    "--card-description-gap",
+    "--card-description-leading",
+    "--card-description-size",
+    "--card-header-align",
+    "--card-header-gap",
+    "--card-header-margin-bottom",
+    "--card-icon-background",
+    "--card-icon-color",
+    "--card-icon-glyph-size",
+    "--card-icon-radius",
+    "--card-icon-size",
+    "--card-padding",
+    "--card-radius",
+    "--card-sm-description-size",
+    "--card-sm-icon-glyph-size",
+    "--card-sm-icon-size",
+    "--card-sm-title-size",
+    "--card-title-leading",
+    "--card-title-size",
+    "--card-title-weight",
+    "--card-title-white-space",
+    "--chart-octonary",
+    "--chart-primary",
+    "--chart-quaternary",
+    "--chart-quinary",
+    "--chart-secondary",
+    "--chart-senary",
+    "--chart-septenary",
+    "--chart-tertiary",
+    "--checkbox-radius",
+    "--chip-height",
+    "--chip-radius",
+    "--choice-align",
+    "--choice-hit-height",
+    "--code-accent",
+    "--code-action-hover",
+    "--code-action-text",
+    "--code-body-padding",
+    "--code-border",
+    "--code-border-width",
+    "--code-font-size",
+    "--code-header-background",
+    "--code-header-padding",
+    "--code-line-height",
+    "--code-radius",
+    "--code-surface",
+    "--code-syntax-comment",
+    "--code-syntax-function",
+    "--code-syntax-keyword",
+    "--code-syntax-number",
+    "--code-syntax-property",
+    "--code-syntax-punctuation",
+    "--code-syntax-string",
+    "--code-syntax-tag",
+    "--code-syntax-text",
+    "--code-text",
+    "--combobox-input-height",
+    "--command-description-color",
+    "--command-description-gap",
+    "--command-description-size",
+    "--composer-border-width",
+    "--composer-divider-width",
+    "--composer-focus-shadow",
+    "--composer-input-height",
+    "--composer-input-min-height",
+    "--composer-input-padding",
+    "--composer-label-display",
+    "--composer-resize",
+    "--composer-shadow",
+    "--composer-toolbar-height",
+    "--composer-toolbar-padding",
+    "--control-border-style",
+    "--control-border-width",
+    "--control-disabled-opacity",
+    "--control-disabled-shadow",
+    "--control-focus-offset",
+    "--control-focus-outline",
+    "--control-font-size",
+    "--control-font-size-sm",
+    "--control-font-weight",
+    "--control-group-radius",
+    "--control-hover-border",
+    "--control-icon-size-sm",
+    "--control-line-height",
+    "--control-pressed-shadow",
+    "--control-pressed-transform",
+    "--control-radius",
+    "--control-shadow",
+    "--control-transform-duration",
+    "--control-transform-ease",
+    "--coverflow-angle",
+    "--coverflow-gap",
+    "--coverflow-item-padding",
+    "--coverflow-item-width",
+    "--coverflow-perspective",
+    "--critical",
+    "--critical-ink",
+    "--critical-soft",
+    "--danger",
+    "--device-frame-bezel",
+    "--device-frame-bezel-color",
+    "--device-frame-phone-radius",
+    "--device-frame-radius",
+    "--dialog-align",
+    "--dialog-border-color",
+    "--dialog-border-width",
+    "--dialog-enter-transform",
+    "--dialog-max-height",
+    "--dialog-radius",
+    "--dialog-scrim-padding",
+    "--dialog-shadow",
+    "--dialog-surface",
+    "--dismiss-control-size",
+    "--drawer-body-padding",
+    "--drawer-radius",
+    "--drawer-surface",
+    "--drawer-width",
+    "--duration-base",
+    "--duration-fast",
+    "--duration-instant",
+    "--duration-mid",
+    "--duration-normal",
+    "--duration-progress",
+    "--duration-slow",
+    "--ease-emph",
+    "--ease-in",
+    "--ease-out",
+    "--ease-spring",
+    "--elev-0",
+    "--elev-1",
+    "--elev-2",
+    "--elev-3",
+    "--elev-4",
+    "--elev-5",
+    "--elev-d-1",
+    "--elev-d-2",
+    "--elev-d-3",
+    "--elev-d-4",
+    "--embedded-action-radius",
+    "--embedded-action-size",
+    "--embedded-caret-size",
+    "--embedded-clear-size",
+    "--error",
+    "--error-container",
+    "--fab-extended-radius",
+    "--fab-hover-shadow",
+    "--fab-radius",
+    "--fab-shadow",
+    "--fab-surface",
+    "--field-background",
+    "--field-border",
+    "--field-border-width",
+    "--field-font-size",
+    "--field-height",
+    "--field-label-font",
+    "--field-label-gap",
+    "--field-label-size",
+    "--field-label-tracking",
+    "--field-label-transform",
+    "--field-label-weight",
+    "--field-padding-inline",
+    "--field-radius",
+    "--field-shadow",
+    "--focus-ring",
+    "--font-body",
+    "--font-brand",
+    "--font-heading",
+    "--font-headline",
+    "--font-mono",
+    "--font-weight-bold",
+    "--font-weight-medium",
+    "--font-weight-regular",
+    "--font-weight-semibold",
+    "--good",
+    "--good-ink",
+    "--good-soft",
+    "--hero-accent",
+    "--hero-actions-justify",
+    "--hero-actions-margin",
+    "--hero-align",
+    "--hero-areas",
+    "--hero-column-gap",
+    "--hero-columns",
+    "--hero-lead-color",
+    "--hero-lead-margin",
+    "--hero-lead-size",
+    "--hero-lead-tracking",
+    "--hero-lead-weight",
+    "--hero-media-gap",
+    "--hero-padding",
+    "--hero-title-case",
+    "--hero-title-color",
+    "--hero-title-descender",
+    "--hero-title-fill",
+    "--hero-title-leading",
+    "--hero-title-margin",
+    "--hero-title-size",
+    "--hero-title-tracking",
+    "--hero-title-weight",
+    "--icon-button-lg",
+    "--icon-button-md",
+    "--icon-button-sm",
+    "--info",
+    "--info-ink",
+    "--info-soft",
+    "--ink-1",
+    "--ink-2",
+    "--ink-3",
+    "--ink-4",
+    "--input-affix-icon-size",
+    "--input-icon-prefix-background",
+    "--input-icon-prefix-border",
+    "--input-icon-prefix-gap",
+    "--interface-detail-font",
+    "--interface-label-tracking",
+    "--interface-label-transform",
+    "--inverse-on-surface",
+    "--inverse-primary",
+    "--inverse-surface",
+    "--item-description-gap",
+    "--item-description-size",
+    "--item-gap",
+    "--item-media-color",
+    "--item-media-size",
+    "--item-title-leading",
+    "--item-title-size",
+    "--item-title-weight",
+    "--leading-normal",
+    "--leading-relaxed",
+    "--leading-snug",
+    "--leading-tight",
+    "--legacy-black",
+    "--legacy-brand-soft",
+    "--legacy-brand-soft-hover",
+    "--legacy-brand-tint",
+    "--legacy-button-shadow",
+    "--legacy-critical-ring",
+    "--legacy-danger-ink",
+    "--legacy-danger-line",
+    "--legacy-danger-line-hover",
+    "--legacy-info-soft",
+    "--legacy-ink-1",
+    "--legacy-ink-2",
+    "--legacy-ink-3",
+    "--legacy-line",
+    "--legacy-line-faint",
+    "--legacy-line-strong",
+    "--legacy-line-subtle",
+    "--legacy-modal-scrim",
+    "--legacy-neutral-soft",
+    "--legacy-ring",
+    "--legacy-surface-hover",
+    "--legacy-surface-muted",
+    "--legacy-switch-shadow",
+    "--legacy-warn-ink",
+    "--legacy-white",
+    "--line",
+    "--line-soft",
+    "--line-strong",
+    "--matrix-point-size",
+    "--motion-context-duration",
+    "--motion-context-exit-duration",
+    "--motion-context-x",
+    "--motion-context-y",
+    "--motion-ease-enter",
+    "--motion-ease-exit",
+    "--motion-feedback-duration",
+    "--motion-orientation-duration",
+    "--motion-orientation-exit-duration",
+    "--motion-page-duration",
+    "--motion-pressed-scale",
+    "--motion-reduced",
+    "--multiselect-input-min-width",
+    "--navigation-active-indicator-width",
+    "--navigation-hit-height",
+    "--navigation-link-radius",
+    "--navigation-menu-active-color",
+    "--navigation-menu-active-weight",
+    "--navigation-menu-font-size",
+    "--navigation-menu-gap",
+    "--navigation-menu-height",
+    "--navigation-menu-indicator-inset",
+    "--navigation-menu-indicator-size",
+    "--navigation-menu-item-color",
+    "--navigation-menu-item-height",
+    "--navigation-menu-item-padding-inline",
+    "--navigation-menu-item-radius",
+    "--navigation-menu-item-weight",
+    "--navigation-surface",
+    "--navigation-toggle-size",
+    "--notification-action-color",
+    "--notification-danger-color",
+    "--ok",
+    "--ok-ink",
+    "--ok-soft",
+    "--on-background",
+    "--on-critical",
+    "--on-error",
+    "--on-error-container",
+    "--on-good",
+    "--on-info",
+    "--on-ok",
+    "--on-primary",
+    "--on-primary-container",
+    "--on-secondary",
+    "--on-secondary-container",
+    "--on-surface",
+    "--on-surface-variant",
+    "--on-tertiary",
+    "--on-tertiary-container",
+    "--on-weak",
+    "--otp-cell-width",
+    "--outline",
+    "--outline-variant",
+    "--pagination-size",
+    "--phone-input-height",
+    "--primary",
+    "--primary-container",
+    "--primary-fixed",
+    "--primary-fixed-dim",
+    "--primary-hover",
+    "--primary-ink",
+    "--primary-soft",
+    "--prose-caption-color",
+    "--prose-caption-gap",
+    "--prose-caption-size",
+    "--prose-flow",
+    "--prose-font-body",
+    "--prose-font-heading",
+    "--prose-font-mono",
+    "--prose-h1-margin-bottom",
+    "--prose-h1-size",
+    "--prose-h2-margin-block",
+    "--prose-h2-size",
+    "--prose-heading-leading",
+    "--prose-heading-text-wrap",
+    "--prose-heading-tracking",
+    "--prose-heading-weight",
+    "--prose-leading",
+    "--prose-measure",
+    "--prose-quote-accent",
+    "--prose-quote-accent-width",
+    "--prose-quote-background",
+    "--prose-quote-border-width",
+    "--prose-quote-color",
+    "--prose-quote-padding",
+    "--prose-quote-size",
+    "--prose-size",
+    "--radius-default",
+    "--radius-full-token",
+    "--radius-lg",
+    "--radius-lg-token",
+    "--radius-md",
+    "--radius-pill",
+    "--radius-sm",
+    "--radius-xl",
+    "--radius-xl-token",
+    "--radius-xs",
+    "--secondary",
+    "--secondary-container",
+    "--secondary-fixed",
+    "--secondary-fixed-dim",
+    "--section-columns",
+    "--section-columns-gap",
+    "--section-gap",
+    "--section-order-1",
+    "--section-order-2",
+    "--section-order-3",
+    "--section-order-4",
+    "--section-stacked-gap",
+    "--segment-active-background",
+    "--segment-active-color",
+    "--segment-active-weight",
+    "--segment-height",
+    "--segment-icon-height",
+    "--segment-icon-width",
+    "--segment-padding",
+    "--segmented-border-width",
+    "--segmented-height",
+    "--selection-chip-height",
+    "--selection-chip-radius",
+    "--selection-hover-bg",
+    "--selection-hover-text",
+    "--selection-on-primary",
+    "--shadow-1",
+    "--shadow-2",
+    "--shadow-card-dark",
+    "--shadow-card-light",
+    "--shadow-focus-ring",
+    "--shadow-focus-ring-soft",
+    "--shadow-glow-hover",
+    "--shadow-glow-pulse",
+    "--shadow-glow-soft",
+    "--sidebar-width-compact",
+    "--sidebar-width-expanded",
+    "--sidebar-width-rail",
+    "--site-footer-gap",
+    "--site-footer-padding",
+    "--space-1",
+    "--space-10",
+    "--space-12",
+    "--space-16",
+    "--space-2",
+    "--space-20",
+    "--space-24",
+    "--space-3",
+    "--space-4",
+    "--space-5",
+    "--space-6",
+    "--space-7",
+    "--space-8",
+    "--split-control-size",
+    "--subnav-active-background",
+    "--subnav-active-color",
+    "--subnav-active-shadow",
+    "--subnav-active-weight",
+    "--subnav-group-gap",
+    "--subnav-heading-tracking",
+    "--subnav-heading-transform",
+    "--subnav-icon-gap",
+    "--subnav-icon-size",
+    "--subnav-indicator-color",
+    "--subnav-indicator-width",
+    "--subnav-item-align",
+    "--subnav-item-gap",
+    "--subnav-item-padding",
+    "--surface",
+    "--surface-2",
+    "--surface-border-width",
+    "--surface-bright",
+    "--surface-container",
+    "--surface-container-high",
+    "--surface-container-highest",
+    "--surface-container-low",
+    "--surface-container-lowest",
+    "--surface-dim",
+    "--surface-tint",
+    "--surface-variant",
+    "--switch-control-height",
+    "--switch-control-icon-size",
+    "--switch-control-padding",
+    "--switch-height",
+    "--switch-thumb-color",
+    "--switch-thumb-off-color",
+    "--switch-thumb-size",
+    "--switch-travel",
+    "--switch-width",
+    "--table-cell-padding",
+    "--table-heading-padding",
+    "--tabs-active-foreground",
+    "--tabs-active-weight",
+    "--tabs-font-size",
+    "--tabs-panel-gap",
+    "--tabs-pill-active-background",
+    "--tabs-pill-align",
+    "--tabs-pill-flex",
+    "--tabs-tab-padding",
+    "--tertiary",
+    "--tertiary-container",
+    "--tertiary-fixed",
+    "--tertiary-fixed-dim",
+    "--text-2xs",
+    "--text-base",
+    "--text-display",
+    "--text-eyebrow",
+    "--text-h1",
+    "--text-h2",
+    "--text-h3",
+    "--text-h4",
+    "--text-h5",
+    "--text-lg",
+    "--text-md",
+    "--text-sm",
+    "--text-xs",
+    "--timeline-line",
+    "--toc-item-padding",
+    "--toc-item-size",
+    "--toc-label-color",
+    "--toc-label-font",
+    "--toc-label-size",
+    "--toc-label-tracking",
+    "--toc-label-weight",
+    "--toggle-height",
+    "--toggle-padding",
+    "--tracking-brand",
+    "--tracking-breadcrumb",
+    "--tracking-display",
+    "--tracking-eyebrow",
+    "--tracking-h3",
+    "--tracking-heading",
+    "--tracking-normal",
+    "--tracking-uppercase",
+    "--type-body-large-line",
+    "--type-body-large-size",
+    "--type-body-lead-line",
+    "--type-body-lead-size",
+    "--type-body-medium-line",
+    "--type-body-medium-size",
+    "--type-body-small-line",
+    "--type-body-small-size",
+    "--type-body-xsmall-line",
+    "--type-body-xsmall-size",
+    "--type-code-line",
+    "--type-code-size",
+    "--type-display-hero-line",
+    "--type-display-hero-size",
+    "--type-display-large-line",
+    "--type-display-large-size",
+    "--type-h1-line",
+    "--type-h1-size",
+    "--type-h2-line",
+    "--type-h2-size",
+    "--type-h3-line",
+    "--type-h3-size",
+    "--type-h4-line",
+    "--type-h4-size",
+    "--type-h5-line",
+    "--type-h5-size",
+    "--type-helper-line",
+    "--type-helper-size",
+    "--type-input-line",
+    "--type-input-size",
+    "--type-label-large-line",
+    "--type-label-large-size",
+    "--type-label-medium-line",
+    "--type-label-medium-size",
+    "--type-label-small-line",
+    "--type-label-small-size",
+    "--type-metric-large-line",
+    "--type-metric-large-size",
+    "--type-navigation-line",
+    "--type-navigation-size",
+    "--weak",
+    "--weak-ink",
+    "--weak-soft",
+    "--weight-bold",
+    "--weight-medium",
+    "--weight-regular",
+    "--weight-semi",
+    "--weight-semibold",
+    "--z-dropdown",
+    "--z-modal",
+    "--z-overlay",
+    "--z-popover",
+    "--z-sticky",
+    "--z-toast",
+    "--z-tooltip"
+  ],
+  "publicImports": [
+    "@refy-design/web",
+    "@refy-design/web/contracts",
+    "@refy-design/web/styles.css",
+    "@refy-design/web/tokens.css",
+    "@refy-design/web/global.css",
+    "@refy-design/web/tokens.json",
+    "@refy-design/web/fonts.css",
+    "@refy-design/web/ai/catalog.json",
+    "@refy-design/web/ai/instructions.md",
+    "@refy-design/web/ai/*",
+    "@refy-design/web/D3Chart",
+    "@refy-design/web/*"
+  ],
+  "instructions": "instructions.md",
+  "choices": "control-choices.md",
+  "limits": [
+    "Static checks cover selected files and known syntax only.",
+    "Typecheck, browser interactions, visual comparison and human review remain necessary.",
+    "Pages compose components; business behavior and services stay in the consumer."
+  ],
+  "components": [
+    {
+      "id": "Button",
+      "label": "Button",
+      "level": "Átomos",
+      "area": "actions",
+      "storyId": "components-atoms-button--todas-variantes",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Button",
+      "description": "An action triggered by mouse, touch or keyboard, with progress and result states.",
+      "usage": [],
+      "howToUse": [
+        "Write the label as the action it performs, with a verb: \"Save changes\", \"Send invite\".",
+        "Keep one `primary` button per area. Other actions in the same area use `secondary` or `ghost`.",
+        "Use `danger` only for an action that deletes or cannot be undone, and confirm it first with AlertDialog.",
+        "While the action runs, set `loading` (or `status=\"loading\"`): the button shows progress and ignores new clicks. Use `status=\"success\"` or `\"error\"` to show the result in the button itself.",
+        "Use `block` in narrow columns and on mobile, where the button takes the full width."
+      ],
+      "alternatives": [
+        "Going to another page: Button with `href`, which renders a link, or NavCard.",
+        "An action with only an icon: IconButton.",
+        "Several actions grouped under one: SplitButton or Menu."
+      ],
+      "composition": [],
+      "document": "components/Button.json"
+    },
+    {
+      "id": "IconButton",
+      "label": "IconButton",
+      "level": "Átomos",
+      "area": "actions",
+      "storyId": "components-atoms-iconbutton--ghost-icon",
+      "collections": [
+        "core"
+      ],
+      "publicName": "IconButton",
+      "description": "Compact action shown as an icon, with a required accessible name.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a frequent action that a known icon already says: close, edit, delete, more options.",
+        "Always pass `aria-label` with the action (\"Delete invoice\"); it is what a screen reader announces.",
+        "Put it next to what it acts on, such as the end of a row or the corner of a card.",
+        "Pair it with Tooltip when the icon is not obvious to everyone."
+      ],
+      "alternatives": [
+        "The icon alone does not say the action: Button with text, with `leadingIcon` if you want the icon.",
+        "Main floating action on mobile: Fab."
+      ],
+      "composition": [],
+      "document": "components/IconButton.json"
+    },
+    {
+      "id": "ButtonGroup",
+      "label": "ButtonGroup",
+      "level": "Moléculas",
+      "area": "actions",
+      "storyId": "components-molecules-buttongroup--horizontal",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ButtonGroup",
+      "description": "Grouping of related controls; selection and events belong to the child components.",
+      "usage": [],
+      "howToUse": [
+        "Use it to join buttons that act on the same thing, such as align left, center and right, or zoom out and zoom in.",
+        "Give the group a `label` that names the set (\"Text alignment\").",
+        "When one button stays marked as active, control it with `activeIndex` and `onActiveIndexChange`.",
+        "Use `orientation=\"vertical\"` in toolbars on the side of the screen."
+      ],
+      "alternatives": [
+        "Choosing one value for a form: Segmented or RadioGroup.",
+        "Turning several options on and off: ToggleGroup."
+      ],
+      "composition": [],
+      "document": "components/ButtonGroup.json"
+    },
+    {
+      "id": "SplitButton",
+      "label": "SplitButton",
+      "level": "Moléculas",
+      "area": "actions",
+      "storyId": "components-molecules-splitbutton--fluxo-local",
+      "collections": [
+        "core"
+      ],
+      "publicName": "SplitButton",
+      "description": "Main action paired with a menu of alternative actions.",
+      "usage": [],
+      "howToUse": [
+        "Use it when one action is the usual one and a few variants of it are occasional: \"Save\" with \"Save as draft\" and \"Save and close\".",
+        "List the variants in `options`; the main side runs `defaultOptionId`, or the first enabled option.",
+        "Keep `loading` on while the action runs, as in Button."
+      ],
+      "alternatives": [
+        "The options are equally common: Menu, or separate buttons.",
+        "Choosing a value, not running an action: Select or Combobox."
+      ],
+      "composition": [
+        "Button",
+        "Menu"
+      ],
+      "document": "components/SplitButton.json"
+    },
+    {
+      "id": "OAuthButton",
+      "label": "OAuthButton",
+      "level": "Moléculas",
+      "area": "actions",
+      "storyId": "components-molecules-oauthbutton--provedores",
+      "note": "Oito provedores; fluxo OAuth pertence à aplicação.",
+      "collections": [
+        "core"
+      ],
+      "publicName": "OAuthButton",
+      "description": "Sign-in buttons for Google, Facebook, LinkedIn, Spotify, GitHub, X, Apple and Microsoft. They compose Button/GoogleButton; the application implements the OAuth flow.",
+      "usage": [],
+      "howToUse": [
+        "Use it on sign-in and sign-up screens, one button per provider, stacked with the same width.",
+        "Pick the provider with `provider`; the label and the logo come with it.",
+        "Start the sign-in in `onClick` and keep `loading` on until the provider answers. Show the cancel or the error next to the buttons.",
+        "The button does not authenticate: your application runs the OAuth flow."
+      ],
+      "alternatives": [
+        "Only Google: GoogleButton.",
+        "Connecting an account to an integration after sign-in: ConnectorCard."
+      ],
+      "composition": [
+        "Button",
+        "GoogleButton"
+      ],
+      "document": "components/OAuthButton.json"
+    },
+    {
+      "id": "GoogleButton",
+      "label": "GoogleButton",
+      "level": "Átomos",
+      "area": "actions",
+      "storyId": "components-atoms-googlebutton--continuar",
+      "note": "Botão de entrada: autenticação real pertence à aplicação.",
+      "collections": [
+        "core"
+      ],
+      "publicName": "GoogleButton",
+      "description": "Google sign-in action, keeping the provider's identity and the control's states.",
+      "usage": [],
+      "howToUse": [
+        "Use it for \"Sign in with Google\" when Google is the only provider, or the main one.",
+        "Start the sign-in in `onClick` and keep `loading` on until Google answers.",
+        "Use `block` on narrow screens, where it takes the full width like the other sign-in buttons."
+      ],
+      "alternatives": [
+        "Several providers on the same screen: OAuthButton."
+      ],
+      "composition": [
+        "Button"
+      ],
+      "document": "components/GoogleButton.json"
+    },
+    {
+      "id": "Fab",
+      "label": "Fab",
+      "level": "Átomos",
+      "area": "actions",
+      "storyId": "components-atoms-fab--fab-padrao",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Fab",
+      "description": "Main floating action, compact or with a label.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the one action people take most on a mobile screen: new message, new task, add photo.",
+        "Keep one per screen, in the lower corner, above the content.",
+        "Pass an `icon` and an `aria-label`. Use `extended` with `label` when the icon alone is not clear."
+      ],
+      "alternatives": [
+        "Several related actions from the same corner: FabMenu.",
+        "Desktop screens, where the action fits in the header: Button."
+      ],
+      "composition": [],
+      "document": "components/Fab.json"
+    },
+    {
+      "id": "FabMenu",
+      "label": "FabMenu",
+      "level": "Moléculas",
+      "area": "actions",
+      "storyId": "components-molecules-fabmenu--fluxo-local",
+      "collections": [
+        "core"
+      ],
+      "publicName": "FabMenu",
+      "description": "Floating action that reveals a set of related actions.",
+      "usage": [],
+      "howToUse": [
+        "Use it when the main action of the screen has three to five variants: new note, new photo, new list.",
+        "List them in `actions` with short labels, and give the closed button a `label` (\"Create\").",
+        "Handle the choice in `onSelect`."
+      ],
+      "alternatives": [
+        "Only one action: Fab.",
+        "Places people visit, not actions: Sidebar or NavigationMenu."
+      ],
+      "composition": [
+        "Fab",
+        "Menu"
+      ],
+      "document": "components/FabMenu.json"
+    },
+    {
+      "id": "PropertyActionGroup",
+      "label": "DecisionActions",
+      "level": "Moléculas",
+      "area": "actions",
+      "storyId": "components-molecules-propertyactiongroup--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "DecisionActions",
+      "description": "Related decision actions, with processing, done and unavailable states.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the decision on one item: accept or decline, approve or reject, save or skip.",
+        "Handle the choice in `onAction`. While your server answers, set `state` to processing; when it confirms, to done.",
+        "Turn off an action that does not apply with `disabledActions`, and say why in `statusMessage`."
+      ],
+      "alternatives": [
+        "Deciding item after item by swiping cards: DecisionDeck.",
+        "A single action: Button."
+      ],
+      "composition": [
+        "Button"
+      ],
+      "document": "components/PropertyActionGroup.json"
+    },
+    {
+      "id": "Input",
+      "label": "Input",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-input--input-padrao",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Input",
+      "description": "Text input with label, help, prefixes and error messaging.",
+      "usage": [
+        {
+          "need": "Erro de um campo",
+          "reason": "Erro fica junto do dado que precisa ser corrigido"
+        }
+      ],
+      "howToUse": [
+        "Use it for one line of free text: name, e-mail, link, amount.",
+        "Always give it a `label`. Use `hint` for the format expected (\"Only numbers\"), and `error` to say what is wrong and how to fix it.",
+        "Set the right `type` (`email`, `url`, `tel`, `number`): the mobile keyboard changes with it.",
+        "Use `prefix` and `suffix` for fixed parts, such as a currency symbol or a domain."
+      ],
+      "alternatives": [
+        "Several lines of text: Textarea.",
+        "Picking from known options: Select or Combobox.",
+        "Phone, postal code or verification code: PhoneInput, PostalCodeInput or Otp."
+      ],
+      "composition": [],
+      "document": "components/Input.json"
+    },
+    {
+      "id": "Textarea",
+      "label": "Textarea",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-textarea--textarea-padrao",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Textarea",
+      "description": "Multi-line text input with label, help and error.",
+      "usage": [
+        {
+          "need": "Erro de um campo",
+          "reason": "Erro fica junto do dado que precisa ser corrigido"
+        }
+      ],
+      "howToUse": [
+        "Use it for text that can take more than one line: description, comment, message.",
+        "Give it a `label`, and a `hint` with the limit or the tone expected (\"Up to 500 characters\").",
+        "Show `error` below the field, saying how to fix it."
+      ],
+      "alternatives": [
+        "One line: Input.",
+        "A message in a chat, with send and attachments: IntentComposer."
+      ],
+      "composition": [],
+      "document": "components/Textarea.json"
+    },
+    {
+      "id": "Select",
+      "label": "Select",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-select--select-padrao",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Select",
+      "description": "Native selection of one option, with groups, label and help.",
+      "usage": [
+        {
+          "need": "Escolher uma opção curta",
+          "reason": "Expõe valor atual sem exigir pesquisa"
+        }
+      ],
+      "howToUse": [
+        "Use it to pick one option from a short, known list: country, size, sort order.",
+        "Give it a `label` and start with the most common option selected, or with an empty option that asks for a choice.",
+        "Group long lists with `optgroup`.",
+        "The list that opens is the browser's own; on mobile it is the phone's picker."
+      ],
+      "alternatives": [
+        "Long list where typing helps: Combobox.",
+        "Two to five options that should all stay visible: Segmented or RadioGroup."
+      ],
+      "composition": [],
+      "document": "components/Select.json"
+    },
+    {
+      "id": "Combobox",
+      "label": "Combobox",
+      "level": "Moléculas",
+      "area": "forms",
+      "storyId": "components-molecules-combobox--controlled",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Combobox",
+      "description": "Search field and selection of one option, with keyboard navigation.",
+      "usage": [
+        {
+          "need": "Procurar numa lista de opções",
+          "reason": "Campo e opções cumprem a mesma tarefa; digitação filtra a escolha"
+        }
+      ],
+      "howToUse": [
+        "Use it to pick one option from a long list, where typing a few letters is faster than scrolling: city, customer, product.",
+        "Give it a `label` and, when it helps, a `hint` saying what can be searched (\"Name or tax ID\").",
+        "Group long lists with `group` on each option, and add `description` or `avatar` when the label alone does not tell two options apart.",
+        "Turn on `clearable` when \"no choice\" is a valid answer.",
+        "Set `emptyMessage` to say what to do when nothing matches."
+      ],
+      "alternatives": [
+        "Fewer than about seven options: Select or RadioGroup.",
+        "More than one choice: Multiselect.",
+        "A list of actions, not values: Menu or Command."
+      ],
+      "composition": [
+        "Avatar"
+      ],
+      "document": "components/Combobox.json"
+    },
+    {
+      "id": "Multiselect",
+      "label": "Multiselect",
+      "level": "Moléculas",
+      "area": "forms",
+      "storyId": "components-molecules-multiselect--controlled",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Multiselect",
+      "description": "Search and selection of multiple options, showing and removing the choices.",
+      "usage": [
+        {
+          "need": "Selecionar várias opções com pesquisa",
+          "reason": "Chips e contador representam o valor; quantidade visível depende do espaço"
+        }
+      ],
+      "howToUse": [
+        "Use it to pick several options from a long list: tags, people, cities.",
+        "Each choice becomes a chip in the field, with its own remove button. Limit how many show with `maxVisibleChips`; the rest becomes a \"+N\" count.",
+        "Use `listPlacement=\"overlay\"` when the list must not push the content below.",
+        "Set `emptyMessage` to say what to do when nothing matches."
+      ],
+      "alternatives": [
+        "Only one choice: Combobox.",
+        "Up to about six options that fit on screen: Checkbox list or ToggleGroup."
+      ],
+      "composition": [
+        "Chip"
+      ],
+      "document": "components/Multiselect.json"
+    },
+    {
+      "id": "Checkbox",
+      "label": "Checkbox",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-checkbox--checkbox-padrao",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Checkbox",
+      "description": "Independent choice, with label, description and selected or disabled states.",
+      "usage": [],
+      "howToUse": [
+        "Use it for an option that can be on or off regardless of the others: accept terms, receive news, one item of a list.",
+        "Write the `label` as the statement that becomes true when marked (\"Send me the weekly summary\").",
+        "Use `description` for the consequence, and `boxed` when each option is a row the person compares.",
+        "The change only takes effect when the form is saved."
+      ],
+      "alternatives": [
+        "Only one option of the group can be chosen: RadioGroup.",
+        "A setting that takes effect right away: Switch."
+      ],
+      "composition": [],
+      "document": "components/Checkbox.json"
+    },
+    {
+      "id": "RadioGroup",
+      "label": "RadioGroup",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-radiogroup--ciclo-de-cobranca",
+      "collections": [
+        "core"
+      ],
+      "publicName": "RadioGroup",
+      "description": "Set of mutually exclusive alternatives, with labels and descriptions.",
+      "usage": [
+        {
+          "need": "Uma opção entre poucas alternativas sempre visíveis",
+          "reason": "Seleção exclusiva; não usar ToggleGroup para simular essa garantia"
+        }
+      ],
+      "howToUse": [
+        "Use it when only one of a few options can be chosen and the person needs to see all of them to decide: plan, delivery method, visibility.",
+        "Give the group a `label` with the question, and each option a short label, with a description when the difference is not obvious.",
+        "Start with the safest or most common option selected."
+      ],
+      "alternatives": [
+        "Several options can be on at once: Checkbox.",
+        "Seven or more options: Select or Combobox.",
+        "Choices with image or price that work like cards: ChoiceCard."
+      ],
+      "composition": [],
+      "document": "components/RadioGroup.json"
+    },
+    {
+      "id": "Switch",
+      "label": "Switch",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-switch--desligado",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Switch",
+      "description": "Toggle of a preference between on and off.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a setting that takes effect as soon as it changes: notifications, dark mode, auto-save.",
+        "Write the `label` as the thing being turned on (\"E-mail notifications\"), not as a question.",
+        "Save the change in `onChange`. If saving fails, switch it back and say why."
+      ],
+      "alternatives": [
+        "The change only counts after the person saves the form: Checkbox.",
+        "An action that deletes or cannot be undone: Button with confirmation."
+      ],
+      "composition": [],
+      "document": "components/Switch.json"
+    },
+    {
+      "id": "Segmented",
+      "label": "Segmented",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-segmented--controlled",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Segmented",
+      "description": "Choice between related alternatives shown in a segmented control.",
+      "usage": [
+        {
+          "need": "Uma opção entre poucas alternativas sempre visíveis",
+          "reason": "Seleção exclusiva; não usar ToggleGroup para simular essa garantia"
+        }
+      ],
+      "howToUse": [
+        "Use it to switch between two to five views or modes of the same content: day, week and month; list and grid.",
+        "Keep labels short and of similar length. With `iconOnly`, the labels become the accessible names and tooltips.",
+        "Give the group a `label` that names what changes (\"Period\")."
+      ],
+      "alternatives": [
+        "More than five options: Select.",
+        "Several options on at once: ToggleGroup.",
+        "Separate sections with different content: Tabs."
+      ],
+      "composition": [
+        "Tooltip"
+      ],
+      "document": "components/Segmented.json"
+    },
+    {
+      "id": "ToggleGroup",
+      "label": "ToggleGroup",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-togglegroup--controlled",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ToggleGroup",
+      "description": "A set of independent toggles with multiple values; for exclusive choice, use Segmented or RadioGroup.",
+      "usage": [
+        {
+          "need": "Alternar opções independentes sempre visíveis",
+          "reason": "API de múltiplos valores (`string[]`); cada botão liga/desliga sua opção"
+        }
+      ],
+      "howToUse": [
+        "Use it to turn on several filters or formats that stay visible: bold, italic and underline; critical, warnings and info.",
+        "Each button shows whether it is on; the value is the list of options on.",
+        "Give the group a `label` that names the set (\"Severity\")."
+      ],
+      "alternatives": [
+        "Only one option at a time: Segmented or RadioGroup.",
+        "Many options: Multiselect."
+      ],
+      "composition": [],
+      "document": "components/ToggleGroup.json"
+    },
+    {
+      "id": "Range",
+      "label": "Range",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-range--controlled",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Range",
+      "description": "Selection of a numeric range with two bounds and keyboard support.",
+      "usage": [],
+      "howToUse": [
+        "Use it to pick a range between two values: price, distance, area.",
+        "Give it a `label` and format the values with `formatValue` (\"R$ 200\", \"5 km\").",
+        "Add `histogram` to show how many results fall in each part of the range, and `ticks` for reference marks.",
+        "Use `fixedMinimum` when only the upper end changes, such as a radius from zero."
+      ],
+      "alternatives": [
+        "One value: Slider.",
+        "An exact number that people type: Input with `type=\"number\"`."
+      ],
+      "composition": [],
+      "document": "components/Range.json"
+    },
+    {
+      "id": "Slider",
+      "label": "Slider",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-slider--controlled",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Slider",
+      "description": "Pick a numeric value by dragging, track or keyboard.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a value where the position matters more than the exact number: volume, opacity, intensity.",
+        "Give it a `label`; use `hideLabel` in compact bars, where the name stays only for screen readers.",
+        "Use `marks` when only a few steps are valid (1 to 5), and `ticks` to name the ends (\"Shallow\", \"Deep\")."
+      ],
+      "alternatives": [
+        "Two ends: Range.",
+        "An exact number: Input with `type=\"number\"`."
+      ],
+      "composition": [],
+      "document": "components/Slider.json"
+    },
+    {
+      "id": "Otp",
+      "label": "Otp",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-otp--controlled",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Otp",
+      "description": "Verification code input, with multiple slots and paste support.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the code sent by SMS, e-mail or an authenticator app.",
+        "Set `length` to the size of the code, and `groupSize` to split long codes (\"392 114\").",
+        "Verify in `onComplete`, which fires when the last digit is filled. Show `error` when the code is wrong, and a resend link below.",
+        "Your application sends and checks the code, and controls expiry and attempts."
+      ],
+      "alternatives": [
+        "A password or any free text: Input."
+      ],
+      "composition": [],
+      "document": "components/Otp.json"
+    },
+    {
+      "id": "PhoneInput",
+      "label": "PhoneInput",
+      "level": "Moléculas",
+      "area": "forms",
+      "storyId": "components-molecules-phoneinput--padrao",
+      "collections": [
+        "core"
+      ],
+      "publicName": "PhoneInput",
+      "description": "Phone input with country selection, international code and formatting.",
+      "usage": [],
+      "howToUse": [
+        "Use it for phone numbers that can come from more than one country.",
+        "Start with the country most people use in `country`, and limit the list with `countries` when only some apply.",
+        "The Brazilian format is applied as people type. Validate other countries in your application."
+      ],
+      "alternatives": [
+        "A phone that is always from the same country, with no selector: Input with `type=\"tel\"`."
+      ],
+      "composition": [],
+      "document": "components/PhoneInput.json"
+    },
+    {
+      "id": "PostalCodeInput",
+      "label": "PostalCodeInput",
+      "level": "Moléculas",
+      "area": "forms",
+      "storyId": "components-molecules-postalcodeinput--padrao",
+      "collections": [
+        "core"
+      ],
+      "publicName": "PostalCodeInput",
+      "description": "Postal code (CEP) input and lookup, with searching, result and error states.",
+      "usage": [],
+      "howToUse": [
+        "Use it on address forms, so the street, district and city fill in from the postal code (CEP).",
+        "Pass your lookup service in `lookup` and fill the other fields in `onAddressFound`.",
+        "The search runs when the CEP is complete and the field loses focus, or on the Search button. If it fails, people can still type the address."
+      ],
+      "alternatives": [
+        "An address outside Brazil, or a free search for places: Input or Combobox.",
+        "Picking an area on a map: GeoAreaPicker."
+      ],
+      "composition": [
+        "Button",
+        "Input"
+      ],
+      "document": "components/PostalCodeInput.json"
+    },
+    {
+      "id": "Calendar",
+      "label": "Calendar",
+      "level": "Moléculas",
+      "area": "forms",
+      "storyId": "components-molecules-calendar--single-controlled",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Calendar",
+      "description": "Calendar to pick a date or a range, with limits and navigation between months.",
+      "usage": [],
+      "howToUse": [
+        "Use it when the calendar stays open on the screen: booking, availability, a period for a report.",
+        "Use `mode=\"range\"` for start and end, with `numberOfMonths={2}` so both fit side by side.",
+        "Block the days that cannot be chosen with `min` and `max`.",
+        "Set `weekStartsOn` and `locale` for the country of the people using it."
+      ],
+      "alternatives": [
+        "A date inside a form, where the calendar opens from a field: DatePicker.",
+        "Days with available times: SchedulePicker."
+      ],
+      "composition": [],
+      "document": "components/Calendar.json"
+    },
+    {
+      "id": "VisitSchedulePicker",
+      "label": "SchedulePicker",
+      "level": "Organismos",
+      "area": "forms",
+      "storyId": "components-organisms-visitschedulepicker--multi-dia",
+      "collections": [
+        "operations"
+      ],
+      "publicName": "SchedulePicker",
+      "description": "Selection of available days and times, with summary and time zone.",
+      "usage": [],
+      "howToUse": [
+        "Use it to book a time: a visit, an appointment, a call. The person picks a day, then one of the times available that day.",
+        "Pass the free times your server computed, and mark the busy ones with `unavailable`. Limit the days with `minDate` and `maxDate`.",
+        "Set `timezone` whenever the person and the place can be in different time zones; the summary shows it.",
+        "Confirm the booking on your server before saying it is done: the time can be taken in the meantime."
+      ],
+      "alternatives": [
+        "Only a date, with no time: DatePicker or Calendar."
+      ],
+      "composition": [
+        "Badge",
+        "Calendar",
+        "ChoiceCard",
+        "ChoiceCardGroup",
+        "ToggleGroup"
+      ],
+      "document": "components/VisitSchedulePicker.json"
+    },
+    {
+      "id": "ChoiceCard",
+      "label": "ChoiceCard",
+      "level": "Moléculas",
+      "area": "forms",
+      "storyId": "components-molecules-choicecard--escolha-de-tema",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ChoiceCardGroup",
+      "description": "Choice shown in a card, with single or multiple selection and explanatory content.",
+      "usage": [
+        {
+          "need": "Escolher cards com texto ou mídia",
+          "reason": "ChoiceCard exige o contexto do grupo; `single` usa uma opção e `multiple` aceita várias"
+        }
+      ],
+      "howToUse": [
+        "Use it for choices that need more than a label to decide: plans with price, delivery options with deadline, templates with a preview.",
+        "Put the cards inside ChoiceCardGroup and give the group a `label` with the question.",
+        "Use `mode=\"single\"` when only one can be chosen, and `mode=\"multiple\"` when several can.",
+        "Set `columns` by how many fit side by side; `columns={1}` stacks them on mobile."
+      ],
+      "alternatives": [
+        "Short options that a label explains: RadioGroup or Checkbox."
+      ],
+      "composition": [],
+      "document": "components/ChoiceCard.json"
+    },
+    {
+      "id": "FileUpload",
+      "label": "FileUpload",
+      "level": "Moléculas",
+      "area": "forms",
+      "storyId": "components-molecules-fileupload--selecao",
+      "note": "Arquivos são tratados apenas neste navegador, sem envio a servidor.",
+      "collections": [
+        "core"
+      ],
+      "publicName": "FileUpload",
+      "description": "File selection and preview, with validation, progress and removal.",
+      "usage": [],
+      "howToUse": [
+        "Use it to attach files to a form: documents, photos, spreadsheets.",
+        "Say what is accepted in `accept` and `maxSize`, and repeat it in `hint` (\"PDF or JPG, up to 10 MB\").",
+        "Turn on `multiple` when more than one file makes sense.",
+        "Your application uploads the files. While it does, pass `state` and `progress`; if it fails, show `errorMessage` with what to do."
+      ],
+      "alternatives": [
+        "A voice message: VoiceRecorder.",
+        "Showing photos already uploaded: MediaGallery."
+      ],
+      "composition": [
+        "Badge",
+        "Button",
+        "Callout",
+        "IconButton",
+        "ProgressBar"
+      ],
+      "document": "components/FileUpload.json"
+    },
+    {
+      "id": "GeoAreaPicker",
+      "label": "GeoAreaPicker",
+      "level": "Organismos",
+      "area": "forms",
+      "storyId": "components-organisms-geoareapicker--sem-mapa",
+      "note": "Seleção textual funcional. Provedor de mapa não conectado.",
+      "collections": [
+        "geolocation"
+      ],
+      "publicName": "GeoAreaPicker",
+      "description": "Select an area by radius or regions, with optional map integration.",
+      "usage": [],
+      "howToUse": [
+        "Use it when people choose where a search applies: a radius around a point, or a list of neighborhoods.",
+        "Pass the regions in `neighborhoods` and the center in `baseId`. Limit the radius with `minRadius`, `maxRadius` and `radiusStep`.",
+        "The map is optional: pass your map provider in `map`. Without it, the choice works by text and the slider."
+      ],
+      "alternatives": [
+        "A full address: PostalCodeInput and Input.",
+        "Picking a few cities from a list, without radius: Multiselect."
+      ],
+      "composition": [
+        "Callout",
+        "Chip",
+        "Multiselect",
+        "Range",
+        "SettingRow",
+        "SettingRowGroup"
+      ],
+      "document": "components/GeoAreaPicker.json"
+    },
+    {
+      "id": "Breadcrumb",
+      "label": "Breadcrumb",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-breadcrumb--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Breadcrumb",
+      "description": "Hierarchical navigation path, showing the current page.",
+      "usage": [],
+      "howToUse": [
+        "Use it at the top of a page that sits deep in a hierarchy, so people see where they are and go back up: Projects / Refy / Settings.",
+        "Each level except the last is a link; the last one is the current page.",
+        "Long paths fold the middle into a menu after `collapseAfter` levels."
+      ],
+      "alternatives": [
+        "Switching between sections at the same level: Tabs or NavigationMenu.",
+        "Steps of a flow: WizardStepper."
+      ],
+      "composition": [
+        "Menu"
+      ],
+      "document": "components/Breadcrumb.json"
+    },
+    {
+      "id": "Tabs",
+      "label": "Tabs",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-tabs--sublinhado",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Tabs",
+      "description": "Related content organized in tabs with keyboard navigation.",
+      "usage": [],
+      "howToUse": [
+        "Use it to split related content of the same page into parts that people see one at a time: Overview, Activity, Settings.",
+        "Keep the labels short, in two or three words, and start with the tab most people need.",
+        "Use `variant=\"pill\"` inside cards and panels, and `wrap` when the tabs do not fit on one line."
+      ],
+      "alternatives": [
+        "Switching the view of the same data (list, grid): Segmented.",
+        "Going to another page of the app: NavigationMenu or Sidebar."
+      ],
+      "composition": [],
+      "document": "components/Tabs.json"
+    },
+    {
+      "id": "NavCard",
+      "label": "NavCard",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-navcard--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "NavCard",
+      "description": "Navigation destination shown as an actionable card.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a destination that needs a line of context: a project, a settings area, the next page of a guide.",
+        "With `href` it is a link; without it, a button that runs `onClick`.",
+        "Mark the page people are on with `current`. Use `variant=\"dashed\"` for \"Create new…\" at the end of a list.",
+        "Put an `Avatar` or icon in `leading`, and a count or role in `meta`."
+      ],
+      "alternatives": [
+        "An action that changes data: Button.",
+        "Content with image to read, not a destination: ContentCard."
+      ],
+      "composition": [],
+      "document": "components/NavCard.json"
+    },
+    {
+      "id": "Pagination",
+      "label": "Pagination",
+      "level": "Átomos",
+      "area": "navigation",
+      "storyId": "components-atoms-pagination--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Pagination",
+      "description": "Navigation between result pages, with current position and bounds.",
+      "usage": [],
+      "howToUse": [
+        "Use it below a list or table that shows one page of results at a time.",
+        "Pass the current `page` and the total `pageCount`, and load the new page in `onPageChange`.",
+        "After changing page, take the person back to the top of the list."
+      ],
+      "alternatives": [
+        "A feed people scroll without counting pages: a \"Load more\" Button.",
+        "A table with built-in pages: the `pagination` of Table."
+      ],
+      "composition": [],
+      "document": "components/Pagination.json"
+    },
+    {
+      "id": "SettingsSubnav",
+      "label": "SettingsSubnav",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-settingssubnav--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "SettingsSubnav",
+      "description": "Navigation between settings areas, with groups and the current section marked.",
+      "usage": [],
+      "howToUse": [
+        "Use it on the left of a settings screen, to move between its areas: Profile, Team, Billing, Security.",
+        "Split long lists with `groups`, and mark the area open with `activeHref`.",
+        "Pass your router's link in `renderLink`, so the navigation does not reload the page."
+      ],
+      "alternatives": [
+        "Steps that must be followed in order: WizardStepper.",
+        "Sections of the same long page: TableOfContents."
+      ],
+      "composition": [],
+      "document": "components/SettingsSubnav.json"
+    },
+    {
+      "id": "TableOfContents",
+      "label": "TableOfContents",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-tableofcontents--playground",
+      "collections": [
+        "content"
+      ],
+      "publicName": "TableOfContents",
+      "description": "Anchor table of contents that follows the visible section of a document.",
+      "usage": [],
+      "howToUse": [
+        "Use it next to a long page, such as documentation or terms, to jump between its sections.",
+        "List the sections in `items`, in the order of the page, with the `id` of each heading.",
+        "Turn on `scrollSpy` to mark the section being read, and `sticky` to keep the list on screen while scrolling."
+      ],
+      "alternatives": [
+        "Going to other pages: SettingsSubnav or Sidebar."
+      ],
+      "composition": [],
+      "document": "components/TableOfContents.json"
+    },
+    {
+      "id": "WorkspaceSwitcher",
+      "label": "WorkspaceSwitcher",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-workspaceswitcher--controlled",
+      "collections": [
+        "core"
+      ],
+      "publicName": "WorkspaceSwitcher",
+      "description": "Selecting and searching a workspace, with management actions.",
+      "usage": [],
+      "howToUse": [
+        "Use it at the top of the sidebar when the same person works in several workspaces or companies.",
+        "Pass the list in `workspaces` and switch the data of the app in `onChange`; show an error if the switch fails.",
+        "Use `compact` when the sidebar is collapsed: only the avatar shows."
+      ],
+      "alternatives": [
+        "The account of the person, with profile and sign out: UserMenu."
+      ],
+      "composition": [
+        "Avatar"
+      ],
+      "document": "components/WorkspaceSwitcher.json"
+    },
+    {
+      "id": "UserMenu",
+      "label": "UserMenu",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-usermenu--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "UserMenu",
+      "description": "Account menu with identity and actions provided by the application.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the account of the person signed in: profile, settings and sign out.",
+        "Put it at the end of the top bar with `compact` (avatar only), or at the foot of the sidebar with `side=\"top\"`, showing name and e-mail.",
+        "Change the items in `entries` and handle them in `onSelect`. Signing out is your application's job."
+      ],
+      "alternatives": [
+        "Switching company or workspace: WorkspaceSwitcher."
+      ],
+      "composition": [
+        "Avatar",
+        "Menu"
+      ],
+      "document": "components/UserMenu.json"
+    },
+    {
+      "id": "HelpMenu",
+      "label": "HelpMenu",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-helpmenu--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "HelpMenu",
+      "description": "Menu of help resources, documentation and support.",
+      "usage": [],
+      "howToUse": [
+        "Use it in the top bar to gather help: documentation, keyboard shortcuts, contact support.",
+        "Change the items in `entries` and open each one in `onSelect`."
+      ],
+      "alternatives": [
+        "Help about one field: HelpField.",
+        "A guided first visit: GuidedTour."
+      ],
+      "composition": [
+        "IconButton",
+        "Menu"
+      ],
+      "document": "components/HelpMenu.json"
+    },
+    {
+      "id": "WizardStepper",
+      "label": "WizardStepper",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-wizardstepper--horizontal",
+      "collections": [
+        "core"
+      ],
+      "publicName": "WizardStepper",
+      "description": "The steps of a flow, with current, done and pending states.",
+      "usage": [],
+      "howToUse": [
+        "Use it at the top of a flow split into steps that follow an order: sign-up, checkout, onboarding.",
+        "Pass the `steps` and the `current` one. By default people can go back to done steps but not skip ahead; `allowFutureNavigation` lets them.",
+        "Give the flow a `label` (\"Create account\"), which is announced with the progress. On narrow screens it turns compact by itself.",
+        "Check the fields of a step before moving on: the stepper does not validate."
+      ],
+      "alternatives": [
+        "Questions asked one at a time: Questionnaire.",
+        "Areas with no order: SettingsSubnav or Tabs."
+      ],
+      "composition": [
+        "IconButton",
+        "ProgressBar"
+      ],
+      "document": "components/WizardStepper.json"
+    },
+    {
+      "id": "Menu",
+      "label": "Menu",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-menu--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Menu",
+      "description": "Contextual list of actions, separators and labels, with keyboard navigation; no nested submenus.",
+      "usage": [
+        {
+          "need": "Executar ações como editar, duplicar ou arquivar",
+          "reason": "Itens disparam ações; não representa valor de um formulário"
+        }
+      ],
+      "howToUse": [
+        "Use it for actions about one thing that do not fit on screen: the \"more\" of a row, of a card or of a header.",
+        "Write each item as a verb (\"Rename\", \"Duplicate\"), separate groups with a separator, and leave the action that deletes for last.",
+        "Open it from an IconButton or Button and handle the choice in `onSelect`.",
+        "It has one level only: no submenus."
+      ],
+      "alternatives": [
+        "Choosing a value for a form: Select or Combobox.",
+        "Right-click on an area: ContextMenu.",
+        "Searching among many commands: Command."
+      ],
+      "composition": [
+        "Kbd"
+      ],
+      "document": "components/Menu.json"
+    },
+    {
+      "id": "Badge",
+      "label": "Badge",
+      "level": "Átomos",
+      "area": "feedback",
+      "storyId": "components-atoms-badge--todos",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Badge",
+      "description": "Compact label to convey category, quantity or state.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a short label next to something: state (\"Paid\"), category (\"Design\"), count (\"12\").",
+        "Choose the `tone` by meaning: success, warning, danger, info or neutral. Write the state in the text too, not only in the color.",
+        "Add `dot` for a state that changes, such as online or offline."
+      ],
+      "alternatives": [
+        "Something people click to filter or remove: Chip.",
+        "A message that needs a sentence: Callout."
+      ],
+      "composition": [],
+      "document": "components/Badge.json"
+    },
+    {
+      "id": "Chip",
+      "label": "Chip",
+      "level": "Átomos",
+      "area": "feedback",
+      "storyId": "components-atoms-chip--semanticos",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Chip",
+      "description": "Filter or selection tag, with semantic tone and optional removal.",
+      "usage": [],
+      "howToUse": [
+        "Use it for filters people turn on and off above a list, and for choices shown inside a field.",
+        "Mark the active filter with `selected` and show how many items it has with `count`.",
+        "Use `removable` with `onRemove` for a choice that can be taken out, and update your list in it.",
+        "Set `selectionMode=\"radio\"` when only one chip of the row can be on."
+      ],
+      "alternatives": [
+        "A label people do not click: Badge.",
+        "The main action of the screen: Button."
+      ],
+      "composition": [],
+      "document": "components/Chip.json"
+    },
+    {
+      "id": "StatusDot",
+      "label": "StatusDot",
+      "level": "Átomos",
+      "area": "feedback",
+      "storyId": "components-atoms-statusdot--tons",
+      "collections": [
+        "core"
+      ],
+      "publicName": "StatusDot",
+      "description": "Compact signal of a state, with label and activity indicator.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a live state in little space: online, syncing, error, in a list or next to a name.",
+        "Always write the state next to it or in `aria-label`: the color alone does not say it.",
+        "Turn on `pulse` only for something happening now. It stops when the system asks for reduced motion."
+      ],
+      "alternatives": [
+        "A state with a word: Badge with `dot`."
+      ],
+      "composition": [],
+      "document": "components/StatusDot.json"
+    },
+    {
+      "id": "Callout",
+      "label": "Callout",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-callout--info",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Callout",
+      "description": "Contextual message with a semantic tone, content and optional actions.",
+      "usage": [
+        {
+          "need": "Informação persistente da tarefa",
+          "reason": "Conteúdo continua disponível, sem sumir antes de ser entendido"
+        }
+      ],
+      "howToUse": [
+        "Use it for a message about the page or the section it sits in: a limit about to end, a change of rules, a tip.",
+        "Choose the `tone` by meaning, write a short `title`, and say what to do in the text.",
+        "Put the action in `action` (\"Upgrade plan\"). Use `dismissible` only when the message can really be ignored."
+      ],
+      "alternatives": [
+        "A short result after an action (\"Saved\"): Toast or Snackbar.",
+        "A decision people must take before going on: AlertDialog.",
+        "The error of one field: the `error` of the field."
+      ],
+      "composition": [
+        "IconButton"
+      ],
+      "document": "components/Callout.json"
+    },
+    {
+      "id": "EmptyState",
+      "label": "EmptyState",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-emptystate--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "EmptyState",
+      "description": "Empty state that explains the situation and offers a next action when it applies.",
+      "usage": [],
+      "howToUse": [
+        "Use it where a list or area has nothing to show: first visit, a search with no results, a finished queue.",
+        "Say why it is empty in the `title` and what to do in the `message`: \"No invoices yet\" / \"Invoices show up here after the first sale\".",
+        "Offer the next step in `action`: create the first item, or clear the filters."
+      ],
+      "alternatives": [
+        "Content still loading: Skeleton.",
+        "Something failed: Callout with `tone=\"danger\"`."
+      ],
+      "composition": [],
+      "document": "components/EmptyState.json"
+    },
+    {
+      "id": "Skeleton",
+      "label": "Skeleton",
+      "level": "Átomos",
+      "area": "feedback",
+      "storyId": "components-atoms-skeleton--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Skeleton",
+      "description": "Temporary visual structure that stands in for the content while it loads.",
+      "usage": [],
+      "howToUse": [
+        "Use it in place of content that is loading, with the shape of what will appear: text lines, an avatar, a card.",
+        "Set `width` and `height` close to the real content, and `circle` for avatars, so the page does not jump when it arrives.",
+        "Mark the area that is loading with `aria-busy`."
+      ],
+      "alternatives": [
+        "An action people are waiting for: `loading` on the Button, or Spinner.",
+        "Loading ended with no data or with an error: EmptyState or Callout."
+      ],
+      "composition": [],
+      "document": "components/Skeleton.json"
+    },
+    {
+      "id": "ProgressBar",
+      "label": "ProgressBar",
+      "level": "Átomos",
+      "area": "feedback",
+      "storyId": "components-atoms-progressbar--saudavel",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ProgressBar",
+      "description": "Progress of a task or usage of a quota, with tone and loading state.",
+      "usage": [],
+      "howToUse": [
+        "Use it to show how much of a task is done: upload, import, steps of a sign-up.",
+        "Pass `value` from 0 to 100, and write the number or the step next to it (\"3 of 5\").",
+        "Use `indeterminate` when the end is unknown. Use `tone=\"warning\"` or `\"danger\"` when the value means trouble."
+      ],
+      "alternatives": [
+        "Usage of a plan against its limit: UsageMeter.",
+        "A short wait inside a button or small area: Spinner."
+      ],
+      "composition": [],
+      "document": "components/ProgressBar.json"
+    },
+    {
+      "id": "UsageMeter",
+      "label": "UsageMeter",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-usagemeter--saudavel",
+      "collections": [
+        "core"
+      ],
+      "publicName": "UsageMeter",
+      "description": "Resource usage against a limit, with a value and a visual state.",
+      "usage": [],
+      "howToUse": [
+        "Use it in plan and billing screens to show what was used of a limit: credits, storage, seats.",
+        "Pass `label`, `used`, `limit` and `unit`. Put the detail in `meta` (\"8 analyses this month\").",
+        "The color changes by itself at `warnAt` and `criticalAt`. Next to it, offer what to do when it is about to run out."
+      ],
+      "alternatives": [
+        "Progress of a task: ProgressBar.",
+        "A number with a trend, with no limit: Stat."
+      ],
+      "composition": [
+        "ProgressBar"
+      ],
+      "document": "components/UsageMeter.json"
+    },
+    {
+      "id": "Toast",
+      "label": "Toast",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-toast--fluxo-local",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ToastRegion",
+      "description": "Result notice with configurable action, dismissal and duration.",
+      "usage": [
+        {
+          "need": "Confirmação breve de uma ação",
+          "reason": "Feedback global temporário; não substitui campo de erro ou decisão obrigatória"
+        }
+      ],
+      "howToUse": [
+        "Use it for the result of an action that does not need a decision: \"Invoice sent\", \"Copied\".",
+        "Put ToastRegion once in the app and keep the list of toasts in your state; remove them in `onDismiss`.",
+        "Add an action when it helps, such as \"Undo\". The toast stays while the pointer or the focus is on it."
+      ],
+      "alternatives": [
+        "An error in a field: the `error` of the field.",
+        "A message that must stay on the page: Callout.",
+        "A decision: AlertDialog."
+      ],
+      "composition": [],
+      "document": "components/Toast.json"
+    },
+    {
+      "id": "Snackbar",
+      "label": "Snackbar",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-snackbar--desfazer",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Snackbar",
+      "description": "Result message with an optional contextual action; position and duration are set by the app.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a short result at the edge of the screen, with an optional action such as \"Undo\" or \"View\".",
+        "Your application decides where it appears and when it leaves; it does not close by itself.",
+        "Keep the text to one line and the action to one verb."
+      ],
+      "alternatives": [
+        "Several messages that stack and close by time: Toast.",
+        "A message tied to a section of the page: Callout."
+      ],
+      "composition": [],
+      "document": "components/Snackbar.json"
+    },
+    {
+      "id": "NotificationBell",
+      "label": "NotificationBell",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-notificationbell--fluxo-completo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "NotificationBell",
+      "description": "Access to notifications, with the unread count and read actions.",
+      "usage": [],
+      "howToUse": [
+        "Use it in the top bar to show what is new for the person, with the count of unread items on the bell.",
+        "Pass the `items` from your server. Open the related page in `onItemClick` and mark everything read in `onMarkAllRead`, updating the items and the count.",
+        "Set `emptyMessage` for when there is nothing new."
+      ],
+      "alternatives": [
+        "The result of an action just taken: Toast.",
+        "A full history of what happened: ActivityTimeline."
+      ],
+      "composition": [
+        "IconButton"
+      ],
+      "document": "components/NotificationBell.json"
+    },
+    {
+      "id": "Tooltip",
+      "label": "Tooltip",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-tooltip--no-botao",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Tooltip",
+      "description": "Short explanation of a control, shown on focus or hover.",
+      "usage": [],
+      "howToUse": [
+        "Use it to name an icon button or explain a control in a few words, shown on hover and on focus.",
+        "Keep `label` short. Add `shortcut` when the action has one (\"⌘K\").",
+        "Turn on `portalled` when the tooltip is cut by a container with scroll.",
+        "Nothing in it can be clicked, and on touch screens it may never show: keep important information visible."
+      ],
+      "alternatives": [
+        "Content with links or buttons: Popover.",
+        "A preview of a person or item on hover: HoverCard.",
+        "Help for a form field: HelpField."
+      ],
+      "composition": [
+        "Kbd"
+      ],
+      "document": "components/Tooltip.json"
+    },
+    {
+      "id": "Popover",
+      "label": "Popover",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-popover--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Popover",
+      "description": "Contextual content anchored to a control, with controllable open and close.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a small task attached to a button, that does not need the whole screen: filters, a short form, a color picker.",
+        "Control it with `open` and `onOpenChange`, and put the content in `content`. Give it a `label` that names the task.",
+        "The rest of the screen stays usable while it is open."
+      ],
+      "alternatives": [
+        "A task that blocks everything until it is done: Modal.",
+        "A list of actions: Menu.",
+        "Text only, with no controls: Tooltip."
+      ],
+      "composition": [],
+      "document": "components/Popover.json"
+    },
+    {
+      "id": "HoverCard",
+      "label": "HoverCard",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-hovercard--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "HoverCard",
+      "description": "Extra information revealed on hover or focus of an element.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a preview of a person, link or item when the pointer rests on it: profile, page summary, product.",
+        "Put the preview in `content`. Adjust `openDelay` so it does not open when the pointer just passes by.",
+        "The element that opens it must also work alone, such as a link to the full profile: touch screens have no hover."
+      ],
+      "alternatives": [
+        "Content people need to act on: Popover.",
+        "A short label: Tooltip."
+      ],
+      "composition": [],
+      "document": "components/HoverCard.json"
+    },
+    {
+      "id": "HelpField",
+      "label": "HelpField",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-helpfield--com-drawer-do-app",
+      "collections": [
+        "core"
+      ],
+      "publicName": "HelpField",
+      "description": "Help tied to a field, with an explanation and optional deeper detail.",
+      "usage": [],
+      "howToUse": [
+        "Use it as the label of a form field that needs an explanation: a tax term, a rule, a field people often get wrong.",
+        "Write `label` in the person's words and `helpText` in one or two sentences. Link the field with `htmlFor`.",
+        "When the topic needs more, use `onLearnMore` to open a Drawer with the full explanation."
+      ],
+      "alternatives": [
+        "Help for the whole app: HelpMenu.",
+        "Telling what is wrong with the value: the `error` of the field."
+      ],
+      "composition": [
+        "HoverCard",
+        "IconButton"
+      ],
+      "document": "components/HelpField.json"
+    },
+    {
+      "id": "GuidedTour",
+      "label": "GuidedTour",
+      "level": "Organismos",
+      "area": "feedback",
+      "storyId": "components-organisms-guidedtour--fechado",
+      "collections": [
+        "core"
+      ],
+      "publicName": "GuidedTour",
+      "description": "Sequence of guidance anchored to interface elements.",
+      "usage": [],
+      "howToUse": [
+        "Use it to present a new screen or feature in three to five steps, each one pointing at a part of the interface.",
+        "Open it on the first visit and save in `onComplete` that the person has seen it. Let people close it at any step.",
+        "Point each step only at elements already on screen."
+      ],
+      "alternatives": [
+        "Help that stays available: HelpMenu or HelpField.",
+        "A first-use flow that collects data: Questionnaire or WizardStepper."
+      ],
+      "composition": [
+        "Button",
+        "IconButton",
+        "Popover",
+        "ProgressBar"
+      ],
+      "document": "components/GuidedTour.json"
+    },
+    {
+      "id": "Modal",
+      "label": "Modal",
+      "level": "Organismos",
+      "area": "feedback",
+      "storyId": "components-organisms-modal--sem-titulo-visivel",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Modal",
+      "description": "Dialog over the interface, with title, content, actions and focus management.",
+      "usage": [
+        {
+          "need": "Confirmação que interrompe a tarefa",
+          "reason": "Foco fica na decisão até confirmar/cancelar"
+        }
+      ],
+      "howToUse": [
+        "Use it for a short task that must be finished or cancelled before going on: edit a record, invite a person, confirm details.",
+        "Give it a `title` that says the task, and put the actions in `footer`, with the main one last.",
+        "Control it with `open` and `onClose`. Use `width` for wider content, up to a form with two columns.",
+        "When it closes, focus goes back to the button that opened it."
+      ],
+      "alternatives": [
+        "Confirming an action that deletes or cannot be undone: AlertDialog.",
+        "Details people consult while still seeing the page: Drawer.",
+        "A long task with several steps: a page with WizardStepper."
+      ],
+      "composition": [
+        "IconButton"
+      ],
+      "document": "components/Modal.json"
+    },
+    {
+      "id": "Drawer",
+      "label": "Drawer",
+      "level": "Organismos",
+      "area": "feedback",
+      "storyId": "components-organisms-drawer--direita",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Drawer",
+      "description": "Side or bottom panel for content and actions related to the current context.",
+      "usage": [
+        {
+          "need": "Editar detalhes preservando contexto da tela",
+          "reason": "Painel lateral para uma tarefa contextual; continua sendo modal quando configurado assim"
+        }
+      ],
+      "howToUse": [
+        "Use it for details or editing that people do while keeping the page in sight: the record of a table row, filters, a cart.",
+        "Choose `side`: `right` for details, `left` for navigation, `bottom` on mobile, `full` for a screen of its own.",
+        "By default the page behind is blocked. Set `modal={false}` when people need to keep using it.",
+        "Put the actions in `footer`, which stays fixed while the content scrolls."
+      ],
+      "alternatives": [
+        "A short task that interrupts everything: Modal.",
+        "A few controls attached to a button: Popover."
+      ],
+      "composition": [
+        "IconButton"
+      ],
+      "document": "components/Drawer.json"
+    },
+    {
+      "id": "Command",
+      "label": "Command",
+      "level": "Organismos",
+      "area": "feedback",
+      "storyId": "components-organisms-command--com-atalho",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Command",
+      "description": "Command palette with search, groups and shortcuts to run app actions.",
+      "usage": [],
+      "howToUse": [
+        "Use it as a search box for actions and pages of the app, opened by a shortcut such as ⌘K.",
+        "Group the `items` (Pages, Actions, Recent) and show the shortcut of each one when there is.",
+        "Run the choice in `onSelect`. Listen for the opening shortcut in your app and keep the normal navigation visible: not everybody knows the shortcut."
+      ],
+      "alternatives": [
+        "Few actions about one item: Menu.",
+        "Picking a value in a form: Combobox."
+      ],
+      "composition": [
+        "Kbd",
+        "Modal"
+      ],
+      "document": "components/Command.json"
+    },
+    {
+      "id": "Table",
+      "label": "Table",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-table--data-table",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Table",
+      "description": "Data table with search, filters, sorting, pagination and content states.",
+      "usage": [],
+      "howToUse": [
+        "Use it when people compare the same fields across many records: each column is a field and each row is one record.",
+        "Align numbers and amounts with `align=\"num\"`, so digits line up on the right.",
+        "Turn on `searchable` for long lists, and `filterable` on columns with a few repeated values, such as status or owner.",
+        "Mark `sortable` only on the columns people sort by, such as date or amount.",
+        "When a row opens a detail, pass `onRowClick` and `rowLabel`, which names the row for screen readers.",
+        "Show `loading`, `error` and `empty` in place of the rows instead of hiding the table.",
+        "On mobile, set `minTableWidth`: the table scrolls sideways instead of squeezing the columns."
+      ],
+      "alternatives": [
+        "Records that move between stages: KanbanBoard.",
+        "A few items with image and text: ContentCard in a grid.",
+        "Thousands of rows on a server: search and paginate on the server, and pass only the current page to the table."
+      ],
+      "composition": [
+        "Pagination",
+        "Select",
+        "Skeleton"
+      ],
+      "document": "components/Table.json"
+    },
+    {
+      "id": "Charts",
+      "label": "Charts",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-charts--line",
+      "collections": [
+        "analytics"
+      ],
+      "publicName": "LineChart",
+      "description": "D3 charts: cartesian, radial, statistical, hierarchical, networks, flows and maps; accessible legends, axes, tooltip and data.",
+      "usage": [],
+      "howToUse": [
+        "Use it to show numbers that change or compare: sales by month, share by channel, distribution of values.",
+        "Choose the chart by the question: line for time, bars to compare, pie only for parts of a whole with few slices.",
+        "Always set `title`, the axis titles (`yTitle`, `xTitle`) and `formatY` with the unit.",
+        "Offer the data as a table next to it when people need the exact values."
+      ],
+      "alternatives": [
+        "One number with its trend: Stat.",
+        "A score from 0 to 100: ScoreGauge.",
+        "Exact values to look up: Table."
+      ],
+      "composition": [
+        "Button",
+        "Range",
+        "Table"
+      ],
+      "document": "components/Charts.json"
+    },
+    {
+      "id": "Stat",
+      "label": "Stat",
+      "level": "Moléculas",
+      "area": "data",
+      "storyId": "components-molecules-stat--com-delta",
+      "collections": [
+        "analytics"
+      ],
+      "publicName": "Stat",
+      "description": "Display of a value with optional label, change and trend.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the main numbers of a dashboard or plan: revenue, active users, limit per minute.",
+        "Write the name in `label`, the number in `value` and the unit in `unit`. Explain the number in `description` when it is not obvious.",
+        "Show the change with `delta` and a small trend in `chart`. Your application calculates both."
+      ],
+      "alternatives": [
+        "Usage against a limit: UsageMeter.",
+        "A score from 0 to 100: ScoreGauge."
+      ],
+      "composition": [],
+      "document": "components/Stat.json"
+    },
+    {
+      "id": "ScoreGauge",
+      "label": "ScoreGauge",
+      "level": "Moléculas",
+      "area": "data",
+      "storyId": "components-molecules-scoregauge--valor-vivo",
+      "collections": [
+        "analytics"
+      ],
+      "publicName": "ScoreGauge",
+      "description": "Score indicator with bands, label and size variations.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a score from 0 to 100 shown at a glance: quality, health, match.",
+        "Pick `size` by place: `sm` in table rows, `md` in cards, `lg` at the top of a page.",
+        "Set the bands with `okAt` and `warnAt`, and say next to it what the score measures."
+      ],
+      "alternatives": [
+        "A number with unit and trend: Stat.",
+        "Progress of a task: ProgressBar."
+      ],
+      "composition": [],
+      "document": "components/ScoreGauge.json"
+    },
+    {
+      "id": "Matrix2x2",
+      "label": "Matrix2x2",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-matrix2x2--selecionavel",
+      "collections": [
+        "analytics"
+      ],
+      "publicName": "Matrix2x2",
+      "description": "Points distributed in four quadrants, with axes, labels and selection.",
+      "usage": [],
+      "howToUse": [
+        "Use it to place items by two criteria and see which quadrant each one falls in: impact and effort, risk and likelihood.",
+        "Name the axes with `xLabel` and `yLabel`, and each quadrant in `quadrants` (\"Do now\", \"Plan\").",
+        "Pass the `points` in order of priority; open the detail of the chosen point in `onPointClick`."
+      ],
+      "alternatives": [
+        "Values over time: Charts.",
+        "A ranked list: Table with sorting."
+      ],
+      "composition": [],
+      "document": "components/Matrix2x2.json"
+    },
+    {
+      "id": "ActivityItem",
+      "label": "ActivityItem",
+      "level": "Moléculas",
+      "area": "data",
+      "storyId": "components-molecules-activityitem--com-autoria",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ActivityItem",
+      "description": "An event with author, time, content and context. Molecule shared by the feed and the compact version of ActivityTimeline.",
+      "usage": [],
+      "howToUse": [
+        "Use it for one event: who did what and when, such as \"Ana approved the invoice, 2 h ago\".",
+        "Fill `actor`, `title` and `timestamp`; add `description`, `badge` or `status` only when they change what the person reads.",
+        "Use `density=\"compact\"` in side panels and small widgets."
+      ],
+      "alternatives": [
+        "A list of events grouped by day: ActivityTimeline.",
+        "Milestones of a project: Timeline."
+      ],
+      "composition": [
+        "Avatar",
+        "Badge",
+        "Card"
+      ],
+      "document": "components/ActivityItem.json"
+    },
+    {
+      "id": "Timeline",
+      "label": "Timeline",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-timeline--vertical",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Timeline",
+      "description": "Milestones of a journey with dates and a time axis. Alternating vertical or horizontal, with optional media and actions. For events by people and systems, use ActivityTimeline.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the milestones of a journey: an order from purchase to delivery, a project from kick-off to launch.",
+        "Pass the `items` in the order they happen, each with date and title; add media or an action when a milestone needs them.",
+        "Use `orientation=\"horizontal\"` for few milestones in a wide area; vertical works on mobile."
+      ],
+      "alternatives": [
+        "Many events by people and systems: ActivityTimeline.",
+        "Steps the person still has to do: WizardStepper."
+      ],
+      "composition": [
+        "Badge",
+        "Card",
+        "EmptyState",
+        "StatusDot"
+      ],
+      "document": "components/Timeline.json"
+    },
+    {
+      "id": "EventTimeline",
+      "label": "ActivityTimeline",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-eventtimeline--cronologia",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ActivityTimeline",
+      "description": "Activity history grouped by date: author next to content, context and actions. ActivityTimeline also builds compact widgets. EventTimeline is a compatibility alias. For milestones of a journey, use Timeline.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the history of a record: comments, changes and system events, grouped by day.",
+        "Pass the `events` with author and time; set `locale` and `timezone` of the people reading.",
+        "Show loading failures with `error` and `onRetry`, and an empty history with `emptyTitle` and `emptyMessage`.",
+        "For a small widget, use `density=\"compact\"` and `groupByDate={false}`. In new code, import it as ActivityTimeline."
+      ],
+      "alternatives": [
+        "Milestones of a journey: Timeline.",
+        "A single event: ActivityItem."
+      ],
+      "composition": [
+        "ActivityItem",
+        "Button",
+        "Callout",
+        "EmptyState",
+        "StatusDot"
+      ],
+      "document": "components/EventTimeline.json"
+    },
+    {
+      "id": "KanbanCard",
+      "label": "KanbanCard",
+      "level": "Moléculas",
+      "area": "data",
+      "storyId": "components-molecules-kanbancard--completo",
+      "collections": [
+        "operations"
+      ],
+      "publicName": "KanbanCard",
+      "description": "Work card with composed opening, metadata and actions. The same molecule is used in the column and in the KanbanBoard drag preview.",
+      "usage": [],
+      "howToUse": [
+        "Use it for one work item on a board: title, owner, due date, tags.",
+        "Open the detail in `onOpen`, usually in a Drawer. Put quick actions in `actions`.",
+        "Inside KanbanBoard the drag handle comes from the board; alone, the card only shows the item."
+      ],
+      "alternatives": [
+        "A full board with columns: KanbanBoard.",
+        "Content to read, with image: ContentCard."
+      ],
+      "composition": [
+        "Button",
+        "Card"
+      ],
+      "document": "components/KanbanCard.json"
+    },
+    {
+      "id": "KanbanBoard",
+      "label": "KanbanBoard",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-kanbanboard--padrao",
+      "collections": [
+        "operations"
+      ],
+      "publicName": "KanbanBoard",
+      "description": "Board with global or per-stage WIP, per-column colors and transition rules. Drag by the handle or use keyboard/menu. Column and toolbar actions are composition, with no built-in business rules.",
+      "usage": [],
+      "howToUse": [
+        "Use it for work that moves through stages: sales pipeline, tasks, hiring.",
+        "Pass the `columns` with their cards and save the moves in `onColumnsChange`. Open a card in `onCardClick`.",
+        "Set a limit per column with `wipLimit` and the allowed moves with `allowedTransitions`. Check them on your server too: two people can move the same card.",
+        "Each card can also be moved by its menu, without dragging."
+      ],
+      "alternatives": [
+        "Comparing many fields of each item: Table.",
+        "Dates and deadlines: Calendar or Timeline."
+      ],
+      "composition": [
+        "Badge",
+        "IconButton",
+        "KanbanCard",
+        "Menu",
+        "Modal",
+        "StatusDot"
+      ],
+      "document": "components/KanbanBoard.json"
+    },
+    {
+      "id": "ApprovalWorkbench",
+      "label": "ApprovalWorkbench",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-approvalworkbench--em-analise",
+      "collections": [
+        "operations"
+      ],
+      "publicName": "ApprovalWorkbench",
+      "description": "Reusable review area, with information, progress and decision actions.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a queue of items reviewed one by one: documents to approve, submissions to check, claims to analyse.",
+        "Pass the `items`; the list stays on one side and the item in `activeId` opens in the panel. Change it in `onActiveChange`.",
+        "Your application decides and saves the outcome of each item."
+      ],
+      "alternatives": [
+        "A decision on a single item: DecisionActions.",
+        "A list to browse, with no decision: Table."
+      ],
+      "composition": [
+        "Badge",
+        "ProgressBar"
+      ],
+      "document": "components/ApprovalWorkbench.json"
+    },
+    {
+      "id": "Avatar",
+      "label": "Avatar",
+      "level": "Átomos",
+      "area": "content",
+      "storyId": "components-atoms-avatar--iniciais",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Avatar",
+      "description": "Visual identity of a person or entity, by image or initials.",
+      "usage": [],
+      "howToUse": [
+        "Use it to show who: the author of a comment, the owner of a task, the account signed in.",
+        "Pass `src` with the photo and `initials` as fallback; `alt` with the name when the name is not next to it.",
+        "Use `shape=\"square\"` for companies and projects, and `seed` for a fixed color per name."
+      ],
+      "alternatives": [
+        "Avatar with name and detail in a row: PersonCell.",
+        "Several people at once: AvatarGroup."
+      ],
+      "composition": [],
+      "document": "components/Avatar.json"
+    },
+    {
+      "id": "AvatarGroup",
+      "label": "AvatarGroup",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-avatargroup--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "AvatarGroup",
+      "description": "Stack of avatars with a visible limit, overlap and a count of extra participants.",
+      "usage": [],
+      "howToUse": [
+        "Use it to show who takes part in something in little space: members of a project, people in a conversation.",
+        "Pass the `items` in a stable order and limit with `max`; the rest becomes \"+N\".",
+        "Use `onOverflowClick` to open the full list, and `onItemClick` to open a person."
+      ],
+      "alternatives": [
+        "One person: Avatar.",
+        "A list of people with name and role: PersonCell in a list or Table."
+      ],
+      "composition": [
+        "Avatar",
+        "Tooltip"
+      ],
+      "document": "components/AvatarGroup.json"
+    },
+    {
+      "id": "BrandLogo",
+      "label": "BrandLogo",
+      "level": "Átomos",
+      "area": "content",
+      "storyId": "components-atoms-brandlogo--assinatura",
+      "collections": [
+        "core"
+      ],
+      "publicName": "BrandLogo",
+      "description": "Refy wordmark and symbol with sizes and display variants.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the refy brand in headers, footers and splash screens.",
+        "Use `markOnly` where only the symbol fits, and `tone` for dark or light backgrounds. The symbol takes the main color of the theme.",
+        "For your product's brand, pass it in `brand` with an `aria-label` that names it."
+      ],
+      "alternatives": [
+        "A person or company in a list: Avatar."
+      ],
+      "composition": [],
+      "document": "components/BrandLogo.json"
+    },
+    {
+      "id": "PersonCell",
+      "label": "PersonCell",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-personcell--pessoa",
+      "collections": [
+        "core"
+      ],
+      "publicName": "PersonCell",
+      "description": "Identification of a person or entity for rows, lists and tables.",
+      "usage": [],
+      "howToUse": [
+        "Use it to identify a person or company in a table cell or list row: avatar, name and one line of detail.",
+        "Put the e-mail or the role in `secondary`, and a short mark such as \"you\" in `tag`.",
+        "Use `size=\"sm\"` in table cells and `md` in lists."
+      ],
+      "alternatives": [
+        "Only the picture: Avatar.",
+        "A row that opens something or holds a setting: SettingRow or NavCard."
+      ],
+      "composition": [],
+      "document": "components/PersonCell.json"
+    },
+    {
+      "id": "Card",
+      "label": "Card",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-card--simples",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Card",
+      "description": "Content surface with spacing, header and elevation levels.",
+      "usage": [],
+      "howToUse": [
+        "Use it to group content about one subject on a surface: a summary, a form section, a chart with its title.",
+        "Open it with CardHeader for title, description and action. Use `elevation` 0 or 1 on pages and higher values only for things floating above.",
+        "When the whole card opens something, put a link or button inside it: the card itself is not clickable."
+      ],
+      "alternatives": [
+        "A destination in a list: NavCard.",
+        "Content with image, facts and actions: ContentCard."
+      ],
+      "composition": [],
+      "document": "components/Card.json"
+    },
+    {
+      "id": "Accordion",
+      "label": "Accordion",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-accordion--accordion-single",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Accordion",
+      "description": "Expandable sections that reveal content when their titles are triggered.",
+      "usage": [],
+      "howToUse": [
+        "Use it for content people read in parts and seldom all at once: FAQ, filters by group, sections of a long form.",
+        "Write titles that say what is inside, so people find the part without opening all of them.",
+        "Use `type=\"multiple\"` when people compare parts, and `defaultValue` to open the most read one.",
+        "Use `variant=\"plain\"` inside cards, where the outer border would repeat."
+      ],
+      "alternatives": [
+        "Sections people switch between often: Tabs.",
+        "A single block that opens and closes: Collapsible."
+      ],
+      "composition": [],
+      "document": "components/Accordion.json"
+    },
+    {
+      "id": "CodeBlock",
+      "label": "CodeBlock",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-codeblock--snippet",
+      "collections": [
+        "core"
+      ],
+      "publicName": "CodeBlock",
+      "description": "Code with syntax colors, monospaced font and copy of the original content.",
+      "usage": [],
+      "howToUse": [
+        "Use it for code people copy: install commands, examples, API keys.",
+        "Set `language` for the colors and `label` for the file name or the purpose (\"Production API key\").",
+        "Use `secret` for keys: the value stays hidden, shows only the last characters, and the copy button copies the full value."
+      ],
+      "alternatives": [
+        "A word of code inside a sentence: `<code>`.",
+        "Text people edit: Textarea."
+      ],
+      "composition": [
+        "IconButton"
+      ],
+      "document": "components/CodeBlock.json"
+    },
+    {
+      "id": "PropertyCard",
+      "label": "ContentCard",
+      "level": "Organismos",
+      "area": "content",
+      "storyId": "components-organisms-propertycard--grid",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ContentCard",
+      "description": "Content card with media, information and actions, in different compositions.",
+      "usage": [],
+      "howToUse": [
+        "Use it for items people browse and compare by picture and facts: listings, products, places, courses.",
+        "Fill `title`, `media` and a few `facts`; add `badges`, `summary` or `matchScore` when they help decide.",
+        "Choose `layout` by place: vertical in grids, horizontal in lists. Put the actions in `actions`.",
+        "In new code, import it as ContentCard."
+      ],
+      "alternatives": [
+        "A destination with one line of context: NavCard.",
+        "Deciding on items one at a time: DecisionDeck."
+      ],
+      "composition": [
+        "Badge",
+        "Card",
+        "DecisionActions",
+        "MediaGallery",
+        "ScoreGauge"
+      ],
+      "document": "components/PropertyCard.json"
+    },
+    {
+      "id": "Coverflow",
+      "label": "Coverflow",
+      "level": "Organismos",
+      "area": "content",
+      "storyId": "components-organisms-coverflow--capas",
+      "note": "Exploração finita por conteúdo visual. Ativação e integração pertencem à aplicação.",
+      "collections": [
+        "media"
+      ],
+      "publicName": "Coverflow",
+      "description": "Finite browsing of visual content with selection by identity, navigation, gesture and explicit activation.",
+      "usage": [],
+      "howToUse": [
+        "Use it to browse a finite set of covers or visual references and pick one: albums, themes, templates.",
+        "Draw each item with `renderItem` using only image and text: links and buttons inside it do not work.",
+        "Selecting moves the item to the center (`onSelectionChange`); opening it is a separate step (`onActivate`)."
+      ],
+      "alternatives": [
+        "A long list to read: a list or a grid of ContentCard.",
+        "Slides that people only go through: Carousel."
+      ],
+      "composition": [
+        "Button",
+        "IconButton"
+      ],
+      "document": "components/Coverflow.json"
+    },
+    {
+      "id": "PropertyMedia",
+      "label": "MediaGallery",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-propertymedia--paisagem",
+      "collections": [
+        "media"
+      ],
+      "publicName": "MediaGallery",
+      "description": "Media display with aspect ratios, navigation and loading or error states.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the photos of one item: a listing, a product, a place.",
+        "Set `aspectRatio` so the area keeps its size while loading, and `fit` to crop or show the whole picture.",
+        "Show `loading` while the photos arrive, and `errorMessage` with `onRetry` when they fail. In new code, import it as MediaGallery."
+      ],
+      "alternatives": [
+        "Different content in slides: Carousel.",
+        "One fixed image: AspectRatio with an `<img>`."
+      ],
+      "composition": [
+        "Button",
+        "Callout",
+        "IconButton",
+        "Skeleton"
+      ],
+      "document": "components/PropertyMedia.json"
+    },
+    {
+      "id": "SwipeDeck",
+      "label": "DecisionDeck",
+      "level": "Organismos",
+      "area": "content",
+      "storyId": "components-organisms-swipedeck--gesto",
+      "collections": [
+        "media"
+      ],
+      "publicName": "DecisionDeck",
+      "description": "Sequence of decision cards with navigation, gestures and explicit actions.",
+      "usage": [],
+      "howToUse": [
+        "Use it to decide on items one at a time, like or skip: candidates, listings, suggestions.",
+        "Save each decision in `onAction`. The buttons do the same as the gesture, so people who do not swipe can decide too.",
+        "Offer to start over in `onReset` when the cards end. In new code, import it as DecisionDeck."
+      ],
+      "alternatives": [
+        "Slides with no decision: Carousel.",
+        "Comparing several items side by side: a grid of ContentCard."
+      ],
+      "composition": [
+        "Button",
+        "ContentCard",
+        "DecisionActions",
+        "EmptyState"
+      ],
+      "document": "components/SwipeDeck.json"
+    },
+    {
+      "id": "VoiceRecorder",
+      "label": "VoiceRecorder",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-voicerecorder--idle",
+      "note": "Simulação de estados e duração, sem capturar áudio ou solicitar microfone.",
+      "collections": [
+        "media",
+        "conversation"
+      ],
+      "publicName": "VoiceRecorder",
+      "description": "Controlled interface for recording, pause, error and a text alternative; capture, permissions and transcription are wired by the app.",
+      "usage": [
+        {
+          "need": "Captura ou transcrição de voz",
+          "reason": "O componente controla apresentação/estados; MediaRecorder/Web Speech e permissões pertencem à aplicação"
+        }
+      ],
+      "howToUse": [
+        "Use it where people can speak instead of typing: a voice note, a search by voice, a message.",
+        "Your application records, asks for the microphone and transcribes. Pass the `state`, the `duration` and the `level` it reads.",
+        "Show the `transcript` for review before sending, and offer typing with `onUseFallback` when the microphone fails."
+      ],
+      "alternatives": [
+        "Attaching an existing audio file: FileUpload.",
+        "A request with text and voice together: IntentComposer."
+      ],
+      "composition": [
+        "Button",
+        "Callout",
+        "IconButton",
+        "ProgressBar"
+      ],
+      "document": "components/VoiceRecorder.json"
+    },
+    {
+      "id": "IntentComposer",
+      "label": "IntentComposer",
+      "level": "Organismos",
+      "area": "content",
+      "storyId": "components-organisms-intentcomposer--idle",
+      "note": "Fluxo simulado de entrada e resposta, sem serviço de IA.",
+      "collections": [
+        "conversation"
+      ],
+      "publicName": "IntentComposer",
+      "description": "Composing a request, with suggestions and processing states.",
+      "usage": [],
+      "howToUse": [
+        "Use it as the box where people describe what they want in their own words, by text or voice: a search, an order, a question to an assistant.",
+        "Offer `examples` of good requests and the `filters` that narrow it. Handle the request in `onSubmit`.",
+        "While your service processes, set `state`; then show what was understood in `understoodSummary`, with a way to edit.",
+        "The component does not run AI: your application interprets the text."
+      ],
+      "alternatives": [
+        "A plain form field: Input or Textarea.",
+        "Messages of a conversation: Message and MessageScroller."
+      ],
+      "composition": [
+        "Button",
+        "Callout",
+        "Chip",
+        "IconButton",
+        "Multiselect",
+        "ProgressBar",
+        "Segmented",
+        "Textarea",
+        "VoiceRecorder"
+      ],
+      "document": "components/IntentComposer.json"
+    },
+    {
+      "id": "Kbd",
+      "label": "Kbd",
+      "level": "Átomos",
+      "area": "content",
+      "storyId": "components-atoms-kbd--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Kbd",
+      "description": "Visual representation of a key or shortcut combination.",
+      "usage": [],
+      "howToUse": [
+        "Use it to write a key or a shortcut in text, menus and tooltips: ⌘K, Esc, Enter.",
+        "One Kbd per key; join combinations with \"+\" between them.",
+        "It only shows the key: your application listens for the shortcut."
+      ],
+      "alternatives": [
+        "Code people copy: CodeBlock."
+      ],
+      "composition": [],
+      "document": "components/Kbd.json"
+    },
+    {
+      "id": "AppShell",
+      "label": "AppShell",
+      "level": "Organismos",
+      "area": "structure",
+      "storyId": "components-organisms-appshell--completo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "AppShell",
+      "description": "Application structure combining side navigation, top bar and content area.",
+      "usage": [],
+      "howToUse": [
+        "Use it as the frame of an app: sidebar on the left, top bar and the content of the page.",
+        "Configure the sidebar in `sidebar` and the top bar in `topbar`; the page goes in `children`.",
+        "Turn on `responsiveSidebar` so the sidebar becomes a drawer on mobile. Limit the reading width with `contentMaxWidth`."
+      ],
+      "alternatives": [
+        "A public site page: Hero, Section and SiteFooter."
+      ],
+      "composition": [
+        "BrandLogo",
+        "Drawer",
+        "IconButton",
+        "Sidebar",
+        "Topbar"
+      ],
+      "document": "components/AppShell.json"
+    },
+    {
+      "id": "Sidebar",
+      "label": "Sidebar",
+      "level": "Organismos",
+      "area": "structure",
+      "storyId": "components-organisms-sidebar--expandida",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Sidebar",
+      "description": "The app's side navigation, with expanded, compact and collapsed versions.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the main places of an app, always visible on the side: Home, Projects, Reports, Settings.",
+        "Split items into `groups`, mark the page open with `activeId`, and put the main creation action in `cta` (\"New project\").",
+        "Use `workspaces` to switch companies at the top, and `account` for the person at the foot."
+      ],
+      "alternatives": [
+        "Areas inside a settings page: SettingsSubnav.",
+        "A site with few pages: NavigationMenu."
+      ],
+      "composition": [
+        "Avatar",
+        "Badge",
+        "BrandLogo",
+        "Button",
+        "IconButton",
+        "Tooltip",
+        "UserMenu",
+        "WorkspaceSwitcher"
+      ],
+      "document": "components/Sidebar.json"
+    },
+    {
+      "id": "Topbar",
+      "label": "Topbar",
+      "level": "Organismos",
+      "area": "structure",
+      "storyId": "components-organisms-topbar--padrao",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Topbar",
+      "description": "Top bar with path, search, tabs or segments and slots for actions; notifications, help and account are compositions by the consumer.",
+      "usage": [],
+      "howToUse": [
+        "Use it at the top of each app page: where the person is, search, and the global actions.",
+        "Show the path in `crumbs`, open the search in `onSearchClick`, and switch views with `tabs` or `segments`.",
+        "Put NotificationBell, HelpMenu and UserMenu in `actions`."
+      ],
+      "alternatives": [
+        "The title and actions of one page: PageHeader."
+      ],
+      "composition": [
+        "BrandLogo",
+        "Breadcrumb",
+        "Kbd",
+        "Segmented",
+        "Tabs"
+      ],
+      "document": "components/Topbar.json"
+    },
+    {
+      "id": "PageHeader",
+      "label": "PageHeader",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-pageheader--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "PageHeader",
+      "description": "Page header with title, description, path and contextual actions.",
+      "usage": [],
+      "howToUse": [
+        "Use it at the top of each page: the title, a line that says what the page is for, and the main actions.",
+        "The `title` becomes the page's only `<h1>`. Put the description in `lead` and the actions in `actions`, with at most one primary.",
+        "Pass a Breadcrumb in `breadcrumb` on deep pages, and context in `eyebrow` (\"Team · Settings\")."
+      ],
+      "alternatives": [
+        "A section inside the page: SectionHeader.",
+        "The opening of a public site: Hero."
+      ],
+      "composition": [],
+      "document": "components/PageHeader.json"
+    },
+    {
+      "id": "SectionHeader",
+      "label": "SectionHeader",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-sectionheader--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "SectionHeader",
+      "description": "Section title with count, description and optional action.",
+      "usage": [],
+      "howToUse": [
+        "Use it to open each section of a page: \"Members\", \"Recent invoices\", \"API keys\".",
+        "The `title` becomes an `<h2>`. Show how many items there are in `count` and put a link or small button in `action` (\"Manage\").",
+        "Give it an `id` when the page has a TableOfContents. Use `rule` on dashboards."
+      ],
+      "alternatives": [
+        "The top of the page: PageHeader."
+      ],
+      "composition": [
+        "Badge"
+      ],
+      "document": "components/SectionHeader.json"
+    },
+    {
+      "id": "Hero",
+      "label": "Hero",
+      "level": "Organismos",
+      "area": "structure",
+      "storyId": "components-organisms-hero--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Hero",
+      "description": "A page's first fold with title, accent, lead and actions; the composition comes from the theme.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the first screen of a public page: the main title, one sentence and the main actions.",
+        "Write the `title` as the promise of the page, the `lead` as the proof in one sentence, and put one primary and one secondary action in `actions`.",
+        "The layout comes from the theme: switching the theme changes the hero without code."
+      ],
+      "alternatives": [
+        "The title of an app screen: PageHeader."
+      ],
+      "composition": [],
+      "document": "components/Hero.json"
+    },
+    {
+      "id": "Section",
+      "label": "Section",
+      "level": "Organismos",
+      "area": "structure",
+      "storyId": "components-organisms-section--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Section",
+      "description": "Page block with text and proof side by side, stacked or in the theme's columns.",
+      "usage": [],
+      "howToUse": [
+        "Use it for each block of a public page: an argument with its proof, such as text next to an image, a demo or numbers.",
+        "Put the proof in `aside`. Use `layout=\"split\"` for side by side, and `reverse` to alternate sides down the page.",
+        "On mobile the parts stack, and screen readers always read the text first."
+      ],
+      "alternatives": [
+        "Data grids inside an app: Table or Card."
+      ],
+      "composition": [],
+      "document": "components/Section.json"
+    },
+    {
+      "id": "DeviceFrame",
+      "label": "DeviceFrame",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-deviceframe--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "DeviceFrame",
+      "description": "Browser or phone frame with the live page at the device's real width.",
+      "usage": [],
+      "howToUse": [
+        "Use it to show a page working inside a browser window or a phone, at the real width of the device.",
+        "Pass the page in `src` with a `frameTitle`, and the device size in `viewport`; it scales to fit.",
+        "The page inside does not react to clicks. Offer a link to open it for real."
+      ],
+      "alternatives": [
+        "A plain screenshot with no frame: an `<img>` in AspectRatio."
+      ],
+      "composition": [],
+      "document": "components/DeviceFrame.json"
+    },
+    {
+      "id": "SiteFooter",
+      "label": "SiteFooter",
+      "level": "Organismos",
+      "area": "structure",
+      "storyId": "components-organisms-sitefooter--playground",
+      "collections": [
+        "core"
+      ],
+      "publicName": "SiteFooter",
+      "description": "Site footer with brand, link columns and credits.",
+      "usage": [],
+      "howToUse": [
+        "Use it at the end of public pages: brand, link columns, credits and legal notes.",
+        "Give each column a title; each one becomes a navigation named by it. Links to other sites open in a new tab and show ↗.",
+        "Put language and color mode in `settings`."
+      ],
+      "alternatives": [
+        "Navigation inside an app: Sidebar."
+      ],
+      "composition": [],
+      "document": "components/SiteFooter.json"
+    },
+    {
+      "id": "Divider",
+      "label": "Divider",
+      "level": "Átomos",
+      "area": "structure",
+      "storyId": "components-atoms-divider--horizontal",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Divider",
+      "description": "Visual separation between content groups, with optional orientation and label.",
+      "usage": [],
+      "howToUse": [
+        "Use it to separate groups of content that have no title of their own, such as blocks in a menu or a form.",
+        "Use `label` for a choice between paths (\"or\"), and `orientation=\"vertical\"` between items on one line."
+      ],
+      "alternatives": [
+        "A group with a name: SectionHeader.",
+        "Space alone separates well enough: no divider."
+      ],
+      "composition": [],
+      "document": "components/Divider.json"
+    },
+    {
+      "id": "StickyBar",
+      "label": "StickyBar",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-stickybar--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "StickyBar",
+      "description": "Action bar tied to the context, kept during scrolling.",
+      "usage": [],
+      "howToUse": [
+        "Use it to keep the context and the actions of a long page in view while scrolling: the item open, its state, Save.",
+        "Show it with `visible` once the original header leaves the screen. Fill `title`, `status` and `actions`."
+      ],
+      "alternatives": [
+        "Save and cancel at the end of a form: StickyFooter."
+      ],
+      "composition": [],
+      "document": "components/StickyBar.json"
+    },
+    {
+      "id": "StickyFooter",
+      "label": "StickyFooter",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-stickyfooter--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "StickyFooter",
+      "description": "Persistent footer with actions and information provided by the application; does not validate forms.",
+      "usage": [],
+      "howToUse": [
+        "Use it at the bottom of long forms, so Save and Cancel stay in reach.",
+        "Put the state in `start` (\"Unsaved changes\", \"2 errors\"), and the buttons on the right.",
+        "Your form validates and blocks Save when needed."
+      ],
+      "alternatives": [
+        "Context and actions at the top: StickyBar."
+      ],
+      "composition": [],
+      "document": "components/StickyFooter.json"
+    },
+    {
+      "id": "SettingRow",
+      "label": "SettingRow",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-settingrow--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "SettingRow",
+      "description": "Settings row with description, state and an associated action or control.",
+      "usage": [],
+      "howToUse": [
+        "Use it for each item of a settings page: a preference, a connected account, a session, an API key.",
+        "Write the `title` and a short `description`; put the detail (e-mail, date, masked key) in `meta`.",
+        "Put the control in `actions` (Switch, Button). Or make the whole row a link with `href`, with no controls inside."
+      ],
+      "alternatives": [
+        "A destination card in a list: NavCard.",
+        "An integration with connect and disconnect: ConnectorCard."
+      ],
+      "composition": [
+        "Switch"
+      ],
+      "document": "components/SettingRow.json"
+    },
+    {
+      "id": "PlanCard",
+      "label": "PlanCard",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-plancard--interativo",
+      "collections": [
+        "commerce"
+      ],
+      "publicName": "PlanCard",
+      "description": "Comparable presentation of a plan, with features, price and a choose action.",
+      "usage": [],
+      "howToUse": [
+        "Use it side by side to compare plans on a pricing or upgrade page.",
+        "Fill `name`, `price`, `period` and the `features`, in the same order in every card.",
+        "Mark the recommended plan with `highlighted` and the current one with `current`, which turns off its button.",
+        "Choosing only starts the change: your application confirms and charges."
+      ],
+      "alternatives": [
+        "The payment method and next charge: BillingCard.",
+        "Usage against the plan limit: UsageMeter."
+      ],
+      "composition": [
+        "Button"
+      ],
+      "document": "components/PlanCard.json"
+    },
+    {
+      "id": "BillingCard",
+      "label": "BillingCard",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-billingcard--interativo",
+      "note": "Dados fictícios. Nenhuma cobrança é realizada.",
+      "collections": [
+        "commerce",
+        "finance"
+      ],
+      "publicName": "BillingCard",
+      "description": "Billing summary and payment method, with actions provided by the application.",
+      "usage": [],
+      "howToUse": [
+        "Use it on the billing page: the payment method, the state of the subscription and the next charge.",
+        "Show only the last digits in `lastDigits`, never the full card. Put the state in `status` with a Badge.",
+        "Put \"Change card\" and \"View invoices\" in `actions`. The card data is collected by your payment provider."
+      ],
+      "alternatives": [
+        "Comparing plans: PlanCard."
+      ],
+      "composition": [
+        "Card"
+      ],
+      "document": "components/BillingCard.json"
+    },
+    {
+      "id": "ConnectorCard",
+      "label": "ConnectorCard",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-connectorcard--interativo",
+      "note": "Exemplo visual de integração, sem conectar contas.",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ConnectorCard",
+      "description": "State of a connection or integration, with options to connect, manage or remove.",
+      "usage": [],
+      "howToUse": [
+        "Use it on integrations pages: one card per service, with its state and what it does.",
+        "Put the service logo in `logo`, the state in `status`, and \"Connect\" or \"Configure\" in `actions`.",
+        "Use `locked` with `lockHint` when the plan does not include the integration; keep the upgrade button working.",
+        "Your application runs the sign-in with the service."
+      ],
+      "alternatives": [
+        "Signing in to the app with an account: OAuthButton."
+      ],
+      "composition": [],
+      "document": "components/ConnectorCard.json"
+    },
+    {
+      "id": "DangerZone",
+      "label": "DangerZone",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-dangerzone--interativo",
+      "note": "Ações demonstrativas, sem excluir dados reais.",
+      "collections": [
+        "core"
+      ],
+      "publicName": "DangerZone",
+      "description": "Area for sensitive actions, with explanation and callbacks; the application provides the confirmation before running.",
+      "usage": [],
+      "howToUse": [
+        "Use it at the end of a settings page for actions that delete or cannot be undone: delete project, transfer ownership.",
+        "Say what is lost in each action, in plain words.",
+        "Each button opens an AlertDialog before running: the zone does not confirm by itself."
+      ],
+      "alternatives": [
+        "The confirmation itself: AlertDialog."
+      ],
+      "composition": [
+        "Button"
+      ],
+      "document": "components/DangerZone.json"
+    },
+    {
+      "id": "AlertDialog",
+      "label": "AlertDialog",
+      "level": "Organismos",
+      "area": "feedback",
+      "storyId": "components-organisms-alertdialog--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "AlertDialog",
+      "description": "Confirmation of an important action, with explicit confirm or cancel options.",
+      "usage": [],
+      "howToUse": [
+        "Use it to confirm an action that deletes, charges or cannot be undone.",
+        "Write the `title` as a question with the object (\"Delete project Refy?\") and say what is lost in the text.",
+        "Name the button with the action (`confirmLabel` \"Delete\"), never \"OK\". Use `destructive` for deletion.",
+        "While your server runs the action, set `pending`; show the error in the dialog if it fails."
+      ],
+      "alternatives": [
+        "A task with a form: Modal.",
+        "An action that can be undone: run it and offer \"Undo\" in a Toast."
+      ],
+      "composition": [
+        "Button",
+        "Modal"
+      ],
+      "document": "components/AlertDialog.json"
+    },
+    {
+      "id": "AspectRatio",
+      "label": "AspectRatio",
+      "level": "Átomos",
+      "area": "structure",
+      "storyId": "components-atoms-aspectratio--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "AspectRatio",
+      "description": "Container that keeps the aspect ratio of images, videos and other media.",
+      "usage": [],
+      "howToUse": [
+        "Use it to keep the shape of an image, video or map while it loads and on every screen width: 16:9 video, square cover.",
+        "Pass `ratio` (16/9, 1, 4/3) and the media as children."
+      ],
+      "alternatives": [
+        "Several photos with navigation: MediaGallery."
+      ],
+      "composition": [],
+      "document": "components/AspectRatio.json"
+    },
+    {
+      "id": "Bubble",
+      "label": "Bubble",
+      "level": "Átomos",
+      "area": "content",
+      "storyId": "components-atoms-bubble--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Bubble",
+      "description": "Bubble that shows a piece of a conversation and identifies its source.",
+      "usage": [],
+      "howToUse": [
+        "Use it for one piece of a conversation: a message, a quick reply, a system notice in a chat.",
+        "Set `side` to tell who speaks: the person on one side, the other party on the other."
+      ],
+      "alternatives": [
+        "A message with author, time and state: Message."
+      ],
+      "composition": [],
+      "document": "components/Bubble.json"
+    },
+    {
+      "id": "Carousel",
+      "label": "Carousel",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-carousel--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Carousel",
+      "description": "Sequence of navigable content, with position indicator and forward controls.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a few slides that people go through in order: highlights, onboarding screens, testimonials.",
+        "Give it a `label` and keep each slide readable on its own. It does not move by itself.",
+        "Control the position with `index` and `onIndexChange` when the page needs to know it."
+      ],
+      "alternatives": [
+        "Deciding on each item: DecisionDeck.",
+        "Photos of one item: MediaGallery.",
+        "Content people compare: a grid."
+      ],
+      "composition": [
+        "IconButton"
+      ],
+      "document": "components/Carousel.json"
+    },
+    {
+      "id": "Collapsible",
+      "label": "Collapsible",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-collapsible--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Collapsible",
+      "description": "Area that toggles content visibility through an expand control.",
+      "usage": [],
+      "howToUse": [
+        "Use it for one block that people open only when they need it: advanced options, details of an order, the rest of a long text.",
+        "Write a `title` that says what is inside (\"Advanced options\"). Start it open with `defaultOpen` when most people need it."
+      ],
+      "alternatives": [
+        "Several blocks of the same kind: Accordion."
+      ],
+      "composition": [
+        "Button"
+      ],
+      "document": "components/Collapsible.json"
+    },
+    {
+      "id": "ContextMenu",
+      "label": "ContextMenu",
+      "level": "Moléculas",
+      "area": "feedback",
+      "storyId": "components-molecules-contextmenu--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ContextMenu",
+      "description": "Context menu triggered on a specific area or item.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the actions of an item that people open with a right-click or a long press: a file, a card, a table row.",
+        "Pass the actions in `entries`, handle them in `onSelect`, and name the area with `label`.",
+        "Offer the same actions in a visible place too, such as a Menu on the item: many people never right-click."
+      ],
+      "alternatives": [
+        "A visible \"more\" button: Menu."
+      ],
+      "composition": [
+        "Menu"
+      ],
+      "document": "components/ContextMenu.json"
+    },
+    {
+      "id": "DatePicker",
+      "label": "DatePicker",
+      "level": "Moléculas",
+      "area": "forms",
+      "storyId": "components-molecules-datepicker--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "DatePicker",
+      "description": "Date selection by button and calendar, with clearing; no free typing.",
+      "usage": [
+        {
+          "need": "Escolher data sem digitação livre",
+          "reason": "Botão com calendário e limpeza; formato digitado, parsing e validação textual exigem outra composição"
+        }
+      ],
+      "howToUse": [
+        "Use it for a date inside a form: birth date, due date, start of a booking.",
+        "Give it a `label` and block the days out of range with `min` and `max`.",
+        "People pick the date in the calendar; there is no typing. For dates far away, such as birth dates, offer separate fields."
+      ],
+      "alternatives": [
+        "A calendar always open on screen: Calendar.",
+        "Day and time of a booking: SchedulePicker."
+      ],
+      "composition": [
+        "Button",
+        "Calendar",
+        "Label",
+        "Popover"
+      ],
+      "document": "components/DatePicker.json"
+    },
+    {
+      "id": "Direction",
+      "label": "Direction",
+      "level": "Átomos",
+      "area": "structure",
+      "storyId": "components-atoms-direction--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Direction",
+      "description": "Container that sets the reading direction, left to right or reversed.",
+      "usage": [],
+      "howToUse": [
+        "Use it around content in languages written right to left, such as Arabic and Hebrew.",
+        "Set `dir=\"rtl\"`: the refy components inside flip. In your own layout, use start and end instead of left and right."
+      ],
+      "alternatives": [
+        "The whole app in one language: set `dir` on the `<html>` tag."
+      ],
+      "composition": [],
+      "document": "components/Direction.json"
+    },
+    {
+      "id": "Item",
+      "label": "Item",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-item--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Item",
+      "description": "Content row with title, description, visuals and optional action.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a row of a list: a file, a contact, a result, with title, description, picture and actions.",
+        "Pass `onClick` when the row opens something; mark the chosen one with `selected`.",
+        "Use `variant` without surface when the row sits inside a Card."
+      ],
+      "alternatives": [
+        "Data compared in columns: Table.",
+        "A settings row: SettingRow."
+      ],
+      "composition": [
+        "Button"
+      ],
+      "document": "components/Item.json"
+    },
+    {
+      "id": "Label",
+      "label": "Label",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-label--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Label",
+      "description": "Form label tied to a control by the htmlFor attribute.",
+      "usage": [],
+      "howToUse": [
+        "Use it to name a field when you build your own control and it does not have a `label` prop.",
+        "Point `htmlFor` to the `id` of the field: clicking the label focuses the field, and screen readers read the name."
+      ],
+      "alternatives": [
+        "Input, Select and the other fields already have `label`: use it.",
+        "A label with an explanation: HelpField."
+      ],
+      "composition": [],
+      "document": "components/Label.json"
+    },
+    {
+      "id": "Marker",
+      "label": "Marker",
+      "level": "Átomos",
+      "area": "content",
+      "storyId": "components-atoms-marker--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Marker",
+      "description": "Marking a piece of text with the theme's colors and shape.",
+      "usage": [],
+      "howToUse": [
+        "Use it to highlight a word or a short passage in a text: the term searched, the key part of a title.",
+        "The color and the shape come from the theme."
+      ],
+      "alternatives": [
+        "A state that must be read: Badge."
+      ],
+      "composition": [],
+      "document": "components/Marker.json"
+    },
+    {
+      "id": "Menubar",
+      "label": "Menubar",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-menubar--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Menubar",
+      "description": "Bar of related menus, with options organized by purpose.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a toolbar of menus in a tool-like app: File, Edit, View.",
+        "Pass the menus in `items` and handle the commands in `onSelect`. Name the bar with `label`."
+      ],
+      "alternatives": [
+        "Navigation of a site: NavigationMenu.",
+        "One menu of actions: Menu."
+      ],
+      "composition": [
+        "Button",
+        "Menu"
+      ],
+      "document": "components/Menubar.json"
+    },
+    {
+      "id": "Message",
+      "label": "Message",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-message--interativo",
+      "collections": [
+        "conversation"
+      ],
+      "publicName": "Message",
+      "description": "Conversation message with identity, content, time and optional actions.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a message of a conversation with author and time: support chat, comments, an assistant.",
+        "Fill `author`, `initials` and `time`; set `side` to tell who speaks.",
+        "Your application sends and receives the messages."
+      ],
+      "alternatives": [
+        "Only the bubble, without author: Bubble.",
+        "The list of messages with scroll: MessageScroller."
+      ],
+      "composition": [
+        "Avatar",
+        "Bubble"
+      ],
+      "document": "components/Message.json"
+    },
+    {
+      "id": "MessageScroller",
+      "label": "MessageScroller",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-messagescroller--interativo",
+      "collections": [
+        "conversation"
+      ],
+      "publicName": "MessageScroller",
+      "description": "Message area with scrolling and access to the latest messages.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the area that holds the messages of a conversation and scrolls on its own.",
+        "Set `maxHeight` and a `label` (\"Conversation with support\"). When people scroll up, a button takes them back to the latest messages."
+      ],
+      "alternatives": [
+        "Any content with its own scroll: ScrollArea."
+      ],
+      "composition": [
+        "Button",
+        "ScrollArea"
+      ],
+      "document": "components/MessageScroller.json"
+    },
+    {
+      "id": "NavigationMenu",
+      "label": "NavigationMenu",
+      "level": "Moléculas",
+      "area": "navigation",
+      "storyId": "components-molecules-navigationmenu--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "NavigationMenu",
+      "description": "Main navigation with groups and supporting content.",
+      "usage": [],
+      "howToUse": [
+        "Use it for the main navigation of a site or a simple app, at the top: Product, Docs, Pricing.",
+        "Pass the `items` and mark the page open with `activeId`. Group related pages under one item with a panel."
+      ],
+      "alternatives": [
+        "An app with many areas: Sidebar.",
+        "Actions, not places: Menu."
+      ],
+      "composition": [
+        "Button",
+        "Menu"
+      ],
+      "document": "components/NavigationMenu.json"
+    },
+    {
+      "id": "Questionnaire",
+      "label": "Questionnaire",
+      "level": "Organismos",
+      "area": "forms",
+      "storyId": "components-organisms-questionnaire--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Questionnaire",
+      "description": "A sequence of questions with answer selection, navigation and completion.",
+      "usage": [],
+      "howToUse": [
+        "Use it for questions asked one at a time: onboarding, a short survey, a quiz to recommend something.",
+        "Pass the `questions` with their answers, and save the result in `onSubmit`. Keep it short: five to seven questions."
+      ],
+      "alternatives": [
+        "A long form with sections: WizardStepper with fields."
+      ],
+      "composition": [
+        "Button",
+        "Input",
+        "ProgressBar",
+        "RadioGroup"
+      ],
+      "document": "components/Questionnaire.json"
+    },
+    {
+      "id": "Resizable",
+      "label": "Resizable",
+      "level": "Moléculas",
+      "area": "structure",
+      "storyId": "components-molecules-resizable--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Resizable",
+      "description": "Split of an area into resizable panels.",
+      "usage": [],
+      "howToUse": [
+        "Use it for two panels side by side whose width people adjust: list and detail, code and preview.",
+        "Pass the panels in `first` and `second`, the start size in `defaultSize`, and limits in `min` and `max`. Save the size in `onSizeChange` to keep it.",
+        "On mobile, show one panel at a time."
+      ],
+      "alternatives": [
+        "A fixed split: a CSS grid."
+      ],
+      "composition": [],
+      "document": "components/Resizable.json"
+    },
+    {
+      "id": "ScrollArea",
+      "label": "ScrollArea",
+      "level": "Átomos",
+      "area": "structure",
+      "storyId": "components-atoms-scrollarea--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "ScrollArea",
+      "description": "Area with limited height and its own scrolling, keyboard accessible.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a part of the page with its own scroll and a fixed height: a long list in a panel, a log, terms of use.",
+        "Set `maxHeight` and an `aria-label` that names the area. Avoid one scroll inside another."
+      ],
+      "alternatives": [
+        "Messages of a conversation: MessageScroller."
+      ],
+      "composition": [],
+      "document": "components/ScrollArea.json"
+    },
+    {
+      "id": "Spinner",
+      "label": "Spinner",
+      "level": "Átomos",
+      "area": "feedback",
+      "storyId": "components-atoms-spinner--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Spinner",
+      "description": "Visual indicator of an operation in progress.",
+      "usage": [],
+      "howToUse": [
+        "Use it for a short wait with no known end, in a small place: a button, a field, a card loading.",
+        "Give it an `aria-label` that says what is happening (\"Loading invoices\")."
+      ],
+      "alternatives": [
+        "Content with a known shape loading: Skeleton.",
+        "A known percentage: ProgressBar."
+      ],
+      "composition": [],
+      "document": "components/Spinner.json"
+    },
+    {
+      "id": "Trace",
+      "label": "Trace",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-trace--interativo",
+      "collections": [
+        "core"
+      ],
+      "publicName": "Trace",
+      "description": "Expandable sequence of steps to show an operation's progress.",
+      "usage": [],
+      "howToUse": [
+        "Use it to show the steps of a process people want to follow or audit: what an assistant did, a deploy, an import.",
+        "Pass the `steps` with their state and result; each one opens to show the details and the code."
+      ],
+      "alternatives": [
+        "A history of what people did: ActivityTimeline."
+      ],
+      "composition": [
+        "Accordion",
+        "Badge",
+        "CodeBlock"
+      ],
+      "document": "components/Trace.json"
+    },
+    {
+      "id": "Prose",
+      "label": "Prose",
+      "level": "Átomos",
+      "area": "content",
+      "storyId": "components-atoms-prose--interativo",
+      "collections": [
+        "content"
+      ],
+      "publicName": "Prose",
+      "description": "Typography for editorial content, including headings, paragraphs, lists, links and tables.",
+      "usage": [],
+      "howToUse": [
+        "Use it around long text written by people: articles, documentation, terms, release notes.",
+        "Headings, paragraphs, lists, links, quotes and tables inside it take the theme's type. Use `measure=\"text\"` to limit the line to a comfortable reading width.",
+        "Clean HTML that comes from outside before showing it."
+      ],
+      "alternatives": [
+        "Text people edit: Textarea."
+      ],
+      "composition": [],
+      "document": "components/Prose.json"
+    }
+  ]
+}

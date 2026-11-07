@@ -1,0 +1,67 @@
+{
+  "id": "Trace",
+  "description": "Expandable sequence of steps to show an operation's progress.",
+  "usage": {
+    "howToUse": [
+      "Use it to show the steps of a process people want to follow or audit: what an assistant did, a deploy, an import.",
+      "Pass the `steps` with their state and result; each one opens to show the details and the code."
+    ],
+    "alternatives": [
+      "A history of what people did: ActivityTimeline."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one step to the next, and to the copy buttons."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens or closes the step, or copies the code."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Trace",
+  "selected": "Interativo",
+  "import": "import { Trace } from '@refy-design/web';",
+  "composition": [
+    "Accordion",
+    "Badge",
+    "CodeBlock"
+  ],
+  "api": [
+    {
+      "name": "Trace",
+      "props": [
+        {
+          "name": "steps",
+          "type": "TraceStep[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Trace } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction TraceExample() {\n  const [complete, setComplete] = useState(false);\n  return (\n    <div style={stack}>\n      <Trace\n        steps={[\n          {\n            id: 'read',\n            title: 'Read materials',\n            status: 'complete',\n            duration: '120 ms',\n            detail: '{\"files\": 3, \"result\": \"ok\"}',\n          },\n          {\n            id: 'prepare',\n            title: 'Prepare preview',\n            status: complete ? 'complete' : 'running',\n            detail: complete ? '{\"result\": \"ready\"}' : '{\"result\": \"in progress\"}',\n          },\n        ]}\n      />\n      <Button onClick={() => setComplete(!complete)}>\n        {complete ? 'Restart run' : 'Finish run'}\n      </Button>\n    </div>\n  );\n}\nexport function Example() {\n  return <TraceExample />;\n}"
+    },
+    {
+      "id": "ComErro",
+      "label": "With error",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { Trace } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Trace\n      steps={[\n        {\n          id: 'read',\n          title: 'Read references',\n          status: 'complete',\n          detail: '{\"references\": 3}',\n        },\n        {\n          id: 'process',\n          title: 'Process content',\n          status: 'error',\n          detail: '{\"error\": \"Could not process. Try again.\"}',\n        },\n      ]}\n    />\n  );\n}"
+    }
+  ]
+}

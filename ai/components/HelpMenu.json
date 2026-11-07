@@ -1,0 +1,83 @@
+{
+  "id": "HelpMenu",
+  "description": "Menu of help resources, documentation and support.",
+  "usage": {
+    "howToUse": [
+      "Use it in the top bar to gather help: documentation, keyboard shortcuts, contact support.",
+      "Change the items in `entries` and open each one in `onSelect`."
+    ],
+    "alternatives": [
+      "Help about one field: HelpField.",
+      "A guided first visit: GuidedTour."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the menu."
+      },
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Moves between the items."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the menu and returns focus to the button."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "HelpMenu",
+  "selected": "Interativo",
+  "import": "import { HelpMenu } from '@refy-design/web';",
+  "composition": [
+    "IconButton",
+    "Menu"
+  ],
+  "api": [
+    {
+      "name": "HelpMenu",
+      "props": [
+        {
+          "name": "entries",
+          "type": "MenuEntry[] | undefined",
+          "required": false,
+          "description": "Menu items. Default: Documentation, Shortcuts, ─, Contact support."
+        },
+        {
+          "name": "onSelect",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible label."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Click the \"?\" to open.",
+      "code": "import { HelpMenu } from '@refy-design/web';\nexport function Example() {\n  const args = {};\n  return <HelpMenu {...args} />;\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport { HelpMenu } from '@refy-design/web';\nimport { Textarea } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction HelpMenuExample() {\n  const [panel, setPanel] = useState(''),\n    [message, setMessage] = useState(''),\n    [sent, setSent] = useState(false);\n  return (\n    <>\n      <HelpMenu\n        onSelect={(id) => {\n          setSent(false);\n          setPanel(id);\n        }}\n      />\n      <Drawer\n        open={Boolean(panel)}\n        onOpenChange={(open) => {\n          if (!open) setPanel('');\n        }}\n        title={\n          panel === 'docs'\n            ? 'Documentation'\n            : panel === 'shortcuts'\n              ? 'Keyboard shortcuts'\n              : 'Sample support'\n        }\n      >\n        {panel === 'docs' ? (\n          <>\n            <h3>How to use the component</h3>\n            <p>\n              Choose a menu option. In your product, point it to the matching\n              documentation.\n            </p>\n          </>\n        ) : panel === 'shortcuts' ? (\n          <dl>\n            <dt>Arrows</dt>\n            <dd>Move through menu options</dd>\n            <dt>Enter</dt>\n            <dd>Choose an option</dd>\n            <dt>Escape</dt>\n            <dd>Close the current layer</dd>\n          </dl>\n        ) : sent ? (\n          <p role=\"status\">Message logged locally. Nothing was sent.</p>\n        ) : (\n          <form\n            style={stack}\n            onSubmit={(e) => {\n              e.preventDefault();\n              if (message.trim()) setSent(true);\n            }}\n          >\n            <Textarea\n              label=\"How can we help?\"\n              required\n              value={message}\n              onChange={(e) => setMessage(e.target.value)}\n            />\n            <Button type=\"submit\">Log sample message</Button>\n          </form>\n        )}\n      </Drawer>\n    </>\n  );\n}\nexport function Example() {\n  return <HelpMenuExample />;\n}"
+    }
+  ]
+}

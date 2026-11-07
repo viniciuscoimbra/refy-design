@@ -1,0 +1,147 @@
+{
+  "id": "Skeleton",
+  "description": "Temporary visual structure that stands in for the content while it loads.",
+  "usage": {
+    "howToUse": [
+      "Use it in place of content that is loading, with the shape of what will appear: text lines, an avatar, a card.",
+      "Set `width` and `height` close to the real content, and `circle` for avatars, so the page does not jump when it arrives.",
+      "Mark the area that is loading with `aria-busy`."
+    ],
+    "alternatives": [
+      "An action people are waiting for: `loading` on the Button, or Spinner.",
+      "Loading ended with no data or with an error: EmptyState or Callout."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "Skeleton does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Skeleton",
+  "selected": "Playground",
+  "import": "import { Skeleton } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Skeleton",
+      "props": [
+        {
+          "name": "width",
+          "defaultValue": "\"100%\"",
+          "type": "string | number | undefined",
+          "required": false,
+          "description": "Width (number = px). Default 100%."
+        },
+        {
+          "name": "height",
+          "defaultValue": "14",
+          "type": "string | number | undefined",
+          "required": false,
+          "description": "Height (number = px). Default 14px (text line)."
+        },
+        {
+          "name": "circle",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Circle (avatar). Uses `width` as the diameter."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLSpanElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Text line.",
+      "code": "import { Skeleton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Skeleton>, 'width'> = { width: 220 };\n  return <Skeleton {...args} />;\n}"
+    },
+    {
+      "id": "CardLoading",
+      "label": "Loading card",
+      "description": "Loading card: avatar + title + lines.",
+      "code": "import { Skeleton } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div\n      aria-busy=\"true\"\n      style={{\n        width: 320,\n        padding: 16,\n        background: 'var(--surface)',\n        border: '1px solid var(--line)',\n        borderRadius: 'var(--radius-md)',\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 10,\n      }}\n    >\n      <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>\n        <Skeleton circle width={32} />\n        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>\n          <Skeleton width=\"60%\" />\n          <Skeleton width=\"35%\" height={10} />\n        </div>\n      </div>\n      <Skeleton />\n      <Skeleton width=\"85%\" />\n      <Skeleton width=\"70%\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "CatalogoDeComponentes",
+      "label": "Catalog · components",
+      "description": "Composition catalog for the components used on the screens.",
+      "code": "import { Skeleton } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div\n      aria-busy=\"true\"\n      style={{\n        width: '100%',\n        maxWidth: 920,\n        display: 'grid',\n        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',\n        gap: 20,\n      }}\n    >\n      {[\n        [\n          'Buttons',\n          <div style={{ display: 'flex', gap: 8 }}>\n            <Skeleton width={112} height={40} />\n            <Skeleton width={112} height={40} />\n          </div>,\n        ],\n        [\n          'Field',\n          <div style={{ display: 'grid', gap: 7 }}>\n            <Skeleton width={90} height={10} />\n            <Skeleton height={44} />\n          </div>,\n        ],\n        [\n          'Avatar and user',\n          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>\n            <Skeleton circle width={40} />\n            <div style={{ flex: 1, display: 'grid', gap: 6 }}>\n              <Skeleton width=\"55%\" />\n              <Skeleton width=\"38%\" height={10} />\n            </div>\n          </div>,\n        ],\n        [\n          'Stat',\n          <div style={{ display: 'grid', gap: 8 }}>\n            <Skeleton width={80} height={10} />\n            <Skeleton width={140} height={34} />\n            <Skeleton width={110} height={10} />\n          </div>,\n        ],\n        [\n          'Table row',\n          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 16 }}>\n            <Skeleton />\n            <Skeleton />\n            <Skeleton />\n          </div>,\n        ],\n        [\n          'Timeline item',\n          <div style={{ display: 'flex', gap: 12 }}>\n            <Skeleton circle width={32} />\n            <div style={{ flex: 1, display: 'grid', gap: 8 }}>\n              <Skeleton width=\"62%\" />\n              <Skeleton />\n              <Skeleton width=\"78%\" />\n            </div>\n          </div>,\n        ],\n        [\n          'Content card',\n          <div style={{ display: 'grid', gap: 12 }}>\n            <Skeleton height={160} />\n            <Skeleton width=\"72%\" height={20} />\n            <Skeleton width=\"42%\" />\n            <div style={{ display: 'flex', gap: 8 }}>\n              <Skeleton width={84} height={28} />\n              <Skeleton width={84} height={28} />\n            </div>\n          </div>,\n        ],\n        [\n          'Calendar',\n          <div\n            style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}\n          >\n            {Array.from({ length: 12 }, (_, index) => (\n              <Skeleton key={index} height={36} />\n            ))}\n          </div>,\n        ],\n      ].map(([label, preview]) => (\n        <section\n          key={label as string}\n          style={{\n            minWidth: 0,\n            padding: 16,\n            border: '1px solid var(--line)',\n            borderRadius: 'var(--radius-lg)',\n            background: 'var(--surface)',\n          }}\n        >\n          <p\n            style={{\n              margin: '0 0 14px',\n              color: 'var(--ink-2)',\n              fontSize: 12,\n              fontWeight: 700,\n            }}\n          >\n            {label}\n          </p>\n          {preview}\n        </section>\n      ))}\n    </div>\n  );\n}"
+    }
+  ]
+}

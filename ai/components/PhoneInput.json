@@ -1,0 +1,192 @@
+{
+  "id": "PhoneInput",
+  "description": "Phone input with country selection, international code and formatting.",
+  "usage": {
+    "howToUse": [
+      "Use it for phone numbers that can come from more than one country.",
+      "Start with the country most people use in `country`, and limit the list with `countries` when only some apply.",
+      "The Brazilian format is applied as people type. Validate other countries in your application."
+    ],
+    "alternatives": [
+      "A phone that is always from the same country, with no selector: Input with `type=\"tel\"`."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from the country to the number."
+      },
+      {
+        "keys": "`↓` or `↑` on the country",
+        "action": "Changes the country, as in a browser select."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "PhoneInput",
+  "selected": "Padrao",
+  "import": "import { PhoneInput } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "PhoneInput",
+      "props": [
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "hint",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "country",
+          "defaultValue": "\"BR\"",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "countries",
+          "defaultValue": "phoneCountries",
+          "type": "PhoneCountry[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onCountryChange",
+          "type": "((country: PhoneCountry) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLInputElement, HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { PhoneInput } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof PhoneInput>, 'label' | 'value' | 'country'> = {\n    label: 'Phone',\n    value: '(31) 9 8123-4567',\n    country: 'BR',\n  };\n  const [country, setCountry] = useState(args.country);\n  const [value, setValue] = useState(String(args.value));\n  return (\n    <PhoneInput\n      {...args}\n      country={country}\n      value={value}\n      onCountryChange={(next) => setCountry(next.code)}\n      onChange={(event) => setValue(event.target.value)}\n    />\n  );\n}"
+    },
+    {
+      "id": "CodigosDisponiveis",
+      "label": "Available codes",
+      "description": "",
+      "code": "import { phoneCountries } from '@refy-design/web';\nimport { PhoneInput } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof PhoneInput>,\n    'label' | 'value' | 'country' | 'hint'\n  > = {\n    label: 'Phone',\n    value: '(31) 9 8123-4567',\n    country: 'BR',\n    hint: phoneCountries.map((item) => `${item.flag} ${item.callingCode}`).join(' · '),\n  };\n  return <PhoneInput {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Default",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { PhoneInput } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof PhoneInput>,\n    'label' | 'value' | 'country' | 'disabled'\n  > = { label: 'Phone', value: '(31) 9 8123-4567', country: 'BR', disabled: true };\n  const [country, setCountry] = useState(args.country);\n  const [value, setValue] = useState(String(args.value));\n  return (\n    <PhoneInput\n      {...args}\n      country={country}\n      value={value}\n      onCountryChange={(next) => setCountry(next.code)}\n      onChange={(event) => setValue(event.target.value)}\n    />\n  );\n}"
+    },
+    {
+      "id": "ComErro",
+      "label": "Default",
+      "description": "",
+      "code": "import { PhoneInput } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof PhoneInput>,\n    'label' | 'value' | 'country' | 'error'\n  > = {\n    label: 'Phone',\n    value: '(31) 9 8123-4567',\n    country: 'BR',\n    error: 'Enter a valid phone number for the selected country.',\n  };\n  const [country, setCountry] = useState(args.country);\n  const [value, setValue] = useState(String(args.value));\n  return (\n    <PhoneInput\n      {...args}\n      country={country}\n      value={value}\n      onCountryChange={(next) => setCountry(next.code)}\n      onChange={(event) => setValue(event.target.value)}\n    />\n  );\n}"
+    }
+  ]
+}

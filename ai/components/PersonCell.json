@@ -1,0 +1,170 @@
+{
+  "id": "PersonCell",
+  "description": "Identification of a person or entity for rows, lists and tables.",
+  "usage": {
+    "howToUse": [
+      "Use it to identify a person or company in a table cell or list row: avatar, name and one line of detail.",
+      "Put the e-mail or the role in `secondary`, and a short mark such as \"you\" in `tag`.",
+      "Use `size=\"sm\"` in table cells and `md` in lists."
+    ],
+    "alternatives": [
+      "Only the picture: Avatar.",
+      "A row that opens something or holds a setting: SettingRow or NavCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The cell does not receive focus. Wrap the name in a link when it opens a profile."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "PersonCell",
+  "selected": "Pessoa",
+  "import": "import { PersonCell } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "PersonCell",
+      "props": [
+        {
+          "name": "avatar",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Leading slot: `Avatar` (circle for a person, `shape=\"square\"` for an entity:\nproject, workspace, organization). Composition: the atom comes from outside."
+        },
+        {
+          "name": "name",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Name (main line)."
+        },
+        {
+          "name": "tag",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Inline suffix after the name (e.g. mono \"you\", role `Badge`)."
+        },
+        {
+          "name": "secondary",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Secondary line (email, description, entity meta)."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "\"sm\" | \"md\" | undefined",
+          "required": false,
+          "description": "Density: `sm` for compact table cells, `md` for lists."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Pessoa",
+      "label": "Person",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { PersonCell } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof PersonCell>, 'name' | 'secondary' | 'size'> = {\n    name: 'Marina Salgado',\n    secondary: 'marina@example.com',\n    size: 'md',\n  };\n  return (\n    <PersonCell\n      {...args}\n      avatar={<Avatar size=\"md\" initials=\"MS\" seed=\"Marina Salgado\" />}\n    />\n  );\n}"
+    },
+    {
+      "id": "VoceComTag",
+      "label": "With tag (you)",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { PersonCell } from '@refy-design/web';\nexport function Example() {\n  return (\n    <PersonCell\n      avatar={<Avatar size=\"md\" initials=\"JM\" seed=\"João Mendes\" />}\n      name=\"João Mendes\"\n      tag=\"you\"\n      secondary=\"joao@example.com\"\n    />\n  );\n}"
+    },
+    {
+      "id": "ComBadgeDePapel",
+      "label": "With role badge",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { Badge } from '@refy-design/web';\nimport { PersonCell } from '@refy-design/web';\nexport function Example() {\n  return (\n    <PersonCell\n      avatar={<Avatar size=\"md\" initials=\"RC\" seed=\"Rafael Costa\" />}\n      name=\"Rafael Costa\"\n      tag={<Badge tone=\"neutral\">Member</Badge>}\n      secondary=\"rafael@example.com\"\n    />\n  );\n}"
+    },
+    {
+      "id": "Entidade",
+      "label": "Entity (square Avatar)",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { PersonCell } from '@refy-design/web';\nexport function Example() {\n  return (\n    <PersonCell\n      avatar={<Avatar shape=\"square\" size=\"md\" initials=\"CV\" seed=\"Origin team\" />}\n      name=\"Origin team\"\n      secondary=\"editorial coverage · 128 pages\"\n    />\n  );\n}"
+    },
+    {
+      "id": "CompactaEmTabela",
+      "label": "Compact (sm, table cell)",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { PersonCell } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 260 }}>\n      <PersonCell\n        size=\"sm\"\n        avatar={<Avatar size=\"xs\" initials=\"JM\" seed=\"João Mendes\" />}\n        name=\"João Mendes\"\n        secondary=\"owner\"\n      />\n      <PersonCell\n        size=\"sm\"\n        avatar={<Avatar size=\"xs\" initials=\"MS\" seed=\"Marina Salgado\" />}\n        name=\"Marina Salgado\"\n        secondary=\"dona\"\n      />\n    </div>\n  );\n}"
+    }
+  ]
+}

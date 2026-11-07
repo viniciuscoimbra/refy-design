@@ -1,0 +1,212 @@
+{
+  "id": "SplitButton",
+  "description": "Main action paired with a menu of alternative actions.",
+  "usage": {
+    "howToUse": [
+      "Use it when one action is the usual one and a few variants of it are occasional: \"Save\" with \"Save as draft\" and \"Save and close\".",
+      "List the variants in `options`; the main side runs `defaultOptionId`, or the first enabled option.",
+      "Keep `loading` on while the action runs, as in Button."
+    ],
+    "alternatives": [
+      "The options are equally common: Menu, or separate buttons.",
+      "Choosing a value, not running an action: Select or Combobox."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from the main action to the arrow that opens the menu."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "On the main side, runs the action. On the arrow, opens the menu."
+      },
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Moves between the options of the open menu."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Goes to the first or last option."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the menu and returns focus to the arrow."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "SplitButton",
+  "selected": "FluxoLocal",
+  "import": "import { SplitButton } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Menu"
+  ],
+  "api": [
+    {
+      "name": "SplitButton",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "variant",
+          "defaultValue": "\"secondary\"",
+          "type": "SplitButtonVariant | undefined",
+          "required": false,
+          "description": "Visual variant."
+        },
+        {
+          "name": "menuAlign",
+          "defaultValue": "\"end\"",
+          "type": "\"start\" | \"end\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "leadingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "Activation callback."
+        },
+        {
+          "name": "onSelect",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "SplitButtonOption[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "\"sm\" | \"md\" | undefined",
+          "required": false,
+          "description": "Size variant."
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "loading",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows the loading state."
+        },
+        {
+          "name": "loadingLabel",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultOpen",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultOptionId",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Option run initially by the main button. Default: first enabled."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Secondary",
+      "label": "Secondary · default",
+      "description": "PDF is the default; when you choose another format it appears on the main button.",
+      "code": "import { SplitButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Download = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n    <polyline points=\"7 10 12 15 17 10\" />\n    <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n  </svg>\n);\nconst exportOptions = [\n  { id: 'pdf', label: 'PDF', hint: '.pdf' },\n  { id: 'csv', label: 'CSV', hint: '.csv' },\n  { id: 'markdown', label: 'Markdown', hint: '.md' },\n  { id: 'json', label: 'JSON', hint: '.json' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SplitButton>,\n    | 'label'\n    | 'defaultOptionId'\n    | 'leadingIcon'\n    | 'size'\n    | 'variant'\n    | 'menuAlign'\n    | 'options'\n  > = {\n    label: 'Export',\n    defaultOptionId: 'pdf',\n    leadingIcon: Download,\n    size: 'md',\n    variant: 'secondary',\n    menuAlign: 'end',\n    options: exportOptions,\n  };\n  return <SplitButton {...args} />;\n}"
+    },
+    {
+      "id": "Primary",
+      "label": "Primary",
+      "description": "Brand color variant, for the screen's main action.",
+      "code": "import { SplitButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Download = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n    <polyline points=\"7 10 12 15 17 10\" />\n    <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n  </svg>\n);\nconst exportOptions = [\n  { id: 'pdf', label: 'PDF', hint: '.pdf' },\n  { id: 'csv', label: 'CSV', hint: '.csv' },\n  { id: 'markdown', label: 'Markdown', hint: '.md' },\n  { id: 'json', label: 'JSON', hint: '.json' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SplitButton>,\n    | 'label'\n    | 'defaultOptionId'\n    | 'leadingIcon'\n    | 'size'\n    | 'variant'\n    | 'menuAlign'\n    | 'options'\n  > = {\n    label: 'Export',\n    defaultOptionId: 'pdf',\n    leadingIcon: Download,\n    size: 'md',\n    variant: 'primary',\n    menuAlign: 'end',\n    options: exportOptions,\n  };\n  return <SplitButton {...args} />;\n}"
+    },
+    {
+      "id": "MenuStart",
+      "label": "Menu aligned to the start",
+      "description": "Menu aligned to the start of the button (for buttons against the right edge).",
+      "code": "import { SplitButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Download = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n    <polyline points=\"7 10 12 15 17 10\" />\n    <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n  </svg>\n);\nconst exportOptions = [\n  { id: 'pdf', label: 'PDF', hint: '.pdf' },\n  { id: 'csv', label: 'CSV', hint: '.csv' },\n  { id: 'markdown', label: 'Markdown', hint: '.md' },\n  { id: 'json', label: 'JSON', hint: '.json' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SplitButton>,\n    | 'label'\n    | 'defaultOptionId'\n    | 'leadingIcon'\n    | 'size'\n    | 'variant'\n    | 'menuAlign'\n    | 'options'\n  > = {\n    label: 'Export',\n    defaultOptionId: 'pdf',\n    leadingIcon: Download,\n    size: 'md',\n    variant: 'secondary',\n    menuAlign: 'start',\n    options: exportOptions,\n  };\n  return <SplitButton {...args} />;\n}"
+    },
+    {
+      "id": "Small",
+      "label": "Small",
+      "description": "Compact size.",
+      "code": "import { SplitButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Download = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n    <polyline points=\"7 10 12 15 17 10\" />\n    <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n  </svg>\n);\nconst exportOptions = [\n  { id: 'pdf', label: 'PDF', hint: '.pdf' },\n  { id: 'csv', label: 'CSV', hint: '.csv' },\n  { id: 'markdown', label: 'Markdown', hint: '.md' },\n  { id: 'json', label: 'JSON', hint: '.json' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SplitButton>,\n    | 'label'\n    | 'defaultOptionId'\n    | 'leadingIcon'\n    | 'size'\n    | 'variant'\n    | 'menuAlign'\n    | 'options'\n  > = {\n    label: 'Export',\n    defaultOptionId: 'pdf',\n    leadingIcon: Download,\n    size: 'sm',\n    variant: 'secondary',\n    menuAlign: 'end',\n    options: exportOptions,\n  };\n  return <SplitButton {...args} />;\n}"
+    },
+    {
+      "id": "Disabled",
+      "label": "Disabled",
+      "description": "",
+      "code": "import { SplitButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Download = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n    <polyline points=\"7 10 12 15 17 10\" />\n    <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n  </svg>\n);\nconst exportOptions = [\n  { id: 'pdf', label: 'PDF', hint: '.pdf' },\n  { id: 'csv', label: 'CSV', hint: '.csv' },\n  { id: 'markdown', label: 'Markdown', hint: '.md' },\n  { id: 'json', label: 'JSON', hint: '.json' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SplitButton>,\n    | 'label'\n    | 'defaultOptionId'\n    | 'leadingIcon'\n    | 'size'\n    | 'variant'\n    | 'menuAlign'\n    | 'options'\n    | 'disabled'\n  > = {\n    label: 'Export',\n    defaultOptionId: 'pdf',\n    leadingIcon: Download,\n    size: 'md',\n    variant: 'secondary',\n    menuAlign: 'end',\n    options: exportOptions,\n    disabled: true,\n  };\n  return <SplitButton {...args} />;\n}"
+    },
+    {
+      "id": "Loading",
+      "label": "Loading",
+      "description": "",
+      "code": "import { SplitButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Download = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n    <polyline points=\"7 10 12 15 17 10\" />\n    <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n  </svg>\n);\nconst exportOptions = [\n  { id: 'pdf', label: 'PDF', hint: '.pdf' },\n  { id: 'csv', label: 'CSV', hint: '.csv' },\n  { id: 'markdown', label: 'Markdown', hint: '.md' },\n  { id: 'json', label: 'JSON', hint: '.json' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SplitButton>,\n    | 'label'\n    | 'defaultOptionId'\n    | 'leadingIcon'\n    | 'size'\n    | 'variant'\n    | 'menuAlign'\n    | 'options'\n    | 'loading'\n    | 'loadingLabel'\n  > = {\n    label: 'Export',\n    defaultOptionId: 'pdf',\n    leadingIcon: Download,\n    size: 'md',\n    variant: 'secondary',\n    menuAlign: 'end',\n    options: exportOptions,\n    loading: true,\n    loadingLabel: 'Exporting…',\n  };\n  return <SplitButton {...args} />;\n}"
+    },
+    {
+      "id": "Open",
+      "label": "Open menu",
+      "description": "",
+      "code": "import { SplitButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Download = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n    <polyline points=\"7 10 12 15 17 10\" />\n    <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n  </svg>\n);\nconst exportOptions = [\n  { id: 'pdf', label: 'PDF', hint: '.pdf' },\n  { id: 'csv', label: 'CSV', hint: '.csv' },\n  { id: 'markdown', label: 'Markdown', hint: '.md' },\n  { id: 'json', label: 'JSON', hint: '.json' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SplitButton>,\n    | 'label'\n    | 'defaultOptionId'\n    | 'leadingIcon'\n    | 'size'\n    | 'variant'\n    | 'menuAlign'\n    | 'options'\n    | 'defaultOpen'\n  > = {\n    label: 'Export',\n    defaultOptionId: 'pdf',\n    leadingIcon: Download,\n    size: 'md',\n    variant: 'secondary',\n    menuAlign: 'end',\n    options: exportOptions,\n    defaultOpen: true,\n  };\n  return <SplitButton {...args} />;\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { SplitButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst Download = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n    <polyline points=\"7 10 12 15 17 10\" />\n    <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n  </svg>\n);\nconst exportOptions = [\n  { id: 'pdf', label: 'PDF', hint: '.pdf' },\n  { id: 'csv', label: 'CSV', hint: '.csv' },\n  { id: 'markdown', label: 'Markdown', hint: '.md' },\n  { id: 'json', label: 'JSON', hint: '.json' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SplitButton>,\n    | 'label'\n    | 'defaultOptionId'\n    | 'leadingIcon'\n    | 'size'\n    | 'variant'\n    | 'menuAlign'\n    | 'options'\n  > = {\n    label: 'Export',\n    defaultOptionId: 'pdf',\n    leadingIcon: Download,\n    size: 'md',\n    variant: 'secondary',\n    menuAlign: 'end',\n    options: exportOptions,\n  };\n  const [loading, setLoading] = useState(false);\n  const [message, setMessage] = useState('No export started.');\n  function runDefault() {\n    setLoading(true);\n    setMessage('Exporting PDF…');\n    window.setTimeout(() => {\n      setLoading(false);\n      setMessage('PDF exported.');\n    }, 700);\n  }\n  return (\n    <div>\n      <SplitButton\n        {...args}\n        loading={loading}\n        onClick={runDefault}\n        onSelect={(id) =>\n          setMessage(\n            `${id.toUpperCase()} chosen. The main button now exports in this format.`,\n          )\n        }\n      />\n      <p\n        role=\"status\"\n        aria-live=\"polite\"\n        style={{ marginTop: 16, color: 'var(--ink-2)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "FluxoLocal",
+      "label": "Local flow",
+      "description": "",
+      "code": "import { SplitButton } from '@refy-design/web';\nimport { useState } from 'react';\nfunction download(text: string, name: string) {\n  const url = URL.createObjectURL(\n    new Blob([text], { type: 'text/plain;charset=utf-8' }),\n  );\n  const link = document.createElement('a');\n  link.href = url;\n  link.download = name;\n  link.click();\n  URL.revokeObjectURL(url);\n}\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction SplitButtonExample() {\n  const [status, setStatus] = useState('');\n  const exportFile = (format: string) => {\n    download(\n      format === 'JSON'\n        ? JSON.stringify({ materials: ['Content guide', 'Visual references'] }, null, 2)\n        : 'material\\nContent guide\\nVisual references',\n      `materials.${format.toLowerCase()}`,\n    );\n    setStatus(`${format} file ready to download.`);\n  };\n  return (\n    <div style={stack}>\n      <SplitButton\n        label=\"Export\"\n        options={['CSV', 'JSON'].map((format) => ({\n          id: format,\n          label: format,\n          onSelect: () => exportFile(format),\n        }))}\n      />\n      <p role=\"status\">\n        {status || 'Choose the format and export the local materials.'}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <SplitButtonExample />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,5599 @@
+{
+  "$description": "Refy foundations, origem c3f03fd; DTCG 2025.10 subset: color, dimension, duration, number, fontFamily, cubicBezier. Expressões CSS preservadas em extensão, não são tokens DTCG tipados.",
+  "$extensions": {
+    "org.refy.contract": {
+      "origin": "Refy 0.4.0 / c3f03fd",
+      "deprecated": false,
+      "defaultMode": "light"
+    }
+  },
+  "base": {
+    "$extensions": {
+      "org.refy.css": {
+        "--tracking-display": {
+          "value": "-0.03em",
+          "description": "Papel CSS --tracking-display; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--tracking-brand": {
+          "value": "-0.035em",
+          "description": "Papel CSS --tracking-brand; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--tracking-heading": {
+          "value": "-0.02em",
+          "description": "Papel CSS --tracking-heading; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--tracking-breadcrumb": {
+          "value": "0.02em",
+          "description": "Papel CSS --tracking-breadcrumb; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--tracking-h3": {
+          "value": "-0.04em",
+          "description": "Papel CSS --tracking-h3; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--tracking-eyebrow": {
+          "value": "0.12em",
+          "description": "Papel CSS --tracking-eyebrow; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--tracking-uppercase": {
+          "value": "0.16em",
+          "description": "Papel CSS --tracking-uppercase; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--font-weight-regular": {
+          "value": "var(--weight-regular)",
+          "description": "Papel CSS --font-weight-regular; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--font-weight-medium": {
+          "value": "var(--weight-medium)",
+          "description": "Papel CSS --font-weight-medium; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--font-weight-semibold": {
+          "value": "var(--weight-semi)",
+          "description": "Papel CSS --font-weight-semibold; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--font-weight-bold": {
+          "value": "var(--weight-bold)",
+          "description": "Papel CSS --font-weight-bold; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-symbol": {
+          "value": "var(--brand-primary-container)",
+          "description": "Papel CSS --brand-logo-symbol; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-wordmark": {
+          "value": "var(--ink-1)",
+          "description": "Papel CSS --brand-logo-wordmark; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-mono": {
+          "value": "var(--ink-1)",
+          "description": "Papel CSS --brand-logo-mono; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-inverse": {
+          "value": "var(--legacy-white)",
+          "description": "Papel CSS --brand-logo-inverse; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-orange": {
+          "value": "var(--brand-primary-container)",
+          "description": "Papel CSS --brand-logo-orange; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-line-theme": {
+          "value": "var(--brand-logo-symbol)",
+          "description": "Papel CSS --brand-logo-line-theme; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-line-black": {
+          "value": "var(--brand-logo-mono)",
+          "description": "Papel CSS --brand-logo-line-black; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-line-white": {
+          "value": "var(--brand-logo-inverse)",
+          "description": "Papel CSS --brand-logo-line-white; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-theme": {
+          "value": "var(--brand-logo-symbol)",
+          "description": "Papel CSS --brand-logo-solid-theme; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-theme-start": {
+          "value": "var(--primary-fixed)",
+          "description": "Papel CSS --brand-logo-solid-theme-start; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-theme-end": {
+          "value": "var(--brand-inverse-primary)",
+          "description": "Papel CSS --brand-logo-solid-theme-end; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-wordmark": {
+          "value": "var(--brand-logo-wordmark)",
+          "description": "Papel CSS --brand-logo-solid-wordmark; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-black": {
+          "value": "var(--brand-logo-mono)",
+          "description": "Papel CSS --brand-logo-solid-black; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-white": {
+          "value": "var(--brand-logo-inverse)",
+          "description": "Papel CSS --brand-logo-solid-white; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-theme-bg": {
+          "value": "var(--brand-logo-symbol)",
+          "description": "Papel CSS --brand-logo-solid-theme-bg; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-theme-fg": {
+          "value": "var(--brand-logo-inverse)",
+          "description": "Papel CSS --brand-logo-solid-theme-fg; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-black-bg": {
+          "value": "var(--brand-logo-mono)",
+          "description": "Papel CSS --brand-logo-solid-black-bg; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-black-fg": {
+          "value": "var(--brand-logo-inverse)",
+          "description": "Papel CSS --brand-logo-solid-black-fg; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-white-bg": {
+          "value": "var(--brand-logo-inverse)",
+          "description": "Papel CSS --brand-logo-solid-white-bg; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-logo-solid-white-fg": {
+          "value": "var(--brand-logo-mono)",
+          "description": "Papel CSS --brand-logo-solid-white-fg; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-0": {
+          "value": "none",
+          "description": "Papel CSS --elev-0; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-1": {
+          "value": "0 1px 0 rgba(14, 14, 16, 0.04), 0 4px 12px rgba(14, 14, 16, 0.04)",
+          "description": "Papel CSS --elev-1; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-2": {
+          "value": "0 2px 4px rgba(14, 14, 16, 0.04), 0 8px 24px rgba(14, 14, 16, 0.06)",
+          "description": "Papel CSS --elev-2; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-3": {
+          "value": "0 4px 8px rgba(14, 14, 16, 0.05), 0 16px 36px rgba(14, 14, 16, 0.08)",
+          "description": "Papel CSS --elev-3; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-4": {
+          "value": "0 8px 16px rgba(14, 14, 16, 0.06), 0 24px 56px rgba(14, 14, 16, 0.10)",
+          "description": "Papel CSS --elev-4; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-5": {
+          "value": "0 16px 32px rgba(14, 14, 16, 0.08), 0 36px 80px rgba(14, 14, 16, 0.14)",
+          "description": "Papel CSS --elev-5; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-d-1": {
+          "value": "0 1px 0 rgba(255, 255, 255, 0.02) inset, 0 1px 2px rgba(0, 0, 0, 0.4)",
+          "description": "Papel CSS --elev-d-1; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-d-2": {
+          "value": "0 1px 0 rgba(255, 255, 255, 0.025) inset, 0 6px 16px rgba(0, 0, 0, 0.5)",
+          "description": "Papel CSS --elev-d-2; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-d-3": {
+          "value": "0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 18px 40px rgba(0, 0, 0, 0.55)",
+          "description": "Papel CSS --elev-d-3; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--elev-d-4": {
+          "value": "0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 28px 64px rgba(0, 0, 0, 0.6)",
+          "description": "Papel CSS --elev-d-4; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-gradient": {
+          "value": "linear-gradient(135deg, var(--brand-primary-container), var(--brand-inverse-primary))",
+          "description": "Papel CSS --brand-gradient; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-glow": {
+          "value": "0 0 8px rgba(16, 185, 129, 0.5)",
+          "description": "Papel CSS --brand-glow; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-button-shadow": {
+          "value": "0 1px 0 rgba(0, 0, 0, 0.04)",
+          "description": "Papel CSS --legacy-button-shadow; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-critical-ring": {
+          "value": "0 0 0 3px rgba(220, 38, 38, 0.14)",
+          "description": "Papel CSS --legacy-critical-ring; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-switch-shadow": {
+          "value": "0 1px 3px rgba(0, 0, 0, 0.15)",
+          "description": "Papel CSS --legacy-switch-shadow; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-ring": {
+          "value": "rgba(16, 185, 129, 0.3)",
+          "description": "Papel CSS --legacy-ring; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-brand-soft-hover": {
+          "value": "rgba(16, 185, 129, 0.16)",
+          "description": "Papel CSS --legacy-brand-soft-hover; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-brand-tint": {
+          "value": "rgba(16, 185, 129, 0.14)",
+          "description": "Papel CSS --legacy-brand-tint; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-modal-scrim": {
+          "value": "rgba(14, 14, 16, 0.55)",
+          "description": "Papel CSS --legacy-modal-scrim; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand-soft": {
+          "value": "var(--legacy-brand-soft)",
+          "description": "Papel CSS --brand-soft; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--duration-base": {
+          "value": "var(--duration-mid)",
+          "description": "Papel CSS --duration-base; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--duration-normal": {
+          "value": "var(--duration-mid)",
+          "description": "Papel CSS --duration-normal; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--text-md": {
+          "value": "var(--text-base)",
+          "description": "Papel CSS --text-md; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--brand": {
+          "value": "var(--primary)",
+          "description": "Papel CSS --brand; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--danger": {
+          "value": "var(--critical)",
+          "description": "Papel CSS --danger; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-1": {
+          "value": "var(--elev-1)",
+          "description": "Papel CSS --shadow-1; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-2": {
+          "value": "var(--elev-2)",
+          "description": "Papel CSS --shadow-2; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--focus-ring": {
+          "value": "var(--shadow-focus-ring)",
+          "description": "Papel CSS --focus-ring; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--line-strong": {
+          "value": "var(--outline)",
+          "description": "Papel CSS --line-strong; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--weight-semibold": {
+          "value": "var(--weight-semi)",
+          "description": "Papel CSS --weight-semibold; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--control-border-width": {
+          "value": "1px",
+          "description": "Skin: control-border-width. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--control-border-style": {
+          "value": "solid",
+          "description": "Skin: control-border-style. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--control-radius": {
+          "value": "var(--radius-default)",
+          "description": "Skin: control-radius. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-radius": {
+          "value": "var(--control-radius)",
+          "description": "Skin: button-radius. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-border-width": {
+          "value": "var(--control-border-width)",
+          "description": "Skin: button-border-width. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-primary-background": {
+          "value": "var(--primary)",
+          "description": "Skin: button-primary-background. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-primary-background-hover": {
+          "value": "var(--primary-hover)",
+          "description": "Skin: button-primary-background-hover. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-primary-background-active": {
+          "value": "var(--primary-container)",
+          "description": "Skin: button-primary-background-active. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-primary-foreground": {
+          "value": "var(--on-primary)",
+          "description": "Skin: button-primary-foreground. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-primary-foreground-hover": {
+          "value": "var(--on-primary)",
+          "description": "Skin: button-primary-foreground-hover. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-primary-foreground-active": {
+          "value": "var(--on-primary-container)",
+          "description": "Skin: button-primary-foreground-active. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-primary-border": {
+          "value": "transparent",
+          "description": "Skin: button-primary-border. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-primary-shadow": {
+          "value": "var(--legacy-button-shadow)",
+          "description": "Skin: button-primary-shadow. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-secondary-background": {
+          "value": "var(--surface)",
+          "description": "Skin: button-secondary-background. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-secondary-background-hover": {
+          "value": "var(--surface-2)",
+          "description": "Skin: button-secondary-background-hover. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-secondary-background-active": {
+          "value": "color-mix(in srgb, var(--ink-1) 8%, var(--surface))",
+          "description": "Skin: button-secondary-background-active. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-secondary-foreground": {
+          "value": "var(--ink-1)",
+          "description": "Skin: button-secondary-foreground. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-secondary-border": {
+          "value": "var(--legacy-line)",
+          "description": "Skin: button-secondary-border. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-secondary-border-hover": {
+          "value": "var(--legacy-line-strong)",
+          "description": "Skin: button-secondary-border-hover. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-ghost-background": {
+          "value": "transparent",
+          "description": "Skin: button-ghost-background. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-ghost-background-hover": {
+          "value": "var(--surface-2)",
+          "description": "Skin: button-ghost-background-hover. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-ghost-background-active": {
+          "value": "color-mix(in srgb, var(--ink-1) 10%, transparent)",
+          "description": "Skin: button-ghost-background-active. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-ghost-foreground": {
+          "value": "var(--ink-2)",
+          "description": "Skin: button-ghost-foreground. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-ghost-foreground-hover": {
+          "value": "var(--ink-1)",
+          "description": "Skin: button-ghost-foreground-hover. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-danger-background": {
+          "value": "var(--surface)",
+          "description": "Skin: button-danger-background. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-danger-background-hover": {
+          "value": "var(--critical-soft)",
+          "description": "Skin: button-danger-background-hover. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-danger-background-active": {
+          "value": "color-mix(in srgb, var(--critical) 16%, var(--surface))",
+          "description": "Skin: button-danger-background-active. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-danger-foreground": {
+          "value": "var(--critical)",
+          "description": "Skin: button-danger-foreground. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-danger-border": {
+          "value": "var(--legacy-danger-line)",
+          "description": "Skin: button-danger-border. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--button-danger-border-hover": {
+          "value": "var(--legacy-danger-line-hover)",
+          "description": "Skin: button-danger-border-hover. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--field-border-width": {
+          "value": "var(--control-border-width)",
+          "description": "Skin: field-border-width. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--field-radius": {
+          "value": "var(--control-radius)",
+          "description": "Skin: field-radius. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--field-background": {
+          "value": "var(--surface)",
+          "description": "Skin: field-background. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--field-shadow": {
+          "value": "none",
+          "description": "Skin: field-shadow. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--field-padding-inline": {
+          "value": "12px",
+          "description": "Skin: field-padding-inline. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--card-border-width": {
+          "value": "var(--surface-border-width)",
+          "description": "Papel visual compartilhado --card-border-width; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--card-radius": {
+          "value": "var(--radius-lg-token)",
+          "description": "Skin: card-radius. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--card-background": {
+          "value": "var(--surface)",
+          "description": "Skin: card-background. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--card-padding": {
+          "value": "var(--space-5)",
+          "description": "Skin: card-padding. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--dialog-surface": {
+          "value": "var(--surface)",
+          "description": "Skin: dialog-surface. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--dialog-border-width": {
+          "value": "0px",
+          "description": "Skin: dialog-border-width. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--dialog-border-color": {
+          "value": "var(--line)",
+          "description": "Skin: dialog-border-color. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--dialog-shadow": {
+          "value": "var(--elev-5)",
+          "description": "Skin: dialog-shadow. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--drawer-width": {
+          "value": "320px",
+          "description": "Skin: drawer-width. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--drawer-radius": {
+          "value": "var(--radius-xl)",
+          "description": "Skin: drawer-radius. Override opcional por ThemeProvider; preserva o papel semântico de cor.",
+          "deprecated": false
+        },
+        "--radius-lg-token": {
+          "value": "var(--radius-md)",
+          "description": "Papel CSS --radius-lg-token; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--radius-xl-token": {
+          "value": "var(--radius-lg)",
+          "description": "Papel CSS --radius-xl-token; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--radius-full-token": {
+          "value": "var(--radius-pill)",
+          "description": "Papel CSS --radius-full-token; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-border-width": {
+          "value": "1px",
+          "description": "Papel visual compartilhado --surface-border-width; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--avatar-radius": {
+          "value": "var(--radius-pill)",
+          "description": "Papel visual compartilhado --avatar-radius; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--avatar-square-radius": {
+          "value": "var(--radius-md)",
+          "description": "Papel visual compartilhado --avatar-square-radius; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--control-group-radius": {
+          "value": "var(--control-radius)",
+          "description": "Papel visual compartilhado --control-group-radius; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--chip-radius": {
+          "value": "var(--radius-pill)",
+          "description": "Papel visual compartilhado --chip-radius; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--dialog-radius": {
+          "value": "var(--radius-xl)",
+          "description": "Papel visual compartilhado --dialog-radius; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--checkbox-radius": {
+          "value": "var(--radius-sm)",
+          "description": "Papel visual compartilhado --checkbox-radius; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--button-height-md": {
+          "value": "34px",
+          "description": "Papel visual compartilhado --button-height-md; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--button-height-sm": {
+          "value": "28px",
+          "description": "Papel visual compartilhado --button-height-sm; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--field-height": {
+          "value": "38px",
+          "description": "Papel visual compartilhado --field-height; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--field-border": {
+          "value": "var(--outline)",
+          "description": "Papel visual compartilhado --field-border; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--field-label-font": {
+          "value": "var(--font-mono)",
+          "description": "Papel visual compartilhado --field-label-font; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--interface-detail-font": {
+          "value": "var(--font-mono)",
+          "description": "Papel visual compartilhado --interface-detail-font; fonte de rótulos curtos e dicas; cada escopo recalcula a partir da própria --font-mono.",
+          "deprecated": false
+        },
+        "--field-label-transform": {
+          "value": "uppercase",
+          "description": "Papel visual compartilhado --field-label-transform; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--field-label-tracking": {
+          "value": "0.14em",
+          "description": "Papel visual compartilhado --field-label-tracking; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--field-label-size": {
+          "value": "var(--text-eyebrow)",
+          "description": "Papel visual compartilhado --field-label-size; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--navigation-link-radius": {
+          "value": "var(--radius-md)",
+          "description": "Papel visual compartilhado --navigation-link-radius; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--timeline-line": {
+          "value": "var(--outline)",
+          "description": "Papel visual compartilhado --timeline-line; editor de tema Refy; padrão compatível.",
+          "deprecated": false
+        },
+        "--chart-primary": {
+          "value": "oklch(0.54615 0.21521 262.881)",
+          "description": "Cor categórica de dados (primary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--avatar-text": {
+          "value": "var(--legacy-white)",
+          "description": "Texto de avatares que usam a identidade do tema. Fundos explícitos usam avatar-custom-text.",
+          "deprecated": false
+        },
+        "--chart-secondary": {
+          "value": "oklch(0.56424 0.15410 41.861)",
+          "description": "Cor categórica de dados (secondary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--duration-instant": {
+          "value": "var(--motion-feedback-duration)",
+          "description": "Alias compatível duration-instant para o papel funcional motion-feedback-duration."
+        },
+        "--duration-fast": {
+          "value": "var(--motion-feedback-duration)",
+          "description": "Alias compatível duration-fast para o papel funcional motion-feedback-duration."
+        },
+        "--duration-mid": {
+          "value": "var(--motion-context-duration)",
+          "description": "Alias compatível duration-mid para o papel funcional motion-context-duration."
+        },
+        "--duration-slow": {
+          "value": "var(--motion-orientation-duration)",
+          "description": "Alias compatível duration-slow para o papel funcional motion-orientation-duration."
+        },
+        "--ease-out": {
+          "value": "var(--motion-ease-enter)",
+          "description": "Alias compatível ease-out para o papel funcional motion-ease-enter."
+        },
+        "--ease-in": {
+          "value": "var(--motion-ease-exit)",
+          "description": "Alias compatível ease-in para o papel funcional motion-ease-exit."
+        },
+        "--ease-emph": {
+          "value": "var(--motion-ease-enter)",
+          "description": "Alias compatível ease-emph para o papel funcional motion-ease-enter."
+        },
+        "--ease-spring": {
+          "value": "var(--motion-ease-enter)",
+          "description": "Alias compatível ease-spring para o papel funcional motion-ease-enter."
+        },
+        "--chart-tertiary": {
+          "value": "oklch(0.57516 0.13034 63.772)",
+          "description": "Cor categórica de dados (tertiary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-quaternary": {
+          "value": "oklch(0.54877 0.19892 358.788)",
+          "description": "Cor categórica de dados (quaternary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-quinary": {
+          "value": "oklch(0.54134 0.24659 293.009)",
+          "description": "Cor categórica de dados (quinary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-senary": {
+          "value": "oklch(0.53613 0.09422 182.377)",
+          "description": "Cor categórica de dados (senary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-septenary": {
+          "value": "oklch(0.45678 0.21458 277.023)",
+          "description": "Cor categórica de dados (septenary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-octonary": {
+          "value": "oklch(0.54919 0.09850 220.166)",
+          "description": "Cor categórica de dados (octonary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--auth-control-bg": {
+          "value": "#fff",
+          "description": "Papel CSS --auth-control-bg; botão de entrada com Google, cores da especificação de marca do Google; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--auth-control-text": {
+          "value": "#1f1f1f",
+          "description": "Papel CSS --auth-control-text; botão de entrada com Google, cores da especificação de marca do Google; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--auth-control-border": {
+          "value": "#747775",
+          "description": "Papel CSS --auth-control-border; botão de entrada com Google, cores da especificação de marca do Google; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--auth-control-hover": {
+          "value": "#f8faff",
+          "description": "Papel CSS --auth-control-hover; botão de entrada com Google, cores da especificação de marca do Google; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--auth-control-active": {
+          "value": "#f0f4f9",
+          "description": "Papel CSS --auth-control-active; botão de entrada com Google, cores da especificação de marca do Google; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
+        }
+      }
+    },
+    "font-brand": {
+      "$type": "fontFamily",
+      "$value": [
+        "Manrope",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$description": "Papel CSS --font-brand; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista. Nova referência tipográfica autorizada em 22/10/2026; legado disponível em fontSets.legacy.",
+      "$deprecated": false
+    },
+    "font-heading": {
+      "$type": "fontFamily",
+      "$value": [
+        "Manrope",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$description": "Papel CSS --font-heading; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista. Nova referência tipográfica autorizada em 22/10/2026; legado disponível em fontSets.legacy.",
+      "$deprecated": false
+    },
+    "font-headline": {
+      "$type": "fontFamily",
+      "$value": [
+        "Manrope",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$description": "Papel CSS --font-headline; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista. Nova referência tipográfica autorizada em 22/10/2026; legado disponível em fontSets.legacy.",
+      "$deprecated": false
+    },
+    "font-body": {
+      "$type": "fontFamily",
+      "$value": [
+        "Source Sans 3",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$description": "Papel CSS --font-body; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "font-mono": {
+      "$type": "fontFamily",
+      "$value": [
+        "Source Code Pro",
+        "ui-monospace",
+        "monospace"
+      ],
+      "$description": "Papel CSS --font-mono; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-display": {
+      "$type": "dimension",
+      "$value": {
+        "value": 52,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-display; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-h1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 42,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-h1; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-h2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 34,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-h2; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-h3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 30,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-h3; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-h4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-h4; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-h5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 17,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-h5; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-base": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-base; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 13,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-sm; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-xs; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-2xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 11,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-2xs; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "text-eyebrow": {
+      "$type": "dimension",
+      "$value": {
+        "value": 11,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --text-eyebrow; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tracking-normal": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Papel CSS --tracking-normal; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "leading-tight": {
+      "$type": "number",
+      "$value": 1.06,
+      "$description": "Papel CSS --leading-tight; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "leading-snug": {
+      "$type": "number",
+      "$value": 1.4,
+      "$description": "Papel CSS --leading-snug; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "leading-normal": {
+      "$type": "number",
+      "$value": 1.55,
+      "$description": "Papel CSS --leading-normal; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weight-regular": {
+      "$type": "number",
+      "$value": 400,
+      "$description": "Papel CSS --weight-regular; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weight-medium": {
+      "$type": "number",
+      "$value": 500,
+      "$description": "Papel CSS --weight-medium; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weight-semi": {
+      "$type": "number",
+      "$value": 600,
+      "$description": "Papel CSS --weight-semi; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weight-bold": {
+      "$type": "number",
+      "$value": 700,
+      "$description": "Papel CSS --weight-bold; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-display-hero-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-display-hero-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-display-hero-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 72,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-display-hero-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-display-large-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-display-large-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-display-large-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-display-large-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h1-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h1-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h1-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h1-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h2-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h2-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h2-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 44,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h2-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h3-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h3-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h3-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h3-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h4-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h4-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h4-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h4-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h5-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h5-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-h5-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-h5-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-metric-large-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-metric-large-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-metric-large-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-metric-large-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-lead-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-lead-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-lead-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 30,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-lead-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-large-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-large-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-large-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-large-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-medium-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-medium-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-medium-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-medium-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-small-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-small-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-small-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-small-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-xsmall-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-xsmall-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-body-xsmall-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-body-xsmall-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-navigation-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-navigation-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-navigation-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-navigation-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-label-large-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-label-large-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-label-large-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-label-large-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-label-medium-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-label-medium-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-label-medium-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-label-medium-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-label-small-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-label-small-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-label-small-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-label-small-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-input-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-input-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-input-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-input-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-helper-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-helper-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-helper-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-helper-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-code-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 13,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-code-size; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "type-code-line": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --type-code-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-wordmark-scale": {
+      "$type": "number",
+      "$value": 0.72,
+      "$description": "Papel CSS --brand-wordmark-scale; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-lockup-gap-scale": {
+      "$type": "number",
+      "$value": 0.25,
+      "$description": "Papel CSS --brand-lockup-gap-scale; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-divider-height-scale": {
+      "$type": "number",
+      "$value": 0.72,
+      "$description": "Papel CSS --brand-divider-height-scale; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-divider-gap-scale": {
+      "$type": "number",
+      "$value": 0.2,
+      "$description": "Papel CSS --brand-divider-gap-scale; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-clear-space-scale": {
+      "$type": "number",
+      "$value": 0.5,
+      "$description": "Papel CSS --brand-clear-space-scale; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-site-16": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-site-16; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-site-32": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-site-32; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-site-48": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-site-48; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-site-64": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-site-64; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-site-96": {
+      "$type": "dimension",
+      "$value": {
+        "value": 96,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-site-96; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-site-128": {
+      "$type": "dimension",
+      "$value": {
+        "value": 128,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-site-128; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-mobile-120": {
+      "$type": "dimension",
+      "$value": {
+        "value": 120,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-mobile-120; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-mobile-152": {
+      "$type": "dimension",
+      "$value": {
+        "value": 152,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-mobile-152; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-mobile-167": {
+      "$type": "dimension",
+      "$value": {
+        "value": 167,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-mobile-167; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-mobile-180": {
+      "$type": "dimension",
+      "$value": {
+        "value": 180,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-mobile-180; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-mobile-192": {
+      "$type": "dimension",
+      "$value": {
+        "value": 192,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-mobile-192; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-icon-mobile-512": {
+      "$type": "dimension",
+      "$value": {
+        "value": 512,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --brand-icon-mobile-512; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-pride-red": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9019607843137255,
+          0.1411764705882353,
+          0.09411764705882353
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-pride-red; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-pride-orange": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.47843137254901963,
+          0
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-pride-orange; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-pride-yellow": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.8313725490196079,
+          0
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-pride-yellow; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-pride-green": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.5411764705882353,
+          0.23921568627450981
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-pride-green; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-pride-blue": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.3411764705882353,
+          0.7215686274509804
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-pride-blue; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-pride-purple": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.47843137254901963,
+          0.12156862745098039,
+          0.6352941176470588
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-pride-purple; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-pride-pink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9568627450980393,
+          0.24705882352941178,
+          0.47843137254901963
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-pride-pink; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-trans-blue": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.43137254901960786,
+          0.7764705882352941,
+          0.9176470588235294
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-trans-blue; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-trans-pink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9686274509803922,
+          0.6588235294117647,
+          0.7215686274509804
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-trans-pink; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-trans-white": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.9725490196078431,
+          0.9607843137254902
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-trans-white; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-copa-yellow": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9686274509803922,
+          0.8196078431372549,
+          0.09019607843137255
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-copa-yellow; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-copa-green": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.08627450980392157,
+          0.6078431372549019,
+          0.27058823529411763
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-copa-green; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-copa-blue": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.3411764705882353,
+          0.7215686274509804
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-copa-blue; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "radius-xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$description": "Papel CSS --radius-xs; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "radius-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$description": "Papel CSS --radius-sm; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "radius-md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$description": "Papel CSS --radius-md; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "radius-lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$description": "Papel CSS --radius-lg; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "radius-xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$description": "Papel CSS --radius-xl; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "radius-pill": {
+      "$type": "dimension",
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --radius-pill; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-1; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-2; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-3; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-4; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-5; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-6; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-8; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-10": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-10; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-12; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-16": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-16; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-20": {
+      "$type": "dimension",
+      "$value": {
+        "value": 80,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-20; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-24": {
+      "$type": "dimension",
+      "$value": {
+        "value": 96,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-24; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "sidebar-width-expanded": {
+      "$type": "dimension",
+      "$value": {
+        "value": 248,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --sidebar-width-expanded; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "sidebar-width-rail": {
+      "$type": "dimension",
+      "$value": {
+        "value": 72,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --sidebar-width-rail; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "sidebar-width-compact": {
+      "$type": "dimension",
+      "$value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --sidebar-width-compact; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "duration-progress": {
+      "$type": "duration",
+      "$value": {
+        "value": 650,
+        "unit": "ms"
+      },
+      "$description": "Ciclo de indicador de atividade; não representa duração de entrada, saída ou confirmação.",
+      "$deprecated": false
+    },
+    "z-dropdown": {
+      "$type": "number",
+      "$value": 1000,
+      "$description": "Papel CSS --z-dropdown; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "z-sticky": {
+      "$type": "number",
+      "$value": 1010,
+      "$description": "Papel CSS --z-sticky; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "z-overlay": {
+      "$type": "number",
+      "$value": 1100,
+      "$description": "Papel CSS --z-overlay; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "z-modal": {
+      "$type": "number",
+      "$value": 1200,
+      "$description": "Papel CSS --z-modal; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "z-popover": {
+      "$type": "number",
+      "$value": 1300,
+      "$description": "Papel CSS --z-popover; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "z-toast": {
+      "$type": "number",
+      "$value": 1400,
+      "$description": "Papel CSS --z-toast; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "z-tooltip": {
+      "$type": "number",
+      "$value": 1500,
+      "$description": "Papel CSS --z-tooltip; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3058823529411765,
+          0.8705882352941177,
+          0.6392156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-primary; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-primary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.06274509803921569,
+          0.7254901960784313,
+          0.5058823529411764
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-primary-container; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-inverse-primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.4235294117647059,
+          0.28627450980392155
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-inverse-primary; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-on-primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.2196078431372549,
+          0.1411764705882353
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-on-primary; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "brand-on-primary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.25882352941176473,
+          0.16862745098039217
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --brand-on-primary-container; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-white": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-white; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-line": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8313725490196079,
+          0.8313725490196079,
+          0.8470588235294118
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-line-strong": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7098039215686275,
+          0.7019607843137254,
+          0.7215686274509804
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-line-strong; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-line-subtle": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9098039215686274,
+          0.9098039215686274,
+          0.9176470588235294
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-line-subtle; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-line-faint": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9254901960784314,
+          0.9254901960784314,
+          0.9333333333333333
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-line-faint; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-neutral-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9450980392156862,
+          0.9450980392156862,
+          0.9529411764705882
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-neutral-soft; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-surface-hover": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9803921568627451,
+          0.9803921568627451,
+          0.9803921568627451
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-surface-hover; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-surface-muted": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9568627450980393,
+          0.9568627450980393,
+          0.9607843137254902
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-surface-muted; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-info-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8588235294117647,
+          0.9176470588235294,
+          0.996078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-info-soft; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-warn-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5725490196078431,
+          0.25098039215686274,
+          0.054901960784313725
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-warn-ink; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-danger-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7254901960784313,
+          0.10980392156862745,
+          0.10980392156862745
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-danger-ink; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-ink-1": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.054901960784313725,
+          0.054901960784313725,
+          0.06274509803921569
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-ink-1; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-ink-2": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.24313725490196078,
+          0.24313725490196078,
+          0.26666666666666666
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-ink-2; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-ink-3": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4666666666666667,
+          0.4627450980392157,
+          0.48627450980392156
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-ink-3; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-black": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-black; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-danger-line": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9450980392156862,
+          0.8392156862745098,
+          0.8313725490196079
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-danger-line; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-danger-line-hover": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9254901960784314,
+          0.6078431372549019,
+          0.5882352941176471
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-danger-line-hover; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "legacy-brand-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9254901960784314,
+          0.9921568627450981,
+          0.9607843137254902
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --legacy-brand-soft; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "space-7": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --space-7; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "leading-relaxed": {
+      "$type": "number",
+      "$value": 1.65,
+      "$description": "Papel CSS --leading-relaxed; origem Refy 0.4.0; escopo base; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "radius-default": {
+      "$type": "dimension",
+      "$value": {
+        "value": 7,
+        "unit": "px"
+      },
+      "$description": "Papel CSS --radius-default; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "motion-feedback-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 120,
+        "unit": "ms"
+      },
+      "$description": "Motion funcional Refy: motion-feedback-duration; política autorizada em 23/10/2026.",
+      "$deprecated": false
+    },
+    "motion-context-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 180,
+        "unit": "ms"
+      },
+      "$description": "Motion funcional Refy: motion-context-duration; política autorizada em 23/10/2026.",
+      "$deprecated": false
+    },
+    "motion-context-exit-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 140,
+        "unit": "ms"
+      },
+      "$description": "Motion funcional Refy: motion-context-exit-duration; política autorizada em 23/10/2026.",
+      "$deprecated": false
+    },
+    "motion-orientation-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 260,
+        "unit": "ms"
+      },
+      "$description": "Motion funcional Refy: motion-orientation-duration; política autorizada em 23/10/2026.",
+      "$deprecated": false
+    },
+    "motion-orientation-exit-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 200,
+        "unit": "ms"
+      },
+      "$description": "Motion funcional Refy: motion-orientation-exit-duration; política autorizada em 23/10/2026.",
+      "$deprecated": false
+    },
+    "motion-page-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 300,
+        "unit": "ms"
+      },
+      "$description": "Motion funcional Refy: motion-page-duration; política autorizada em 23/10/2026.",
+      "$deprecated": false
+    },
+    "motion-context-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "Deslocamento de contexto motion-context-x; personalizável no tema.",
+      "$deprecated": false
+    },
+    "motion-context-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
+      "$description": "Deslocamento de contexto motion-context-y; personalizável no tema.",
+      "$deprecated": false
+    },
+    "motion-pressed-scale": {
+      "$type": "number",
+      "$value": 0.97,
+      "$description": "Preferência funcional motion-pressed-scale; redução do sistema sempre prevalece.",
+      "$deprecated": false
+    },
+    "motion-reduced": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Preferência funcional motion-reduced; redução do sistema sempre prevalece.",
+      "$deprecated": false
+    },
+    "motion-ease-enter": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.2,
+        0.8,
+        0.2,
+        1
+      ],
+      "$description": "Curva funcional motion-ease-enter, sem overshoot.",
+      "$deprecated": false
+    },
+    "motion-ease-exit": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.4,
+        0,
+        1,
+        1
+      ],
+      "$description": "Curva funcional motion-ease-exit, sem overshoot.",
+      "$deprecated": false
+    }
+  },
+  "light": {
+    "$extensions": {
+      "org.refy.css": {
+        "--surface-dim": {
+          "value": "var(--bg)",
+          "description": "Papel CSS --surface-dim; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-bright": {
+          "value": "var(--surface)",
+          "description": "Papel CSS --surface-bright; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-tint": {
+          "value": "var(--primary)",
+          "description": "Papel CSS --surface-tint; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-container-lowest": {
+          "value": "var(--surface)",
+          "description": "Papel CSS --surface-container-lowest; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-container-low": {
+          "value": "var(--surface-2)",
+          "description": "Papel CSS --surface-container-low; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-container": {
+          "value": "var(--surface-2)",
+          "description": "Papel CSS --surface-container; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-variant": {
+          "value": "var(--surface-container-highest)",
+          "description": "Papel CSS --surface-variant; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-surface": {
+          "value": "var(--ink-1)",
+          "description": "Papel CSS --on-surface; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-background": {
+          "value": "var(--ink-1)",
+          "description": "Papel CSS --on-background; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-surface-variant": {
+          "value": "var(--ink-3)",
+          "description": "Papel CSS --on-surface-variant; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--outline-variant": {
+          "value": "var(--line)",
+          "description": "Papel CSS --outline-variant; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--error": {
+          "value": "var(--critical)",
+          "description": "Papel CSS --error; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--error-container": {
+          "value": "var(--critical-soft)",
+          "description": "Papel CSS --error-container; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-error": {
+          "value": "var(--on-critical)",
+          "description": "Papel CSS --on-error; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-error-container": {
+          "value": "var(--critical-ink)",
+          "description": "Papel CSS --on-error-container; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--border": {
+          "value": "var(--line)",
+          "description": "Papel CSS --border; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--border-soft": {
+          "value": "var(--line-soft)",
+          "description": "Papel CSS --border-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-card-dark": {
+          "value": "var(--shadow-card-light)",
+          "description": "Papel CSS --shadow-card-dark; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-glow-soft": {
+          "value": "0 0 15px rgba(16, 185, 129, 0.10)",
+          "description": "Papel CSS --shadow-glow-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-glow-hover": {
+          "value": "0 0 25px rgba(16, 185, 129, 0.20)",
+          "description": "Papel CSS --shadow-glow-hover; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-glow-pulse": {
+          "value": "0 0 18px rgba(16, 185, 129, 0.45)",
+          "description": "Papel CSS --shadow-glow-pulse; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-focus-ring": {
+          "value": "0 0 0 3px color-mix(in srgb, var(--primary) 24%, transparent)",
+          "description": "Papel CSS --shadow-focus-ring; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-focus-ring-soft": {
+          "value": "0 0 0 4px color-mix(in srgb, var(--primary) 8%, transparent)",
+          "description": "Papel CSS --shadow-focus-ring-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-card-light": {
+          "value": "0 1px 0 rgba(14, 14, 16, 0.04), 0 4px 12px rgba(14, 14, 16, 0.04)",
+          "description": "Papel CSS --shadow-card-light; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--chart-primary": {
+          "value": "oklch(0.54615 0.21521 262.881)",
+          "description": "Cor categórica de dados (primary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-secondary": {
+          "value": "oklch(0.56424 0.15410 41.861)",
+          "description": "Cor categórica de dados (secondary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-tertiary": {
+          "value": "oklch(0.57516 0.13034 63.772)",
+          "description": "Cor categórica de dados (tertiary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-quaternary": {
+          "value": "oklch(0.54877 0.19892 358.788)",
+          "description": "Cor categórica de dados (quaternary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-quinary": {
+          "value": "oklch(0.54134 0.24659 293.009)",
+          "description": "Cor categórica de dados (quinary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-senary": {
+          "value": "oklch(0.53613 0.09422 182.377)",
+          "description": "Cor categórica de dados (senary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-septenary": {
+          "value": "oklch(0.45678 0.21458 277.023)",
+          "description": "Cor categórica de dados (septenary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-octonary": {
+          "value": "oklch(0.54919 0.09850 220.166)",
+          "description": "Cor categórica de dados (octonary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --bg; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "surface-container-high": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9254901960784314,
+          0.9333333333333333,
+          0.9372549019607843
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-container-high; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "surface-container-highest": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8823529411764706,
+          0.8980392156862745,
+          0.8901960784313725
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-container-highest; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "inverse-surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12549019607843137,
+          0.1450980392156863,
+          0.1450980392156863
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --inverse-surface; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "inverse-on-surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9490196078431372,
+          0.9607843137254902,
+          0.9529411764705882
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --inverse-on-surface; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "outline": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4392156862745098,
+          0.4745098039215686,
+          0.45098039215686275
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --outline; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.03137254901960784,
+          0.4980392156862745,
+          0.3568627450980392
+        ],
+        "alpha": 1,
+        "hex": "#087f5b"
+      },
+      "$description": "Papel CSS --primary; escopo light; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "primary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0196078431372549,
+          0.30980392156862746,
+          0.2235294117647059
+        ],
+        "alpha": 1,
+        "hex": "#054f39"
+      },
+      "$description": "Papel CSS --primary-container; escopo light; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "primary-fixed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.43529411764705883,
+          0.984313725490196,
+          0.7450980392156863
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-fixed; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary-fixed-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3058823529411765,
+          0.8705882352941177,
+          0.6392156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-fixed-dim; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Papel CSS --on-primary; escopo light; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "on-primary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Papel CSS --on-primary-container; escopo light; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "inverse-primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3058823529411765,
+          0.8705882352941177,
+          0.6392156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --inverse-primary; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2549019607843137,
+          0.3333333333333333,
+          0.4196078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8313725490196079,
+          0.8941176470588236,
+          0.9803921568627451
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary-container; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary-fixed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8313725490196079,
+          0.8941176470588236,
+          0.9803921568627451
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary-fixed; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary-fixed-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7254901960784313,
+          0.7843137254901961,
+          0.8705882352941177
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary-fixed-dim; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-secondary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-secondary; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-secondary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.13725490196078433,
+          0.19215686274509805,
+          0.2627450980392157
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-secondary-container; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6352941176470588,
+          0.19607843137254902,
+          0.2196078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.8549019607843137,
+          0.8431372549019608
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary-container; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary-fixed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.8549019607843137,
+          0.8431372549019608
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary-fixed; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary-fixed-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.7019607843137254,
+          0.6862745098039216
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary-fixed-dim; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-tertiary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-tertiary; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-tertiary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.396078431372549,
+          0.03529411764705882,
+          0.06666666666666667
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-tertiary-container; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "surface-2": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9686274509803922,
+          0.9686274509803922,
+          0.9686274509803922
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-2; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ink-1": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.054901960784313725,
+          0.054901960784313725,
+          0.06274509803921569
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-1; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ink-2": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.24313725490196078,
+          0.24313725490196078,
+          0.26666666666666666
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-2; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ink-3": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.40784313725490196,
+          0.403921568627451,
+          0.42745098039215684
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-3; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ink-4": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.43529411764705883,
+          0.42745098039215684,
+          0.4549019607843137
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-4; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "line": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8509803921568627,
+          0.8705882352941177,
+          0.8666666666666667
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --line; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "line-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9098039215686274,
+          0.9215686274509803,
+          0.9176470588235294
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --line-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "critical": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8627450980392157,
+          0.14901960784313725,
+          0.14901960784313725
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --critical; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weak": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9607843137254902,
+          0.6196078431372549,
+          0.043137254901960784
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --weak; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ok": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5176470588235295,
+          0.8,
+          0.08627450980392157
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ok; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "good": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.03137254901960784,
+          0.4980392156862745,
+          0.3568627450980392
+        ],
+        "alpha": 1,
+        "hex": "#087f5b"
+      },
+      "$description": "Papel CSS --good; escopo light; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "info": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0392156862745098,
+          0.4,
+          0.7686274509803922
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --info; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.023529411764705882,
+          0.4,
+          0.28627450980392155
+        ],
+        "alpha": 1,
+        "hex": "#066649"
+      },
+      "$description": "Papel CSS --primary-hover; escopo light; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "primary-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9058823529411765,
+          0.9725490196078431,
+          0.9411764705882353
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.023529411764705882,
+          0.37254901960784315,
+          0.27450980392156865
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-ink; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "critical-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.996078431372549,
+          0.9058823529411765,
+          0.8980392156862745
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --critical-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weak-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.996078431372549,
+          0.9529411764705882,
+          0.8
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --weak-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ok-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9254901960784314,
+          0.984313725490196,
+          0.792156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ok-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "good-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8627450980392157,
+          0.9882352941176471,
+          0.9058823529411765
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --good-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "info-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8588235294117647,
+          0.9176470588235294,
+          0.996078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --info-soft; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-critical": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-critical; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "critical-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6,
+          0.10588235294117647,
+          0.10588235294117647
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --critical-ink; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-weak": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.22745098039215686,
+          0.1411764705882353,
+          0
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-weak; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weak-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5725490196078431,
+          0.25098039215686274,
+          0.054901960784313725
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --weak-ink; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-ok": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12156862745098039,
+          0.1803921568627451,
+          0.00784313725490196
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-ok; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ok-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.24705882352941178,
+          0.3843137254901961,
+          0.07058823529411765
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ok-ink; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-good": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Papel CSS --on-good; escopo light; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "good-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.023529411764705882,
+          0.37254901960784315,
+          0.27450980392156865
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --good-ink; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-info": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-info; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "info-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0392156862745098,
+          0.4,
+          0.7686274509803922
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --info-ink; origem Refy 0.4.0; escopo light; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "code-syntax-comment": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.34509803921568627,
+          0.39215686274509803,
+          0.4666666666666667
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: comment, modo light. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-keyword": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5215686274509804,
+          0.2549019607843137,
+          0.6313725490196078
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: keyword, modo light. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-string": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.09019607843137255,
+          0.39215686274509803,
+          0.23529411764705882
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: string, modo light. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-number": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5490196078431373,
+          0.2784313725490196,
+          0.10980392156862745
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: number, modo light. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-tag": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.08627450980392157,
+          0.30980392156862746,
+          0.6313725490196078
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: tag, modo light. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-function": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5843137254901961,
+          0.3137254901960784,
+          0.12156862745098039
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: function, modo light. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-property": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6078431372549019,
+          0.1607843137254902,
+          0.25882352941176473
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: property, modo light. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-punctuation": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.28627450980392155,
+          0.3333333333333333,
+          0.40784313725490196
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: punctuation, modo light. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    }
+  },
+  "dark": {
+    "$extensions": {
+      "org.refy.css": {
+        "--border": {
+          "value": "var(--line)",
+          "description": "Alias de compatibilidade respeita a paleta escura."
+        },
+        "--surface-2": {
+          "value": "var(--surface-container)",
+          "description": "Papel CSS --surface-2; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--ink-1": {
+          "value": "var(--on-surface)",
+          "description": "Papel CSS --ink-1; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--line": {
+          "value": "var(--outline-variant)",
+          "description": "Papel CSS --line; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--line-soft": {
+          "value": "var(--border-soft)",
+          "description": "Papel CSS --line-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--critical": {
+          "value": "var(--error)",
+          "description": "Papel CSS --critical; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--weak": {
+          "value": "var(--tertiary-container)",
+          "description": "Papel CSS --weak; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--ok": {
+          "value": "var(--primary)",
+          "description": "Papel CSS --ok; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--good": {
+          "value": "#087f5b",
+          "description": "Papel CSS --good; escopo dark; ação sólida com texto branco, ajustada em 22/10/2026.",
+          "deprecated": false
+        },
+        "--info": {
+          "value": "var(--secondary)",
+          "description": "Papel CSS --info; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-card-dark": {
+          "value": "0 24px 64px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.03)",
+          "description": "Papel CSS --shadow-card-dark; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-glow-soft": {
+          "value": "0 0 15px rgba(16, 185, 129, 0.10)",
+          "description": "Papel CSS --shadow-glow-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-glow-hover": {
+          "value": "0 0 25px rgba(16, 185, 129, 0.20)",
+          "description": "Papel CSS --shadow-glow-hover; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-glow-pulse": {
+          "value": "0 0 18px rgba(16, 185, 129, 0.45)",
+          "description": "Papel CSS --shadow-glow-pulse; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-focus-ring": {
+          "value": "0 0 0 3px color-mix(in srgb, var(--primary) 45%, transparent)",
+          "description": "Papel CSS --shadow-focus-ring; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-focus-ring-soft": {
+          "value": "0 0 0 4px color-mix(in srgb, var(--primary) 8%, transparent)",
+          "description": "Papel CSS --shadow-focus-ring-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-card-light": {
+          "value": "0 1px 0 rgba(14, 14, 16, 0.04), 0 4px 12px rgba(14, 14, 16, 0.04)",
+          "description": "Papel CSS --shadow-card-light; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-line": {
+          "value": "var(--line)",
+          "description": "Papel CSS --legacy-line; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-line-strong": {
+          "value": "var(--outline)",
+          "description": "Papel CSS --legacy-line-strong; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-neutral-soft": {
+          "value": "var(--surface-2)",
+          "description": "Papel CSS --legacy-neutral-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-surface-hover": {
+          "value": "var(--surface-container-high)",
+          "description": "Papel CSS --legacy-surface-hover; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-surface-muted": {
+          "value": "var(--surface-container)",
+          "description": "Papel CSS --legacy-surface-muted; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--legacy-line-subtle": {
+          "value": "var(--line-soft)",
+          "description": "Alias de compatibilidade respeita a paleta escura."
+        },
+        "--legacy-line-faint": {
+          "value": "var(--line-soft)",
+          "description": "Alias de compatibilidade respeita a paleta escura."
+        },
+        "--legacy-info-soft": {
+          "value": "var(--info-soft)",
+          "description": "Alias de compatibilidade respeita a paleta escura."
+        },
+        "--legacy-brand-soft": {
+          "value": "var(--good-soft)",
+          "description": "Alias de compatibilidade respeita a paleta escura."
+        },
+        "--legacy-danger-line": {
+          "value": "var(--critical-soft)",
+          "description": "Alias de compatibilidade respeita a paleta escura."
+        },
+        "--legacy-danger-line-hover": {
+          "value": "var(--critical-ink)",
+          "description": "Alias de compatibilidade respeita a paleta escura."
+        },
+        "--chart-primary": {
+          "value": "oklch(0.71374 0.14338 254.624)",
+          "description": "Cor categórica de dados (primary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-secondary": {
+          "value": "oklch(0.75764 0.15904 55.934)",
+          "description": "Cor categórica de dados (secondary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-tertiary": {
+          "value": "oklch(0.83686 0.16442 84.429)",
+          "description": "Cor categórica de dados (tertiary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-quaternary": {
+          "value": "oklch(0.72527 0.17523 349.761)",
+          "description": "Cor categórica de dados (quaternary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-quinary": {
+          "value": "oklch(0.70897 0.15917 293.541)",
+          "description": "Cor categórica de dados (quinary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-senary": {
+          "value": "oklch(0.78452 0.13253 181.912)",
+          "description": "Cor categórica de dados (senary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-septenary": {
+          "value": "oklch(0.78530 0.10413 274.713)",
+          "description": "Cor categórica de dados (septenary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        },
+        "--chart-octonary": {
+          "value": "oklch(0.79712 0.13389 211.530)",
+          "description": "Cor categórica de dados (octonary), independente de ações/texto da UI; substituível por tema ou série.",
+          "deprecated": false
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.07058823529411765,
+          0.08627450980392157,
+          0.10588235294117647
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --bg; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.11372549019607843,
+          0.1411764705882353,
+          0.17254901960784313
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "surface-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.07058823529411765,
+          0.08627450980392157,
+          0.10588235294117647
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-dim; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "surface-bright": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.20784313725490197,
+          0.25098039215686274,
+          0.30196078431372547
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-bright; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "surface-tint": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3058823529411765,
+          0.8705882352941177,
+          0.6392156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-tint; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "surface-container-lowest": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.050980392156862744,
+          0.06666666666666667,
+          0.08627450980392157
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-container-lowest; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "surface-container-low": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.09803921568627451,
+          0.12156862745098039,
+          0.15294117647058825
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-container-low; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "surface-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1450980392156863,
+          0.1803921568627451,
+          0.2196078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-container; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "surface-container-high": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1803921568627451,
+          0.2196078431372549,
+          0.26666666666666666
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-container-high; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "surface-container-highest": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2235294117647059,
+          0.27450980392156865,
+          0.32941176470588235
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-container-highest; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "surface-variant": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2235294117647059,
+          0.27450980392156865,
+          0.32941176470588235
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-variant; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "on-surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9490196078431372,
+          0.9607843137254902,
+          0.9725490196078431
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-surface; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "on-background": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8784313725490196,
+          0.8901960784313725,
+          0.8980392156862745
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-background; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-surface-variant": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7333333333333333,
+          0.7843137254901961,
+          0.8313725490196079
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-surface-variant; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "inverse-surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8784313725490196,
+          0.8901960784313725,
+          0.8980392156862745
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --inverse-surface; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "inverse-on-surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.17647058823529413,
+          0.19215686274509805,
+          0.2
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --inverse-on-surface; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "outline": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5333333333333333,
+          0.592156862745098,
+          0.6509803921568628
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --outline; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "outline-variant": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.33725490196078434,
+          0.396078431372549,
+          0.4549019607843137
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --outline-variant; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.03137254901960784,
+          0.4980392156862745,
+          0.3568627450980392
+        ],
+        "alpha": 1,
+        "hex": "#087f5b"
+      },
+      "$description": "Papel CSS --primary; escopo dark; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "primary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0196078431372549,
+          0.30980392156862746,
+          0.2235294117647059
+        ],
+        "alpha": 1,
+        "hex": "#054f39"
+      },
+      "$description": "Papel CSS --primary-container; escopo dark; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "primary-fixed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.43529411764705883,
+          0.984313725490196,
+          0.7450980392156863
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-fixed; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary-fixed-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3058823529411765,
+          0.8705882352941177,
+          0.6392156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-fixed-dim; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Papel CSS --on-primary; escopo dark; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "on-primary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Papel CSS --on-primary-container; escopo dark; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "inverse-primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.4235294117647059,
+          0.28627450980392155
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --inverse-primary; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7254901960784313,
+          0.7843137254901961,
+          0.8705882352941177
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2235294117647059,
+          0.2823529411764706,
+          0.35294117647058826
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary-container; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary-fixed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8313725490196079,
+          0.8941176470588236,
+          0.9803921568627451
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary-fixed; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary-fixed-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7254901960784313,
+          0.7843137254901961,
+          0.8705882352941177
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary-fixed-dim; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-secondary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.13725490196078433,
+          0.19215686274509805,
+          0.2627450980392157
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-secondary; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-secondary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6549019607843137,
+          0.7137254901960784,
+          0.8
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-secondary-container; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.7019607843137254,
+          0.6862745098039216
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9882352941176471,
+          0.48627450980392156,
+          0.47058823529411764
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary-container; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary-fixed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.8549019607843137,
+          0.8431372549019608
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary-fixed; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary-fixed-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.7019607843137254,
+          0.6862745098039216
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary-fixed-dim; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-tertiary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.396078431372549,
+          0.03529411764705882,
+          0.06666666666666667
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-tertiary; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-tertiary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.44313725490196076,
+          0.0784313725490196,
+          0.09803921568627451
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-tertiary-container; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "error": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.7058823529411765,
+          0.6705882352941176
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --error; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "error-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5764705882352941,
+          0,
+          0.0392156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --error-container; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-error": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4117647058823529,
+          0,
+          0.0196078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-error; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-error-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.8549019607843137,
+          0.8392156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-error-container; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "border-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2627450980392157,
+          0.3176470588235294,
+          0.37254901960784315
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --border-soft; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "ink-4": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6313725490196078,
+          0.6941176470588235,
+          0.7568627450980392
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-4; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.023529411764705882,
+          0.4,
+          0.28627450980392155
+        ],
+        "alpha": 1,
+        "hex": "#066649"
+      },
+      "$description": "Papel CSS --primary-hover; escopo dark; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "primary-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.07058823529411765,
+          0.23529411764705882,
+          0.17647058823529413
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.43529411764705883,
+          0.984313725490196,
+          0.7450980392156863
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-ink; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "critical-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.29411764705882354,
+          0.09019607843137255,
+          0.0784313725490196
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --critical-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weak-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.26666666666666666,
+          0.20784313725490197,
+          0.09803921568627451
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --weak-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ok-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1607843137254902,
+          0.24705882352941178,
+          0.09411764705882353
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ok-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "good-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.07058823529411765,
+          0.23529411764705882,
+          0.17647058823529413
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --good-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "info-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12549019607843137,
+          0.20392156862745098,
+          0.2980392156862745
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --info-soft; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-critical": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4117647058823529,
+          0,
+          0.0196078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-critical; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "critical-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.7058823529411765,
+          0.6705882352941176
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --critical-ink; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-weak": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2235294117647059,
+          0.14901960784313725,
+          0
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-weak; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weak-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.8352941176470589,
+          0.5411764705882353
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --weak-ink; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-ok": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12156862745098039,
+          0.1803921568627451,
+          0.00784313725490196
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-ok; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ok-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6901960784313725,
+          0.8588235294117647,
+          0.5215686274509804
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ok-ink; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-good": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Papel CSS --on-good; escopo dark; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "good-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.43529411764705883,
+          0.984313725490196,
+          0.7450980392156863
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --good-ink; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-info": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.08627450980392157,
+          0.1803921568627451,
+          0.28627450980392155
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-info; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "info-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7254901960784313,
+          0.7843137254901961,
+          0.8705882352941177
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --info-ink; origem Refy 0.4.0; escopo dark; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ink-2": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7764705882352941,
+          0.8156862745098039,
+          0.8549019607843137
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-2; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "ink-3": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6784313725490196,
+          0.7411764705882353,
+          0.8
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-3; modo escuro Refy; escala de superfícies e leitura.",
+      "$deprecated": false
+    },
+    "code-syntax-comment": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6431372549019608,
+          0.6862745098039216,
+          0.7568627450980392
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: comment, modo dark. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-keyword": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8352941176470589,
+          0.6509803921568628,
+          0.9490196078431372
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: keyword, modo dark. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-string": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6078431372549019,
+          0.8392156862745098,
+          0.6784313725490196
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: string, modo dark. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-number": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9372549019607843,
+          0.7372549019607844,
+          0.5411764705882353
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: number, modo dark. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-tag": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6196078431372549,
+          0.7843137254901961,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: tag, modo dark. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-function": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9568627450980393,
+          0.7607843137254902,
+          0.5607843137254902
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: function, modo dark. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-property": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9529411764705882,
+          0.6431372549019608,
+          0.7176470588235294
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: property, modo dark. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-punctuation": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7803921568627451,
+          0.8156862745098039,
+          0.8705882352941177
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: punctuation, modo dark. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    }
+  },
+  "editorial": {
+    "$extensions": {
+      "org.refy.css": {
+        "--surface-dim": {
+          "value": "var(--bg)",
+          "description": "Papel CSS --surface-dim; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-bright": {
+          "value": "var(--surface)",
+          "description": "Papel CSS --surface-bright; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-tint": {
+          "value": "var(--primary)",
+          "description": "Papel CSS --surface-tint; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-container-lowest": {
+          "value": "var(--surface)",
+          "description": "Papel CSS --surface-container-lowest; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-container-low": {
+          "value": "var(--surface-2)",
+          "description": "Papel CSS --surface-container-low; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-container": {
+          "value": "var(--surface-2)",
+          "description": "Papel CSS --surface-container; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--surface-variant": {
+          "value": "var(--surface-container-highest)",
+          "description": "Papel CSS --surface-variant; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-surface": {
+          "value": "var(--ink-1)",
+          "description": "Papel CSS --on-surface; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-background": {
+          "value": "var(--ink-1)",
+          "description": "Papel CSS --on-background; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-surface-variant": {
+          "value": "var(--ink-3)",
+          "description": "Papel CSS --on-surface-variant; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--outline-variant": {
+          "value": "var(--line)",
+          "description": "Papel CSS --outline-variant; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--error": {
+          "value": "var(--critical)",
+          "description": "Papel CSS --error; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--error-container": {
+          "value": "var(--critical-soft)",
+          "description": "Papel CSS --error-container; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-error": {
+          "value": "var(--on-critical)",
+          "description": "Papel CSS --on-error; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--on-error-container": {
+          "value": "var(--critical-ink)",
+          "description": "Papel CSS --on-error-container; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--border": {
+          "value": "var(--line)",
+          "description": "Papel CSS --border; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--border-soft": {
+          "value": "var(--line-soft)",
+          "description": "Papel CSS --border-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-card-dark": {
+          "value": "var(--shadow-card-light)",
+          "description": "Papel CSS --shadow-card-dark; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-glow-soft": {
+          "value": "0 0 15px rgba(16, 185, 129, 0.10)",
+          "description": "Papel CSS --shadow-glow-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-glow-hover": {
+          "value": "0 0 25px rgba(16, 185, 129, 0.20)",
+          "description": "Papel CSS --shadow-glow-hover; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-glow-pulse": {
+          "value": "0 0 18px rgba(16, 185, 129, 0.45)",
+          "description": "Papel CSS --shadow-glow-pulse; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-focus-ring": {
+          "value": "0 0 0 3px color-mix(in srgb, var(--primary) 24%, transparent)",
+          "description": "Papel CSS --shadow-focus-ring; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-focus-ring-soft": {
+          "value": "0 0 0 4px color-mix(in srgb, var(--primary) 8%, transparent)",
+          "description": "Papel CSS --shadow-focus-ring-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        },
+        "--shadow-card-light": {
+          "value": "0 1px 0 rgba(14, 14, 16, 0.04), 0 4px 12px rgba(14, 14, 16, 0.04)",
+          "description": "Papel CSS --shadow-card-light; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+          "deprecated": false
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9686274509803922,
+          0.9529411764705882,
+          0.9176470588235294
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --bg; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.9921568627450981,
+          0.9725490196078431
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "surface-container-high": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9254901960784314,
+          0.9333333333333333,
+          0.9372549019607843
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-container-high; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "surface-container-highest": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8823529411764706,
+          0.8980392156862745,
+          0.8901960784313725
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-container-highest; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "inverse-surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12549019607843137,
+          0.1450980392156863,
+          0.1450980392156863
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --inverse-surface; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "inverse-on-surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9490196078431372,
+          0.9607843137254902,
+          0.9529411764705882
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --inverse-on-surface; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "outline": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4392156862745098,
+          0.4745098039215686,
+          0.45098039215686275
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --outline; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.03137254901960784,
+          0.4980392156862745,
+          0.3568627450980392
+        ],
+        "alpha": 1,
+        "hex": "#087f5b"
+      },
+      "$description": "Papel CSS --primary; escopo editorial; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "primary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0196078431372549,
+          0.30980392156862746,
+          0.2235294117647059
+        ],
+        "alpha": 1,
+        "hex": "#054f39"
+      },
+      "$description": "Papel CSS --primary-container; escopo editorial; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "primary-fixed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.43529411764705883,
+          0.984313725490196,
+          0.7450980392156863
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-fixed; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary-fixed-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3058823529411765,
+          0.8705882352941177,
+          0.6392156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-fixed-dim; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Papel CSS --on-primary; escopo editorial; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "on-primary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Papel CSS --on-primary-container; escopo editorial; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "inverse-primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3058823529411765,
+          0.8705882352941177,
+          0.6392156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --inverse-primary; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.2549019607843137,
+          0.3333333333333333,
+          0.4196078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8313725490196079,
+          0.8941176470588236,
+          0.9803921568627451
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary-container; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary-fixed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8313725490196079,
+          0.8941176470588236,
+          0.9803921568627451
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary-fixed; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "secondary-fixed-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7254901960784313,
+          0.7843137254901961,
+          0.8705882352941177
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --secondary-fixed-dim; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-secondary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-secondary; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-secondary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.13725490196078433,
+          0.19215686274509805,
+          0.2627450980392157
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-secondary-container; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6352941176470588,
+          0.19607843137254902,
+          0.2196078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.8549019607843137,
+          0.8431372549019608
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary-container; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary-fixed": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.8549019607843137,
+          0.8431372549019608
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary-fixed; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "tertiary-fixed-dim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.7019607843137254,
+          0.6862745098039216
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --tertiary-fixed-dim; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-tertiary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-tertiary; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-tertiary-container": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.396078431372549,
+          0.03529411764705882,
+          0.06666666666666667
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-tertiary-container; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "surface-2": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9411764705882353,
+          0.9215686274509803,
+          0.8823529411764706
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --surface-2; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ink-1": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.06666666666666667,
+          0.06666666666666667,
+          0.07450980392156863
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-1; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ink-2": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.23921568627450981,
+          0.23921568627450981,
+          0.25882352941176473
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-2; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ink-3": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.403921568627451,
+          0.39215686274509803,
+          0.3686274509803922
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-3; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ink-4": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4392156862745098,
+          0.4196078431372549,
+          0.3843137254901961
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ink-4; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "line": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8901960784313725,
+          0.8588235294117647,
+          0.8117647058823529
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --line; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "line-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9333333333333333,
+          0.9058823529411765,
+          0.8627450980392157
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --line-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "critical": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7803921568627451,
+          0.22745098039215686,
+          0.16862745098039217
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --critical; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weak": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.788235294117647,
+          0.5098039215686274,
+          0.06666666666666667
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --weak; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ok": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.47843137254901963,
+          0.6470588235294118,
+          0.10588235294117647
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ok; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "good": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.03137254901960784,
+          0.4980392156862745,
+          0.3568627450980392
+        ],
+        "alpha": 1,
+        "hex": "#087f5b"
+      },
+      "$description": "Papel CSS --good; escopo editorial; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "info": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1450980392156863,
+          0.38823529411764707,
+          0.9215686274509803
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --info; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.023529411764705882,
+          0.4,
+          0.28627450980392155
+        ],
+        "alpha": 1,
+        "hex": "#066649"
+      },
+      "$description": "Papel CSS --primary-hover; escopo editorial; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "primary-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9019607843137255,
+          0.9647058823529412,
+          0.9372549019607843
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "primary-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.023529411764705882,
+          0.3058823529411765,
+          0.23137254901960785
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --primary-ink; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "critical-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.996078431372549,
+          0.9058823529411765,
+          0.8980392156862745
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --critical-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weak-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.996078431372549,
+          0.9529411764705882,
+          0.8
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --weak-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ok-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9254901960784314,
+          0.984313725490196,
+          0.792156862745098
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ok-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "good-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8627450980392157,
+          0.9882352941176471,
+          0.9058823529411765
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --good-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "info-soft": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8588235294117647,
+          0.9176470588235294,
+          0.996078431372549
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --info-soft; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-critical": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-critical; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "critical-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6,
+          0.10588235294117647,
+          0.10588235294117647
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --critical-ink; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-weak": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.22745098039215686,
+          0.1411764705882353,
+          0
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-weak; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "weak-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5725490196078431,
+          0.25098039215686274,
+          0.054901960784313725
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --weak-ink; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-ok": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12156862745098039,
+          0.1803921568627451,
+          0.00784313725490196
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-ok; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "ok-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.24705882352941178,
+          0.3843137254901961,
+          0.07058823529411765
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --ok-ink; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-good": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Papel CSS --on-good; escopo editorial; ação sólida com texto branco, ajustada em 22/10/2026. Acentos e texto sem superfície usam primary-ink/good-ink. Overrides de identidade preservados.",
+      "$deprecated": false
+    },
+    "good-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.023529411764705882,
+          0.37254901960784315,
+          0.27450980392156865
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --good-ink; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "on-info": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --on-info; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "info-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0392156862745098,
+          0.4,
+          0.7686274509803922
+        ],
+        "alpha": 1
+      },
+      "$description": "Papel CSS --info-ink; origem Refy 0.4.0; escopo editorial; ativo, sem remoção prevista.",
+      "$deprecated": false
+    },
+    "code-syntax-comment": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.34509803921568627,
+          0.39215686274509803,
+          0.4666666666666667
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: comment, modo editorial. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-keyword": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5215686274509804,
+          0.2549019607843137,
+          0.6313725490196078
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: keyword, modo editorial. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-string": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.09019607843137255,
+          0.39215686274509803,
+          0.23529411764705882
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: string, modo editorial. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-number": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5490196078431373,
+          0.2784313725490196,
+          0.10980392156862745
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: number, modo editorial. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-tag": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.08627450980392157,
+          0.30980392156862746,
+          0.6313725490196078
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: tag, modo editorial. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-function": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5843137254901961,
+          0.3137254901960784,
+          0.12156862745098039
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: function, modo editorial. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-property": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6078431372549019,
+          0.1607843137254902,
+          0.25882352941176473
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: property, modo editorial. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    },
+    "code-syntax-punctuation": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.28627450980392155,
+          0.3333333333333333,
+          0.40784313725490196
+        ],
+        "alpha": 1
+      },
+      "$description": "Realce de código: punctuation, modo editorial. Cor independente da ação principal, personalizável no tema.",
+      "$deprecated": false
+    }
+  }
+}

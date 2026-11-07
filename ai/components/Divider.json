@@ -1,0 +1,152 @@
+{
+  "id": "Divider",
+  "description": "Visual separation between content groups, with optional orientation and label.",
+  "usage": {
+    "howToUse": [
+      "Use it to separate groups of content that have no title of their own, such as blocks in a menu or a form.",
+      "Use `label` for a choice between paths (\"or\"), and `orientation=\"vertical\"` between items on one line."
+    ],
+    "alternatives": [
+      "A group with a name: SectionHeader.",
+      "Space alone separates well enough: no divider."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The divider does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Divider",
+  "selected": "Horizontal",
+  "import": "import { Divider } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Divider",
+      "props": [
+        {
+          "name": "orientation",
+          "defaultValue": "\"horizontal\"",
+          "type": "DividerOrientation | undefined",
+          "required": false,
+          "description": "Separator direction (default: horizontal)."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Optional center label (e.g. \"or\"). Only makes sense horizontally;\nignored when vertical."
+        },
+        {
+          "name": "spacing",
+          "defaultValue": "\"md\"",
+          "type": "DividerSpacing | undefined",
+          "required": false,
+          "description": "Outer margin along the flow axis (default: \"md\")."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Horizontal",
+      "label": "Horizontal",
+      "description": "",
+      "code": "import { Divider } from '@refy-design/web';\nexport function Example() {\n  const args = {};\n  return (\n    <div style={{ maxWidth: 420 }}>\n      <p style={{ margin: 0 }}>Top block</p>\n      <Divider {...args} />\n      <p style={{ margin: 0 }}>Bottom block</p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComRotulo",
+      "label": "With a center label",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Divider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Divider>, 'label'> = { label: 'or' };\n  return (\n    <div style={{ maxWidth: 420, display: 'flex', flexDirection: 'column' }}>\n      <Button variant=\"secondary\">Join a workspace</Button>\n      <Divider {...args} />\n      <Button variant=\"ghost\">Create a new workspace</Button>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Vertical",
+      "label": "Vertical",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Divider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Divider>, 'orientation' | 'spacing'> = {\n    orientation: 'vertical',\n    spacing: 'sm',\n  };\n  return (\n    <div style={{ display: 'flex', alignItems: 'center' }}>\n      <Button variant=\"ghost\" size=\"sm\">\n        Export\n      </Button>\n      <Divider {...args} />\n      <Button variant=\"ghost\" size=\"sm\">\n        Duplicate\n      </Button>\n      <Divider {...args} />\n      <Button variant=\"ghost\" size=\"sm\">\n        Archive\n      </Button>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Espacamentos",
+      "label": "Spacing",
+      "description": "",
+      "code": "import { Divider } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ maxWidth: 420 }}>\n      {(['none', 'sm', 'md', 'lg'] as const).map((spacing) => (\n        <div key={spacing}>\n          <code style={{ fontSize: 'var(--text-2xs)' }}>spacing=\"{spacing}\"</code>\n          <Divider spacing={spacing} />\n        </div>\n      ))}\n    </div>\n  );\n}"
+    }
+  ]
+}

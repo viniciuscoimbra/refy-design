@@ -1,0 +1,139 @@
+{
+  "id": "Modal",
+  "description": "Dialog over the interface, with title, content, actions and focus management.",
+  "usage": {
+    "howToUse": [
+      "Use it for a short task that must be finished or cancelled before going on: edit a record, invite a person, confirm details.",
+      "Give it a `title` that says the task, and put the actions in `footer`, with the main one last.",
+      "Control it with `open` and `onClose`. Use `width` for wider content, up to a form with two columns.",
+      "When it closes, focus goes back to the button that opened it."
+    ],
+    "alternatives": [
+      "Confirming an action that deletes or cannot be undone: AlertDialog.",
+      "Details people consult while still seeing the page: Drawer.",
+      "A long task with several steps: a page with WizardStepper."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab` or `Shift` + `Tab`",
+        "action": "Moves between the controls of the modal, without leaving it."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the modal and returns focus to where it was."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Modal",
+  "selected": "SemTituloVisivel",
+  "import": "import { Modal } from '@refy-design/web';",
+  "composition": [
+    "IconButton"
+  ],
+  "api": [
+    {
+      "name": "Modal",
+      "props": [
+        {
+          "name": "role",
+          "defaultValue": "\"dialog\"",
+          "type": "\"dialog\" | \"alertdialog\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "hideCloseButton",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "closeOnBackdrop",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "ariaDescribedBy",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content title."
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible name when there is no visible title."
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Footer actions (buttons). No footer if absent."
+        },
+        {
+          "name": "width",
+          "defaultValue": "520",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Max width in px. Default 520."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "CancelarPlano",
+      "label": "Cancel plan",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Button variant=\"danger\" onClick={() => setOpen(true)}>\n        Cancel plan\n      </Button>\n      <Modal\n        open={open}\n        onClose={() => setOpen(false)}\n        title=\"Cancel the Pro plan?\"\n        footer={\n          <>\n            <Button variant=\"ghost\" onClick={() => setOpen(false)}>\n              Keep subscription\n            </Button>\n            <Button variant=\"danger\" onClick={() => setOpen(false)}>\n              Confirm cancellation\n            </Button>\n          </>\n        }\n      >\n        You keep access until May 2, 2027. Saved credits stay in the balance and are not\n        refunded.\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "id": "SemTituloVisivel",
+      "label": "No visible title",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Open confirmation</Button>\n      <Modal\n        open={open}\n        onClose={() => setOpen(false)}\n        ariaLabel=\"Confirm change\"\n        footer={<Button onClick={() => setOpen(false)}>Complete</Button>}\n      >\n        Review the change before finishing.\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "id": "ConteudoLongo",
+      "label": "Long content",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Open terms</Button>\n      <Modal\n        open={open}\n        onClose={() => setOpen(false)}\n        title=\"Operation terms\"\n        footer={<Button onClick={() => setOpen(false)}>Got it</Button>}\n      >\n        {Array.from({ length: 12 }, (_, index) => (\n          <p key={index}>\n            Clause {index + 1}: the information stays available for review before\n            confirmation.\n          </p>\n        ))}\n      </Modal>\n    </>\n  );\n}"
+    }
+  ]
+}

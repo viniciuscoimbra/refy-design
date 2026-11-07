@@ -1,0 +1,151 @@
+{
+  "id": "StickyFooter",
+  "description": "Persistent footer with actions and information provided by the application; does not validate forms.",
+  "usage": {
+    "howToUse": [
+      "Use it at the bottom of long forms, so Save and Cancel stay in reach.",
+      "Put the state in `start` (\"Unsaved changes\", \"2 errors\"), and the buttons on the right.",
+      "Your form validates and blocks Save when needed."
+    ],
+    "alternatives": [
+      "Context and actions at the top: StickyBar."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the actions of the footer."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "StickyFooter",
+  "selected": "Interativo",
+  "import": "import { StickyFooter } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "StickyFooter",
+      "props": [
+        {
+          "name": "start",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Left slot: state info, error count, \"unsaved changes\"."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Actions on the right (e.g. `Button` Cancel/Save)."
+        },
+        {
+          "name": "position",
+          "defaultValue": "\"sticky\"",
+          "type": "\"sticky\" | \"fixed\" | undefined",
+          "required": false,
+          "description": "`sticky` (default) sticks to the end of the nearest scroll container;\n`fixed` fixes to the viewport and inserts a spacer so it does not cover content."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Sticky (default): sticks to the bottom of the scroll container, no spacer.",
+      "code": "import { Button } from '@refy-design/web';\nimport { StickyFooter } from '@refy-design/web';\nconst longForm = (\n  <div style={{ padding: '24px 32px', display: 'grid', gap: 16 }}>\n    {Array.from({ length: 12 }, (_, i) => (\n      <div\n        key={i}\n        style={{\n          height: 72,\n          borderRadius: 8,\n          border: '1px solid var(--line-soft)',\n          background: 'var(--surface)',\n          display: 'grid',\n          placeItems: 'center',\n          color: 'var(--ink-4)',\n          fontFamily: 'var(--font-mono)',\n          fontSize: 11,\n        }}\n      >\n        field {i + 1}\n      </div>\n    ))}\n  </div>\n);\nexport function Example() {\n  const args = {};\n  return (\n    <div\n      style={{\n        height: 380,\n        overflow: 'auto',\n        background: 'var(--surface-2)',\n        border: '1px solid var(--line)',\n      }}\n    >\n      {longForm}\n      <StickyFooter {...args}>\n        <Button variant=\"ghost\">Cancel</Button>\n        <Button>Save changes</Button>\n      </StickyFooter>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComInfo",
+      "label": "With info (start)",
+      "description": "`start` slot: form state to the left of the actions.",
+      "code": "import { Button } from '@refy-design/web';\nimport { StickyFooter } from '@refy-design/web';\nconst longForm = (\n  <div style={{ padding: '24px 32px', display: 'grid', gap: 16 }}>\n    {Array.from({ length: 12 }, (_, i) => (\n      <div\n        key={i}\n        style={{\n          height: 72,\n          borderRadius: 8,\n          border: '1px solid var(--line-soft)',\n          background: 'var(--surface)',\n          display: 'grid',\n          placeItems: 'center',\n          color: 'var(--ink-4)',\n          fontFamily: 'var(--font-mono)',\n          fontSize: 11,\n        }}\n      >\n        field {i + 1}\n      </div>\n    ))}\n  </div>\n);\nexport function Example() {\n  const args = {};\n  return (\n    <div style={{ height: 320, overflow: 'auto', background: 'var(--surface-2)' }}>\n      {longForm}\n      <StickyFooter {...args} start={<span>Unsaved changes</span>}>\n        <Button variant=\"ghost\">Discard</Button>\n        <Button>Save</Button>\n      </StickyFooter>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComErro",
+      "label": "With error",
+      "description": "Errors in `start`: validation feedback always visible next to the actions.",
+      "code": "import { Button } from '@refy-design/web';\nimport { StickyFooter } from '@refy-design/web';\nconst longForm = (\n  <div style={{ padding: '24px 32px', display: 'grid', gap: 16 }}>\n    {Array.from({ length: 12 }, (_, i) => (\n      <div\n        key={i}\n        style={{\n          height: 72,\n          borderRadius: 8,\n          border: '1px solid var(--line-soft)',\n          background: 'var(--surface)',\n          display: 'grid',\n          placeItems: 'center',\n          color: 'var(--ink-4)',\n          fontFamily: 'var(--font-mono)',\n          fontSize: 11,\n        }}\n      >\n        field {i + 1}\n      </div>\n    ))}\n  </div>\n);\nexport function Example() {\n  const args = {};\n  return (\n    <div style={{ height: 320, overflow: 'auto', background: 'var(--surface-2)' }}>\n      {longForm}\n      <StickyFooter\n        {...args}\n        start={\n          <span style={{ color: 'var(--critical)' }}>\n            2 fields with errors. Review before saving\n          </span>\n        }\n      >\n        <Button variant=\"ghost\">Cancel</Button>\n        <Button disabled>Save</Button>\n      </StickyFooter>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Fixed",
+      "label": "Fixed",
+      "description": "`position=\"fixed\"`: fixed to the viewport; the spacer keeps it from covering content.",
+      "code": "import { Button } from '@refy-design/web';\nimport { StickyFooter } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst longForm = (\n  <div style={{ padding: '24px 32px', display: 'grid', gap: 16 }}>\n    {Array.from({ length: 12 }, (_, i) => (\n      <div\n        key={i}\n        style={{\n          height: 72,\n          borderRadius: 8,\n          border: '1px solid var(--line-soft)',\n          background: 'var(--surface)',\n          display: 'grid',\n          placeItems: 'center',\n          color: 'var(--ink-4)',\n          fontFamily: 'var(--font-mono)',\n          fontSize: 11,\n        }}\n      >\n        field {i + 1}\n      </div>\n    ))}\n  </div>\n);\nexport function Example() {\n  const args: Pick<ComponentProps<typeof StickyFooter>, 'position'> = {\n    position: 'fixed',\n  };\n  return (\n    <div style={{ background: 'var(--surface-2)' }}>\n      {longForm}\n      <StickyFooter {...args} start={<span>Footer fixed to the viewport</span>}>\n        <Button variant=\"ghost\">Cancel</Button>\n        <Button>Save</Button>\n      </StickyFooter>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport { StickyFooter } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction StickyFooterExample() {\n  const [saved, setSaved] = useState('Aurora project'),\n    [value, setValue] = useState(saved),\n    [status, setStatus] = useState('');\n  return (\n    <form\n      style={stack}\n      onSubmit={(e) => {\n        e.preventDefault();\n        setSaved(value);\n        setStatus('Changes saved in this session.');\n      }}\n    >\n      <Input\n        label=\"Project name\"\n        value={value}\n        onChange={(e) => setValue(e.target.value)}\n      />\n      <p>Saved value: {saved}</p>\n      <StickyFooter start={value === saved ? 'No changes' : 'Unsaved changes'}>\n        <Button\n          type=\"button\"\n          onClick={() => {\n            setValue(saved);\n            setStatus('Editing cancelled.');\n          }}\n        >\n          Cancel\n        </Button>\n        <Button type=\"submit\" variant=\"primary\">\n          Save changes\n        </Button>\n      </StickyFooter>\n      {status && <p role=\"status\">{status}</p>}\n    </form>\n  );\n}\nexport function Example() {\n  return <StickyFooterExample />;\n}"
+    }
+  ]
+}

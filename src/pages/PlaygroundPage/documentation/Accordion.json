@@ -1,0 +1,132 @@
+{
+  "id": "Accordion",
+  "description": "Expandable sections that reveal content when their titles are triggered.",
+  "usage": {
+    "howToUse": [
+      "Use it for content people read in parts and seldom all at once: FAQ, filters by group, sections of a long form.",
+      "Write titles that say what is inside, so people find the part without opening all of them.",
+      "Use `type=\"multiple\"` when people compare parts, and `defaultValue` to open the most read one.",
+      "Use `variant=\"plain\"` inside cards, where the outer border would repeat."
+    ],
+    "alternatives": [
+      "Sections people switch between often: Tabs.",
+      "A single block that opens and closes: Collapsible."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one title to the next."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens or closes the section."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Accordion",
+  "selected": "AccordionSingle",
+  "import": "import { Accordion } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Accordion",
+      "props": [
+        {
+          "name": "items",
+          "type": "AccordionItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "type",
+          "defaultValue": "\"single\"",
+          "type": "\"multiple\" | \"single\" | undefined",
+          "required": false,
+          "description": "single = only one open at a time; multiple = several."
+        },
+        {
+          "name": "value",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "Open IDs (controlled)."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "[]",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "onChange",
+          "type": "((open: string[]) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "variant",
+          "defaultValue": "\"default\"",
+          "type": "\"default\" | \"plain\" | \"joined\" | undefined",
+          "required": false,
+          "description": "plain removes the outer box, keeping the dividers between items."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"default\"",
+          "type": "\"sm\" | \"default\" | undefined",
+          "required": false,
+          "description": "Compact scale for dense compositions; default keeps the current scale."
+        },
+        {
+          "name": "leadingIndicator",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Also shows an arrow to the left of the title (\">\" closed, \"∨\" open). Default `false`."
+        },
+        {
+          "name": "indentContent",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "With `leadingIndicator`, indents the content to align with the title text, after the arrow. Default `false`."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "AccordionSingle",
+      "label": "Single",
+      "description": "One open at a time (default).",
+      "code": "import { Accordion } from '@refy-design/web';\nimport type { AccordionItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst accordionQuestions = [\n  {\n    id: 'files',\n    title: 'How should I organize my files?',\n    content: 'Create collections and group files by project.',\n  },\n  {\n    id: 'share',\n    title: 'Can I share a collection?',\n    content: 'Choose who gets access and whether they can view or edit the files.',\n  },\n  {\n    id: 'archive',\n    title: 'How do I archive a project?',\n    content:\n      'Use Archive in the settings. The files stay available to browse and the project can be restored.',\n  },\n];\nconst accordionItems: AccordionItem[] = accordionQuestions.map((item) => ({\n  ...item,\n  content: <p>{item.content}</p>,\n}));\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Accordion>,\n    'items' | 'type' | 'defaultValue'\n  > = { items: accordionItems, type: 'single', defaultValue: ['files'] };\n  return <Accordion {...args} />;\n}"
+    },
+    {
+      "id": "AccordionMultiple",
+      "label": "Multiple",
+      "description": "Several open at the same time.",
+      "code": "import { Accordion } from '@refy-design/web';\nimport type { AccordionItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst accordionQuestions = [\n  {\n    id: 'files',\n    title: 'How should I organize my files?',\n    content: 'Create collections and group files by project.',\n  },\n  {\n    id: 'share',\n    title: 'Can I share a collection?',\n    content: 'Choose who gets access and whether they can view or edit the files.',\n  },\n  {\n    id: 'archive',\n    title: 'How do I archive a project?',\n    content:\n      'Use Archive in the settings. The files stay available to browse and the project can be restored.',\n  },\n];\nconst accordionItems: AccordionItem[] = accordionQuestions.map((item) => ({\n  ...item,\n  content: <p>{item.content}</p>,\n}));\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Accordion>,\n    'items' | 'type' | 'defaultValue'\n  > = { items: accordionItems, type: 'multiple', defaultValue: ['files', 'archive'] };\n  return <Accordion {...args} />;\n}"
+    },
+    {
+      "id": "AccordionDesabilitado",
+      "label": "With disabled",
+      "description": "With one disabled item.",
+      "code": "import { Accordion } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Accordion>, 'items'> = {\n    items: [\n      { id: 'a', title: 'Active item', content: <p>Regular content.</p> },\n      {\n        id: 'b',\n        title: 'Disabled item',\n        content: <p>Does not open.</p>,\n        disabled: true,\n      },\n    ],\n  };\n  return <Accordion {...args} />;\n}"
+    },
+    {
+      "id": "Compacto",
+      "label": "Compact",
+      "description": "Shared surface at a compact scale, configured by the same theme.",
+      "code": "import { Accordion } from '@refy-design/web';\nimport type { AccordionItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst accordionQuestions = [\n  {\n    id: 'files',\n    title: 'How should I organize my files?',\n    content: 'Create collections and group files by project.',\n  },\n  {\n    id: 'share',\n    title: 'Can I share a collection?',\n    content: 'Choose who gets access and whether they can view or edit the files.',\n  },\n  {\n    id: 'archive',\n    title: 'How do I archive a project?',\n    content:\n      'Use Archive in the settings. The files stay available to browse and the project can be restored.',\n  },\n];\nconst accordionItems: AccordionItem[] = accordionQuestions.map((item) => ({\n  ...item,\n  content: <p>{item.content}</p>,\n}));\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Accordion>,\n    'items' | 'variant' | 'size' | 'defaultValue'\n  > = { items: accordionItems, variant: 'joined', size: 'sm', defaultValue: ['files'] };\n  return <Accordion {...args} />;\n}"
+    }
+  ]
+}

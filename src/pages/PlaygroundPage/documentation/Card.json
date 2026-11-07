@@ -1,0 +1,280 @@
+{
+  "id": "Card",
+  "description": "Content surface with spacing, header and elevation levels.",
+  "usage": {
+    "howToUse": [
+      "Use it to group content about one subject on a surface: a summary, a form section, a chart with its title.",
+      "Open it with CardHeader for title, description and action. Use `elevation` 0 or 1 on pages and higher values only for things floating above.",
+      "When the whole card opens something, put a link or button inside it: the card itself is not clickable."
+    ],
+    "alternatives": [
+      "A destination in a list: NavCard.",
+      "Content with image, facts and actions: ContentCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The card does not receive focus. The links and buttons inside it do."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Card",
+  "selected": "Simples",
+  "import": "import { Card } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Card",
+      "props": [
+        {
+          "name": "elevation",
+          "defaultValue": "0",
+          "type": "0 | 4 | 1 | 2 | 3 | undefined",
+          "required": false,
+          "description": "Shadow elevation (0–4). 0 = flat; 4 = overlay."
+        },
+        {
+          "name": "padding",
+          "defaultValue": "\"md\"",
+          "type": "\"sm\" | \"md\" | \"none\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "tone",
+          "defaultValue": "\"default\"",
+          "type": "CardTone | undefined",
+          "required": false,
+          "description": "Surface tone. `inverted` = dark (ink) surface with a radial brand\ngradient and inverted text tokens scoped to the card, the base of the\nbilling/usage heroes (plan-summary, usage-hero)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    },
+    {
+      "name": "CardHeader",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "count",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Optional media and description, with metrics set by the theme."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Supporting text."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "\"sm\" | \"md\" | undefined",
+          "required": false,
+          "description": "Compact hierarchy for secondary headers; md keeps the default."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Simples",
+      "label": "Simple",
+      "description": "",
+      "code": "import { Card } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Card>, 'elevation' | 'children'> = {\n    elevation: 0,\n    children: 'Card content.',\n  };\n  return <Card {...args} style={{ maxWidth: 360 }} />;\n}"
+    },
+    {
+      "id": "ComHeader",
+      "label": "With header",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { CardHeader } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Card style={{ maxWidth: 360 }}>\n      <CardHeader\n        title=\"Usage this month\"\n        count=\"12 / 50\"\n        action={\n          <Button variant=\"ghost\" size=\"sm\">\n            Details\n          </Button>\n        }\n      />\n      <p style={{ margin: 0, fontSize: 13, color: 'var(--ink-2)' }}>\n        Credit usage in the current cycle.\n      </p>\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "NiveisDeElevacao",
+      "label": "Elevation · e0–e4",
+      "description": "",
+      "code": "import { Card } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div\n      style={{\n        display: 'grid',\n        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',\n        minHeight: 520,\n      }}\n    >\n      {(['light', 'dark'] as const).map((theme) => (\n        <section\n          key={theme}\n          data-theme={theme}\n          style={{\n            padding: 32,\n            color: 'var(--ink-1)',\n            background: 'var(--bg)',\n          }}\n        >\n          <div style={{ marginBottom: 22 }}>\n            <span\n              style={{\n                color: 'var(--ink-3)',\n                fontFamily: 'var(--font-mono)',\n                fontSize: 10,\n                letterSpacing: '.16em',\n                textTransform: 'uppercase',\n              }}\n            >\n              Components · Data · {theme}\n            </span>\n            <h3\n              style={{\n                margin: '6px 0 4px',\n                fontFamily: 'var(--font-headline)',\n                fontSize: 22,\n              }}\n            >\n              Cards · 5 elevation levels\n            </h3>\n            <p\n              style={{\n                maxWidth: '56ch',\n                margin: 0,\n                color: 'var(--ink-3)',\n                fontSize: 12.5,\n                lineHeight: 1.55,\n              }}\n            >\n              e0 for dense lists, e2 for highlights and e4 for overlays.\n            </p>\n          </div>\n          <div\n            style={{\n              display: 'grid',\n              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',\n              gap: 16,\n            }}\n          >\n            {(['Flat', 'Resting', 'Hover', 'Lifted', 'Overlay'] as const).map(\n              (label, elevation) => (\n                <Card\n                  key={label}\n                  elevation={elevation as 0 | 1 | 2 | 3 | 4}\n                  style={{ minHeight: 112 }}\n                >\n                  <span\n                    style={{\n                      color: 'var(--ink-3)',\n                      fontFamily: 'var(--font-mono)',\n                      fontSize: 10,\n                      letterSpacing: '.14em',\n                      textTransform: 'uppercase',\n                    }}\n                  >\n                    e{elevation}\n                  </span>\n                  <div style={{ marginTop: 8, fontWeight: 600 }}>{label}</div>\n                </Card>\n              ),\n            )}\n          </div>\n        </section>\n      ))}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Invertido",
+      "label": "Inverted (tone=inverted)",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Card tone=\"inverted\" style={{ maxWidth: 480 }}>\n      <p\n        style={{\n          margin: '0 0 10px',\n          fontFamily: 'var(--font-mono)',\n          fontSize: 'var(--text-eyebrow)',\n          textTransform: 'uppercase',\n          letterSpacing: 'var(--tracking-eyebrow)',\n          color: 'var(--brand-primary)',\n        }}\n      >\n        Current plan\n      </p>\n      <h3\n        style={{\n          margin: '0 0 6px',\n          fontFamily: 'var(--font-headline)',\n          fontSize: 28,\n          fontWeight: 600,\n          letterSpacing: '-0.025em',\n          color: 'var(--ink-1)',\n        }}\n      >\n        Growth\n      </h3>\n      <p style={{ margin: '0 0 18px', fontSize: 13.5, color: 'var(--ink-2)' }}>\n        Renews on August 12 · billed yearly\n      </p>\n      <div style={{ display: 'flex', gap: 8 }}>\n        <Badge tone=\"success\">Active</Badge>\n        <Button variant=\"secondary\" size=\"sm\">\n          Manage plan\n        </Button>\n      </div>\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "ComDescricao",
+      "label": "With description",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { CardHeader } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Card>\n      <CardHeader\n        title=\"Aurora project\"\n        description=\"A layout to organize the team's work.\"\n        icon={\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n            <path d=\"M3 7h6l2 2h10v12H3z\" />\n          </svg>\n        }\n        action={<Button size=\"sm\">View project</Button>}\n      />\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "HeaderCompacto",
+      "label": "Compact header",
+      "description": "",
+      "code": "import { Card } from '@refy-design/web';\nimport { CardHeader } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'grid', gap: 24, maxWidth: 480 }}>\n      <Card>\n        <CardHeader title=\"Aurora project\" description=\"Main header.\" />\n      </Card>\n      <Card>\n        <CardHeader\n          size=\"sm\"\n          title=\"Team deliveries\"\n          description=\"Secondary header, with the same API.\"\n        />\n      </Card>\n      <ThemeProvider\n        theme={{\n          name: 'Custom headers',\n          tokens: {\n            '--card-sm-title-size': '20px',\n            '--card-sm-description-size': '15px',\n            '--card-sm-icon-size': '42px',\n            '--card-sm-icon-glyph-size': '22px',\n          },\n        }}\n      >\n        <Card>\n          <CardHeader\n            size=\"sm\"\n            title=\"Custom header\"\n            description=\"Metrics provided by the public configuration.\"\n            icon={\n              <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n                <path d=\"M3 7h6l2 2h10v12H3z\" />\n              </svg>\n            }\n          />\n        </Card>\n      </ThemeProvider>\n    </div>\n  );\n}"
+    }
+  ]
+}

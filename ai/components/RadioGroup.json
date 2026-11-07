@@ -1,0 +1,106 @@
+{
+  "id": "RadioGroup",
+  "description": "Set of mutually exclusive alternatives, with labels and descriptions.",
+  "usage": {
+    "howToUse": [
+      "Use it when only one of a few options can be chosen and the person needs to see all of them to decide: plan, delivery method, visibility.",
+      "Give the group a `label` with the question, and each option a short label, with a description when the difference is not obvious.",
+      "Start with the safest or most common option selected."
+    ],
+    "alternatives": [
+      "Several options can be on at once: Checkbox.",
+      "Seven or more options: Select or Combobox.",
+      "Choices with image or price that work like cards: ChoiceCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Enters the group on the selected option, and leaves it on the next Tab."
+      },
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Selects the next or previous option."
+      },
+      {
+        "keys": "`Space`",
+        "action": "Selects the option in focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "RadioGroup",
+  "selected": "CicloDeCobranca",
+  "import": "import { RadioGroup } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "RadioGroup",
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "RadioOption[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Mono uppercase label above the group."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "inputProps",
+          "type": "InputHTMLAttributes<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "CicloDeCobranca",
+      "label": "Billing cycle",
+      "description": "",
+      "code": "import { RadioGroup } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof RadioGroup>,\n    'name' | 'label' | 'defaultValue' | 'options'\n  > = {\n    name: 'cycle',\n    label: 'Billing cycle',\n    defaultValue: 'yearly',\n    options: [\n      { value: 'monthly', label: 'Monthly', hint: 'R$ 249/mo, cancel anytime' },\n      { value: 'yearly', label: 'Yearly', hint: 'R$ 199/mo billed once, save 20%' },\n    ],\n  };\n  return (\n    <div style={{ maxWidth: 420 }}>\n      <RadioGroup {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComOpcaoDesabilitada",
+      "label": "With disabled option",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { RadioGroup } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof RadioGroup>,\n    'name' | 'label' | 'defaultValue' | 'options'\n  > = {\n    name: 'permission',\n    label: 'Permission',\n    defaultValue: 'reading',\n    options: [\n      { value: 'reading', label: 'Reading' },\n      { value: 'editing', label: 'Editing unavailable', disabled: true },\n    ],\n  };\n  return <RadioGroup {...args} />;\n}"
+    }
+  ]
+}

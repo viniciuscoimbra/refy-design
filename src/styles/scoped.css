@@ -1,0 +1,47 @@
+:where([data-refy-scope]) {
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: var(--text-base, 14px);
+  font-weight: var(--weight-regular, 400);
+  line-height: var(--leading-normal, 1.55);
+  color: var(--ink-2);
+  background: var(--bg);
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+:where([data-refy-scope], [data-refy-scope] *, [data-refy-scope] *::before, [data-refy-scope] *::after) {
+  box-sizing: border-box;
+}
+:where([data-refy-scope] :focus-visible) {
+  outline: 2px solid var(--primary-ink);
+  outline-offset: 3px;
+}
+:where([data-refy-scope]) :is(option, optgroup) {
+  color: var(--ink-1);
+  background: var(--field-background, var(--surface));
+}
+@media (prefers-reduced-motion: reduce) {
+  :where([data-refy-scope]) *, :where([data-refy-scope]) *::before, :where([data-refy-scope]) *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+@media (forced-colors: active) {
+  :where([data-refy-scope]) :focus-visible { outline-color: Highlight; }
+}
+
+[data-refy-motion="reduce"] *, [data-refy-motion="reduce"] *::before, [data-refy-motion="reduce"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-refy-scope] button:is(:active, [data-refy-interaction="pressed"]) { --control-pressed-transform: none !important; scale: none !important; }
+}
+[data-refy-motion="reduce"] button:is(:active, [data-refy-interaction="pressed"]) { --control-pressed-transform: none !important; scale: none !important; }

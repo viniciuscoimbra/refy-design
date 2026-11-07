@@ -1,0 +1,146 @@
+{
+  "id": "StatusDot",
+  "description": "Compact signal of a state, with label and activity indicator.",
+  "usage": {
+    "howToUse": [
+      "Use it for a live state in little space: online, syncing, error, in a list or next to a name.",
+      "Always write the state next to it or in `aria-label`: the color alone does not say it.",
+      "Turn on `pulse` only for something happening now. It stops when the system asks for reduced motion."
+    ],
+    "alternatives": [
+      "A state with a word: Badge with `dot`."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The dot does not receive focus. Screen readers read its label."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "StatusDot",
+  "selected": "Tons",
+  "import": "import { StatusDot } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "StatusDot",
+      "props": [
+        {
+          "name": "tone",
+          "defaultValue": "\"good\"",
+          "type": "StatusDotTone | undefined",
+          "required": false,
+          "description": "Semantic tone of the state. Default `good` (green)."
+        },
+        {
+          "name": "pulse",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "\"Live\" pulse (animated halo). Off under `prefers-reduced-motion`."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Mono uppercase label to the right of the dot (e.g. \"Connected · primary\")."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLSpanElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { StatusDot } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof StatusDot>, 'tone' | 'pulse' | 'children'> = {\n    tone: 'good',\n    pulse: false,\n    children: 'Connected',\n  };\n  return <StatusDot {...args} />;\n}"
+    },
+    {
+      "id": "AoVivo",
+      "label": "Live (pulse)",
+      "description": "",
+      "code": "import { StatusDot } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof StatusDot>, 'tone' | 'pulse' | 'children'> = {\n    tone: 'good',\n    pulse: true,\n    children: 'Activity running',\n  };\n  return <StatusDot {...args} />;\n}"
+    },
+    {
+      "id": "SemRotulo",
+      "label": "Dot only (with aria-label)",
+      "description": "",
+      "code": "import { StatusDot } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof StatusDot>,\n    'tone' | 'pulse' | 'children' | 'aria-label'\n  > = { tone: 'good', pulse: false, children: undefined, 'aria-label': 'Connected' };\n  return <StatusDot {...args} />;\n}"
+    },
+    {
+      "id": "Tons",
+      "label": "Tones",
+      "description": "",
+      "code": "import { StatusDot } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n      <StatusDot tone=\"good\">Connected · primary</StatusDot>\n      <StatusDot tone=\"ok\">Synced</StatusDot>\n      <StatusDot tone=\"warn\">Warning</StatusDot>\n      <StatusDot tone=\"critical\">Connection failed</StatusDot>\n      <StatusDot tone=\"info\">Under review</StatusDot>\n      <StatusDot tone=\"neutral\">Inactive</StatusDot>\n    </div>\n  );\n}"
+    }
+  ]
+}

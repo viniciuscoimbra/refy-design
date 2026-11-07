@@ -1,0 +1,85 @@
+.page {
+  display: grid;
+  gap: var(--space-6);
+  max-width: 1160px;
+  margin-inline: auto;
+  padding: var(--space-8) var(--space-6);
+  min-width: 0;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  gap: var(--space-8);
+  align-items: start;
+}
+.picker { min-width: 0; }
+.aside {
+  position: sticky;
+  top: var(--space-6);
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+.home {
+  overflow: hidden;
+  border: var(--surface-border-width, 1px) solid var(--line);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+}
+.homeBody {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-1);
+  padding: var(--space-4);
+}
+.homeBody h2 {
+  margin: var(--space-2) 0 0;
+  font: var(--weight-semi) var(--text-h4) / 1.3 var(--font-heading);
+  color: var(--ink-1);
+}
+.homeBody p {
+  margin: 0;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+.homeBody strong {
+  margin-top: var(--space-2);
+  font: var(--weight-semi) var(--text-h4) / 1.2 var(--font-heading);
+  color: var(--ink-1);
+}
+.homeBody strong span {
+  font: var(--text-sm) var(--font-body);
+  color: var(--ink-3);
+}
+.summary {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  background: var(--surface-2);
+}
+.host {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.host div { display: grid; }
+.host strong { color: var(--ink-1); font-size: var(--text-sm); }
+.host span { color: var(--ink-3); font-size: var(--text-xs); }
+.days {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+.days li { display: grid; gap: 2px; }
+.days span { color: var(--ink-3); font-size: var(--text-xs); text-transform: capitalize; }
+.days strong { color: var(--ink-1); font-size: var(--text-sm); }
+.note { margin: 0; padding-top: var(--space-4); border-top: 1px solid var(--line); color: var(--ink-2); font-size: var(--text-sm); line-height: var(--leading-normal); }
+@media (max-width: 900px) {
+  .page { padding: var(--space-5) var(--space-4); }
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .aside { position: static; order: -1; }
+}

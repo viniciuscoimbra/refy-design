@@ -1,0 +1,93 @@
+.wrap {
+  display: inline-flex;
+  position: relative;
+  width: var(--switch-width, 36px);
+  height: var(--switch-height, 20px);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: inherit;
+}
+.track {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: var(--legacy-line);
+  border-radius: var(--radius-pill);
+  transition: background var(--motion-feedback-duration) var(--ease-out);
+}
+.thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: var(--switch-thumb-size, 16px);
+  height: var(--switch-thumb-size, 16px);
+  background: var(--switch-thumb-off-color, var(--switch-thumb-color, var(--legacy-white)));
+  border-radius: var(--radius-pill);
+  box-shadow: var(--legacy-switch-shadow);
+  transition: transform var(--motion-feedback-duration) var(--ease-out);
+}
+.input:checked + .track {
+  background: var(--primary);
+}
+.input:checked + .track .thumb {
+  background: var(--switch-thumb-color, var(--on-primary));
+  transform: translateX(var(--switch-travel, 16px));
+}
+/* microinterações: trilha escurece no hover, thumb "aperta" no press */
+.wrap:not(.disabled):hover .input:not(:checked) + .track {
+  background: color-mix(in srgb, var(--ink-1) 12%, var(--legacy-line));
+}
+.wrap:not(.disabled):hover .input:checked + .track {
+  background: color-mix(in srgb, var(--ink-1) 10%, var(--primary));
+}
+.wrap:not(.disabled):active .input:not(:checked) + .track .thumb {
+  transform: scale(0.9);
+}
+.wrap:not(.disabled):active .input:checked + .track .thumb {
+  transform: translateX(var(--switch-travel, 16px)) scale(0.9);
+}
+.input:focus-visible + .track {
+  box-shadow: var(--shadow-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .thumb { transition: none; }
+}
+
+.control {
+  width: auto;
+  height: var(--switch-control-height, var(--button-height-sm, 28px));
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--switch-control-padding, var(--space-2));
+  border: var(--control-border-width, 1px) solid var(--line);
+  border-radius: var(--radius-default);
+  background: var(--surface);
+  color: var(--ink-1);
+  box-shadow: var(--control-shadow, none);
+  font: var(--control-font-weight, var(--weight-medium)) var(--control-font-size-sm, var(--text-xs))/var(--control-line-height, normal) var(--font-body);
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+.control .input { inset: 0; z-index: 1; }
+.control .track { position: relative; inset: auto; width: var(--switch-width, 36px); height: var(--switch-height, 20px); flex-shrink: 0; }
+.icon { display: inline-flex; }
+.icon svg { width: var(--switch-control-icon-size, 14px); height: var(--switch-control-icon-size, 14px); }
+.control:not(.disabled):hover { background: var(--surface-2); border-color: var(--control-hover-border, var(--line-strong)); }
+.control:has(.input:focus-visible) { outline: var(--control-focus-outline, 2px solid var(--primary-ink)); outline-offset: var(--control-focus-offset, 3px); }
+@media (prefers-reduced-motion: reduce) { .control { transition: none; } }
+
+.labelled { width: auto; max-width: 100%; height: auto; min-height: var(--switch-height, 20px); align-items: center; gap: var(--space-2); color: var(--ink-1); font: var(--weight-medium) var(--text-sm)/var(--leading-normal) var(--font-body); }
+.labelled .input { width: var(--switch-width, 36px); height: var(--switch-height, 20px); right: 0; top: 50%; translate: 0 -50%; z-index: 1; }
+.labelled .track { position: relative; inset: auto; width: var(--switch-width, 36px); height: var(--switch-height, 20px); flex-shrink: 0; }

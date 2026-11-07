@@ -1,0 +1,200 @@
+{
+  "id": "BillingCard",
+  "description": "Billing summary and payment method, with actions provided by the application.",
+  "usage": {
+    "howToUse": [
+      "Use it on the billing page: the payment method, the state of the subscription and the next charge.",
+      "Show only the last digits in `lastDigits`, never the full card. Put the state in `status` with a Badge.",
+      "Put \"Change card\" and \"View invoices\" in `actions`. The card data is collected by your payment provider."
+    ],
+    "alternatives": [
+      "Comparing plans: PlanCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the actions of the card."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the action in focus."
+      }
+    ]
+  },
+  "collections": [
+    "commerce",
+    "finance"
+  ],
+  "publicName": "BillingCard",
+  "selected": "Interativo",
+  "import": "import { BillingCard } from '@refy-design/web';",
+  "composition": [
+    "Card"
+  ],
+  "api": [
+    {
+      "name": "BillingCard",
+      "props": [
+        {
+          "name": "brandIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Method brand/icon (ReactNode; the DS does not bundle logos). E.g. <span>VISA</span>."
+        },
+        {
+          "name": "methodLabel",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Method name. E.g. \"Credit card\"."
+        },
+        {
+          "name": "lastDigits",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Last card digits, shown as \"· ending 4242\"."
+        },
+        {
+          "name": "methodMeta",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Secondary line of the method. E.g. \"Expires 09/2028 · Asaas (Brazil)\"."
+        },
+        {
+          "name": "status",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Billing status, a slot for `Badge` (e.g. <Badge tone=\"success\" dot>Active</Badge>)."
+        },
+        {
+          "name": "nextChargeLabel",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Label of the next charge block."
+        },
+        {
+          "name": "nextChargeAmount",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Amount of the next charge. E.g. \"$ 2,388\"."
+        },
+        {
+          "name": "nextChargeDate",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Date/extra info of the next charge. E.g. \"on May 2, 2027\"."
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Actions (slot), e.g. Change card, View invoices (`Button`)."
+        },
+        {
+          "name": "elevation",
+          "defaultValue": "0",
+          "type": "0 | 1 | 2 | undefined",
+          "required": false,
+          "description": "Elevation passed to the Card."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Completo",
+      "label": "Complete",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport { BillingCard } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst visa = <span>VISA</span>;\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof BillingCard>,\n    | 'brandIcon'\n    | 'methodLabel'\n    | 'lastDigits'\n    | 'methodMeta'\n    | 'status'\n    | 'nextChargeAmount'\n    | 'nextChargeDate'\n    | 'actions'\n  > = {\n    brandIcon: visa,\n    methodLabel: 'Credit card',\n    lastDigits: '4242',\n    methodMeta: 'Expires 09/2028 · Asaas (Brazil)',\n    status: (\n      <Badge tone=\"success\" dot>\n        Active\n      </Badge>\n    ),\n    nextChargeAmount: 'R$ 2.388',\n    nextChargeDate: 'on May 2, 2027',\n    actions: (\n      <>\n        <Button variant=\"ghost\" size=\"sm\">\n          View invoices\n        </Button>\n        <Button variant=\"secondary\" size=\"sm\">\n          Change card\n        </Button>\n      </>\n    ),\n  };\n  return (\n    <div style={{ maxWidth: 520 }}>\n      <BillingCard {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "SoMetodo",
+      "label": "Method only (secondary)",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport { BillingCard } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof BillingCard>,\n    'methodLabel' | 'methodMeta' | 'status' | 'actions'\n  > = {\n    methodLabel: 'Pix',\n    methodMeta: 'joao@example.com · AbacatePay',\n    status: <Badge tone=\"neutral\">Secondary</Badge>,\n    actions: (\n      <Button variant=\"ghost\" size=\"sm\">\n        Remove\n      </Button>\n    ),\n  };\n  return (\n    <div style={{ maxWidth: 520 }}>\n      <BillingCard {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "PagamentoAtrasado",
+      "label": "Late payment",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport { BillingCard } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof BillingCard>,\n    | 'brandIcon'\n    | 'methodLabel'\n    | 'lastDigits'\n    | 'methodMeta'\n    | 'status'\n    | 'nextChargeAmount'\n    | 'nextChargeDate'\n    | 'actions'\n  > = {\n    brandIcon: <span>MC</span>,\n    methodLabel: 'Credit card',\n    lastDigits: '8810',\n    methodMeta: 'Expires 01/2027 · Asaas (Brazil)',\n    status: (\n      <Badge tone=\"danger\" dot>\n        Payment failed\n      </Badge>\n    ),\n    nextChargeAmount: 'R$ 199',\n    nextChargeDate: 'retrying in 3 days',\n    actions: (\n      <Button variant=\"primary\" size=\"sm\">\n        Update payment\n      </Button>\n    ),\n  };\n  return (\n    <div style={{ maxWidth: 520 }}>\n      <BillingCard {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Badge } from '@refy-design/web';\nimport { BillingCard } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport { Table } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction BillingCardExample() {\n  const [panel, setPanel] = useState(''),\n    [digits, setDigits] = useState('4242'),\n    [draft, setDraft] = useState('4242');\n  return (\n    <>\n      <BillingCard\n        methodLabel=\"Demo method\"\n        lastDigits={digits}\n        methodMeta=\"Do not use real data. Nothing is charged.\"\n        status={<Badge tone=\"success\">Active</Badge>}\n        nextChargeAmount=\"R$ 199\"\n        nextChargeDate=\"on Oct 24, 2026\"\n        actions={\n          <>\n            <Button onClick={() => setPanel('invoices')}>View invoices</Button>\n            <Button\n              onClick={() => {\n                setDraft(digits);\n                setPanel('method');\n              }}\n            >\n              Change card\n            </Button>\n          </>\n        }\n      />\n      <Drawer\n        open={Boolean(panel)}\n        onOpenChange={(open) => {\n          if (!open) setPanel('');\n        }}\n        title={panel === 'invoices' ? 'Sample invoices' : 'Edit demo method'}\n      >\n        {panel === 'invoices' ? (\n          <Table\n            caption=\"Sample invoices\"\n            rows={[\n              { id: 'out', month: 'October', value: 'R$ 199', status: 'Paid' },\n              { id: 'set', month: 'September', value: 'R$ 199', status: 'Paid' },\n            ]}\n            rowKey={(r) => r.id}\n            columns={[\n              { key: 'month', header: 'Month', cell: (r) => r.month },\n              { key: 'value', header: 'Amount', cell: (r) => r.value },\n              { key: 'status', header: 'State', cell: (r) => r.status },\n            ]}\n          />\n        ) : (\n          <form\n            style={stack}\n            onSubmit={(e) => {\n              e.preventDefault();\n              setDigits(draft);\n              setPanel('');\n            }}\n          >\n            <Input\n              label=\"Four made-up digits\"\n              inputMode=\"numeric\"\n              pattern=\"[0-9]{4}\"\n              maxLength={4}\n              required\n              value={draft}\n              onChange={(e) => setDraft(e.target.value.replace(/\\D/g, ''))}\n              hint=\"Just a made-up four-digit identifier.\"\n            />\n            <Button type=\"submit\" variant=\"primary\">\n              Save method\n            </Button>\n          </form>\n        )}\n      </Drawer>\n    </>\n  );\n}\nexport function Example() {\n  return <BillingCardExample />;\n}"
+    }
+  ]
+}

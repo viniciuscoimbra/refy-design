@@ -1,0 +1,105 @@
+{
+  "id": "Breadcrumb",
+  "description": "Hierarchical navigation path, showing the current page.",
+  "usage": {
+    "howToUse": [
+      "Use it at the top of a page that sits deep in a hierarchy, so people see where they are and go back up: Projects / Refy / Settings.",
+      "Each level except the last is a link; the last one is the current page.",
+      "Long paths fold the middle into a menu after `collapseAfter` levels."
+    ],
+    "alternatives": [
+      "Switching between sections at the same level: Tabs or NavigationMenu.",
+      "Steps of a flow: WizardStepper."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one level to the next."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the level in focus. On the folded part, opens the menu with the hidden levels."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Breadcrumb",
+  "selected": "Interativo",
+  "import": "import { Breadcrumb } from '@refy-design/web';",
+  "composition": [
+    "Menu"
+  ],
+  "api": [
+    {
+      "name": "Breadcrumb",
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "root",
+          "type": "BreadcrumbItem | undefined",
+          "required": false,
+          "description": "Optional destination of the home icon."
+        },
+        {
+          "name": "separator",
+          "defaultValue": "\"/\"",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Separator between levels. Default \"/\"."
+        },
+        {
+          "name": "collapseAfter",
+          "defaultValue": "5",
+          "type": "number | undefined",
+          "required": false,
+          "description": "From this count on, the middle becomes a Menu. Default 5."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Three levels with links.",
+      "code": "import { Breadcrumb } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Breadcrumb>, 'items'> = {\n    items: [\n      { label: 'Projects', href: '#projects' },\n      { label: 'refy.com.br', href: '#refy' },\n      { label: 'Documentation' },\n    ],\n  };\n  return <Breadcrumb {...args} />;\n}"
+    },
+    {
+      "id": "SeparadorSeta",
+      "label": "› separator",
+      "description": "Custom separator.",
+      "code": "import { Breadcrumb } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Breadcrumb>, 'separator' | 'items'> = {\n    separator: '›',\n    items: [\n      { label: 'Dashboard', href: '#dash' },\n      { label: 'Analyses', href: '#analyses' },\n      { label: '84 pages' },\n    ],\n  };\n  return <Breadcrumb {...args} />;\n}"
+    },
+    {
+      "id": "SeteNiveis",
+      "label": "7 levels · navigable collapse",
+      "description": "",
+      "code": "import { Breadcrumb } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Breadcrumb>, 'root' | 'items'> = {\n    root: { label: 'Home', href: '#home' },\n    items: [\n      { label: 'Workspaces', href: '#workspaces' },\n      { label: 'Horizon team', href: '#team' },\n      { label: 'Clients', href: '#clients' },\n      { label: 'Ana Silva', href: '#client' },\n      { label: 'Searches', href: '#searches' },\n      { label: 'Suggested content', href: '#contents' },\n      { label: 'Identity guide' },\n    ],\n  };\n  return <Breadcrumb {...args} />;\n}"
+    },
+    {
+      "id": "TermoLongo",
+      "label": "Long label · truncation",
+      "description": "",
+      "code": "import { Breadcrumb } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Breadcrumb>, 'root' | 'items'> = {\n    root: { label: 'Home', href: '#home' },\n    items: [\n      { label: 'Content', href: '#contents' },\n      {\n        label:\n          'Complete visual identity guide with recommendations for publishing new content',\n      },\n    ],\n  };\n  return (\n    <div style={{ width: '100%', maxWidth: 420 }}>\n      <Breadcrumb {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Breadcrumb } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction BreadcrumbExample() {\n  const [depth, setDepth] = useState(2),\n    names = ['Projects', 'Library', 'Content guide'];\n  return (\n    <div style={stack}>\n      <Breadcrumb\n        items={names\n          .slice(0, depth + 1)\n          .map((label, i) => ({ label, onClick: () => setDepth(i) }))}\n      />\n      <Card>\n        <h3>{names[depth]}</h3>\n        {depth < 2 ? (\n          <Button onClick={() => setDepth(depth + 1)}>Open {names[depth + 1]}</Button>\n        ) : (\n          <p>Content of the selected guide.</p>\n        )}\n      </Card>\n    </div>\n  );\n}\nexport function Example() {\n  return <BreadcrumbExample />;\n}"
+    }
+  ]
+}

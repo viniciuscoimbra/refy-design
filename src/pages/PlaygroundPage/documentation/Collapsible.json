@@ -1,0 +1,90 @@
+{
+  "id": "Collapsible",
+  "description": "Area that toggles content visibility through an expand control.",
+  "usage": {
+    "howToUse": [
+      "Use it for one block that people open only when they need it: advanced options, details of an order, the rest of a long text.",
+      "Write a `title` that says what is inside (\"Advanced options\"). Start it open with `defaultOpen` when most people need it."
+    ],
+    "alternatives": [
+      "Several blocks of the same kind: Accordion."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the title."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens or closes the block."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Collapsible",
+  "selected": "Interativo",
+  "import": "import { Collapsible } from '@refy-design/web';",
+  "composition": [
+    "Button"
+  ],
+  "api": [
+    {
+      "name": "Collapsible",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultOpen",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Collapsible } from '@refy-design/web';\nfunction CollapsibleExample() {\n  return (\n    <Collapsible title=\"Project files\">\n      <ul>\n        <li>Content guide.pdf</li>\n        <li>Interface references.fig</li>\n      </ul>\n    </Collapsible>\n  );\n}\nexport function Example() {\n  return <CollapsibleExample />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { Collapsible } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Collapsible title=\"Details unavailable\" disabled>\n      Content protected by permissions.\n    </Collapsible>\n  );\n}"
+    }
+  ]
+}

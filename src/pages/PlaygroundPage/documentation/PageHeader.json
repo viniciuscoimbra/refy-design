@@ -1,0 +1,169 @@
+{
+  "id": "PageHeader",
+  "description": "Page header with title, description, path and contextual actions.",
+  "usage": {
+    "howToUse": [
+      "Use it at the top of each page: the title, a line that says what the page is for, and the main actions.",
+      "The `title` becomes the page's only `<h1>`. Put the description in `lead` and the actions in `actions`, with at most one primary.",
+      "Pass a Breadcrumb in `breadcrumb` on deep pages, and context in `eyebrow` (\"Team · Settings\")."
+    ],
+    "alternatives": [
+      "A section inside the page: SectionHeader.",
+      "The opening of a public site: Hero."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the path and the actions. The title does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "PageHeader",
+  "selected": "Interativo",
+  "import": "import { PageHeader } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "PageHeader",
+      "props": [
+        {
+          "name": "eyebrow",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Mono uppercase eyebrow above the title (e.g. \"Workspace · Example Team\")."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Page title (becomes the `<h1>`; only one per page)."
+        },
+        {
+          "name": "lead",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Lead/description under the title (max 62ch, secondary color)."
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Actions on the right (`Button`/`SplitButton`), aligned to the bottom of the text block."
+        },
+        {
+          "name": "breadcrumb",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Trail slot above the eyebrow: pass the `Breadcrumb` atom. A breadcrumb always leads back to the parent."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: eyebrow + title + lead + actions (dashboard pattern).",
+      "code": "import { Button } from '@refy-design/web';\nimport { PageHeader } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof PageHeader>,\n    'eyebrow' | 'title' | 'lead' | 'actions'\n  > = {\n    eyebrow: 'Workspace · last updated 14 min ago',\n    title: 'Overview',\n    lead: '3 projects · 12 analyses this month · 8 pending tasks',\n    actions: (\n      <>\n        <Button variant=\"secondary\">Export</Button>\n        <Button variant=\"primary\">New project</Button>\n      </>\n    ),\n  };\n  return <PageHeader {...args} />;\n}"
+    },
+    {
+      "id": "ComBreadcrumb",
+      "label": "With breadcrumb",
+      "description": "With breadcrumb: trail on top, with a way back to the parent.",
+      "code": "import { Breadcrumb } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { PageHeader } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof PageHeader>,\n    'breadcrumb' | 'title' | 'lead' | 'actions'\n  > = {\n    breadcrumb: (\n      <Breadcrumb\n        items={[\n          { label: 'Settings', href: '#config' },\n          { label: 'Personal', href: '#personal' },\n          { label: 'Account' },\n        ]}\n      />\n    ),\n    title: 'Account',\n    lead: 'Your profile, sign-in providers and active sessions in this workspace.',\n    actions: <Button variant=\"secondary\">Save changes</Button>,\n  };\n  return <PageHeader {...args} />;\n}"
+    },
+    {
+      "id": "SoTitulo",
+      "label": "Title only",
+      "description": "Title only: a simple page, without eyebrow/lead/actions.",
+      "code": "import { PageHeader } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof PageHeader>, 'title'> = {\n    title: 'Preferences',\n  };\n  return <PageHeader {...args} />;\n}"
+    },
+    {
+      "id": "ComSplitButton",
+      "label": "With SplitButton",
+      "description": "With SplitButton: main action + menu of variations (e.g. export).",
+      "code": "import { PageHeader } from '@refy-design/web';\nimport { SplitButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof PageHeader>,\n    'eyebrow' | 'title' | 'lead' | 'actions'\n  > = {\n    eyebrow: 'Project · example.com',\n    title: 'Reports',\n    lead: \"The project's combined analyses, ready to export.\",\n    actions: (\n      <SplitButton\n        label=\"Export PDF\"\n        options={[\n          { label: 'Export CSV', hint: '.csv', onSelect: () => {} },\n          { label: 'Export JSON', hint: '.json', onSelect: () => {} },\n        ]}\n        onClick={() => {}}\n      />\n    ),\n  };\n  return <PageHeader {...args} />;\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport { PageHeader } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction download(text: string, name: string) {\n  const url = URL.createObjectURL(\n    new Blob([text], { type: 'text/plain;charset=utf-8' }),\n  );\n  const link = document.createElement('a');\n  link.href = url;\n  link.download = name;\n  link.click();\n  URL.revokeObjectURL(url);\n}\nfunction PageHeaderExample() {\n  const [open, setOpen] = useState(false),\n    [name, setName] = useState(''),\n    [projects, setProjects] = useState(['Aurora project']);\n  return (\n    <div style={stack}>\n      <PageHeader\n        eyebrow=\"Workspace\"\n        title=\"Projects\"\n        lead={`${projects.length} projects in this demo`}\n        actions={\n          <>\n            <Button onClick={() => download(projects.join('\\n'), 'projects.txt')}>\n              Export\n            </Button>\n            <Button variant=\"primary\" onClick={() => setOpen(true)}>\n              New project\n            </Button>\n          </>\n        }\n      />\n      <ul>\n        {projects.map((project) => (\n          <li key={project}>{project}</li>\n        ))}\n      </ul>\n      <Modal open={open} onClose={() => setOpen(false)} title=\"Create project\">\n        <form\n          style={stack}\n          onSubmit={(e) => {\n            e.preventDefault();\n            if (!name.trim()) return;\n            setProjects((rows) => [...rows, name.trim()]);\n            setName('');\n            setOpen(false);\n          }}\n        >\n          <Input\n            label=\"Project name\"\n            required\n            value={name}\n            onChange={(e) => setName(e.target.value)}\n          />\n          <Button type=\"submit\" variant=\"primary\">\n            Create project\n          </Button>\n        </form>\n      </Modal>\n    </div>\n  );\n}\nexport function Example() {\n  return <PageHeaderExample />;\n}"
+    }
+  ]
+}

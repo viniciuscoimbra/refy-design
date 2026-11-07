@@ -1,0 +1,92 @@
+.logo {
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--ink-1);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.refy {
+  gap: var(--brand-logo-gap, 0.27em);
+  font-family: var(--brand-logo-font, var(--font-mono));
+}
+
+
+
+.inverse { color: var(--legacy-white); }
+.word { font: inherit; }
+
+
+
+
+
+
+.markOnly { gap: 0; }
+/* symbol: the refy mark and word are a fixed asset. Themes only colour the mark (--brand-mark). */
+.withSymbol {
+  align-items: center;
+  gap: var(--brand-logo-gap, 0.18em);
+  font-family: "Manrope", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+.symbol {
+  flex: none;
+  width: auto;
+  height: 1.22em;
+  color: var(--brand-mark, var(--brand-primary-container));
+}
+.wordmark {
+  color: var(--brand-wordmark, var(--ink-1));
+  line-height: 1;
+}
+.inverse .wordmark { color: var(--legacy-white); }
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--brand-mark-size, 1.75em);
+  height: var(--brand-mark-size, 1.75em);
+  border-radius: var(--radius-default);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-headline);
+  font-size: 0.72em;
+  letter-spacing: 0;
+}
+
+.dot {
+  flex: none;
+  align-self: flex-end;
+  border-radius: var(--brand-dot-radius, 50%);
+  background: var(--brand-dot-background, var(--primary-container));
+  box-shadow: var(--brand-dot-shadow, 0 0 0.5em color-mix(in srgb, var(--primary-container) 58%, transparent));
+  animation: brand-logo-pulse 3s ease-in-out infinite;
+}
+
+.xs { font-size: 16px; }
+.xs .dot { width: 4px; height: 4px; margin-bottom: 2px; }
+.sm { font-size: 22px; }
+.sm .dot { width: 5px; height: 5px; margin-bottom: 3px; }
+.md { font-size: 32px; }
+.md .dot { width: 7px; height: 7px; margin-bottom: 5px; }
+.lg { font-size: 48px; }
+.lg .dot { width: 10px; height: 10px; margin-bottom: 7px; }
+.xl { font-size: 72px; }
+.xl .dot { width: 14px; height: 14px; margin-bottom: 11px; }
+
+.static .dot { animation: none; }
+
+@keyframes brand-logo-pulse {
+  0%, 100% { opacity: 0.72; transform: scale(0.88); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot { animation: none; }
+}
+
+
+

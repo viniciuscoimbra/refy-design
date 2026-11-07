@@ -1,0 +1,18 @@
+.field {
+  min-width: 0;
+  max-width: 100%; display: inline-flex; flex-direction: column; gap: 6px; }
+.block { display: flex; width: 100%; }
+
+.textarea {
+  width: 100%;
+  padding: 9px var(--field-padding-inline, 12px);
+
+  font-family: var(--font-body);
+  font-size: var(--field-font-size, var(--text-sm));
+  line-height: var(--leading-normal);
+  color: var(--ink-1);
+  resize: vertical;
+}
+.textarea::placeholder { color: var(--ink-4); }
+.help { margin: 0; font-size: var(--text-xs); color: var(--ink-3); line-height: var(--leading-snug); }
+.helpError { color: var(--critical); }

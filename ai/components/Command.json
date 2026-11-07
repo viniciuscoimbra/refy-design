@@ -1,0 +1,119 @@
+{
+  "id": "Command",
+  "description": "Command palette with search, groups and shortcuts to run app actions.",
+  "usage": {
+    "howToUse": [
+      "Use it as a search box for actions and pages of the app, opened by a shortcut such as ⌘K.",
+      "Group the `items` (Pages, Actions, Recent) and show the shortcut of each one when there is.",
+      "Run the choice in `onSelect`. Listen for the opening shortcut in your app and keep the normal navigation visible: not everybody knows the shortcut."
+    ],
+    "alternatives": [
+      "Few actions about one item: Menu.",
+      "Picking a value in a form: Combobox."
+    ],
+    "keyboard": [
+      {
+        "keys": "Typing",
+        "action": "Filters the results."
+      },
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Moves between the results."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Runs the highlighted result."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the palette and returns focus to where it was."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Command",
+  "selected": "ComAtalho",
+  "import": "import { Command } from '@refy-design/web';",
+  "composition": [
+    "Kbd",
+    "Modal"
+  ],
+  "api": [
+    {
+      "name": "Command",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "description": "Visible palette (controlled; the overlay has no internal state)."
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": true,
+          "description": "Close request: Esc, backdrop click or selection."
+        },
+        {
+          "name": "items",
+          "type": "CommandItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "onSelect",
+          "type": "((item: CommandItem) => void) | undefined",
+          "required": false,
+          "description": "Fired when any item is chosen."
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "width",
+          "defaultValue": "560",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Maximum palette width; keeps 560px when omitted."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Aberta",
+      "label": "Open",
+      "description": "Open by default: type \"análise\" to see filtering + highlight.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Command } from '@refy-design/web';\nimport type { CommandItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst PlusIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n  >\n    <path d=\"M12 5v14M5 12h14\" />\n  </svg>\n);\nconst RerunIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <polyline points=\"23 4 23 10 17 10\" />\n    <path d=\"M20.49 15a9 9 0 1 1-2.12-9.36L23 10\" />\n  </svg>\n);\nconst items: CommandItem[] = [\n  {\n    id: 'new',\n    label: 'Create new project',\n    group: 'Actions',\n    icon: PlusIcon,\n    shortcut: '⌘N',\n    keywords: 'create start',\n  },\n  {\n    id: 'rerun',\n    label: 'Re-run last update',\n    group: 'Actions',\n    icon: RerunIcon,\n    shortcut: '⌘R',\n    keywords: 'repeat refresh',\n  },\n  {\n    id: 'rd',\n    label: 'aurora.example.com',\n    group: 'Recent projects',\n    lead: 'RD',\n  },\n  {\n    id: 'rr',\n    label: 'horizonte.example.com',\n    group: 'Recent projects',\n    lead: 'RR',\n  },\n  {\n    id: 'settings',\n    label: 'Open settings',\n    group: 'Actions',\n    shortcut: '⌘,',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Command>,\n    'open' | 'onOpenChange' | 'items'\n  > = { open: true, onOpenChange: () => {}, items };\n  const [open, setOpen] = useState(true);\n  return (\n    <div style={{ minHeight: 480 }}>\n      {!open && (\n        <div style={{ padding: 24 }}>\n          <Button onClick={() => setOpen(true)}>Reopen palette</Button>\n        </div>\n      )}\n      <Command {...args} open={open} onOpenChange={setOpen} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComAtalho",
+      "label": "With ⌘K shortcut",
+      "description": "Real flow: ⌘K (or Ctrl+K) opens, Esc closes. Click the area and use the shortcut.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Command } from '@refy-design/web';\nimport type { CommandItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { createContext } from 'react';\nimport type { RefObject } from 'react';\nimport { useContext } from 'react';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nconst ExampleScope = createContext<RefObject<HTMLDivElement | null> | null>(null);\nfunction useCommandShortcut(onOpen: () => void, enabled = true) {\n  const scope = useContext(ExampleScope);\n  useEffect(() => {\n    if (!enabled) return;\n    const onKey = (event: KeyboardEvent) => {\n      if (\n        event.defaultPrevented ||\n        (scope && !scope.current?.contains(event.target as Node))\n      )\n        return;\n      if (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)) {\n        event.preventDefault();\n        onOpen();\n      }\n    };\n    window.addEventListener('keydown', onKey);\n    return () => window.removeEventListener('keydown', onKey);\n  }, [scope, onOpen, enabled]);\n}\nconst PlusIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n  >\n    <path d=\"M12 5v14M5 12h14\" />\n  </svg>\n);\nconst RerunIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth=\"2\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <polyline points=\"23 4 23 10 17 10\" />\n    <path d=\"M20.49 15a9 9 0 1 1-2.12-9.36L23 10\" />\n  </svg>\n);\nconst items: CommandItem[] = [\n  {\n    id: 'new',\n    label: 'Create new project',\n    group: 'Actions',\n    icon: PlusIcon,\n    shortcut: '⌘N',\n    keywords: 'create start',\n  },\n  {\n    id: 'rerun',\n    label: 'Re-run last update',\n    group: 'Actions',\n    icon: RerunIcon,\n    shortcut: '⌘R',\n    keywords: 'repeat refresh',\n  },\n  {\n    id: 'rd',\n    label: 'aurora.example.com',\n    group: 'Recent projects',\n    lead: 'RD',\n  },\n  {\n    id: 'rr',\n    label: 'horizonte.example.com',\n    group: 'Recent projects',\n    lead: 'RR',\n  },\n  {\n    id: 'settings',\n    label: 'Open settings',\n    group: 'Actions',\n    shortcut: '⌘,',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Command>,\n    'open' | 'onOpenChange' | 'items'\n  > = { open: false, onOpenChange: () => {}, items };\n  const [open, setOpen] = useState(false);\n  useCommandShortcut(() => setOpen(true));\n  return (\n    <div\n      style={{\n        minHeight: 480,\n        padding: 24,\n        display: 'flex',\n        gap: 12,\n        alignItems: 'center',\n      }}\n    >\n      <Button onClick={() => setOpen(true)}>Open palette</Button>\n      <code\n        style={{\n          fontFamily: 'var(--font-mono)',\n          fontSize: 12,\n          color: 'var(--ink-3)',\n        }}\n      >\n        ou pressione ⌘K / Ctrl+K\n      </code>\n      <Command {...args} open={open} onOpenChange={setOpen} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComDescricoes",
+      "label": "With descriptions",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Command } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [open, setOpen] = useState(false);\n  const [chosen, setChosen] = useState('No component selected');\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Search components</Button>\n      <p role=\"status\">{chosen}</p>\n      <Command\n        open={open}\n        onOpenChange={setOpen}\n        width={760}\n        onSelect={(item) => setChosen(item.label)}\n        items={[\n          {\n            id: 'themes',\n            label: 'Themes',\n            description: 'Settings you can export to your product.',\n          },\n          {\n            id: 'components',\n            label: 'Components',\n            description: 'Atoms, molecules and organisms from the library.',\n          },\n        ]}\n      />\n    </>\n  );\n}"
+    }
+  ]
+}

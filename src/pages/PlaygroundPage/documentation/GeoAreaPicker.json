@@ -1,0 +1,183 @@
+{
+  "id": "GeoAreaPicker",
+  "description": "Select an area by radius or regions, with optional map integration.",
+  "usage": {
+    "howToUse": [
+      "Use it when people choose where a search applies: a radius around a point, or a list of neighborhoods.",
+      "Pass the regions in `neighborhoods` and the center in `baseId`. Limit the radius with `minRadius`, `maxRadius` and `radiusStep`.",
+      "The map is optional: pass your map provider in `map`. Without it, the choice works by text and the slider."
+    ],
+    "alternatives": [
+      "A full address: PostalCodeInput and Input.",
+      "Picking a few cities from a list, without radius: Multiselect."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through the radius, the region search and the chosen regions."
+      },
+      {
+        "keys": "`←` or `→` on the radius",
+        "action": "Changes the radius by one step, as in Range."
+      },
+      {
+        "keys": "Search keys",
+        "action": "Same as Multiselect: `↓` `↑` move, `Enter` adds or removes, `Escape` closes."
+      }
+    ]
+  },
+  "collections": [
+    "geolocation"
+  ],
+  "publicName": "GeoAreaPicker",
+  "selected": "SemMapa",
+  "import": "import { GeoAreaPicker } from '@refy-design/web';",
+  "composition": [
+    "Callout",
+    "Chip",
+    "Multiselect",
+    "Range",
+    "SettingRow",
+    "SettingRowGroup"
+  ],
+  "api": [
+    {
+      "name": "GeoAreaPicker",
+      "props": [
+        {
+          "name": "neighborhoods",
+          "type": "GeoNeighborhood[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "baseId",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "radius",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultRadius",
+          "defaultValue": "2",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "minRadius",
+          "defaultValue": "0.5",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "maxRadius",
+          "defaultValue": "5",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "radiusStep",
+          "defaultValue": "0.5",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onRadiusChange",
+          "type": "((radius: number) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "includedIds",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultIncludedIds",
+          "defaultValue": "[]",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onIncludedIdsChange",
+          "type": "((ids: string[]) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "map",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Map provider slot. The text selection still belongs to the DS."
+        },
+        {
+          "name": "mapLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "MapaLocal",
+      "label": "Local map",
+      "description": "Local synthetic map: arrows and Enter/Space select, no external service.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport { GeoAreaPicker } from '@refy-design/web';\nimport type { GeoNeighborhood } from '@refy-design/web';\nimport { useState } from 'react';\nconst neighborhoods: GeoNeighborhood[] = [\n  { id: 'planalto', label: 'Planalto', distance: 0 },\n  { id: 'itapoa', label: 'Itapoã', distance: 1.2 },\n  { id: 'vila-cloris', label: 'Vila Clóris', distance: 1.4 },\n  { id: 'campo-alegre', label: 'Campo Alegre', distance: 1.8 },\n  { id: 'santa-amelia', label: 'Santa Amélia', distance: 2.6 },\n  { id: 'pampulha', label: 'Pampulha', distance: 4.1 },\n];\nconst syntheticFeatures = {\n  type: 'FeatureCollection' as const,\n  features: neighborhoods.map((item, index) => {\n    const x = (index % 3) * 1.1;\n    const y = Math.floor(index / 3) * 1.1;\n    return {\n      type: 'Feature' as const,\n      id: item.id,\n      properties: { name: item.label, value: item.distance },\n      geometry: {\n        type: 'Polygon' as const,\n        coordinates: [\n          [\n            [x, y],\n            [x, y + 1],\n            [x + 1, y + 1],\n            [x + 1, y],\n            [x, y],\n          ],\n        ],\n      },\n    };\n  }),\n};\nfunction LocalMap({\n  radius,\n  includedIds,\n  onToggle,\n  error,\n  notice,\n}: {\n  radius: number;\n  includedIds: string[];\n  onToggle: (id: string) => void;\n  error: boolean;\n  notice: string;\n}) {\n  const state = (item: GeoNeighborhood) =>\n    item.id === 'planalto'\n      ? 'Main, always included'\n      : item.distance > radius\n        ? 'Outside the radius'\n        : includedIds.includes(item.id)\n          ? 'Included in search'\n          : 'In the radius, not in search';\n  return (\n    <div>\n      <p>Simulated map — sample regions and distances. No location service is used.</p>\n      <D3Chart\n        type=\"geo\"\n        features={syntheticFeatures}\n        title=\"Sample regions\"\n        label=\"Simulated region map; use the arrows to explore and Enter or Space to select\"\n        height={280}\n        legend={false}\n        colorScale={(distance) => {\n          const item = neighborhoods.find((region) => region.distance === distance)!;\n          return item.id === 'planalto'\n            ? 'var(--primary-hover)'\n            : item.distance > radius\n              ? 'var(--surface-2)'\n              : includedIds.includes(item.id)\n                ? 'var(--primary)'\n                : 'var(--surface-3)';\n        }}\n        onSelect={(datum) => onToggle(datum.id)}\n        tooltip={{\n          render: (datum) => {\n            const item = neighborhoods.find((region) => region.id === datum.id)!;\n            return (\n              <>\n                <strong>{item.label}</strong>\n                <span>{error ? 'Selection locked by the error' : state(item)}</span>\n              </>\n            );\n          },\n        }}\n      />\n      <p>\n        In the table, “Value” is a sample distance in km. Being in the radius does not\n        include a region automatically.\n      </p>\n      <p role=\"status\" aria-live=\"polite\">\n        {notice}\n      </p>\n    </div>\n  );\n}\nfunction PickerDemo({\n  initialRadius = 2,\n  initialIncluded = ['itapoa'],\n  withMap = true,\n  error,\n}: {\n  initialRadius?: number;\n  initialIncluded?: string[];\n  withMap?: boolean;\n  error?: string;\n}) {\n  const [radius, setRadius] = useState(initialRadius);\n  const [included, setIncluded] = useState(initialIncluded);\n  const [notice, setNotice] = useState('Select a region on the map or in the lists.');\n  const toggleFromMap = (id: string) => {\n    const item = neighborhoods.find((region) => region.id === id);\n    if (error)\n      return setNotice('Selection kept: fix the error before changing regions.');\n    if (!item) return;\n    if (id === 'planalto')\n      return setNotice('Planalto is the main region and stays included.');\n    if (item.distance > radius)\n      return setNotice(\n        `${item.label} is outside the radius. Widen the surroundings to select it.`,\n      );\n    const selected = included.includes(id);\n    setIncluded(\n      selected ? included.filter((value) => value !== id) : [...included, id],\n    );\n    setNotice(`${item.label} ${selected ? 'removed from' : 'added to'} search.`);\n  };\n  return (\n    <div style={{ maxWidth: 1080 }}>\n      <GeoAreaPicker\n        neighborhoods={neighborhoods}\n        baseId=\"planalto\"\n        radius={radius}\n        onRadiusChange={setRadius}\n        includedIds={included}\n        onIncludedIdsChange={setIncluded}\n        map={\n          withMap ? (\n            <LocalMap\n              radius={radius}\n              includedIds={included}\n              onToggle={toggleFromMap}\n              error={Boolean(error)}\n              notice={notice}\n            />\n          ) : undefined\n        }\n        mapLabel=\"Simulated map of sample regions\"\n        error={error}\n      />\n    </div>\n  );\n}\nexport function Example() {\n  return <PickerDemo />;\n}"
+    },
+    {
+      "id": "Raio",
+      "label": "Radius",
+      "description": "The radius redraws the map and immediately updates the neighborhoods reached.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport { GeoAreaPicker } from '@refy-design/web';\nimport type { GeoNeighborhood } from '@refy-design/web';\nimport { useState } from 'react';\nconst neighborhoods: GeoNeighborhood[] = [\n  { id: 'planalto', label: 'Planalto', distance: 0 },\n  { id: 'itapoa', label: 'Itapoã', distance: 1.2 },\n  { id: 'vila-cloris', label: 'Vila Clóris', distance: 1.4 },\n  { id: 'campo-alegre', label: 'Campo Alegre', distance: 1.8 },\n  { id: 'santa-amelia', label: 'Santa Amélia', distance: 2.6 },\n  { id: 'pampulha', label: 'Pampulha', distance: 4.1 },\n];\nconst syntheticFeatures = {\n  type: 'FeatureCollection' as const,\n  features: neighborhoods.map((item, index) => {\n    const x = (index % 3) * 1.1;\n    const y = Math.floor(index / 3) * 1.1;\n    return {\n      type: 'Feature' as const,\n      id: item.id,\n      properties: { name: item.label, value: item.distance },\n      geometry: {\n        type: 'Polygon' as const,\n        coordinates: [\n          [\n            [x, y],\n            [x, y + 1],\n            [x + 1, y + 1],\n            [x + 1, y],\n            [x, y],\n          ],\n        ],\n      },\n    };\n  }),\n};\nfunction LocalMap({\n  radius,\n  includedIds,\n  onToggle,\n  error,\n  notice,\n}: {\n  radius: number;\n  includedIds: string[];\n  onToggle: (id: string) => void;\n  error: boolean;\n  notice: string;\n}) {\n  const state = (item: GeoNeighborhood) =>\n    item.id === 'planalto'\n      ? 'Main, always included'\n      : item.distance > radius\n        ? 'Outside the radius'\n        : includedIds.includes(item.id)\n          ? 'Included in search'\n          : 'In the radius, not in search';\n  return (\n    <div>\n      <p>Simulated map — sample regions and distances. No location service is used.</p>\n      <D3Chart\n        type=\"geo\"\n        features={syntheticFeatures}\n        title=\"Sample regions\"\n        label=\"Simulated region map; use the arrows to explore and Enter or Space to select\"\n        height={280}\n        legend={false}\n        colorScale={(distance) => {\n          const item = neighborhoods.find((region) => region.distance === distance)!;\n          return item.id === 'planalto'\n            ? 'var(--primary-hover)'\n            : item.distance > radius\n              ? 'var(--surface-2)'\n              : includedIds.includes(item.id)\n                ? 'var(--primary)'\n                : 'var(--surface-3)';\n        }}\n        onSelect={(datum) => onToggle(datum.id)}\n        tooltip={{\n          render: (datum) => {\n            const item = neighborhoods.find((region) => region.id === datum.id)!;\n            return (\n              <>\n                <strong>{item.label}</strong>\n                <span>{error ? 'Selection locked by the error' : state(item)}</span>\n              </>\n            );\n          },\n        }}\n      />\n      <p>\n        In the table, “Value” is a sample distance in km. Being in the radius does not\n        include a region automatically.\n      </p>\n      <p role=\"status\" aria-live=\"polite\">\n        {notice}\n      </p>\n    </div>\n  );\n}\nfunction PickerDemo({\n  initialRadius = 2,\n  initialIncluded = ['itapoa'],\n  withMap = true,\n  error,\n}: {\n  initialRadius?: number;\n  initialIncluded?: string[];\n  withMap?: boolean;\n  error?: string;\n}) {\n  const [radius, setRadius] = useState(initialRadius);\n  const [included, setIncluded] = useState(initialIncluded);\n  const [notice, setNotice] = useState('Select a region on the map or in the lists.');\n  const toggleFromMap = (id: string) => {\n    const item = neighborhoods.find((region) => region.id === id);\n    if (error)\n      return setNotice('Selection kept: fix the error before changing regions.');\n    if (!item) return;\n    if (id === 'planalto')\n      return setNotice('Planalto is the main region and stays included.');\n    if (item.distance > radius)\n      return setNotice(\n        `${item.label} is outside the radius. Widen the surroundings to select it.`,\n      );\n    const selected = included.includes(id);\n    setIncluded(\n      selected ? included.filter((value) => value !== id) : [...included, id],\n    );\n    setNotice(`${item.label} ${selected ? 'removed from' : 'added to'} search.`);\n  };\n  return (\n    <div style={{ maxWidth: 1080 }}>\n      <GeoAreaPicker\n        neighborhoods={neighborhoods}\n        baseId=\"planalto\"\n        radius={radius}\n        onRadiusChange={setRadius}\n        includedIds={included}\n        onIncludedIdsChange={setIncluded}\n        map={\n          withMap ? (\n            <LocalMap\n              radius={radius}\n              includedIds={included}\n              onToggle={toggleFromMap}\n              error={Boolean(error)}\n              notice={notice}\n            />\n          ) : undefined\n        }\n        mapLabel=\"Simulated map of sample regions\"\n        error={error}\n      />\n    </div>\n  );\n}\nexport function Example() {\n  return <PickerDemo />;\n}"
+    },
+    {
+      "id": "Incluidos",
+      "label": "Included",
+      "description": "Planalto and Itapoã included; neighbors in the radius stay explicitly outside the search.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport { GeoAreaPicker } from '@refy-design/web';\nimport type { GeoNeighborhood } from '@refy-design/web';\nimport { useState } from 'react';\nconst neighborhoods: GeoNeighborhood[] = [\n  { id: 'planalto', label: 'Planalto', distance: 0 },\n  { id: 'itapoa', label: 'Itapoã', distance: 1.2 },\n  { id: 'vila-cloris', label: 'Vila Clóris', distance: 1.4 },\n  { id: 'campo-alegre', label: 'Campo Alegre', distance: 1.8 },\n  { id: 'santa-amelia', label: 'Santa Amélia', distance: 2.6 },\n  { id: 'pampulha', label: 'Pampulha', distance: 4.1 },\n];\nconst syntheticFeatures = {\n  type: 'FeatureCollection' as const,\n  features: neighborhoods.map((item, index) => {\n    const x = (index % 3) * 1.1;\n    const y = Math.floor(index / 3) * 1.1;\n    return {\n      type: 'Feature' as const,\n      id: item.id,\n      properties: { name: item.label, value: item.distance },\n      geometry: {\n        type: 'Polygon' as const,\n        coordinates: [\n          [\n            [x, y],\n            [x, y + 1],\n            [x + 1, y + 1],\n            [x + 1, y],\n            [x, y],\n          ],\n        ],\n      },\n    };\n  }),\n};\nfunction LocalMap({\n  radius,\n  includedIds,\n  onToggle,\n  error,\n  notice,\n}: {\n  radius: number;\n  includedIds: string[];\n  onToggle: (id: string) => void;\n  error: boolean;\n  notice: string;\n}) {\n  const state = (item: GeoNeighborhood) =>\n    item.id === 'planalto'\n      ? 'Main, always included'\n      : item.distance > radius\n        ? 'Outside the radius'\n        : includedIds.includes(item.id)\n          ? 'Included in search'\n          : 'In the radius, not in search';\n  return (\n    <div>\n      <p>Simulated map — sample regions and distances. No location service is used.</p>\n      <D3Chart\n        type=\"geo\"\n        features={syntheticFeatures}\n        title=\"Sample regions\"\n        label=\"Simulated region map; use the arrows to explore and Enter or Space to select\"\n        height={280}\n        legend={false}\n        colorScale={(distance) => {\n          const item = neighborhoods.find((region) => region.distance === distance)!;\n          return item.id === 'planalto'\n            ? 'var(--primary-hover)'\n            : item.distance > radius\n              ? 'var(--surface-2)'\n              : includedIds.includes(item.id)\n                ? 'var(--primary)'\n                : 'var(--surface-3)';\n        }}\n        onSelect={(datum) => onToggle(datum.id)}\n        tooltip={{\n          render: (datum) => {\n            const item = neighborhoods.find((region) => region.id === datum.id)!;\n            return (\n              <>\n                <strong>{item.label}</strong>\n                <span>{error ? 'Selection locked by the error' : state(item)}</span>\n              </>\n            );\n          },\n        }}\n      />\n      <p>\n        In the table, “Value” is a sample distance in km. Being in the radius does not\n        include a region automatically.\n      </p>\n      <p role=\"status\" aria-live=\"polite\">\n        {notice}\n      </p>\n    </div>\n  );\n}\nfunction PickerDemo({\n  initialRadius = 2,\n  initialIncluded = ['itapoa'],\n  withMap = true,\n  error,\n}: {\n  initialRadius?: number;\n  initialIncluded?: string[];\n  withMap?: boolean;\n  error?: string;\n}) {\n  const [radius, setRadius] = useState(initialRadius);\n  const [included, setIncluded] = useState(initialIncluded);\n  const [notice, setNotice] = useState('Select a region on the map or in the lists.');\n  const toggleFromMap = (id: string) => {\n    const item = neighborhoods.find((region) => region.id === id);\n    if (error)\n      return setNotice('Selection kept: fix the error before changing regions.');\n    if (!item) return;\n    if (id === 'planalto')\n      return setNotice('Planalto is the main region and stays included.');\n    if (item.distance > radius)\n      return setNotice(\n        `${item.label} is outside the radius. Widen the surroundings to select it.`,\n      );\n    const selected = included.includes(id);\n    setIncluded(\n      selected ? included.filter((value) => value !== id) : [...included, id],\n    );\n    setNotice(`${item.label} ${selected ? 'removed from' : 'added to'} search.`);\n  };\n  return (\n    <div style={{ maxWidth: 1080 }}>\n      <GeoAreaPicker\n        neighborhoods={neighborhoods}\n        baseId=\"planalto\"\n        radius={radius}\n        onRadiusChange={setRadius}\n        includedIds={included}\n        onIncludedIdsChange={setIncluded}\n        map={\n          withMap ? (\n            <LocalMap\n              radius={radius}\n              includedIds={included}\n              onToggle={toggleFromMap}\n              error={Boolean(error)}\n              notice={notice}\n            />\n          ) : undefined\n        }\n        mapLabel=\"Simulated map of sample regions\"\n        error={error}\n      />\n    </div>\n  );\n}\nexport function Example() {\n  return <PickerDemo initialIncluded={['itapoa']} />;\n}"
+    },
+    {
+      "id": "Excluidos",
+      "label": "Excluded",
+      "description": "No neighbor was confirmed: everything reached appears in the outside list.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport { GeoAreaPicker } from '@refy-design/web';\nimport type { GeoNeighborhood } from '@refy-design/web';\nimport { useState } from 'react';\nconst neighborhoods: GeoNeighborhood[] = [\n  { id: 'planalto', label: 'Planalto', distance: 0 },\n  { id: 'itapoa', label: 'Itapoã', distance: 1.2 },\n  { id: 'vila-cloris', label: 'Vila Clóris', distance: 1.4 },\n  { id: 'campo-alegre', label: 'Campo Alegre', distance: 1.8 },\n  { id: 'santa-amelia', label: 'Santa Amélia', distance: 2.6 },\n  { id: 'pampulha', label: 'Pampulha', distance: 4.1 },\n];\nconst syntheticFeatures = {\n  type: 'FeatureCollection' as const,\n  features: neighborhoods.map((item, index) => {\n    const x = (index % 3) * 1.1;\n    const y = Math.floor(index / 3) * 1.1;\n    return {\n      type: 'Feature' as const,\n      id: item.id,\n      properties: { name: item.label, value: item.distance },\n      geometry: {\n        type: 'Polygon' as const,\n        coordinates: [\n          [\n            [x, y],\n            [x, y + 1],\n            [x + 1, y + 1],\n            [x + 1, y],\n            [x, y],\n          ],\n        ],\n      },\n    };\n  }),\n};\nfunction LocalMap({\n  radius,\n  includedIds,\n  onToggle,\n  error,\n  notice,\n}: {\n  radius: number;\n  includedIds: string[];\n  onToggle: (id: string) => void;\n  error: boolean;\n  notice: string;\n}) {\n  const state = (item: GeoNeighborhood) =>\n    item.id === 'planalto'\n      ? 'Main, always included'\n      : item.distance > radius\n        ? 'Outside the radius'\n        : includedIds.includes(item.id)\n          ? 'Included in search'\n          : 'In the radius, not in search';\n  return (\n    <div>\n      <p>Simulated map — sample regions and distances. No location service is used.</p>\n      <D3Chart\n        type=\"geo\"\n        features={syntheticFeatures}\n        title=\"Sample regions\"\n        label=\"Simulated region map; use the arrows to explore and Enter or Space to select\"\n        height={280}\n        legend={false}\n        colorScale={(distance) => {\n          const item = neighborhoods.find((region) => region.distance === distance)!;\n          return item.id === 'planalto'\n            ? 'var(--primary-hover)'\n            : item.distance > radius\n              ? 'var(--surface-2)'\n              : includedIds.includes(item.id)\n                ? 'var(--primary)'\n                : 'var(--surface-3)';\n        }}\n        onSelect={(datum) => onToggle(datum.id)}\n        tooltip={{\n          render: (datum) => {\n            const item = neighborhoods.find((region) => region.id === datum.id)!;\n            return (\n              <>\n                <strong>{item.label}</strong>\n                <span>{error ? 'Selection locked by the error' : state(item)}</span>\n              </>\n            );\n          },\n        }}\n      />\n      <p>\n        In the table, “Value” is a sample distance in km. Being in the radius does not\n        include a region automatically.\n      </p>\n      <p role=\"status\" aria-live=\"polite\">\n        {notice}\n      </p>\n    </div>\n  );\n}\nfunction PickerDemo({\n  initialRadius = 2,\n  initialIncluded = ['itapoa'],\n  withMap = true,\n  error,\n}: {\n  initialRadius?: number;\n  initialIncluded?: string[];\n  withMap?: boolean;\n  error?: string;\n}) {\n  const [radius, setRadius] = useState(initialRadius);\n  const [included, setIncluded] = useState(initialIncluded);\n  const [notice, setNotice] = useState('Select a region on the map or in the lists.');\n  const toggleFromMap = (id: string) => {\n    const item = neighborhoods.find((region) => region.id === id);\n    if (error)\n      return setNotice('Selection kept: fix the error before changing regions.');\n    if (!item) return;\n    if (id === 'planalto')\n      return setNotice('Planalto is the main region and stays included.');\n    if (item.distance > radius)\n      return setNotice(\n        `${item.label} is outside the radius. Widen the surroundings to select it.`,\n      );\n    const selected = included.includes(id);\n    setIncluded(\n      selected ? included.filter((value) => value !== id) : [...included, id],\n    );\n    setNotice(`${item.label} ${selected ? 'removed from' : 'added to'} search.`);\n  };\n  return (\n    <div style={{ maxWidth: 1080 }}>\n      <GeoAreaPicker\n        neighborhoods={neighborhoods}\n        baseId=\"planalto\"\n        radius={radius}\n        onRadiusChange={setRadius}\n        includedIds={included}\n        onIncludedIdsChange={setIncluded}\n        map={\n          withMap ? (\n            <LocalMap\n              radius={radius}\n              includedIds={included}\n              onToggle={toggleFromMap}\n              error={Boolean(error)}\n              notice={notice}\n            />\n          ) : undefined\n        }\n        mapLabel=\"Simulated map of sample regions\"\n        error={error}\n      />\n    </div>\n  );\n}\nexport function Example() {\n  return <PickerDemo initialIncluded={[]} />;\n}"
+    },
+    {
+      "id": "SemMapa",
+      "label": "No map",
+      "description": "Without a map provider, the text selection stays fully usable.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport { GeoAreaPicker } from '@refy-design/web';\nimport type { GeoNeighborhood } from '@refy-design/web';\nimport { useState } from 'react';\nconst neighborhoods: GeoNeighborhood[] = [\n  { id: 'planalto', label: 'Planalto', distance: 0 },\n  { id: 'itapoa', label: 'Itapoã', distance: 1.2 },\n  { id: 'vila-cloris', label: 'Vila Clóris', distance: 1.4 },\n  { id: 'campo-alegre', label: 'Campo Alegre', distance: 1.8 },\n  { id: 'santa-amelia', label: 'Santa Amélia', distance: 2.6 },\n  { id: 'pampulha', label: 'Pampulha', distance: 4.1 },\n];\nconst syntheticFeatures = {\n  type: 'FeatureCollection' as const,\n  features: neighborhoods.map((item, index) => {\n    const x = (index % 3) * 1.1;\n    const y = Math.floor(index / 3) * 1.1;\n    return {\n      type: 'Feature' as const,\n      id: item.id,\n      properties: { name: item.label, value: item.distance },\n      geometry: {\n        type: 'Polygon' as const,\n        coordinates: [\n          [\n            [x, y],\n            [x, y + 1],\n            [x + 1, y + 1],\n            [x + 1, y],\n            [x, y],\n          ],\n        ],\n      },\n    };\n  }),\n};\nfunction LocalMap({\n  radius,\n  includedIds,\n  onToggle,\n  error,\n  notice,\n}: {\n  radius: number;\n  includedIds: string[];\n  onToggle: (id: string) => void;\n  error: boolean;\n  notice: string;\n}) {\n  const state = (item: GeoNeighborhood) =>\n    item.id === 'planalto'\n      ? 'Main, always included'\n      : item.distance > radius\n        ? 'Outside the radius'\n        : includedIds.includes(item.id)\n          ? 'Included in search'\n          : 'In the radius, not in search';\n  return (\n    <div>\n      <p>Simulated map — sample regions and distances. No location service is used.</p>\n      <D3Chart\n        type=\"geo\"\n        features={syntheticFeatures}\n        title=\"Sample regions\"\n        label=\"Simulated region map; use the arrows to explore and Enter or Space to select\"\n        height={280}\n        legend={false}\n        colorScale={(distance) => {\n          const item = neighborhoods.find((region) => region.distance === distance)!;\n          return item.id === 'planalto'\n            ? 'var(--primary-hover)'\n            : item.distance > radius\n              ? 'var(--surface-2)'\n              : includedIds.includes(item.id)\n                ? 'var(--primary)'\n                : 'var(--surface-3)';\n        }}\n        onSelect={(datum) => onToggle(datum.id)}\n        tooltip={{\n          render: (datum) => {\n            const item = neighborhoods.find((region) => region.id === datum.id)!;\n            return (\n              <>\n                <strong>{item.label}</strong>\n                <span>{error ? 'Selection locked by the error' : state(item)}</span>\n              </>\n            );\n          },\n        }}\n      />\n      <p>\n        In the table, “Value” is a sample distance in km. Being in the radius does not\n        include a region automatically.\n      </p>\n      <p role=\"status\" aria-live=\"polite\">\n        {notice}\n      </p>\n    </div>\n  );\n}\nfunction PickerDemo({\n  initialRadius = 2,\n  initialIncluded = ['itapoa'],\n  withMap = true,\n  error,\n}: {\n  initialRadius?: number;\n  initialIncluded?: string[];\n  withMap?: boolean;\n  error?: string;\n}) {\n  const [radius, setRadius] = useState(initialRadius);\n  const [included, setIncluded] = useState(initialIncluded);\n  const [notice, setNotice] = useState('Select a region on the map or in the lists.');\n  const toggleFromMap = (id: string) => {\n    const item = neighborhoods.find((region) => region.id === id);\n    if (error)\n      return setNotice('Selection kept: fix the error before changing regions.');\n    if (!item) return;\n    if (id === 'planalto')\n      return setNotice('Planalto is the main region and stays included.');\n    if (item.distance > radius)\n      return setNotice(\n        `${item.label} is outside the radius. Widen the surroundings to select it.`,\n      );\n    const selected = included.includes(id);\n    setIncluded(\n      selected ? included.filter((value) => value !== id) : [...included, id],\n    );\n    setNotice(`${item.label} ${selected ? 'removed from' : 'added to'} search.`);\n  };\n  return (\n    <div style={{ maxWidth: 1080 }}>\n      <GeoAreaPicker\n        neighborhoods={neighborhoods}\n        baseId=\"planalto\"\n        radius={radius}\n        onRadiusChange={setRadius}\n        includedIds={included}\n        onIncludedIdsChange={setIncluded}\n        map={\n          withMap ? (\n            <LocalMap\n              radius={radius}\n              includedIds={included}\n              onToggle={toggleFromMap}\n              error={Boolean(error)}\n              notice={notice}\n            />\n          ) : undefined\n        }\n        mapLabel=\"Simulated map of sample regions\"\n        error={error}\n      />\n    </div>\n  );\n}\nexport function Example() {\n  return <PickerDemo withMap={false} />;\n}"
+    },
+    {
+      "id": "Erro",
+      "label": "Error",
+      "description": "Map failure is persistent and blocks changes until it syncs again.",
+      "code": "import { D3Chart } from '@refy-design/web';\nimport { GeoAreaPicker } from '@refy-design/web';\nimport type { GeoNeighborhood } from '@refy-design/web';\nimport { useState } from 'react';\nconst neighborhoods: GeoNeighborhood[] = [\n  { id: 'planalto', label: 'Planalto', distance: 0 },\n  { id: 'itapoa', label: 'Itapoã', distance: 1.2 },\n  { id: 'vila-cloris', label: 'Vila Clóris', distance: 1.4 },\n  { id: 'campo-alegre', label: 'Campo Alegre', distance: 1.8 },\n  { id: 'santa-amelia', label: 'Santa Amélia', distance: 2.6 },\n  { id: 'pampulha', label: 'Pampulha', distance: 4.1 },\n];\nconst syntheticFeatures = {\n  type: 'FeatureCollection' as const,\n  features: neighborhoods.map((item, index) => {\n    const x = (index % 3) * 1.1;\n    const y = Math.floor(index / 3) * 1.1;\n    return {\n      type: 'Feature' as const,\n      id: item.id,\n      properties: { name: item.label, value: item.distance },\n      geometry: {\n        type: 'Polygon' as const,\n        coordinates: [\n          [\n            [x, y],\n            [x, y + 1],\n            [x + 1, y + 1],\n            [x + 1, y],\n            [x, y],\n          ],\n        ],\n      },\n    };\n  }),\n};\nfunction LocalMap({\n  radius,\n  includedIds,\n  onToggle,\n  error,\n  notice,\n}: {\n  radius: number;\n  includedIds: string[];\n  onToggle: (id: string) => void;\n  error: boolean;\n  notice: string;\n}) {\n  const state = (item: GeoNeighborhood) =>\n    item.id === 'planalto'\n      ? 'Main, always included'\n      : item.distance > radius\n        ? 'Outside the radius'\n        : includedIds.includes(item.id)\n          ? 'Included in search'\n          : 'In the radius, not in search';\n  return (\n    <div>\n      <p>Simulated map — sample regions and distances. No location service is used.</p>\n      <D3Chart\n        type=\"geo\"\n        features={syntheticFeatures}\n        title=\"Sample regions\"\n        label=\"Simulated region map; use the arrows to explore and Enter or Space to select\"\n        height={280}\n        legend={false}\n        colorScale={(distance) => {\n          const item = neighborhoods.find((region) => region.distance === distance)!;\n          return item.id === 'planalto'\n            ? 'var(--primary-hover)'\n            : item.distance > radius\n              ? 'var(--surface-2)'\n              : includedIds.includes(item.id)\n                ? 'var(--primary)'\n                : 'var(--surface-3)';\n        }}\n        onSelect={(datum) => onToggle(datum.id)}\n        tooltip={{\n          render: (datum) => {\n            const item = neighborhoods.find((region) => region.id === datum.id)!;\n            return (\n              <>\n                <strong>{item.label}</strong>\n                <span>{error ? 'Selection locked by the error' : state(item)}</span>\n              </>\n            );\n          },\n        }}\n      />\n      <p>\n        In the table, “Value” is a sample distance in km. Being in the radius does not\n        include a region automatically.\n      </p>\n      <p role=\"status\" aria-live=\"polite\">\n        {notice}\n      </p>\n    </div>\n  );\n}\nfunction PickerDemo({\n  initialRadius = 2,\n  initialIncluded = ['itapoa'],\n  withMap = true,\n  error,\n}: {\n  initialRadius?: number;\n  initialIncluded?: string[];\n  withMap?: boolean;\n  error?: string;\n}) {\n  const [radius, setRadius] = useState(initialRadius);\n  const [included, setIncluded] = useState(initialIncluded);\n  const [notice, setNotice] = useState('Select a region on the map or in the lists.');\n  const toggleFromMap = (id: string) => {\n    const item = neighborhoods.find((region) => region.id === id);\n    if (error)\n      return setNotice('Selection kept: fix the error before changing regions.');\n    if (!item) return;\n    if (id === 'planalto')\n      return setNotice('Planalto is the main region and stays included.');\n    if (item.distance > radius)\n      return setNotice(\n        `${item.label} is outside the radius. Widen the surroundings to select it.`,\n      );\n    const selected = included.includes(id);\n    setIncluded(\n      selected ? included.filter((value) => value !== id) : [...included, id],\n    );\n    setNotice(`${item.label} ${selected ? 'removed from' : 'added to'} search.`);\n  };\n  return (\n    <div style={{ maxWidth: 1080 }}>\n      <GeoAreaPicker\n        neighborhoods={neighborhoods}\n        baseId=\"planalto\"\n        radius={radius}\n        onRadiusChange={setRadius}\n        includedIds={included}\n        onIncludedIdsChange={setIncluded}\n        map={\n          withMap ? (\n            <LocalMap\n              radius={radius}\n              includedIds={included}\n              onToggle={toggleFromMap}\n              error={Boolean(error)}\n              notice={notice}\n            />\n          ) : undefined\n        }\n        mapLabel=\"Simulated map of sample regions\"\n        error={error}\n      />\n    </div>\n  );\n}\nexport function Example() {\n  return (\n    <PickerDemo error=\"The connection to the provider was lost. Your previous selection was kept.\" />\n  );\n}"
+    }
+  ]
+}

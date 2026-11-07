@@ -1,0 +1,105 @@
+{
+  "id": "DatePicker",
+  "description": "Date selection by button and calendar, with clearing; no free typing.",
+  "usage": {
+    "howToUse": [
+      "Use it for a date inside a form: birth date, due date, start of a booking.",
+      "Give it a `label` and block the days out of range with `min` and `max`.",
+      "People pick the date in the calendar; there is no typing. For dates far away, such as birth dates, offer separate fields."
+    ],
+    "alternatives": [
+      "A calendar always open on screen: Calendar.",
+      "Day and time of a booking: SchedulePicker."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the calendar."
+      },
+      {
+        "keys": "Calendar keys",
+        "action": "Same as Calendar. Choosing a day closes it and returns focus to the field."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the calendar without changing the date."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "DatePicker",
+  "selected": "Interativo",
+  "import": "import { DatePicker } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Calendar",
+    "Label",
+    "Popover"
+  ],
+  "api": [
+    {
+      "name": "DatePicker",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "value",
+          "type": "Date | null | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "null",
+          "type": "Date | null | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "onChange",
+          "type": "((date: Date | null) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "min",
+          "type": "Date | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "Date | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { DatePicker } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction DatePickerExample() {\n  const [date, setDate] = useState<Date | null>(null);\n  return (\n    <div style={stack}>\n      <DatePicker label=\"Review date\" value={date} onChange={setDate} />\n      <p role=\"status\">\n        {date ? `Review: ${date.toLocaleDateString('en')}` : 'No date selected.'}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <DatePickerExample />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { DatePicker } from '@refy-design/web';\nexport function Example() {\n  return (\n    <DatePicker label=\"Review date\" defaultValue={new Date(2026, 6, 23)} disabled />\n  );\n}"
+    }
+  ]
+}

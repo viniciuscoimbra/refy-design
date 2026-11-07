@@ -1,0 +1,145 @@
+{
+  "id": "Tooltip",
+  "description": "Short explanation of a control, shown on focus or hover.",
+  "usage": {
+    "howToUse": [
+      "Use it to name an icon button or explain a control in a few words, shown on hover and on focus.",
+      "Keep `label` short. Add `shortcut` when the action has one (\"⌘K\").",
+      "Turn on `portalled` when the tooltip is cut by a container with scroll.",
+      "Nothing in it can be clicked, and on touch screens it may never show: keep important information visible."
+    ],
+    "alternatives": [
+      "Content with links or buttons: Popover.",
+      "A preview of a person or item on hover: HoverCard.",
+      "Help for a form field: HelpField."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Focusing the control shows the tooltip; leaving hides it."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Hides the tooltip and keeps the focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Tooltip",
+  "selected": "NoBotao",
+  "import": "import { Tooltip } from '@refy-design/web';",
+  "composition": [
+    "Kbd"
+  ],
+  "api": [
+    {
+      "name": "Tooltip",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Short, non-interactive label."
+        },
+        {
+          "name": "description",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Optional second line, text only."
+        },
+        {
+          "name": "shortcut",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Optional shortcut, rendered with Kbd."
+        },
+        {
+          "name": "side",
+          "defaultValue": "\"top\"",
+          "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "delayMs",
+          "defaultValue": "350",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Open delay on hover/focus."
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultOpen",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "portalled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Renders the bubble in body to escape containers with overflow."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "NoBotao",
+      "label": "On the button",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Tooltip } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Tooltip>, 'label' | 'side' | 'delayMs'> = {\n    label: 'Credits roll over',\n    side: 'top',\n    delayMs: 350,\n  };\n  return (\n    <Tooltip {...args}>\n      <Button variant=\"secondary\">Credits</Button>\n    </Tooltip>\n  );\n}"
+    },
+    {
+      "id": "ComAtalho",
+      "label": "With shortcut",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Tooltip } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Tooltip>,\n    'label' | 'shortcut' | 'defaultOpen'\n  > = { label: 'Run analysis', shortcut: '⌘ Enter', defaultOpen: true };\n  return (\n    <Tooltip {...args}>\n      <Button variant=\"primary\">Analyze</Button>\n    </Tooltip>\n  );\n}"
+    },
+    {
+      "id": "ComDescricao",
+      "label": "With description",
+      "description": "",
+      "code": "import { IconButton } from '@refy-design/web';\nimport { Tooltip } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport type { ReactNode } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Tooltip>,\n    'label' | 'description' | 'defaultOpen'\n  > = {\n    label: 'Content relevance',\n    description: 'Calculated from the profile and confirmed preferences.',\n    defaultOpen: true,\n  };\n  return (\n    <Tooltip {...args}>\n      <IconButton aria-label=\"Understand the score\" icon={Icons.help} />\n    </Tooltip>\n  );\n}"
+    },
+    {
+      "id": "Lados",
+      "label": "Sides",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Tooltip } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div\n      style={{\n        display: 'grid',\n        gridTemplateColumns: 'repeat(2, minmax(0, 120px))',\n        gap: '80px 24px',\n        placeItems: 'center',\n      }}\n    >\n      {(['top', 'bottom', 'left', 'right'] as const).map((side) => (\n        <Tooltip key={side} label={`Side ${side}`} side={side} defaultOpen delayMs={0}>\n          <Button variant=\"secondary\">{side}</Button>\n        </Tooltip>\n      ))}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Gatilhos",
+      "label": "Triggers",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { IconButton } from '@refy-design/web';\nimport { Kbd } from '@refy-design/web';\nimport { Tooltip } from '@refy-design/web';\nimport type { ReactNode } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center' }}>\n      <Tooltip label=\"Overall score\" delayMs={0}>\n        <IconButton aria-label=\"Information\" icon={Icons.help} />\n      </Tooltip>\n      <Tooltip label=\"Main shortcut\" shortcut=\"⌘ Enter\" delayMs={0}>\n        <Button variant=\"primary\">Analyze</Button>\n      </Tooltip>\n      <Tooltip label=\"CSV, JSON or PDF\" delayMs={0}>\n        <Button variant=\"ghost\">Export</Button>\n      </Tooltip>\n      <Tooltip label=\"Open documentation\" delayMs={0}>\n        <a href=\"#docs\">example.com/docs</a>\n      </Tooltip>\n      <Tooltip label=\"Command palette\" delayMs={0}>\n        <span tabIndex={0}>\n          <Kbd>⌘K</Kbd>\n        </span>\n      </Tooltip>\n      <Tooltip label=\"Last update\" side=\"bottom\" delayMs={0}>\n        <span tabIndex={0}>?</span>\n      </Tooltip>\n    </div>\n  );\n}"
+    }
+  ]
+}

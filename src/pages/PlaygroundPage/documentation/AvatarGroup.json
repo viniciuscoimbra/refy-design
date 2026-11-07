@@ -1,0 +1,178 @@
+{
+  "id": "AvatarGroup",
+  "description": "Stack of avatars with a visible limit, overlap and a count of extra participants.",
+  "usage": {
+    "howToUse": [
+      "Use it to show who takes part in something in little space: members of a project, people in a conversation.",
+      "Pass the `items` in a stable order and limit with `max`; the rest becomes \"+N\".",
+      "Use `onOverflowClick` to open the full list, and `onItemClick` to open a person."
+    ],
+    "alternatives": [
+      "One person: Avatar.",
+      "A list of people with name and role: PersonCell in a list or Table."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "With `onItemClick` or `onOverflowClick`, moves through the avatars and the \"+N\"."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the person or the full list."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "AvatarGroup",
+  "selected": "Interativo",
+  "import": "import { AvatarGroup } from '@refy-design/web';",
+  "composition": [
+    "Avatar",
+    "Tooltip"
+  ],
+  "api": [
+    {
+      "name": "AvatarGroup",
+      "props": [
+        {
+          "name": "items",
+          "type": "AvatarGroupItem[]",
+          "required": true,
+          "description": "People, in the order they should appear (stable order, first on top)."
+        },
+        {
+          "name": "max",
+          "defaultValue": "4",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Maximum visible avatars; the rest becomes \"+N\" with a tooltip. Default 4."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "AvatarSize | undefined",
+          "required": false,
+          "description": "Size inherited from the Avatar atom. Default \"md\"."
+        },
+        {
+          "name": "onItemClick",
+          "type": "((item: AvatarGroupItem, index: number) => void) | undefined",
+          "required": false,
+          "description": "If present, each avatar becomes a button (focus + Enter/Space)."
+        },
+        {
+          "name": "onOverflowClick",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "If present, \"+N\" becomes a button (e.g. open the full member list)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: 7 people, `max=4` makes the \"+3\" chip (hover shows the names).",
+      "code": "import { AvatarGroup } from '@refy-design/web';\nimport type { AvatarGroupItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst team: AvatarGroupItem[] = [\n  { name: 'Joana Martins' },\n  { name: 'Marcos Silva', color: 'var(--legacy-ink-2)' },\n  { name: 'Renata Costa' },\n  { name: 'Paulo Braga', color: 'var(--legacy-ink-2)' },\n  { name: 'Ana Lúcia Prado' },\n  { name: 'Caio Fernandes' },\n  { name: 'Duda Rocha' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof AvatarGroup>, 'items' | 'max'> = {\n    items: team,\n    max: 4,\n  };\n  return <AvatarGroup {...args} />;\n}"
+    },
+    {
+      "id": "SemOverflow",
+      "label": "No overflow",
+      "description": "All visible (items ≤ max): no \"+N\" chip.",
+      "code": "import { AvatarGroup } from '@refy-design/web';\nimport type { AvatarGroupItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst team: AvatarGroupItem[] = [\n  { name: 'Joana Martins' },\n  { name: 'Marcos Silva', color: 'var(--legacy-ink-2)' },\n  { name: 'Renata Costa' },\n  { name: 'Paulo Braga', color: 'var(--legacy-ink-2)' },\n  { name: 'Ana Lúcia Prado' },\n  { name: 'Caio Fernandes' },\n  { name: 'Duda Rocha' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof AvatarGroup>, 'items' | 'max'> = {\n    items: team.slice(0, 3),\n    max: 4,\n  };\n  return <AvatarGroup {...args} />;\n}"
+    },
+    {
+      "id": "Tamanhos",
+      "label": "Sizes",
+      "description": "Sizes inherited from the Avatar atom.",
+      "code": "import { AvatarGroup } from '@refy-design/web';\nimport type { AvatarGroupItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst team: AvatarGroupItem[] = [\n  { name: 'Joana Martins' },\n  { name: 'Marcos Silva', color: 'var(--legacy-ink-2)' },\n  { name: 'Renata Costa' },\n  { name: 'Paulo Braga', color: 'var(--legacy-ink-2)' },\n  { name: 'Ana Lúcia Prado' },\n  { name: 'Caio Fernandes' },\n  { name: 'Duda Rocha' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof AvatarGroup>, 'items' | 'max'> = {\n    items: team,\n    max: 4,\n  };\n  return (\n    <div\n      style={{\n        display: 'flex',\n        flexDirection: 'column',\n        gap: 16,\n        alignItems: 'flex-start',\n      }}\n    >\n      <AvatarGroup {...args} size=\"sm\" />\n      <AvatarGroup {...args} size=\"md\" />\n      <AvatarGroup {...args} size=\"lg\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Clicavel",
+      "label": "Clickable",
+      "description": "Clickable: avatars and \"+N\" become buttons (Tab + Enter/Space, visible focus).",
+      "code": "import { AvatarGroup } from '@refy-design/web';\nimport type { AvatarGroupItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst team: AvatarGroupItem[] = [\n  { name: 'Joana Martins' },\n  { name: 'Marcos Silva', color: 'var(--legacy-ink-2)' },\n  { name: 'Renata Costa' },\n  { name: 'Paulo Braga', color: 'var(--legacy-ink-2)' },\n  { name: 'Ana Lúcia Prado' },\n  { name: 'Caio Fernandes' },\n  { name: 'Duda Rocha' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof AvatarGroup>, 'items' | 'max'> = {\n    items: team,\n    max: 4,\n  };\n  const [selected, setSelected] = useState('Select a person.');\n  return (\n    <div style={{ display: 'grid', gap: 'var(--space-4)' }}>\n      <AvatarGroup\n        {...args}\n        onItemClick={(item) => setSelected(`Selected person: ${item.name}`)}\n        onOverflowClick={() =>\n          setSelected(\n            `Other members: ${args.items\n              .slice(args.max ?? 4)\n              .map((item) => item.name)\n              .join(', ')}`,\n          )\n        }\n      />\n      <p role=\"status\">{selected}</p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { AvatarGroup } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport { PersonCell } from '@refy-design/web';\nimport { useState } from 'react';\nfunction AvatarGroupExample() {\n  const team = [\n    'Joana Martins',\n    'Marcos Silva',\n    'Renata Costa',\n    'Paulo Braga',\n    'Ana Prado',\n    'Caio Fernandes',\n    'Duda Rocha',\n  ].map((name) => ({ name }));\n  const [person, setPerson] = useState('');\n  return (\n    <>\n      <AvatarGroup\n        items={team}\n        max={4}\n        onItemClick={(item) => setPerson(item.name)}\n        onOverflowClick={() => setPerson('All members')}\n      />\n      <Drawer\n        open={Boolean(person)}\n        onOpenChange={(open) => {\n          if (!open) setPerson('');\n        }}\n        title={person}\n      >\n        {(person === 'All members'\n          ? team\n          : team.filter((item) => item.name === person)\n        ).map((item) => (\n          <PersonCell key={item.name} name={item.name} secondary=\"Team member\" />\n        ))}\n      </Drawer>\n    </>\n  );\n}\nexport function Example() {\n  return <AvatarGroupExample />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "id": "PropertyMedia",
+  "description": "Media display with aspect ratios, navigation and loading or error states.",
+  "usage": {
+    "howToUse": [
+      "Use it for the photos of one item: a listing, a product, a place.",
+      "Set `aspectRatio` so the area keeps its size while loading, and `fit` to crop or show the whole picture.",
+      "Show `loading` while the photos arrive, and `errorMessage` with `onRetry` when they fail. In new code, import it as MediaGallery."
+    ],
+    "alternatives": [
+      "Different content in slides: Carousel.",
+      "One fixed image: AspectRatio with an `<img>`."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the gallery, the previous and next buttons and the thumbnails."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "Shows the previous or next photo."
+      }
+    ]
+  },
+  "collections": [
+    "media"
+  ],
+  "publicName": "MediaGallery",
+  "selected": "Paisagem",
+  "import": "import { MediaGallery } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Callout",
+    "IconButton",
+    "Skeleton"
+  ],
+  "api": [
+    {
+      "name": "MediaGallery",
+      "props": [
+        {
+          "name": "items",
+          "type": "PropertyMediaItem[]",
+          "required": true,
+          "description": "Items shown by the component."
+        },
+        {
+          "name": "index",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultIndex",
+          "defaultValue": "0",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onIndexChange",
+          "type": "((index: number) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "aspectRatio",
+          "defaultValue": "\"4 / 3\"",
+          "type": "AspectRatio | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "fit",
+          "defaultValue": "\"cover\"",
+          "type": "\"cover\" | \"contain\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "loading",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows the loading state."
+        },
+        {
+          "name": "errorMessage",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onRetry",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Paisagem",
+      "label": "Landscape",
+      "description": "",
+      "code": "import { MediaGallery } from '@refy-design/web';\nimport type { MediaGalleryItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction Frame({\n  children,\n  width = 720,\n}: {\n  children: React.ReactNode;\n  width?: number;\n}) {\n  return <div style={{ width: `min(100%, ${width}px)` }}>{children}</div>;\n}\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst artwork = (width: number, height: number, color: string, _label: string) =>\n  sampleArtwork(color, width, height);\nconst landscape: MediaGalleryItem[] = [\n  {\n    src: artwork(1200, 800, '#b8dcf0', 'Cover'),\n    alt: 'Cover of a document collection',\n  },\n  { src: artwork(1200, 800, '#f1c99b', 'Version A'), alt: 'First editorial layout' },\n  { src: artwork(1200, 800, '#c8d4f0', 'Version B'), alt: 'Second editorial layout' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof MediaGallery>, 'items'> = { items: landscape };\n  return (\n    <Frame>\n      <MediaGallery {...args} />\n    </Frame>\n  );\n}"
+    },
+    {
+      "id": "Retrato",
+      "label": "Portrait",
+      "description": "",
+      "code": "import { MediaGallery } from '@refy-design/web';\nimport type { MediaGalleryItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction Frame({\n  children,\n  width = 720,\n}: {\n  children: React.ReactNode;\n  width?: number;\n}) {\n  return <div style={{ width: `min(100%, ${width}px)` }}>{children}</div>;\n}\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst artwork = (width: number, height: number, color: string, _label: string) =>\n  sampleArtwork(color, width, height);\nconst landscape: MediaGalleryItem[] = [\n  {\n    src: artwork(1200, 800, '#b8dcf0', 'Cover'),\n    alt: 'Cover of a document collection',\n  },\n  { src: artwork(1200, 800, '#f1c99b', 'Version A'), alt: 'First editorial layout' },\n  { src: artwork(1200, 800, '#c8d4f0', 'Version B'), alt: 'Second editorial layout' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof MediaGallery>, 'items'> = { items: landscape };\n  return (\n    <Frame width={520}>\n      <MediaGallery\n        {...args}\n        items={[\n          {\n            src: artwork(600, 1000, '#c7dded', 'Portrait photo'),\n            alt: 'Portrait layout',\n          },\n        ]}\n        fit=\"contain\"\n      />\n    </Frame>\n  );\n}"
+    },
+    {
+      "id": "Quadrada",
+      "label": "Square",
+      "description": "",
+      "code": "import { MediaGallery } from '@refy-design/web';\nimport type { MediaGalleryItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction Frame({\n  children,\n  width = 720,\n}: {\n  children: React.ReactNode;\n  width?: number;\n}) {\n  return <div style={{ width: `min(100%, ${width}px)` }}>{children}</div>;\n}\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst artwork = (width: number, height: number, color: string, _label: string) =>\n  sampleArtwork(color, width, height);\nconst landscape: MediaGalleryItem[] = [\n  {\n    src: artwork(1200, 800, '#b8dcf0', 'Cover'),\n    alt: 'Cover of a document collection',\n  },\n  { src: artwork(1200, 800, '#f1c99b', 'Version A'), alt: 'First editorial layout' },\n  { src: artwork(1200, 800, '#c8d4f0', 'Version B'), alt: 'Second editorial layout' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof MediaGallery>, 'items'> = { items: landscape };\n  return (\n    <Frame width={560}>\n      <MediaGallery\n        {...args}\n        items={[\n          { src: artwork(800, 800, '#e0c3a5', 'Square photo'), alt: 'Square layout' },\n        ]}\n        aspectRatio=\"1 / 1\"\n      />\n    </Frame>\n  );\n}"
+    },
+    {
+      "id": "Panoramica",
+      "label": "Panoramic",
+      "description": "",
+      "code": "import { MediaGallery } from '@refy-design/web';\nimport type { MediaGalleryItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction Frame({\n  children,\n  width = 720,\n}: {\n  children: React.ReactNode;\n  width?: number;\n}) {\n  return <div style={{ width: `min(100%, ${width}px)` }}>{children}</div>;\n}\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst artwork = (width: number, height: number, color: string, _label: string) =>\n  sampleArtwork(color, width, height);\nconst landscape: MediaGalleryItem[] = [\n  {\n    src: artwork(1200, 800, '#b8dcf0', 'Cover'),\n    alt: 'Cover of a document collection',\n  },\n  { src: artwork(1200, 800, '#f1c99b', 'Version A'), alt: 'First editorial layout' },\n  { src: artwork(1200, 800, '#c8d4f0', 'Version B'), alt: 'Second editorial layout' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof MediaGallery>, 'items'> = { items: landscape };\n  return (\n    <Frame>\n      <MediaGallery\n        {...args}\n        items={[\n          { src: artwork(1800, 500, '#b7dbee', 'Panoramic'), alt: 'Panoramic layout' },\n        ]}\n        aspectRatio=\"16 / 7\"\n        fit=\"contain\"\n      />\n    </Frame>\n  );\n}"
+    },
+    {
+      "id": "Pequena",
+      "label": "Small",
+      "description": "",
+      "code": "import { MediaGallery } from '@refy-design/web';\nimport type { MediaGalleryItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction Frame({\n  children,\n  width = 720,\n}: {\n  children: React.ReactNode;\n  width?: number;\n}) {\n  return <div style={{ width: `min(100%, ${width}px)` }}>{children}</div>;\n}\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst artwork = (width: number, height: number, color: string, _label: string) =>\n  sampleArtwork(color, width, height);\nconst landscape: MediaGalleryItem[] = [\n  {\n    src: artwork(1200, 800, '#b8dcf0', 'Cover'),\n    alt: 'Cover of a document collection',\n  },\n  { src: artwork(1200, 800, '#f1c99b', 'Version A'), alt: 'First editorial layout' },\n  { src: artwork(1200, 800, '#c8d4f0', 'Version B'), alt: 'Second editorial layout' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof MediaGallery>, 'items'> = { items: landscape };\n  return (\n    <Frame>\n      <MediaGallery\n        {...args}\n        items={[\n          {\n            src: artwork(240, 160, '#d3dff0', '240 × 160'),\n            alt: 'Low-resolution image',\n          },\n        ]}\n      />\n    </Frame>\n  );\n}"
+    },
+    {
+      "id": "Carregando",
+      "label": "Loading",
+      "description": "",
+      "code": "import { MediaGallery } from '@refy-design/web';\nimport type { MediaGalleryItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction Frame({\n  children,\n  width = 720,\n}: {\n  children: React.ReactNode;\n  width?: number;\n}) {\n  return <div style={{ width: `min(100%, ${width}px)` }}>{children}</div>;\n}\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst artwork = (width: number, height: number, color: string, _label: string) =>\n  sampleArtwork(color, width, height);\nconst landscape: MediaGalleryItem[] = [\n  {\n    src: artwork(1200, 800, '#b8dcf0', 'Cover'),\n    alt: 'Cover of a document collection',\n  },\n  { src: artwork(1200, 800, '#f1c99b', 'Version A'), alt: 'First editorial layout' },\n  { src: artwork(1200, 800, '#c8d4f0', 'Version B'), alt: 'Second editorial layout' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof MediaGallery>, 'items'> = { items: landscape };\n  return (\n    <Frame>\n      <MediaGallery {...args} loading />\n    </Frame>\n  );\n}"
+    },
+    {
+      "id": "Erro",
+      "label": "Error",
+      "description": "",
+      "code": "import { MediaGallery } from '@refy-design/web';\nimport type { MediaGalleryItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nfunction Frame({\n  children,\n  width = 720,\n}: {\n  children: React.ReactNode;\n  width?: number;\n}) {\n  return <div style={{ width: `min(100%, ${width}px)` }}>{children}</div>;\n}\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst artwork = (width: number, height: number, color: string, _label: string) =>\n  sampleArtwork(color, width, height);\nconst landscape: MediaGalleryItem[] = [\n  {\n    src: artwork(1200, 800, '#b8dcf0', 'Cover'),\n    alt: 'Cover of a document collection',\n  },\n  { src: artwork(1200, 800, '#f1c99b', 'Version A'), alt: 'First editorial layout' },\n  { src: artwork(1200, 800, '#c8d4f0', 'Version B'), alt: 'Second editorial layout' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof MediaGallery>, 'items'> = { items: landscape };\n  const [retrying, setRetrying] = useState(false);\n  return (\n    <Frame>\n      <MediaGallery\n        {...args}\n        items={\n          retrying\n            ? landscape\n            : [{ src: 'invalid://property-photo', alt: 'Content image' }]\n        }\n        errorMessage={retrying ? undefined : 'The photo source did not respond.'}\n        onRetry={() => setRetrying(true)}\n      />\n    </Frame>\n  );\n}"
+    }
+  ]
+}

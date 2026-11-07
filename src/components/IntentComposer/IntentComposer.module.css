@@ -1,0 +1,153 @@
+.root {
+  display: grid;
+  gap: 0;
+  transition: border-color var(--motion-feedback-duration) var(--motion-ease-enter), box-shadow var(--motion-feedback-duration) var(--motion-ease-enter);
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: var(--composer-border-width, 1px) solid var(--line);
+  border-radius: var(--radius-xl-token);
+  background: var(--surface);
+  box-shadow: var(--composer-shadow, var(--elev-1));
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--surface-2);
+}
+.filterGroup {
+  flex: 1 1 180px;
+  max-width: 100%;
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.filterLabel {
+  color: var(--ink-3);
+  font-family: var(--interface-detail-font, var(--font-mono));
+  font-size: var(--text-eyebrow);
+  text-transform: var(--interface-label-transform, uppercase);
+  letter-spacing: var(--interface-label-tracking, var(--tracking-uppercase));
+}
+.multiselect { width: 100%; max-width: none; --field-background: transparent; --field-border: var(--line); --field-shadow: none; }
+.shell { min-width: 0; }
+.root:focus-within {
+  border-color: var(--primary);
+  box-shadow: var(--composer-focus-shadow, 0 0 0 3px color-mix(in srgb, var(--primary) 12%, transparent)), var(--composer-shadow, var(--elev-1));
+}
+.root.hasError {
+  border-color: var(--critical);
+}
+.root .textarea {
+  gap: var(--space-2);
+  padding: var(--composer-input-padding, var(--space-4) var(--space-4) 0);
+}
+.textarea :global(textarea),
+.textarea :global(textarea:hover),
+.textarea :global(textarea:focus) {
+  min-height: var(--composer-input-min-height, 126px);
+  height: var(--composer-input-height, auto);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
+  resize: var(--composer-resize, vertical);
+}
+.voice {
+  padding: 0 var(--space-4) var(--space-4);
+}
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--composer-toolbar-height, 56px);
+  padding: var(--composer-toolbar-padding, var(--space-2) var(--space-3));
+  border-top: var(--composer-divider-width, 1px) solid var(--line-soft);
+  background: var(--surface);
+}
+.examples {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: var(--space-2);
+  min-width: 0;
+  overflow-x: auto;
+  padding-block: 4px;
+  scrollbar-width: none;
+}
+.examples::-webkit-scrollbar { display: none; }
+.examples > span {
+  flex: none;
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+.examples > button {
+  flex: none;
+}
+.actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: none;
+}
+.processing {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  border-top: 1px solid var(--line-soft);
+  background: var(--surface-2);
+}
+.processing > div {
+  display: grid;
+  gap: 2px;
+}
+.processing strong {
+  color: var(--ink-1);
+  font-size: var(--text-sm);
+}
+.processing span {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+.processing > :global([role="progressbar"]) {
+  grid-column: 1 / -1;
+}
+@media (max-width: 620px) {
+  .footer {
+    align-items: flex-end;
+  }
+  .examples > span {
+    display: none;
+  }
+  .processing {
+    grid-template-columns: 1fr;
+  }
+  .processing > button {
+    justify-self: end;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shell {
+    transition: none;
+  }
+}
+
+.textarea > :global(label) { display: var(--composer-label-display, block); }
+.leadingActions { flex: 0 1 auto; display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+
+.feedback { margin: var(--space-3) var(--space-4); }
+.voice { animation: refy-effect-in var(--motion-context-duration) var(--motion-ease-enter) both; }
+.feedback { animation: refy-effect-in var(--motion-feedback-duration) var(--motion-ease-enter) both; }
+
+.singleSelection { justify-self: start; max-width: 100%; flex-wrap: wrap; }
+
+.singleFilter { flex: 0 1 auto; }

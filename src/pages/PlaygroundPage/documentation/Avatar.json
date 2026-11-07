@@ -1,0 +1,184 @@
+{
+  "id": "Avatar",
+  "description": "Visual identity of a person or entity, by image or initials.",
+  "usage": {
+    "howToUse": [
+      "Use it to show who: the author of a comment, the owner of a task, the account signed in.",
+      "Pass `src` with the photo and `initials` as fallback; `alt` with the name when the name is not next to it.",
+      "Use `shape=\"square\"` for companies and projects, and `seed` for a fixed color per name."
+    ],
+    "alternatives": [
+      "Avatar with name and detail in a row: PersonCell.",
+      "Several people at once: AvatarGroup."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The avatar does not receive focus. Wrap it in a link or button when it opens a profile."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Avatar",
+  "selected": "Iniciais",
+  "import": "import { Avatar } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Avatar",
+      "props": [
+        {
+          "name": "initials",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initials (1–2 letters) when there is no image."
+        },
+        {
+          "name": "src",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Photo URL; when present, it covers the initials."
+        },
+        {
+          "name": "alt",
+          "defaultValue": "\"\"",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "AvatarSize | undefined",
+          "required": false,
+          "description": "Size variant."
+        },
+        {
+          "name": "shape",
+          "defaultValue": "\"circle\"",
+          "type": "AvatarShape | undefined",
+          "required": false,
+          "description": "Shape: `circle` (person, default) or `square` (workspace/project/logo,\nrounded corners proportional to size)."
+        },
+        {
+          "name": "color",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Background color (for initials). Default = the active brand color."
+        },
+        {
+          "name": "seed",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Seed for a deterministic brand gradient (e.g. the workspace name).\nThe same string always produces the same gradient. Ignored with `src`/`color`."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLSpanElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Iniciais",
+      "label": "Initials",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Avatar>, 'initials' | 'size' | 'shape'> = {\n    initials: 'JM',\n    size: 'md',\n    shape: 'circle',\n  };\n  return <Avatar {...args} />;\n}"
+    },
+    {
+      "id": "Tamanhos",
+      "label": "Sizes",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>\n      <Avatar size=\"xs\" initials=\"JM\" />\n      <Avatar size=\"sm\" initials=\"JM\" />\n      <Avatar size=\"md\" initials=\"MC\" seed=\"Marina Costa\" />\n      <Avatar size=\"lg\" initials=\"PL\" seed=\"Paulo Lima\" />\n      <Avatar size=\"xl\" initials=\"JM\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "QuadradoEntidade",
+      "label": "Square (entity)",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>\n      <Avatar shape=\"square\" size=\"sm\" initials=\"GE\" seed=\"Example team\" />\n      <Avatar shape=\"square\" size=\"md\" initials=\"GE\" seed=\"Example team\" />\n      <Avatar shape=\"square\" size=\"lg\" initials=\"VG\" seed=\"Aurora team\" />\n      <Avatar shape=\"square\" size=\"xl\" initials=\"CV\" seed=\"Origin team\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "GradienteDeterministico",
+      "label": "Deterministic gradient (seed)",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>\n      {[\n        'Example team',\n        'Aurora team',\n        'Origin team',\n        'João Mendes',\n        'Marina Salgado',\n      ].map((name) => (\n        <Avatar\n          key={name}\n          shape=\"square\"\n          size=\"lg\"\n          seed={name}\n          initials={name\n            .split(' ')\n            .map((p) => p[0])\n            .slice(0, 2)\n            .join('')}\n          title={name}\n        />\n      ))}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "PerfilXL",
+      "label": "Profile (xl, 72px)",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Avatar>, 'initials' | 'size' | 'shape'> = {\n    initials: 'JM',\n    size: 'xl',\n    shape: 'circle',\n  };\n  return <Avatar {...args} />;\n}"
+    }
+  ]
+}

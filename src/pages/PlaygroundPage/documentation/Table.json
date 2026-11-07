@@ -1,0 +1,184 @@
+{
+  "id": "Table",
+  "description": "Data table with search, filters, sorting, pagination and content states.",
+  "usage": {
+    "howToUse": [
+      "Use it when people compare the same fields across many records: each column is a field and each row is one record.",
+      "Align numbers and amounts with `align=\"num\"`, so digits line up on the right.",
+      "Turn on `searchable` for long lists, and `filterable` on columns with a few repeated values, such as status or owner.",
+      "Mark `sortable` only on the columns people sort by, such as date or amount.",
+      "When a row opens a detail, pass `onRowClick` and `rowLabel`, which names the row for screen readers.",
+      "Show `loading`, `error` and `empty` in place of the rows instead of hiding the table.",
+      "On mobile, set `minTableWidth`: the table scrolls sideways instead of squeezing the columns."
+    ],
+    "alternatives": [
+      "Records that move between stages: KanbanBoard.",
+      "A few items with image and text: ContentCard in a grid.",
+      "Thousands of rows on a server: search and paginate on the server, and pass only the current page to the table."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through search, filters, sortable headers, rows and pagination, in that order. Rows receive focus only when `onRowClick` is set."
+      },
+      {
+        "keys": "`Enter` or `Space` on a header",
+        "action": "Sorts the column: ascending, descending, then back to the original order."
+      },
+      {
+        "keys": "`Enter` or `Space` on a row",
+        "action": "Runs `onRowClick` for that row."
+      },
+      {
+        "keys": "`Enter` or `Space` on a filter value",
+        "action": "Selects or clears that value."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the open filter list."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Table",
+  "selected": "DataTable",
+  "import": "import { Table } from '@refy-design/web';",
+  "composition": [
+    "Pagination",
+    "Select",
+    "Skeleton"
+  ],
+  "api": [
+    {
+      "name": "Table",
+      "props": [
+        {
+          "name": "columns",
+          "type": "Column<Row>[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "rows",
+          "type": "Row[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "rowKey",
+          "type": "(row: Row, index: number) => string",
+          "required": true,
+          "description": "Extracts the React key of each row."
+        },
+        {
+          "name": "onRowClick",
+          "type": "((row: Row) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "rowLabel",
+          "type": "((row: Row) => string) | undefined",
+          "required": false,
+          "description": "Accessible name of an interactive row."
+        },
+        {
+          "name": "caption",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible caption of the table, visually hidden."
+        },
+        {
+          "name": "empty",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Message when there are no rows."
+        },
+        {
+          "name": "searchable",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Search field above the table filtering the rows."
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "searchMatch",
+          "defaultValue": "defaultSearchMatch",
+          "type": "((row: Row, query: string) => boolean) | undefined",
+          "required": false,
+          "description": "Search criterion. Default: any value in the row contains the text."
+        },
+        {
+          "name": "loading",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows skeleton rows and marks the composition as busy."
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Replaces the rows with an announced error."
+        },
+        {
+          "name": "pagination",
+          "type": "{ pageSize: number; pageSizeOptions?: number[] | undefined; page?: number | undefined; defaultPage?: number | undefined; onPageChange?: ((page: number) => void) | undefined; } | undefined",
+          "required": false,
+          "description": "Built-in pagination reusing the Pagination component."
+        },
+        {
+          "name": "minTableWidth",
+          "type": "string | number | undefined",
+          "required": false,
+          "description": "Minimum table width; the container then scrolls horizontally."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "DataTable",
+      "label": "Data Table",
+      "description": "Faithful composition: search, four facets, sorting, pagination and actionable rows.",
+      "code": "import { Badge } from '@refy-design/web';\nimport type { Column } from '@refy-design/web';\nimport { Table } from '@refy-design/web';\nimport { useState } from 'react';\ninterface Invoice {\n  number: string;\n  date: string;\n  isoDate: string;\n  description: string;\n  status: 'Paid' | 'Pending' | 'Closed';\n  price: string;\n  amount: number;\n}\nconst columns: Column<Invoice>[] = [\n  {\n    key: 'number',\n    header: 'Number',\n    sortable: true,\n    cell: (row) => (\n      <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink-1)' }}>\n        {row.number}\n      </span>\n    ),\n  },\n  {\n    key: 'date',\n    header: 'Date',\n    sortable: true,\n    sortValue: (row) => row.isoDate,\n    filterable: true,\n    filterValue: (row) => row.isoDate.slice(0, 4),\n    cell: (row) => row.date,\n  },\n  {\n    key: 'description',\n    header: 'Description',\n    filterable: true,\n    cell: (row) => row.description,\n  },\n  {\n    key: 'status',\n    header: 'Status',\n    sortable: true,\n    filterable: true,\n    cell: (row) => (\n      <Badge\n        tone={\n          row.status === 'Paid'\n            ? 'success'\n            : row.status === 'Pending'\n              ? 'warn'\n              : 'neutral'\n        }\n      >\n        {row.status}\n      </Badge>\n    ),\n  },\n  {\n    key: 'value',\n    header: 'Amount',\n    align: 'num',\n    sortable: true,\n    sortValue: (row) => row.amount,\n    filterable: true,\n    filterValue: (row) => (row.amount >= 1000 ? '≥ R$ 1.000' : '< R$ 1.000'),\n    cell: (row) => row.price,\n  },\n];\nconst rows: Invoice[] = [\n  ['DOC-2026-0512', 'May 02, 2026', '2026-05-02', 'Team Pro plan', 'Paid', 2388],\n  ['DOC-2026-0488', 'Apr 28, 2026', '2026-04-28', '2,000 credits pack', 'Paid', 299],\n  ['DOC-2026-0441', 'Apr 17, 2026', '2026-04-17', 'Individual plan', 'Pending', 149],\n  ['DOC-2026-0398', 'Apr 02, 2026', '2026-04-02', 'Monthly subscription', 'Paid', 199],\n  ['DOC-2026-0312', 'Mar 14, 2026', '2026-03-14', 'Extra credits', 'Paid', 79],\n  ['DOC-2026-0277', 'Mar 03, 2026', '2026-03-03', 'Team Starter plan', 'Closed', 948],\n  ['DOC-2026-0204', 'Feb 21, 2026', '2026-02-21', 'Monthly subscription', 'Paid', 199],\n  ['DOC-2026-0182', 'Feb 08, 2026', '2026-02-08', 'Message pack', 'Pending', 59],\n  ['DOC-2026-0121', 'Jan 19, 2026', '2026-01-19', 'Individual plan', 'Paid', 149],\n  ['DOC-2025-1192', 'Dec 18, 2025', '2025-12-18', 'Extra credits', 'Paid', 79],\n  [\n    'DOC-2025-1161',\n    'Dec 05, 2025',\n    '2025-12-05',\n    'Monthly subscription',\n    'Closed',\n    199,\n  ],\n  ['DOC-2025-1102', 'Nov 02, 2025', '2025-11-02', 'Team Pro plan', 'Paid', 2388],\n].map(([number, date, isoDate, description, status, amount]) => ({\n  number: String(number),\n  date: String(date),\n  isoDate: String(isoDate),\n  description: String(description),\n  status: status as Invoice['status'],\n  amount: Number(amount),\n  price: Number(amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),\n}));\nexport function Example() {\n  const args = {};\n  const [selected, setSelected] = useState('No invoice open.');\n  return (\n    <div style={{ display: 'grid', gap: 12 }}>\n      <Table\n        {...args}\n        caption=\"Account invoices\"\n        searchable\n        searchPlaceholder=\"Search invoices…\"\n        columns={columns}\n        rows={rows}\n        rowKey={(row: Invoice) => row.number}\n        rowLabel={(row: Invoice) => `Open invoice ${row.number}`}\n        onRowClick={(row: Invoice) => setSelected(`Invoice ${row.number} opened.`)}\n        pagination={{ pageSize: 5, pageSizeOptions: [5, 10, 20] }}\n        minTableWidth={760}\n      />\n      <p\n        aria-live=\"polite\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {selected}\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Loading",
+      "label": "Loading",
+      "description": "The same component switches loading → real content.",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport type { Column } from '@refy-design/web';\nimport { Table } from '@refy-design/web';\nimport { useState } from 'react';\ninterface Invoice {\n  number: string;\n  date: string;\n  isoDate: string;\n  description: string;\n  status: 'Paid' | 'Pending' | 'Closed';\n  price: string;\n  amount: number;\n}\nconst columns: Column<Invoice>[] = [\n  {\n    key: 'number',\n    header: 'Number',\n    sortable: true,\n    cell: (row) => (\n      <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink-1)' }}>\n        {row.number}\n      </span>\n    ),\n  },\n  {\n    key: 'date',\n    header: 'Date',\n    sortable: true,\n    sortValue: (row) => row.isoDate,\n    filterable: true,\n    filterValue: (row) => row.isoDate.slice(0, 4),\n    cell: (row) => row.date,\n  },\n  {\n    key: 'description',\n    header: 'Description',\n    filterable: true,\n    cell: (row) => row.description,\n  },\n  {\n    key: 'status',\n    header: 'Status',\n    sortable: true,\n    filterable: true,\n    cell: (row) => (\n      <Badge\n        tone={\n          row.status === 'Paid'\n            ? 'success'\n            : row.status === 'Pending'\n              ? 'warn'\n              : 'neutral'\n        }\n      >\n        {row.status}\n      </Badge>\n    ),\n  },\n  {\n    key: 'value',\n    header: 'Amount',\n    align: 'num',\n    sortable: true,\n    sortValue: (row) => row.amount,\n    filterable: true,\n    filterValue: (row) => (row.amount >= 1000 ? '≥ R$ 1.000' : '< R$ 1.000'),\n    cell: (row) => row.price,\n  },\n];\nconst rows: Invoice[] = [\n  ['DOC-2026-0512', 'May 02, 2026', '2026-05-02', 'Team Pro plan', 'Paid', 2388],\n  ['DOC-2026-0488', 'Apr 28, 2026', '2026-04-28', '2,000 credits pack', 'Paid', 299],\n  ['DOC-2026-0441', 'Apr 17, 2026', '2026-04-17', 'Individual plan', 'Pending', 149],\n  ['DOC-2026-0398', 'Apr 02, 2026', '2026-04-02', 'Monthly subscription', 'Paid', 199],\n  ['DOC-2026-0312', 'Mar 14, 2026', '2026-03-14', 'Extra credits', 'Paid', 79],\n  ['DOC-2026-0277', 'Mar 03, 2026', '2026-03-03', 'Team Starter plan', 'Closed', 948],\n  ['DOC-2026-0204', 'Feb 21, 2026', '2026-02-21', 'Monthly subscription', 'Paid', 199],\n  ['DOC-2026-0182', 'Feb 08, 2026', '2026-02-08', 'Message pack', 'Pending', 59],\n  ['DOC-2026-0121', 'Jan 19, 2026', '2026-01-19', 'Individual plan', 'Paid', 149],\n  ['DOC-2025-1192', 'Dec 18, 2025', '2025-12-18', 'Extra credits', 'Paid', 79],\n  [\n    'DOC-2025-1161',\n    'Dec 05, 2025',\n    '2025-12-05',\n    'Monthly subscription',\n    'Closed',\n    199,\n  ],\n  ['DOC-2025-1102', 'Nov 02, 2025', '2025-11-02', 'Team Pro plan', 'Paid', 2388],\n].map(([number, date, isoDate, description, status, amount]) => ({\n  number: String(number),\n  date: String(date),\n  isoDate: String(isoDate),\n  description: String(description),\n  status: status as Invoice['status'],\n  amount: Number(amount),\n  price: Number(amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),\n}));\nexport function Example() {\n  const args = {};\n  const [loading, setLoading] = useState(true);\n  return (\n    <div style={{ display: 'grid', gap: 12 }}>\n      <Button\n        size=\"sm\"\n        style={{ justifySelf: 'start' }}\n        onClick={() => setLoading((value) => !value)}\n      >\n        {loading ? 'Finish loading' : 'Load again'}\n      </Button>\n      <Table\n        {...args}\n        caption=\"Invoices loading\"\n        columns={columns}\n        rows={rows.slice(0, 4)}\n        rowKey={(row: Invoice) => row.number}\n        loading={loading}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Erro",
+      "label": "Error",
+      "description": "Retry removes the error and reveals the rows.",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport type { Column } from '@refy-design/web';\nimport { Table } from '@refy-design/web';\nimport { useState } from 'react';\ninterface Invoice {\n  number: string;\n  date: string;\n  isoDate: string;\n  description: string;\n  status: 'Paid' | 'Pending' | 'Closed';\n  price: string;\n  amount: number;\n}\nconst columns: Column<Invoice>[] = [\n  {\n    key: 'number',\n    header: 'Number',\n    sortable: true,\n    cell: (row) => (\n      <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink-1)' }}>\n        {row.number}\n      </span>\n    ),\n  },\n  {\n    key: 'date',\n    header: 'Date',\n    sortable: true,\n    sortValue: (row) => row.isoDate,\n    filterable: true,\n    filterValue: (row) => row.isoDate.slice(0, 4),\n    cell: (row) => row.date,\n  },\n  {\n    key: 'description',\n    header: 'Description',\n    filterable: true,\n    cell: (row) => row.description,\n  },\n  {\n    key: 'status',\n    header: 'Status',\n    sortable: true,\n    filterable: true,\n    cell: (row) => (\n      <Badge\n        tone={\n          row.status === 'Paid'\n            ? 'success'\n            : row.status === 'Pending'\n              ? 'warn'\n              : 'neutral'\n        }\n      >\n        {row.status}\n      </Badge>\n    ),\n  },\n  {\n    key: 'value',\n    header: 'Amount',\n    align: 'num',\n    sortable: true,\n    sortValue: (row) => row.amount,\n    filterable: true,\n    filterValue: (row) => (row.amount >= 1000 ? '≥ R$ 1.000' : '< R$ 1.000'),\n    cell: (row) => row.price,\n  },\n];\nconst rows: Invoice[] = [\n  ['DOC-2026-0512', 'May 02, 2026', '2026-05-02', 'Team Pro plan', 'Paid', 2388],\n  ['DOC-2026-0488', 'Apr 28, 2026', '2026-04-28', '2,000 credits pack', 'Paid', 299],\n  ['DOC-2026-0441', 'Apr 17, 2026', '2026-04-17', 'Individual plan', 'Pending', 149],\n  ['DOC-2026-0398', 'Apr 02, 2026', '2026-04-02', 'Monthly subscription', 'Paid', 199],\n  ['DOC-2026-0312', 'Mar 14, 2026', '2026-03-14', 'Extra credits', 'Paid', 79],\n  ['DOC-2026-0277', 'Mar 03, 2026', '2026-03-03', 'Team Starter plan', 'Closed', 948],\n  ['DOC-2026-0204', 'Feb 21, 2026', '2026-02-21', 'Monthly subscription', 'Paid', 199],\n  ['DOC-2026-0182', 'Feb 08, 2026', '2026-02-08', 'Message pack', 'Pending', 59],\n  ['DOC-2026-0121', 'Jan 19, 2026', '2026-01-19', 'Individual plan', 'Paid', 149],\n  ['DOC-2025-1192', 'Dec 18, 2025', '2025-12-18', 'Extra credits', 'Paid', 79],\n  [\n    'DOC-2025-1161',\n    'Dec 05, 2025',\n    '2025-12-05',\n    'Monthly subscription',\n    'Closed',\n    199,\n  ],\n  ['DOC-2025-1102', 'Nov 02, 2025', '2025-11-02', 'Team Pro plan', 'Paid', 2388],\n].map(([number, date, isoDate, description, status, amount]) => ({\n  number: String(number),\n  date: String(date),\n  isoDate: String(isoDate),\n  description: String(description),\n  status: status as Invoice['status'],\n  amount: Number(amount),\n  price: Number(amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),\n}));\nexport function Example() {\n  const args = {};\n  const [failed, setFailed] = useState(true);\n  return (\n    <div style={{ display: 'grid', gap: 12 }}>\n      <Table\n        {...args}\n        caption=\"Invoices that failed to load\"\n        columns={columns}\n        rows={rows.slice(0, 3)}\n        rowKey={(row: Invoice) => row.number}\n        error={failed ? 'The invoices could not be loaded.' : undefined}\n      />\n      {failed && (\n        <Button\n          size=\"sm\"\n          style={{ justifySelf: 'start' }}\n          onClick={() => setFailed(false)}\n        >\n          Try again\n        </Button>\n      )}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Vazia",
+      "label": "Empty",
+      "description": "No rows: a neutral empty state, without an orange surface.",
+      "code": "import { Badge } from '@refy-design/web';\nimport type { Column } from '@refy-design/web';\nimport { Table } from '@refy-design/web';\ninterface Invoice {\n  number: string;\n  date: string;\n  isoDate: string;\n  description: string;\n  status: 'Paid' | 'Pending' | 'Closed';\n  price: string;\n  amount: number;\n}\nconst columns: Column<Invoice>[] = [\n  {\n    key: 'number',\n    header: 'Number',\n    sortable: true,\n    cell: (row) => (\n      <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink-1)' }}>\n        {row.number}\n      </span>\n    ),\n  },\n  {\n    key: 'date',\n    header: 'Date',\n    sortable: true,\n    sortValue: (row) => row.isoDate,\n    filterable: true,\n    filterValue: (row) => row.isoDate.slice(0, 4),\n    cell: (row) => row.date,\n  },\n  {\n    key: 'description',\n    header: 'Description',\n    filterable: true,\n    cell: (row) => row.description,\n  },\n  {\n    key: 'status',\n    header: 'Status',\n    sortable: true,\n    filterable: true,\n    cell: (row) => (\n      <Badge\n        tone={\n          row.status === 'Paid'\n            ? 'success'\n            : row.status === 'Pending'\n              ? 'warn'\n              : 'neutral'\n        }\n      >\n        {row.status}\n      </Badge>\n    ),\n  },\n  {\n    key: 'value',\n    header: 'Amount',\n    align: 'num',\n    sortable: true,\n    sortValue: (row) => row.amount,\n    filterable: true,\n    filterValue: (row) => (row.amount >= 1000 ? '≥ R$ 1.000' : '< R$ 1.000'),\n    cell: (row) => row.price,\n  },\n];\nexport function Example() {\n  const args = {};\n  return (\n    <Table\n      {...args}\n      caption=\"No invoices\"\n      columns={columns}\n      rows={[]}\n      rowKey={(row: Invoice) => row.number}\n      empty=\"No invoices yet.\"\n    />\n  );\n}"
+    },
+    {
+      "id": "ConteudoLongo",
+      "label": "Long content",
+      "description": "Extreme columns and texts stay readable with local horizontal scrolling.",
+      "code": "import { Badge } from '@refy-design/web';\nimport type { Column } from '@refy-design/web';\nimport { Table } from '@refy-design/web';\ninterface Invoice {\n  number: string;\n  date: string;\n  isoDate: string;\n  description: string;\n  status: 'Paid' | 'Pending' | 'Closed';\n  price: string;\n  amount: number;\n}\nconst columns: Column<Invoice>[] = [\n  {\n    key: 'number',\n    header: 'Number',\n    sortable: true,\n    cell: (row) => (\n      <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink-1)' }}>\n        {row.number}\n      </span>\n    ),\n  },\n  {\n    key: 'date',\n    header: 'Date',\n    sortable: true,\n    sortValue: (row) => row.isoDate,\n    filterable: true,\n    filterValue: (row) => row.isoDate.slice(0, 4),\n    cell: (row) => row.date,\n  },\n  {\n    key: 'description',\n    header: 'Description',\n    filterable: true,\n    cell: (row) => row.description,\n  },\n  {\n    key: 'status',\n    header: 'Status',\n    sortable: true,\n    filterable: true,\n    cell: (row) => (\n      <Badge\n        tone={\n          row.status === 'Paid'\n            ? 'success'\n            : row.status === 'Pending'\n              ? 'warn'\n              : 'neutral'\n        }\n      >\n        {row.status}\n      </Badge>\n    ),\n  },\n  {\n    key: 'value',\n    header: 'Amount',\n    align: 'num',\n    sortable: true,\n    sortValue: (row) => row.amount,\n    filterable: true,\n    filterValue: (row) => (row.amount >= 1000 ? '≥ R$ 1.000' : '< R$ 1.000'),\n    cell: (row) => row.price,\n  },\n];\nconst rows: Invoice[] = [\n  ['DOC-2026-0512', 'May 02, 2026', '2026-05-02', 'Team Pro plan', 'Paid', 2388],\n  ['DOC-2026-0488', 'Apr 28, 2026', '2026-04-28', '2,000 credits pack', 'Paid', 299],\n  ['DOC-2026-0441', 'Apr 17, 2026', '2026-04-17', 'Individual plan', 'Pending', 149],\n  ['DOC-2026-0398', 'Apr 02, 2026', '2026-04-02', 'Monthly subscription', 'Paid', 199],\n  ['DOC-2026-0312', 'Mar 14, 2026', '2026-03-14', 'Extra credits', 'Paid', 79],\n  ['DOC-2026-0277', 'Mar 03, 2026', '2026-03-03', 'Team Starter plan', 'Closed', 948],\n  ['DOC-2026-0204', 'Feb 21, 2026', '2026-02-21', 'Monthly subscription', 'Paid', 199],\n  ['DOC-2026-0182', 'Feb 08, 2026', '2026-02-08', 'Message pack', 'Pending', 59],\n  ['DOC-2026-0121', 'Jan 19, 2026', '2026-01-19', 'Individual plan', 'Paid', 149],\n  ['DOC-2025-1192', 'Dec 18, 2025', '2025-12-18', 'Extra credits', 'Paid', 79],\n  [\n    'DOC-2025-1161',\n    'Dec 05, 2025',\n    '2025-12-05',\n    'Monthly subscription',\n    'Closed',\n    199,\n  ],\n  ['DOC-2025-1102', 'Nov 02, 2025', '2025-11-02', 'Team Pro plan', 'Paid', 2388],\n].map(([number, date, isoDate, description, status, amount]) => ({\n  number: String(number),\n  date: String(date),\n  isoDate: String(isoDate),\n  description: String(description),\n  status: status as Invoice['status'],\n  amount: Number(amount),\n  price: Number(amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }),\n}));\nexport function Example() {\n  const args = {};\n  return (\n    <div style={{ maxWidth: 620 }}>\n      <Table\n        {...args}\n        caption=\"Invoice with long content\"\n        columns={[\n          ...columns.slice(0, 3),\n          {\n            key: 'note',\n            header: 'Detailed operational note',\n            width: '420px',\n            cell: () =>\n              \"Reconciliation pending after the billing owner changed and the organization's charge was reprocessed automatically.\",\n          },\n          ...columns.slice(3),\n        ]}\n        rows={rows.slice(0, 3)}\n        rowKey={(row: Invoice) => row.number}\n        minTableWidth={1180}\n      />\n    </div>\n  );\n}"
+    }
+  ]
+}

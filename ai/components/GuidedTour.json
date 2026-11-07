@@ -1,0 +1,153 @@
+{
+  "id": "GuidedTour",
+  "description": "Sequence of guidance anchored to interface elements.",
+  "usage": {
+    "howToUse": [
+      "Use it to present a new screen or feature in three to five steps, each one pointing at a part of the interface.",
+      "Open it on the first visit and save in `onComplete` that the person has seen it. Let people close it at any step.",
+      "Point each step only at elements already on screen."
+    ],
+    "alternatives": [
+      "Help that stays available: HelpMenu or HelpField.",
+      "A first-use flow that collects data: Questionnaire or WizardStepper."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through previous, next and close."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the button in focus."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the tour."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "GuidedTour",
+  "selected": "Fechado",
+  "import": "import { GuidedTour } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "IconButton",
+    "Popover",
+    "ProgressBar"
+  ],
+  "api": [
+    {
+      "name": "GuidedTour",
+      "props": [
+        {
+          "name": "steps",
+          "type": "GuidedTourStep[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultOpen",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "currentStep",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultStep",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onStepChange",
+          "type": "((id: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onComplete",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        }
+      ]
+    },
+    {
+      "name": "GuidedTourAnchor",
+      "props": [
+        {
+          "name": "stepId",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "block",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Use block for controls that take the full width."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "MultiEtapas",
+      "label": "Multiple steps",
+      "description": "Three real anchors, forward/back, focus, Escape and completion.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Chip } from '@refy-design/web';\nimport { GuidedTour } from '@refy-design/web';\nimport { GuidedTourAnchor } from '@refy-design/web';\nimport type { GuidedTourStep } from '@refy-design/web';\nimport { Segmented } from '@refy-design/web';\nimport { useMemo } from 'react';\nimport { useState } from 'react';\nfunction TourDemo({\n  startStep = 'operation',\n  initiallyOpen = true,\n}: {\n  startStep?: string;\n  initiallyOpen?: boolean;\n}) {\n  const [open, setOpen] = useState(initiallyOpen);\n  const [current, setCurrent] = useState(startStep);\n  const [operation, setOperation] = useState('create');\n  const [types, setTypes] = useState(['document']);\n  const [message, setMessage] = useState('Tour started.');\n  const steps = useMemo<GuidedTourStep[]>(\n    () => [\n      {\n        id: 'operation',\n        title: 'Create or organize?',\n        description: 'Start with the operation. You can change this choice later.',\n        side: 'bottom',\n        align: 'start',\n      },\n      {\n        id: 'types',\n        title: 'Choose more than one type',\n        description: 'Documents and images can go together in the same search.',\n        side: 'bottom',\n        action: {\n          label: types.includes('image')\n            ? 'Image already selected'\n            : 'Select Image now',\n          onAction: () => {\n            setTypes((value) =>\n              value.includes('image') ? value : [...value, 'image'],\n            );\n            setMessage('The tour action selected Image in the real control.');\n          },\n        },\n      },\n      {\n        id: 'continue',\n        title: 'Continue when it makes sense',\n        description: 'The request stays editable in the next wizard steps.',\n        side: 'top',\n        align: 'end',\n      },\n    ],\n    [types],\n  );\n  return (\n    <div\n      style={{\n        minHeight: 480,\n        display: 'grid',\n        alignContent: 'start',\n        gap: 28,\n        maxWidth: 760,\n        padding: '28px 12px 180px',\n      }}\n    >\n      <Button\n        size=\"sm\"\n        variant=\"secondary\"\n        style={{ justifySelf: 'start' }}\n        onClick={() => {\n          setCurrent('operation');\n          setOpen(true);\n          setMessage('Tour restarted.');\n        }}\n      >\n        Restart tour\n      </Button>\n      <GuidedTour\n        steps={steps}\n        open={open}\n        currentStep={current}\n        onOpenChange={setOpen}\n        onStepChange={setCurrent}\n        onComplete={() => setMessage('Tour finished.')}\n      >\n        <div style={{ display: 'grid', gap: 24 }}>\n          <GuidedTourAnchor stepId=\"operation\">\n            <Segmented\n              label=\"Operation\"\n              value={operation}\n              onChange={setOperation}\n              options={[\n                { value: 'create', label: 'Create' },\n                { value: 'organize', label: 'Organize' },\n              ]}\n            />\n          </GuidedTourAnchor>\n\n          <GuidedTourAnchor stepId=\"types\" block>\n            <div\n              role=\"group\"\n              aria-label=\"Content formats\"\n              style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}\n            >\n              {['document', 'image', 'video'].map((type) => (\n                <Chip\n                  key={type}\n                  selected={types.includes(type)}\n                  showCheck\n                  onClick={() =>\n                    setTypes((value) =>\n                      value.includes(type)\n                        ? value.filter((item) => item !== type)\n                        : [...value, type],\n                    )\n                  }\n                >\n                  {type[0].toUpperCase() + type.slice(1)}\n                </Chip>\n              ))}\n            </div>\n          </GuidedTourAnchor>\n\n          <GuidedTourAnchor stepId=\"continue\">\n            <Button\n              variant=\"primary\"\n              onClick={() =>\n                setMessage('The real control would move on to the wizard.')\n              }\n            >\n              Continue\n            </Button>\n          </GuidedTourAnchor>\n        </div>\n      </GuidedTour>\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <TourDemo />;\n}"
+    },
+    {
+      "id": "AcaoNoControle",
+      "label": "Action in the control",
+      "description": "Starts at the step whose action selects Image on the same Chip shown on screen.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Chip } from '@refy-design/web';\nimport { GuidedTour } from '@refy-design/web';\nimport { GuidedTourAnchor } from '@refy-design/web';\nimport type { GuidedTourStep } from '@refy-design/web';\nimport { Segmented } from '@refy-design/web';\nimport { useMemo } from 'react';\nimport { useState } from 'react';\nfunction TourDemo({\n  startStep = 'operation',\n  initiallyOpen = true,\n}: {\n  startStep?: string;\n  initiallyOpen?: boolean;\n}) {\n  const [open, setOpen] = useState(initiallyOpen);\n  const [current, setCurrent] = useState(startStep);\n  const [operation, setOperation] = useState('create');\n  const [types, setTypes] = useState(['document']);\n  const [message, setMessage] = useState('Tour started.');\n  const steps = useMemo<GuidedTourStep[]>(\n    () => [\n      {\n        id: 'operation',\n        title: 'Create or organize?',\n        description: 'Start with the operation. You can change this choice later.',\n        side: 'bottom',\n        align: 'start',\n      },\n      {\n        id: 'types',\n        title: 'Choose more than one type',\n        description: 'Documents and images can go together in the same search.',\n        side: 'bottom',\n        action: {\n          label: types.includes('image')\n            ? 'Image already selected'\n            : 'Select Image now',\n          onAction: () => {\n            setTypes((value) =>\n              value.includes('image') ? value : [...value, 'image'],\n            );\n            setMessage('The tour action selected Image in the real control.');\n          },\n        },\n      },\n      {\n        id: 'continue',\n        title: 'Continue when it makes sense',\n        description: 'The request stays editable in the next wizard steps.',\n        side: 'top',\n        align: 'end',\n      },\n    ],\n    [types],\n  );\n  return (\n    <div\n      style={{\n        minHeight: 480,\n        display: 'grid',\n        alignContent: 'start',\n        gap: 28,\n        maxWidth: 760,\n        padding: '28px 12px 180px',\n      }}\n    >\n      <Button\n        size=\"sm\"\n        variant=\"secondary\"\n        style={{ justifySelf: 'start' }}\n        onClick={() => {\n          setCurrent('operation');\n          setOpen(true);\n          setMessage('Tour restarted.');\n        }}\n      >\n        Restart tour\n      </Button>\n      <GuidedTour\n        steps={steps}\n        open={open}\n        currentStep={current}\n        onOpenChange={setOpen}\n        onStepChange={setCurrent}\n        onComplete={() => setMessage('Tour finished.')}\n      >\n        <div style={{ display: 'grid', gap: 24 }}>\n          <GuidedTourAnchor stepId=\"operation\">\n            <Segmented\n              label=\"Operation\"\n              value={operation}\n              onChange={setOperation}\n              options={[\n                { value: 'create', label: 'Create' },\n                { value: 'organize', label: 'Organize' },\n              ]}\n            />\n          </GuidedTourAnchor>\n\n          <GuidedTourAnchor stepId=\"types\" block>\n            <div\n              role=\"group\"\n              aria-label=\"Content formats\"\n              style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}\n            >\n              {['document', 'image', 'video'].map((type) => (\n                <Chip\n                  key={type}\n                  selected={types.includes(type)}\n                  showCheck\n                  onClick={() =>\n                    setTypes((value) =>\n                      value.includes(type)\n                        ? value.filter((item) => item !== type)\n                        : [...value, type],\n                    )\n                  }\n                >\n                  {type[0].toUpperCase() + type.slice(1)}\n                </Chip>\n              ))}\n            </div>\n          </GuidedTourAnchor>\n\n          <GuidedTourAnchor stepId=\"continue\">\n            <Button\n              variant=\"primary\"\n              onClick={() =>\n                setMessage('The real control would move on to the wizard.')\n              }\n            >\n              Continue\n            </Button>\n          </GuidedTourAnchor>\n        </div>\n      </GuidedTour>\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <TourDemo startStep=\"types\" />;\n}"
+    },
+    {
+      "id": "Fechado",
+      "label": "Closed",
+      "description": "Closed state; Restart tour opens and positions the first step.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Chip } from '@refy-design/web';\nimport { GuidedTour } from '@refy-design/web';\nimport { GuidedTourAnchor } from '@refy-design/web';\nimport type { GuidedTourStep } from '@refy-design/web';\nimport { Segmented } from '@refy-design/web';\nimport { useMemo } from 'react';\nimport { useState } from 'react';\nfunction TourDemo({\n  startStep = 'operation',\n  initiallyOpen = true,\n}: {\n  startStep?: string;\n  initiallyOpen?: boolean;\n}) {\n  const [open, setOpen] = useState(initiallyOpen);\n  const [current, setCurrent] = useState(startStep);\n  const [operation, setOperation] = useState('create');\n  const [types, setTypes] = useState(['document']);\n  const [message, setMessage] = useState('Tour started.');\n  const steps = useMemo<GuidedTourStep[]>(\n    () => [\n      {\n        id: 'operation',\n        title: 'Create or organize?',\n        description: 'Start with the operation. You can change this choice later.',\n        side: 'bottom',\n        align: 'start',\n      },\n      {\n        id: 'types',\n        title: 'Choose more than one type',\n        description: 'Documents and images can go together in the same search.',\n        side: 'bottom',\n        action: {\n          label: types.includes('image')\n            ? 'Image already selected'\n            : 'Select Image now',\n          onAction: () => {\n            setTypes((value) =>\n              value.includes('image') ? value : [...value, 'image'],\n            );\n            setMessage('The tour action selected Image in the real control.');\n          },\n        },\n      },\n      {\n        id: 'continue',\n        title: 'Continue when it makes sense',\n        description: 'The request stays editable in the next wizard steps.',\n        side: 'top',\n        align: 'end',\n      },\n    ],\n    [types],\n  );\n  return (\n    <div\n      style={{\n        minHeight: 480,\n        display: 'grid',\n        alignContent: 'start',\n        gap: 28,\n        maxWidth: 760,\n        padding: '28px 12px 180px',\n      }}\n    >\n      <Button\n        size=\"sm\"\n        variant=\"secondary\"\n        style={{ justifySelf: 'start' }}\n        onClick={() => {\n          setCurrent('operation');\n          setOpen(true);\n          setMessage('Tour restarted.');\n        }}\n      >\n        Restart tour\n      </Button>\n      <GuidedTour\n        steps={steps}\n        open={open}\n        currentStep={current}\n        onOpenChange={setOpen}\n        onStepChange={setCurrent}\n        onComplete={() => setMessage('Tour finished.')}\n      >\n        <div style={{ display: 'grid', gap: 24 }}>\n          <GuidedTourAnchor stepId=\"operation\">\n            <Segmented\n              label=\"Operation\"\n              value={operation}\n              onChange={setOperation}\n              options={[\n                { value: 'create', label: 'Create' },\n                { value: 'organize', label: 'Organize' },\n              ]}\n            />\n          </GuidedTourAnchor>\n\n          <GuidedTourAnchor stepId=\"types\" block>\n            <div\n              role=\"group\"\n              aria-label=\"Content formats\"\n              style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}\n            >\n              {['document', 'image', 'video'].map((type) => (\n                <Chip\n                  key={type}\n                  selected={types.includes(type)}\n                  showCheck\n                  onClick={() =>\n                    setTypes((value) =>\n                      value.includes(type)\n                        ? value.filter((item) => item !== type)\n                        : [...value, type],\n                    )\n                  }\n                >\n                  {type[0].toUpperCase() + type.slice(1)}\n                </Chip>\n              ))}\n            </div>\n          </GuidedTourAnchor>\n\n          <GuidedTourAnchor stepId=\"continue\">\n            <Button\n              variant=\"primary\"\n              onClick={() =>\n                setMessage('The real control would move on to the wizard.')\n              }\n            >\n              Continue\n            </Button>\n          </GuidedTourAnchor>\n        </div>\n      </GuidedTour>\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <TourDemo initiallyOpen={false} />;\n}"
+    }
+  ]
+}

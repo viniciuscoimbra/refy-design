@@ -1,0 +1,124 @@
+{
+  "id": "ActivityItem",
+  "description": "An event with author, time, content and context. Molecule shared by the feed and the compact version of ActivityTimeline.",
+  "usage": {
+    "howToUse": [
+      "Use it for one event: who did what and when, such as \"Ana approved the invoice, 2 h ago\".",
+      "Fill `actor`, `title` and `timestamp`; add `description`, `badge` or `status` only when they change what the person reads.",
+      "Use `density=\"compact\"` in side panels and small widgets."
+    ],
+    "alternatives": [
+      "A list of events grouped by day: ActivityTimeline.",
+      "Milestones of a project: Timeline."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the author link and to the action, when there are."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the link or runs the action."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ActivityItem",
+  "selected": "ComAutoria",
+  "import": "import { ActivityItem } from '@refy-design/web';",
+  "composition": [
+    "Avatar",
+    "Badge",
+    "Card"
+  ],
+  "api": [
+    {
+      "name": "ActivityItem",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "actor",
+          "type": "ActivityActor | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Supporting text."
+        },
+        {
+          "name": "badge",
+          "type": "{ label: ReactNode; tone?: BadgeTone | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "metadata",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "density",
+          "defaultValue": "\"default\"",
+          "type": "\"default\" | \"compact\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "ComAutoria",
+      "label": "With author",
+      "description": "",
+      "code": "import { ActivityItem } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityItem>,\n    'actor' | 'title' | 'timestamp' | 'description' | 'badge' | 'metadata'\n  > = {\n    actor: { name: 'Ana Silva', initials: 'AS' },\n    title: 'commented on the content review',\n    timestamp: 'Oct 23, 14:30',\n    description: 'The navigation is clearer. We can go ahead with this proposal.',\n    badge: { label: 'Comment', tone: 'info' },\n    metadata: 'Aurora project · References',\n  };\n  const [read, setRead] = useState(false);\n  return (\n    <ActivityItem\n      {...args}\n      action={\n        <Button size=\"sm\" variant=\"ghost\" disabled={read} onClick={() => setRead(true)}>\n          {read ? 'Read' : 'Mark as read'}\n        </Button>\n      }\n    />\n  );\n}"
+    },
+    {
+      "id": "Compacto",
+      "label": "Compact",
+      "description": "",
+      "code": "import { ActivityItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityItem>,\n    'actor' | 'title' | 'timestamp' | 'description' | 'badge' | 'metadata' | 'density'\n  > = {\n    actor: { name: 'Ana Silva', initials: 'AS' },\n    title: 'commented on the content review',\n    timestamp: 'Oct 23, 14:30',\n    description: 'The navigation is clearer. We can go ahead with this proposal.',\n    badge: { label: 'Comment', tone: 'info' },\n    metadata: 'Aurora project · References',\n    density: 'compact',\n  };\n  return <ActivityItem {...args} />;\n}"
+    },
+    {
+      "id": "SemAutoria",
+      "label": "No author",
+      "description": "",
+      "code": "import { ActivityItem } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ActivityItem>,\n    'actor' | 'title' | 'timestamp' | 'description' | 'badge' | 'metadata'\n  > = {\n    actor: undefined,\n    title: 'Sync complete',\n    timestamp: 'Oct 23, 14:30',\n    description: 'The collection files are up to date.',\n    badge: { label: 'Comment', tone: 'info' },\n    metadata: 'Aurora project · References',\n  };\n  return <ActivityItem {...args} />;\n}"
+    }
+  ]
+}

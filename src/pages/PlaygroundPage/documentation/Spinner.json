@@ -1,0 +1,114 @@
+{
+  "id": "Spinner",
+  "description": "Visual indicator of an operation in progress.",
+  "usage": {
+    "howToUse": [
+      "Use it for a short wait with no known end, in a small place: a button, a field, a card loading.",
+      "Give it an `aria-label` that says what is happening (\"Loading invoices\")."
+    ],
+    "alternatives": [
+      "Content with a known shape loading: Skeleton.",
+      "A known percentage: ProgressBar."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The spinner does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Spinner",
+  "selected": "Interativo",
+  "import": "import { Spinner } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Spinner",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLSpanElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { Spinner } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction SpinnerExample() {\n  const [loading, setLoading] = useState(true);\n  return (\n    <div style={stack}>\n      {loading ? (\n        <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n          <Spinner /> Preparing materials\n        </span>\n      ) : (\n        <p role=\"status\">Materials ready.</p>\n      )}\n      <Button onClick={() => setLoading(!loading)}>\n        {loading ? 'Finish example' : 'Restart loading'}\n      </Button>\n    </div>\n  );\n}\nexport function Example() {\n  return <SpinnerExample />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+.refy-canvas {
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  padding: 32px;
+  background: var(--bg);
+  font: var(--text-base)/var(--leading-normal) var(--font-body);
+}
+.refy-canvas--page { padding: 0; }
+.sb-show-main.sb-main-padded { padding: 0; }
+@media (max-width: 640px) {
+  .refy-canvas { padding: 20px 16px; }
+  .refy-canvas--page { padding: 0; }
+}
+
+/* Center the example without letting its min-content width enlarge the canvas. */
+.sb-show-main.sb-main-centered { display: block; padding: 0; }
+.sb-main-centered #storybook-root { width: 100%; max-width: 100%; }
+body.sb-show-main.sb-main-centered #storybook-root { padding: 0; max-height: none; }
+.sb-main-centered .refy-canvas { display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; align-content: start; }

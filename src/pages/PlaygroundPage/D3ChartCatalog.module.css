@@ -1,0 +1,111 @@
+.page {
+  width: 100%;
+  max-width: 1120px;
+  min-width: 0;
+  box-sizing: border-box;
+  margin-inline: auto;
+  padding: var(--space-8);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+.page > *,
+.exampleHeader > div {
+  min-width: 0;
+}
+.page h1,
+.page h2,
+.page p {
+  margin: 0;
+}
+.page h1 {
+  font: var(--weight-semi) var(--text-h2)/1.2 var(--font-heading);
+}
+.page h2 {
+  font: var(--weight-semi) var(--text-lg, 20px)/1.3 var(--font-body);
+}
+.page header,
+.guide {
+  display: grid;
+  gap: var(--space-3);
+}
+.page p {
+  color: var(--ink-3);
+  max-width: 75ch;
+  line-height: 1.65;
+}
+.example {
+  border-bottom: 1px solid var(--line);
+  padding-block: 0 var(--space-6);
+  min-width: 0;
+}
+.exampleHeader {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.exampleHeader h1 {
+  margin-block: var(--space-2);
+}
+.exampleHeader small {
+  color: var(--ink-3);
+}
+.preview {
+  max-width: 780px;
+  margin-inline: auto;
+}
+.selection {
+  margin-top: var(--space-4) !important;
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+.options {
+  display: grid;
+  gap: var(--space-6);
+}
+.switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+  align-items: center;
+}
+.guide ul {
+  padding-inline-start: var(--space-5);
+  line-height: 1.7;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .page {
+    padding: var(--space-4);
+  }
+  .fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.live {
+  border-block: 1px solid var(--line);
+  padding-block: var(--space-6);
+  display: grid;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.optionHeading {
+  grid-column: 1/-1;
+  margin: var(--space-3) 0 0;
+  font: var(--weight-semi) var(--text-base)/1.4 var(--font-body);
+}
+
+.page { padding:0; margin:0; max-width:none; }
+
+.preview { max-width:none; }
+.exampleHeader h1 { font-family:var(--font-heading); font-size:var(--text-h3); }

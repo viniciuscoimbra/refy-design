@@ -1,0 +1,21 @@
+{
+  "name": "@refy/tokens",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Tokens do Refy a partir de src/tokens/foundations.tokens.json: variáveis CSS para a web e tema resolvido para React Native.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./tokens.css": "./dist/tokens.css",
+    "./native/light.json": "./dist/native/light.json",
+    "./native/dark.json": "./dist/native/dark.json",
+    "./native/editorial.json": "./dist/native/editorial.json"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check && node --test test/*.test.mjs"
+  }
+}

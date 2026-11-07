@@ -1,0 +1,48 @@
+name: Falta no refy
+description: Um componente não faz o que a sua tela precisa, ou falta uma família inteira.
+labels: ["gap"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Antes de abrir, responda as três perguntas de https://refy.design/contribuir#antes. Se o tema resolve ou se a peça é composição do seu produto, a mudança fica no seu projeto.
+  - type: input
+    id: component
+    attributes:
+      label: Componente
+      description: Família existente que não atende, ou o nome proposto para a nova.
+      placeholder: Segmented
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: O que falta
+      options:
+        - Prop ou token num componente existente
+        - Família nova
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: A tela que precisa
+      description: O que a pessoa faz nessa tela e o que o componente não deixa fazer. Imagem ajuda.
+    validations:
+      required: true
+  - type: textarea
+    id: theme
+    attributes:
+      label: Por que o tema não resolve
+      description: Para componente existente, a linha do componente que impede (ex. valor sem token, layout sem prop).
+  - type: textarea
+    id: layer
+    attributes:
+      label: Camada e finalidade
+      description: Para família nova. Átomo, molécula ou organismo; ações, formulários, navegação, feedback, dados, conteúdo ou estrutura; e quais componentes ela reaproveita.
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contribuição
+      options:
+        - label: Vou mandar o pull request gerado por `npx refy contribute`.

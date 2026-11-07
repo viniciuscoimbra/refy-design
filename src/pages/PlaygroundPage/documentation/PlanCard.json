@@ -1,0 +1,214 @@
+{
+  "id": "PlanCard",
+  "description": "Comparable presentation of a plan, with features, price and a choose action.",
+  "usage": {
+    "howToUse": [
+      "Use it side by side to compare plans on a pricing or upgrade page.",
+      "Fill `name`, `price`, `period` and the `features`, in the same order in every card.",
+      "Mark the recommended plan with `highlighted` and the current one with `current`, which turns off its button.",
+      "Choosing only starts the change: your application confirms and charges."
+    ],
+    "alternatives": [
+      "The payment method and next charge: BillingCard.",
+      "Usage against the plan limit: UsageMeter."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the button of each plan."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Chooses the plan."
+      }
+    ]
+  },
+  "collections": [
+    "commerce"
+  ],
+  "publicName": "PlanCard",
+  "selected": "Interativo",
+  "import": "import { PlanCard } from '@refy-design/web';",
+  "composition": [
+    "Button"
+  ],
+  "api": [
+    {
+      "name": "PlanCard",
+      "props": [
+        {
+          "name": "name",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Plan name. E.g. \"Pro\"."
+        },
+        {
+          "name": "price",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Formatted price. E.g. \"$ 199\"."
+        },
+        {
+          "name": "period",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Price suffix. E.g. \"/month\"."
+        },
+        {
+          "name": "priceNote",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Note below the price. E.g. \"$ 2,388 billed yearly\"."
+        },
+        {
+          "name": "features",
+          "type": "ReactNode[] | undefined",
+          "required": false,
+          "description": "List of features (one node per line)."
+        },
+        {
+          "name": "checkIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Check icon for the features (via prop; the DS does not bundle icons). Has an internal fallback."
+        },
+        {
+          "name": "cta",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Plan CTA, a slot for `Button`. Ignored when `current` (becomes a disabled button)."
+        },
+        {
+          "name": "current",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "The workspace's current plan: tag + disabled CTA."
+        },
+        {
+          "name": "currentLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Tag/CTA text when `current`."
+        },
+        {
+          "name": "highlighted",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Visual highlight of the recommended plan."
+        },
+        {
+          "name": "highlightLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Tag text when `highlighted` (and not `current`)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { PlanCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst starterFeatures = [\n  <span key=\"1\">\n    <strong>800 credits</strong> per month\n  </span>,\n  '1 member · 5 projects',\n  'Standard analysis, rerun, recommendations',\n  'Basic activity history',\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof PlanCard>,\n    'name' | 'price' | 'period' | 'priceNote' | 'features' | 'cta'\n  > = {\n    name: 'Starter',\n    price: 'R$ 79',\n    period: '/mo',\n    priceNote: 'R$ 948 billed yearly',\n    features: starterFeatures,\n    cta: (\n      <Button variant=\"secondary\" block>\n        Switch to Starter\n      </Button>\n    ),\n  };\n  return (\n    <div style={{ maxWidth: 260 }}>\n      <PlanCard {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "PlanoAtual",
+      "label": "Current plan",
+      "description": "",
+      "code": "import { PlanCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst proFeatures = [\n  <span key=\"1\">\n    <strong>2,500 credits</strong> per month\n  </span>,\n  '3 members · 20 projects',\n  'Everything in Starter +',\n  'Full activity history',\n  'API/MCP completos',\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof PlanCard>,\n    'name' | 'price' | 'period' | 'priceNote' | 'features' | 'current'\n  > = {\n    name: 'Pro',\n    price: 'R$ 199',\n    period: '/mo',\n    priceNote: 'R$ 2,388 billed yearly',\n    features: proFeatures,\n    current: true,\n  };\n  return (\n    <div style={{ maxWidth: 260, paddingTop: 12 }}>\n      <PlanCard {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Recomendado",
+      "label": "Recommended",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { PlanCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst agencyFeatures = [\n  <span key=\"1\">\n    <strong>8,000 credits</strong> per month\n  </span>,\n  '10 members · 75 projects',\n  'Everything in Pro +',\n  'Priority support',\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof PlanCard>,\n    'name' | 'price' | 'period' | 'priceNote' | 'features' | 'highlighted' | 'cta'\n  > = {\n    name: 'Agency',\n    price: 'R$ 479',\n    period: '/mo',\n    priceNote: 'R$ 5,748 billed yearly',\n    features: agencyFeatures,\n    highlighted: true,\n    cta: (\n      <Button variant=\"primary\" block>\n        Upgrade to Agency\n      </Button>\n    ),\n  };\n  return (\n    <div style={{ maxWidth: 260, paddingTop: 12 }}>\n      <PlanCard {...args} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "GradeDePlanos",
+      "label": "Plan grid",
+      "description": "Responsive grid of 2–4 columns; the container belongs to the consumer.",
+      "code": "import { Button } from '@refy-design/web';\nimport { PlanCard } from '@refy-design/web';\nconst starterFeatures = [\n  <span key=\"1\">\n    <strong>800 credits</strong> per month\n  </span>,\n  '1 member · 5 projects',\n  'Standard analysis, rerun, recommendations',\n  'Basic activity history',\n];\nconst proFeatures = [\n  <span key=\"1\">\n    <strong>2,500 credits</strong> per month\n  </span>,\n  '3 members · 20 projects',\n  'Everything in Starter +',\n  'Full activity history',\n  'API/MCP completos',\n];\nconst agencyFeatures = [\n  <span key=\"1\">\n    <strong>8,000 credits</strong> per month\n  </span>,\n  '10 members · 75 projects',\n  'Everything in Pro +',\n  'Priority support',\n];\nconst enterpriseFeatures = [\n  <span key=\"1\">\n    <strong>Custom credits</strong>\n  </span>,\n  'Members and projects on demand',\n  'SSO and custom contracts',\n  'SLA and a dedicated manager',\n];\nexport function Example() {\n  return (\n    <div\n      style={{\n        display: 'grid',\n        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',\n        gap: 14,\n        paddingTop: 12,\n        maxWidth: 1080,\n      }}\n    >\n      <PlanCard\n        name=\"Starter\"\n        price=\"R$ 79\"\n        period=\"/mo\"\n        priceNote=\"R$ 948 billed yearly\"\n        features={starterFeatures}\n        cta={\n          <Button variant=\"secondary\" block>\n            Switch to Starter\n          </Button>\n        }\n      />\n      <PlanCard\n        name=\"Pro\"\n        price=\"R$ 199\"\n        period=\"/mo\"\n        priceNote=\"R$ 2,388 billed yearly\"\n        features={proFeatures}\n        current\n        highlighted\n        currentLabel=\"Your plan\"\n      />\n      <PlanCard\n        name=\"Agency\"\n        price=\"R$ 479\"\n        period=\"/mo\"\n        priceNote=\"R$ 5,748 billed yearly\"\n        features={agencyFeatures}\n        cta={\n          <Button variant=\"primary\" block>\n            Upgrade to Agency\n          </Button>\n        }\n      />\n      <PlanCard\n        name=\"Enterprise\"\n        price=\"On request\"\n        priceNote=\"custom billing and cycle\"\n        features={enterpriseFeatures}\n        cta={\n          <Button variant=\"secondary\" block>\n            Talk to sales\n          </Button>\n        }\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { PlanCard } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction PlanCardExample() {\n  const [selected, setSelected] = useState('Essential');\n  return (\n    <div style={stack}>\n      <p>Local plan choice, no charge.</p>\n      <div\n        style={{\n          display: 'grid',\n          gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,220px),1fr))',\n          gap: 16,\n        }}\n      >\n        {['Essential', 'Team'].map((name, i) => (\n          <PlanCard\n            key={name}\n            name={name}\n            price={i ? 'R$ 199' : 'R$ 79'}\n            period=\"/mo\"\n            features={\n              i\n                ? ['Up to 10 members', 'Shared projects']\n                : ['1 member', 'Personal projects']\n            }\n            current={selected === name}\n            cta={<Button onClick={() => setSelected(name)}>Choose {name}</Button>}\n          />\n        ))}\n      </div>\n      <p role=\"status\">Selected plan: {selected}</p>\n    </div>\n  );\n}\nexport function Example() {\n  return <PlanCardExample />;\n}"
+    }
+  ]
+}

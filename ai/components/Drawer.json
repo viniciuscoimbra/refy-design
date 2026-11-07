@@ -1,0 +1,130 @@
+{
+  "id": "Drawer",
+  "description": "Side or bottom panel for content and actions related to the current context.",
+  "usage": {
+    "howToUse": [
+      "Use it for details or editing that people do while keeping the page in sight: the record of a table row, filters, a cart.",
+      "Choose `side`: `right` for details, `left` for navigation, `bottom` on mobile, `full` for a screen of its own.",
+      "By default the page behind is blocked. Set `modal={false}` when people need to keep using it.",
+      "Put the actions in `footer`, which stays fixed while the content scrolls."
+    ],
+    "alternatives": [
+      "A short task that interrupts everything: Modal.",
+      "A few controls attached to a button: Popover."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "With `modal`, moves only inside the panel. Without it, the page behind joins the order."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Closes the panel and returns focus to where it was."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Drawer",
+  "selected": "Direita",
+  "import": "import { Drawer } from '@refy-design/web';",
+  "composition": [
+    "IconButton"
+  ],
+  "api": [
+    {
+      "name": "Drawer",
+      "props": [
+        {
+          "name": "modal",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Visible panel (controlled; the overlay has no internal state)."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": true,
+          "description": "Close request: Esc, scrim or the × button."
+        },
+        {
+          "name": "side",
+          "defaultValue": "\"right\"",
+          "type": "DrawerSide | undefined",
+          "required": false,
+          "description": "`left`/`right` = side; `bottom` = bottom; `full` = dynamic full screen."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Header title."
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Fixed footer (actions)."
+        },
+        {
+          "name": "width",
+          "type": "string | number | undefined",
+          "required": false,
+          "description": "Side panel width. Ignored in bottom and full-screen panels."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "hideClose",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Hides the header × button."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Direita",
+      "label": "Right",
+      "description": "Drawer on the right (default) with an actions footer.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport { useState } from 'react';\nconst footer = (close?: () => void) => (\n  <div\n    style={{\n      display: 'flex',\n      gap: 8,\n      justifyContent: 'flex-end',\n      alignItems: 'center',\n    }}\n  >\n    <span\n      style={{\n        marginRight: 'auto',\n        color: 'var(--ink-3)',\n        fontFamily: 'var(--font-mono)',\n        fontSize: 11,\n      }}\n    >\n      12 items · Esc to cancel\n    </span>\n    <Button variant=\"ghost\" onClick={close}>\n      Cancel\n    </Button>\n    <Button variant=\"primary\" onClick={close}>\n      Apply\n    </Button>\n  </div>\n);\nconst body = (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n    <p style={{ margin: 0 }}>\n      Domain analysis details: 84 pages crawled, 12 critical issues and 31 warnings.\n    </p>\n    <p style={{ margin: 0 }}>\n      The drawer body scrolls on its own when the content is taller than the available\n      space.\n    </p>\n    {Array.from({ length: 18 }, (_, i) => (\n      <p key={i} style={{ margin: 0, color: 'var(--ink-3)' }}>\n        Content item {i + 1} — filler text to show the inner scroll.\n      </p>\n    ))}\n  </div>\n);\nfunction DrawerDemo({ side }: { side: 'left' | 'right' | 'bottom' }) {\n  const [open, setOpen] = useState(false);\n  return (\n    <div style={{ minHeight: 420, padding: 24 }}>\n      <Button onClick={() => setOpen(true)}>\n        Open {side === 'bottom' ? 'bottom panel' : `drawer ${side}`}\n      </Button>\n      <Drawer\n        open={open}\n        onOpenChange={setOpen}\n        side={side}\n        title=\"Analysis details\"\n        footer={footer(() => setOpen(false))}\n      >\n        {body}\n      </Drawer>\n    </div>\n  );\n}\nexport function Example() {\n  return <DrawerDemo side=\"right\" />;\n}"
+    },
+    {
+      "id": "Esquerda",
+      "label": "Left",
+      "description": "Drawer on the left.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport { useState } from 'react';\nconst footer = (close?: () => void) => (\n  <div\n    style={{\n      display: 'flex',\n      gap: 8,\n      justifyContent: 'flex-end',\n      alignItems: 'center',\n    }}\n  >\n    <span\n      style={{\n        marginRight: 'auto',\n        color: 'var(--ink-3)',\n        fontFamily: 'var(--font-mono)',\n        fontSize: 11,\n      }}\n    >\n      12 items · Esc to cancel\n    </span>\n    <Button variant=\"ghost\" onClick={close}>\n      Cancel\n    </Button>\n    <Button variant=\"primary\" onClick={close}>\n      Apply\n    </Button>\n  </div>\n);\nconst body = (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n    <p style={{ margin: 0 }}>\n      Domain analysis details: 84 pages crawled, 12 critical issues and 31 warnings.\n    </p>\n    <p style={{ margin: 0 }}>\n      The drawer body scrolls on its own when the content is taller than the available\n      space.\n    </p>\n    {Array.from({ length: 18 }, (_, i) => (\n      <p key={i} style={{ margin: 0, color: 'var(--ink-3)' }}>\n        Content item {i + 1} — filler text to show the inner scroll.\n      </p>\n    ))}\n  </div>\n);\nfunction DrawerDemo({ side }: { side: 'left' | 'right' | 'bottom' }) {\n  const [open, setOpen] = useState(false);\n  return (\n    <div style={{ minHeight: 420, padding: 24 }}>\n      <Button onClick={() => setOpen(true)}>\n        Open {side === 'bottom' ? 'bottom panel' : `drawer ${side}`}\n      </Button>\n      <Drawer\n        open={open}\n        onOpenChange={setOpen}\n        side={side}\n        title=\"Analysis details\"\n        footer={footer(() => setOpen(false))}\n      >\n        {body}\n      </Drawer>\n    </div>\n  );\n}\nexport function Example() {\n  return <DrawerDemo side=\"left\" />;\n}"
+    },
+    {
+      "id": "PainelInferior",
+      "label": "Bottom panel",
+      "description": "Bottom sheet with a handle.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport { useState } from 'react';\nconst footer = (close?: () => void) => (\n  <div\n    style={{\n      display: 'flex',\n      gap: 8,\n      justifyContent: 'flex-end',\n      alignItems: 'center',\n    }}\n  >\n    <span\n      style={{\n        marginRight: 'auto',\n        color: 'var(--ink-3)',\n        fontFamily: 'var(--font-mono)',\n        fontSize: 11,\n      }}\n    >\n      12 items · Esc to cancel\n    </span>\n    <Button variant=\"ghost\" onClick={close}>\n      Cancel\n    </Button>\n    <Button variant=\"primary\" onClick={close}>\n      Apply\n    </Button>\n  </div>\n);\nconst body = (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n    <p style={{ margin: 0 }}>\n      Domain analysis details: 84 pages crawled, 12 critical issues and 31 warnings.\n    </p>\n    <p style={{ margin: 0 }}>\n      The drawer body scrolls on its own when the content is taller than the available\n      space.\n    </p>\n    {Array.from({ length: 18 }, (_, i) => (\n      <p key={i} style={{ margin: 0, color: 'var(--ink-3)' }}>\n        Content item {i + 1} — filler text to show the inner scroll.\n      </p>\n    ))}\n  </div>\n);\nfunction DrawerDemo({ side }: { side: 'left' | 'right' | 'bottom' }) {\n  const [open, setOpen] = useState(false);\n  return (\n    <div style={{ minHeight: 420, padding: 24 }}>\n      <Button onClick={() => setOpen(true)}>\n        Open {side === 'bottom' ? 'bottom panel' : `drawer ${side}`}\n      </Button>\n      <Drawer\n        open={open}\n        onOpenChange={setOpen}\n        side={side}\n        title=\"Analysis details\"\n        footer={footer(() => setOpen(false))}\n      >\n        {body}\n      </Drawer>\n    </div>\n  );\n}\nexport function Example() {\n  return <DrawerDemo side=\"bottom\" />;\n}"
+    },
+    {
+      "id": "PainelInferiorAberto",
+      "label": "Bottom panel open",
+      "description": "Bottom sheet open to inspect the handle, scrolling and fixed footer in the active theme.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Drawer } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst footer = (close?: () => void) => (\n  <div\n    style={{\n      display: 'flex',\n      gap: 8,\n      justifyContent: 'flex-end',\n      alignItems: 'center',\n    }}\n  >\n    <span\n      style={{\n        marginRight: 'auto',\n        color: 'var(--ink-3)',\n        fontFamily: 'var(--font-mono)',\n        fontSize: 11,\n      }}\n    >\n      12 items · Esc to cancel\n    </span>\n    <Button variant=\"ghost\" onClick={close}>\n      Cancel\n    </Button>\n    <Button variant=\"primary\" onClick={close}>\n      Apply\n    </Button>\n  </div>\n);\nconst body = (\n  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n    <p style={{ margin: 0 }}>\n      Domain analysis details: 84 pages crawled, 12 critical issues and 31 warnings.\n    </p>\n    <p style={{ margin: 0 }}>\n      The drawer body scrolls on its own when the content is taller than the available\n      space.\n    </p>\n    {Array.from({ length: 18 }, (_, i) => (\n      <p key={i} style={{ margin: 0, color: 'var(--ink-3)' }}>\n        Content item {i + 1} — filler text to show the inner scroll.\n      </p>\n    ))}\n  </div>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Drawer>,\n    'open' | 'onOpenChange' | 'side' | 'title' | 'footer' | 'children'\n  > = {\n    open: true,\n    onOpenChange: () => {},\n    side: 'bottom',\n    title: 'Move 12 clients',\n    footer: footer(),\n    children: body,\n  };\n  return <Drawer {...args} />;\n}"
+    }
+  ]
+}

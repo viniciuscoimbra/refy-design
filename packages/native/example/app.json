@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "Refy Native",
+    "slug": "refy-native-gallery",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": { "supportsTablet": true, "bundleIdentifier": "design.refy.native.gallery" },
+    "android": { "package": "design.refy.native.gallery" }
+  }
+}

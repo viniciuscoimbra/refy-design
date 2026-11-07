@@ -1,0 +1,321 @@
+{
+  "id": "SettingRow",
+  "description": "Settings row with description, state and an associated action or control.",
+  "usage": {
+    "howToUse": [
+      "Use it for each item of a settings page: a preference, a connected account, a session, an API key.",
+      "Write the `title` and a short `description`; put the detail (e-mail, date, masked key) in `meta`.",
+      "Put the control in `actions` (Switch, Button). Or make the whole row a link with `href`, with no controls inside."
+    ],
+    "alternatives": [
+      "A destination card in a list: NavCard.",
+      "An integration with connect and disconnect: ConnectorCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the row, when it is a link, or to its controls."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the row link. Controls keep their own keys."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "SettingRow",
+  "selected": "Interativo",
+  "import": "import { SettingRow } from '@refy-design/web';",
+  "composition": [
+    "Switch"
+  ],
+  "api": [
+    {
+      "name": "SettingRow",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Row title. `Badge`/`Chip` fit inline (e.g. status \"Connected\")."
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Running-text description under the title."
+        },
+        {
+          "name": "meta",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Mono meta under the description (email, IP, date, masked key…)."
+        },
+        {
+          "name": "leading",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Leading slot: icon or `Avatar`."
+        },
+        {
+          "name": "leadingFrame",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "36px frame around `leading` (`.oauth-icon` pattern: provider/brand logos)."
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Actions on the right (`Button`/`IconButton`/`Badge`/mono text). In a clickable row use only NON-interactive content."
+        },
+        {
+          "name": "href",
+          "type": "string | undefined",
+          "required": false,
+          "description": "With `href` the whole row becomes `<a>` (like `NavCard`)."
+        },
+        {
+          "name": "target",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link `target` (only with `href`)."
+        },
+        {
+          "name": "rel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link `rel` (only with `href`)."
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLButtonElement | HTMLAnchorElement> | undefined",
+          "required": false,
+          "description": "Without `href`, makes the whole row a `<button>`."
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables the clickable row (no click, no Tab focus on the link)."
+        },
+        {
+          "name": "showChevron",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "\">\" chevron on the right of clickable rows. Default `true`."
+        },
+        {
+          "name": "switchProps",
+          "type": "SwitchProps | undefined",
+          "required": false,
+          "description": "`Switch` attached on the right (`.pref-row` pattern). The component links\n`aria-labelledby`/`aria-describedby` to the title/description automatically."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "SettingRowGroup",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "`SettingRow`s (or any row): each child becomes a `listitem` with a divider."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible label of the list (e.g. \"Active sessions\")."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: static row with an action on the right (`.shell-card-row` pattern).",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { SettingRow } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SettingRow>,\n    'title' | 'description' | 'actions'\n  > = {\n    title: 'Two-factor authentication',\n    description: 'Protect your account by requiring a second factor at sign-in.',\n    actions: (\n      <>\n        <Badge tone=\"neutral\">Off</Badge>\n        <Button size=\"sm\" variant=\"secondary\">\n          Turn on\n        </Button>\n      </>\n    ),\n  };\n  return <SettingRow {...args} />;\n}"
+    },
+    {
+      "id": "ConexoesOauth",
+      "label": "OAuth connections",
+      "description": "OAuth connections: `leadingFrame` for the logo, status Badge in the title, mono meta.",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { SettingRow } from '@refy-design/web';\nimport { SettingRowGroup } from '@refy-design/web';\nconst googleIcon = (\n  <svg viewBox=\"0 0 48 48\" aria-hidden=\"true\">\n    <path\n      fill=\"#4285F4\"\n      d=\"M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z\"\n    />\n    <path\n      fill=\"#34A853\"\n      d=\"M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z\"\n    />\n    <path\n      fill=\"#FBBC05\"\n      d=\"M11.69 28.18c-.44-1.32-.69-2.73-.69-4.18s.25-2.86.69-4.18v-5.7H4.34A21.99 21.99 0 0 0 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z\"\n    />\n    <path\n      fill=\"#EA4335\"\n      d=\"M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z\"\n    />\n  </svg>\n);\nconst keyIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={2}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n    aria-hidden=\"true\"\n  >\n    <path d=\"M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4\" />\n  </svg>\n);\nexport function Example() {\n  return (\n    <Card>\n      <SettingRowGroup aria-label=\"Connections\">\n        <SettingRow\n          leading={googleIcon}\n          leadingFrame\n          title={\n            <>\n              Google{' '}\n              <Badge tone=\"success\" dot>\n                Connected · primary\n              </Badge>\n            </>\n          }\n          meta=\"joao@example.com · connected on Jan 12, 2026\"\n          actions={\n            <Button size=\"sm\" variant=\"ghost\" disabled>\n              Primary provider\n            </Button>\n          }\n        />\n        <SettingRow\n          leading={keyIcon}\n          leadingFrame\n          title=\"GitHub\"\n          meta=\"Not connected · useful to link repositories to the API\"\n          actions={\n            <Button size=\"sm\" variant=\"secondary\">\n              Connect\n            </Button>\n          }\n        />\n      </SettingRowGroup>\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "SessoesAtivas",
+      "label": "Active sessions",
+      "description": "Active sessions: chip in the title, mono meta, mixed trailing (text/action).",
+      "code": "import { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { SettingRow } from '@refy-design/web';\nimport { SettingRowGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Card>\n      <SettingRowGroup aria-label=\"Active sessions\">\n        <SettingRow\n          title={\n            <>\n              MacBook Pro · Chrome 138 <Badge tone=\"success\">This session</Badge>\n            </>\n          }\n          meta=\"Rio de Janeiro, BR · 187.65.xx.xx · 2 min ago\"\n          actions={<Badge tone=\"neutral\">Active</Badge>}\n        />\n        <SettingRow\n          title=\"iPhone 15 · Safari iOS 18\"\n          meta=\"Rio de Janeiro, BR · 187.65.xx.xx · yesterday\"\n          actions={\n            <Button size=\"sm\" variant=\"ghost\">\n              End\n            </Button>\n          }\n        />\n      </SettingRowGroup>\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "Preferencias",
+      "label": "Preferences (Switch)",
+      "description": "Preferences: `switchProps` attaches the Switch with its label linked by aria.",
+      "code": "import { Card } from '@refy-design/web';\nimport { SettingRow } from '@refy-design/web';\nimport { SettingRowGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Card>\n      <SettingRowGroup aria-label=\"Notifications\">\n        <SettingRow\n          title=\"Review complete\"\n          description=\"Notify me when an analysis I started finishes.\"\n          switchProps={{ defaultChecked: true }}\n        />\n        <SettingRow\n          title=\"Activity detected changes\"\n          description=\"Monitored URLs whose score or search appearance changed.\"\n          switchProps={{ defaultChecked: true }}\n        />\n        <SettingRow\n          title=\"Weekly email summary\"\n          description=\"A workspace summary every Monday morning.\"\n          switchProps={{}}\n        />\n      </SettingRowGroup>\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "ChavesDeApi",
+      "label": "API keys",
+      "description": "API keys: masked mono meta + copy/rotate IconButtons.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { IconButton } from '@refy-design/web';\nimport { SettingRow } from '@refy-design/web';\nimport { SettingRowGroup } from '@refy-design/web';\nconst copyIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={2}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n    aria-hidden=\"true\"\n  >\n    <rect x=\"9\" y=\"9\" width=\"13\" height=\"13\" rx=\"2\" />\n    <path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\" />\n  </svg>\n);\nexport function Example() {\n  return (\n    <Card>\n      <SettingRowGroup aria-label=\"API keys\">\n        <SettingRow\n          title=\"Production\"\n          meta=\"rfy_live_••••••••••••4f2a · created May 3, 2026\"\n          actions={\n            <>\n              <IconButton size=\"sm\" aria-label=\"Copy key\" icon={copyIcon} />\n              <Button size=\"sm\" variant=\"ghost\">\n                Rotate\n              </Button>\n            </>\n          }\n        />\n        <SettingRow\n          title=\"Development\"\n          meta=\"rfy_test_••••••••••••91c8 · created May 3, 2026\"\n          actions={\n            <>\n              <IconButton size=\"sm\" aria-label=\"Copy key\" icon={copyIcon} />\n              <Button size=\"sm\" variant=\"ghost\">\n                Rotate\n              </Button>\n            </>\n          }\n        />\n      </SettingRowGroup>\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "AtividadeRecente",
+      "label": "Recent activity",
+      "description": "Recent activity: who did what, mono meta, cost in the trailing slot.",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { Card } from '@refy-design/web';\nimport { SettingRow } from '@refy-design/web';\nimport { SettingRowGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Card>\n      <SettingRowGroup aria-label=\"Recent activity\">\n        <SettingRow\n          leading={<Avatar initials=\"JM\" size=\"sm\" />}\n          title=\"Analysis · example.com/projects/aurora\"\n          meta=\"João Mendes · 2h ago · Aurora project\"\n          actions={\n            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>\n              −100 cr.\n            </span>\n          }\n        />\n        <SettingRow\n          leading={<Avatar initials=\"MC\" size=\"sm\" />}\n          title=\"Deep synthesis · example.com/project-b/korean-skincare\"\n          meta=\"Marina Costa · 5h ago · Horizon project\"\n          actions={\n            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>\n              −300 cr.\n            </span>\n          }\n        />\n      </SettingRowGroup>\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "Clicavel",
+      "label": "Clickable (href/onClick)",
+      "description": "Clickable: `href` becomes `<a>`, `onClick` becomes `<button>`; the whole row is the target.",
+      "code": "import { Card } from '@refy-design/web';\nimport { SettingRow } from '@refy-design/web';\nimport { SettingRowGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <Card>\n      <SettingRowGroup aria-label=\"Tasks\">\n        <SettingRow\n          href=\"#issue-1\"\n          title=\"Duplicate title on the home page\"\n          description=\"Priority 1 · estimated gain +12 pts\"\n          meta=\"example.com · found 2 days ago\"\n        />\n        <SettingRow\n          onClick={() => {}}\n          title=\"Meta description missing on 8 pages\"\n          description=\"Priority 2 · estimated gain +8 pts\"\n        />\n        <SettingRow\n          href=\"#issue-3\"\n          disabled\n          title=\"Outdated sitemap\"\n          description=\"Resolved on Jul 14, 2026\"\n        />\n      </SettingRowGroup>\n    </Card>\n  );\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { SettingRow } from '@refy-design/web';\nimport { useState } from 'react';\nfunction SettingRowExample() {\n  const [active, setActive] = useState(false);\n  return (\n    <SettingRow\n      title=\"Two-step authentication\"\n      description=\"Demo setting; no real account changes.\"\n      meta={active ? 'ON' : 'OFF'}\n      actions={\n        <Button onClick={() => setActive(!active)}>\n          {active ? 'Turn off' : 'Turn on'}\n        </Button>\n      }\n    />\n  );\n}\nexport function Example() {\n  return <SettingRowExample />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { SettingRow } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof SettingRow>,\n    'title' | 'description' | 'disabled' | 'onClick'\n  > = {\n    title: 'Manage access',\n    description: 'Available to admins only.',\n    disabled: true,\n    onClick: () => {},\n  };\n  return <SettingRow {...args} />;\n}"
+    }
+  ]
+}

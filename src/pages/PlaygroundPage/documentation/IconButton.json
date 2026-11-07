@@ -1,0 +1,176 @@
+{
+  "id": "IconButton",
+  "description": "Compact action shown as an icon, with a required accessible name.",
+  "usage": {
+    "howToUse": [
+      "Use it for a frequent action that a known icon already says: close, edit, delete, more options.",
+      "Always pass `aria-label` with the action (\"Delete invoice\"); it is what a screen reader announces.",
+      "Put it next to what it acts on, such as the end of a row or the corner of a card.",
+      "Pair it with Tooltip when the icon is not obvious to everyone."
+    ],
+    "alternatives": [
+      "The icon alone does not say the action: Button with text, with `leadingIcon` if you want the icon.",
+      "Main floating action on mobile: Fab."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the button. A disabled button is skipped."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the action."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "IconButton",
+  "selected": "GhostIcon",
+  "import": "import { IconButton } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "IconButton",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "description": "Required accessible label: the button has no visible text."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "defaultValue": "\"ghost\"",
+          "type": "IconButtonVariant | undefined",
+          "required": false,
+          "description": "Visual variant."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "IconButtonSize | undefined",
+          "required": false,
+          "description": "Size variant."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "type",
+          "type": "\"submit\" | \"reset\" | \"button\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLButtonElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "GhostIcon",
+      "label": "Ghost Icon",
+      "description": "",
+      "code": "import { IconButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Search = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"11\" cy=\"11\" r=\"7\" />\n    <path d=\"m21 21-4.3-4.3\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof IconButton>,\n    'aria-label' | 'icon' | 'variant' | 'size'\n  > = { 'aria-label': 'Search', icon: Search, variant: 'ghost', size: 'md' };\n  return <IconButton {...args} />;\n}"
+    },
+    {
+      "id": "Outline",
+      "label": "Outline",
+      "description": "",
+      "code": "import { IconButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Search = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"11\" cy=\"11\" r=\"7\" />\n    <path d=\"m21 21-4.3-4.3\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof IconButton>,\n    'aria-label' | 'icon' | 'variant' | 'size'\n  > = { 'aria-label': 'Search', icon: Search, variant: 'outline', size: 'md' };\n  return <IconButton {...args} />;\n}"
+    },
+    {
+      "id": "Solid",
+      "label": "Solid",
+      "description": "",
+      "code": "import { IconButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Search = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"11\" cy=\"11\" r=\"7\" />\n    <path d=\"m21 21-4.3-4.3\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof IconButton>,\n    'aria-label' | 'icon' | 'variant' | 'size'\n  > = { 'aria-label': 'Search', icon: Search, variant: 'solid', size: 'md' };\n  return <IconButton {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { IconButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Search = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"11\" cy=\"11\" r=\"7\" />\n    <path d=\"m21 21-4.3-4.3\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof IconButton>,\n    'aria-label' | 'icon' | 'variant' | 'size' | 'disabled'\n  > = {\n    'aria-label': 'Search',\n    icon: Search,\n    variant: 'ghost',\n    size: 'md',\n    disabled: true,\n  };\n  return <IconButton {...args} />;\n}"
+    }
+  ]
+}

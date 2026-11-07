@@ -1,0 +1,77 @@
+{
+  "id": "Snackbar",
+  "description": "Result message with an optional contextual action; position and duration are set by the app.",
+  "usage": {
+    "howToUse": [
+      "Use it for a short result at the edge of the screen, with an optional action such as \"Undo\" or \"View\".",
+      "Your application decides where it appears and when it leaves; it does not close by itself.",
+      "Keep the text to one line and the action to one verb."
+    ],
+    "alternatives": [
+      "Several messages that stack and close by time: Toast.",
+      "A message tied to a section of the page: Callout."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the action, when there is one."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the action."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Snackbar",
+  "selected": "Desfazer",
+  "import": "import { Snackbar } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Snackbar",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "One-line message."
+        },
+        {
+          "name": "action",
+          "type": "{ label: string; onClick: () => void; } | undefined",
+          "required": false,
+          "description": "Inline action (e.g. \"Undo\", \"View\")."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Desfazer",
+      "label": "Undo",
+      "description": "With an undo action.",
+      "code": "import { Snackbar } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [moved, setMoved] = useState(true);\n  return (\n    <Snackbar\n      action={{ label: moved ? 'Undo' : 'Move again', onClick: () => setMoved(!moved) }}\n    >\n      {moved ? 'Item moved to Tasks' : 'Move undone'}\n    </Snackbar>\n  );\n}"
+    },
+    {
+      "id": "Ver",
+      "label": "View",
+      "description": "With a navigate action.",
+      "code": "import { Snackbar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Snackbar>, 'children' | 'action'> = {\n    children: '3 analyses archived',\n    action: { label: 'See', onClick: () => {} },\n  };\n  return <Snackbar {...args} />;\n}"
+    },
+    {
+      "id": "Simples",
+      "label": "Simple",
+      "description": "Message only.",
+      "code": "import { Snackbar } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Snackbar>, 'children'> = {\n    children: 'Link copied',\n  };\n  return <Snackbar {...args} />;\n}"
+    }
+  ]
+}

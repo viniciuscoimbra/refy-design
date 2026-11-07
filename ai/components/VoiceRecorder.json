@@ -1,0 +1,158 @@
+{
+  "id": "VoiceRecorder",
+  "description": "Controlled interface for recording, pause, error and a text alternative; capture, permissions and transcription are wired by the app.",
+  "usage": {
+    "howToUse": [
+      "Use it where people can speak instead of typing: a voice note, a search by voice, a message.",
+      "Your application records, asks for the microphone and transcribes. Pass the `state`, the `duration` and the `level` it reads.",
+      "Show the `transcript` for review before sending, and offer typing with `onUseFallback` when the microphone fails."
+    ],
+    "alternatives": [
+      "Attaching an existing audio file: FileUpload.",
+      "A request with text and voice together: IntentComposer."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves through start, pause, resume, cancel and finish."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the button in focus."
+      }
+    ]
+  },
+  "collections": [
+    "media",
+    "conversation"
+  ],
+  "publicName": "VoiceRecorder",
+  "selected": "Idle",
+  "import": "import { VoiceRecorder } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Callout",
+    "IconButton",
+    "ProgressBar"
+  ],
+  "api": [
+    {
+      "name": "VoiceRecorder",
+      "props": [
+        {
+          "name": "state",
+          "defaultValue": "\"idle\"",
+          "type": "VoiceRecorderState | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "duration",
+          "defaultValue": "0",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Current duration in seconds."
+        },
+        {
+          "name": "level",
+          "defaultValue": "0",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Input level from 0 to 100."
+        },
+        {
+          "name": "transcript",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Preview the consumer can edit after finishing."
+        },
+        {
+          "name": "errorMessage",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onStart",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onPause",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onResume",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onCancel",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFinish",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onRetry",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onUseFallback",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Idle",
+      "label": "Idle",
+      "description": "Tap the microphone to start; no permission request happens before that.",
+      "code": "import { Textarea } from '@refy-design/web';\nimport { VoiceRecorder } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nfunction RecorderDemo({ initialState }: { initialState: VoiceRecorderState }) {\n  const [state, setState] = useState<VoiceRecorderState>(initialState);\n  const [duration, setDuration] = useState(initialState === 'paused' ? 18 : 0);\n  const [transcript, setTranscript] = useState('');\n  const [level, setLevel] = useState(36);\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  useEffect(() => {\n    if (state !== 'listening') return;\n    const timer = window.setInterval(() => {\n      setDuration((value) => value + 1);\n      setLevel((value) => ((value + 17) % 96) + 4);\n    }, 1000);\n    return () => window.clearInterval(timer);\n  }, [state]);\n  const transition = (next: VoiceRecorderState, copy: string) => {\n    setState(next);\n    setMessage(copy);\n  };\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 620 }}>\n      <VoiceRecorder\n        state={state}\n        duration={duration}\n        level={level}\n        onStart={() => {\n          setTranscript('');\n          transition('listening', 'Simulation started, no audio captured.');\n        }}\n        onPause={() => transition('paused', 'Recording paused.')}\n        onResume={() => transition('listening', 'Recording resumed.')}\n        onCancel={() => {\n          setDuration(0);\n          transition('idle', 'Recording discarded.');\n        }}\n        onFinish={() => {\n          setTranscript(\n            \"Let's review the project materials before sharing them with the team.\",\n          );\n          transition('idle', 'Simulation done. Review the sample text.');\n        }}\n        onRetry={() => transition('idle', 'Simulation restarted.')}\n        onUseFallback={() =>\n          transition(\n            state === 'error' ? 'fallback' : 'idle',\n            state === 'error'\n              ? 'Dictation fallback shown.'\n              : 'Continue with the phone keyboard.',\n          )\n        }\n      />\n      {transcript && (\n        <Textarea\n          label=\"Sample text for review\"\n          value={transcript}\n          onChange={(event) => setTranscript(event.target.value)}\n        />\n      )}\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <RecorderDemo initialState=\"idle\" />;\n}"
+    },
+    {
+      "id": "Escutando",
+      "label": "Listening",
+      "description": "Meter, duration, pause, cancel and finish really work.",
+      "code": "import { Textarea } from '@refy-design/web';\nimport { VoiceRecorder } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nfunction RecorderDemo({ initialState }: { initialState: VoiceRecorderState }) {\n  const [state, setState] = useState<VoiceRecorderState>(initialState);\n  const [duration, setDuration] = useState(initialState === 'paused' ? 18 : 0);\n  const [transcript, setTranscript] = useState('');\n  const [level, setLevel] = useState(36);\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  useEffect(() => {\n    if (state !== 'listening') return;\n    const timer = window.setInterval(() => {\n      setDuration((value) => value + 1);\n      setLevel((value) => ((value + 17) % 96) + 4);\n    }, 1000);\n    return () => window.clearInterval(timer);\n  }, [state]);\n  const transition = (next: VoiceRecorderState, copy: string) => {\n    setState(next);\n    setMessage(copy);\n  };\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 620 }}>\n      <VoiceRecorder\n        state={state}\n        duration={duration}\n        level={level}\n        onStart={() => {\n          setTranscript('');\n          transition('listening', 'Simulation started, no audio captured.');\n        }}\n        onPause={() => transition('paused', 'Recording paused.')}\n        onResume={() => transition('listening', 'Recording resumed.')}\n        onCancel={() => {\n          setDuration(0);\n          transition('idle', 'Recording discarded.');\n        }}\n        onFinish={() => {\n          setTranscript(\n            \"Let's review the project materials before sharing them with the team.\",\n          );\n          transition('idle', 'Simulation done. Review the sample text.');\n        }}\n        onRetry={() => transition('idle', 'Simulation restarted.')}\n        onUseFallback={() =>\n          transition(\n            state === 'error' ? 'fallback' : 'idle',\n            state === 'error'\n              ? 'Dictation fallback shown.'\n              : 'Continue with the phone keyboard.',\n          )\n        }\n      />\n      {transcript && (\n        <Textarea\n          label=\"Sample text for review\"\n          value={transcript}\n          onChange={(event) => setTranscript(event.target.value)}\n        />\n      )}\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <RecorderDemo initialState=\"listening\" />;\n}"
+    },
+    {
+      "id": "Pausado",
+      "label": "Paused",
+      "description": "Pause freezes the meter and offers resume.",
+      "code": "import { Textarea } from '@refy-design/web';\nimport { VoiceRecorder } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nfunction RecorderDemo({ initialState }: { initialState: VoiceRecorderState }) {\n  const [state, setState] = useState<VoiceRecorderState>(initialState);\n  const [duration, setDuration] = useState(initialState === 'paused' ? 18 : 0);\n  const [transcript, setTranscript] = useState('');\n  const [level, setLevel] = useState(36);\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  useEffect(() => {\n    if (state !== 'listening') return;\n    const timer = window.setInterval(() => {\n      setDuration((value) => value + 1);\n      setLevel((value) => ((value + 17) % 96) + 4);\n    }, 1000);\n    return () => window.clearInterval(timer);\n  }, [state]);\n  const transition = (next: VoiceRecorderState, copy: string) => {\n    setState(next);\n    setMessage(copy);\n  };\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 620 }}>\n      <VoiceRecorder\n        state={state}\n        duration={duration}\n        level={level}\n        onStart={() => {\n          setTranscript('');\n          transition('listening', 'Simulation started, no audio captured.');\n        }}\n        onPause={() => transition('paused', 'Recording paused.')}\n        onResume={() => transition('listening', 'Recording resumed.')}\n        onCancel={() => {\n          setDuration(0);\n          transition('idle', 'Recording discarded.');\n        }}\n        onFinish={() => {\n          setTranscript(\n            \"Let's review the project materials before sharing them with the team.\",\n          );\n          transition('idle', 'Simulation done. Review the sample text.');\n        }}\n        onRetry={() => transition('idle', 'Simulation restarted.')}\n        onUseFallback={() =>\n          transition(\n            state === 'error' ? 'fallback' : 'idle',\n            state === 'error'\n              ? 'Dictation fallback shown.'\n              : 'Continue with the phone keyboard.',\n          )\n        }\n      />\n      {transcript && (\n        <Textarea\n          label=\"Sample text for review\"\n          value={transcript}\n          onChange={(event) => setTranscript(event.target.value)}\n        />\n      )}\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <RecorderDemo initialState=\"paused\" />;\n}"
+    },
+    {
+      "id": "ErroDePermissao",
+      "label": "Permission error",
+      "description": "The error uses semantic red and offers retry or a fallback.",
+      "code": "import { Textarea } from '@refy-design/web';\nimport { VoiceRecorder } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nfunction RecorderDemo({ initialState }: { initialState: VoiceRecorderState }) {\n  const [state, setState] = useState<VoiceRecorderState>(initialState);\n  const [duration, setDuration] = useState(initialState === 'paused' ? 18 : 0);\n  const [transcript, setTranscript] = useState('');\n  const [level, setLevel] = useState(36);\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  useEffect(() => {\n    if (state !== 'listening') return;\n    const timer = window.setInterval(() => {\n      setDuration((value) => value + 1);\n      setLevel((value) => ((value + 17) % 96) + 4);\n    }, 1000);\n    return () => window.clearInterval(timer);\n  }, [state]);\n  const transition = (next: VoiceRecorderState, copy: string) => {\n    setState(next);\n    setMessage(copy);\n  };\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 620 }}>\n      <VoiceRecorder\n        state={state}\n        duration={duration}\n        level={level}\n        onStart={() => {\n          setTranscript('');\n          transition('listening', 'Simulation started, no audio captured.');\n        }}\n        onPause={() => transition('paused', 'Recording paused.')}\n        onResume={() => transition('listening', 'Recording resumed.')}\n        onCancel={() => {\n          setDuration(0);\n          transition('idle', 'Recording discarded.');\n        }}\n        onFinish={() => {\n          setTranscript(\n            \"Let's review the project materials before sharing them with the team.\",\n          );\n          transition('idle', 'Simulation done. Review the sample text.');\n        }}\n        onRetry={() => transition('idle', 'Simulation restarted.')}\n        onUseFallback={() =>\n          transition(\n            state === 'error' ? 'fallback' : 'idle',\n            state === 'error'\n              ? 'Dictation fallback shown.'\n              : 'Continue with the phone keyboard.',\n          )\n        }\n      />\n      {transcript && (\n        <Textarea\n          label=\"Sample text for review\"\n          value={transcript}\n          onChange={(event) => setTranscript(event.target.value)}\n        />\n      )}\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <RecorderDemo initialState=\"error\" />;\n}"
+    },
+    {
+      "id": "FallbackDitado",
+      "label": "Dictation fallback",
+      "description": "Explicit alternative when Web Speech is not available.",
+      "code": "import { Textarea } from '@refy-design/web';\nimport { VoiceRecorder } from '@refy-design/web';\nimport type { VoiceRecorderState } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nfunction RecorderDemo({ initialState }: { initialState: VoiceRecorderState }) {\n  const [state, setState] = useState<VoiceRecorderState>(initialState);\n  const [duration, setDuration] = useState(initialState === 'paused' ? 18 : 0);\n  const [transcript, setTranscript] = useState('');\n  const [level, setLevel] = useState(36);\n  const [message, setMessage] = useState(`Current state: ${initialState}.`);\n  useEffect(() => {\n    if (state !== 'listening') return;\n    const timer = window.setInterval(() => {\n      setDuration((value) => value + 1);\n      setLevel((value) => ((value + 17) % 96) + 4);\n    }, 1000);\n    return () => window.clearInterval(timer);\n  }, [state]);\n  const transition = (next: VoiceRecorderState, copy: string) => {\n    setState(next);\n    setMessage(copy);\n  };\n  return (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 620 }}>\n      <VoiceRecorder\n        state={state}\n        duration={duration}\n        level={level}\n        onStart={() => {\n          setTranscript('');\n          transition('listening', 'Simulation started, no audio captured.');\n        }}\n        onPause={() => transition('paused', 'Recording paused.')}\n        onResume={() => transition('listening', 'Recording resumed.')}\n        onCancel={() => {\n          setDuration(0);\n          transition('idle', 'Recording discarded.');\n        }}\n        onFinish={() => {\n          setTranscript(\n            \"Let's review the project materials before sharing them with the team.\",\n          );\n          transition('idle', 'Simulation done. Review the sample text.');\n        }}\n        onRetry={() => transition('idle', 'Simulation restarted.')}\n        onUseFallback={() =>\n          transition(\n            state === 'error' ? 'fallback' : 'idle',\n            state === 'error'\n              ? 'Dictation fallback shown.'\n              : 'Continue with the phone keyboard.',\n          )\n        }\n      />\n      {transcript && (\n        <Textarea\n          label=\"Sample text for review\"\n          value={transcript}\n          onChange={(event) => setTranscript(event.target.value)}\n        />\n      )}\n      <p\n        role=\"status\"\n        style={{ margin: 0, color: 'var(--ink-3)', fontSize: 'var(--text-xs)' }}\n      >\n        {message}\n      </p>\n    </div>\n  );\n}\nexport function Example() {\n  return <RecorderDemo initialState=\"fallback\" />;\n}"
+    }
+  ]
+}

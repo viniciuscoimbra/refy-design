@@ -1,0 +1,17 @@
+.page { display: grid; grid-template-columns: minmax(0, 1fr); box-sizing: border-box; padding: var(--space-6); gap: var(--space-6); width: 100%; max-width: 960px; margin-inline: auto; min-width: 0; }
+.page > * { min-width: 0; }
+.page header, .notes { display: grid; gap: var(--space-3); }
+.page h1, .page h2, .page h3, .page p { margin: 0; }
+.page h1 { font-size: var(--text-h2); }
+.page h2 { font-size: var(--text-h3); margin-bottom: var(--space-3); }
+.page h3 { font-size: var(--text-sm); }
+.page p, .page li { line-height: 1.65; }
+.scroll { overflow-x: auto; padding-block: var(--space-2); max-width: 100%; }
+.pair { display: grid; grid-template-columns: 373px 373px; gap: var(--space-6); width: max-content; }
+.pair > div > p { font-size: 12px; margin-block: var(--space-1) var(--space-3); }
+.capture, .live { display: block; width: 373px; height: 460px; box-sizing: border-box; }
+.live { overflow: auto; background: var(--bg); color: var(--ink-1); }
+.description { font-size: var(--text-sm); color: var(--ink-3); }
+.footer { display: grid; gap: var(--space-1); margin-top: var(--space-4); font-size: var(--text-sm); }
+.footer span { color: var(--ink-3); }
+.notes ul { margin: 0; padding-inline-start: var(--space-5); }

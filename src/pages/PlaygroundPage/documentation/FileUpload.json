@@ -1,0 +1,179 @@
+{
+  "id": "FileUpload",
+  "description": "File selection and preview, with validation, progress and removal.",
+  "usage": {
+    "howToUse": [
+      "Use it to attach files to a form: documents, photos, spreadsheets.",
+      "Say what is accepted in `accept` and `maxSize`, and repeat it in `hint` (\"PDF or JPG, up to 10 MB\").",
+      "Turn on `multiple` when more than one file makes sense.",
+      "Your application uploads the files. While it does, pass `state` and `progress`; if it fails, show `errorMessage` with what to do."
+    ],
+    "alternatives": [
+      "A voice message: VoiceRecorder.",
+      "Showing photos already uploaded: MediaGallery."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the choose button, then to the remove button of each file."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the system's file window, or removes the file in focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "FileUpload",
+  "selected": "Selecao",
+  "import": "import { FileUpload } from '@refy-design/web';",
+  "composition": [
+    "Badge",
+    "Button",
+    "Callout",
+    "IconButton",
+    "ProgressBar"
+  ],
+  "api": [
+    {
+      "name": "FileUpload",
+      "props": [
+        {
+          "name": "files",
+          "type": "File[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultFiles",
+          "defaultValue": "[]",
+          "type": "File[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFilesChange",
+          "type": "((files: File[]) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "accept",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "multiple",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "maxSize",
+          "defaultValue": "10 * 1024 * 1024",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "state",
+          "defaultValue": "\"idle\"",
+          "type": "FileUploadState | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "progress",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "errorMessage",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Label that identifies the control."
+        },
+        {
+          "name": "hint",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Selecao",
+      "label": "Selection",
+      "description": "",
+      "code": "import { FileUpload } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nfunction imageFile() {\n  return new File(\n    [\n      `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"320\" height=\"200\"><rect width=\"320\" height=\"200\" fill=\"#bedcf0\"/><path d=\"M40 150 160 40l120 110\" fill=\"#fff8f2\" stroke=\"#bd4b30\" stroke-width=\"12\"/></svg>`,\n    ],\n    'composicao.svg',\n    { type: 'image/svg+xml', lastModified: 2 },\n  );\n}\nfunction documentFile() {\n  return new File(['comprovante'], 'sample-document.pdf', {\n    type: 'application/pdf',\n    lastModified: 1,\n  });\n}\nfunction Preset({\n  kind = 'document',\n  ...props\n}: {\n  kind?: 'document' | 'image';\n} & React.ComponentProps<typeof FileUpload>) {\n  const [files, setFiles] = useState(() => [\n    kind === 'image' ? imageFile() : documentFile(),\n  ]);\n  return <FileUpload {...props} files={files} onFilesChange={setFiles} />;\n}\nexport function Example() {\n  const args: Pick<ComponentProps<typeof FileUpload>, 'accept' | 'maxSize'> = {\n    accept: 'image/*,.pdf',\n    maxSize: 10 * 1024 * 1024,\n  };\n  return <Preset {...args} />;\n}"
+    },
+    {
+      "id": "Preview",
+      "label": "Preview",
+      "description": "",
+      "code": "import { FileUpload } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nfunction imageFile() {\n  return new File(\n    [\n      `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"320\" height=\"200\"><rect width=\"320\" height=\"200\" fill=\"#bedcf0\"/><path d=\"M40 150 160 40l120 110\" fill=\"#fff8f2\" stroke=\"#bd4b30\" stroke-width=\"12\"/></svg>`,\n    ],\n    'composicao.svg',\n    { type: 'image/svg+xml', lastModified: 2 },\n  );\n}\nfunction documentFile() {\n  return new File(['comprovante'], 'sample-document.pdf', {\n    type: 'application/pdf',\n    lastModified: 1,\n  });\n}\nfunction Preset({\n  kind = 'document',\n  ...props\n}: {\n  kind?: 'document' | 'image';\n} & React.ComponentProps<typeof FileUpload>) {\n  const [files, setFiles] = useState(() => [\n    kind === 'image' ? imageFile() : documentFile(),\n  ]);\n  return <FileUpload {...props} files={files} onFilesChange={setFiles} />;\n}\nexport function Example() {\n  const args: Pick<ComponentProps<typeof FileUpload>, 'accept' | 'maxSize'> = {\n    accept: 'image/*,.pdf',\n    maxSize: 10 * 1024 * 1024,\n  };\n  return <Preset {...args} kind=\"image\" />;\n}"
+    },
+    {
+      "id": "TiposDeArquivo",
+      "label": "File types",
+      "description": "",
+      "code": "import { FileUpload } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction imageFile() {\n  return new File(\n    [\n      `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"320\" height=\"200\"><rect width=\"320\" height=\"200\" fill=\"#bedcf0\"/><path d=\"M40 150 160 40l120 110\" fill=\"#fff8f2\" stroke=\"#bd4b30\" stroke-width=\"12\"/></svg>`,\n    ],\n    'composicao.svg',\n    { type: 'image/svg+xml', lastModified: 2 },\n  );\n}\nfunction typeFiles() {\n  return [\n    new File(['pdf'], 'articles-of-incorporation.pdf', {\n      type: 'application/pdf',\n      lastModified: 3,\n    }),\n    new File(['docx'], 'power-of-attorney.docx', {\n      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',\n      lastModified: 4,\n    }),\n    imageFile(),\n  ];\n}\nexport function Example() {\n  const args: Pick<ComponentProps<typeof FileUpload>, 'accept' | 'maxSize'> = {\n    accept: '.pdf,.doc,.docx,.png,.jpg,.jpeg,.svg',\n    maxSize: 10 * 1024 * 1024,\n  };\n  return <FileUpload {...args} files={typeFiles()} multiple />;\n}"
+    },
+    {
+      "id": "Progresso",
+      "label": "Progress",
+      "description": "",
+      "code": "import { FileUpload } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nfunction imageFile() {\n  return new File(\n    [\n      `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"320\" height=\"200\"><rect width=\"320\" height=\"200\" fill=\"#bedcf0\"/><path d=\"M40 150 160 40l120 110\" fill=\"#fff8f2\" stroke=\"#bd4b30\" stroke-width=\"12\"/></svg>`,\n    ],\n    'composicao.svg',\n    { type: 'image/svg+xml', lastModified: 2 },\n  );\n}\nfunction documentFile() {\n  return new File(['comprovante'], 'sample-document.pdf', {\n    type: 'application/pdf',\n    lastModified: 1,\n  });\n}\nfunction Preset({\n  kind = 'document',\n  ...props\n}: {\n  kind?: 'document' | 'image';\n} & React.ComponentProps<typeof FileUpload>) {\n  const [files, setFiles] = useState(() => [\n    kind === 'image' ? imageFile() : documentFile(),\n  ]);\n  return <FileUpload {...props} files={files} onFilesChange={setFiles} />;\n}\nexport function Example() {\n  const args: Pick<ComponentProps<typeof FileUpload>, 'accept' | 'maxSize'> = {\n    accept: 'image/*,.pdf',\n    maxSize: 10 * 1024 * 1024,\n  };\n  return <Preset {...args} state=\"uploading\" progress={64} />;\n}"
+    },
+    {
+      "id": "Erro",
+      "label": "Error",
+      "description": "",
+      "code": "import { FileUpload } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof FileUpload>,\n    'accept' | 'maxSize' | 'state' | 'errorMessage'\n  > = {\n    accept: 'image/*,.pdf',\n    maxSize: 10 * 1024 * 1024,\n    state: 'error',\n    errorMessage: 'The file is over the 10 MB limit.',\n  };\n  return <FileUpload {...args} />;\n}"
+    },
+    {
+      "id": "Remocao",
+      "label": "Removal",
+      "description": "",
+      "code": "import { FileUpload } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nfunction imageFile() {\n  return new File(\n    [\n      `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"320\" height=\"200\"><rect width=\"320\" height=\"200\" fill=\"#bedcf0\"/><path d=\"M40 150 160 40l120 110\" fill=\"#fff8f2\" stroke=\"#bd4b30\" stroke-width=\"12\"/></svg>`,\n    ],\n    'composicao.svg',\n    { type: 'image/svg+xml', lastModified: 2 },\n  );\n}\nfunction documentFile() {\n  return new File(['comprovante'], 'sample-document.pdf', {\n    type: 'application/pdf',\n    lastModified: 1,\n  });\n}\nfunction Preset({\n  kind = 'document',\n  ...props\n}: {\n  kind?: 'document' | 'image';\n} & React.ComponentProps<typeof FileUpload>) {\n  const [files, setFiles] = useState(() => [\n    kind === 'image' ? imageFile() : documentFile(),\n  ]);\n  return <FileUpload {...props} files={files} onFilesChange={setFiles} />;\n}\nexport function Example() {\n  const args: Pick<ComponentProps<typeof FileUpload>, 'accept' | 'maxSize'> = {\n    accept: 'image/*,.pdf',\n    maxSize: 10 * 1024 * 1024,\n  };\n  return <Preset {...args} />;\n}"
+    },
+    {
+      "id": "Teclado",
+      "label": "Keyboard",
+      "description": "",
+      "code": "import { FileUpload } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof FileUpload>,\n    'accept' | 'maxSize' | 'label' | 'hint'\n  > = {\n    accept: 'image/*,.pdf',\n    maxSize: 10 * 1024 * 1024,\n    label: 'Attach documentation',\n    hint: 'Use Tab and Enter to open the native picker.',\n  };\n  return <FileUpload {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "Explicit public state; it does not call external services.",
+      "code": "import { FileUpload } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof FileUpload>,\n    'accept' | 'maxSize' | 'disabled' | 'label' | 'hint'\n  > = {\n    accept: 'image/*,.pdf',\n    maxSize: 10 * 1024 * 1024,\n    disabled: true,\n    label: 'Upload unavailable',\n    hint: 'You need permission to add files.',\n  };\n  return <FileUpload {...args} />;\n}"
+    }
+  ]
+}

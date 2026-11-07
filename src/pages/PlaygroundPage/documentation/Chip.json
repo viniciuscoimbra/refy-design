@@ -1,0 +1,222 @@
+{
+  "id": "Chip",
+  "description": "Filter or selection tag, with semantic tone and optional removal.",
+  "usage": {
+    "howToUse": [
+      "Use it for filters people turn on and off above a list, and for choices shown inside a field.",
+      "Mark the active filter with `selected` and show how many items it has with `count`.",
+      "Use `removable` with `onRemove` for a choice that can be taken out, and update your list in it.",
+      "Set `selectionMode=\"radio\"` when only one chip of the row can be on."
+    ],
+    "alternatives": [
+      "A label people do not click: Badge.",
+      "The main action of the screen: Button."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one chip to the next."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Turns the chip on or off. On the ×, removes it."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Chip",
+  "selected": "Semanticos",
+  "import": "import { Chip } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Chip",
+      "props": [
+        {
+          "name": "variant",
+          "defaultValue": "\"filter\"",
+          "type": "\"filter\" | \"selection\" | undefined",
+          "required": false,
+          "description": "Compact selection embedded in fields; filter keeps the default."
+        },
+        {
+          "name": "selected",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Selected state (active filter)."
+        },
+        {
+          "name": "count",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Counter on the right (e.g. number of items in the filter)."
+        },
+        {
+          "name": "tone",
+          "defaultValue": "\"neutral\"",
+          "type": "ChipTone | undefined",
+          "required": false,
+          "description": "Optional semantic dot for severity/status filters."
+        },
+        {
+          "name": "selectionMode",
+          "defaultValue": "\"toggle\"",
+          "type": "ChipSelectionMode | undefined",
+          "required": false,
+          "description": "Toggle uses `aria-pressed`; radio uses `role=radio` + `aria-checked`."
+        },
+        {
+          "name": "showCheck",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows the animated check when selected."
+        },
+        {
+          "name": "removable",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Close icon: fires onRemove."
+        },
+        {
+          "name": "onRemove",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "leadingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "type",
+          "type": "\"submit\" | \"reset\" | \"button\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLButtonElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Semanticos",
+      "label": "Interactive semantic filters",
+      "description": "",
+      "code": "import { Chip } from '@refy-design/web';\nimport { useState } from 'react';\nfunction ChipShowcase({ theme }: { theme?: 'light' | 'dark' }) {\n  const [severities, setSeverities] = useState(['critical']);\n  const [period, setPeriod] = useState('7');\n  const [active, setActive] = useState([\n    'Severity: critical',\n    'Priority: high',\n    'Language: pt-BR',\n  ]);\n  const severity = [\n    { id: 'critical', label: 'Critical', count: 8, tone: 'critical' as const },\n    { id: 'warning', label: 'Medium', count: 14, tone: 'warning' as const },\n    { id: 'success', label: 'Resolved', count: 23, tone: 'success' as const },\n    { id: 'info', label: 'In progress', count: 5, tone: 'info' as const },\n  ];\n  return (\n    <section\n      data-theme={theme}\n      style={{ padding: 32, color: 'var(--ink-1)', background: 'var(--bg)' }}\n    >\n      <span\n        style={{\n          color: 'var(--ink-3)',\n          fontFamily: 'var(--font-mono)',\n          fontSize: 10,\n          letterSpacing: '.16em',\n          textTransform: 'uppercase',\n        }}\n      >\n        Interactive filters{theme ? ` · ${theme}` : ''}\n      </span>\n      <h3\n        style={{\n          margin: '6px 0 4px',\n          fontFamily: 'var(--font-headline)',\n          fontSize: 22,\n        }}\n      >\n        Selection and states\n      </h3>\n      <p\n        style={{\n          maxWidth: '56ch',\n          margin: '0 0 22px',\n          color: 'var(--ink-3)',\n          fontSize: 12.5,\n          lineHeight: 1.55,\n        }}\n      >\n        Multiple selection, period and active filters.\n      </p>\n\n      <div style={{ display: 'grid', gap: 14 }}>\n        <div\n          style={{\n            padding: 22,\n            border: '1px solid var(--line)',\n            borderRadius: 'var(--card-radius)',\n            background: 'var(--surface)',\n          }}\n        >\n          <span\n            style={{\n              display: 'block',\n              marginBottom: 14,\n              color: 'var(--ink-3)',\n              fontFamily: 'var(--font-mono)',\n              fontSize: 10,\n              letterSpacing: '.14em',\n              textTransform: 'uppercase',\n            }}\n          >\n            Filter · severity\n          </span>\n          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>\n            {severity.map((item) => (\n              <Chip\n                key={item.id}\n                tone={item.tone}\n                count={item.count}\n                showCheck\n                selected={severities.includes(item.id)}\n                onClick={() =>\n                  setSeverities((current) =>\n                    current.includes(item.id)\n                      ? current.filter((id) => id !== item.id)\n                      : [...current, item.id],\n                  )\n                }\n              >\n                {item.label}\n              </Chip>\n            ))}\n          </div>\n        </div>\n\n        <div\n          style={{\n            padding: 22,\n            border: '1px solid var(--line)',\n            borderRadius: 'var(--card-radius)',\n            background: 'var(--surface)',\n          }}\n        >\n          <span\n            style={{\n              display: 'block',\n              marginBottom: 14,\n              color: 'var(--ink-3)',\n              fontFamily: 'var(--font-mono)',\n              fontSize: 10,\n              letterSpacing: '.14em',\n              textTransform: 'uppercase',\n            }}\n          >\n            Filter · single selection\n          </span>\n          <div\n            role=\"radiogroup\"\n            aria-label=\"Period\"\n            style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}\n          >\n            {[\n              ['7', '7 days'],\n              ['30', '30 days'],\n              ['90', '90 days'],\n              ['all', 'All'],\n            ].map(([id, label]) => (\n              <Chip\n                key={id}\n                selectionMode=\"radio\"\n                showCheck\n                selected={period === id}\n                onClick={() => setPeriod(id)}\n              >\n                {label}\n              </Chip>\n            ))}\n          </div>\n        </div>\n\n        <div\n          style={{\n            padding: 22,\n            border: '1px solid var(--line)',\n            borderRadius: 'var(--card-radius)',\n            background: 'var(--surface)',\n          }}\n        >\n          <span\n            style={{\n              display: 'block',\n              marginBottom: 14,\n              color: 'var(--ink-3)',\n              fontFamily: 'var(--font-mono)',\n              fontSize: 10,\n              letterSpacing: '.14em',\n              textTransform: 'uppercase',\n            }}\n          >\n            Filter · active + removable\n          </span>\n          <div\n            style={{\n              display: 'flex',\n              flexWrap: 'wrap',\n              alignItems: 'center',\n              gap: 8,\n            }}\n          >\n            {active.map((label) => (\n              <Chip\n                key={label}\n                selected\n                removable\n                onRemove={() =>\n                  setActive((items) => items.filter((item) => item !== label))\n                }\n              >\n                {label}\n              </Chip>\n            ))}\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n}\nexport function Example() {\n  return <ChipShowcase />;\n}"
+    },
+    {
+      "id": "FiltrosDeSeveridade",
+      "label": "Severity filters",
+      "description": "",
+      "code": "import { Chip } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [sel, setSel] = useState('critical');\n  const filters = [\n    { id: 'all', label: 'All', count: 87 },\n    { id: 'critical', label: 'Critical', count: 12 },\n    { id: 'medium', label: 'Medium', count: 34 },\n    { id: 'resolved', label: 'Resolved', count: 41 },\n  ];\n  return (\n    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>\n      {filters.map((f) => (\n        <Chip\n          key={f.id}\n          selected={sel === f.id}\n          count={f.count}\n          onClick={() => setSel(f.id)}\n        >\n          {f.label}\n        </Chip>\n      ))}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Removivel",
+      "label": "Removable",
+      "description": "",
+      "code": "import { Chip } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [items, setItems] = useState(['Document', 'Design', 'Image']);\n  const [expanded, setExpanded] = useState(false);\n  const visible = expanded ? items : items.slice(0, 1);\n  return (\n    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>\n      {visible.map((label) => (\n        <Chip\n          key={label}\n          variant=\"selection\"\n          removable\n          aria-pressed={undefined}\n          aria-label={`Remove ${label}`}\n          onRemove={() =>\n            setItems((current) => current.filter((item) => item !== label))\n          }\n        >\n          {label}\n        </Chip>\n      ))}\n      {items.length > visible.length && (\n        <Chip\n          variant=\"selection\"\n          aria-pressed={undefined}\n          aria-label=\"Show other selections\"\n          onClick={() => setExpanded(true)}\n        >\n          +{items.length - visible.length}\n        </Chip>\n      )}\n      {items.length === 0 && (\n        <Chip\n          onClick={() => {\n            setItems(['Document', 'Design', 'Image']);\n            setExpanded(false);\n          }}\n        >\n          Restart\n        </Chip>\n      )}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "VariacoesDoHandoff",
+      "label": "Variations · toggle, radio and removable",
+      "description": "",
+      "code": "import { Chip } from '@refy-design/web';\nimport { useState } from 'react';\nfunction ChipShowcase({ theme }: { theme?: 'light' | 'dark' }) {\n  const [severities, setSeverities] = useState(['critical']);\n  const [period, setPeriod] = useState('7');\n  const [active, setActive] = useState([\n    'Severity: critical',\n    'Priority: high',\n    'Language: pt-BR',\n  ]);\n  const severity = [\n    { id: 'critical', label: 'Critical', count: 8, tone: 'critical' as const },\n    { id: 'warning', label: 'Medium', count: 14, tone: 'warning' as const },\n    { id: 'success', label: 'Resolved', count: 23, tone: 'success' as const },\n    { id: 'info', label: 'In progress', count: 5, tone: 'info' as const },\n  ];\n  return (\n    <section\n      data-theme={theme}\n      style={{ padding: 32, color: 'var(--ink-1)', background: 'var(--bg)' }}\n    >\n      <span\n        style={{\n          color: 'var(--ink-3)',\n          fontFamily: 'var(--font-mono)',\n          fontSize: 10,\n          letterSpacing: '.16em',\n          textTransform: 'uppercase',\n        }}\n      >\n        Interactive filters{theme ? ` · ${theme}` : ''}\n      </span>\n      <h3\n        style={{\n          margin: '6px 0 4px',\n          fontFamily: 'var(--font-headline)',\n          fontSize: 22,\n        }}\n      >\n        Selection and states\n      </h3>\n      <p\n        style={{\n          maxWidth: '56ch',\n          margin: '0 0 22px',\n          color: 'var(--ink-3)',\n          fontSize: 12.5,\n          lineHeight: 1.55,\n        }}\n      >\n        Multiple selection, period and active filters.\n      </p>\n\n      <div style={{ display: 'grid', gap: 14 }}>\n        <div\n          style={{\n            padding: 22,\n            border: '1px solid var(--line)',\n            borderRadius: 'var(--card-radius)',\n            background: 'var(--surface)',\n          }}\n        >\n          <span\n            style={{\n              display: 'block',\n              marginBottom: 14,\n              color: 'var(--ink-3)',\n              fontFamily: 'var(--font-mono)',\n              fontSize: 10,\n              letterSpacing: '.14em',\n              textTransform: 'uppercase',\n            }}\n          >\n            Filter · severity\n          </span>\n          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>\n            {severity.map((item) => (\n              <Chip\n                key={item.id}\n                tone={item.tone}\n                count={item.count}\n                showCheck\n                selected={severities.includes(item.id)}\n                onClick={() =>\n                  setSeverities((current) =>\n                    current.includes(item.id)\n                      ? current.filter((id) => id !== item.id)\n                      : [...current, item.id],\n                  )\n                }\n              >\n                {item.label}\n              </Chip>\n            ))}\n          </div>\n        </div>\n\n        <div\n          style={{\n            padding: 22,\n            border: '1px solid var(--line)',\n            borderRadius: 'var(--card-radius)',\n            background: 'var(--surface)',\n          }}\n        >\n          <span\n            style={{\n              display: 'block',\n              marginBottom: 14,\n              color: 'var(--ink-3)',\n              fontFamily: 'var(--font-mono)',\n              fontSize: 10,\n              letterSpacing: '.14em',\n              textTransform: 'uppercase',\n            }}\n          >\n            Filter · single selection\n          </span>\n          <div\n            role=\"radiogroup\"\n            aria-label=\"Period\"\n            style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}\n          >\n            {[\n              ['7', '7 days'],\n              ['30', '30 days'],\n              ['90', '90 days'],\n              ['all', 'All'],\n            ].map(([id, label]) => (\n              <Chip\n                key={id}\n                selectionMode=\"radio\"\n                showCheck\n                selected={period === id}\n                onClick={() => setPeriod(id)}\n              >\n                {label}\n              </Chip>\n            ))}\n          </div>\n        </div>\n\n        <div\n          style={{\n            padding: 22,\n            border: '1px solid var(--line)',\n            borderRadius: 'var(--card-radius)',\n            background: 'var(--surface)',\n          }}\n        >\n          <span\n            style={{\n              display: 'block',\n              marginBottom: 14,\n              color: 'var(--ink-3)',\n              fontFamily: 'var(--font-mono)',\n              fontSize: 10,\n              letterSpacing: '.14em',\n              textTransform: 'uppercase',\n            }}\n          >\n            Filter · active + removable\n          </span>\n          <div\n            style={{\n              display: 'flex',\n              flexWrap: 'wrap',\n              alignItems: 'center',\n              gap: 8,\n            }}\n          >\n            {active.map((label) => (\n              <Chip\n                key={label}\n                selected\n                removable\n                onRemove={() =>\n                  setActive((items) => items.filter((item) => item !== label))\n                }\n              >\n                {label}\n              </Chip>\n            ))}\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n}\nexport function Example() {\n  return (\n    <div\n      style={{\n        display: 'grid',\n        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',\n      }}\n    >\n      <ChipShowcase theme=\"light\" />\n      <ChipShowcase theme=\"dark\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "The disabled selection keeps its value and accepts no interaction.",
+      "code": "import { Chip } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 12 }}>\n      <Chip disabled>Filter unavailable</Chip>\n      <Chip disabled selected>\n        Selected filter\n      </Chip>\n    </div>\n  );\n}"
+    }
+  ]
+}

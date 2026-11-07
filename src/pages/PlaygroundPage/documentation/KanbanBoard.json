@@ -1,0 +1,144 @@
+{
+  "id": "KanbanBoard",
+  "description": "Board with global or per-stage WIP, per-column colors and transition rules. Drag by the handle or use keyboard/menu. Column and toolbar actions are composition, with no built-in business rules.",
+  "usage": {
+    "howToUse": [
+      "Use it for work that moves through stages: sales pipeline, tasks, hiring.",
+      "Pass the `columns` with their cards and save the moves in `onColumnsChange`. Open a card in `onCardClick`.",
+      "Set a limit per column with `wipLimit` and the allowed moves with `allowedTransitions`. Check them on your server too: two people can move the same card.",
+      "Each card can also be moved by its menu, without dragging."
+    ],
+    "alternatives": [
+      "Comparing many fields of each item: Table.",
+      "Dates and deadlines: Calendar or Timeline."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Enter` or `Space` on the handle",
+        "action": "Picks up the card, and drops it again."
+      },
+      {
+        "keys": "`←` or `→`",
+        "action": "With the card picked up, chooses the column."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Cancels the move and puts the card back."
+      }
+    ]
+  },
+  "collections": [
+    "operations"
+  ],
+  "publicName": "KanbanBoard",
+  "selected": "Padrao",
+  "import": "import { KanbanBoard } from '@refy-design/web';",
+  "composition": [
+    "Badge",
+    "IconButton",
+    "KanbanCard",
+    "Menu",
+    "Modal",
+    "StatusDot"
+  ],
+  "api": [
+    {
+      "name": "KanbanBoard",
+      "props": [
+        {
+          "name": "columns",
+          "type": "KanbanColumnItem[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onColumnsChange",
+          "type": "((columns: KanbanColumnItem[]) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onCardClick",
+          "type": "((card: KanbanCardItem, column: KanbanColumnItem) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "wipLimit",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Default limit per column; undefined means unlimited."
+        },
+        {
+          "name": "allowedTransitions",
+          "type": "Record<string, readonly string[]> | undefined",
+          "required": false,
+          "description": "Source → allowed targets. A missing key allows all; [] blocks leaving."
+        },
+        {
+          "name": "toolbar",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "filter",
+          "type": "((card: KanbanCardItem, column: KanbanColumnItem) => boolean) | undefined",
+          "required": false,
+          "description": "Filters the display; WIP and moves keep using all cards."
+        },
+        {
+          "name": "onAddCard",
+          "type": "((column: KanbanColumnItem) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "columnActions",
+          "type": "((column: KanbanColumnItem) => MenuEntry[]) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "instructions",
+          "defaultValue": "\"visible\"",
+          "type": "\"hidden\" | \"visible\" | undefined",
+          "required": false,
+          "description": "\"hidden\" removes the drag instruction from the screen and keeps it for screen readers."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { Badge } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport { KanbanBoard } from '@refy-design/web';\nimport { Menu } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport { Select } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport type { ReactNode } from 'react';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nconst s = (children: ReactNode) => (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.7}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    {children}\n  </svg>\n);\nconst Icons = {\n  desktop: s(\n    <>\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\" />\n      <path d=\"M8 21h8M12 16v5\" />\n    </>,\n  ),\n  tablet: s(\n    <>\n      <rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\" />\n      <path d=\"M11 17h2\" />\n    </>,\n  ),\n  phone: s(\n    <>\n      <rect x=\"6\" y=\"2\" width=\"12\" height=\"20\" rx=\"2\" />\n      <path d=\"M11 18h2\" />\n    </>,\n  ),\n  code: s(\n    <>\n      <path d=\"m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16\" />\n    </>,\n  ),\n  dashboard: s(\n    <>\n      <rect x=\"3\" y=\"3\" width=\"7\" height=\"9\" />\n      <rect x=\"14\" y=\"3\" width=\"7\" height=\"5\" />\n      <rect x=\"14\" y=\"12\" width=\"7\" height=\"9\" />\n      <rect x=\"3\" y=\"16\" width=\"7\" height=\"5\" />\n    </>,\n  ),\n  projects: s(\n    <>\n      <path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />\n    </>,\n  ),\n  backlog: s(\n    <>\n      <path d=\"M9 11l3 3L22 4\" />\n      <path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\" />\n    </>,\n  ),\n  monitor: s(\n    <>\n      <path d=\"M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z\" />\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    </>,\n  ),\n  competitors: s(\n    <>\n      <line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\" />\n      <line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\" />\n      <line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\" />\n    </>,\n  ),\n  bell: s(\n    <>\n      <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" />\n      <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />\n    </>,\n  ),\n  settings: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" />\n      <path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\" />\n    </>,\n  ),\n  plus: s(\n    <>\n      <path d=\"M12 5v14M5 12h14\" />\n    </>,\n  ),\n  search: s(\n    <>\n      <circle cx=\"11\" cy=\"11\" r=\"7\" />\n      <path d=\"m21 21-4.3-4.3\" />\n    </>,\n  ),\n  download: s(\n    <>\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </>,\n  ),\n  help: s(\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" />\n      <path d=\"M12 17h.01\" />\n    </>,\n  ),\n};\nexport function Example() {\n  const args: Pick<ComponentProps<typeof KanbanBoard>, 'wipLimit' | 'columns'> = {\n    wipLimit: 4,\n    columns: [\n      {\n        id: 'backlog',\n        title: 'Backlog',\n        color: 'var(--outline)',\n        items: [\n          {\n            id: 'brief',\n            title: 'Prepare new project',\n            description: 'Align goals and organize the starting materials.',\n            meta: (\n              <>\n                <Badge tone=\"neutral\">Normal</Badge>\n                <span>Oct 26</span>\n              </>\n            ),\n            footer: (\n              <>\n                <span>2 attachments · 3 comments</span>\n                <Avatar size=\"xs\" initials=\"CL\" alt=\"Camila Lima\" />\n              </>\n            ),\n          },\n          {\n            id: 'research',\n            title: 'Gather references',\n            description: 'Research approaches for the next review.',\n            meta: <Badge tone=\"neutral\">Normal</Badge>,\n            footer: (\n              <>\n                <span>1 attachment</span>\n                <Avatar size=\"xs\" initials=\"BC\" alt=\"Bruno Costa\" />\n              </>\n            ),\n          },\n        ],\n      },\n      {\n        id: 'review',\n        title: 'To do',\n        color: 'var(--info)',\n        items: [\n          {\n            id: 'agency-1',\n            title: 'Review documentation',\n            description: 'Documents and owner under review.',\n            meta: (\n              <>\n                <Badge tone=\"warn\">High</Badge>\n                <span>Oct 23</span>\n              </>\n            ),\n            footer: (\n              <>\n                <span>2 attachments · 5 comments</span>\n                <Avatar size=\"xs\" initials=\"AS\" alt=\"Ana Silva\" />\n              </>\n            ),\n          },\n        ],\n      },\n      {\n        id: 'waiting',\n        title: 'In progress',\n        color: 'var(--weak)',\n        items: [\n          {\n            id: 'agency-2',\n            title: 'Organize references',\n            description: 'Check the materials the team shared.',\n            meta: (\n              <>\n                <Badge tone=\"info\">Normal</Badge>\n                <span>Oct 24</span>\n              </>\n            ),\n            footer: (\n              <>\n                <span>3 attachments · 1 comment</span>\n                <Avatar size=\"xs\" initials=\"BC\" alt=\"Bruno Costa\" />\n              </>\n            ),\n          },\n        ],\n      },\n      { id: 'done', title: 'In review', color: 'var(--good)', items: [] },\n    ],\n  };\n  const [columns, setColumns] = useState(args.columns);\n  const [query, setQuery] = useState('');\n  const [mine, setMine] = useState(false);\n  const [filterOpen, setFilterOpen] = useState(false);\n  const [orderOpen, setOrderOpen] = useState(false);\n  const [addTo, setAddTo] = useState<string | null>(null);\n  const [title, setTitle] = useState('');\n  const [error, setError] = useState('');\n  useEffect(() => setColumns(args.columns), [args.columns]);\n  function sortColumn(id?: string, reverse = false) {\n    setColumns((before) =>\n      before.map((column) =>\n        !id || id === column.id\n          ? {\n              ...column,\n              items: [...column.items].sort(\n                (a, b) =>\n                  String(a.title).localeCompare(String(b.title)) * (reverse ? -1 : 1),\n              ),\n            }\n          : column,\n      ),\n    );\n  }\n  return (\n    <>\n      <KanbanBoard\n        {...args}\n        columns={columns}\n        onColumnsChange={setColumns}\n        filter={(item) =>\n          String(item.title).toLowerCase().includes(query.toLowerCase()) &&\n          (!mine || item.id === 'agency-1' || item.id === 'brief')\n        }\n        onAddCard={(column) => {\n          setTitle('');\n          setError('');\n          setAddTo(column.id);\n        }}\n        columnActions={(column) => [\n          {\n            id: 'sort',\n            label: 'Sort stage by title',\n            onSelect: () => sortColumn(column.id),\n          },\n        ]}\n        toolbar={\n          <>\n            <Button\n              variant=\"primary\"\n              leadingIcon={Icons.plus}\n              onClick={() => {\n                setTitle('');\n                setError('');\n                setAddTo(columns[0]?.id ?? null);\n              }}\n            >\n              New card\n            </Button>\n            <Input\n              aria-label=\"Search cards\"\n              placeholder=\"Search cards\"\n              value={query}\n              onChange={(event) => setQuery(event.target.value)}\n              style={{ minWidth: 160 }}\n              block={false}\n            />\n            <Menu\n              open={filterOpen}\n              onOpenChange={setFilterOpen}\n              ariaLabel=\"Filter cards\"\n              entries={[\n                { id: 'all', label: 'All cards', onSelect: () => setMine(false) },\n                { id: 'mine', label: 'My cards', onSelect: () => setMine(true) },\n              ]}\n            >\n              <Button aria-pressed={mine} onClick={() => setFilterOpen(!filterOpen)}>\n                {mine ? 'My cards' : 'Filter'}\n              </Button>\n            </Menu>\n            <Menu\n              open={orderOpen}\n              onOpenChange={setOrderOpen}\n              ariaLabel=\"Sort cards\"\n              entries={[\n                { id: 'az', label: 'Title A–Z', onSelect: () => sortColumn() },\n                {\n                  id: 'za',\n                  label: 'Title Z–A',\n                  onSelect: () => sortColumn(undefined, true),\n                },\n              ]}\n            >\n              <Button onClick={() => setOrderOpen(!orderOpen)}>Sort</Button>\n            </Menu>\n          </>\n        }\n      />\n      <Modal open={addTo !== null} onClose={() => setAddTo(null)} title=\"New card\">\n        <form\n          style={{ display: 'grid', gap: 'var(--space-4)' }}\n          onSubmit={(event) => {\n            event.preventDefault();\n            const column = columns.find((column) => column.id === addTo);\n            if (!column || !title.trim()) return;\n            const limit = column.wipLimit ?? args.wipLimit;\n            if (limit !== undefined && column.items.length >= limit) {\n              setError(`WIP limit of ${limit} reached.`);\n              return;\n            }\n            setColumns((before) =>\n              before.map((c) =>\n                c.id === addTo\n                  ? {\n                      ...c,\n                      items: [\n                        ...c.items,\n                        { id: `new-${Date.now()}`, title: title.trim() },\n                      ],\n                    }\n                  : c,\n              ),\n            );\n            setAddTo(null);\n          }}\n        >\n          <Input\n            label=\"Card title\"\n            value={title}\n            onChange={(event) => setTitle(event.target.value)}\n            error={error || undefined}\n            required\n          />\n          <Select\n            label=\"Stage\"\n            value={addTo ?? ''}\n            onChange={(event) => {\n              setAddTo(event.target.value);\n              setError('');\n            }}\n          >\n            {columns.map((column) => (\n              <option key={column.id} value={column.id}>\n                {column.title}\n              </option>\n            ))}\n          </Select>\n          <Button type=\"submit\" variant=\"primary\">\n            Create card\n          </Button>\n        </form>\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "id": "ComRegras",
+      "label": "With rules",
+      "description": "",
+      "code": "import { KanbanBoard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof KanbanBoard>,\n    'wipLimit' | 'columns' | 'allowedTransitions'\n  > = {\n    wipLimit: 2,\n    columns: [\n      {\n        id: 'todo',\n        title: 'To do',\n        color: 'var(--info)',\n        items: [\n          { id: 'a', title: 'Review proposal' },\n          { id: 'b', title: 'Check content' },\n        ],\n      },\n      {\n        id: 'doing',\n        title: 'In progress',\n        color: 'var(--weak)',\n        wipLimit: 1,\n        items: [{ id: 'c', title: 'Validate references' }],\n      },\n      { id: 'review', title: 'In review', color: 'var(--good)', items: [] },\n      {\n        id: 'closed',\n        title: 'Completed',\n        color: 'var(--outline)',\n        wipLimit: 0,\n        items: [],\n      },\n    ],\n    allowedTransitions: { todo: ['doing', 'review'], doing: ['review'], review: [] },\n  };\n  return <KanbanBoard {...args} />;\n}"
+    },
+    {
+      "id": "SemLimite",
+      "label": "No limit",
+      "description": "",
+      "code": "import { Avatar } from '@refy-design/web';\nimport { Badge } from '@refy-design/web';\nimport { KanbanBoard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof KanbanBoard>, 'wipLimit' | 'columns'> = {\n    wipLimit: undefined,\n    columns: [\n      {\n        id: 'backlog',\n        title: 'Backlog',\n        color: 'var(--outline)',\n        items: [\n          {\n            id: 'brief',\n            title: 'Prepare new project',\n            description: 'Align goals and organize the starting materials.',\n            meta: (\n              <>\n                <Badge tone=\"neutral\">Normal</Badge>\n                <span>Oct 26</span>\n              </>\n            ),\n            footer: (\n              <>\n                <span>2 attachments · 3 comments</span>\n                <Avatar size=\"xs\" initials=\"CL\" alt=\"Camila Lima\" />\n              </>\n            ),\n          },\n          {\n            id: 'research',\n            title: 'Gather references',\n            description: 'Research approaches for the next review.',\n            meta: <Badge tone=\"neutral\">Normal</Badge>,\n            footer: (\n              <>\n                <span>1 attachment</span>\n                <Avatar size=\"xs\" initials=\"BC\" alt=\"Bruno Costa\" />\n              </>\n            ),\n          },\n        ],\n      },\n      {\n        id: 'review',\n        title: 'To do',\n        color: 'var(--info)',\n        items: [\n          {\n            id: 'agency-1',\n            title: 'Review documentation',\n            description: 'Documents and owner under review.',\n            meta: (\n              <>\n                <Badge tone=\"warn\">High</Badge>\n                <span>Oct 23</span>\n              </>\n            ),\n            footer: (\n              <>\n                <span>2 attachments · 5 comments</span>\n                <Avatar size=\"xs\" initials=\"AS\" alt=\"Ana Silva\" />\n              </>\n            ),\n          },\n        ],\n      },\n      {\n        id: 'waiting',\n        title: 'In progress',\n        color: 'var(--weak)',\n        items: [\n          {\n            id: 'agency-2',\n            title: 'Organize references',\n            description: 'Check the materials the team shared.',\n            meta: (\n              <>\n                <Badge tone=\"info\">Normal</Badge>\n                <span>Oct 24</span>\n              </>\n            ),\n            footer: (\n              <>\n                <span>3 attachments · 1 comment</span>\n                <Avatar size=\"xs\" initials=\"BC\" alt=\"Bruno Costa\" />\n              </>\n            ),\n          },\n        ],\n      },\n      { id: 'done', title: 'In review', color: 'var(--good)', items: [] },\n    ],\n  };\n  return <KanbanBoard {...args} />;\n}"
+    }
+  ]
+}

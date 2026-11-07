@@ -1,0 +1,244 @@
+{
+  "id": "Multiselect",
+  "description": "Search and selection of multiple options, showing and removing the choices.",
+  "usage": {
+    "howToUse": [
+      "Use it to pick several options from a long list: tags, people, cities.",
+      "Each choice becomes a chip in the field, with its own remove button. Limit how many show with `maxVisibleChips`; the rest becomes a \"+N\" count.",
+      "Use `listPlacement=\"overlay\"` when the list must not push the content below.",
+      "Set `emptyMessage` to say what to do when nothing matches."
+    ],
+    "alternatives": [
+      "Only one choice: Combobox.",
+      "Up to about six options that fit on screen: Checkbox list or ToggleGroup."
+    ],
+    "keyboard": [
+      {
+        "keys": "`↓` or `↑`",
+        "action": "Opens the list and moves between options."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "With the list open, goes to the first or last option."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Selects or clears the highlighted option."
+      },
+      {
+        "keys": "`Backspace`",
+        "action": "With the search empty, removes the last choice."
+      },
+      {
+        "keys": "`Escape` or `Tab`",
+        "action": "Closes the list."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Multiselect",
+  "selected": "Controlled",
+  "import": "import { Multiselect } from '@refy-design/web';",
+  "composition": [
+    "Chip"
+  ],
+  "api": [
+    {
+      "name": "Multiselect",
+      "props": [
+        {
+          "name": "options",
+          "type": "MultiselectOption[]",
+          "required": true,
+          "description": "Available options. The typed text filters the list."
+        },
+        {
+          "name": "value",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "Selected values (controlled)."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "[]",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "Initial selection (uncontrolled)."
+        },
+        {
+          "name": "onChange",
+          "type": "((values: string[]) => void) | undefined",
+          "required": false,
+          "description": "Fired on each change with the full list of values."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Field label (mono eyebrow above the input)."
+        },
+        {
+          "name": "maxVisibleChips",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Optional chip cap; the available space may reduce this number."
+        },
+        {
+          "name": "listPlacement",
+          "defaultValue": "\"inline\"",
+          "type": "\"inline\" | \"overlay\" | undefined",
+          "required": false,
+          "description": "Inline expands the field; overlay sits over the content without shifting the layout."
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Message when no option matches the search."
+        },
+        {
+          "name": "error",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "hint",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "type",
+          "type": "HTMLInputTypeAttribute | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLInputElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: type to filter, Backspace removes the last chip.",
+      "code": "import { Multiselect } from '@refy-design/web';\nimport type { MultiselectOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst areas: MultiselectOption[] = [\n  { value: 'design', label: 'Documentation' },\n  { value: 'content', label: 'Content' },\n  { value: 'links', label: 'Files' },\n  { value: 'perf', label: 'Performance' },\n  { value: 'a11y', label: 'Accessibility' },\n  { value: 'schema', label: 'Schema · JSON-LD' },\n  { value: 'intl', label: 'Internationalization' },\n  { value: 'mobile', label: 'Mobile UX' },\n  { value: 'social', label: 'Open Graph · Cards' },\n  { value: 'index', label: 'Indexing' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Multiselect>,\n    'label' | 'placeholder' | 'options' | 'defaultValue'\n  > = {\n    label: 'Work areas',\n    placeholder: 'Add areas…',\n    options: areas,\n    defaultValue: ['design', 'content', 'links', 'perf', 'a11y', 'schema'],\n  };\n  return <Multiselect {...args} />;\n}"
+    },
+    {
+      "id": "Selected",
+      "label": "With selection",
+      "description": "Three selected: they fit on the line, no fade.",
+      "code": "import { Multiselect } from '@refy-design/web';\nimport type { MultiselectOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst areas: MultiselectOption[] = [\n  { value: 'design', label: 'Documentation' },\n  { value: 'content', label: 'Content' },\n  { value: 'links', label: 'Files' },\n  { value: 'perf', label: 'Performance' },\n  { value: 'a11y', label: 'Accessibility' },\n  { value: 'schema', label: 'Schema · JSON-LD' },\n  { value: 'intl', label: 'Internationalization' },\n  { value: 'mobile', label: 'Mobile UX' },\n  { value: 'social', label: 'Open Graph · Cards' },\n  { value: 'index', label: 'Indexing' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Multiselect>,\n    'label' | 'options' | 'defaultValue' | 'hint'\n  > = {\n    label: 'Work areas',\n    options: areas,\n    defaultValue: ['design', 'content', 'links'],\n    hint: 'Click × to remove, or press Backspace with the input empty.',\n  };\n  return <Multiselect {...args} />;\n}"
+    },
+    {
+      "id": "OverflowScroll",
+      "label": "Overflow · automatic counter",
+      "description": "Seven selected: the visible count depends on the available space.",
+      "code": "import { Multiselect } from '@refy-design/web';\nimport type { MultiselectOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst areas: MultiselectOption[] = [\n  { value: 'design', label: 'Documentation' },\n  { value: 'content', label: 'Content' },\n  { value: 'links', label: 'Files' },\n  { value: 'perf', label: 'Performance' },\n  { value: 'a11y', label: 'Accessibility' },\n  { value: 'schema', label: 'Schema · JSON-LD' },\n  { value: 'intl', label: 'Internationalization' },\n  { value: 'mobile', label: 'Mobile UX' },\n  { value: 'social', label: 'Open Graph · Cards' },\n  { value: 'index', label: 'Indexing' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Multiselect>,\n    'label' | 'options' | 'defaultValue' | 'hint'\n  > = {\n    label: 'Work areas',\n    options: areas,\n    defaultValue: ['design', 'content', 'links', 'perf', 'a11y', 'schema', 'intl'],\n    hint: 'Resize the preview: only whole chips show; the rest goes into the counter.',\n  };\n  return <Multiselect {...args} />;\n}"
+    },
+    {
+      "id": "OverflowCounter",
+      "label": "Overflow · +N counter",
+      "description": "Chips beyond 2 collapse into a +N counter.",
+      "code": "import { Multiselect } from '@refy-design/web';\nimport type { MultiselectOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst areas: MultiselectOption[] = [\n  { value: 'design', label: 'Documentation' },\n  { value: 'content', label: 'Content' },\n  { value: 'links', label: 'Files' },\n  { value: 'perf', label: 'Performance' },\n  { value: 'a11y', label: 'Accessibility' },\n  { value: 'schema', label: 'Schema · JSON-LD' },\n  { value: 'intl', label: 'Internationalization' },\n  { value: 'mobile', label: 'Mobile UX' },\n  { value: 'social', label: 'Open Graph · Cards' },\n  { value: 'index', label: 'Indexing' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Multiselect>,\n    'label' | 'options' | 'defaultValue' | 'maxVisibleChips'\n  > = {\n    label: 'Work areas',\n    options: areas,\n    defaultValue: ['design', 'content', 'links', 'perf', 'a11y'],\n    maxVisibleChips: 2,\n  };\n  return <Multiselect {...args} />;\n}"
+    },
+    {
+      "id": "Controlled",
+      "label": "Controlled",
+      "description": "Controlled: the state lives in the parent and shows below.",
+      "code": "import { Multiselect } from '@refy-design/web';\nimport type { MultiselectOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst areas: MultiselectOption[] = [\n  { value: 'design', label: 'Documentation' },\n  { value: 'content', label: 'Content' },\n  { value: 'links', label: 'Files' },\n  { value: 'perf', label: 'Performance' },\n  { value: 'a11y', label: 'Accessibility' },\n  { value: 'schema', label: 'Schema · JSON-LD' },\n  { value: 'intl', label: 'Internationalization' },\n  { value: 'mobile', label: 'Mobile UX' },\n  { value: 'social', label: 'Open Graph · Cards' },\n  { value: 'index', label: 'Indexing' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Multiselect>, 'label' | 'options'> = {\n    label: 'Work areas',\n    options: areas,\n  };\n  const [values, setValues] = useState<string[]>(['design']);\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n      <Multiselect {...args} value={values} onChange={setValues} />\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-3)' }}\n      >\n        [{values.join(', ') || 'empty'}]\n      </code>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "WithError",
+      "label": "With error",
+      "description": "Error state with a message.",
+      "code": "import { Multiselect } from '@refy-design/web';\nimport type { MultiselectOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst areas: MultiselectOption[] = [\n  { value: 'design', label: 'Documentation' },\n  { value: 'content', label: 'Content' },\n  { value: 'links', label: 'Files' },\n  { value: 'perf', label: 'Performance' },\n  { value: 'a11y', label: 'Accessibility' },\n  { value: 'schema', label: 'Schema · JSON-LD' },\n  { value: 'intl', label: 'Internationalization' },\n  { value: 'mobile', label: 'Mobile UX' },\n  { value: 'social', label: 'Open Graph · Cards' },\n  { value: 'index', label: 'Indexing' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Multiselect>,\n    'label' | 'options' | 'defaultValue' | 'error'\n  > = {\n    label: 'Work areas',\n    options: areas,\n    defaultValue: ['design'],\n    error: 'Select at least two areas.',\n  };\n  return <Multiselect {...args} />;\n}"
+    },
+    {
+      "id": "Disabled",
+      "label": "Disabled",
+      "description": "Disabled field.",
+      "code": "import { Multiselect } from '@refy-design/web';\nimport type { MultiselectOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst areas: MultiselectOption[] = [\n  { value: 'design', label: 'Documentation' },\n  { value: 'content', label: 'Content' },\n  { value: 'links', label: 'Files' },\n  { value: 'perf', label: 'Performance' },\n  { value: 'a11y', label: 'Accessibility' },\n  { value: 'schema', label: 'Schema · JSON-LD' },\n  { value: 'intl', label: 'Internationalization' },\n  { value: 'mobile', label: 'Mobile UX' },\n  { value: 'social', label: 'Open Graph · Cards' },\n  { value: 'index', label: 'Indexing' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Multiselect>,\n    'label' | 'options' | 'defaultValue' | 'disabled'\n  > = {\n    label: 'Work areas',\n    options: areas,\n    defaultValue: ['design', 'content'],\n    disabled: true,\n  };\n  return <Multiselect {...args} />;\n}"
+    },
+    {
+      "id": "Sobreposto",
+      "label": "Overlaid",
+      "description": "Overlaid list, without pushing the content below.",
+      "code": "import { Multiselect } from '@refy-design/web';\nimport type { MultiselectOption } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst areas: MultiselectOption[] = [\n  { value: 'design', label: 'Documentation' },\n  { value: 'content', label: 'Content' },\n  { value: 'links', label: 'Files' },\n  { value: 'perf', label: 'Performance' },\n  { value: 'a11y', label: 'Accessibility' },\n  { value: 'schema', label: 'Schema · JSON-LD' },\n  { value: 'intl', label: 'Internationalization' },\n  { value: 'mobile', label: 'Mobile UX' },\n  { value: 'social', label: 'Open Graph · Cards' },\n  { value: 'index', label: 'Indexing' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Multiselect>,\n    'label' | 'options' | 'defaultValue' | 'listPlacement'\n  > = {\n    label: 'Materials',\n    options: areas,\n    defaultValue: ['design', 'content'],\n    listPlacement: 'overlay',\n  };\n  return <Multiselect {...args} />;\n}"
+    }
+  ]
+}

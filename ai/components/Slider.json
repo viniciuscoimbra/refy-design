@@ -1,0 +1,223 @@
+{
+  "id": "Slider",
+  "description": "Pick a numeric value by dragging, track or keyboard.",
+  "usage": {
+    "howToUse": [
+      "Use it for a value where the position matters more than the exact number: volume, opacity, intensity.",
+      "Give it a `label`; use `hideLabel` in compact bars, where the name stays only for screen readers.",
+      "Use `marks` when only a few steps are valid (1 to 5), and `ticks` to name the ends (\"Shallow\", \"Deep\")."
+    ],
+    "alternatives": [
+      "Two ends: Range.",
+      "An exact number: Input with `type=\"number\"`."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the handle."
+      },
+      {
+        "keys": "`←` `→` `↓` `↑`",
+        "action": "Moves one step. With `Shift`, ten steps."
+      },
+      {
+        "keys": "`PageUp` or `PageDown`",
+        "action": "Moves by ten steps."
+      },
+      {
+        "keys": "`Home` or `End`",
+        "action": "Goes to the lowest or highest value."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Slider",
+  "selected": "Controlled",
+  "import": "import { Slider } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Slider",
+      "props": [
+        {
+          "name": "min",
+          "defaultValue": "0",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "defaultValue": "100",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "step",
+          "defaultValue": "1",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Keyboard and value grid increment. Default 1."
+        },
+        {
+          "name": "value",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Controlled value."
+        },
+        {
+          "name": "defaultValue",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Initial value (uncontrolled). Default: `min`."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: number) => void) | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Control name, shown above the track."
+        },
+        {
+          "name": "hideLabel",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Keeps `label` as the accessible name without showing it (compact bars, such as a player's)."
+        },
+        {
+          "name": "formatValue",
+          "defaultValue": "String",
+          "type": "((value: number) => string) | undefined",
+          "required": false,
+          "description": "Formats the value in the readout and in `aria-valuetext` (e.g. `(v) => v + \"%\"`)."
+        },
+        {
+          "name": "showValue",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Mono pill with the current value. Default `true` when there is a `label`."
+        },
+        {
+          "name": "ticks",
+          "type": "[string, string] | undefined",
+          "required": false,
+          "description": "Captions at the ends of the track (e.g. [\"Shallow\", \"Deep\"])."
+        },
+        {
+          "name": "marks",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": "Discrete slider: one label per step, draws the points and the label ruler."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Playground: continuous 0–100 with a % readout.",
+      "code": "import { Slider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Slider>,\n    'label' | 'defaultValue' | 'formatValue' | 'ticks'\n  > = {\n    label: 'Detail level',\n    defaultValue: 35,\n    formatValue: (v: number) => `${v}%`,\n    ticks: ['Shallow', 'Deep'],\n  };\n  return <Slider {...args} />;\n}"
+    },
+    {
+      "id": "Decimal",
+      "label": "Decimal step",
+      "description": "Decimal step (0.1), threshold from 0 to 10.",
+      "code": "import { Slider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Slider>,\n    'label' | 'min' | 'max' | 'step' | 'defaultValue' | 'formatValue' | 'ticks'\n  > = {\n    label: 'Priority threshold',\n    min: 0,\n    max: 10,\n    step: 0.1,\n    defaultValue: 7,\n    formatValue: (v: number) => v.toFixed(1),\n    ticks: ['0', '10'],\n  };\n  return <Slider {...args} />;\n}"
+    },
+    {
+      "id": "Discreto",
+      "label": "Discrete · marks",
+      "description": "Discrete with `marks`: points on the track and a label per step.",
+      "code": "import { Slider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Slider>,\n    'label' | 'min' | 'max' | 'step' | 'defaultValue' | 'marks' | 'formatValue'\n  > = {\n    label: 'Monitoring frequency',\n    min: 0,\n    max: 4,\n    step: 1,\n    defaultValue: 2,\n    marks: ['Hourly', 'Daily', 'Weekly', 'Biweekly', 'Monthly'],\n    formatValue: (v: number) => ['Hourly', 'Daily', 'Weekly', 'Biweekly', 'Monthly'][v],\n  };\n  return <Slider {...args} />;\n}"
+    },
+    {
+      "id": "Controlled",
+      "label": "Controlled",
+      "description": "Controlled: the value lives in the parent.",
+      "code": "import { Slider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Slider>, 'label'> = { label: 'Depth' };\n  const [v, setV] = useState(50);\n  return (\n    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n      <Slider {...args} value={v} onChange={setV} formatValue={(x) => `${x}%`} />\n      <code\n        style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ink-3)' }}\n      >\n        value: {v}\n      </code>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Disabled",
+      "label": "Disabled",
+      "description": "Disabled.",
+      "code": "import { Slider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Slider>,\n    'label' | 'defaultValue' | 'formatValue' | 'disabled'\n  > = {\n    label: 'Detail level',\n    defaultValue: 35,\n    formatValue: (v: number) => `${v}%`,\n    disabled: true,\n  };\n  return <Slider {...args} />;\n}"
+    }
+  ]
+}

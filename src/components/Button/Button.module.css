@@ -1,0 +1,185 @@
+.btn {
+  --button-progress-duration: 3.5s;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: var(--button-border-width, 1px) var(--control-border-style, solid) transparent;
+  border-radius: var(--button-radius, var(--radius-default));
+  font-family: var(--font-body);
+  font-weight: var(--control-font-weight, var(--weight-semi));
+  line-height: var(--control-line-height, normal);
+  --button-resting-shadow: var(--control-shadow, none);
+  box-shadow: var(--button-resting-shadow);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    transform var(--control-transform-duration, var(--motion-feedback-duration)) var(--control-transform-ease, var(--ease-emph)), scale var(--motion-feedback-duration) var(--motion-ease-enter);
+}
+.btn:disabled {
+  opacity: var(--control-disabled-opacity, 0.55);
+  box-shadow: var(--control-disabled-shadow, var(--button-resting-shadow));
+  cursor: not-allowed;
+}
+
+/* Sizes */
+.md {
+  height: var(--button-height-md, 34px);
+  padding: 0 var(--button-padding-md, 14px);
+  font-size: var(--control-font-size, var(--text-sm));
+}
+/* Destaque (chamadas principais de página). */
+.lg {
+  height: var(--button-height-lg, 40px);
+  padding: 0 var(--button-padding-lg, 18px);
+  font-size: var(--control-font-size, var(--text-sm));
+}
+.sm {
+  height: var(--button-height-sm, 28px);
+  padding: 0 var(--button-padding-sm, 10px);
+  font-size: var(--control-font-size-sm, var(--text-xs));
+}
+.block {
+  width: 100%;
+}
+
+/* Variants */
+.primary {
+  --button-resting-shadow: var(--button-primary-shadow, var(--legacy-button-shadow));
+  background: var(--button-primary-background, var(--primary));
+  border-color: var(--button-primary-border, transparent);
+  color: var(--button-primary-foreground, var(--on-primary));
+  box-shadow: var(--button-primary-shadow, var(--legacy-button-shadow));
+}
+.primary:not(:disabled):is(:hover, [data-refy-interaction="hover"]) {
+  background: var(--button-primary-background-hover, var(--primary-hover, var(--primary)));
+  color: var(--button-primary-foreground-hover, var(--on-primary));
+}
+.primary:not(:disabled):is(:active, [data-refy-interaction="pressed"]) {
+  background: var(--button-primary-background-active, var(--primary-container));
+  color: var(--button-primary-foreground-active, var(--on-primary-container));
+}
+
+/* field: a button that reads as a field (search, picker). */
+.btn.field {
+  justify-content: flex-start;
+  background: var(--button-field-background, var(--surface-2));
+  color: var(--button-field-foreground, var(--ink-3));
+  border-color: var(--button-field-border, var(--line));
+  font-weight: var(--button-field-weight, var(--weight-regular));
+}
+.btn.field:not(:disabled):is(:hover, [data-refy-interaction="hover"]) {
+  border-color: var(--button-field-border-hover, var(--line-strong, var(--line)));
+  color: var(--ink-2);
+}
+a.btn {
+  text-decoration: none;
+}
+.secondary {
+  background: var(--button-secondary-background, var(--surface));
+  color: var(--button-secondary-foreground, var(--ink-1));
+  border-color: var(--button-secondary-border, var(--legacy-line));
+}
+.secondary:not(:disabled):is(:hover, [data-refy-interaction="hover"]) {
+  background: var(--button-secondary-background-hover, var(--surface-2));
+  border-color: var(--button-secondary-border-hover, var(--legacy-line-strong));
+}
+.secondary:not(:disabled):is(:active, [data-refy-interaction="pressed"]) {
+  background: var(--button-secondary-background-active, color-mix(in srgb, var(--ink-1) 8%, var(--surface)));
+}
+
+.ghost {
+  box-shadow: none;
+  background: var(--button-ghost-background, transparent);
+  color: var(--button-ghost-foreground, var(--ink-2));
+}
+.ghost:not(:disabled):is(:hover, [data-refy-interaction="hover"]) {
+  background: var(--button-ghost-background-hover, var(--surface-2));
+  color: var(--button-ghost-foreground-hover, var(--ink-1));
+}
+.ghost:not(:disabled):is(:active, [data-refy-interaction="pressed"]) {
+  background: var(--button-ghost-background-active, color-mix(in srgb, var(--ink-1) 10%, transparent));
+}
+
+.danger {
+  background: var(--button-danger-background, var(--surface));
+  color: var(--button-danger-foreground, var(--critical));
+  border-color: var(--button-danger-border, var(--legacy-danger-line));
+}
+.danger:not(:disabled):is(:hover, [data-refy-interaction="hover"]) {
+  background: var(--button-danger-background-hover, var(--critical-soft));
+  border-color: var(--button-danger-border-hover, var(--legacy-danger-line-hover));
+}
+.danger:not(:disabled):is(:active, [data-refy-interaction="pressed"]) {
+  background: var(--button-danger-background-active, color-mix(in srgb, var(--critical) 16%, var(--surface)));
+}
+
+/* Icons */
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.icon :global(svg) {
+  width: var(--control-icon-size-sm, 14px);
+  height: var(--control-icon-size-sm, 14px);
+  display: block;
+}
+.label {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+}
+
+/* Loading spinner */
+.loading {
+  cursor: progress;
+}
+.loading:disabled {
+  opacity: 1;
+}
+.success, .success:not(:disabled):is(:hover, [data-refy-interaction="hover"]), .success:not(:disabled):is(:active, [data-refy-interaction="pressed"]) { background: var(--good); color: var(--on-good); }
+.error, .error:not(:disabled):is(:hover, [data-refy-interaction="hover"]), .error:not(:disabled):is(:active, [data-refy-interaction="pressed"]) { background: var(--critical); color: var(--on-critical); }
+.feedbackIcon { position: relative; z-index: 2; font-size: 16px; line-height: 1; }
+.progress { position: absolute; z-index: 1; pointer-events: none; }
+.spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  opacity: 0.85;
+  animation: btn-spin 0.6s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 01–02 · fill */
+.effect-fill-horizontal .progress { inset: 0; background: color-mix(in srgb, currentColor 22%, transparent); transform-origin: left; animation: btn-fill-x var(--button-progress-duration) linear forwards; }
+.effect-fill-vertical .progress { inset: 0; background: color-mix(in srgb, currentColor 22%, transparent); transform-origin: bottom; animation: btn-fill-y var(--button-progress-duration) linear forwards; }
+@keyframes btn-fill-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes btn-fill-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+/* Aliases legados preservam o alvo e o rótulo durante processamento. */
+.effect-top-line .progress { left: 0; right: 0; top: 0; height: 3px; background: currentColor; transform-origin: left; animation: btn-fill-x var(--button-progress-duration) linear forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .btn, .btn *, .progress { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .loading { transform: none !important; }
+}
+
+.btn:focus-visible { outline: var(--control-focus-outline, 2px solid var(--primary-ink)); outline-offset: var(--control-focus-offset, 3px); }
+.btn:not(:disabled):is(:active, [data-refy-interaction="pressed"]) { transform: var(--control-pressed-transform, none); box-shadow: var(--control-pressed-shadow, var(--button-resting-shadow)); }
+.ghost:not(:disabled):is(:active, [data-refy-interaction="pressed"]) { transform: none; box-shadow: none; }
+
+.btn:not(:disabled):is(:active, [data-refy-interaction="pressed"]) { scale: var(--motion-pressed-scale, .97); }
+@media (prefers-reduced-motion: reduce) { .btn:not(:disabled):is(:active, [data-refy-interaction="pressed"]) { scale: none; } }

@@ -1,0 +1,285 @@
+{
+  "id": "Button",
+  "description": "An action triggered by mouse, touch or keyboard, with progress and result states.",
+  "usage": {
+    "howToUse": [
+      "Write the label as the action it performs, with a verb: \"Save changes\", \"Send invite\".",
+      "Keep one `primary` button per area. Other actions in the same area use `secondary` or `ghost`.",
+      "Use `danger` only for an action that deletes or cannot be undone, and confirm it first with AlertDialog.",
+      "While the action runs, set `loading` (or `status=\"loading\"`): the button shows progress and ignores new clicks. Use `status=\"success\"` or `\"error\"` to show the result in the button itself.",
+      "Use `block` in narrow columns and on mobile, where the button takes the full width."
+    ],
+    "alternatives": [
+      "Going to another page: Button with `href`, which renders a link, or NavCard.",
+      "An action with only an icon: IconButton.",
+      "Several actions grouped under one: SplitButton or Menu."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves focus to the button. A disabled button is skipped."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the action. Nothing happens while it is loading."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "Button",
+  "selected": "TodasVariantes",
+  "import": "import { Button } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Button",
+      "props": [
+        {
+          "name": "variant",
+          "defaultValue": "\"secondary\"",
+          "type": "ButtonVariant | undefined",
+          "required": false,
+          "description": "Visual hierarchy. Primary uses the text set by the on-primary token."
+        },
+        {
+          "name": "appearance",
+          "defaultValue": "\"default\"",
+          "type": "\"default\" | \"field\" | undefined",
+          "required": false,
+          "description": "Web: `field` makes the button read as a field (search, picker), with field background and text."
+        },
+        {
+          "name": "href",
+          "type": "string | undefined",
+          "required": false,
+          "description": "With `href`, the button is a link (`<a>`) with the same look. Disabled or loading, it goes back to being a button."
+        },
+        {
+          "name": "target",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link target when there is an `href`."
+        },
+        {
+          "name": "rel",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Link `rel`; with `target=\"_blank\"` the default is `noreferrer`."
+        },
+        {
+          "name": "interactionState",
+          "type": "\"hover\" | \"pressed\" | undefined",
+          "required": false,
+          "description": "Visual preview of a linked gesture; it does not click or change disabled."
+        },
+        {
+          "name": "size",
+          "defaultValue": "\"md\"",
+          "type": "ButtonSize | undefined",
+          "required": false,
+          "description": "Size variant."
+        },
+        {
+          "name": "leadingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon to the left of the label (16px recommended)."
+        },
+        {
+          "name": "trailingIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon to the right of the label."
+        },
+        {
+          "name": "loading",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows a spinner and blocks clicks."
+        },
+        {
+          "name": "status",
+          "defaultValue": "\"idle\"",
+          "type": "ButtonStatus | undefined",
+          "required": false,
+          "description": "Explicit state to show completion or error; `loading` stays compatible."
+        },
+        {
+          "name": "progressEffect",
+          "defaultValue": "\"spinner\"",
+          "type": "ButtonProgressEffect | undefined",
+          "required": false,
+          "description": "Loading: spinner, fill or line. Older spin/shrink options use the line without hiding the label."
+        },
+        {
+          "name": "loadingLabel",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Accessible/visible label while processing."
+        },
+        {
+          "name": "block",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Takes 100% of the container width."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "type",
+          "type": "\"submit\" | \"reset\" | \"button\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Value in controlled state."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLButtonElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLButtonElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Primary",
+      "label": "Primary",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Button>, 'children' | 'variant' | 'size'> = {\n    children: 'Continue',\n    variant: 'primary',\n    size: 'md',\n  };\n  return <Button {...args} />;\n}"
+    },
+    {
+      "id": "Secondary",
+      "label": "Secondary",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Button>, 'children' | 'variant' | 'size'> = {\n    children: 'Cancel',\n    variant: 'secondary',\n    size: 'md',\n  };\n  return <Button {...args} />;\n}"
+    },
+    {
+      "id": "Ghost",
+      "label": "Ghost",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Button>, 'children' | 'variant' | 'size'> = {\n    children: 'View details',\n    variant: 'ghost',\n    size: 'md',\n  };\n  return <Button {...args} />;\n}"
+    },
+    {
+      "id": "Danger",
+      "label": "Danger",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Button>, 'children' | 'variant' | 'size'> = {\n    children: 'Cancel plan',\n    variant: 'danger',\n    size: 'md',\n  };\n  return <Button {...args} />;\n}"
+    },
+    {
+      "id": "ComIcone",
+      "label": "With icon",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst PlusIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={2.2}\n    strokeLinecap=\"round\"\n  >\n    <path d=\"M12 5v14M5 12h14\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Button>,\n    'children' | 'variant' | 'size' | 'leadingIcon'\n  > = {\n    children: 'New project',\n    variant: 'primary',\n    size: 'md',\n    leadingIcon: PlusIcon,\n  };\n  return <Button {...args} />;\n}"
+    },
+    {
+      "id": "Carregando",
+      "label": "Loading",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Button>,\n    'children' | 'variant' | 'size' | 'loading'\n  > = { children: 'Analyzing', variant: 'primary', size: 'md', loading: true };\n  return <Button {...args} />;\n}"
+    },
+    {
+      "id": "Concluido",
+      "label": "Done",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Button>,\n    'children' | 'variant' | 'size' | 'status'\n  > = { children: 'Completed', variant: 'primary', size: 'md', status: 'success' };\n  return <Button {...args} />;\n}"
+    },
+    {
+      "id": "Erro",
+      "label": "Error",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Button>,\n    'children' | 'variant' | 'size' | 'status'\n  > = { children: 'Try again', variant: 'primary', size: 'md', status: 'error' };\n  return <Button {...args} />;\n}"
+    },
+    {
+      "id": "TodasVariantes",
+      "label": "All variants",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [lastAction, setLastAction] = useState('Choose an action.');\n  return (\n    <div style={{ display: 'grid', gap: 16 }}>\n      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>\n        <Button variant=\"primary\" onClick={() => setLastAction('Primary action done.')}>\n          Primary\n        </Button>\n        <Button\n          variant=\"secondary\"\n          onClick={() => setLastAction('Secondary action done.')}\n        >\n          Secondary\n        </Button>\n        <Button variant=\"ghost\" onClick={() => setLastAction('Subtle action done.')}>\n          Ghost\n        </Button>\n        <Button\n          variant=\"danger\"\n          onClick={() => setLastAction('Warning action done in this example.')}\n        >\n          Danger\n        </Button>\n      </div>\n      <p role=\"status\" style={{ margin: 0, color: 'var(--ink-2)' }}>\n        {lastAction}\n      </p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "EfeitosDeProgresso",
+      "label": "Loading and compatibility",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport type { ButtonProgressEffect } from '@refy-design/web';\nimport { useEffect } from 'react';\nimport { useState } from 'react';\nconst progressEffects: ButtonProgressEffect[] = [\n  'fill-horizontal',\n  'fill-vertical',\n  'shrink-horizontal',\n  'shrink-vertical',\n  'rotate-angle-bottom',\n  'rotate-angle-top',\n  'rotate-angle-left',\n  'rotate-angle-right',\n  'rotate-side-down',\n  'rotate-side-up',\n  'rotate-side-left',\n  'rotate-side-right',\n  'rotate-back',\n  'flip-open',\n  'slide-down',\n  'move-up',\n  'top-line',\n  'lateral-lines',\n];\nfunction ProgressButtonDemo({\n  effect,\n  runSignal,\n}: {\n  effect: ButtonProgressEffect;\n  runSignal: number;\n}) {\n  const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');\n  function run() {\n    setStatus('loading');\n    window.setTimeout(() => setStatus('success'), 3500);\n    window.setTimeout(() => setStatus('idle'), 4700);\n  }\n  useEffect(() => {\n    if (runSignal > 0) run();\n  }, [runSignal]);\n  return (\n    <Button\n      variant=\"primary\"\n      status={status}\n      progressEffect={effect}\n      loadingLabel=\"Processing…\"\n      onClick={run}\n      style={{ width: 190, height: 46 }}\n    >\n      {status === 'success' ? 'Completed' : 'Run'}\n    </Button>\n  );\n}\nexport function Example() {\n  const [runSignal, setRunSignal] = useState(0);\n  return (\n    <section\n      style={{\n        minHeight: '100vh',\n        padding: '42px 36px 72px',\n        color: 'var(--ink-1)',\n        background: 'var(--bg)',\n      }}\n    >\n      <header\n        style={{\n          display: 'flex',\n          alignItems: 'end',\n          justifyContent: 'space-between',\n          gap: 24,\n          maxWidth: 1280,\n          margin: '0 auto 30px',\n          paddingBottom: 24,\n          borderBottom: '1px solid var(--line)',\n        }}\n      >\n        <div>\n          <h2 style={{ margin: 0, fontFamily: 'var(--font-headline)', fontSize: 32 }}>\n            Processing states\n          </h2>\n          <p\n            style={{\n              margin: '6px 0 0',\n              color: 'var(--ink-3)',\n              fontFamily: 'var(--font-mono)',\n              fontSize: 11,\n              letterSpacing: '.16em',\n              textTransform: 'uppercase',\n            }}\n          >\n            Spin and shrink aliases use one line; the button and its text stay stable\n          </p>\n        </div>\n        <Button variant=\"secondary\" onClick={() => setRunSignal((value) => value + 1)}>\n          Run all\n        </Button>\n      </header>\n      <div\n        style={{\n          display: 'grid',\n          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',\n          gap: 18,\n          maxWidth: 1280,\n          margin: '0 auto',\n        }}\n      >\n        {progressEffects.map((effect, index) => (\n          <div\n            key={effect}\n            style={{\n              display: 'grid',\n              minHeight: 170,\n              alignContent: 'space-between',\n              gap: 24,\n              padding: 22,\n              border: '1px solid var(--line)',\n              borderRadius: 'var(--radius-lg-token)',\n              background: 'var(--surface)',\n            }}\n          >\n            <span\n              style={{\n                color: 'var(--ink-3)',\n                fontFamily: 'var(--font-mono)',\n                fontSize: 10,\n                letterSpacing: '.14em',\n                textTransform: 'uppercase',\n              }}\n            >\n              {String(index + 1).padStart(2, '0')} · {effect}\n            </span>\n            <div style={{ display: 'grid', placeItems: 'center', minHeight: 72 }}>\n              <ProgressButtonDemo effect={effect} runSignal={runSignal} />\n            </div>\n          </div>\n        ))}\n      </div>\n    </section>\n  );\n}"
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "id": "ButtonGroup",
+  "description": "Grouping of related controls; selection and events belong to the child components.",
+  "usage": {
+    "howToUse": [
+      "Use it to join buttons that act on the same thing, such as align left, center and right, or zoom out and zoom in.",
+      "Give the group a `label` that names the set (\"Text alignment\").",
+      "When one button stays marked as active, control it with `activeIndex` and `onActiveIndexChange`.",
+      "Use `orientation=\"vertical\"` in toolbars on the side of the screen."
+    ],
+    "alternatives": [
+      "Choosing one value for a form: Segmented or RadioGroup.",
+      "Turning several options on and off: ToggleGroup."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from one button of the group to the next."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the button in focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ButtonGroup",
+  "selected": "Horizontal",
+  "import": "import { ButtonGroup } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "ButtonGroup",
+      "props": [
+        {
+          "name": "orientation",
+          "defaultValue": "\"horizontal\"",
+          "type": "\"horizontal\" | \"vertical\" | undefined",
+          "required": false,
+          "description": "Visual axis of the set of actions."
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Accessible name of the action group."
+        },
+        {
+          "name": "defaultActiveIndex",
+          "defaultValue": "0",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Initial active index. The group keeps a single active option."
+        },
+        {
+          "name": "activeIndex",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Controlled active index."
+        },
+        {
+          "name": "onActiveIndexChange",
+          "type": "((index: number) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Horizontal",
+      "label": "Horizontal",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { ButtonGroup } from '@refy-design/web';\nfunction SelectionDemo({\n  orientation = 'horizontal',\n  labels,\n}: {\n  orientation?: 'horizontal' | 'vertical';\n  labels: string[];\n}) {\n  return (\n    <ButtonGroup orientation={orientation} label=\"View format\" defaultActiveIndex={0}>\n      {labels.map((label) => (\n        <Button key={label}>{label}</Button>\n      ))}\n    </ButtonGroup>\n  );\n}\nexport function Example() {\n  return <SelectionDemo labels={['List', 'Map', 'Gallery']} />;\n}"
+    },
+    {
+      "id": "Estados",
+      "label": "States",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { ButtonGroup } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ButtonGroup>, 'orientation' | 'label'> = {\n    orientation: 'horizontal',\n    label: 'File actions',\n  };\n  return (\n    <ButtonGroup {...args}>\n      <Button>First</Button>\n      <Button>Second</Button>\n      <Button disabled>Unavailable</Button>\n    </ButtonGroup>\n  );\n}"
+    },
+    {
+      "id": "Vertical",
+      "label": "Vertical",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { ButtonGroup } from '@refy-design/web';\nfunction SelectionDemo({\n  orientation = 'horizontal',\n  labels,\n}: {\n  orientation?: 'horizontal' | 'vertical';\n  labels: string[];\n}) {\n  return (\n    <ButtonGroup orientation={orientation} label=\"View format\" defaultActiveIndex={0}>\n      {labels.map((label) => (\n        <Button key={label}>{label}</Button>\n      ))}\n    </ButtonGroup>\n  );\n}\nexport function Example() {\n  return (\n    <SelectionDemo orientation=\"vertical\" labels={['Compact', 'Comfortable', 'Wide']} />\n  );\n}"
+    }
+  ]
+}

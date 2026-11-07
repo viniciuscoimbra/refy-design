@@ -1,0 +1,92 @@
+{
+  "id": "EmptyState",
+  "description": "Empty state that explains the situation and offers a next action when it applies.",
+  "usage": {
+    "howToUse": [
+      "Use it where a list or area has nothing to show: first visit, a search with no results, a finished queue.",
+      "Say why it is empty in the `title` and what to do in the `message`: \"No invoices yet\" / \"Invoices show up here after the first sale\".",
+      "Offer the next step in `action`: create the first item, or clear the filters."
+    ],
+    "alternatives": [
+      "Content still loading: Skeleton.",
+      "Something failed: Callout with `tone=\"danger\"`."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves to the action, when there is one. The message does not receive focus."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "EmptyState",
+  "selected": "Interativo",
+  "import": "import { EmptyState } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "EmptyState",
+      "props": [
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon inside the frame (via prop, never bundled)."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "message",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Explanatory copy (max ~36ch)."
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Optional CTA (e.g. <Button>Clear filters</Button>)."
+        },
+        {
+          "name": "bordered",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Dashed border around it, signaling absence. Default `true`."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Playground",
+      "label": "Playground",
+      "description": "Search with no results, with a CTA.",
+      "code": "import { Button } from '@refy-design/web';\nimport { EmptyState } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst SearchIcon = (\n  <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"1.5\">\n    <circle cx=\"11\" cy=\"11\" r=\"8\" />\n    <path d=\"m21 21-4.3-4.3\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof EmptyState>,\n    'icon' | 'title' | 'message' | 'action'\n  > = {\n    icon: SearchIcon,\n    title: 'No items found',\n    message: 'Try removing filters or changing the search. You have 12 items in total.',\n    action: <Button size=\"sm\">Clear filters</Button>,\n  };\n  return <EmptyState {...args} />;\n}"
+    },
+    {
+      "id": "SemBorda",
+      "label": "No border",
+      "description": "No border (inside a card that already has a frame).",
+      "code": "import { EmptyState } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst SearchIcon = (\n  <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"1.5\">\n    <circle cx=\"11\" cy=\"11\" r=\"8\" />\n    <path d=\"m21 21-4.3-4.3\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof EmptyState>,\n    'icon' | 'title' | 'message' | 'bordered'\n  > = {\n    icon: SearchIcon,\n    title: 'No analyses yet',\n    message: 'Run your first analysis to see the results here.',\n    bordered: false,\n  };\n  return <EmptyState {...args} />;\n}"
+    },
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Button } from '@refy-design/web';\nimport { EmptyState } from '@refy-design/web';\nimport { Input } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction EmptyStateExample() {\n  const [query, setQuery] = useState('No results');\n  return (\n    <div style={stack}>\n      <Input\n        label=\"Filter materials\"\n        value={query}\n        onChange={(e) => setQuery(e.target.value)}\n      />\n      {['Content guide', 'Visual references'].filter((name) =>\n        name.toLowerCase().includes(query.toLowerCase()),\n      ).length ? (\n        <ul>\n          {['Content guide', 'Visual references']\n            .filter((name) => name.toLowerCase().includes(query.toLowerCase()))\n            .map((name) => (\n              <li key={name}>{name}</li>\n            ))}\n        </ul>\n      ) : (\n        <EmptyState\n          title=\"No items found\"\n          message=\"Remove the filter to see the materials.\"\n          action={<Button onClick={() => setQuery('')}>Clear filters</Button>}\n        />\n      )}\n    </div>\n  );\n}\nexport function Example() {\n  return <EmptyStateExample />;\n}"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "id": "Message",
+  "description": "Conversation message with identity, content, time and optional actions.",
+  "usage": {
+    "howToUse": [
+      "Use it for a message of a conversation with author and time: support chat, comments, an assistant.",
+      "Fill `author`, `initials` and `time`; set `side` to tell who speaks.",
+      "Your application sends and receives the messages."
+    ],
+    "alternatives": [
+      "Only the bubble, without author: Bubble.",
+      "The list of messages with scroll: MessageScroller."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The message does not receive focus. Its links and actions do."
+      }
+    ]
+  },
+  "collections": [
+    "conversation"
+  ],
+  "publicName": "Message",
+  "selected": "Interativo",
+  "import": "import { Message } from '@refy-design/web';",
+  "composition": [
+    "Avatar",
+    "Bubble"
+  ],
+  "api": [
+    {
+      "name": "Message",
+      "props": [
+        {
+          "name": "author",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "initials",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "time",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "side",
+          "defaultValue": "\"start\"",
+          "type": "\"start\" | \"end\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { Message } from '@refy-design/web';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction MessageExample() {\n  return (\n    <div style={{ ...stack, maxWidth: '48rem' }}>\n      <Message author=\"Ana Lima\" initials=\"AL\" time=\"10:30\">\n        The library is ready for review. Check the references before approving the\n        material.\n      </Message>\n      <Message author=\"You\" initials=\"VC\" time=\"10:32\" side=\"end\">\n        I'll review the files and log the comments here.\n      </Message>\n    </div>\n  );\n}\nexport function Example() {\n  return <MessageExample />;\n}"
+    }
+  ]
+}

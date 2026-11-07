@@ -1,0 +1,111 @@
+{
+  "id": "AlertDialog",
+  "description": "Confirmation of an important action, with explicit confirm or cancel options.",
+  "usage": {
+    "howToUse": [
+      "Use it to confirm an action that deletes, charges or cannot be undone.",
+      "Write the `title` as a question with the object (\"Delete project Refy?\") and say what is lost in the text.",
+      "Name the button with the action (`confirmLabel` \"Delete\"), never \"OK\". Use `destructive` for deletion.",
+      "While your server runs the action, set `pending`; show the error in the dialog if it fails."
+    ],
+    "alternatives": [
+      "A task with a form: Modal.",
+      "An action that can be undone: run it and offer \"Undo\" in a Toast."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab` or `Shift` + `Tab`",
+        "action": "Moves between cancel and confirm, without leaving the dialog."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Runs the button in focus."
+      },
+      {
+        "keys": "`Escape`",
+        "action": "Cancels and returns focus to where it was."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "AlertDialog",
+  "selected": "Interativo",
+  "import": "import { AlertDialog } from '@refy-design/web';",
+  "composition": [
+    "Button",
+    "Modal"
+  ],
+  "api": [
+    {
+      "name": "AlertDialog",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Content title."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onConfirm",
+          "type": "() => void",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "confirmLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "cancelLabel",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "destructive",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "pending",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Interativo",
+      "label": "Interactive",
+      "description": "",
+      "code": "import { AlertDialog } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { useState } from 'react';\nfunction AlertDialogExample() {\n  const [open, setOpen] = useState(false),\n    [removed, setRemoved] = useState(false);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)} disabled={removed}>\n        Remove material\n      </Button>\n      <AlertDialog\n        open={open}\n        onOpenChange={setOpen}\n        title=\"Remove this material?\"\n        confirmLabel=\"Remove\"\n        destructive\n        onConfirm={() => {\n          setRemoved(true);\n          setOpen(false);\n        }}\n      >\n        The sample material will be removed from this session.\n      </AlertDialog>\n      {removed && (\n        <>\n          <p role=\"status\">Material removed.</p>\n          <Button onClick={() => setRemoved(false)}>Restore material</Button>\n        </>\n      )}\n    </>\n  );\n}\nexport function Example() {\n  return <AlertDialogExample />;\n}"
+    }
+  ]
+}

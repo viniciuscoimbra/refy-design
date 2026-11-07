@@ -1,0 +1,44 @@
+schema: spec-driven
+context: |
+  Refy UI (@refy-design/web) é uma biblioteca pública React/TypeScript sob MIT,
+  de autoria de Vinícius Coimbra. Baseline: commit c3f03fd, versão 0.4.0,
+  92 famílias e 371 stories; esses números não comprovam certificação.
+  Stack: Node >=22.12, React, CSS Modules, Vite e Storybook.
+  O mantenedor autorizou executar as cinco fases em 21/10/2026.
+  Cumprir cada gate e registrar evidência real antes de liberar a próxima fase;
+  publicação e homologação dependem dos critérios explícitos da fase final.
+  Ordem: establish-refy-governance -> standardize-refy-foundations ->
+  certify-refy-core-components -> standardize-refy-documentation ->
+  establish-refy-release-and-adoption.
+  Em 22/10/2026, o mantenedor priorizou restore-refy-visual-coherence.
+  Recuperação visual, catálogo neutro, skins e evidência antes/depois podem
+  avançar com o roteiro assistivo adiado, sem declarar certificação.
+  As dependências entre mudanças são condições de execução documentadas;
+  o CLI não as bloqueia automaticamente. Artefatos completos não significam
+  implementação aprovada ou tarefas executadas.
+  Reutilize a base existente. Preserve APIs e aliases públicos por migração
+  explícita; alterações incompatíveis exigem decisão e notas de migração.
+  Atomic Design classifica responsabilidade e composição. Páginas não devem
+  virar organismos inteiros. Identidades, assets e regras de clientes não
+  entram na base. Uma mesma implementação deve aceitar identidade e modos
+  próprios de cada produto consumidor, com isolamento e migração
+  comprovada por consumidor; planejamento não equivale a homologação.
+  Requisitos e cenários em português, mantendo headings e palavras normativas
+  exigidas pelo schema. Não atribuir conformidade WCAG ou equivalência Figma
+  sem evidência. Não expor dados de clientes ou credenciais em artefatos.
+rules:
+  proposal:
+    - Explicitar predecessor, objetivo, não objetivos, impacto e gate de saída.
+    - Listar cada capacidade nova com o nome exato do diretório da spec.
+  design:
+    - Registrar decisões, alternativas, riscos, migração, validação e dúvidas.
+    - Separar decisão proposta de comportamento já implementado.
+  specs:
+    - Usar ADDED Requirements e SHALL ou MUST em cada requisito normativo.
+    - Cada requisito deve ter cenários observáveis, incluindo falha ou limite.
+    - Identificar requisitos por ID estável para rastrear tarefas e evidências.
+  tasks:
+    - Usar checkboxes desmarcados e passos verificáveis, ligados aos IDs das specs.
+    - Registrar em cada tarefa o aceite, evidência esperada e dependência quando houver.
+    - Primeiro verificar o gate do predecessor; terminar com verificação do gate da mudança.
+    - Só marcar tarefa concluída após execução e evidência real; planos não são evidência.
