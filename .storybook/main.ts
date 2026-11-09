@@ -1,6 +1,7 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 import { resolve } from "node:path";
 import { readFile } from "node:fs/promises";
+import { nativePreview } from "../scripts/vite-native-preview.mjs";
 
 const config: StorybookConfig = {
   // Uma story por componente, ao lado do próprio componente.
@@ -23,6 +24,18 @@ const config: StorybookConfig = {
       "**/.local-release/**", "**/dist/**", "**/graft/**",
     ];
     config.plugins ??= [];
+    config.plugins.push(nativePreview());
+    // O docgen do Storybook não lê o pacote mobile: lá não há story, e o import do react-native
+    // levaria o parser ao código-fonte Flow do React Native.
+    for (const plugin of config.plugins.flat(Infinity)) {
+      if (!plugin || typeof plugin !== "object" || !("name" in plugin) || plugin.name !== "storybook:react-docgen-plugin") continue;
+      const transform = (plugin as { transform?: (...args: unknown[]) => unknown }).transform;
+      if (typeof transform !== "function") continue;
+      (plugin as { transform: (...args: unknown[]) => unknown }).transform = function (this: unknown, code: unknown, id: unknown, ...rest: unknown[]) {
+        if (typeof id === "string" && (id.includes("/packages/native/") || id.includes("/node_modules/"))) return undefined;
+        return transform.call(this, code, id, ...rest);
+      };
+    }
     config.plugins.push({
       name: "refy:block-preview-entry",
       enforce: "post",

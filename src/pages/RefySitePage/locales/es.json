@@ -2148,5 +2148,16 @@
  "↑/↓ abrem/percorrem opções; Home/End atuam na lista aberta; Enter escolhe; Escape fecha. A digitação permanece no input.": "↑/↓ abren/recorren opciones; Home/End actúan en la lista abierta; Enter elige; Escape cierra. La escritura permanece en el input.",
  "↑/↓ e Home/End percorrem a lista aberta; Enter alterna opção; Escape/Tab fecham. Backspace com busca vazia remove a última escolha.": "↑/↓ y Home/End recorren la lista abierta; Enter alterna la opción; Escape/Tab cierran. Backspace con búsqueda vacía quita la última elección.",
  "↑/↓ percorrem habilitados; Home/End vão às extremidades; letra busca rótulo textual; Enter/Espaço acionam; Escape/Tab fecham. Sem submenu aninhado.": "↑/↓ recorren los habilitados; Home/End van a los extremos; una letra busca la etiqueta; Enter/Espacio activan; Escape/Tab cierran. Sin submenú anidado.",
- "↻ Restaurar padrão": "↻ Restaurar predeterminado"
+ "↻ Restaurar padrão": "↻ Restaurar predeterminado",
+ "Só web": "Solo web",
+ "A prévia não abriu neste navegador. O código abaixo é o mesmo do app.": "La vista previa no se abrió en este navegador. El código de abajo es el mismo de la app.",
+ "Prévia com react-native-web: o mesmo código do app, no tema do site.": "Vista previa con react-native-web: el mismo código de la app, en el tema del sitio.",
+ "Num app Expo, instale o pacote e o react-native-svg:": "En una app Expo, instala el paquete y react-native-svg:",
+ "Trecho da galeria do pacote, dentro de um RefyProvider:": "Fragmento de la galería del paquete, dentro de un RefyProvider:",
+ "Este componente ainda não aparece na galeria do pacote.": "Este componente todavía no aparece en la galería del paquete.",
+ "Propriedades do tipo público em @refy-design/mobile. As de View, Text e Pressable também são aceitas.": "Propiedades del tipo público en @refy-design/mobile. También se aceptan las de View, Text y Pressable.",
+ "Propriedades por tipo": "Propiedades por tipo",
+ "As propriedades mudam conforme o valor de type. A tabela junta todas as variantes.": "Las propiedades cambian según el valor de type. La tabla reúne todas las variantes.",
+ "Só mobile": "Solo móvil",
+ "Só web:": "Solo web:"
 }

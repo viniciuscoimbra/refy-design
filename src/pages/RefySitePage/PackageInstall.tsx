@@ -10,3 +10,4 @@ export function PackageInstall() {
   }
   return <CodeBlock language="bash" label={tr("Instalação")} code={installCommands.npm} />;
 }
+

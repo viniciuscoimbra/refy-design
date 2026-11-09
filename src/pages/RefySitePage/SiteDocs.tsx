@@ -5,6 +5,7 @@ import { Heading, SideNav, Toc } from "./SiteCatalog";
 import styles from "./RefySitePage.module.css";
 import { useSiteLocale } from "./i18n";
 import type { Locale } from "./i18n";
+import nativeComponents from "./nativeComponents.json";
 import { installCommands, mobileInstall, mobilePublished, packageName, packagePublished, packageVersion } from "./packageRelease";
 
 // Docs técnica: uma página por assunto, menu da esquerda lista as páginas e o sumário da
@@ -131,7 +132,8 @@ const packageSection = (locale: Locale, heading: string) => {
 const firstScreenNotice = (locale: Locale) =>
   packagePublished ? null : <Callout tone="warn" icon={warnIcon} title={installText[locale].notYetTitle}>{installText[locale].firstScreen}</Callout>;
 const styleImports = 'import "@refy-design/web/tokens.css";\nimport "@refy-design/web/fonts.css";';
-const nativeList = "Avatar, Badge, BrandLogo, Button, Card, CardHeader, Chip, ChoiceCard, ConnectorCard, D3Chart, EmptyState, Fab, IconButton, Input, Item, Modal, OAuthButton, PageHeader, ProgressBar, ScrollArea, Segmented, Select, SettingRow, Stat, Tabs, Textarea, Toast, WizardStepper";
+// Gerada de packages/native por scripts/native-components.mjs: não editar à mão.
+const nativeList = nativeComponents.join(", ");
 
 const pt: Record<DocTopic, DocPage> = {
   instalacao: {
@@ -147,6 +149,7 @@ const pt: Record<DocTopic, DocPage> = {
           <CodeBlock label="main.tsx" language="tsx" code={styleImports} />
           <figcaption><code>@refy-design/web/global.css</code> é opcional: aplica o reset na página inteira.</figcaption>
         </figure>
+        <p>Em React Native, use <a href="/docs/mobile">@refy-design/mobile</a>, com o mesmo tema.</p>
       </section>
     </>),
   },
@@ -197,7 +200,7 @@ const pt: Record<DocTopic, DocPage> = {
         <section id="instalacao-mobile">
           <h2>Instalação</h2>
           <p>Num app Expo, instale o pacote e o <code>react-native-svg</code>:</p>
-          <CodeBlock label="Terminal" language="bash" code={mobileInstall} />
+          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
         </section>
       )}
       <section id="uso">
@@ -207,7 +210,7 @@ const pt: Record<DocTopic, DocPage> = {
       </section>
       <section id="componentes">
         <h2>Componentes</h2>
-        <p>{nativeList.replace("D3Chart", "D3Chart (linha e área)").replace(", WizardStepper", " e WizardStepper")}.</p>
+        <p>{nativeComponents.length} componentes: {nativeList}.</p>
         <p>A navegação fica com o roteador do app (React Navigation ou Expo Router).</p>
       </section>
       <section id="requisitos">
@@ -247,6 +250,7 @@ const en: Record<DocTopic, DocPage> = {
           <CodeBlock label="main.tsx" language="tsx" code={styleImports} />
           <figcaption><code>@refy-design/web/global.css</code> is optional: it applies the reset to the whole page.</figcaption>
         </figure>
+        <p>In React Native, use <a href="/docs/mobile">@refy-design/mobile</a>, with the same theme.</p>
       </section>
     </>),
   },
@@ -297,7 +301,7 @@ const en: Record<DocTopic, DocPage> = {
         <section id="instalacao-mobile">
           <h2>Installation</h2>
           <p>In an Expo app, install the package and <code>react-native-svg</code>:</p>
-          <CodeBlock label="Terminal" language="bash" code={mobileInstall} />
+          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
         </section>
       )}
       <section id="uso">
@@ -307,7 +311,7 @@ const en: Record<DocTopic, DocPage> = {
       </section>
       <section id="componentes">
         <h2>Components</h2>
-        <p>{nativeList.replace("D3Chart", "D3Chart (line and area)").replace(", WizardStepper", " and WizardStepper")}.</p>
+        <p>{nativeComponents.length} components: {nativeList}.</p>
         <p>Navigation belongs to the app router (React Navigation or Expo Router).</p>
       </section>
       <section id="requisitos">
@@ -347,6 +351,7 @@ const es: Record<DocTopic, DocPage> = {
           <CodeBlock label="main.tsx" language="tsx" code={styleImports} />
           <figcaption><code>@refy-design/web/global.css</code> es opcional: aplica el reset a toda la página.</figcaption>
         </figure>
+        <p>En React Native, usa <a href="/docs/mobile">@refy-design/mobile</a>, con el mismo tema.</p>
       </section>
     </>),
   },
@@ -397,7 +402,7 @@ const es: Record<DocTopic, DocPage> = {
         <section id="instalacao-mobile">
           <h2>Instalación</h2>
           <p>En una app Expo, instala el paquete y <code>react-native-svg</code>:</p>
-          <CodeBlock label="Terminal" language="bash" code={mobileInstall} />
+          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
         </section>
       )}
       <section id="uso">
@@ -407,7 +412,7 @@ const es: Record<DocTopic, DocPage> = {
       </section>
       <section id="componentes">
         <h2>Componentes</h2>
-        <p>{nativeList.replace("D3Chart", "D3Chart (línea y área)").replace(", WizardStepper", " y WizardStepper")}.</p>
+        <p>{nativeComponents.length} componentes: {nativeList}.</p>
         <p>La navegación queda a cargo del router de la app (React Navigation o Expo Router).</p>
       </section>
       <section id="requisitos">

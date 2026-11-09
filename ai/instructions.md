@@ -23,6 +23,8 @@ Cada família em catalog.json traz `howToUse` (como montar na tela e com quais p
 - `npm exec --offline -- refy-agent inspect src/Tela.tsx src/tela.css`: retorna composição e achados estáticos.
 - `npm exec --offline -- refy-agent check src/Tela.tsx src/tela.css`: mesma análise, exit 1 quando há achados de erro não justificados.
 
+- `npx --no-install refy-mcp`: o mesmo kit como servidor MCP por stdio. Ferramentas `refy_search` (busca por intenção em pt, en ou es), `refy_component`, `refy_collections`, `refy_validate` (contrato da API mais as regras de check), `refy_theme_generate` e `refy_theme_validate`. Configuração em docs/MCP.md do pacote.
+
 Consulta exige apenas Node; inspect/check exigem TypeScript como ferramenta de desenvolvimento do projeto (`npm install --save-dev typescript`). A UI não importa este kit, não executa IA e não carrega o parser no navegador. O checker é somente leitura, sem telemetria ou acesso de rede. Ele recebe arquivos explícitos dentro do projeto, incluindo CSS indicado separadamente; não descobre toda a árvore de estilos/imports.
 
 ## Regras e exceções

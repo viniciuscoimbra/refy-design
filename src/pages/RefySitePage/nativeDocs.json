@@ -1,0 +1,6835 @@
+{
+  "Accordion": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "AccordionItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "indentContent",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "leadingIndicator",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((open: string[]) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"default\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "type",
+        "type": "\"single\" | \"multiple\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "\"default\" | \"plain\" | \"joined\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Accordion defaultValue={[\"a\"]} items={[{ id: \"a\", title: \"Como funciona a revisão?\", content: \"Você envia um arquivo, a outra pessoa comenta e devolve.\" }, { id: \"b\", title: \"Quem pode revisar?\", content: \"Qualquer pessoa do espaço com acesso ao arquivo.\" }, { id: \"c\", title: \"Revisão externa\", content: \"Ainda não.\", disabled: true }]} />",
+    "section": "Accordion / Collapsible"
+  },
+  "ActivityItem": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "action",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "actor",
+        "type": "ActivityActorCore",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "badge",
+        "type": "{ label: ReactNode; tone?: BadgeTone | undefined; }",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "density",
+        "type": "\"default\" | \"compact\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "metadata",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "status",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "timestamp",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ActivityItem actor={{ name: \"Ana Souza\" }} title=\"aceitou sua revisão\" timestamp=\"há 2 min\" description=\"Relatório anual por Plano de lançamento.\" badge={{ label: \"Revisão\", tone: \"success\" }} metadata=\"Espaço · Design\" />",
+    "section": "ActivityItem / PersonCell / NavCard"
+  },
+  "AlertDialog": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "onConfirm",
+        "type": "() => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "cancelLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "confirmLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "destructive",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "pending",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<AlertDialog open={alert} onOpenChange={setAlert} destructive title=\"Apagar o espaço?\" confirmLabel=\"Apagar\" onConfirm={() => setAlert(false)}>Os 320 arquivos e as fotos somem. Não dá para desfazer.</AlertDialog>",
+    "section": "Modal / Toast"
+  },
+  "ApprovalWorkbench": {
+    "byType": false,
+    "props": [
+      {
+        "name": "activeId",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "items",
+        "type": "ApprovalWorkbenchItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "onActiveChange",
+        "type": "(id: string) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ApprovalWorkbench label=\"Documentos da locação\" activeId={workItem} onActiveChange={setWorkItem} items={[\n  { id: \"rg\", label: \"Documento de identidade\", meta: \"Ana Souza\", state: \"complete\" },\n  { id: \"renda\", label: \"Comprovante de renda\", meta: \"3 holerites\", state: \"in-progress\" },\n  { id: \"fiador\", label: \"Fiador\", state: \"not-started\" },\n]}>\n  <Card><Text style={{ color: t.pick<string>(\"--ink-2\") }}>Comprovante de renda: confira se os três holerites são dos últimos três meses.</Text></Card>\n</ApprovalWorkbench>",
+    "section": "ApprovalWorkbench"
+  },
+  "AreaChart": {
+    "byType": false,
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "curve",
+        "type": "\"linear\" | \"step\" | \"smooth\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "formatY",
+        "type": "((value: number) => string)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "pointLabels",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "series",
+        "type": "LineSeries[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showTitle",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "stacked",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "xLabels",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "xTitle",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "yTitle",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<AreaChart title=\"Arquivos catalogados\" label=\"Arquivos catalogados por semana\" data={[4, 9, 7, 14, 18, 16, 25]} xLabels={[\"Sem 1\", \"Sem 4\", \"Sem 7\"]} />",
+    "section": "LineChart / AreaChart"
+  },
+  "AspectRatio": {
+    "byType": false,
+    "props": [
+      {
+        "name": "ratio",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<AspectRatio ratio={1} style={{ maxWidth: 120, backgroundColor: t.pick<string>(\"--surface-2\"), borderRadius: 8 }} />",
+    "section": "Bubble / Marker / AspectRatio / GoogleButton"
+  },
+  "Avatar": {
+    "byType": false,
+    "props": [
+      {
+        "name": "alt",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "initials",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "seed",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "shape",
+        "type": "AvatarShape",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "AvatarSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "source",
+        "type": "ImageSourcePropType",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Avatar key={s} size={s} initials=\"AN\" alt={`Ana ${s}`} />",
+    "section": "Avatar"
+  },
+  "AvatarGroup": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "AvatarGroupItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onItemClick",
+        "type": "((item: AvatarGroupItem, index: number) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOverflowClick",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "AvatarSize",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<AvatarGroup items={[{ name: \"Ana Souza\" }, { name: \"Leo Lima\" }, { name: \"Lia Melo\" }, { name: \"Rui Costa\" }, { name: \"Bia Reis\" }, { name: \"Caio Dias\" }]} onItemClick={() => {}} onOverflowClick={() => {}} />",
+    "section": "ButtonGroup / AvatarGroup / SectionHeader"
+  },
+  "Badge": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "dot",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "BadgeTone",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Badge key={tone} tone={tone}>{tone}</Badge>",
+    "section": "Badge"
+  },
+  "BarChart": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "BarChartItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "formatValue",
+        "type": "((value: number) => string)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showTitle",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "valueTitle",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<BarChart title=\"Imóveis por bairro\" label=\"Imóveis disponíveis por bairro\" valueTitle=\"Imóveis\" items={[{ label: \"Santa Tereza\", value: 42 }, { label: \"Floresta\", value: 28 }, { label: \"Horto\", value: 17, tone: \"info\" }, { label: \"Sagrada Família\", value: 9, tone: \"warn\" }]} />",
+    "section": "BarChart / DonutChart / Sparkline"
+  },
+  "BillingCard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "methodLabel",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "brandIcon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "elevation",
+        "type": "0 | 1 | 2",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "lastDigits",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "methodMeta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "nextChargeAmount",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "nextChargeDate",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "nextChargeLabel",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "status",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<BillingCard brandIcon=\"VISA\" methodLabel=\"Cartão de crédito\" lastDigits=\"4242\" methodMeta=\"Vence em 09/2028\" status={<Badge tone=\"success\" dot>Ativa</Badge>} nextChargeAmount=\"R$ 2.388\" nextChargeDate=\"em 2 mai. 2027\" actions={<Button size=\"sm\">Trocar cartão</Button>} />",
+    "section": "BillingCard / PlanCard / DangerZone"
+  },
+  "BrandLogo": {
+    "byType": false,
+    "props": [
+      {
+        "name": "animated",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "brand",
+        "type": "\"refy\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "markOnly",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "BrandLogoSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"inverse\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "symbol"
+    ],
+    "example": "<BrandLogo key={size} size={size} />",
+    "section": "BrandLogo"
+  },
+  "Bubble": {
+    "byType": false,
+    "props": [
+      {
+        "name": "side",
+        "type": "\"start\" | \"end\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Bubble>Tem a versão final do Relatório anual?</Bubble>",
+    "section": "Bubble / Marker / AspectRatio / GoogleButton"
+  },
+  "Button": {
+    "byType": false,
+    "props": [
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "interactionState",
+        "type": "\"hover\" | \"pressed\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "labelStyle",
+        "type": "StyleProp<TextStyle>",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "leadingIcon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "loadingLabel",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "progressEffect",
+        "type": "ButtonProgressEffect",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "ButtonSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "status",
+        "type": "ButtonStatus",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "trailingIcon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "ButtonVariant",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "appearance",
+      "href",
+      "rel",
+      "target"
+    ],
+    "example": "<Button key={variant} variant={variant} size={size}>{variant}</Button>",
+    "section": "Button"
+  },
+  "ButtonGroup": {
+    "byType": false,
+    "props": [
+      {
+        "name": "activeIndex",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultActiveIndex",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onActiveIndexChange",
+        "type": "((index: number) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ButtonGroup label=\"Ordenar\"><Button size=\"sm\">Recentes</Button><Button size=\"sm\">Preço</Button><Button size=\"sm\">Artista</Button></ButtonGroup>",
+    "section": "ButtonGroup / AvatarGroup / SectionHeader"
+  },
+  "Calendar": {
+    "byType": false,
+    "props": [
+      {
+        "name": "defaultMonth",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "Date | DateRange | null",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "fixedWeeks",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "max",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "min",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "mode",
+        "type": "CalendarMode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "month",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "monthLabelStyle",
+        "type": "\"compact\" | \"long\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "numberOfMonths",
+        "type": "1 | 2",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: Date | DateRange) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onMonthChange",
+        "type": "((month: Date) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "Date | DateRange | null",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "weekStartsOn",
+        "type": "0 | 1",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Calendar defaultValue={new Date(2026, 10, 12)} defaultMonth={new Date(2026, 10, 1)} />",
+    "section": "Calendar / DatePicker"
+  },
+  "Callout": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "action",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "dismissible",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "dismissLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onDismiss",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "CalloutTone",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Callout tone=\"info\" icon={<Plus />} title=\"Preços atualizados toda manhã\" />",
+    "section": "Callout"
+  },
+  "Card": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "elevation",
+        "type": "0 | 1 | 2 | 3 | 4",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "padding",
+        "type": "\"sm\" | \"md\" | \"none\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "CardTone",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Card><CardHeader title=\"Padrão\" count=\"3\" description=\"Descrição curta\" action={<Button size=\"sm\" variant=\"ghost\">Ver</Button>} /><Text>Conteúdo</Text></Card>",
+    "section": "Card"
+  },
+  "CardHeader": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "action",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "count",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<CardHeader title=\"Padrão\" count=\"3\" description=\"Descrição curta\" action={<Button size=\"sm\" variant=\"ghost\">Ver</Button>} />",
+    "section": "Card"
+  },
+  "Carousel": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "CarouselItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultIndex",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "index",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onIndexChange",
+        "type": "((index: number) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Carousel label=\"Arquivos em destaque\" items={[\"Relatório anual\", \"Plano de lançamento\", \"Manual da marca\"].map((name, i) => ({ id: String(i), label: name, content: <View style={{ height: 120, borderRadius: 8, backgroundColor: t.pick<string>(\"--surface-2\"), alignItems: \"center\", justifyContent: \"center\" }}><Text style={{ color: t.pick<string>(\"--ink-1\"), fontSize: 16 }}>{name}</Text></View> }))} />",
+    "section": "Carousel / Message"
+  },
+  "ChartLegend": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "ChartLegendItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "hidden",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "marker",
+        "type": "\"line\" | \"square\" | \"circle\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onToggle",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "render",
+        "type": "((item: ChartLegendItem) => ReactNode)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": null,
+    "section": null
+  },
+  "Checkbox": {
+    "byType": false,
+    "props": [
+      {
+        "name": "boxed",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "checked",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "defaultChecked",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onCheckedChange",
+        "type": "((checked: boolean) => void)",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tag",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Checkbox label=\"Aceito receber ofertas\" defaultChecked />",
+    "section": "Switch / Checkbox / RadioGroup"
+  },
+  "Chip": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "leadingIcon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onRemove",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "removable",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "selected",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "selectionMode",
+        "type": "ChipSelectionMode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showCheck",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "ChipTone",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "\"selection\" | \"filter\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Chip selected>Para você</Chip>",
+    "section": "Chip"
+  },
+  "ChoiceCard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "preview",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ChoiceCard value=\"mensal\" title=\"Mensal\" description=\"Cancela quando quiser\" meta=\"R$ 9,90\" />",
+    "section": "ChoiceCard"
+  },
+  "ChoiceCardGroup": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "columns",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string | string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "mode",
+        "type": "ChoiceCardMode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: string | string[]) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string | string[]",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ChoiceCardGroup label=\"Plano\" value={plan} onChange={setPlan} columns={2}>\n  <ChoiceCard value=\"mensal\" title=\"Mensal\" description=\"Cancela quando quiser\" meta=\"R$ 9,90\" />\n  <ChoiceCard value=\"anual\" title=\"Anual\" description=\"Dois meses grátis\" meta=\"R$ 99\" />\n  <ChoiceCard value=\"vitalicio\" title=\"Vitalício\" disabled />\n</ChoiceCardGroup>",
+    "section": "ChoiceCard"
+  },
+  "CodeBlock": {
+    "byType": false,
+    "props": [
+      {
+        "name": "code",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "copiedLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "copyLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "copyToClipboard",
+        "type": "((code: string) => void | Promise<void>)",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "hideLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "highlight",
+        "type": "((code: string, language?: string | undefined) => CodeToken[])",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "language",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onCopy",
+        "type": "((code: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "revealLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "secret",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "visibleChars",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "wrap",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<CodeBlock language=\"bash\" label=\"Instalar\" code=\"npm install @refy-design/mobile\" copyToClipboard={() => {}} highlight={(code) => [{ text: \"npm\", type: \"function\" }, { text: code.slice(3) }]} />",
+    "section": "CodeBlock"
+  },
+  "Collapsible": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "((open: boolean) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Collapsible title=\"Seções\">\n  <Text style={{ color: t.pick<string>(\"--ink-2\") }}>So What · Freddie Freeloader · Blue in Green</Text>\n</Collapsible>",
+    "section": "Accordion / Collapsible"
+  },
+  "Combobox": {
+    "byType": false,
+    "props": [
+      {
+        "name": "options",
+        "type": "ComboboxOption[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "clearable",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string | null",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "emptyMessage",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "filter",
+        "type": "boolean | ((option: ComboboxOption, query: string) => boolean)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "inputValue",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((option: ComboboxOption | null) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onInputValueChange",
+        "type": "((text: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<TextStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string | null",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Combobox label=\"Corretor\" defaultOpen inputValue=\"an\" options={[{ value: \"ana\", label: \"Ana Souza\", description: \"CRECI 34.512\", avatar: { name: \"Ana Souza\" }, group: \"Equipe\" }, { value: \"jan\", label: \"Janaína Reis\", description: \"CRECI 18.003\", avatar: { name: \"Janaína Reis\" }, group: \"Equipe\" }, { value: \"and\", label: \"Anderson Lima\", meta: \"parceiro\", group: \"Parceiros\", lead: \"AL\" }, { value: \"x\", label: \"Banco Andrade\", group: \"Parceiros\", disabled: true }]} />",
+    "section": "Combobox / Multiselect"
+  },
+  "ConnectorCard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "name",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "locked",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "lockHint",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "logo",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "status",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ConnectorCard name=\"Last.fm\" description=\"Seu histórico de escuta\" status={<Badge tone=\"success\" dot>Sincronizado</Badge>} actions={<Button size=\"sm\" variant=\"secondary\">Desconectar</Button>} />",
+    "section": "Item / ConnectorCard"
+  },
+  "ContextMenu": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "entries",
+        "type": "MenuEntry[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onSelect",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ContextMenu label=\"Relatório anual\" entries={[{ id: \"open\", label: \"Abrir\" }, { id: \"fav\", label: \"Favoritar\" }, { type: \"separator\" }, { id: \"del\", label: \"Remover\", danger: true }]}>\n  <View style={{ padding: 16, borderRadius: 8, borderWidth: 1, borderStyle: \"dashed\", borderColor: t.pick<string>(\"--line\") }}>\n    <Text style={{ color: t.pick<string>(\"--ink-2\") }}>Toque e segure aqui</Text>\n  </View>\n</ContextMenu>",
+    "section": "Popover / Menu / Tooltip"
+  },
+  "Coverflow": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "readonly T[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "renderItem",
+        "type": "(item: T, state: { selected: boolean; index: number; }) => ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultSelectedId",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "emptyContent",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "itemWidth",
+        "type": "number",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onActivate",
+        "type": "((item: T) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onSelectionChange",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "selectedId",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Coverflow label=\"Arquivos em destaque\" items={[\n  { id: \"c1\", label: \"Orçamento\" }, { id: \"c2\", label: \"Cronograma\" }, { id: \"c3\", label: \"Relatório anual\" }, { id: \"c4\", label: \"Briefing\" },\n]} defaultSelectedId=\"c2\" renderItem={(item, s) => (\n  <View style={{ alignItems: \"center\", gap: 10, paddingVertical: 20 }}>\n    <Text style={{ fontSize: 28, color: t.pick<string>(\"--primary\") }}>{String(s.index + 1).padStart(2, \"0\")}</Text>\n    <Text style={{ fontWeight: \"600\", color: t.pick<string>(\"--ink-1\") }}>{item.label}</Text>\n    <Text style={{ color: t.pick<string>(\"--ink-3\") }}>{s.selected ? \"Selecionado\" : \"Selecionar\"}</Text>\n  </View>\n)} />",
+    "section": "Coverflow"
+  },
+  "D3Chart": {
+    "byType": true,
+    "props": [
+      {
+        "name": "cells",
+        "type": "{ x: string; y: string; value: number; }[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "features",
+        "type": "FeatureCollection<Geometry, GeoJsonProperties>",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "groups",
+        "type": "{ id: string; label: string; values: number[]; }[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "items",
+        "type": "ChartSlice[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "network",
+        "type": "ChartNetwork",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "root",
+        "type": "ChartNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "series",
+        "type": "ChartSeries[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "type",
+        "type": "\"line\" | \"area\"",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "values",
+        "type": "number[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "areaFill",
+        "type": "\"solid\" | \"gradient\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "colors",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "colorScale",
+        "type": "((value: number) => string)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "cornerRadius",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "curve",
+        "type": "ChartCurve",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "dataTable",
+        "type": "\"disclosure\" | \"screen-reader\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "dots",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "endAngle",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "fillOpacity",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "grid",
+        "type": "boolean | \"x\" | \"y\" | \"both\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "innerRadius",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "iterations",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "legend",
+        "type": "boolean | { position?: \"top\" | \"right\" | \"bottom\" | undefined; interactive?: boolean | undefined; marker?: \"line\" | \"square\" | \"circle\" | undefined; render?: ((item: ChartLegendItem) => ReactNode) | undefined; }",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "margin",
+        "type": "Partial<Pick<ChartLayout, \"top\" | \"right\" | \"bottom\" | \"left\">>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onHover",
+        "type": "((datum: ChartDatum | null) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onSelect",
+        "type": "((datum: ChartDatum) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "padAngle",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "padding",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "projection",
+        "type": "\"mercator\" | \"equal-earth\" | \"orthographic\" | (() => GeoProjection)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "separation",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showTitle",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "stacked",
+        "type": "boolean | \"percent\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "startAngle",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "strokeWidth",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "thresholds",
+        "type": "number | number[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tooltip",
+        "type": "boolean | { render?: ((datum: ChartDatum) => ReactNode) | undefined; }",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "xAxis",
+        "type": "ChartAxis",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "yAxis",
+        "type": "ChartAxis",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "brush",
+      "renderMark",
+      "renderOverlay",
+      "stream",
+      "zoom"
+    ],
+    "example": "<D3Chart type=\"line\" title=\"Preço histórico\" label=\"Preço do arquivo por coleta, de julho a dezembro de 2023\" showTitle height={200} margin={{ left: 72, right: 20 }} series={[{ id: \"min\", label: \"Preço mínimo\", color: \"var(--primary)\", data: prices }]} curve=\"linear\" dots grid=\"y\" legend={false} yAxis={{ format: money, tickCount: 3 }} xAxis={{ format: (v) => new Date(v).toLocaleDateString(\"pt-BR\", { month: \"short\" }), tickCount: 3 }} />",
+    "section": "D3Chart"
+  },
+  "DangerZone": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<DangerZone title=\"Zona de perigo\">\n  <DangerZoneRow title=\"Apagar espaço\" description=\"Remove os 320 arquivos. Não dá para desfazer.\" actionLabel=\"Apagar\" onConfirm={() => {}} />\n  <DangerZoneRow title=\"Excluir conta\" description=\"Suas revisões abertas são canceladas.\" actionLabel=\"Excluir\" onConfirm={() => {}} />\n</DangerZone>",
+    "section": "BillingCard / PlanCard / DangerZone"
+  },
+  "DangerZoneRow": {
+    "byType": false,
+    "props": [
+      {
+        "name": "actionLabel",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onConfirm",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<DangerZoneRow title=\"Apagar espaço\" description=\"Remove os 320 arquivos. Não dá para desfazer.\" actionLabel=\"Apagar\" onConfirm={() => {}} />",
+    "section": "BillingCard / PlanCard / DangerZone"
+  },
+  "DatePicker": {
+    "byType": false,
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "Date | null",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "max",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "min",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((date: Date | null) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "Date | null",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<DatePicker label=\"Data da revisão\" defaultValue={new Date(2026, 10, 20)} />",
+    "section": "Calendar / DatePicker"
+  },
+  "Divider": {
+    "byType": false,
+    "props": [
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "orientation",
+        "type": "DividerOrientation",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "spacing",
+        "type": "DividerSpacing",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Divider spacing=\"sm\" />",
+    "section": "Label / Divider / StatusDot"
+  },
+  "DonutChart": {
+    "byType": false,
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "centerLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "formatValue",
+        "type": "((value: number) => string)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "segments",
+        "type": "DonutSegment[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<DonutChart label=\"Arquivos por estado\" caption=\"arquivos\" centerLabel=\"320\" segments={[{ value: 210, label: \"Boa\" }, { value: 80, label: \"Antiga\", tone: \"info\" }, { value: 30, label: \"Vencida\", tone: \"critical\" }]} size={180} />",
+    "section": "BarChart / DonutChart / Sparkline"
+  },
+  "Drawer": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "footer",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hideClose",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "insets",
+        "type": "{ top?: number | undefined; bottom?: number | undefined; left?: number | undefined; right?: number | undefined; }",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "modal",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "side",
+        "type": "DrawerSide",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Drawer open={drawer !== null} onOpenChange={(o) => { if (!o) setDrawer(null); }} side={drawer ?? \"right\"} title=\"Filtros\" footer={<Button variant=\"primary\" block onPress={() => setDrawer(null)}>Aplicar</Button>}>\n  Área, ano e estado da capa.\n</Drawer>",
+    "section": "Modal / Toast"
+  },
+  "EmptyRow": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": null,
+    "section": null
+  },
+  "EmptyState": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "action",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "bordered",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "message",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<EmptyState title=\"Seu espaço começa com um arquivo.\" message=\"Envie o primeiro arquivo ou importe uma pasta.\" action={<Button size=\"sm\">Abrir biblioteca</Button>} />",
+    "section": "EmptyState"
+  },
+  "EventTimeline": {
+    "byType": false,
+    "props": [
+      {
+        "name": "events",
+        "type": "TimelineEventCore[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "context",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "density",
+        "type": "\"default\" | \"compact\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "emptyMessage",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "emptyTitle",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "groupByDate",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onRetry",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showHeader",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<EventTimeline style={{ marginTop: 16 }} title=\"Atividades\" context=\"Espaço pessoal\" events={[\n  { id: \"e1\", timestamp: \"2026-11-05T18:20:00Z\", title: \"Marina aceitou a revisão\", actor: { name: \"Marina Alves\", initials: \"MA\", seed: \"marina\" }, status: { label: \"Concluída\", tone: \"good\" } },\n  { id: \"e2\", timestamp: \"2026-11-05T14:05:00Z\", title: \"Alerta de preço disparou\", description: \"Relatório anual baixou para R$ 189.\" },\n  { id: \"e3\", timestamp: \"2026-11-04T10:00:00Z\", title: \"Backup do espaço concluído\", badge: { label: \"Automático\", tone: \"neutral\" } },\n]} />",
+    "section": "Timeline / EventTimeline"
+  },
+  "Fab": {
+    "byType": false,
+    "props": [
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "extended",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "FabSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "FabVariant",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Fab icon={<Plus />} label=\"Adicionar\" />",
+    "section": "Fab"
+  },
+  "FabMenu": {
+    "byType": false,
+    "props": [
+      {
+        "name": "actions",
+        "type": "FabMenuAction[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "align",
+        "type": "\"start\" | \"end\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "((open: boolean) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onSelect",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<FabMenu actions={[{ id: \"add\", label: \"Adicionar arquivo\", icon: <Plus /> }, { id: \"scan\", label: \"Ler código de barras\" }, { id: \"wish\", label: \"Lista de desejos\" }]} />",
+    "section": "Snackbar / SplitButton / FabMenu"
+  },
+  "FileUpload": {
+    "byType": false,
+    "props": [
+      {
+        "name": "accept",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultFiles",
+        "type": "NativeFile[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "errorMessage",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "files",
+        "type": "NativeFile[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "maxSize",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onFilesChange",
+        "type": "((files: NativeFile[]) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "pickFiles",
+        "type": "((options: { accept?: string | undefined; multiple: boolean; }) => Promise<NativeFile[]>)",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "progress",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "state",
+        "type": "FileUploadState",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<FileUpload multiple pickFiles={async () => [{ name: \"nota-fiscal-lote-12.pdf\", size: 182_400, type: \"application/pdf\" }]} defaultFiles={[\n  { name: \"capa-relatorio.jpg\", size: 412_000, type: \"image/jpeg\", uri: \"https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=200\" },\n  { name: \"inventario.csv\", size: 9_800, type: \"text/csv\" },\n]} />",
+    "section": "FileUpload / VoiceRecorder"
+  },
+  "GeoAreaPicker": {
+    "byType": false,
+    "props": [
+      {
+        "name": "baseId",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "neighborhoods",
+        "type": "GeoNeighborhood[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultIncludedIds",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultRadius",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "includedIds",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "map",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "mapLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "maxRadius",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "minRadius",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onIncludedIdsChange",
+        "type": "((ids: string[]) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onRadiusChange",
+        "type": "((radius: number) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "radiusStep",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<GeoAreaPicker baseId=\"st\" defaultIncludedIds={[\"sa\"]} neighborhoods={[\n  { id: \"st\", label: \"Santa Tereza\", distance: 0 }, { id: \"sa\", label: \"Sagrada Família\", distance: 1.2 },\n  { id: \"ho\", label: \"Horto\", distance: 1.8 }, { id: \"fl\", label: \"Floresta\", distance: 2.4 },\n]} />",
+    "section": "GeoAreaPicker"
+  },
+  "GoogleButton": {
+    "byType": false,
+    "props": [
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "interactionState",
+        "type": "\"hover\" | \"pressed\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "labelStyle",
+        "type": "StyleProp<TextStyle>",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "loadingLabel",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "progressEffect",
+        "type": "ButtonProgressEffect",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "ButtonSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "status",
+        "type": "ButtonStatus",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "trailingIcon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "appearance",
+      "href",
+      "rel",
+      "target"
+    ],
+    "example": "<GoogleButton />",
+    "section": "Bubble / Marker / AspectRatio / GoogleButton"
+  },
+  "GuidedTour": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "steps",
+        "type": "GuidedTourStep[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "currentStep",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultStep",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onComplete",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "((open: boolean) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onStepChange",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<GuidedTour open={tour} onOpenChange={setTour} steps={[\n  { id: \"busca\", title: \"Busque no espaço\", description: \"Digite artista, arquivo ou ano. A busca olha as três coisas.\" },\n  { id: \"importar\", title: \"Traga sua coleção\", description: \"Importe a lista do Drive e os arquivos aparecem aqui.\", side: \"top\" },\n]}>\n  <GuidedTourAnchor stepId=\"busca\" block><Input label=\"Buscar\" placeholder=\"Artista, arquivo ou ano\" /></GuidedTourAnchor>\n  <View style={{ height: 12 }} />\n  <GuidedTourAnchor stepId=\"importar\"><Button>Importar do Drive</Button></GuidedTourAnchor>\n</GuidedTour>",
+    "section": "GuidedTour"
+  },
+  "GuidedTourAnchor": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "stepId",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<GuidedTourAnchor stepId=\"busca\" block><Input label=\"Buscar\" placeholder=\"Artista, arquivo ou ano\" /></GuidedTourAnchor>",
+    "section": "GuidedTour"
+  },
+  "HelpField": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "helpText",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "learnMoreLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onLearnMore",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "side",
+        "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "htmlFor"
+    ],
+    "example": "<HelpField label=\"Participação na comissão\" helpText=\"Parte do valor da venda que fica com quem indicou o comprador.\" onLearnMore={() => {}}>\n  <Input suffix=\"%\" defaultValue=\"5\" />\n</HelpField>",
+    "section": "PhoneInput / PostalCodeInput / HelpField"
+  },
+  "HelpMenu": {
+    "byType": false,
+    "props": [
+      {
+        "name": "entries",
+        "type": "MenuEntry[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onSelect",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<HelpMenu />",
+    "section": "UserMenu / HelpMenu / NotificationBell"
+  },
+  "IconButton": {
+    "byType": false,
+    "props": [
+      {
+        "name": "accessibilityLabel",
+        "type": "string",
+        "required": true,
+        "onlyMobile": true
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "IconButtonSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "IconButtonVariant",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "aria-label"
+    ],
+    "example": "<IconButton key={v + s} variant={v} size={s} icon={<Plus />} accessibilityLabel={`Adicionar ${v} ${s}`} />",
+    "section": "IconButton"
+  },
+  "Input": {
+    "byType": false,
+    "props": [
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "prefix",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<TextStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "suffix",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Input label=\"Buscar na biblioteca\" placeholder=\"Álbum ou artista\" />",
+    "section": "Input / Textarea / Select"
+  },
+  "IntentComposer": {
+    "byType": false,
+    "props": [
+      {
+        "name": "actionSize",
+        "type": "IconButtonSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultFilterValues",
+        "type": "Record<string, string[]>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "errorMessage",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "examples",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "filters",
+        "type": "IntentFilterGroup[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "filterValues",
+        "type": "Record<string, string[]>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "leadingActions",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onEditDetails",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onEditRequest",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onFilterValuesChange",
+        "type": "((values: Record<string, string[]>) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onSubmit",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onVoiceStart",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "processingContent",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showVoiceControl",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "state",
+        "type": "IntentComposerState",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "submitIcon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "submitLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "understoodSummary",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "voiceButtonVariant",
+        "type": "IconButtonVariant",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "voiceRecorderProps",
+        "type": "VoiceRecorderProps",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<IntentComposer examples={[\"Casa com quintal perto do metrô\", \"Apartamento de 2 quartos até R$ 3 mil\"]}\n  filters={[{ id: \"op\", label: \"Operação\", mode: \"single\", options: [{ value: \"alugar\", label: \"Alugar\" }, { value: \"comprar\", label: \"Comprar\" }] }]}\n  defaultValue=\"Casa com 3 quartos no Santa Tereza, até R$ 3.500, aceito pet\" />",
+    "section": "IntentComposer"
+  },
+  "Item": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "media",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onClick",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "selected",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "\"default\" | \"plain\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Item title=\"Proposta · v2\" description=\"Documento duplo\" onClick={() => {}} />",
+    "section": "Item / ConnectorCard"
+  },
+  "KanbanBoard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "columns",
+        "type": "KanbanColumnItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "allowedTransitions",
+        "type": "Record<string, readonly string[]>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "columnActions",
+        "type": "((column: KanbanColumnItem) => MenuEntry[])",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "filter",
+        "type": "((card: KanbanCardItem, column: KanbanColumnItem) => boolean)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "instructions",
+        "type": "\"visible\" | \"hidden\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onAddCard",
+        "type": "((column: KanbanColumnItem) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onCardClick",
+        "type": "((card: KanbanCardItem, column: KanbanColumnItem) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onColumnsChange",
+        "type": "((columns: KanbanColumnItem[]) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "toolbar",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "wipLimit",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<KanbanBoard columns={kanban} onColumnsChange={setKanban} wipLimit={3} />",
+    "section": "KanbanBoard"
+  },
+  "KanbanCard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "item",
+        "type": "KanbanCardItem",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "dragHandle",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "elevation",
+        "type": "0 | 1 | 2 | 3 | 4",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpen",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "padding",
+        "type": "\"sm\" | \"md\" | \"none\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "CardTone",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<KanbanCard style={{ marginTop: 12 }} onOpen={() => {}} item={{ id: \"k1\", title: \"Conferir lote de 40 arquivos do cliente\", description: \"Separar os que têm capa desatualizada antes de cadastrar.\", meta: \"Hoje · 3 de 40\", footer: <Badge tone=\"warn\">Em andamento</Badge> }} />",
+    "section": "SettingsSubnav / KanbanCard"
+  },
+  "LineChart": {
+    "byType": false,
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "area",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "curve",
+        "type": "\"linear\" | \"step\" | \"smooth\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "formatY",
+        "type": "((value: number) => string)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "pointLabels",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "series",
+        "type": "LineSeries[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showLegend",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showTitle",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "stacked",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "xLabels",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "xTitle",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "yTitle",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<LineChart title=\"Visitas por mês\" label=\"Visitas aos imóveis nos últimos seis meses\" yTitle=\"Visitas\" xLabels={[\"Jun\", \"Ago\", \"Out\", \"Nov\"]}\n  series={[{ name: \"Santa Tereza\", data: [12, 18, 15, 24, 29, 33] }, { name: \"Floresta\", data: [8, 9, 14, 12, 16, 21], tone: \"info\" }]} />",
+    "section": "LineChart / AreaChart"
+  },
+  "Marker": {
+    "byType": false,
+    "props": [],
+    "onlyWeb": [],
+    "example": "<Marker>R$ 189</Marker>",
+    "section": "Bubble / Marker / AspectRatio / GoogleButton"
+  },
+  "Matrix2x2": {
+    "byType": false,
+    "props": [
+      {
+        "name": "points",
+        "type": "MatrixPoint[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultSelectedId",
+        "type": "string | null",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "legend",
+        "type": "[string, string]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onPointClick",
+        "type": "((point: MatrixPoint | null) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "quadrants",
+        "type": "{ topLeft?: ReactNode; topRight?: ReactNode; bottomLeft?: ReactNode; bottomRight?: ReactNode; }",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "selectedId",
+        "type": "string | null",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "xLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "yLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Matrix2x2 style={{ marginTop: 16 }} height={380} quadrants={{ topLeft: \"Fazer já\", topRight: \"Planejar\", bottomLeft: \"Encaixar\", bottomRight: \"Deixar para depois\" }} points={[\n  { id: \"p1\", label: \"Corrigir busca por artista\", x: 22, y: 82, prioritized: true },\n  { id: \"p2\", label: \"Importar do Drive\", x: 70, y: 74 },\n  { id: \"p3\", label: \"Tema escuro\", x: 30, y: 30 },\n  { id: \"p4\", label: \"Exportar PDF\", x: 78, y: 22 },\n]} defaultSelectedId=\"p2\" />",
+    "section": "PropertyCard / Matrix2x2"
+  },
+  "Menu": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "entries",
+        "type": "MenuEntry[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "align",
+        "type": "\"start\" | \"end\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "anchorPoint",
+        "type": "{ x: number; y: number; }",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "matchWidth",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onSelect",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "scrim",
+        "type": "string",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "side",
+        "type": "\"top\" | \"bottom\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "id"
+    ],
+    "example": "<Menu open={menu} onOpenChange={setMenu} ariaLabel=\"Ações do arquivo\" entries={[{ type: \"label\", label: \"Arquivo\" }, { id: \"edit\", label: \"Editar\", icon: <Plus /> }, { id: \"move\", label: \"Mover para\", meta: \"3 pastas\" }, { type: \"separator\" }, { id: \"del\", label: \"Remover do espaço\", danger: true }, { id: \"sell\", label: \"Vender\", disabled: true }]}>\n  <Button size=\"sm\" onPress={() => setMenu(!menu)}>Ações</Button>\n</Menu>",
+    "section": "Popover / Menu / Tooltip"
+  },
+  "Message": {
+    "byType": false,
+    "props": [
+      {
+        "name": "author",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "initials",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "side",
+        "type": "\"start\" | \"end\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "time",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Message key=\"a\" author=\"Ana Souza\" initials=\"AS\" time=\"09:12\">Ainda tem o Plano de lançamento?</Message>",
+    "section": "Carousel / Message"
+  },
+  "MessageScroller": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "maxHeight",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<MessageScroller maxHeight={220}>\n  <Message key=\"a\" author=\"Ana Souza\" initials=\"AS\" time=\"09:12\">Ainda tem o Plano de lançamento?</Message>\n  <Message key=\"b\" author=\"Você\" initials=\"VC\" time=\"09:14\" side=\"end\">Tenho, versão de março.</Message>\n  <Message key=\"c\" author=\"Ana Souza\" initials=\"AS\" time=\"09:15\">Revisa o Relatório anual.</Message>\n</MessageScroller>",
+    "section": "Carousel / Message"
+  },
+  "Modal": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "ariaDescribedBy",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "closeOnBackdrop",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "footer",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hideCloseButton",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "role",
+        "type": "\"dialog\" | \"alertdialog\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Modal open={modal} onClose={() => setModal(false)} title=\"Acompanhar 19\" width={440} footer={<Button variant=\"primary\" onPress={() => setModal(false)}>Fechar</Button>}>\n  <Text>Proposta</Text>\n</Modal>",
+    "section": "Modal / Toast"
+  },
+  "Multiselect": {
+    "byType": false,
+    "props": [
+      {
+        "name": "options",
+        "type": "MultiselectOption[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "emptyMessage",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "listPlacement",
+        "type": "\"inline\" | \"overlay\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "maxVisibleChips",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((values: string[]) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<TextStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Multiselect label=\"Áreas\" defaultValue={[\"design\", \"produto\", \"dados\", \"vendas\", \"suporte\"]} options={[{ value: \"design\", label: \"Design\" }, { value: \"produto\", label: \"Produto\" }, { value: \"dados\", label: \"Dados\" }, { value: \"vendas\", label: \"Vendas\" }, { value: \"suporte\", label: \"Suporte\" }, { value: \"juridico\", label: \"Jurídico\", disabled: true }]} />",
+    "section": "Combobox / Multiselect"
+  },
+  "NavCard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "current",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "leading",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showChevron",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "\"solid\" | \"dashed\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "direction",
+      "eyebrow",
+      "href",
+      "onClick",
+      "rel",
+      "target"
+    ],
+    "example": "<NavCard title=\"Endereço de entrega\" description=\"Rua das Flores, 120\" leading={<Plus />} onPress={() => {}} />",
+    "section": "ActivityItem / PersonCell / NavCard"
+  },
+  "NotificationBell": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "NotificationItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "emptyMessage",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onItemClick",
+        "type": "((item: NotificationItem) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onMarkAllRead",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<NotificationBell items={notes} onMarkAllRead={() => setNotes((list) => list.map((n) => ({ ...n, unread: false })))} />",
+    "section": "UserMenu / HelpMenu / NotificationBell"
+  },
+  "OAuthButton": {
+    "byType": false,
+    "props": [
+      {
+        "name": "provider",
+        "type": "OAuthProvider",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "interactionState",
+        "type": "\"hover\" | \"pressed\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "labelStyle",
+        "type": "StyleProp<TextStyle>",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "loadingLabel",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "progressEffect",
+        "type": "ButtonProgressEffect",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "ButtonSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "status",
+        "type": "ButtonStatus",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "trailingIcon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "appearance",
+      "href",
+      "rel",
+      "target"
+    ],
+    "example": "<OAuthButton key={provider} provider={provider} block />",
+    "section": "OAuthButton"
+  },
+  "Otp": {
+    "byType": false,
+    "props": [
+      {
+        "name": "alphanumeric",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "autoFocus",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "groupSize",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "length",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((code: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onComplete",
+        "type": "((code: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Otp length={6} groupSize={3} defaultValue=\"392\" />",
+    "section": "ToggleGroup / Pagination / Otp"
+  },
+  "PageHeader": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "breadcrumb",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "eyebrow",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "lead",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<PageHeader eyebrow=\"Espaço\" title=\"Seus arquivos\" lead=\"Os arquivos do seu espaço.\" actions={<Button size=\"sm\">Adicionar</Button>} />",
+    "section": "PageHeader"
+  },
+  "Pagination": {
+    "byType": false,
+    "props": [
+      {
+        "name": "onPageChange",
+        "type": "(page: number) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "page",
+        "type": "number",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "pageCount",
+        "type": "number",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "siblingCount",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Pagination page={page} pageCount={12} onPageChange={setPage} />",
+    "section": "ToggleGroup / Pagination / Otp"
+  },
+  "PersonCell": {
+    "byType": false,
+    "props": [
+      {
+        "name": "name",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "avatar",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "secondary",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tag",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<PersonCell avatar={<Avatar size=\"md\" initials=\"LL\" />} name=\"Leo Lima\" tag=\"dono\" secondary=\"leo@exemplo.com\" />",
+    "section": "ActivityItem / PersonCell / NavCard"
+  },
+  "PhoneInput": {
+    "byType": false,
+    "props": [
+      {
+        "name": "countries",
+        "type": "PhoneCountry[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "country",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onCountryChange",
+        "type": "((country: PhoneCountry) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<TextStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "onChange"
+    ],
+    "example": "<PhoneInput label=\"Celular\" hint=\"Só para avisos de revisão.\" country={country} onCountryChange={(c) => setCountry(c.code)} value={phone} onChangeText={setPhone} />",
+    "section": "PhoneInput / PostalCodeInput / HelpField"
+  },
+  "PlanCard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "name",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "price",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "checkIcon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "cta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "current",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "currentLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "features",
+        "type": "ReactNode[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "highlighted",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "highlightLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "period",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "priceNote",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<PlanCard highlighted style={{ marginTop: 10 }} name=\"Profissional\" price=\"R$ 19\" period=\"/mês\" priceNote=\"R$ 228 cobrados por ano\" features={[\"Espaço sem limite\", \"Histórico de versões\", \"Revisões ilimitadas\"]} cta={<Button variant=\"primary\" block>Assinar</Button>} />",
+    "section": "BillingCard / PlanCard / DangerZone"
+  },
+  "Popover": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "content",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "align",
+        "type": "PopoverAlign",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "side",
+        "type": "PopoverSide",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Popover open={popover} onOpenChange={setPopover} label=\"Filtros\" content={<View style={{ gap: 8 }}><Checkbox defaultChecked label=\"Só publicado\" /><Checkbox label=\"Com encarte\" /></View>}>\n  <Button size=\"sm\" onPress={() => setPopover(!popover)}>Filtrar</Button>\n</Popover>",
+    "section": "Popover / Menu / Tooltip"
+  },
+  "PostalCodeInput": {
+    "byType": false,
+    "props": [
+      {
+        "name": "lookup",
+        "type": "(postalCode: string) => Promise<PostalCodeAddress | null>",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "onAddressFound",
+        "type": "(address: PostalCodeAddress) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChangeText",
+        "type": "(value: string) => void",
+        "required": true,
+        "onlyMobile": true
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onBlur",
+        "type": "((e: BlurEvent) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "onChange"
+    ],
+    "example": "<PostalCodeInput value={cep} onChangeText={setCep} lookup={async () => ({ postalCode: \"30130000\", street: \"Av. Afonso Pena\", neighborhood: \"Centro\", city: \"Belo Horizonte\", state: \"MG\" })} onAddressFound={() => {}} />",
+    "section": "PhoneInput / PostalCodeInput / HelpField"
+  },
+  "ProgressBar": {
+    "byType": false,
+    "props": [
+      {
+        "name": "indeterminate",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "ProgressTone",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ProgressBar key={tone} tone={tone} value={64} accessibilityLabel={`Progresso ${tone}`} />",
+    "section": "ProgressBar"
+  },
+  "PropertyActionGroup": {
+    "byType": false,
+    "props": [
+      {
+        "name": "activeAction",
+        "type": "PropertyAction",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabledActions",
+        "type": "PropertyAction[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "labels",
+        "type": "Partial<Record<PropertyAction, string>>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onAction",
+        "type": "((action: PropertyAction) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\" | \"auto\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "state",
+        "type": "PropertyActionGroupState",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "statusMessage",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<PropertyActionGroup style={{ marginTop: 12 }} activeAction={decision} onAction={setDecision} />",
+    "section": "PropertyActionGroup / PropertyMedia"
+  },
+  "PropertyCard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "media",
+        "type": "{ src: string; alt: string; }[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "actions",
+        "type": "false | PropertyActionGroupProps",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "address",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "badges",
+        "type": "PropertyCardBadge[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "detailsAction",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "facts",
+        "type": "PropertyCardFact[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "headerAction",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "layout",
+        "type": "PropertyCardLayout",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "matchScore",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "mediaProps",
+        "type": "Omit<PropertyMediaProps, \"items\">",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "price",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "priceSuffix",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "subtitle",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "summary",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "valueSuffix",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<PropertyCard title=\"Casa com jardim no Santa Tereza\" subtitle=\"Rua Mármore, Belo Horizonte\" value=\"R$ 3.200\" valueSuffix=\"/mês\" matchScore={86}\n  badges={[{ label: \"Novo\", tone: \"info\" }]} facts={[{ label: \"Quartos\", value: \"3\" }, { label: \"Área\", value: \"140 m²\" }, { label: \"Vagas\", value: \"2\" }]}\n  summary=\"Casa térrea com quintal, perto da praça Duque de Caxias e do comércio do bairro.\"\n  media={[{ src: \"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900\", alt: \"Fachada\" }, { src: \"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900\", alt: \"Quarto\" }]}\n  actions={{ onAction: () => {} }} />",
+    "section": "PropertyCard / Matrix2x2"
+  },
+  "PropertyMedia": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "PropertyMediaItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "aspectRatio",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultIndex",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "errorMessage",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "fit",
+        "type": "\"cover\" | \"contain\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "index",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onIndexChange",
+        "type": "((index: number) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onRetry",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<PropertyMedia items={[\n  { src: \"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900\", alt: \"Fachada de casa com jardim\" },\n  { src: \"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900\", alt: \"Quarto com cama de casal\" },\n  { src: \"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900\", alt: \"Casa com piscina\" },\n]} />",
+    "section": "PropertyActionGroup / PropertyMedia"
+  },
+  "Questionnaire": {
+    "byType": false,
+    "props": [
+      {
+        "name": "onSubmit",
+        "type": "(answers: Record<string, string>) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "questions",
+        "type": "Question[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Questionnaire onSubmit={() => {}} questions={[\n  { id: \"q1\", title: \"Como você guarda os arquivos?\", options: [{ value: \"estante\", label: \"Na estante, em pé\" }, { value: \"caixa\", label: \"Em caixas\" }, { value: \"parede\", label: \"Na parede\" }], required: true },\n  { id: \"q2\", title: \"Quantos arquivos você tem?\", description: \"Um número aproximado já ajuda.\" },\n]} />",
+    "section": "Questionnaire"
+  },
+  "RadioGroup": {
+    "byType": false,
+    "props": [
+      {
+        "name": "options",
+        "type": "RadioOption[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "name",
+      "inputProps"
+    ],
+    "example": "<RadioGroup label=\"Entrega\" value={ship} onChange={setShip} options={[{ value: \"pac\", label: \"PAC\", hint: \"Até 8 dias úteis\" }, { value: \"sedex\", label: \"Sedex\", hint: \"Até 3 dias úteis\" }, { value: \"retirar\", label: \"Retirar na loja\", disabled: true }]} />",
+    "section": "Switch / Checkbox / RadioGroup"
+  },
+  "Range": {
+    "byType": false,
+    "props": [
+      {
+        "name": "defaultValue",
+        "type": "RangeValue",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "fixedMinimum",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "formatValue",
+        "type": "((value: number) => string)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "histogram",
+        "type": "number[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: RangeValue) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showValue",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "ticks",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "RangeValue",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Range label=\"Preço\" min={0} max={500} step={10} defaultValue={[80, 260]} formatValue={(v) => `R$ ${v}`} histogram={[2, 5, 9, 14, 11, 8, 6, 3, 2, 1]} ticks={[\"0\", \"250\", \"500\"]} />",
+    "section": "Slider / Range"
+  },
+  "SchedulePicker": {
+    "byType": false,
+    "props": [
+      {
+        "name": "defaultActiveDate",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "VisitAvailability",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "maxDate",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "minDate",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: VisitAvailability) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "unavailable",
+        "type": "VisitAvailability",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "VisitAvailability",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": null,
+    "section": null
+  },
+  "ScoreGauge": {
+    "byType": false,
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "formatValue",
+        "type": "((value: number) => ReactNode)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "okAt",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "ScoreGaugeSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "warnAt",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "aria-label"
+    ],
+    "example": "<ScoreGauge value={86} label=\"estado\" />",
+    "section": "UsageMeter / ScoreGauge / Sticky"
+  },
+  "ScrollArea": {
+    "byType": false,
+    "props": [
+      {
+        "name": "maxHeight",
+        "type": "string | number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ScrollArea maxHeight={120}>{Array.from({ length: 12 }, (_, i) => <Text key={i}>Linha {i + 1}</Text>)}</ScrollArea>",
+    "section": "ScrollArea"
+  },
+  "SectionHeader": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "action",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "count",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "rule",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "sub",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "id"
+    ],
+    "example": "<SectionHeader title=\"Sessões ativas\" count=\"3\" sub=\"Aparelhos conectados à sua conta.\" action={<Button size=\"sm\" variant=\"ghost\">Encerrar</Button>} />",
+    "section": "ButtonGroup / AvatarGroup / SectionHeader"
+  },
+  "Segmented": {
+    "byType": false,
+    "props": [
+      {
+        "name": "options",
+        "type": "SegmentedOption[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "iconOnly",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "sliding",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Segmented label=\"Visualização\" value={view} onChange={setView} options={[{ value: \"grid\", label: \"Grade\" }, { value: \"flow\", label: \"Cover Flow\" }, { value: \"list\", label: \"Lista\", disabled: true }]} />",
+    "section": "Segmented"
+  },
+  "Select": {
+    "byType": false,
+    "props": [
+      {
+        "name": "options",
+        "type": "SelectOption[]",
+        "required": true,
+        "onlyMobile": true
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onValueChange",
+        "type": "((value: string) => void)",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "onlyMobile": true
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Select label=\"Loja\" placeholder=\"Escolha uma loja\" value={select} onValueChange={setSelect} options={[{ value: \"imusic\", label: \"iMusic\" }, { value: \"amazon\", label: \"Amazon\" }, { value: \"x\", label: \"Fora do ar\", disabled: true }]} />",
+    "section": "Input / Textarea / Select"
+  },
+  "SettingRow": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "leading",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "leadingFrame",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onPress",
+        "type": "((event: GestureResponderEvent) => void) | null",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "showChevron",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "switchProps",
+        "type": "Omit<SwitchProps, \"accessibilityLabel\">",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "href",
+      "onClick",
+      "rel",
+      "target"
+    ],
+    "example": "<SettingRow title=\"Histórico de versões\" description=\"Avisar quando cair\" switchProps={{ value: toggle, onValueChange: setToggle }} />",
+    "section": "SettingRow"
+  },
+  "SettingRowGroup": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "aria-label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<SettingRowGroup>\n  <SettingRow title=\"Histórico de versões\" description=\"Avisar quando cair\" switchProps={{ value: toggle, onValueChange: setToggle }} />\n  <SettingRow title=\"Moeda\" meta=\"BRL\" showChevron onPress={() => {}} />\n  <SettingRow title=\"Desativado\" disabled showChevron onPress={() => {}} />\n</SettingRowGroup>",
+    "section": "SettingRow"
+  },
+  "SettingsSubnav": {
+    "byType": false,
+    "props": [
+      {
+        "name": "activeHref",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "groups",
+        "type": "SettingsSubnavGroup[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "items",
+        "type": "SettingsSubnavItem[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onNavigate",
+        "type": "((item: SettingsSubnavItem) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "renderLink"
+    ],
+    "example": "<SettingsSubnav activeHref={subnav} onNavigate={(item) => setSubnav(item.href)} groups={[\n  { title: \"Pessoal\", items: [{ href: \"/conta\", label: \"Conta\", description: \"Perfil, senha e 2FA\" }, { href: \"/notificacoes\", label: \"Notificações\" }] },\n  { title: \"Ambiente\", items: [{ href: \"/time\", label: \"Time\" }, { href: \"/cobranca\", label: \"Cobrança\", description: \"Plano e faturas\" }] },\n]} />",
+    "section": "SettingsSubnav / KanbanCard"
+  },
+  "Skeleton": {
+    "byType": false,
+    "props": [
+      {
+        "name": "circle",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "height",
+        "type": "string | number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "width",
+        "type": "string | number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Skeleton circle width={32} />",
+    "section": "Spinner / Skeleton"
+  },
+  "Slider": {
+    "byType": false,
+    "props": [
+      {
+        "name": "defaultValue",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "formatValue",
+        "type": "((value: number) => string)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hideLabel",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "marks",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: number) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showValue",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "ticks",
+        "type": "[string, string]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Slider label=\"Volume\" defaultValue={35} formatValue={(v) => `${v}%`} ticks={[\"Baixo\", \"Alto\"]} />",
+    "section": "Slider / Range"
+  },
+  "Snackbar": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "action",
+        "type": "{ label: string; onClick: () => void; }",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Snackbar action={{ label: \"Desfazer\", onClick: () => {} }}>Arquivo movido para Design</Snackbar>",
+    "section": "Snackbar / SplitButton / FabMenu"
+  },
+  "Sparkline": {
+    "byType": false,
+    "props": [
+      {
+        "name": "data",
+        "type": "number[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "\"good\" | \"bad\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Sparkline label=\"Procura subindo\" data={[3, 5, 4, 7, 8, 12]} />",
+    "section": "BarChart / DonutChart / Sparkline"
+  },
+  "Spinner": {
+    "byType": false,
+    "props": [
+      {
+        "name": "accessibilityLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": true
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Spinner />",
+    "section": "Spinner / Skeleton"
+  },
+  "SplitButton": {
+    "byType": false,
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "options",
+        "type": "SplitButtonOption[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultOptionId",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "leadingIcon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "loadingLabel",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "menuAlign",
+        "type": "\"start\" | \"end\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onClick",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "((open: boolean) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onSelect",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "SplitButtonVariant",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<SplitButton label=\"Exportar\" variant=\"primary\" options={[{ id: \"csv\", label: \"CSV\", hint: \".csv\" }, { id: \"pdf\", label: \"PDF\", hint: \".pdf\" }, { id: \"json\", label: \"JSON\", hint: \".json\", disabled: true }]} />",
+    "section": "Snackbar / SplitButton / FabMenu"
+  },
+  "Stat": {
+    "byType": false,
+    "props": [
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "chart",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "delta",
+        "type": "StatDelta",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "StatSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "unit",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Stat key={size} size={size} label=\"Menor preço\" value=\"R$ 179\" unit=\"BRL\" delta={{ value: \"−12%\", trend: \"down\", sentiment: \"positive\" }} description=\"Últimos 30 dias\" />",
+    "section": "Stat"
+  },
+  "StatGroup": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "minTileWidth",
+        "type": "number",
+        "required": false,
+        "onlyMobile": true
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<StatGroup>{statSizes.map((size) => <Stat key={size} size={size} label=\"Menor preço\" value=\"R$ 179\" unit=\"BRL\" delta={{ value: \"−12%\", trend: \"down\", sentiment: \"positive\" }} description=\"Últimos 30 dias\" />)}</StatGroup>",
+    "section": "Stat"
+  },
+  "StatusDot": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "pulse",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "StatusDotTone",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<StatusDot key={tone} tone={tone}>{tone}</StatusDot>",
+    "section": "Label / Divider / StatusDot"
+  },
+  "StickyBar": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "status",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "visible",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<StickyBar title=\"Relatório anual · Finanças\" status={<Badge tone=\"success\">publicado</Badge>} actions={<Button size=\"sm\" variant=\"primary\">Compartilhar</Button>} />",
+    "section": "UsageMeter / ScoreGauge / Sticky"
+  },
+  "StickyFooter": {
+    "byType": false,
+    "props": [
+      {
+        "name": "bottomInset",
+        "type": "number",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "start",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "position"
+    ],
+    "example": "<StickyFooter start=\"3 arquivos selecionados\"><Button size=\"sm\">Cancelar</Button><Button size=\"sm\" variant=\"primary\">Revisar</Button></StickyFooter>",
+    "section": "UsageMeter / ScoreGauge / Sticky"
+  },
+  "SwipeDeck": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "SwipeDeckItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultIndex",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "gestureEnabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "index",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "instructions",
+        "type": "\"visible\" | \"hidden\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "motion",
+        "type": "\"auto\" | \"reduced\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onAction",
+        "type": "((action: PropertyAction, item: SwipeDeckItem) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onIndexChange",
+        "type": "((index: number) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onReset",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<SwipeDeck title=\"Imóveis para revisar\" items={[\n  { id: \"s1\", title: \"Casa com jardim no Santa Tereza\", subtitle: \"Rua Mármore, Belo Horizonte\", value: \"R$ 3.200\", valueSuffix: \"/mês\", matchScore: 86, facts: [{ label: \"Quartos\", value: \"3\" }, { label: \"Área\", value: \"140 m²\" }], media: [{ src: \"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900\", alt: \"Fachada\" }] },\n  { id: \"s2\", title: \"Apartamento no Funcionários\", subtitle: \"Rua Antônio de Albuquerque\", value: \"R$ 4.100\", valueSuffix: \"/mês\", matchScore: 72, facts: [{ label: \"Quartos\", value: \"2\" }, { label: \"Área\", value: \"88 m²\" }], media: [{ src: \"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900\", alt: \"Sala\" }] },\n]} />",
+    "section": "SwipeDeck"
+  },
+  "Switch": {
+    "byType": false,
+    "props": [
+      {
+        "name": "appearance",
+        "type": "\"plain\" | \"control\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "checked",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "defaultChecked",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onCheckedChange",
+        "type": "((checked: boolean) => void)",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle> | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "aria-label"
+    ],
+    "example": "<Switch accessibilityLabel=\"Avisos por e-mail\" defaultChecked />",
+    "section": "Switch / Checkbox / RadioGroup"
+  },
+  "Table": {
+    "byType": false,
+    "props": [
+      {
+        "name": "columns",
+        "type": "Column<Row>[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "rowKey",
+        "type": "(row: Row, index: number) => string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "rows",
+        "type": "Row[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "empty",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "error",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "minTableWidth",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onRowClick",
+        "type": "((row: Row) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "pagination",
+        "type": "TablePagination",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "rowLabel",
+        "type": "((row: Row) => string)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "searchable",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "searchMatch",
+        "type": "((row: Row, query: string) => boolean)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "searchPlaceholder",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Table caption=\"Arquivos do espaço\" rowKey={(r) => r.id} searchable minTableWidth={340} pagination={{ pageSize: 4 }}\n  columns={[\n    { key: \"titulo\", header: \"Arquivo\", cell: (r) => r.titulo, sortable: true },\n    { key: \"genero\", header: \"Área\", cell: (r) => r.genero, filterable: true, width: 110 },\n    { key: \"ano\", header: \"Ano\", cell: (r) => String(r.ano), align: \"num\", sortable: true, sortValue: (r) => r.ano, width: 80 },\n  ]}\n  rows={[\n    { id: \"1\", titulo: \"Orçamento\", genero: \"Engenharia\", ano: 2024 },\n    { id: \"2\", titulo: \"Cronograma\", genero: \"Engenharia\", ano: 2023 },\n    { id: \"3\", titulo: \"Relatório anual\", genero: \"Design\", ano: 2025 },\n    { id: \"4\", titulo: \"Pesquisa 2026\", genero: \"Marketing\", ano: 2026 },\n    { id: \"5\", titulo: \"Briefing\", genero: \"Engenharia\", ano: 2024 },\n    { id: \"6\", titulo: \"Plano de lançamento\", genero: \"Design\", ano: 2022 },\n  ]} />",
+    "section": "Table"
+  },
+  "Tabs": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "TabItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "\"underline\" | \"pill\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "wrap",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Tabs items={[{ id: \"a\", label: \"Ofertas\", badge: 3, content: <Text>Ofertas</Text> }, { id: \"b\", label: \"Histórico\", status: \"complete\" }, { id: \"c\", label: \"Alertas\", status: \"warning\" }, { id: \"d\", label: \"Off\", disabled: true }]} />",
+    "section": "Tabs"
+  },
+  "Textarea": {
+    "byType": false,
+    "props": [
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<TextStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Textarea label=\"Observação\" placeholder=\"Algo sobre a versão\" />",
+    "section": "Input / Textarea / Select"
+  },
+  "Timeline": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "TimelineMilestone[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "emptyMessage",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Timeline items={[\n  { id: \"m1\", timestamp: \"2026-09-02T12:00:00Z\", title: \"Primeiro arquivo organizado\", description: \"Relatório anual, versão de 2025.\", status: \"completed\" },\n  { id: \"m2\", timestamp: \"2026-10-15T12:00:00Z\", title: \"Espaço passou de 300 arquivos\", status: \"current\" },\n  { id: \"m3\", timestamp: \"2026-12-01T12:00:00Z\", title: \"Primeira revisão na reunião\", status: \"upcoming\" },\n]} />",
+    "section": "Timeline / EventTimeline"
+  },
+  "Toast": {
+    "byType": false,
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "action",
+        "type": "{ label: string; onClick: () => void; }",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "duration",
+        "type": "number | null",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "fromTop",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "onDismiss",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "tone",
+        "type": "ToastTone",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": null,
+    "section": null
+  },
+  "ToastRegion": {
+    "byType": false,
+    "props": [
+      {
+        "name": "onDismiss",
+        "type": "(id: string) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "toasts",
+        "type": "ToastData[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "position",
+        "type": "\"bottom-right\" | \"bottom-left\" | \"top-right\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ToastRegion toasts={showToasts ? toasts : []} onDismiss={(id) => setToasts((list) => list.filter((x) => x.id !== id))} />",
+    "section": "Modal / Toast"
+  },
+  "ToggleGroup": {
+    "byType": false,
+    "props": [
+      {
+        "name": "options",
+        "type": "ToggleOption[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((values: string[]) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string[]",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ToggleGroup label=\"Formatos\" defaultValue={[\"lp\"]} options={[{ value: \"lp\", label: \"PDF\", icon: <Plus /> }, { value: \"ep\", label: \"DOC\" }, { value: \"single\", label: \"Planilha\" }, { value: \"box\", label: \"Box\", disabled: true }]} />",
+    "section": "ToggleGroup / Pagination / Otp"
+  },
+  "Tooltip": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "((open: boolean) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "side",
+        "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "delayMs",
+      "portalled",
+      "shortcut"
+    ],
+    "example": "<Tooltip label=\"Copiar link\" description=\"Qualquer pessoa com o link vê o arquivo.\">\n  <Button size=\"sm\" variant=\"ghost\">Compartilhar</Button>\n</Tooltip>",
+    "section": "Popover / Menu / Tooltip"
+  },
+  "Trace": {
+    "byType": false,
+    "props": [
+      {
+        "name": "steps",
+        "type": "TraceStep[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "codeBlockProps",
+        "type": "Pick<CodeBlockProps, \"copyToClipboard\" | \"highlight\">",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Trace steps={[\n  { id: \"t1\", title: \"Ler o pedido\", status: \"complete\", duration: \"0,4 s\", detail: '{ \"quartos\": 3, \"bairro\": \"Santa Tereza\" }' },\n  { id: \"t2\", title: \"Buscar imóveis\", status: \"running\", detail: '{ \"fonte\": \"espaço\" }' },\n  { id: \"t3\", title: \"Calcular compatibilidade\", status: \"error\", duration: \"1,2 s\", detail: '{ \"erro\": \"sem preço\" }' },\n]} />",
+    "section": "Trace"
+  },
+  "UsageMeter": {
+    "byType": false,
+    "props": [
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "used",
+        "type": "number",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "criticalAt",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "formatValue",
+        "type": "((value: number) => string)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "unit",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "warnAt",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<UsageMeter label=\"Arquivos no espaço\" used={320} limit={500} />",
+    "section": "UsageMeter / ScoreGauge / Sticky"
+  },
+  "UsageMeterGroup": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<UsageMeterGroup>\n  <UsageMeter label=\"Arquivos no espaço\" used={320} limit={500} />\n  <UsageMeter label=\"Histórico de versões\" used={42} limit={50} meta=\"renova dia 1\" />\n  <UsageMeter label=\"Fotos\" used={1050} limit={1000} unit=\"arquivos\" />\n</UsageMeterGroup>",
+    "section": "UsageMeter / ScoreGauge / Sticky"
+  },
+  "UserMenu": {
+    "byType": false,
+    "props": [
+      {
+        "name": "user",
+        "type": "UserMenuUser",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "align",
+        "type": "\"start\" | \"end\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "compact",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "entries",
+        "type": "MenuEntry[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onSelect",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "side",
+        "type": "\"top\" | \"bottom\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "aria-describedby"
+    ],
+    "example": "<UserMenu compact user={{ name: \"Ana Souza\", initials: \"AS\", seed: \"ana\" }} />",
+    "section": "UserMenu / HelpMenu / NotificationBell"
+  },
+  "VisitSchedulePicker": {
+    "byType": false,
+    "props": [
+      {
+        "name": "defaultActiveDate",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "VisitAvailability",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "maxDate",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "minDate",
+        "type": "Date",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: VisitAvailability) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "unavailable",
+        "type": "VisitAvailability",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "VisitAvailability",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<VisitSchedulePicker defaultActiveDate={new Date(2026, 10, 10)} minDate={new Date(2026, 10, 6)} defaultValue={{ \"2026-11-10\": [\"09:00\", \"09:30\", \"10:00\", \"14:00\"], \"2026-11-12\": [] }} unavailable={{ \"2026-11-10\": [\"11:00\", \"11:30\"] }} />",
+    "section": "VisitSchedulePicker"
+  },
+  "VoiceRecorder": {
+    "byType": false,
+    "props": [
+      {
+        "name": "duration",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "errorMessage",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "level",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onCancel",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onFinish",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onPause",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onResume",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onRetry",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onStart",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onUseFallback",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "state",
+        "type": "VoiceRecorderState",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "transcript",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<VoiceRecorder style={{ marginTop: 12 }} state=\"idle\" onStart={() => setVoice(\"listening\")} />",
+    "section": "FileUpload / VoiceRecorder"
+  },
+  "WizardStepper": {
+    "byType": false,
+    "props": [
+      {
+        "name": "current",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "steps",
+        "type": "WizardStep[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "allowFutureNavigation",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "backLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onBack",
+        "type": "(() => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onStepChange",
+        "type": "((id: string) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "\"horizontal\" | \"auto\" | \"compact\"",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<WizardStepper label=\"Cadastro\" current={step} onStepChange={setStep} onBack={() => {}} steps={[{ id: \"conta\", label: \"Conta\" }, { id: \"dados\", label: \"Dados\" }, { id: \"fim\", label: \"Fim\" }]} />",
+    "section": "WizardStepper"
+  },
+  "WorkspaceSwitcher": {
+    "byType": false,
+    "props": [
+      {
+        "name": "workspaces",
+        "type": "Workspace[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "compact",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((workspace: Workspace) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "style",
+        "type": "StyleProp<ViewStyle>",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "aria-describedby"
+    ],
+    "example": "<WorkspaceSwitcher workspaces={[\n  { id: \"w1\", name: \"Espaço pessoal\", role: \"Ambiente · Pro\", initials: \"EP\" },\n  { id: \"w2\", name: \"Estúdio BH\", role: \"Ambiente · Time\", initials: \"EB\" },\n  { id: \"w3\", name: \"Time de design\", role: \"Ambiente · Grátis\", initials: \"TD\" },\n  { id: \"w4\", name: \"Equipe de revisão\", role: \"Ambiente · Time\", initials: \"ER\" },\n  { id: \"w5\", name: \"Arquivo da Rádio\", role: \"Ambiente · Pro\", initials: \"AR\" },\n]} />",
+    "section": "UserMenu / HelpMenu / NotificationBell"
+  }
+}

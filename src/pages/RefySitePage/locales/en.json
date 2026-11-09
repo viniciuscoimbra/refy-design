@@ -2148,5 +2148,16 @@
  "↑/↓ abrem/percorrem opções; Home/End atuam na lista aberta; Enter escolhe; Escape fecha. A digitação permanece no input.": "↑/↓ open/move through options; Home/End work in the open list; Enter picks; Escape closes. Typing stays in the input.",
  "↑/↓ e Home/End percorrem a lista aberta; Enter alterna opção; Escape/Tab fecham. Backspace com busca vazia remove a última escolha.": "↑/↓ and Home/End move through the open list; Enter toggles an option; Escape/Tab close. Backspace with an empty search removes the last choice.",
  "↑/↓ percorrem habilitados; Home/End vão às extremidades; letra busca rótulo textual; Enter/Espaço acionam; Escape/Tab fecham. Sem submenu aninhado.": "↑/↓ move through enabled items; Home/End go to the ends; a letter searches a text label; Enter/Space activate; Escape/Tab close. No nested submenus.",
- "↻ Restaurar padrão": "↻ Restore default"
+ "↻ Restaurar padrão": "↻ Restore default",
+ "Só web": "Web only",
+ "A prévia não abriu neste navegador. O código abaixo é o mesmo do app.": "The preview did not open in this browser. The code below is the same as in the app.",
+ "Prévia com react-native-web: o mesmo código do app, no tema do site.": "Preview with react-native-web: the same code as the app, in the site theme.",
+ "Num app Expo, instale o pacote e o react-native-svg:": "In an Expo app, install the package and react-native-svg:",
+ "Trecho da galeria do pacote, dentro de um RefyProvider:": "Excerpt from the package gallery, inside a RefyProvider:",
+ "Este componente ainda não aparece na galeria do pacote.": "This component is not in the package gallery yet.",
+ "Propriedades do tipo público em @refy-design/mobile. As de View, Text e Pressable também são aceitas.": "Properties of the public type in @refy-design/mobile. Those of View, Text and Pressable are accepted too.",
+ "Propriedades por tipo": "Properties by type",
+ "As propriedades mudam conforme o valor de type. A tabela junta todas as variantes.": "The properties change with the value of type. The table brings all variants together.",
+ "Só mobile": "Mobile only",
+ "Só web:": "Web only:"
 }

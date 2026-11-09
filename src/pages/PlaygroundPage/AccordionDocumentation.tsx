@@ -1,8 +1,10 @@
 import { tr } from "../RefySitePage/i18n";
 import { PackageInstall } from "../RefySitePage/PackageInstall";
 import { installCommands, packagePublished } from "../RefySitePage/packageRelease";
-import { useId, useState } from "react";
-import { usage as accordionUsage } from "./documentation/Accordion.json";
+import { useEffect, useId, useState } from "react";
+import { api as accordionApi, usage as accordionUsage } from "./documentation/Accordion.json";
+import { MobileDocumentation, MobileToc, PlatformToggle, hasMobile } from "./MobileDocumentation";
+import { syncPlatformUrl, usePlatform } from "../RefySitePage/platform";
 import type { ReactNode } from "react";
 import {
   Accordion,
@@ -261,6 +263,9 @@ export function AccordionDocumentation({
   onCustomize,
 }: { onCustomize?: () => void } = {}) {
   const [direction, setDirection] = useState("rtl");
+  const platform = usePlatform();
+  const mobile = platform === "mobile" && hasMobile("Accordion");
+  useEffect(() => syncPlatformUrl(hasMobile("Accordion")), [platform]);
   const rtlItems = direction === "rtl" ? arabic : questions;
   const usage = `<Accordion\n  defaultValue={["files"]}\n  items={[{\n    id: "files",\n    title: "Como organizar meus arquivos?",\n    content: <p>Crie coleções e agrupe os arquivos por projeto.</p>,\n  }]}\n/>`;
   return (
@@ -282,7 +287,9 @@ export function AccordionDocumentation({
                 {tr("Personalizar no Playground")}</Button>
             )}
           </div>
+          <PlatformToggle id="Accordion" />
         </header>
+        {mobile ? <MobileDocumentation id="Accordion" webProps={accordionApi.find((item) => item.name === "Accordion")?.props ?? []} /> : (<>
         <Example name="accordion-demo" code={source()}>
           <Accordion defaultValue={["files"]} items={accordionItems} />
         </Example>
@@ -293,6 +300,7 @@ export function AccordionDocumentation({
           <CodeBlock language="tsx" code={importCode} />
           <CodeBlock language="tsx" code={usage} />
         </Section>
+
         <Section id="composition" title={tr("Composição")}>
           <p>
             {tr("O refy recebe uma lista em")} <code>items</code>. Título e conteúdo
@@ -480,9 +488,10 @@ export function AccordionDocumentation({
           <p>
             {tr("Tab e Shift+Tab percorrem os títulos habilitados. Enter e Espaço abrem ou fecham a seção em foco. Os títulos informam o estado expandido e a relação com seus painéis.")}</p>
         </Section>
+        </>)}
       </article>
       <aside className={styles.toc}>
-        <TableOfContents items={sections} label={tr("Nesta página")} />
+        {mobile ? <MobileToc id="Accordion" /> : <TableOfContents items={sections} label={tr("Nesta página")} />}
       </aside>
     </>
   );

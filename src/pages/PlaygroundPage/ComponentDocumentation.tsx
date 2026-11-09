@@ -1,4 +1,6 @@
 import { tr } from "../RefySitePage/i18n";
+import { MobileDocumentation, MobileToc, PlatformToggle, hasMobile } from "./MobileDocumentation";
+import { syncPlatformUrl, usePlatform } from "../RefySitePage/platform";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -95,6 +97,9 @@ export function ComponentDocumentation({
   );
   const doc = loadedDoc?.id === id ? loadedDoc : cache.get(id);
   const [failed, setFailed] = useState<string>();
+  const platform = usePlatform();
+  const mobile = platform === "mobile" && hasMobile(id);
+  useEffect(() => syncPlatformUrl(hasMobile(id)), [id, platform]);
   useEffect(() => {
     let current = true;
     setFailed(undefined);
@@ -187,7 +192,9 @@ export function ComponentDocumentation({
                 {tr("Personalizar no Playground")}</Button>
             )}
           </div>
+          <PlatformToggle id={id} />
         </header>
+        {mobile ? <MobileDocumentation id={id} webProps={doc.api.find((api) => api.name === doc.publicName)?.props ?? []} /> : (<>
         <Example
           name={`${id}-${primary.id}`}
           code={primary.code}
@@ -214,6 +221,7 @@ export function ComponentDocumentation({
             />
           </div>
         </Section>
+
         <Section id="composition" title={tr("Composição")}>
           <p>
             {tr("Estrutura do componente e partes reutilizadas na implementação. Conteúdo e controles adicionais são compostos pelas propriedades da API.")}</p>
@@ -303,9 +311,10 @@ export function ComponentDocumentation({
             </div>
           ))}
         </Section>
+        </>)}
       </article>
       <aside className={styles.toc}>
-        <TableOfContents key={id} items={sections} label={tr("Nesta página")} />
+        {mobile ? <MobileToc id={id} /> : <TableOfContents key={id} items={sections} label={tr("Nesta página")} />}
       </aside>
     </>
   );

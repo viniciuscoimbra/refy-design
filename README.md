@@ -61,6 +61,14 @@ npm exec --offline -- refy-agent inspect src/Tela.tsx
 npm exec --offline -- refy-agent check src/Tela.tsx src/tela.css
 ```
 
+O mesmo kit roda como servidor MCP, para o agente consultar sem sair da conversa. No Claude Code:
+
+```bash
+claude mcp add refy -- npx --no-install refy-mcp
+```
+
+São seis ferramentas: `refy_search` acha a família pela necessidade escrita em português, inglês ou espanhol; `refy_component` lê a API; `refy_collections` lista as coleções; `refy_validate` confere o código contra a API e as regras do `check`; `refy_theme_generate` e `refy_theme_validate` geram e conferem tema com contraste AA. [Configuração em outros clientes e limites](docs/MCP.md).
+
 Consulta exige Node; análise de código usa o TypeScript de desenvolvimento do projeto. O kit é local, somente leitura e não carrega parser ou IA no navegador. As verificações detectam regras conhecidas e informam exceções/limites; testes de fluxo e revisão visual continuam necessários. [Contrato, piloto antes/depois e uso completo](docs/AGENT_ADOPTION.md).
 
 ## Usar em um projeto novo

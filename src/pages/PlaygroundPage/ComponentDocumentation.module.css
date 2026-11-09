@@ -392,3 +392,22 @@
 .tableScroll table.keyTable {
   font-size: inherit;
 }
+
+/* Web | Mobile no topo da ficha. */
+.platform {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.platformNote {
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+/* Prévia nativa: o celular centralizado, sem passar da coluna. */
+.mobilePreview {
+  display: flex;
+  justify-content: center;
+  margin-block: var(--space-6);
+  max-width: 100%;
+}

@@ -52,6 +52,7 @@ import { blockRegistry } from "../PlaygroundPage/blockRegistry";
 import { skins } from "../../stories/skins";
 import { fontSets } from "../../lib/fontSets";
 import styles from "./RefySitePage.module.css";
+import { SiteThemeContext } from "./platform";
 import { SiteLocaleProvider, flags, localeNames, locales, useSiteLocale, useText, useTr } from "./i18n";
 import type { Locale } from "./i18n";
 import { packageName, packagePublished, packageVersion } from "./packageRelease";
@@ -608,7 +609,7 @@ function AIPage({ navigate, config }: { navigate: (page: SitePage) => void; conf
         <section id="limits">
           <h2>{t({ pt: "Limites e validação", en: "Limits and validation", es: "Límites y validación" })}</h2>
           <Callout tone="note" title={t({ pt: "Guia de composição", en: "Composition guide", es: "Guía de composición" })}>
-            {t({ pt: "O kit consulta arquivos e verifica regras conhecidas localmente, sem rede ou alteração automática da tela. Testes de fluxo e revisão visual continuam necessários." + (packagePublished ? " O catálogo remoto ainda não foi publicado." : " O pacote e o catálogo remoto ainda não foram publicados."), en: "The kit reads files and checks known rules locally, with no network and no automatic changes to the screen. Flow tests and visual review are still needed." + (packagePublished ? " The remote catalog is not published yet." : " The package and the remote catalog are not published yet."), es: "El kit consulta archivos y verifica reglas conocidas localmente, sin red ni cambios automáticos en la pantalla. Las pruebas de flujo y la revisión visual siguen siendo necesarias." + (packagePublished ? " El catálogo remoto aún no se publicó." : " El paquete y el catálogo remoto aún no se publicaron.") })}
+            {t({ pt: "O kit consulta arquivos e verifica regras conhecidas localmente, sem rede ou alteração automática da tela. Testes de fluxo e revisão visual continuam necessários." + (packagePublished ? " O catálogo vem dentro do pacote @refy-design/web, em ai/catalog.json." : " O pacote e o catálogo remoto ainda não foram publicados."), en: "The kit reads files and checks known rules locally, with no network and no automatic changes to the screen. Flow tests and visual review are still needed." + (packagePublished ? " The catalog ships inside the @refy-design/web package, in ai/catalog.json." : " The package and the remote catalog are not published yet."), es: "El kit consulta archivos y verifica reglas conocidas localmente, sin red ni cambios automáticos en la pantalla. Las pruebas de flujo y la revisión visual siguen siendo necesarias." + (packagePublished ? " El catálogo viene dentro del paquete @refy-design/web, en ai/catalog.json." : " El paquete y el catálogo remoto aún no se publicaron.") })}
           </Callout>
         </section>
       </article>
@@ -660,6 +661,9 @@ function SiteShell({
   const { locale } = useSiteLocale();
   const docPages = localizedDocPages[locale];
   const destinations = destinationLabels.map(([id, label]): [SitePage, string] => [id, t(label)]);
+  // Mobile é uma página das Docs, mas fica no menu principal para quem procura React Native.
+  const mobileLabel = t({ pt: "Mobile", en: "Mobile", es: "Móvil" });
+  const mobileActive = page === "docs" && doc === "mobile";
   const theme: RefyTheme = resolveTheme(config);
   const update = (patch: Partial<PlaygroundConfig>) =>
     onConfigurationChange
@@ -797,11 +801,12 @@ function SiteShell({
     {id:"agent-recipes", label:t({ pt: "Receitas de composição", en: "Composition recipes", es: "Recetas de composición" }), description:t({ pt: "Padrões e exemplos práticos", en: "Patterns and practical examples", es: "Patrones y ejemplos prácticos" }), group:t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon:Icons.projects, keywords:"composição agente composition agent", onSelect:() => navigate("ai")},
   ];
   const navigation = <NavigationMenu
-    items={destinations.map(([id,label]) => ({id,label}))}
-    activeId={page === "accordion" || page === "charts" || page === "collection" ? "components" : page}
-    onNavigate={id => navigate(id as SitePage)}
+    items={[destinations[0], ["mobile", mobileLabel] as [string, string], ...destinations.slice(1)].map(([id,label]) => ({id,label}))}
+    activeId={mobileActive ? "mobile" : page === "accordion" || page === "charts" || page === "collection" ? "components" : page}
+    onNavigate={id => (id === "mobile" ? openDoc("mobile") : navigate(id as SitePage))}
   />;
   return (
+    <SiteThemeContext.Provider value={theme}>
     <ThemeProvider theme={theme} mode={config.theme} data-refy-site-root="" className={styles.site + (page === "home" ? " " + styles.homeSite : "")}>
       <a href="#site-content" className={styles.skip}>
         {t({ pt: "Ir para conteúdo", en: "Skip to content", es: "Ir al contenido" })}
@@ -943,11 +948,14 @@ function SiteShell({
         columns={[
           {
             title: t({ pt: "Produto", en: "Product", es: "Producto" }),
-            links: [...destinations, ["playground", "Playground"] as [SitePage, string]].map(([id, label]) => ({
-              label,
-              href: pagePaths[id],
-              onClick: (event) => { event.preventDefault(); navigate(id); },
-            })),
+            links: [
+              ...[...destinations, ["playground", "Playground"] as [SitePage, string]].map(([id, label]) => ({
+                label,
+                href: pagePaths[id],
+                onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); navigate(id); },
+              })),
+              { label: mobileLabel, href: "/docs/mobile", onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); openDoc("mobile"); } },
+            ],
           },
           // Releases and Contributing are site pages; repository links only once the public repository is live.
           {
@@ -987,9 +995,9 @@ function SiteShell({
         ]} /><LanguageControl side="top" /></div>}
       >
         <div className={styles.mobileNavigation}>
-          <SettingsSubnav label={t({ pt: "Navegação principal", en: "Main navigation", es: "Navegación principal" })} activeHref={pagePaths[page]} items={
-            [...destinations, ["playground", "Playground"] as [SitePage, string], ["releases", projectLabel(locale, "releases")] as [SitePage, string], ["contribute", projectLabel(locale, "contribuir")] as [SitePage, string]].map(([id,label],index) => ({href:pagePaths[id],label,icon:[Icons.code,Icons.projects,Icons.dashboard,Icons.code,Icons.settings,Icons.projects,Icons.projects][index]}))
-          } renderLink={(item,props) => <a {...props} onClick={event => {event.preventDefault();navigate(routeFromLocation(item.href)?.page ?? "home");}} />} />
+          <SettingsSubnav label={t({ pt: "Navegação principal", en: "Main navigation", es: "Navegación principal" })} activeHref={mobileActive ? "/docs/mobile" : pagePaths[page]} items={
+            [[pagePaths.docs, destinations[0][1]], ["/docs/mobile", mobileLabel], ...[...destinations.slice(1), ["playground", "Playground"] as [SitePage, string], ["releases", projectLabel(locale, "releases")] as [SitePage, string], ["contribute", projectLabel(locale, "contribuir")] as [SitePage, string]].map(([id, label]) => [pagePaths[id], label])].map(([href,label],index) => ({href,label,icon:[Icons.code,Icons.code,Icons.projects,Icons.dashboard,Icons.code,Icons.settings,Icons.projects,Icons.projects][index]}))
+          } renderLink={(item,props) => <a {...props} onClick={event => {event.preventDefault();const route = routeFromLocation(item.href);if (route?.page === "docs" && route.doc) openDoc(route.doc);else navigate(route?.page ?? "home");}} />} />
           <ComponentNav mobile selected={component} onSelect={select} />
         </div>
       </Drawer>
@@ -1002,5 +1010,6 @@ function SiteShell({
         <ThemeEditor config={config} onChange={update} preview={preview} />
       </Drawer>
     </ThemeProvider>
+    </SiteThemeContext.Provider>
   );
 }

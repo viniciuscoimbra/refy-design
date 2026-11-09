@@ -1,6 +1,6 @@
 import { Children, isValidElement } from "react";
 import type { ReactNode } from "react";
-import { Text } from "react-native";
+import { Platform, Text } from "react-native";
 import type { StyleProp, TextStyle } from "react-native";
 
 /** Texto solto (string ou número) vira <Text>; elemento passa direto. O RN quebra com texto fora de <Text>. */
@@ -56,6 +56,10 @@ export function paddingFrom(t: RefyContext, name: string, fallback: [number, num
  * Sem isso o degradê do tema chega como cor inválida e o botão fica transparente.
  */
 export function fill(value: string | undefined): { backgroundColor?: string; experimental_backgroundImage?: string } {
-  if (value && /^(repeating-)?linear-gradient\(/.test(value.trim())) return { experimental_backgroundImage: value };
+  if (value && /^(repeating-)?linear-gradient\(/.test(value.trim())) {
+    // No react-native-web (a prévia do site) o degradê vai como CSS; o RN nativo usa a prop experimental.
+    if (Platform.OS === "web") return { backgroundImage: value } as { experimental_backgroundImage?: string };
+    return { experimental_backgroundImage: value };
+  }
   return { backgroundColor: value };
 }

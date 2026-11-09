@@ -1,6 +1,6 @@
 // Tela de exemplo com todas as variantes de cada componente nativo. É a mesma tela que o
 // teste de acessibilidade percorre e que o app Expo de example/App.tsx mostra no simulador.
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 import { ScrollView, Text, View } from "react-native";
 import {
@@ -33,8 +33,12 @@ const providers: OAuthProvider[] = ["google", "facebook", "linkedin", "spotify",
 const prices = [112, 119, 115, 109, 121, 104].map((y, i) => ({ x: new Date(Date.UTC(2023, 6 + i, 1)), y }));
 const money = (value: unknown) => `R$ ${Number(value).toLocaleString("pt-BR")}`;
 
+// Com `only`, a galeria mostra uma seção só: o site usa isso como prévia de um componente.
+const OnlySection = createContext<string | undefined>(undefined);
 function Section({ title, children }: { title: string; children: ReactNode }) {
   const t = useRefy();
+  const only = useContext(OnlySection);
+  if (only && only !== title) return null;
   return (
     <View style={{ gap: 12 }}>
       <Text accessibilityRole="header" style={{ color: t.pick<string>("--ink-1"), fontSize: 15, ...t.font("--font-headline", "--weight-semi") }}>{title}</Text>
@@ -49,7 +53,7 @@ function Plus() {
 }
 const Row = ({ children }: { children: ReactNode }) => <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, alignItems: "center" }}>{children}</View>;
 
-export function Gallery({ initialModalOpen = false, showToasts = true }: { initialModalOpen?: boolean; showToasts?: boolean }) {
+export function Gallery({ initialModalOpen = false, showToasts = true, only }: { initialModalOpen?: boolean; showToasts?: boolean; only?: string }) {
   const t = useRefy();
   const [modal, setModal] = useState(initialModalOpen);
   const [notes, setNotes] = useState<NotificationItem[]>([
@@ -87,6 +91,7 @@ export function Gallery({ initialModalOpen = false, showToasts = true }: { initi
   const [ship, setShip] = useState("pac");
   const [page, setPage] = useState(4);
   return (
+    <OnlySection.Provider value={only}>
     <View style={{ flex: 1, backgroundColor: t.pick<string>("--bg", "--surface") }}>
       <ScrollView contentContainerStyle={{ padding: 16, gap: 28 }}>
         <Section title="BrandLogo">
@@ -578,5 +583,6 @@ export function Gallery({ initialModalOpen = false, showToasts = true }: { initi
       </Modal>
       <ToastRegion toasts={showToasts ? toasts : []} onDismiss={(id) => setToasts((list) => list.filter((x) => x.id !== id))} />
     </View>
+    </OnlySection.Provider>
   );
 }

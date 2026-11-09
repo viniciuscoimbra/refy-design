@@ -1,6 +1,6 @@
 {
   "name": "@refy-design/web",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Refy Design System — componentes React atômicos.",
   "license": "MIT",
   "type": "module",
@@ -62,7 +62,7 @@
     "check:site-visual": "node scripts/refy-site-harness.mjs --compare",
     "check:site-acceptance": "node scripts/refy-site-harness.mjs --acceptance",
     "agent:build": "node scripts/agent-kit.mjs",
-    "agent:check": "node scripts/agent-kit.mjs --check && node --test tests/agent-kit.test.mjs tests/agent-discovery.test.mjs tests/collection-registry.test.mjs tests/agent-collections.test.mjs tests/agent-init.test.mjs"
+    "agent:check": "node scripts/agent-kit.mjs --check && node --test tests/agent-kit.test.mjs tests/agent-discovery.test.mjs tests/collection-registry.test.mjs tests/agent-collections.test.mjs tests/agent-init.test.mjs tests/agent-mcp.test.mjs"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -84,10 +84,14 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "axe-core": "4.14.0",
+    "buffer": "^6.0.3",
     "gsap": "3.15.1",
     "prettier": "^3.9.10",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "react-native": "^0.81.5",
+    "react-native-svg": "^15.12.1",
+    "react-native-web": "^0.21.4",
     "storybook": "^8.6.19",
     "typescript": "^5.5.0",
     "vite": "^6.4.5"
@@ -154,6 +158,7 @@
   },
   "bin": {
     "refy": "./tools/refy-agent/cli.mjs",
-    "refy-agent": "./tools/refy-agent/cli.mjs"
+    "refy-agent": "./tools/refy-agent/cli.mjs",
+    "refy-mcp": "./tools/refy-agent/mcp.mjs"
   }
 }
