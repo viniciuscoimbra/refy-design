@@ -6,7 +6,8 @@
 }
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) repeat(auto-fit, minmax(140px, 1fr));
+  /* One track per column: auto-fit added empty tracks that squeezed the brand column. */
+  grid-template-columns: minmax(0, 2fr) repeat(var(--site-footer-columns, 3), minmax(140px, 1fr));
   gap: var(--site-footer-gap, 40px);
 }
 .identity {

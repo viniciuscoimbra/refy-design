@@ -59,7 +59,7 @@ export function contrast(a, b) {
   return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
 }
 // Anda na luminosidade até o contraste mínimo, mantendo matiz e croma.
-function fit(color, against, min, direction) {
+export function fit(color, against, min, direction) {
   let current = { ...color };
   for (let i = 0; i < 100 && contrast(oklchToHex(current), against) < min; i++)
     current = { ...current, l: Math.min(1, Math.max(0, current.l + direction * 0.01)) };

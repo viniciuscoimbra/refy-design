@@ -4,6 +4,7 @@
 // Storybook renomeado não conta. Rodar depois de build e build-storybook.
 // Uso: node scripts/test-consumers.mjs [-- argumentos extras do playwright]
 import { execFileSync, spawn } from "node:child_process";
+import { createServer } from "node:net";
 import { mkdtempSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -23,7 +24,17 @@ const run = (cmd, args, options = {}) => {
 const playwright = (files, url, variable) =>
   run("npx", ["playwright", "test", ...files, "--reporter=list", ...extra], { env: { ...env, [variable]: url } });
 
-async function serve(dir, port, work) {
+// Porta livre dada pelo sistema: numa máquina de uso pessoal (o runner do Mac) qualquer porta fixa
+// pode estar ocupada, inclusive por outro preparo rodando ao mesmo tempo.
+const freePort = () => new Promise((resolve, reject) => {
+  const probe = createServer().once("error", reject).listen(0, "127.0.0.1", () => {
+    const { port } = probe.address();
+    probe.close(() => resolve(port));
+  });
+});
+
+async function serve(dir, work) {
+  const port = await freePort();
   const url = `http://127.0.0.1:${port}`;
   // A server left over from an earlier run answers on the same port with an old build.
   if (await fetch(url).then(() => true, () => false)) throw new Error(`port ${port} is already in use; stop that server first`);
@@ -48,7 +59,6 @@ run("node", ["scripts/verify-local-package.mjs", tarball, join(root, "consumers"
 run("node", ["scripts/prepare-css-catalog.mjs", tarball, join(root, "catalog")]);
 
 const consumerSpecs = ["install", "overlays", "package-features", "adoption", "site-theme"].map((name) => `tests/consumer-${name}.spec.ts`);
-let port = 6178;
-for (const major of ["18", "19"]) await serve(join(root, "consumers", major), port++, (url) => playwright(consumerSpecs, url, "REFY_CONSUMER_URL"));
-await serve(join(root, "catalog"), 6190, (url) => playwright(["tests/consumer-css-catalog.spec.ts"], url, "REFY_CSS_CATALOG_URL"));
+for (const major of ["18", "19"]) await serve(join(root, "consumers", major), (url) => playwright(consumerSpecs, url, "REFY_CONSUMER_URL"));
+await serve(join(root, "catalog"), (url) => playwright(["tests/consumer-css-catalog.spec.ts"], url, "REFY_CSS_CATALOG_URL"));
 console.log(`\nOK: consumidores React 18 e 19 instalados do tarball e testados (${root}).`);

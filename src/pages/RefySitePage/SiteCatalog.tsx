@@ -166,10 +166,12 @@ export const levelIcons: Record<string, ReactNode> = {
   Organismos: areaIcon(<><path d="m12 3 9 5-9 5-9-5z" /><path d="m3 13 9 5 9-5" /></>),
 };
 // Endereço público de cada família; o site liga a barra de endereço, o Playground só usa o clique.
-export const familyHref = (id: string) => `/componentes/${id.toLowerCase()}`;
+// Nome com hífen entre as palavras (VisitSchedulePicker vira visit-schedule-picker), igual nos três idiomas.
+export const familySlug = (id: string) => id.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+export const familyHref = (id: string) => `/componentes/${familySlug(id)}`;
 const familyFromHref = (href: string) => {
   const slug = href.split("/").pop() ?? "";
-  return componentCatalog.find((item) => item.id.toLowerCase() === slug)?.id ?? slug;
+  return componentCatalog.find((item) => familySlug(item.id) === slug || item.id.toLowerCase() === slug)?.id ?? slug;
 };
 /** Camada de cada família com o ícone da camada, para ninguém precisar ler o rótulo pra distinguir. */
 export function LevelBadge({ level }: { level: string }) {
@@ -297,9 +299,11 @@ export function CatalogNav({ filter, onFilter, openCollection, openCharts }: { f
     </SideNav>
   );
 }
-// One-line descriptions come from each family's documentation file.
-export const familyDescriptions = import.meta.glob<string>("../PlaygroundPage/documentation/*.json", { eager: true, import: "description" });
-export const describe = (id: string) => familyDescriptions[`../PlaygroundPage/documentation/${id}.json`] ?? "";
+// One-line descriptions come from each family's documentation file. The query gives this import its own
+// module, so only the description lands in the main chunk; the full file (examples, about 1 MB in
+// all) stays in the chunk ComponentDocumentation loads on demand.
+export const familyDescriptions = import.meta.glob<string>("../PlaygroundPage/documentation/*.json", { eager: true, import: "description", query: "?description" });
+export const describe = (id: string) => familyDescriptions[`../PlaygroundPage/documentation/${id}.json?description`] ?? "";
 export const stroke = (children: ReactNode) => areaIcon(children);
 export const previewIcons = {
   heart: stroke(<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />),

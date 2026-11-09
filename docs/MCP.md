@@ -1,8 +1,29 @@
 # Servidor MCP do Refy
 
-O pacote `@refy-design/web` traz um servidor MCP (`refy-mcp`) que expõe o catálogo, a API dos componentes, a validação de uso e a geração de tema para qualquer agente compatível com o Model Context Protocol. Ele lê só o que vem no pacote instalado e o que o agente manda na chamada: não escreve no projeto, não acessa a rede e não chama modelo de IA. A única rede é a do `npx -y` quando o pacote não está instalado.
+O pacote `@refy-design/web` traz um servidor MCP (`refy-mcp`) que expõe o catálogo, a API dos componentes, a validação de uso e a geração de tema para qualquer agente compatível com o Model Context Protocol. Ele lê só o que vem no pacote instalado e o que o agente manda na chamada: não escreve no projeto e não chama modelo de IA. Fora o `npx -y` quando o pacote não está instalado, só `refy_theme_extract` com `url` acessa a rede, e só o endereço público que a pessoa passou.
 
-## Instalar no cliente
+## Plugin para Claude e Codex
+
+O plugin liga o servidor e três atalhos: `refy-tela` (busca o componente, escreve a tela e roda `refy_validate` no fim), `refy-tema-de-site` (pega os elementos claros de um site e vira tema, sem copiar a tela) e `refy-reproduzir-tela` (só quando a pessoa pede: reproduz a tela igual ao original com Refy e extensões, e compara com `refy_compare` até bater).
+
+Claude Code, app do Claude e Cowork:
+
+```bash
+/plugin marketplace add viniciuscoimbra/refy-design
+/plugin install refy@refy
+```
+
+Chat do Claude Desktop: baixe `refy.mcpb` do release e abra com dois cliques. O Claude Desktop já traz o Node.
+
+Codex, no terminal e no app:
+
+```bash
+codex plugin marketplace add viniciuscoimbra/refy-design
+```
+
+e instale **Refy** na lista de plugins.
+
+## Instalar só o servidor
 
 Claude Code, com o pacote instalado no projeto:
 
@@ -13,15 +34,39 @@ claude mcp add refy -- npx --no-install refy-mcp
 Sem o pacote no projeto, o npx baixa a versão indicada. Fixe a mesma versão que o projeto usa, para o catálogo e a validação baterem com ela:
 
 ```bash
-claude mcp add refy -- npx -y -p @refy-design/web@1.2.0 refy-mcp
+claude mcp add refy -- npx -y -p @refy-design/web@1.3.0 refy-mcp
 ```
 
-Cursor, Windsurf, VS Code e outros clientes que leem `mcpServers`:
+Codex, no terminal:
+
+```bash
+codex mcp add refy -- npx -y -p @refy-design/web@1.3.0 refy-mcp
+```
+
+Ou em `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.refy]
+command = "npx"
+args = ["-y", "-p", "@refy-design/web@1.3.0", "refy-mcp"]
+```
+
+Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Cursor (`.cursor/mcp.json`), Windsurf e outros clientes que leem `mcpServers`:
 
 ```json
 {
   "mcpServers": {
-    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.2.0", "refy-mcp"] }
+    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.3.0", "refy-mcp"] }
+  }
+}
+```
+
+VS Code usa a chave `servers`, em `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.3.0", "refy-mcp"] }
   }
 }
 ```
@@ -37,9 +82,11 @@ O servidor fala por stdio. `REFY_MCP_PROJECT` muda a pasta que `refy_validate` l
 | `refy_collections` | `query` | Coleções (core e especializadas) com os membros reais |
 | `refy_validate` | `code` e `filename`, ou `files` | Achados de contrato e regras estáticas, com linha, regra, severidade e mensagem. `passed` é falso quando há erro |
 | `refy_theme_generate` | `name`, `primary`, `label`, `radius`, `density`, `fontBody`, `fontHeading`, `fontMono` | Tema claro e escuro no formato do `ThemeProvider`, as cores que precisaram de ajuste e o relatório de contraste |
+| `refy_theme_extract` | `url`, ou `html` e `css`, ou `observations`; `name`, `label`, `browser` | Tema claro e escuro tirado das cores, fontes e raios do site, com `decided` (o que foi escolhido), `evidence` (de onde veio cada escolha), `notes` (o que mudou para passar no contraste) e o relatório de contraste |
+| `refy_compare` | `original`, `candidate`, `threshold` | Porcentagem de pixels diferentes entre duas capturas PNG do mesmo tamanho, as regiões que mais diferem e a imagem de diferença (gravada na pasta temporária) |
 | `refy_theme_validate` | `theme` | O mesmo contrato dos temas do repositório: tokens reconhecidos, `label`, referências resolvíveis e contraste AA |
 
-Recursos: `refy://instructions`, `refy://control-choices`, `refy://catalog` e `refy://component/{name}`.
+Recursos: `refy://instructions`, `refy://control-choices`, `refy://theme-probe`, `refy://catalog` e `refy://component/{name}`.
 
 ## Como a busca decide
 
@@ -57,3 +104,19 @@ Não confere valor vindo de variável, spread ou expressão, nem roda o TypeScri
 ## O que a geração de tema garante
 
 As cores de superfície, texto, linha e primária saem da matiz da cor informada, em OKLCH, para o claro e o escuro. Cada par de texto é ajustado em luminosidade até passar no contraste mínimo (4,5:1 para texto, inclusive o texto do botão sobre a cor de hover, e 3:1 para marca). Se a primária informada não atinge 4,5:1 nem com texto branco nem com escuro, ela é escurecida e a nota diz para qual valor. Sucesso, erro e informação continuam os da fundação. Pares com `color-mix()` ou gradiente ficam marcados para conferir no navegador. Cor em outro formato (`rgb()`, nome, `#rrggbbaa`) reprova, porque não dá para medir; `#rgb` é expandido.
+
+## Tema a partir de um site
+
+`refy_theme_extract` lê o site de três jeitos, do mais fiel ao mais pobre:
+
+1. `observations`: o agente abre o site no navegador dele, roda o script de `refy://theme-probe` na página e passa o resultado. É o único jeito que enxerga site montado por JavaScript.
+2. `url` com Playwright instalado no projeto: o servidor abre o site num Chromium sem janela e roda o mesmo script.
+3. `url` sem Playwright, ou `html` e `css`: lê o HTML e as folhas de estilo servidas, classes arbitrárias do Tailwind (`bg-[#0b0b0f]`), `tailwind.config` embutido e fontes do Google Fonts.
+
+A escolha segue esta ordem. Fundo: o do `body`, depois variável de fundo (`--background`, `--bg`), depois a cor que mais ocupa a tela. Texto: o do `body`. Superfície: variável de cartão ou fundo de cartão próximo do fundo da página. Primária: variável de marca (`--primary`, `--accent`, `--brand`), depois fundo de botão, depois a cor com croma mais frequente. Fontes: variável, depois `body`, títulos e código. Raio: mediana dos botões e cartões.
+
+Com a sonda, o jeito de cada elemento também vira token, em `elements`: botão (altura, espaço lateral, peso da letra, sombra, formato pílula e cores do secundário), cartão (sombra, borda e espaço interno), campo (altura, raio, borda e sombra), selo (raio, caixa alta e espaço entre letras) e espaço entre letras de títulos e sobretítulos. O que o Refy não tem token para receber, como caixa alta no botão, volta em `elements.gaps` com a rota: extensão em `refy-extensions/<Nome>` ou contribuição com `npx refy contribute <Nome>`.
+
+O fundo, a superfície e o texto medidos entram no modo do site (claro ou escuro); o outro modo sai do gerador com a mesma primária. Se os neutros do site derrubarem algum par de contraste, o modo volta para os neutros gerados e `notes` diz qual par caiu.
+
+Endereço local ou de rede interna é recusado. As cores, as fontes e a marca do site pertencem a quem o fez: o tema é ponto de partida no seu projeto, não tema do Refy nem marca de terceiro.

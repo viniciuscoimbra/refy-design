@@ -50,7 +50,9 @@
 .prose li + li {
   margin-top: 0.5em;
 }
-.prose a {
+/* Só o link escrito no texto. Link de componente do refy (NavCard, Button com href) tem classe e
+   segue o próprio estilo; antes ficava sublinhado dentro do Prose. */
+.prose a:not([class]) {
   color: var(--primary-ink);
   text-decoration: underline;
   text-underline-offset: 0.2em;

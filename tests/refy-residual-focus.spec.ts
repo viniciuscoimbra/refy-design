@@ -8,7 +8,7 @@ import { sourceDigest } from "../scripts/refy-site-harness.mjs";
 // CLOSE-06: covers the CLOSE-05 blind spot. No neutral repaint after the
 // traversal, so a ring left painted after blur stays visible to this check.
 test.use({ screenshot: "off", trace: "off", reducedMotion: "reduce" });
-const source = process.env.REFY_FAMILY_STORYBOOK_URL ?? "http://127.0.0.1:6006";
+const source = process.env.REFY_FAMILY_STORYBOOK_URL ?? `http://127.0.0.1:${process.env.REFY_STORYBOOK_PORT || 6006}`;
 const consumer = process.env.REFY_FAMILY_CONSUMER_URL;
 const output = process.env.REFY_RESIDUAL_FOCUS_OUTPUT;
 // Negative control only: keeps a ring on every control after it was focused.

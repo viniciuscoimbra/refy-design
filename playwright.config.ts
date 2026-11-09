@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
-const baseURL = process.env.REFY_STORYBOOK_URL || "http://127.0.0.1:6006";
+// REFY_STORYBOOK_PORT muda a porta do servidor que o Playwright sobe: no runner próprio a 6006
+// pode estar ocupada por um Storybook de quem hospeda a máquina.
+const port = Number(process.env.REFY_STORYBOOK_PORT || 6006);
+const baseURL = process.env.REFY_STORYBOOK_URL || `http://127.0.0.1:${port}`;
 // Firefox e WebKit rodam só onde o navegador muda o comportamento: foco, select
 // nativo e conteúdo em portal. O resto da suíte pública roda no Chromium.
 const crossBrowser = [
@@ -24,5 +27,5 @@ export default defineConfig({
     { name: "firefox", testMatch: crossBrowser, use: { ...devices["Desktop Firefox"] } },
     { name: "webkit", testMatch: crossBrowser, use: { ...devices["Desktop Safari"] } },
   ],
-  webServer: process.env.REFY_STORYBOOK_URL ? undefined : { command: process.env.CI ? "vite preview --outDir storybook-static --host 127.0.0.1 --port 6006 --strictPort" : "npm run storybook -- --ci", url: "http://127.0.0.1:6006", reuseExistingServer: !process.env.CI, timeout: 120000 },
+  webServer: process.env.REFY_STORYBOOK_URL ? undefined : { command: process.env.CI ? `vite preview --outDir storybook-static --host 127.0.0.1 --port ${port} --strictPort` : `storybook dev -p ${port} --host 127.0.0.1 --no-open --ci`, url: `http://127.0.0.1:${port}`, reuseExistingServer: !process.env.CI, timeout: 120000 },
 });

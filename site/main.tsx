@@ -10,6 +10,15 @@ import { RefySitePage } from "../src/pages/RefySitePage/RefySitePage";
 import { changeConfig, defaultConfig, presetFonts } from "../src/pages/PlaygroundPage/themeConfig";
 import type { PlaygroundConfig } from "../src/pages/PlaygroundPage/themeConfig";
 
+// A tab opened before a deploy still asks for the previous build's chunks, which the new deploy
+// no longer has: the page lost its styles mid-navigation. Reload once to get the current build.
+window.addEventListener("vite:preloadError", (event) => {
+  event.preventDefault();
+  const key = "refy:reloaded-for-build";
+  try { if (sessionStorage.getItem(key) === location.pathname) return; sessionStorage.setItem(key, location.pathname); } catch { /* no storage */ }
+  location.reload();
+});
+
 function Site() {
   const [config, setConfig] = useState<PlaygroundConfig>({ ...defaultConfig, skin: "refy-site", fonts: presetFonts["refy-site"] });
   return <RefySitePage routing initialLocale={siteLocale} configuration={config} onConfigurationChange={(patch) => setConfig((current) => changeConfig(current, patch))} />;

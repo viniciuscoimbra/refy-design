@@ -404,10 +404,18 @@
   color: var(--ink-3);
   font-size: var(--text-sm);
 }
-/* Prévia nativa: o celular centralizado, sem passar da coluna. */
+/* Prévia no celular: centralizada, na largura real (390 px mais a moldura), sem passar da coluna. */
 .mobilePreview {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
   margin-block: var(--space-6);
   max-width: 100%;
+}
+.mobilePreview > [role="note"] {
+  align-self: stretch;
+}
+.mobileFrame {
+  width: min(100%, calc(390px + 2 * var(--device-frame-bezel, 8px)));
 }

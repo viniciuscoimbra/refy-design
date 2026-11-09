@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "package": "@refy-design/web",
-  "packageVersion": "1.2.0",
-  "sourceSha256": "8add6fe5190b91621fbca9e20d09e0c848eb925365ef07a06376d0ed996f75be",
+  "packageVersion": "1.3.0",
+  "sourceSha256": "38b8da6df8df9311c23719790db45f708d523e023bcc6c0b55d804e5cef42095",
   "collections": [
     {
       "id": "core",
@@ -716,6 +716,7 @@
     "--sidebar-width-compact",
     "--sidebar-width-expanded",
     "--sidebar-width-rail",
+    "--site-footer-columns",
     "--site-footer-gap",
     "--site-footer-padding",
     "--space-1",

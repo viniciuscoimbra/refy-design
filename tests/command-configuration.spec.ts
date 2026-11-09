@@ -7,7 +7,7 @@ for (const mode of ["light"])
     }) => {
       await page.setViewportSize({ width, height: 900 });
       await page.goto(
-        `${process.env.REFY_FAMILY_STORYBOOK_URL ?? "http://127.0.0.1:6006"}/iframe.html?id=components-organisms-command--com-descricoes&viewMode=story&globals=theme:refy-site;mode:${mode}`,
+        `${process.env.REFY_FAMILY_STORYBOOK_URL ?? `http://127.0.0.1:${process.env.REFY_STORYBOOK_PORT || 6006}`}/iframe.html?id=components-organisms-command--com-descricoes&viewMode=story&globals=theme:refy-site;mode:${mode}`,
       );
       const trigger = page.getByRole("button", {
         name: "Search components",

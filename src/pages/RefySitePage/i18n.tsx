@@ -1,5 +1,6 @@
-// Idioma do site refy.design. A escolha da pessoa fica guardada no navegador; sem escolha, vale o
-// primeiro idioma do navegador que o site tem, e inglês para qualquer outro.
+// Idioma do site refy.design. O endereço manda: /en/... é inglês, /es/... é espanhol e o resto é
+// português. Sem prefixo e sem escolha guardada, a pessoa vai para o idioma do navegador; robô de
+// busca fica no endereço que pediu, para cada idioma ser indexado no próprio endereço.
 import { createContext, useContext, useEffect, useState } from "react";
 import { LocaleProvider } from "../../lib/locale";
 import type { ReactNode } from "react";
@@ -14,20 +15,71 @@ export const locales: Locale[] = ["pt", "en", "es"];
 const storageKey = "refy.locale";
 export const htmlLang: Record<Locale, string> = { pt: "pt-BR", en: "en", es: "es" };
 
+/** Idiomas que levam prefixo no endereço; português fica na raiz. */
+const prefixed = ["en", "es"] as const;
+export function localeFromPath(pathname: string): Locale | null {
+  const first = pathname.split("/")[1];
+  return (prefixed as readonly string[]).includes(first) ? (first as Locale) : null;
+}
+/** Tira o prefixo de idioma: `/en/for-ai/mcp` vira `/for-ai/mcp` (o nome continua em inglês). */
+export function stripLocale(pathname: string): string {
+  return localeFromPath(pathname) ? pathname.slice(3) || "/" : pathname;
+}
+// Cada idioma tem o endereço na própria língua (pedido de 09/11: a busca em português é a prioridade).
+// O caminho canônico, usado pelo roteador e pelo build, é o português; aqui ficam só os trechos que
+// mudam. Nome de componente e de template é nome de código e fica igual nos três idiomas.
+const slugs: Record<Exclude<Locale, "pt">, Record<string, string>> = {
+  en: {
+    componentes: "components", colecoes: "collections", temas: "themes", tipografia: "typography", "para-ias": "for-ai",
+    contribuir: "contributing", "primeiros-passos": "getting-started", instalacao: "installation",
+    "tema-por-arquivo": "theming", compatibilidade: "compatibility", versoes: "releases",
+  },
+  es: {
+    colecoes: "colecciones", templates: "plantillas", "primeiros-passos": "primeros-pasos", instalacao: "instalacion",
+    "tema-por-arquivo": "tema-por-archivo", compatibilidade: "compatibilidad", versoes: "versiones",
+  },
+};
+const unslugs = Object.fromEntries(
+  Object.entries(slugs).map(([locale, map]) => [locale, Object.fromEntries(Object.entries(map).map(([pt, other]) => [other, pt]))]),
+) as Record<Exclude<Locale, "pt">, Record<string, string>>;
+const mapSegments = (path: string, map: Record<string, string>) => path.split("/").map((part) => map[part] ?? part).join("/");
+/** Caminho em português de qualquer endereço do site: `/en/for-ai/mcp` vira `/para-ias/mcp`. */
+export function canonicalPath(pathname: string): string {
+  const from = localeFromPath(pathname);
+  const bare = stripLocale(pathname);
+  return from && from !== "pt" ? mapSegments(bare, unslugs[from]) : bare;
+}
+/** Endereço da mesma página em outro idioma: `localePath("en", "/para-ias/mcp")` é `/en/for-ai/mcp`. */
+export function localePath(locale: Locale, path: string): string {
+  const canonical = canonicalPath(path);
+  if (locale === "pt") return canonical;
+  const local = mapSegments(canonical, slugs[locale]);
+  return `/${locale}${local === "/" ? "" : local}`;
+}
+// Robô de busca e navegador de teste não são redirecionados: o Google renderiza sem idioma
+// escolhido (navigator em inglês) e, antes, indexava o texto em inglês no endereço em português.
+const robot = () => navigator.webdriver || /bot|crawl|spider|slurp|lighthouse|headless|preview/i.test(navigator.userAgent);
+
 export function detectLocale(): Locale {
   if (typeof window === "undefined") return "pt";
+  // ?lang= vale para a prévia de template no iframe, que tem endereço próprio.
   const asked = new URLSearchParams(window.location.search).get("lang");
   if (locales.includes(asked as Locale)) return asked as Locale;
+  const fromPath = localeFromPath(window.location.pathname);
+  if (fromPath) return fromPath;
+  if (window.self !== window.top || robot()) return "pt";
+  let wanted: Locale | null = null;
   try {
     const saved = window.localStorage.getItem(storageKey);
-    if (locales.includes(saved as Locale)) return saved as Locale;
+    if (locales.includes(saved as Locale)) wanted = saved as Locale;
   } catch { /* armazenamento bloqueado: segue pelo navegador */ }
-  const preferred = navigator.languages?.length ? navigator.languages : [navigator.language];
-  for (const tag of preferred) {
-    const base = tag?.toLowerCase().split("-")[0];
-    if (locales.includes(base as Locale)) return base as Locale;
+  if (!wanted) {
+    const preferred = navigator.languages?.length ? navigator.languages : [navigator.language];
+    const base = preferred.map((tag) => tag?.toLowerCase().split("-")[0]).find((tag) => locales.includes(tag as Locale));
+    wanted = (base as Locale | undefined) ?? "en";
   }
-  return "en";
+  if (wanted !== "pt") window.location.replace(localePath(wanted, window.location.pathname) + window.location.search + window.location.hash);
+  return wanted;
 }
 
 interface LocaleState { locale: Locale; setLocale: (locale: Locale) => void }
@@ -37,13 +89,31 @@ export function SiteLocaleProvider({ initial, children }: { initial?: Locale; ch
   const [locale] = useState<Locale>(() => initial ?? activeLocale);
   activeLocale = locale;
   useEffect(() => { document.documentElement.lang = htmlLang[locale]; }, [locale]);
+  // Links internos escritos como /docs/... ganham o prefixo do idioma, para quem abre em nova aba
+  // e para o robô seguir a versão certa. O clique continua no roteador da página.
+  useEffect(() => {
+    if (locale === "pt" || typeof MutationObserver === "undefined") return;
+    const fix = (root: ParentNode) => root.querySelectorAll<HTMLAnchorElement>('a[href^="/"]').forEach((a) => {
+      const href = a.getAttribute("href")!;
+      if (href.startsWith("//") || localeFromPath(href) || /\.[a-z0-9]+(?:[?#]|$)/i.test(href)) return;
+      a.setAttribute("href", localePath(locale, href));
+    });
+    fix(document);
+    let queued = 0;
+    const observer = new MutationObserver(() => {
+      if (!queued) queued = requestAnimationFrame(() => { queued = 0; fix(document); });
+    });
+    observer.observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ["href"] });
+    return () => { observer.disconnect(); cancelAnimationFrame(queued); };
+  }, [locale]);
   // Trocar de idioma recarrega a página: dados de módulo, templates em iframe e o título da aba
   // passam a nascer no idioma novo, sem nenhum texto preso no anterior.
   const setLocale = (next: Locale) => {
     if (next === locale) return;
     try { window.localStorage.setItem(storageKey, next); } catch { /* sem armazenamento: vale o parâmetro */ }
     const url = new URL(window.location.href);
-    url.searchParams.set("lang", next);
+    url.searchParams.delete("lang");
+    url.pathname = localePath(next, url.pathname);
     window.location.replace(url.toString());
   };
   return (

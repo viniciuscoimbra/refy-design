@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { settleFamily } from "./refy-family-measurements";
 
-const source = process.env.REFY_FAMILY_STORYBOOK_URL ?? "http://127.0.0.1:6006";
+const source = process.env.REFY_FAMILY_STORYBOOK_URL ?? `http://127.0.0.1:${process.env.REFY_STORYBOOK_PORT || 6006}`;
 const consumer = process.env.REFY_FAMILY_CONSUMER_URL;
 
 async function example(

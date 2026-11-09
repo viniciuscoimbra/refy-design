@@ -1,0 +1,13 @@
+{
+  "name": "refy",
+  "owner": { "name": "Vinícius Coimbra", "url": "https://github.com/viniciuscoimbra" },
+  "metadata": { "description": "Plugins do design system Refy para agentes de código." },
+  "plugins": [
+    {
+      "name": "refy",
+      "source": "./plugins/refy",
+      "description": "Telas com o Refy, conferência do código contra a API real e tema a partir de cor ou site.",
+      "category": "design"
+    }
+  ]
+}

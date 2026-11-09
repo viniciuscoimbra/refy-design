@@ -26,8 +26,11 @@ export function nativePreview() {
           dedupe: ["react", "react-dom", "react-native-web", "react-native-svg"],
           extensions: [".web.mjs", ".web.js", ".web.tsx", ".web.ts", ".mjs", ".js", ".mts", ".ts", ".jsx", ".tsx", ".json"],
         },
-        define: { __DEV__: "false" },
-        optimizeDeps: { esbuildOptions: { resolveExtensions: [".web.js", ".web.tsx", ".web.ts", ".js", ".ts", ".tsx", ".jsx"] } },
+        // O Animated do react-native-web chama `global.cancelAnimationFrame`; sem isto, todo
+        // componente animado da prévia caía com "global is not defined" e a ficha mostrava
+        // o celular vazio.
+        define: { __DEV__: "false", global: "globalThis" },
+        optimizeDeps: { esbuildOptions: { define: { global: "globalThis" }, resolveExtensions: [".web.js", ".web.tsx", ".web.ts", ".js", ".ts", ".tsx", ".jsx"] } },
       };
     },
   };

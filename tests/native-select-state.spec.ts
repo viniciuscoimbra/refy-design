@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 // Functional UA-state proof only. Page screenshots do not certify native popup paint.
-const source = process.env.REFY_STORYBOOK_URL ?? "http://127.0.0.1:6006";
+const source = process.env.REFY_STORYBOOK_URL ?? `http://127.0.0.1:${process.env.REFY_STORYBOOK_PORT || 6006}`;
 const examples = [
   {
     family: "Select",

@@ -49,7 +49,9 @@ export const DeviceFrame = forwardRef<HTMLElement, DeviceFrameProps>(function De
   }, [size.width]);
   return (
     <figure ref={ref} className={cn(styles.frame, styles[variant], className)} {...rest}>
-      <div className={styles.body}>
+      {/* Content drawn in place (no src) is not scaled: the frame stops at the real width, so
+          what shows inside is what that screen fits. */}
+      <div className={styles.body} style={src ? undefined : { maxWidth: `calc(${size.width}px + 2 * var(--device-frame-bezel, 8px))` }}>
         {variant === "browser" && (
           <div className={styles.bar} aria-hidden="true">
             <span /><span /><span />
@@ -58,7 +60,7 @@ export const DeviceFrame = forwardRef<HTMLElement, DeviceFrameProps>(function De
         )}
         <div
           ref={screen}
-          className={styles.screen}
+          className={cn(styles.screen, !src && styles.content)}
           style={{ aspectRatio: `${size.width} / ${size.height}` }}
           data-viewport={`${size.width}x${size.height}`}
         >

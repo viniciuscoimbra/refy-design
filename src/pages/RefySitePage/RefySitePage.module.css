@@ -678,7 +678,20 @@
   border-radius: var(--radius-md);
   color: var(--ink-1);
 }
-.githubLink:hover,
+.githubLink:hover {
+  background: var(--surface-2);
+}
+.starLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.starCount {
+  padding-inline-start: 8px;
+  border-inline-start: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2, var(--ink-1));
+}
 /* Fixed search width: the label and the shortcut never compete for space. */
 .searchContent {
   display: flex;
@@ -832,9 +845,12 @@
   }
 }
 
+.installCta {
+  display: flex;
+}
 /* Header breakpoints last, so no later base rule re-shows these controls. */
-@media (max-width: 1250px) {
-  .github {
+@media (max-width: 1310px) {
+  .installCta {
     display: none;
   }
   /* Nothing follows the mode switch any more: drop its trailing divider. */
@@ -842,15 +858,39 @@
     border-inline-end: 0;
   }
 }
-@media (max-width: 1100px) {
-  .searchContent {
-    width: auto;
+/* Up to 1200px the menu still wrapped even with icon-only search and no Install: switch to the
+   drawer menu (1050px before the Star button). */
+@media (max-width: 1200px) {
+  .desktopNav {
+    display: none;
   }
-  .searchText,
-  .searchShortcut {
+  .mobileMenu {
+    display: inline-flex;
+  }
+}
+/* The Star button takes the room the full search field had: with the five menu items, search,
+   Playground, mode, Star, Install and language in the 1536px header, search keeps only its icon. */
+.searchContent {
+  width: auto;
+}
+.searchText,
+.searchShortcut {
+  display: none;
+}
+/* Up to 1420px the menu still lost its last items: Star drops its word, keeping icon and count. */
+@media (max-width: 1420px) {
+  .starWord {
     display: none;
   }
 }
+/* Up to 1360px even the short Star pushed the last menu item to a second line: Install keeps
+   only its icon, so Star stays on the laptop widths (1280, 1366). */
+@media (max-width: 1360px) {
+  .installText {
+    display: none;
+  }
+}
+
 
 /* Catalog card captions (mock 03): name and layer on one line, one-line description. */
 .tileCaption h2,
@@ -1163,14 +1203,16 @@
 }
 
 /* Para IAs (mock 08): menu com ativo, regras numeradas ao lado do contexto, exemplo ao lado do código. */
+/* Same centered 1536px column as Docs, so the menu lines up with the logo at any width. */
 .aiGrid {
   display: grid;
   grid-template-columns: 312px minmax(0, 1fr);
   max-width: 1536px;
   padding: 0 0 80px;
+  margin: 0 auto;
 }
 .aiGrid .article {
-  max-width: 1120px;
+  padding-inline-end: 64px;
 }
 .brandDot {
   color: var(--brand-primary-container);
@@ -1910,6 +1952,16 @@
 .docPagerNext {
   grid-column: 2;
 }
+/* Nome de ferramenta numa linha só: quebrar refy_component no meio não se lê. */
+.toolName code {
+  white-space: nowrap;
+}
+/* Começar: os próximos destinos, dois por linha. */
+.docNext {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
 @media (max-width: 640px) {
   .docPager {
     gap: 8px;
@@ -1947,4 +1999,10 @@
 }
 .projectArticle > section > :not(p) + p {
   margin-top: 16px;
+}
+
+/* A página ocupa ao menos a tela enquanto exemplos e fichas carregam: sem isso o rodapé nascia no
+   topo e descia quando o conteúdo chegava (CLS 0,4 nas fichas, medido no Lighthouse em 09/11). */
+.pageBody {
+  min-height: 100svh;
 }

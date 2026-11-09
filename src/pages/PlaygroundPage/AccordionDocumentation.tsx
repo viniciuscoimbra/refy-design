@@ -3,7 +3,7 @@ import { PackageInstall } from "../RefySitePage/PackageInstall";
 import { installCommands, packagePublished } from "../RefySitePage/packageRelease";
 import { useEffect, useId, useState } from "react";
 import { api as accordionApi, usage as accordionUsage } from "./documentation/Accordion.json";
-import { MobileDocumentation, MobileToc, PlatformToggle, hasMobile } from "./MobileDocumentation";
+import { MobileDocumentation, MobileToc, PlatformToggle } from "./MobileDocumentation";
 import { syncPlatformUrl, usePlatform } from "../RefySitePage/platform";
 import type { ReactNode } from "react";
 import {
@@ -163,7 +163,7 @@ function Inline({ text, keys = false }: { text: string; keys?: boolean }) {
   );
 }
 
-export function DocumentationGuidance({ usage }: DocumentationGuidanceData) {
+export function DocumentationGuidance({ usage, keyboard = true }: DocumentationGuidanceData & { keyboard?: boolean }) {
   return (
     <Section id="guidance" title={tr("Orientações de uso")}>
       <h3>{tr("Como usar")}</h3>
@@ -174,6 +174,7 @@ export function DocumentationGuidance({ usage }: DocumentationGuidanceData) {
       <ul className={styles.guidanceList}>
         {usage.alternatives.map((item) => <li key={item}><Inline text={item} /></li>)}
       </ul>
+      {keyboard && <>
       <h3>{tr("Teclado e foco")}</h3>
       <div className={styles.tableScroll}>
         <table className={styles.keyTable}>
@@ -193,6 +194,7 @@ export function DocumentationGuidance({ usage }: DocumentationGuidanceData) {
           </tbody>
         </table>
       </div>
+      </>}
     </Section>
   );
 }
@@ -264,8 +266,8 @@ export function AccordionDocumentation({
 }: { onCustomize?: () => void } = {}) {
   const [direction, setDirection] = useState("rtl");
   const platform = usePlatform();
-  const mobile = platform === "mobile" && hasMobile("Accordion");
-  useEffect(() => syncPlatformUrl(hasMobile("Accordion")), [platform]);
+  const mobile = platform === "mobile";
+  useEffect(() => syncPlatformUrl(true), [platform]);
   const rtlItems = direction === "rtl" ? arabic : questions;
   const usage = `<Accordion\n  defaultValue={["files"]}\n  items={[{\n    id: "files",\n    title: "Como organizar meus arquivos?",\n    content: <p>Crie coleções e agrupe os arquivos por projeto.</p>,\n  }]}\n/>`;
   return (
@@ -289,7 +291,7 @@ export function AccordionDocumentation({
           </div>
           <PlatformToggle id="Accordion" />
         </header>
-        {mobile ? <MobileDocumentation id="Accordion" webProps={accordionApi.find((item) => item.name === "Accordion")?.props ?? []} /> : (<>
+        {mobile ? <MobileDocumentation id="Accordion" usage={accordionUsage} webProps={accordionApi.find((item) => item.name === "Accordion")?.props ?? []} /> : (<>
         <Example name="accordion-demo" code={source()}>
           <Accordion defaultValue={["files"]} items={accordionItems} />
         </Example>

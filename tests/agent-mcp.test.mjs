@@ -49,10 +49,10 @@ test("MCP responde initialize, lista ferramentas e recursos e recusa método des
     const old = await mcp.call("initialize", { protocolVersion: "1999-01-01" });
     assert.equal(old.result.protocolVersion, "2025-06-18");
     const { result } = await mcp.call("tools/list");
-    assert.deepEqual(result.tools.map((t) => t.name), ["refy_search", "refy_component", "refy_collections", "refy_validate", "refy_theme_generate", "refy_theme_validate"]);
+    assert.deepEqual(result.tools.map((t) => t.name), ["refy_search", "refy_component", "refy_collections", "refy_validate", "refy_theme_generate", "refy_theme_extract", "refy_compare", "refy_theme_validate"]);
     for (const tool of result.tools) assert.equal(tool.inputSchema.type, "object");
     const resources = (await mcp.call("resources/list")).result.resources.map((r) => r.uri);
-    assert.deepEqual(resources, ["refy://instructions", "refy://control-choices", "refy://catalog"]);
+    assert.deepEqual(resources, ["refy://instructions", "refy://control-choices", "refy://theme-probe", "refy://catalog"]);
     const button = await mcp.call("resources/read", { uri: "refy://component/Button" });
     assert.equal(JSON.parse(button.result.contents[0].text).publicName, "Button");
     assert.equal((await mcp.call("nada/existe")).error.code, -32601);

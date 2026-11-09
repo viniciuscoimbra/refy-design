@@ -71,6 +71,12 @@
           "description": "The refy symbol before the word. The word's shape and font are fixed in any theme;\nthe symbol color comes from the theme's `--brand-mark` token."
         },
         {
+          "name": "height",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Exact height of the logo in px, for headers with a fixed slot. Overrides `size`; with `symbol` the symbol is this tall."
+        },
+        {
           "name": "children",
           "type": "ReactNode",
           "required": false,

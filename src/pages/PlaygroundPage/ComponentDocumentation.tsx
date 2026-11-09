@@ -1,5 +1,5 @@
 import { tr } from "../RefySitePage/i18n";
-import { MobileDocumentation, MobileToc, PlatformToggle, hasMobile } from "./MobileDocumentation";
+import { MobileDocumentation, MobileToc, PlatformToggle } from "./MobileDocumentation";
 import { syncPlatformUrl, usePlatform } from "../RefySitePage/platform";
 import { useEffect, useState } from "react";
 import {
@@ -98,8 +98,8 @@ export function ComponentDocumentation({
   const doc = loadedDoc?.id === id ? loadedDoc : cache.get(id);
   const [failed, setFailed] = useState<string>();
   const platform = usePlatform();
-  const mobile = platform === "mobile" && hasMobile(id);
-  useEffect(() => syncPlatformUrl(hasMobile(id)), [id, platform]);
+  const mobile = platform === "mobile";
+  useEffect(() => syncPlatformUrl(true), [id, platform]);
   useEffect(() => {
     let current = true;
     setFailed(undefined);
@@ -194,7 +194,7 @@ export function ComponentDocumentation({
           </div>
           <PlatformToggle id={id} />
         </header>
-        {mobile ? <MobileDocumentation id={id} webProps={doc.api.find((api) => api.name === doc.publicName)?.props ?? []} /> : (<>
+        {mobile ? <MobileDocumentation id={id} story={primary.id} usage={doc.usage} webProps={doc.api.find((api) => api.name === doc.publicName)?.props ?? []} /> : (<>
         <Example
           name={`${id}-${primary.id}`}
           code={primary.code}

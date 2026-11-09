@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 
 // FOCUS-01: keyboard focus on IconButton and Switch control shows the same theme
 // ring as Button (not the browser default ring) unless the public hooks override it.
-const source = process.env.REFY_STORYBOOK_URL ?? "http://127.0.0.1:6006";
+const source = process.env.REFY_STORYBOOK_URL ?? `http://127.0.0.1:${process.env.REFY_STORYBOOK_PORT || 6006}`;
 
 // WebKit on macOS moves keyboard focus to buttons only with Alt+Tab.
 const tabKey = (page: Page) =>

@@ -7,7 +7,7 @@ for (const theme of ["refy"])
       page,
     }) => {
       await page.goto(
-        `${process.env.REFY_FAMILY_STORYBOOK_URL ?? "http://127.0.0.1:6006"}/iframe.html?id=components-molecules-card--header-compacto&viewMode=story&globals=theme:${theme};mode:${mode}`,
+        `${process.env.REFY_FAMILY_STORYBOOK_URL ?? `http://127.0.0.1:${process.env.REFY_STORYBOOK_PORT || 6006}`}/iframe.html?id=components-molecules-card--header-compacto&viewMode=story&globals=theme:${theme};mode:${mode}`,
       );
       const main = page.getByRole("heading", {
         name: "Aurora project",

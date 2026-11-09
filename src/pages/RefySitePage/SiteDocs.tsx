@@ -1,9 +1,12 @@
 import type { ReactNode } from "react";
-import { Callout, CodeBlock, NavCard, Prose, SettingsSubnav } from "../../index";
+import { Callout, CodeBlock, NavCard, Prose, Segmented, SettingsSubnav } from "../../index";
 import type { SettingsSubnavLinkProps } from "../../index";
 import { Heading, SideNav, Toc } from "./SiteCatalog";
 import styles from "./RefySitePage.module.css";
-import { useSiteLocale } from "./i18n";
+import { localePath, useSiteLocale } from "./i18n";
+import { setPlatform, usePlatform } from "./platform";
+import type { Platform } from "./platform";
+import { projectBody, projectDescription, projectLabel, releaseSections } from "./SiteProject";
 import type { Locale } from "./i18n";
 import nativeComponents from "./nativeComponents.json";
 import { installCommands, mobileInstall, mobilePublished, packageName, packagePublished, packageVersion } from "./packageRelease";
@@ -11,7 +14,7 @@ import { installCommands, mobileInstall, mobilePublished, packageName, packagePu
 // Docs técnica: uma página por assunto, menu da esquerda lista as páginas e o sumário da
 // direita lista as seções da página aberta. Texto curto, só o que o pacote faz hoje.
 
-export type DocTopic = "instalacao" | "primeira-tela" | "tema-por-arquivo" | "mobile" | "compatibilidade";
+export type DocTopic = "primeiros-passos" | "instalacao" | "tema-por-arquivo" | "compatibilidade" | "versoes";
 
 const appCodeFor = (label: string) => `import { Button, ThemeProvider, refySiteTheme } from "@refy-design/web";
 import "@refy-design/web/tokens.css";
@@ -57,19 +60,21 @@ export default function App() {
   );
 }`;
 
-type DocGroup = "start" | "use";
-interface DocPage {
+export type DocGroup = "start" | "use" | "ref" | "ai";
+export interface DocPage {
   label: string;
   group: DocGroup;
   description: string;
   sections: Array<[string, string]>;
+  /** Sumário quando a plataforma escolhida é Mobile (só na Instalação, que troca o conteúdo). */
+  mobileSections?: Array<[string, string]>;
   body: ReactNode;
 }
 
 const groupLabels: Record<Locale, Record<DocGroup, string>> = {
-  pt: { start: "Começar", use: "Usar" },
-  en: { start: "Get started", use: "Use" },
-  es: { start: "Empezar", use: "Usar" },
+  pt: { start: "Começar", use: "Usar", ref: "Referência", ai: "Para IAs" },
+  en: { start: "Get started", use: "Use", ref: "Reference", ai: "For AI" },
+  es: { start: "Empezar", use: "Usar", ref: "Referencia", ai: "Para IAs" },
 };
 const warnIcon = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -107,7 +112,7 @@ const installText: Record<Locale, InstallText> = {
 };
 
 const installDescription: Record<Locale, string> = packagePublished
-  ? { pt: "Instale o pacote e importe os estilos uma vez.", en: "Install the package and import the styles once.", es: "Instala el paquete e importa los estilos una vez." }
+  ? { pt: "Escolha Web ou Mobile, instale o pacote e aplique o tema.", en: "Pick Web or Mobile, install the package and apply the theme.", es: "Elige Web o Móvil, instala el paquete y aplica el tema." }
   : { pt: "O refy ainda não foi publicado: hoje nenhum comando instala o pacote.", en: "refy is not published yet: no command installs the package today.", es: "refy todavía no se publicó: hoy ningún comando instala el paquete." };
 
 const packageSection = (locale: Locale, heading: string) => {
@@ -135,12 +140,145 @@ const styleImports = 'import "@refy-design/web/tokens.css";\nimport "@refy-desig
 // Gerada de packages/native por scripts/native-components.mjs: não editar à mão.
 const nativeList = nativeComponents.join(", ");
 
+const createApp = (folder: string) => `npm create vite@latest ${folder} -- --template react-ts
+cd ${folder}`;
+
+interface StartText {
+  label: string; description: string;
+  sections: Record<"projeto" | "instalar" | "estilos" | "tela" | "depois", string>;
+  project: ReactNode; install: ReactNode; styles: ReactNode; screen: ReactNode; run: ReactNode;
+  folder: string; button: string;
+  next: Array<[string, string, string]>;
+}
+const startText: Record<Locale, StartText> = {
+  pt: {
+    label: "Primeiros passos", description: "Do projeto vazio à primeira tela com o refy, em quatro passos.",
+    sections: { projeto: "1. Projeto", instalar: "2. Instalar", estilos: "3. Estilos", tela: "4. Primeira tela", depois: "Depois" },
+    project: <>O refy roda em app React 18 ou mais: Vite, Next.js ou outro. Sem projeto ainda, crie um com o Vite:</>,
+    install: <>Para app React Native, o pacote é outro: veja a aba Mobile da <a href="/docs/instalacao">Instalação</a>.</>,
+    styles: <>Importe os tokens e as fontes uma vez, no arquivo de entrada (<code>src/main.tsx</code> no Vite):</>,
+    screen: <>Troque o conteúdo de <code>src/App.tsx</code>. <code>ThemeProvider</code> aplica o tema em tudo que está dentro dele.</>,
+    run: <>Rode <code>npm run dev</code>. O botão aparece com o tema do refy. Para usar a sua marca, troque <code>refySiteTheme</code> por um arquivo de tema.</>,
+    folder: "meu-app", button: "Começar",
+    next: [
+      ["/componentes", "Componentes", "Cada ficha mostra a versão web e a mobile, com exemplo, uso e API."],
+      ["/docs/tema-por-arquivo", "Tema por arquivo", "Cor, fonte e raio da sua marca num JSON."],
+      ["/docs/instalacao", "Mobile", "O mesmo tema e as mesmas props num app React Native."],
+      ["/para-ias/mcp", "MCP", "Para o agente de IA achar o componente certo e conferir o código."],
+    ],
+  },
+  en: {
+    label: "Quick start", description: "From an empty project to your first refy screen, in four steps.",
+    sections: { projeto: "1. Project", instalar: "2. Install", estilos: "3. Styles", tela: "4. First screen", depois: "Next" },
+    project: <>refy runs in any React 18+ app: Vite, Next.js or another. No project yet? Create one with Vite:</>,
+    install: <>For a React Native app the package is a different one: see the Mobile tab in <a href="/docs/instalacao">Installation</a>.</>,
+    styles: <>Import the tokens and fonts once, in the entry file (<code>src/main.tsx</code> in Vite):</>,
+    screen: <>Replace the content of <code>src/App.tsx</code>. <code>ThemeProvider</code> applies the theme to everything inside it.</>,
+    run: <>Run <code>npm run dev</code>. The button shows up in the refy theme. To use your brand, swap <code>refySiteTheme</code> for a theme file.</>,
+    folder: "my-app", button: "Get started",
+    next: [
+      ["/componentes", "Components", "Every page shows the web and the mobile version, with example, usage and API."],
+      ["/docs/tema-por-arquivo", "Theme from a file", "Your brand's color, font and radius in one JSON."],
+      ["/docs/instalacao", "Mobile", "The same theme and the same props in a React Native app."],
+      ["/para-ias/mcp", "MCP", "For your AI agent to find the right component and check the code."],
+    ],
+  },
+  es: {
+    label: "Primeros pasos", description: "Del proyecto vacío a la primera pantalla con refy, en cuatro pasos.",
+    sections: { projeto: "1. Proyecto", instalar: "2. Instalar", estilos: "3. Estilos", tela: "4. Primera pantalla", depois: "Después" },
+    project: <>refy funciona en cualquier app React 18 o superior: Vite, Next.js u otra. ¿Todavía sin proyecto? Crea uno con Vite:</>,
+    install: <>Para una app React Native el paquete es otro: mira la pestaña Móvil de <a href="/docs/instalacao">Instalación</a>.</>,
+    styles: <>Importa los tokens y las fuentes una vez, en el archivo de entrada (<code>src/main.tsx</code> en Vite):</>,
+    screen: <>Reemplaza el contenido de <code>src/App.tsx</code>. <code>ThemeProvider</code> aplica el tema a todo lo que está dentro.</>,
+    run: <>Ejecuta <code>npm run dev</code>. El botón aparece con el tema de refy. Para usar tu marca, cambia <code>refySiteTheme</code> por un archivo de tema.</>,
+    folder: "mi-app", button: "Empezar",
+    next: [
+      ["/componentes", "Componentes", "Cada ficha muestra la versión web y la móvil, con ejemplo, uso y API."],
+      ["/docs/tema-por-arquivo", "Tema por archivo", "Color, fuente y radio de tu marca en un JSON."],
+      ["/docs/instalacao", "Móvil", "El mismo tema y las mismas props en una app React Native."],
+      ["/para-ias/mcp", "MCP", "Para que tu agente de IA encuentre el componente correcto y revise el código."],
+    ],
+  },
+};
+
+function startPage(locale: Locale): DocPage {
+  const text = startText[locale];
+  return {
+    label: text.label, group: "start", description: text.description,
+    sections: Object.entries(text.sections),
+    body: (<>
+      <section id="projeto">
+        <h2>{text.sections.projeto}</h2>
+        <p>{text.project}</p>
+        <CodeBlock label="Terminal" language="bash" code={createApp(text.folder)} />
+      </section>
+      <section id="instalar">
+        <h2>{text.sections.instalar}</h2>
+        {packagePublished ? <CodeBlock label="Terminal" language="bash" code={installCommands.npm} /> : firstScreenNotice(locale)}
+        <p>{text.install}</p>
+      </section>
+      <section id="estilos">
+        <h2>{text.sections.estilos}</h2>
+        <p>{text.styles}</p>
+        <CodeBlock label="src/main.tsx" language="tsx" code={styleImports} />
+      </section>
+      <section id="tela">
+        <h2>{text.sections.tela}</h2>
+        <p>{text.screen}</p>
+        <CodeBlock label="src/App.tsx" language="tsx" code={appCodeFor(text.button)} />
+        <p>{text.run}</p>
+      </section>
+      <section id="depois">
+        <h2>{text.sections.depois}</h2>
+        <div className={styles.docNext}>
+          {text.next.map(([href, title, description]) => <NavCard key={href} href={href} title={title} description={description} />)}
+        </div>
+      </section>
+    </>),
+  };
+}
+
+// O HTML estático (scripts/site-seo.mjs) leva Web e Mobile juntos; na tela, a plataforma escolhida.
+let renderBothPlatforms = false;
+export const renderAllPlatforms = (value: boolean) => { renderBothPlatforms = value; };
+const platformLabels: Record<Locale, string> = { pt: "Plataforma", en: "Platform", es: "Plataforma" };
+
+/** Web e Mobile na mesma página: a escolha vale para as fichas também (?plataforma=mobile). */
+function PlatformBody({ web, mobile }: { web: ReactNode; mobile: ReactNode }) {
+  const platform = usePlatform();
+  const { locale } = useSiteLocale();
+  if (renderBothPlatforms) return <><h2>Web</h2>{web}<h2>{locale === "es" ? "Móvil" : "Mobile"}</h2>{mobile}</>;
+  return (
+    <>
+      <Segmented
+        label={platformLabels[locale]}
+        value={platform}
+        onChange={(value) => setPlatform(value as Platform)}
+        options={[{ value: "web", label: "Web" }, { value: "mobile", label: locale === "es" ? "Móvil" : "Mobile" }]}
+      />
+      {platform === "mobile" ? mobile : web}
+    </>
+  );
+}
+
+function versionsPage(locale: Locale): DocPage {
+  return {
+    label: projectLabel(locale, "releases"), group: "ref",
+    description: projectDescription(locale, "releases"),
+    sections: releaseSections(locale),
+    body: projectBody(locale, "releases"),
+  };
+}
+
 const pt: Record<DocTopic, DocPage> = {
+  "primeiros-passos": startPage("pt"),
   instalacao: {
     label: "Instalação", group: "start",
     description: installDescription.pt,
     sections: [["pacote", "Pacote"], ["estilos", "Estilos"]],
-    body: (<>
+    mobileSections: [...(mobilePublished ? [["instalacao-mobile", "Pacote"] as [string, string]] : []), ["uso", "Uso"], ["componentes", "Componentes"], ["requisitos", "Requisitos"]],
+    body: <PlatformBody
+      web={<>
       {packageSection("pt", "Pacote")}
       <section id="estilos">
         <h2>Estilos</h2>
@@ -149,26 +287,32 @@ const pt: Record<DocTopic, DocPage> = {
           <CodeBlock label="main.tsx" language="tsx" code={styleImports} />
           <figcaption><code>@refy-design/web/global.css</code> é opcional: aplica o reset na página inteira.</figcaption>
         </figure>
-        <p>Em React Native, use <a href="/docs/mobile">@refy-design/mobile</a>, com o mesmo tema.</p>
       </section>
-    </>),
-  },
-  "primeira-tela": {
-    label: "Primeira tela", group: "start",
-    description: "Um botão do refy dentro do tema do site.",
-    sections: [["codigo", "Código"], ["proximo", "Próximo passo"]],
-    body: (<>
-      <section id="codigo">
-        <h2>Código</h2>
-        {firstScreenNotice("pt")}
-        <CodeBlock label="App.tsx" language="tsx" code={appCodeFor("Começar")} />
-        <p><code>ThemeProvider</code> aplica o tema em tudo que está dentro dele. <code>mode</code> aceita <code>light</code>, <code>dark</code> ou <code>system</code>.</p>
+      </>}
+      mobile={<>
+      {mobilePublished && (
+        <section id="instalacao-mobile">
+          <h2>Pacote</h2>
+          <p>Num app Expo, instale o pacote e o <code>react-native-svg</code>:</p>
+          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
+        </section>
+      )}
+      <section id="uso">
+        <h2>Uso</h2>
+        <CodeBlock label="App.tsx" language="tsx" code={nativeCodeFor("tema.json", "Sincronizado", "Salvar", "salvar")} />
+        <p><code>RefyProvider</code> recebe o mesmo <code>tema.json</code> da web.</p>
       </section>
-      <section id="proximo">
-        <h2>Próximo passo</h2>
-        <p>Escolha as peças no catálogo de componentes. Cada família tem exemplo e API.</p>
+      <section id="componentes">
+        <h2>Componentes</h2>
+        <p>{nativeComponents.length} componentes: {nativeList}.</p>
+        <p>A navegação fica com o roteador do app (React Navigation ou Expo Router).</p>
       </section>
-    </>),
+      <section id="requisitos">
+        <h2>Requisitos</h2>
+        <p><code>react</code> 19.1 ou mais, <code>react-native</code> 0.76 ou mais e <code>react-native-svg</code> 15 ou mais.</p>
+      </section>
+      </>}
+    />,
   },
   "tema-por-arquivo": {
     label: "Tema por arquivo", group: "use",
@@ -191,36 +335,8 @@ const pt: Record<DocTopic, DocPage> = {
       </section>
     </>),
   },
-  mobile: {
-    label: "Mobile", group: "use",
-    description: "@refy-design/mobile usa o mesmo JSON de tema e o mesmo contrato de props da web.",
-    sections: [...(mobilePublished ? [["instalacao-mobile", "Instalação"] as [string, string]] : []), ["uso", "Uso"], ["componentes", "Componentes"], ["requisitos", "Requisitos"]],
-    body: (<>
-      {mobilePublished && (
-        <section id="instalacao-mobile">
-          <h2>Instalação</h2>
-          <p>Num app Expo, instale o pacote e o <code>react-native-svg</code>:</p>
-          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
-        </section>
-      )}
-      <section id="uso">
-        <h2>Uso</h2>
-        <CodeBlock label="App.tsx" language="tsx" code={nativeCodeFor("tema.json", "Sincronizado", "Salvar", "salvar")} />
-        <p><code>RefyProvider</code> recebe o mesmo <code>tema.json</code> da web.</p>
-      </section>
-      <section id="componentes">
-        <h2>Componentes</h2>
-        <p>{nativeComponents.length} componentes: {nativeList}.</p>
-        <p>A navegação fica com o roteador do app (React Navigation ou Expo Router).</p>
-      </section>
-      <section id="requisitos">
-        <h2>Requisitos</h2>
-        <p><code>react</code> 19.1 ou mais, <code>react-native</code> 0.76 ou mais e <code>react-native-svg</code> 15 ou mais.</p>
-      </section>
-    </>),
-  },
   compatibilidade: {
-    label: "Compatibilidade", group: "use",
+    label: "Compatibilidade", group: "ref",
     description: "Versões que o pacote exige.",
     sections: [["web", "Web"], ["mobile-req", "Mobile"]],
     body: (<>
@@ -234,14 +350,18 @@ const pt: Record<DocTopic, DocPage> = {
       </section>
     </>),
   },
+  versoes: versionsPage("pt"),
 };
 
 const en: Record<DocTopic, DocPage> = {
+  "primeiros-passos": startPage("en"),
   instalacao: {
     label: "Installation", group: "start",
     description: installDescription.en,
     sections: [["pacote", "Package"], ["estilos", "Styles"]],
-    body: (<>
+    mobileSections: [...(mobilePublished ? [["instalacao-mobile", "Package"] as [string, string]] : []), ["uso", "Usage"], ["componentes", "Components"], ["requisitos", "Requirements"]],
+    body: <PlatformBody
+      web={<>
       {packageSection("en", "Package")}
       <section id="estilos">
         <h2>Styles</h2>
@@ -250,26 +370,32 @@ const en: Record<DocTopic, DocPage> = {
           <CodeBlock label="main.tsx" language="tsx" code={styleImports} />
           <figcaption><code>@refy-design/web/global.css</code> is optional: it applies the reset to the whole page.</figcaption>
         </figure>
-        <p>In React Native, use <a href="/docs/mobile">@refy-design/mobile</a>, with the same theme.</p>
       </section>
-    </>),
-  },
-  "primeira-tela": {
-    label: "First screen", group: "start",
-    description: "A refy button inside the site theme.",
-    sections: [["codigo", "Code"], ["proximo", "Next step"]],
-    body: (<>
-      <section id="codigo">
-        <h2>Code</h2>
-        {firstScreenNotice("en")}
-        <CodeBlock label="App.tsx" language="tsx" code={appCodeFor("Get started")} />
-        <p><code>ThemeProvider</code> applies the theme to everything inside it. <code>mode</code> accepts <code>light</code>, <code>dark</code> or <code>system</code>.</p>
+      </>}
+      mobile={<>
+      {mobilePublished && (
+        <section id="instalacao-mobile">
+          <h2>Package</h2>
+          <p>In an Expo app, install the package and <code>react-native-svg</code>:</p>
+          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
+        </section>
+      )}
+      <section id="uso">
+        <h2>Usage</h2>
+        <CodeBlock label="App.tsx" language="tsx" code={nativeCodeFor("theme.json", "Synced", "Save", "save")} />
+        <p><code>RefyProvider</code> takes the same <code>theme.json</code> as the web.</p>
       </section>
-      <section id="proximo">
-        <h2>Next step</h2>
-        <p>Pick the pieces in the component catalog. Every family has an example and an API.</p>
+      <section id="componentes">
+        <h2>Components</h2>
+        <p>{nativeComponents.length} components: {nativeList}.</p>
+        <p>Navigation belongs to the app router (React Navigation or Expo Router).</p>
       </section>
-    </>),
+      <section id="requisitos">
+        <h2>Requirements</h2>
+        <p><code>react</code> 19.1 or later, <code>react-native</code> 0.76 or later and <code>react-native-svg</code> 15 or later.</p>
+      </section>
+      </>}
+    />,
   },
   "tema-por-arquivo": {
     label: "Theme from a file", group: "use",
@@ -292,36 +418,8 @@ const en: Record<DocTopic, DocPage> = {
       </section>
     </>),
   },
-  mobile: {
-    label: "Mobile", group: "use",
-    description: "@refy-design/mobile uses the same theme JSON and the same props contract as the web.",
-    sections: [...(mobilePublished ? [["instalacao-mobile", "Installation"] as [string, string]] : []), ["uso", "Usage"], ["componentes", "Components"], ["requisitos", "Requirements"]],
-    body: (<>
-      {mobilePublished && (
-        <section id="instalacao-mobile">
-          <h2>Installation</h2>
-          <p>In an Expo app, install the package and <code>react-native-svg</code>:</p>
-          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
-        </section>
-      )}
-      <section id="uso">
-        <h2>Usage</h2>
-        <CodeBlock label="App.tsx" language="tsx" code={nativeCodeFor("theme.json", "Synced", "Save", "save")} />
-        <p><code>RefyProvider</code> takes the same <code>theme.json</code> as the web.</p>
-      </section>
-      <section id="componentes">
-        <h2>Components</h2>
-        <p>{nativeComponents.length} components: {nativeList}.</p>
-        <p>Navigation belongs to the app router (React Navigation or Expo Router).</p>
-      </section>
-      <section id="requisitos">
-        <h2>Requirements</h2>
-        <p><code>react</code> 19.1 or later, <code>react-native</code> 0.76 or later and <code>react-native-svg</code> 15 or later.</p>
-      </section>
-    </>),
-  },
   compatibilidade: {
-    label: "Compatibility", group: "use",
+    label: "Compatibility", group: "ref",
     description: "Versions the package requires.",
     sections: [["web", "Web"], ["mobile-req", "Mobile"]],
     body: (<>
@@ -335,14 +433,18 @@ const en: Record<DocTopic, DocPage> = {
       </section>
     </>),
   },
+  versoes: versionsPage("en"),
 };
 
 const es: Record<DocTopic, DocPage> = {
+  "primeiros-passos": startPage("es"),
   instalacao: {
     label: "Instalación", group: "start",
     description: installDescription.es,
     sections: [["pacote", "Paquete"], ["estilos", "Estilos"]],
-    body: (<>
+    mobileSections: [...(mobilePublished ? [["instalacao-mobile", "Paquete"] as [string, string]] : []), ["uso", "Uso"], ["componentes", "Componentes"], ["requisitos", "Requisitos"]],
+    body: <PlatformBody
+      web={<>
       {packageSection("es", "Paquete")}
       <section id="estilos">
         <h2>Estilos</h2>
@@ -351,26 +453,32 @@ const es: Record<DocTopic, DocPage> = {
           <CodeBlock label="main.tsx" language="tsx" code={styleImports} />
           <figcaption><code>@refy-design/web/global.css</code> es opcional: aplica el reset a toda la página.</figcaption>
         </figure>
-        <p>En React Native, usa <a href="/docs/mobile">@refy-design/mobile</a>, con el mismo tema.</p>
       </section>
-    </>),
-  },
-  "primeira-tela": {
-    label: "Primera pantalla", group: "start",
-    description: "Un botón de refy dentro del tema del sitio.",
-    sections: [["codigo", "Código"], ["proximo", "Siguiente paso"]],
-    body: (<>
-      <section id="codigo">
-        <h2>Código</h2>
-        {firstScreenNotice("es")}
-        <CodeBlock label="App.tsx" language="tsx" code={appCodeFor("Empezar")} />
-        <p><code>ThemeProvider</code> aplica el tema a todo lo que está dentro. <code>mode</code> acepta <code>light</code>, <code>dark</code> o <code>system</code>.</p>
+      </>}
+      mobile={<>
+      {mobilePublished && (
+        <section id="instalacao-mobile">
+          <h2>Paquete</h2>
+          <p>En una app Expo, instala el paquete y <code>react-native-svg</code>:</p>
+          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
+        </section>
+      )}
+      <section id="uso">
+        <h2>Uso</h2>
+        <CodeBlock label="App.tsx" language="tsx" code={nativeCodeFor("tema.json", "Sincronizado", "Guardar", "guardar")} />
+        <p><code>RefyProvider</code> recibe el mismo <code>tema.json</code> de la web.</p>
       </section>
-      <section id="proximo">
-        <h2>Siguiente paso</h2>
-        <p>Elige las piezas en el catálogo de componentes. Cada familia tiene ejemplo y API.</p>
+      <section id="componentes">
+        <h2>Componentes</h2>
+        <p>{nativeComponents.length} componentes: {nativeList}.</p>
+        <p>La navegación queda a cargo del router de la app (React Navigation o Expo Router).</p>
       </section>
-    </>),
+      <section id="requisitos">
+        <h2>Requisitos</h2>
+        <p><code>react</code> 19.1 o superior, <code>react-native</code> 0.76 o superior y <code>react-native-svg</code> 15 o superior.</p>
+      </section>
+      </>}
+    />,
   },
   "tema-por-arquivo": {
     label: "Tema por archivo", group: "use",
@@ -393,36 +501,8 @@ const es: Record<DocTopic, DocPage> = {
       </section>
     </>),
   },
-  mobile: {
-    label: "Móvil", group: "use",
-    description: "@refy-design/mobile usa el mismo JSON de tema y el mismo contrato de props que la web.",
-    sections: [...(mobilePublished ? [["instalacao-mobile", "Instalación"] as [string, string]] : []), ["uso", "Uso"], ["componentes", "Componentes"], ["requisitos", "Requisitos"]],
-    body: (<>
-      {mobilePublished && (
-        <section id="instalacao-mobile">
-          <h2>Instalación</h2>
-          <p>En una app Expo, instala el paquete y <code>react-native-svg</code>:</p>
-          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
-        </section>
-      )}
-      <section id="uso">
-        <h2>Uso</h2>
-        <CodeBlock label="App.tsx" language="tsx" code={nativeCodeFor("tema.json", "Sincronizado", "Guardar", "guardar")} />
-        <p><code>RefyProvider</code> recibe el mismo <code>tema.json</code> de la web.</p>
-      </section>
-      <section id="componentes">
-        <h2>Componentes</h2>
-        <p>{nativeComponents.length} componentes: {nativeList}.</p>
-        <p>La navegación queda a cargo del router de la app (React Navigation o Expo Router).</p>
-      </section>
-      <section id="requisitos">
-        <h2>Requisitos</h2>
-        <p><code>react</code> 19.1 o superior, <code>react-native</code> 0.76 o superior y <code>react-native-svg</code> 15 o superior.</p>
-      </section>
-    </>),
-  },
   compatibilidade: {
-    label: "Compatibilidad", group: "use",
+    label: "Compatibilidad", group: "ref",
     description: "Versiones que exige el paquete.",
     sections: [["web", "Web"], ["mobile-req", "Móvil"]],
     body: (<>
@@ -436,6 +516,7 @@ const es: Record<DocTopic, DocPage> = {
       </section>
     </>),
   },
+  versoes: versionsPage("es"),
 };
 
 export const localizedDocPages: Record<Locale, Record<DocTopic, DocPage>> = { pt, en, es };
@@ -443,47 +524,94 @@ export const docGroupLabel = (locale: Locale, group: DocGroup) => groupLabels[lo
 export const docTopics = Object.keys(pt) as DocTopic[];
 export const docHref = (topic: DocTopic) => `/docs/${topic}`;
 const docsText = {
-  pt: { title: "Documentação", pages: "Páginas da documentação", previous: "Anterior", next: "Próximo", pager: "Anterior e próximo" },
-  en: { title: "Documentation", pages: "Documentation pages", previous: "Previous", next: "Next", pager: "Previous and next" },
-  es: { title: "Documentación", pages: "Páginas de la documentación", previous: "Anterior", next: "Siguiente", pager: "Anterior y siguiente" },
+  pt: { title: "Documentação", pages: "Páginas da documentação", previous: "Anterior", next: "Próximo", pager: "Anterior e próximo", ai: "Usar com IA" },
+  en: { title: "Documentation", pages: "Documentation pages", previous: "Previous", next: "Next", pager: "Previous and next", ai: "Use with AI" },
+  es: { title: "Documentación", pages: "Páginas de la documentación", previous: "Anterior", next: "Siguiente", pager: "Anterior y siguiente", ai: "Usar con IA" },
 };
 
-export function DocsPage({ topic, onTopic }: { topic: DocTopic; onTopic: (topic: DocTopic) => void }) {
+/** Link interno no texto das Docs (para /docs/..., /componentes...): navega sem recarregar a página. */
+const internalHref = (event: { target: EventTarget; metaKey: boolean; ctrlKey: boolean; shiftKey: boolean; button: number }) => {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) return null;
+  const link = (event.target as Element).closest?.("a[href^='/']");
+  return link?.getAttribute("href") ?? null;
+};
+
+export interface GuideLink { href: string; label: string }
+export interface GuideProps {
+  /** Nome da seção no menu da esquerda e no rótulo acima do título. */
+  title: string;
+  navLabel: string;
+  groups: Array<{ title: string; items: GuideLink[] }>;
+  activeHref: string;
+  page: DocPage;
+  eyebrow: string;
+  previous?: GuideLink;
+  next?: GuideLink;
+  /** Caminho em português; quem chama resolve a página e o idioma. */
+  onLink: (href: string) => void;
+}
+
+/** Moldura das páginas de guia (Docs e Para IAs): menu à esquerda, texto, anterior e próximo, sumário. */
+export function GuidePage({ title, navLabel, groups, activeHref, page, eyebrow, previous, next, onLink }: GuideProps) {
+  const { locale } = useSiteLocale();
+  const text = docsText[locale];
+  const platform = usePlatform();
+  const go = (href: string) => (event: { preventDefault: () => void }) => { event.preventDefault(); onLink(href); };
+  const link = (item: { href: string }, props: SettingsSubnavLinkProps) => <a {...props} onClick={go(item.href)} />;
+  const sections = platform === "mobile" && page.mobileSections ? page.mobileSections : page.sections;
+  return (
+    <main id="site-content" className={styles.docGrid}>
+      <SideNav title={title}>
+        <div className={styles.sideLinks}>
+          <SettingsSubnav label={navLabel} activeHref={activeHref} renderLink={link} groups={groups} />
+        </div>
+      </SideNav>
+      <article
+        className={styles.article}
+        onClick={(event) => {
+          const href = internalHref(event);
+          if (!href || event.defaultPrevented) return;
+          event.preventDefault();
+          onLink(href);
+        }}
+      >
+        <Heading eyebrow={eyebrow} title={page.label} description={page.description} />
+        <Prose measure="full" className={styles.docProse}>{page.body}</Prose>
+        <nav className={styles.docPager} aria-label={text.pager}>
+          {previous && <NavCard direction="back" eyebrow={text.previous} title={previous.label} href={localePath(locale, previous.href)} onClick={go(previous.href)} />}
+          {next && <NavCard direction="forward" eyebrow={text.next} title={next.label} href={localePath(locale, next.href)} onClick={go(next.href)} className={styles.docPagerNext} />}
+        </nav>
+      </article>
+      <Toc key={`${activeHref}-${platform}`} items={sections} />
+    </main>
+  );
+}
+
+export function DocsPage({ topic, onLink }: { topic: DocTopic; onLink: (href: string) => void }) {
   const { locale } = useSiteLocale();
   const pages = localizedDocPages[locale];
   const page = pages[topic];
   const text = docsText[locale];
-  const link = (item: { href: string }, props: SettingsSubnavLinkProps) => (
-    <a {...props} onClick={(event) => { event.preventDefault(); onTopic(item.href.split("/").pop() as DocTopic); }} />
-  );
   const index = docTopics.indexOf(topic);
-  const previous = docTopics[index - 1];
-  const next = docTopics[index + 1];
-  const go = (target: DocTopic) => (event: { preventDefault: () => void }) => { event.preventDefault(); onTopic(target); };
+  const at = (id: DocTopic | undefined) => (id ? { href: docHref(id), label: pages[id].label } : undefined);
   return (
-    <main id="site-content" className={styles.docGrid}>
-      <SideNav title={text.title}>
-        <div className={styles.sideLinks}>
-          <SettingsSubnav
-            label={text.pages}
-            activeHref={docHref(topic)}
-            renderLink={link}
-            groups={(["start", "use"] as const).map((group) => ({
-              title: docGroupLabel(locale, group),
-              items: docTopics.filter((id) => pages[id].group === group).map((id) => ({ href: docHref(id), label: pages[id].label })),
-            }))}
-          />
-        </div>
-      </SideNav>
-      <article className={styles.article}>
-        <Heading eyebrow={`${text.title} / ${docGroupLabel(locale, page.group)}`} title={page.label} description={page.description} />
-        <Prose measure="full" className={styles.docProse}>{page.body}</Prose>
-        <nav className={styles.docPager} aria-label={text.pager}>
-          {previous && <NavCard direction="back" eyebrow={text.previous} title={pages[previous].label} href={docHref(previous)} onClick={go(previous)} />}
-          {next && <NavCard direction="forward" eyebrow={text.next} title={pages[next].label} href={docHref(next)} onClick={go(next)} className={styles.docPagerNext} />}
-        </nav>
-      </article>
-      <Toc items={page.sections} />
-    </main>
+    <GuidePage
+      title={text.title}
+      navLabel={text.pages}
+      activeHref={docHref(topic)}
+      groups={[
+        ...(["start", "use", "ref"] as const).map((group) => ({
+          title: docGroupLabel(locale, group),
+          items: docTopics.filter((id) => pages[id].group === group).map((id) => ({ href: docHref(id), label: pages[id].label })),
+        })),
+        // MCP, plugin e CLI moram em Para IAs; aqui fica só o caminho até lá.
+        { title: docGroupLabel(locale, "ai"), items: [{ href: "/para-ias", label: text.ai }] },
+      ]}
+      page={page}
+      eyebrow={`${text.title} / ${docGroupLabel(locale, page.group)}`}
+      previous={at(docTopics[index - 1])}
+      next={at(docTopics[index + 1])}
+      onLink={onLink}
+    />
   );
 }

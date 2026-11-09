@@ -279,6 +279,7 @@
   "--selection-hover-bg",
   "--selection-hover-text",
   "--selection-on-primary",
+  "--site-footer-columns",
   "--site-footer-gap",
   "--site-footer-padding",
   "--split-control-size",

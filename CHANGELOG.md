@@ -2,6 +2,13 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/). As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.3.0
+
+- Plugin do Refy para Claude Code, app do Claude, Cowork e Codex, instalado pelo repositório (`/plugin marketplace add viniciuscoimbra/refy-design`, `codex plugin marketplace add viniciuscoimbra/refy-design`), com os atalhos `refy-tela`, `refy-tema-de-site` e `refy-reproduzir-tela`. Extensão `refy.mcpb` para o chat do Claude Desktop no release.
+- `refy_theme_extract`: tema claro e escuro a partir das cores, fontes e raios de um site, com a razão de cada escolha e contraste AA conferido. Sonda `refy://theme-probe` para ler site montado por JavaScript no navegador do agente. O jeito de botão, cartão, campo e selo vira token, e o que o Refy não recebe volta como lacuna com a rota de extensão.
+- `refy_compare`: compara a captura do original com a da tela do Refy e mostra onde diferem.
+- `refy_theme_extract` com `url` só fala com endereço público: confere o IP para onde o nome aponta, cada redirecionamento e cada pedido feito pela página no navegador, e conecta no IP conferido.
+
 ## 1.2.0 (09/11/2026)
 
 - Servidor MCP no pacote `@refy-design/web` (`npx --no-install refy-mcp`). O agente acha a família pela necessidade escrita em português, inglês ou espanhol, lê a API, confere o código contra o contrato dos componentes e gera tema claro e escuro com contraste AA a partir de uma cor. Configuração em `docs/MCP.md`.

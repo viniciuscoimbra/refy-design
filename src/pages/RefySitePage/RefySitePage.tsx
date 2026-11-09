@@ -53,13 +53,16 @@ import { skins } from "../../stories/skins";
 import { fontSets } from "../../lib/fontSets";
 import styles from "./RefySitePage.module.css";
 import { SiteThemeContext } from "./platform";
-import { SiteLocaleProvider, flags, localeNames, locales, useSiteLocale, useText, useTr } from "./i18n";
+import { SiteLocaleProvider, canonicalPath, flags, htmlLang, localeNames, localePath, locales, stripLocale, useSiteLocale, useText, useTr } from "./i18n";
 import type { Locale } from "./i18n";
+import { homeSeo } from "./seo";
 import { packageName, packagePublished, packageVersion } from "./packageRelease";
 import { DocsPage, docGroupLabel, docTopics, localizedDocPages } from "./SiteDocs";
 import { HeroWords, ManifestoScene, ShowcaseReel, ThemeScroll, heroText, playWords } from "./SiteHome";
 import type { DocTopic } from "./SiteDocs";
 import { ProjectPage, projectDescription, projectGroupLabel, projectLabel } from "./SiteProject";
+import { AiGuidePage, aiHref, aiNavLinks, aiPagesLabel, aiTopics, localizedAiPages } from "./SiteAI";
+import type { AiTopic } from "./SiteAI";
 import {
   areaIcons,
   SideNav,
@@ -69,6 +72,7 @@ import {
   AccordionPage,
   describe,
   CollectionPage,
+  familySlug,
 } from "./SiteCatalog";
 import { collectionDefinitions } from "../PlaygroundPage/collections";
 
@@ -85,7 +89,6 @@ export type SitePage =
   | "playground"
   | "typography"
   | "collection"
-  | "releases"
   | "contribute";
 export interface RefySitePageProps {
   initialPage?: SitePage;
@@ -103,28 +106,26 @@ const pagePaths: Record<SitePage, string> = {
   components: "/componentes",
   accordion: "/componentes",
   blocks: "/templates",
-  charts: "/componentes/graficos",
+  charts: "/componentes/charts",
   themes: "/temas",
   typography: "/temas/tipografia",
   ai: "/para-ias",
   playground: "/playground",
   collection: "/componentes/colecoes",
-  releases: "/releases",
   contribute: "/contribuir",
 };
 const pageTitles: Record<SitePage, Record<Locale, string>> = {
-  home: { pt: "refy", en: "refy", es: "refy" },
+  home: { pt: homeSeo.pt.title, en: homeSeo.en.title, es: homeSeo.es.title },
   docs: { pt: "Instalação · refy", en: "Installation · refy", es: "Instalación · refy" },
   components: { pt: "Componentes · refy", en: "Components · refy", es: "Componentes · refy" },
   accordion: { pt: "Componentes · refy", en: "Components · refy", es: "Componentes · refy" },
   blocks: { pt: "Templates · refy", en: "Templates · refy", es: "Plantillas · refy" },
-  charts: { pt: "Gráficos · refy", en: "Charts · refy", es: "Gráficos · refy" },
+  charts: { pt: "Gráficos D3 · refy", en: "D3 charts · refy", es: "Gráficos D3 · refy" },
   themes: { pt: "Temas · refy", en: "Themes · refy", es: "Temas · refy" },
   typography: { pt: "Tipografia · refy", en: "Typography · refy", es: "Tipografía · refy" },
   ai: { pt: "Para IAs · refy", en: "For AI · refy", es: "Para IAs · refy" },
   playground: { pt: "Playground · refy", en: "Playground · refy", es: "Playground · refy" },
   collection: { pt: "Coleções · refy", en: "Collections · refy", es: "Colecciones · refy" },
-  releases: { pt: "Releases · refy", en: "Releases · refy", es: "Releases · refy" },
   contribute: { pt: "Contribuir · refy", en: "Contributing · refy", es: "Contribuir · refy" },
 };
 const cta = {
@@ -133,26 +134,39 @@ const cta = {
   test: { pt: "Testar no Playground →", en: "Try it in Playground →", es: "Probar en el Playground →" },
   install: { pt: "Instalar no projeto", en: "Install in your project", es: "Instalar en el proyecto" },
 };
-const pathFor = (page: SitePage, component: string, template: string, doc: DocTopic = "instalacao", collection = "core") =>
-  page === "collection" ? `/componentes/colecoes/${collection}` : page === "accordion" ? `/componentes/${component.toLowerCase()}` : page === "blocks" ? (template ? `/templates/${template}` : "/templates") : page === "docs" ? `/docs/${doc}` : pagePaths[page];
-// Endereços antigos continuam abrindo a página certa.
-const legacyPaths: Record<string, string> = { "/blocks": "/templates", "/charts": "/componentes/graficos", "/docs/celular": "/docs/mobile" };
-function routeFromLocation(pathname: string): { page: SitePage; component?: string; template?: string; doc?: DocTopic; collection?: string } | null {
-  const raw = pathname.replace(/\/+$/, "") || "/";
-  const path = legacyPaths[raw] ?? raw;
+const pathFor = (page: SitePage, component: string, template: string, doc: DocTopic = "primeiros-passos", collection = "core", ai?: AiTopic) =>
+  page === "collection" ? `/componentes/colecoes/${collection}` : page === "accordion" ? `/componentes/${familySlug(component)}` : page === "blocks" ? (template ? `/templates/${template}` : "/templates") : page === "docs" ? `/docs/${doc}` : page === "ai" ? aiHref(ai) : pagePaths[page];
+// Endereços antigos continuam abrindo a página certa (o build também gera 301 para cada um).
+// Mapa de 09/11: MCP mora em Para IAs, Mobile entrou na Instalação, Releases virou Versões das Docs
+// e a página Gráficos D3 deu lugar à ficha Charts, que já tem os 30 tipos de gráfico.
+const legacyPaths: Record<string, string> = {
+  "/blocks": "/templates", "/charts": "/componentes/charts", "/componentes/graficos": "/componentes/charts",
+  "/docs/celular": "/docs/instalacao", "/docs/mobile": "/docs/instalacao", "/docs/primeira-tela": "/docs/primeiros-passos",
+  "/docs/comecar": "/docs/primeiros-passos", "/docs/mcp": "/para-ias/mcp", "/releases": "/docs/versoes",
+};
+export interface SiteRoute { page: SitePage; component?: string; template?: string; doc?: DocTopic; collection?: string; ai?: AiTopic }
+/** Lê qualquer endereço do site (em qualquer idioma, novo ou antigo) e devolve a página. */
+export function routeFromLocation(pathname: string): SiteRoute | null {
+  const trim = (path: string) => path.replace(/\/+$/, "") || "/";
+  const stripped = trim(stripLocale(pathname));
+  const canonical = trim(canonicalPath(pathname));
+  const path = legacyPaths[stripped] ?? legacyPaths[canonical] ?? canonical;
   const doc = /^\/docs(?:\/([^/]+))?$/.exec(path);
-  if (doc) return { page: "docs", doc: docTopics.find((topic) => topic === doc[1]) ?? "instalacao" };
-  if (path === "/componentes/graficos") return { page: "charts" };
+  if (doc) return { page: "docs", doc: docTopics.find((topic) => topic === doc[1]) ?? "primeiros-passos" };
+  const ai = /^\/para-ias(?:\/([^/]+))?$/.exec(path);
+  if (ai) return { page: "ai", ai: aiTopics.find((topic) => topic === ai[1]) };
   const group = /^\/componentes\/colecoes\/([^/]+)$/.exec(path);
   if (group) return collectionDefinitions.some((item) => item.id === group[1]) ? { page: "collection", collection: group[1] } : { page: "components" };
   const template = /^\/templates(?:\/([^/]+))?$/.exec(path);
   if (template) return { page: "blocks", template: blockRegistry.find((item) => item.id === template[1])?.id };
   const family = /^\/componentes\/([^/]+)$/.exec(path);
   if (family) {
-    const id = componentCatalog.find((entry) => entry.id.toLowerCase() === decodeURIComponent(family[1]).toLowerCase())?.id;
+    const slug = decodeURIComponent(family[1]).toLowerCase();
+    // Aceita também o nome colado de antes (visitschedulepicker).
+    const id = componentCatalog.find((entry) => familySlug(entry.id) === slug || entry.id.toLowerCase() === slug)?.id;
     return id ? { page: "accordion", component: id } : { page: "components" };
   }
-  const page = (Object.keys(pagePaths) as SitePage[]).find((key) => key !== "accordion" && pagePaths[key] === path);
+  const page = (Object.keys(pagePaths) as SitePage[]).find((key) => key !== "accordion" && key !== "charts" && pagePaths[key] === path);
   return page ? { page } : null;
 }
 // Mapa aprovado em 05/11: Charts virou coleção de Componentes, Temas entra no Playground, e o
@@ -161,12 +175,14 @@ const destinationLabels: Array<[SitePage, Record<Locale, string>]> = [
   ["docs", { pt: "Docs", en: "Docs", es: "Docs" }],
   ["components", { pt: "Componentes", en: "Components", es: "Componentes" }],
   ["blocks", { pt: "Templates", en: "Templates", es: "Plantillas" }],
+  ["themes", { pt: "Temas", en: "Themes", es: "Temas" }],
   ["ai", { pt: "Para IAs", en: "For AI", es: "Para IAs" }],
 ];
 const CreationPlayground = lazy(() => import("../PlaygroundPage/PlaygroundPage").then((module) => ({ default: module.StandalonePlayground })));
 
-function SiteBrand({ size = "md" }: { size?: "sm" | "md" }) {
-  return <BrandLogo size={size} symbol aria-label="Refy" />;
+// The logo is 24px tall wherever the site shows it (header, menu and footer).
+function SiteBrand() {
+  return <BrandLogo height={24} symbol aria-label="Refy" />;
 }
 function LanguageControl({ side = "bottom" }: { side?: "top" | "bottom" }) {
   const { locale, setLocale } = useSiteLocale();
@@ -287,6 +303,53 @@ function Home({
 const githubUrl = "https://github.com/viniciuscoimbra/refy-design";
 // A build with VITE_REFY_GITHUB=off shows no GitHub button, icon, Fork or repository links anywhere.
 const githubEnabled = import.meta.env.VITE_REFY_GITHUB !== "off";
+// Header call to action: a star on the public repository, not a fork. The count comes from the
+// public GitHub API and is kept for the session; without it the button still links to the repo.
+const githubIcon = <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.32-3.76-1.32-.5-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.4-1.22.71-1.5-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.15-3-.11-.28-.5-1.42.11-2.96 0 0 .94-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.13-1.45 3.07-1.15 3.07-1.15.61 1.54.22 2.68.11 2.96.72.78 1.15 1.78 1.15 3 0 4.29-2.6 5.24-5.08 5.52.4.35.76 1.03.76 2.07v3.09c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg>;
+const starsKey = "refy:github-stars";
+// The unauthenticated GitHub API allows 60 requests per hour per visitor: one request per page
+// load at most, and the count is kept for an hour across tabs.
+let starsRequest: Promise<number | null> | null = null;
+const readStars = (): number | null => {
+  try {
+    const cached = JSON.parse(localStorage.getItem(starsKey) ?? "null");
+    return cached && Date.now() - cached.at < 3_600_000 && typeof cached.count === "number" ? cached.count : null;
+  } catch { return null; }
+};
+const fetchStars = () => (starsRequest ??= fetch("https://api.github.com/repos/viniciuscoimbra/refy-design")
+  .then((response) => (response.ok ? response.json() : null))
+  .then((repo) => {
+    if (typeof repo?.stargazers_count !== "number") return null;
+    try { localStorage.setItem(starsKey, JSON.stringify({ count: repo.stargazers_count, at: Date.now() })); } catch { /* no storage */ }
+    return repo.stargazers_count as number;
+  })
+  .catch(() => null));
+function GitHubStars() {
+  const t = useText();
+  const { locale } = useSiteLocale();
+  const [stars, setStars] = useState<number | null>(readStars);
+  useEffect(() => {
+    if (stars !== null) return;
+    let live = true;
+    fetchStars().then((count) => { if (live && count !== null) setStars(count); });
+    return () => { live = false; };
+  }, [stars]);
+  return (
+    <Button
+      variant="ghost"
+      href={githubUrl}
+      target="_blank"
+      leadingIcon={githubIcon}
+      trailingIcon={stars === null ? undefined : <span className={styles.starCount}>{stars.toLocaleString(htmlLang[locale])}</span>}
+      aria-label={t({ pt: "Dar estrela ao refy no GitHub", en: "Star refy on GitHub", es: "Dar estrella a refy en GitHub" })}
+    >
+      <span className={styles.starLabel}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" /></svg>
+        <span className={styles.starWord}>{t({ pt: "Estrela", en: "Star", es: "Estrella" })}</span>
+      </span>
+    </Button>
+  );
+}
 // Font families a theme file paints with (heading and body), read from the resolved theme.
 const themeFonts = (skin: string) => {
   const tokens = resolveTheme({ ...defaultConfig, skin, fonts: presetFonts[skin] ?? defaultConfig.fonts, customTheme: "" }).tokens ?? {};
@@ -320,8 +383,16 @@ function frameThemeFromUrl(): Partial<PlaygroundConfig> | null {
   if (mode === "light" || mode === "dark") patch.theme = mode;
   return patch;
 }
+const footerPageLabels = {
+  components: { pt: "Componentes", en: "Components", es: "Componentes" },
+  blocks: { pt: "Templates", en: "Templates", es: "Plantillas" },
+  themes: { pt: "Temas", en: "Themes", es: "Temas" },
+  playground: { pt: "Playground", en: "Playground", es: "Playground" },
+  ai: { pt: "Para IAs", en: "For AI", es: "Para IAs" },
+} satisfies Partial<Record<SitePage, Record<Locale, string>>>;
+const footerDocs: DocTopic[] = ["primeiros-passos", "instalacao", "tema-por-arquivo", "versoes"];
 const projectLinks: Array<[string, Record<Locale, string>]> = [
-  ["", { pt: "GitHub", en: "GitHub", es: "GitHub" }],
+  ["", { pt: "Código no GitHub", en: "Source on GitHub", es: "Código en GitHub" }],
   ["/blob/main/SECURITY.md", { pt: "Segurança", en: "Security", es: "Seguridad" }],
   ["/blob/main/LICENSE", { pt: "Licença MIT", en: "MIT License", es: "Licencia MIT" }],
 ];
@@ -505,10 +576,10 @@ const agentToolsCode = {
   en: "npm exec --offline -- refy-agent catalog form\nnpm exec --offline -- refy-agent component Input\nnpm exec --offline -- refy-agent inspect src/Screen.tsx\nnpm exec --offline -- refy-agent check src/Screen.tsx src/screen.css",
   es: "npm exec --offline -- refy-agent catalog formulario\nnpm exec --offline -- refy-agent component Input\nnpm exec --offline -- refy-agent inspect src/Pantalla.tsx\nnpm exec --offline -- refy-agent check src/Pantalla.tsx src/pantalla.css",
 };
-function AIPage({ navigate, config }: { navigate: (page: SitePage) => void; config: PlaygroundConfig }) {
-  const [active, setActive] = useState("#rules");
+function AIPage({ navigate, go, config }: { navigate: (page: SitePage) => void; go: (href: string) => void; config: PlaygroundConfig }) {
   const [copyState, setCopyState] = useState("");
   const t = useText();
+  const { locale } = useSiteLocale();
   const prompt = t(aiPrompt);
   const themeLabel = `${config.customTheme ? t({ pt: "Personalizado", en: "Custom", es: "Personalizado" }) : skins[config.skin]?.label ?? config.skin} (${config.theme === "dark" ? "Dark" : config.theme === "system" ? t({ pt: "Sistema", en: "System", es: "Sistema" }) : "Light"})`;
   // The navigation component owns the active state; sections scroll in place, Catálogo opens the catalog page.
@@ -518,7 +589,6 @@ function AIPage({ navigate, config }: { navigate: (page: SitePage) => void; conf
       onClick={(event) => {
         event.preventDefault();
         if (item.href === "#catalog") return navigate("components");
-        setActive(item.href);
         document.getElementById(item.href.slice(1))?.scrollIntoView({ block: "start" });
       }}
     />
@@ -527,7 +597,18 @@ function AIPage({ navigate, config }: { navigate: (page: SitePage) => void; conf
     <main id="site-content" className={styles.aiGrid}>
       <SideNav title={t({ pt: "Para IAs", en: "For AI", es: "Para IAs" })}>
         <div className={styles.sideLinks}>
-          <SettingsSubnav label={t({ pt: "Guia para IAs", en: "Guide for AI", es: "Guía para IAs" })} activeHref={active} items={aiNavItems.map((item) => ({ ...item, label: t(item.label) }))} renderLink={link} />
+          {/* Um menu só, com uma marca de página atual: as páginas de Para IAs e, abaixo, as seções desta. */}
+          <SettingsSubnav
+            label={t({ pt: "Guia para IAs", en: "Guide for AI", es: "Guía para IAs" })}
+            activeHref={aiHref()}
+            groups={[
+              { title: aiPagesLabel(locale), items: aiNavLinks(locale) },
+              { title: t({ pt: "Nesta página", en: "On this page", es: "En esta página" }), items: aiNavItems.map((item) => ({ ...item, label: t(item.label) })) },
+            ]}
+            renderLink={(item, props) => item.href.startsWith("#")
+              ? link(item, props)
+              : <a {...props} href={localePath(locale, item.href)} onClick={(event) => { event.preventDefault(); go(item.href); }} />}
+          />
         </div>
       </SideNav>
       <article className={styles.article}>
@@ -597,7 +678,7 @@ function AIPage({ navigate, config }: { navigate: (page: SitePage) => void; conf
         <nav className={styles.aiLinks} aria-label={t({ pt: "Próximos passos para IAs", en: "Next steps for AI", es: "Próximos pasos para IAs" })}>
           <a href="#catalog" onClick={(event) => { event.preventDefault(); navigate("components"); }}>{t({ pt: "Ver catálogo estruturado →", en: "See the structured catalog →", es: "Ver catálogo estructurado →" })}</a>
           <span className={styles.aiDivider} aria-hidden="true" />
-          <a href="#recipes" onClick={(event) => { event.preventDefault(); setActive("#recipes"); document.getElementById("recipes")?.scrollIntoView({ block: "start" }); }}>{t({ pt: "Receitas de composição →", en: "Composition recipes →", es: "Recetas de composición →" })}</a>
+          <a href="#recipes" onClick={(event) => { event.preventDefault(); document.getElementById("recipes")?.scrollIntoView({ block: "start" }); }}>{t({ pt: "Receitas de composição →", en: "Composition recipes →", es: "Recetas de composición →" })}</a>
         </nav>
         <section id="recipes">
           <h2>{t({ pt: "Receitas de composição", en: "Composition recipes", es: "Recetas de composición" })}</h2>
@@ -633,7 +714,8 @@ function SiteShell({
   const [component, setComponent] = useState(startRoute?.component ?? "Accordion");
   // Sem id, /templates abre a vitrine com todos os templates.
   const [template, setTemplate] = useState(startRoute?.template ?? "");
-  const [doc, setDoc] = useState<DocTopic>(startRoute?.doc ?? "instalacao");
+  const [doc, setDoc] = useState<DocTopic>(startRoute?.doc ?? "primeiros-passos");
+  const [aiTopic, setAiTopic] = useState<AiTopic | undefined>(startRoute?.ai);
   const [collection, setCollection] = useState(startRoute?.collection ?? "core");
   const [localConfig, setConfig] = useState<PlaygroundConfig>({
     ...defaultConfig,
@@ -661,9 +743,6 @@ function SiteShell({
   const { locale } = useSiteLocale();
   const docPages = localizedDocPages[locale];
   const destinations = destinationLabels.map(([id, label]): [SitePage, string] => [id, t(label)]);
-  // Mobile é uma página das Docs, mas fica no menu principal para quem procura React Native.
-  const mobileLabel = t({ pt: "Mobile", en: "Mobile", es: "Móvil" });
-  const mobileActive = page === "docs" && doc === "mobile";
   const theme: RefyTheme = resolveTheme(config);
   const update = (patch: Partial<PlaygroundConfig>) =>
     onConfigurationChange
@@ -697,12 +776,15 @@ function SiteShell({
     window.parent.postMessage({ type: frameReadyMessage }, window.location.origin);
     return () => window.removeEventListener("message", onMessage);
   }, []);
-  const navigate = (next: SitePage, family = component, templateId = next === "blocks" ? "" : template, topic = doc, group = collection) => {
+  const navigate = (next: SitePage, family = component, templateId = next === "blocks" ? "" : template, topic: DocTopic = "primeiros-passos", group = collection, ai?: AiTopic) => {
     setPage(next);
+    // Docs sem página escolhida abre em Primeiros passos; Para IAs sem página abre a visão geral.
+    if (next === "docs") setDoc(topic);
+    if (next === "ai") setAiTopic(ai);
     if (next === "blocks") setTemplate(templateId);
     setMenu(false);
     if (routing) {
-      const path = pathFor(next, family, templateId, topic, group);
+      const path = localePath(locale, pathFor(next, family, templateId, topic, group, ai));
       if (path !== window.location.pathname) window.history.pushState({ page: next, component: family }, "", path);
     }
     window.scrollTo({ top: 0, left: 0 });
@@ -719,9 +801,18 @@ function SiteShell({
     setDoc(topic);
     navigate("docs", component, template, topic);
   };
+  /** Abre a página de qualquer link interno (caminho em português, novo ou antigo). */
+  const go = (href: string) => {
+    const route = routeFromLocation(href.split("#")[0]);
+    if (!route) return;
+    if (route.page === "accordion" && route.component) return select(route.component);
+    if (route.page === "collection" && route.collection) return openCollection(route.collection);
+    if (route.page === "blocks" && route.template) { setPage("blocks"); return selectTemplate(route.template); }
+    navigate(route.page, component, route.page === "blocks" ? "" : template, route.doc, collection, route.ai);
+  };
   const selectTemplate = (id: string) => {
     setTemplate(id);
-    if (routing) window.history.pushState({ page: "blocks", template: id }, "", pathFor("blocks", component, id));
+    if (routing) window.history.pushState({ page: "blocks", template: id }, "", localePath(locale, pathFor("blocks", component, id)));
     window.scrollTo({ top: 0, left: 0 });
   };
   const openComponent = (id: string) => {
@@ -747,6 +838,13 @@ function SiteShell({
     setPage(initialPage);
     setComponent("Accordion");
   }, [initialPage, routing]);
+  // Endereço antigo ou com nome colado (/docs/mcp, /componentes/visitschedulepicker) troca pelo atual
+  // sem criar entrada no histórico; o build também responde 301 para eles.
+  useEffect(() => {
+    if (!routing || !startRoute) return;
+    const current = localePath(locale, pathFor(startRoute.page, startRoute.component ?? component, startRoute.template ?? "", startRoute.doc, startRoute.collection, startRoute.ai));
+    if (current !== window.location.pathname.replace(/\/+$/, "") && window.location.pathname !== "/") window.history.replaceState(window.history.state, "", current + window.location.search + window.location.hash);
+  }, []);
   useEffect(() => {
     if (!routing) return;
     const onPop = () => {
@@ -755,6 +853,7 @@ function SiteShell({
       if (route.component) setComponent(route.component);
       if (route.page === "blocks") setTemplate(route.template ?? "");
       if (route.doc) setDoc(route.doc);
+      if (route.page === "ai") setAiTopic(route.ai);
       if (route.collection) setCollection(route.collection);
       setMenu(false);
     };
@@ -763,8 +862,8 @@ function SiteShell({
   }, [routing]);
   useEffect(() => {
     if (!routing) return;
-    document.title = page === "accordion" ? `${component} · refy` : page === "blocks" ? `${tr(blockRegistry.find((item) => item.id === template)?.title ?? "Templates")} · refy` : page === "docs" ? `${docPages[doc].label} · refy` : page === "collection" ? `${tr(collectionDefinitions.find((item) => item.id === collection)?.label ?? "")} · refy` : t(pageTitles[page]);
-  }, [routing, page, component, template, doc, collection, locale]);
+    document.title = page === "accordion" ? `${component} · refy` : page === "blocks" ? `${tr(blockRegistry.find((item) => item.id === template)?.title ?? "Templates")} · refy` : page === "docs" ? `${docPages[doc].label} · refy` : page === "ai" && aiTopic ? `${localizedAiPages[locale][aiTopic].label} · refy` : page === "collection" ? `${tr(collectionDefinitions.find((item) => item.id === collection)?.label ?? "")} · refy` : t(pageTitles[page]);
+  }, [routing, page, component, template, doc, collection, aiTopic, locale]);
   useEffect(() => {
     if (initialMode !== undefined) update({ theme: initialMode });
   }, [initialMode]);
@@ -793,17 +892,15 @@ function SiteShell({
       keywords: componentAreas[item.area] + " " + describe(item.id) + " " + tr(componentAreas[item.area]) + " " + tr(describe(item.id)) + (["Accordion", "AppShell"].includes(item.id) ? " composição" : ""),
       onSelect: () => select(item.id),
     })),
-    ...(["releases", "contribute"] as const).map((id) => {
-      const topic = id === "releases" ? "releases" : "contribuir";
-      return { id, label: projectLabel(locale, topic), description: projectDescription(locale, topic), group: projectGroupLabel(locale), icon: Icons.projects, keywords: id === "releases" ? "releases versões changelog versions versiones" : "contribuir contributing pull request contribuir", onSelect: () => navigate(id) };
-    }),
+    { id: "contribute", label: projectLabel(locale, "contribuir"), description: projectDescription(locale, "contribuir"), group: projectGroupLabel(locale), icon: Icons.projects, keywords: "contribuir contributing pull request contribuir", onSelect: () => navigate("contribute") },
+    ...aiTopics.map((topic) => ({ id: `ai-${topic}`, label: localizedAiPages[locale][topic].label, description: localizedAiPages[locale][topic].description, group: t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon: Icons.code, keywords: `${topic} agente agent claude codex`, onSelect: () => navigate("ai", component, template, doc, collection, topic) })),
     {id:"agent-rules", label:t({ pt: "Regras de composição", en: "Composition rules", es: "Reglas de composición" }), description:t({ pt: "Contexto, componentes e contratos", en: "Context, components and contracts", es: "Contexto, componentes y contratos" }), group:t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon:Icons.code, keywords:"composição agente composition agent", onSelect:() => navigate("ai")},
     {id:"agent-recipes", label:t({ pt: "Receitas de composição", en: "Composition recipes", es: "Recetas de composición" }), description:t({ pt: "Padrões e exemplos práticos", en: "Patterns and practical examples", es: "Patrones y ejemplos prácticos" }), group:t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon:Icons.projects, keywords:"composição agente composition agent", onSelect:() => navigate("ai")},
   ];
   const navigation = <NavigationMenu
-    items={[destinations[0], ["mobile", mobileLabel] as [string, string], ...destinations.slice(1)].map(([id,label]) => ({id,label}))}
-    activeId={mobileActive ? "mobile" : page === "accordion" || page === "charts" || page === "collection" ? "components" : page}
-    onNavigate={id => (id === "mobile" ? openDoc("mobile") : navigate(id as SitePage))}
+    items={destinations.map(([id,label]) => ({id,label}))}
+    activeId={page === "accordion" || page === "charts" || page === "collection" ? "components" : page === "typography" ? "themes" : page}
+    onNavigate={id => navigate(id as SitePage)}
   />;
   return (
     <SiteThemeContext.Provider value={theme}>
@@ -848,25 +945,17 @@ function SiteShell({
             <ModeControl mode={config.theme} onChange={theme => update({theme})} />
             {githubEnabled && <Divider orientation="vertical" />}
           </div>
-          {githubEnabled && <span className={styles.github}>
-          <a
-            className={styles.githubLink}
-            href="https://github.com/viniciuscoimbra/refy-design"
-            target="_blank"
-            rel="noreferrer"
-            aria-label={t({ pt: "Repositório GitHub", en: "GitHub repository", es: "Repositorio de GitHub" })}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-label="GitHub"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.32-3.76-1.32-.5-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.4-1.22.71-1.5-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.15-3-.11-.28-.5-1.42.11-2.96 0 0 .94-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.13-1.45 3.07-1.15 3.07-1.15.61 1.54.22 2.68.11 2.96.72.78 1.15 1.78 1.15 3 0 4.29-2.6 5.24-5.08 5.52.4.35.76 1.03.76 2.07v3.09c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg>
-          </a>
-          {/* No live count: there is no local data and the site makes no request to GitHub. */}
-          <Button
-            href="https://github.com/viniciuscoimbra/refy-design/fork"
-            target="_blank"
-            leadingIcon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2" /><circle cx="18" cy="5" r="2" /><circle cx="12" cy="19" r="2" /><path d="M6 7v1a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V7M12 11v6" /></svg>}
-          >
-            Fork
-          </Button>
-          </span>}
+          {githubEnabled && <span className={styles.github}><GitHubStars /></span>}
+          <span className={styles.installCta}>
+            <Button
+              href={`${pagePaths.docs}/instalacao`}
+              aria-current={page === "docs" && doc === "instalacao" ? "page" : undefined}
+              onClick={(event) => { event.preventDefault(); openDoc("instalacao"); }}
+              leadingIcon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>}
+            >
+              <span className={styles.installText}>{t({ pt: "Instalar", en: "Install", es: "Instalar" })}</span>
+            </Button>
+          </span>
           <span className={styles.language}><LanguageControl /></span>
           <span className={styles.mobileMenu}>
             <IconButton
@@ -889,13 +978,13 @@ function SiteShell({
           </span>
         </div>
       </header>
-      <div ref={preview}>
+      <div ref={preview} className={styles.pageBody}>
         {page === "home" && (
           <Home navigate={navigate} config={config} update={update} />
         )}
-        {page === "docs" && <DocsPage topic={doc} onTopic={openDoc} />}
-        {page === "components" && <ComponentCatalog select={select} openCollection={openCollection} openCharts={() => navigate("charts")} />}
-        {page === "collection" && <CollectionPage id={collection} select={select} openCollection={openCollection} openCharts={() => navigate("charts")} onCatalog={() => navigate("components")} />}
+        {page === "docs" && <DocsPage topic={doc} onLink={go} />}
+        {page === "components" && <ComponentCatalog select={select} openCollection={openCollection} openCharts={() => select("Charts")} />}
+        {page === "collection" && <CollectionPage id={collection} select={select} openCollection={openCollection} openCharts={() => select("Charts")} onCatalog={() => navigate("components")} />}
         {page === "accordion" && (
           <AccordionPage
             navigate={navigate}
@@ -925,7 +1014,7 @@ function SiteShell({
             <D3ChartCatalog />
           </div>
         )}
-        {page === "ai" && <AIPage navigate={navigate} config={config} />}
+        {page === "ai" && (aiTopic ? <AiGuidePage topic={aiTopic} onLink={go} /> : <AIPage navigate={navigate} go={go} config={config} />)}
         {page === "themes" && (
           <div id="site-content">
             <Suspense fallback={<p role="status">{t({ pt: "Carregando Playground…", en: "Loading Playground…", es: "Cargando Playground…" })}</p>}>
@@ -933,39 +1022,47 @@ function SiteShell({
             </Suspense>
           </div>
         )}
-        {(page === "releases" || page === "contribute") && (
-          <ProjectPage topic={page === "releases" ? "releases" : "contribuir"} onTopic={(topic) => navigate(topic === "releases" ? "releases" : "contribute")} />
-        )}
+        {page === "contribute" && <ProjectPage topic="contribuir" onLink={go} />}
         {page === "typography" && (
           <SiteTypography config={config} update={update} onBack={() => navigate("themes")} />
         )}
       </div>
       <SiteFooter
         className={styles.footer}
-        layout="inline"
-        brand={<SiteBrand size="sm" />}
-        tagline={t({ pt: "Componentes prontos, temas feitos de tokens e regras que a IA lê antes de montar a tela.", en: "Ready components, themes made of tokens and rules the AI reads before building the screen.", es: "Componentes listos, temas hechos de tokens y reglas que la IA lee antes de armar la pantalla." })}
+        externalIcon={false}
+        brand={<SiteBrand />}
+        tagline={<>{t({ pt: "Seu design, do seu jeito.", en: "Your design, your way.", es: "Tu diseño, a tu manera." })}<br />{t({ pt: "Construa UI extensíveis e com IA nativa.", en: "Build extensible UI with native AI.", es: "Construye UI extensibles y con IA nativa." })}</>}
+        // Four columns, each named for where its links lead: what refy offers, how to use it, what agents use, and the open-source project.
         columns={[
           {
             title: t({ pt: "Produto", en: "Product", es: "Producto" }),
-            links: [
-              ...[...destinations, ["playground", "Playground"] as [SitePage, string]].map(([id, label]) => ({
-                label,
-                href: pagePaths[id],
-                onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); navigate(id); },
-              })),
-              { label: mobileLabel, href: "/docs/mobile", onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); openDoc("mobile"); } },
-            ],
+            links: (["components", "blocks", "themes", "playground"] as const).map((id) => ({
+              label: t(footerPageLabels[id]),
+              href: localePath(locale, pagePaths[id]),
+              onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); navigate(id); },
+            })),
           },
-          // Releases and Contributing are site pages; repository links only once the public repository is live.
+          {
+            title: t({ pt: "Documentação", en: "Documentation", es: "Documentación" }),
+            links: footerDocs.map((topic) => ({
+              label: docPages[topic].label,
+              href: localePath(locale, `${pagePaths.docs}/${topic}`),
+              onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); openDoc(topic); },
+            })),
+          },
+          {
+            title: t(footerPageLabels.ai),
+            links: aiNavLinks(locale).map(({ href, label }) => ({
+              label,
+              href: localePath(locale, href),
+              onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); go(href); },
+            })),
+          },
+          // Contributing is a site page; repository links only once the public repository is live.
           {
             title: projectGroupLabel(locale),
             links: [
-              ...(["releases", "contribute"] as const).map((id) => ({
-                label: projectLabel(locale, id === "releases" ? "releases" : "contribuir"),
-                href: pagePaths[id],
-                onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); navigate(id); },
-              })),
+              { label: projectLabel(locale, "contribuir"), href: localePath(locale, pagePaths.contribute), onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); navigate("contribute"); } },
               ...(githubEnabled ? projectLinks.map(([href, label]) => ({ label: t(label), href: `${githubUrl}${href}`, external: true })) : []),
             ],
           },
@@ -995,9 +1092,9 @@ function SiteShell({
         ]} /><LanguageControl side="top" /></div>}
       >
         <div className={styles.mobileNavigation}>
-          <SettingsSubnav label={t({ pt: "Navegação principal", en: "Main navigation", es: "Navegación principal" })} activeHref={mobileActive ? "/docs/mobile" : pagePaths[page]} items={
-            [[pagePaths.docs, destinations[0][1]], ["/docs/mobile", mobileLabel], ...[...destinations.slice(1), ["playground", "Playground"] as [SitePage, string], ["releases", projectLabel(locale, "releases")] as [SitePage, string], ["contribute", projectLabel(locale, "contribuir")] as [SitePage, string]].map(([id, label]) => [pagePaths[id], label])].map(([href,label],index) => ({href,label,icon:[Icons.code,Icons.code,Icons.projects,Icons.dashboard,Icons.code,Icons.settings,Icons.projects,Icons.projects][index]}))
-          } renderLink={(item,props) => <a {...props} onClick={event => {event.preventDefault();const route = routeFromLocation(item.href);if (route?.page === "docs" && route.doc) openDoc(route.doc);else navigate(route?.page ?? "home");}} />} />
+          <SettingsSubnav label={t({ pt: "Navegação principal", en: "Main navigation", es: "Navegación principal" })} activeHref={localePath(locale, pagePaths[page === "accordion" || page === "charts" || page === "collection" ? "components" : page === "typography" ? "themes" : page])} items={
+            [...destinations, ["playground", "Playground"] as [SitePage, string], ["contribute", projectLabel(locale, "contribuir")] as [SitePage, string]].map(([id, label], index) => ({ href: localePath(locale, pagePaths[id]), label, icon: [Icons.code, Icons.projects, Icons.dashboard, Icons.monitor, Icons.code, Icons.settings, Icons.projects][index] }))
+          } renderLink={(item,props) => <a {...props} onClick={event => {event.preventDefault();go(item.href);}} />} />
           <ComponentNav mobile selected={component} onSelect={select} />
         </div>
       </Drawer>

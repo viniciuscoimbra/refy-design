@@ -14,8 +14,9 @@ import { parseReleases } from "./releases.mjs";
 // no ar: o site publicado sem ele é construído com VITE_REFY_GITHUB=off.
 
 export type ProjectTopic = "releases" | "contribuir";
-export const projectTopics: ProjectTopic[] = ["releases", "contribuir"];
-export const projectHref = (topic: ProjectTopic) => `/${topic}`;
+// Releases virou a página Versões das Docs (/docs/versoes); Contribuir é a única página própria do projeto.
+export const projectTopics: ProjectTopic[] = ["contribuir"];
+export const projectHref = (topic: ProjectTopic) => (topic === "releases" ? "/docs/versoes" : `/${topic}`);
 
 const repoUrl = "https://github.com/viniciuscoimbra/refy-design";
 const githubEnabled = import.meta.env.VITE_REFY_GITHUB !== "off";
@@ -91,7 +92,7 @@ const copy: Record<Locale, Copy> = {
     group: "Projeto",
     pages: "Páginas do projeto",
     releases: {
-      label: "Releases",
+      label: "Versões",
       description: "Cada versão publicada do refy e o que mudou nela.",
       current: "Atual",
       tag: "tag",
@@ -259,7 +260,7 @@ const copy: Record<Locale, Copy> = {
     group: "Proyecto",
     pages: "Páginas del proyecto",
     releases: {
-      label: "Releases",
+      label: "Versiones",
       description: "Cada versión publicada de refy y lo que cambió en ella.",
       current: "Actual",
       tag: "tag",
@@ -384,19 +385,21 @@ function ReleasesBody({ locale }: { locale: Locale }) {
   );
 }
 
+/** Seções da página de versões, para o sumário da direita. */
+export const releaseSections = (locale: Locale): Array<[string, string]> =>
+  [...releases.map((release): [string, string] => [releaseId(release.version), release.version]), ["semver", copy[locale].releases.semverTitle]];
+
 /** Corpo da página sem a moldura, para o HTML estático de `scripts/site-seo.mjs`. */
 export const projectBody = (locale: Locale, topic: ProjectTopic) =>
   topic === "releases" ? <ReleasesBody locale={locale} /> : copy[locale].contribute.body;
 
-export function ProjectPage({ topic, onTopic }: { topic: ProjectTopic; onTopic: (topic: ProjectTopic) => void }) {
+export function ProjectPage({ topic, onLink }: { topic: ProjectTopic; onLink: (href: string) => void }) {
   const { locale } = useSiteLocale();
   const text = copy[locale];
   const link = (item: { href: string }, props: SettingsSubnavLinkProps) => (
-    <a {...props} onClick={(event) => { event.preventDefault(); onTopic(item.href.slice(1) as ProjectTopic); }} />
+    <a {...props} onClick={(event) => { event.preventDefault(); onLink(item.href); }} />
   );
-  const sections: Array<[string, string]> = topic === "releases"
-    ? [...releases.map((release): [string, string] => [releaseId(release.version), release.version]), ["semver", text.releases.semverTitle]]
-    : text.contribute.sections;
+  const sections: Array<[string, string]> = topic === "releases" ? releaseSections(locale) : text.contribute.sections;
   return (
     <main id="site-content" className={styles.docGrid}>
       <SideNav title={text.group}>
@@ -405,7 +408,7 @@ export function ProjectPage({ topic, onTopic }: { topic: ProjectTopic; onTopic: 
             label={text.pages}
             activeHref={projectHref(topic)}
             renderLink={link}
-            items={projectTopics.map((id) => ({ href: projectHref(id), label: projectLabel(locale, id) }))}
+            items={(["contribuir", "releases"] as const).map((id) => ({ href: projectHref(id), label: projectLabel(locale, id) }))}
           />
         </div>
       </SideNav>

@@ -122,7 +122,7 @@ for (const mode of ['light']) for (const font of ['humanist', 'plex', 'studio'])
   test(`${mode}/${font}: SchedulePicker em telefone com toque e múltiplos dias`, async ({ browser }, testInfo) => {
     const context = await browser.newContext({ viewport: { width: 320, height: 760 }, hasTouch: true, isMobile: true });
     const page = await context.newPage();
-    await page.goto('http://127.0.0.1:6006' + story('components-organisms-visitschedulepicker--multi-dia', mode, 'refy', font));
+    await page.goto(story('components-organisms-visitschedulepicker--multi-dia', mode, 'refy', font));
     const scheduler = page.getByRole('region', { name: 'Choose availability for a visit' });
     await expect(scheduler).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
@@ -170,7 +170,7 @@ for (const mode of ['light']) test(`${mode}: atualização externa durante arras
 for (const mode of ['light']) test(`${mode}: Kanban com toque e alternativa de menu móvel`, async ({ browser, browserName }) => {
   const context = await browser.newContext({ viewport: { width: browserName === 'chromium' ? 900 : 390, height: 760 }, hasTouch: true, isMobile: true });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:6006' + story('components-organisms-kanbanboard--padrao', mode));
+  await page.goto(story('components-organisms-kanbanboard--padrao', mode));
   const card = page.locator('[data-kanban-card="brief"]');
   if (browserName === 'chromium') {
     const handle = (await card.getByRole('button', { name: 'Drag Prepare new project', exact: true }).boundingBox())!;

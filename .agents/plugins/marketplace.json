@@ -1,0 +1,12 @@
+{
+  "name": "refy",
+  "interface": { "displayName": "Refy" },
+  "plugins": [
+    {
+      "name": "refy",
+      "source": { "source": "local", "path": "./plugins/refy" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Design"
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import { currentLocale, htmlLang } from "../pages/RefySitePage/i18n";
 import type { RefyTheme, ThemeMode } from "../lib/ThemeProvider";
 import { blockRegistry } from "../pages/PlaygroundPage/blockRegistry";
 import { PreviewDocument } from "../pages/PlaygroundPage/PreviewFrame";
+import { ComponentExample } from "../pages/PlaygroundPage/ComponentArea";
 import {
   defaultConfig,
   resolveTheme,
@@ -43,7 +44,21 @@ function Preview() {
     );
     return () => window.removeEventListener("message", receive);
   }, []);
-  const id = new URLSearchParams(window.location.search).get("refy-block");
+  const params = new URLSearchParams(window.location.search);
+  // ?refy-component=<id>&refy-story=<story>: the web example of one component, alone in the frame.
+  // The Mobile tab of a web-only component shows it at a phone's real width, with its media queries.
+  const component = params.get("refy-component");
+  if (component)
+    return (
+      <ThemeProvider
+        theme={theme}
+        mode={mode}
+        style={{ minHeight: "100vh", padding: "var(--space-4)", visibility: ready ? "visible" : "hidden" }}
+      >
+        <ComponentExample id={component} story={params.get("refy-story") ?? undefined} />
+      </ThemeProvider>
+    );
+  const id = params.get("refy-block");
   const block = blockRegistry.find((item) => item.id === id);
   if (!block) return <p role="alert">Block not found.</p>;
   const Render = block.component;

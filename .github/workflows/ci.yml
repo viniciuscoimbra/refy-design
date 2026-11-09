@@ -1,11 +1,23 @@
 name: Validar biblioteca
+# Um commit de PR roda uma vez, pelo pull_request. O push só dispara em main, nas branches de
+# trabalho e nas tags de versão (v* dispara release.yml), e um commit novo cancela a rodada
+# antiga do mesmo PR.
 on:
   push:
+    branches: [main, 'trabalho/**']
+    tags: ['aprovado/**', 'v*']
   pull_request:
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
+# Onde roda: com a variável de repositório CI_RUNNER=mac, os jobs vão para um runner próprio com
+# o rótulo `refy` (self-hosted, macOS), que não gasta minutos do GitHub; sem ela, rodam nos
+# runners do GitHub. O projeto não paga Actions. Job pulado por `if` não gasta minuto.
 jobs:
   check:
+    if: vars.CI_RUNNER != 'mac'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -24,6 +36,7 @@ jobs:
   # navegador muda o comportamento (foco, select nativo, portal). A lista fica em
   # playwright.config.ts.
   browser:
+    if: vars.CI_RUNNER != 'mac'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     # A imagem já traz os navegadores e as dependências do sistema: instalar pelo apt
@@ -57,6 +70,7 @@ jobs:
             test-results/
   # Instala o pacote do npm pack em consumidores React 18 e 19 e testa o build deles.
   consumers:
+    if: vars.CI_RUNNER != 'mac'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     # A imagem já traz os navegadores e as dependências do sistema: instalar pelo apt
@@ -74,6 +88,97 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npm run build-storybook
+      - run: node scripts/test-consumers.mjs -- --project=chromium
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: consumer-evidence
+          path: |
+            playwright-report/
+            test-results/
+
+  # Os mesmos passos no runner próprio. macOS não roda job em container: os navegadores do
+  # Playwright ficam no cache do usuário do runner e só baixam na primeira rodada. Um runner faz
+  # um job por vez, então os três navegadores rodam num job só, sobre um build só.
+  check-mac:
+    name: check
+    if: vars.CI_RUNNER == 'mac'
+    runs-on: [self-hosted, macOS, refy]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      # Sem `--global`: instalar no Node do runner sujaria a máquina de quem o hospeda.
+      - run: |
+          npm install --no-audit --no-fund --prefix "$RUNNER_TEMP/openspec" @fission-ai/openspec@1.5.0
+          echo "$RUNNER_TEMP/openspec/node_modules/.bin" >> "$GITHUB_PATH"
+      - run: npm run check:specs
+      - run: npm run check
+      - run: npm run build-storybook
+      - run: npm pack --dry-run
+  browser-mac:
+    name: browser
+    if: vars.CI_RUNNER == 'mac'
+    runs-on: [self-hosted, macOS, refy]
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      # O Mac de quem hospeda o runner pode ter qualquer porta ocupada (a 6006 tem um Storybook
+      # ligado): cada job pede ao sistema uma porta livre para o Storybook dos testes.
+      - run: echo "REFY_STORYBOOK_PORT=$(node -e "const s=require('net').createServer().listen(0,'127.0.0.1',()=>{console.log(s.address().port);s.close()})")" >> "$GITHUB_ENV"
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install chromium webkit
+      - run: npm run build
+      - run: npm run build-storybook
+      - run: npx playwright test --project=chromium --project=webkit
+      # O Firefox do Playwright não abre no macOS 27 ("Could not find profile folder"), nem fora
+      # do Playwright. Ele roda na imagem Linux oficial da mesma versão, sobre o Storybook já
+      # construído; node_modules fica num volume à parte para não trocar os binários do macOS.
+      - if: success() || failure()
+        run: |
+          docker run --rm -e CI=1 \
+            -e REFY_STORYBOOK_PORT -e PLAYWRIGHT_HTML_REPORT=playwright-report-firefox \
+            -v "$PWD":/work -v /work/node_modules -w /work \
+            mcr.microsoft.com/playwright:v1.64.1-noble \
+            bash -c "npm ci --no-audit --no-fund && npx playwright test --project=firefox --output=test-results-firefox"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-evidence
+          path: |
+            playwright-report/
+            test-results/
+            playwright-report-firefox/
+            test-results-firefox/
+  consumers-mac:
+    name: consumers
+    if: vars.CI_RUNNER == 'mac'
+    runs-on: [self-hosted, macOS, refy]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      # O Mac de quem hospeda o runner pode ter qualquer porta ocupada (a 6006 tem um Storybook
+      # ligado): cada job pede ao sistema uma porta livre para o Storybook dos testes.
+      - run: echo "REFY_STORYBOOK_PORT=$(node -e "const s=require('net').createServer().listen(0,'127.0.0.1',()=>{console.log(s.address().port);s.close()})")" >> "$GITHUB_ENV"
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install chromium
       - run: npm run build
       - run: npm run build-storybook
       - run: node scripts/test-consumers.mjs -- --project=chromium

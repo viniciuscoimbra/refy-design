@@ -268,7 +268,7 @@ test("Coverflow real touch horizontal gesture selects without activating or scro
   const page = await context.newPage();
   try {
     await page.goto(
-      `${process.env.REFY_STORYBOOK_URL || "http://127.0.0.1:6006"}/iframe.html?id=components-organisms-coverflow--controlado&viewMode=story`,
+      `${process.env.REFY_STORYBOOK_URL || `http://127.0.0.1:${process.env.REFY_STORYBOOK_PORT || 6006}`}/iframe.html?id=components-organisms-coverflow--controlado&viewMode=story`,
     );
     const region = page.getByRole("region", { name: "Browse content" });
     const first = region.getByRole("button", {

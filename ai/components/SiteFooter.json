@@ -76,6 +76,13 @@
           "description": "Site preferences, such as language and color mode, aligned to the right below the links."
         },
         {
+          "name": "externalIcon",
+          "defaultValue": "true",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Shows ↗ after external links. Off when every link should read the same and the column title already names the destination."
+        },
+        {
           "name": "defaultValue",
           "type": "string | number | readonly string[] | undefined",
           "required": false,
