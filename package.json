@@ -1,6 +1,6 @@
 {
   "name": "@refy-design/web",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Refy Design System — componentes React atômicos.",
   "license": "MIT",
   "type": "module",
@@ -45,7 +45,7 @@
     "build-storybook": "storybook build",
     "build": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json",
     "lint": "tsc --noEmit",
-    "check": "node scripts/check-component-colors.mjs && npm run tokens:check && npm run contrast:check && npm run motion:check && npm run lint && npm run build && node scripts/check-storybook-deps.mjs && node scripts/check-selective-css.mjs && node scripts/check.mjs && npm run check:site-theme && node scripts/check-themes.mjs && npm run check:blocks && npm run docs:check && npm run agent:check",
+    "check": "node scripts/check-component-colors.mjs && npm run tokens:check && npm run contrast:check && npm run motion:check && npm run lint && npm run build && node scripts/check-storybook-deps.mjs && node scripts/check-selective-css.mjs && node scripts/check-css-budget.mjs && node scripts/check.mjs && npm run check:site-theme && node scripts/check-themes.mjs && npm run check:blocks && npm run docs:check && npm run agent:check",
     "build:site": "vite build --config vite.site.config.ts && node scripts/site-seo.mjs dist-site && node scripts/seo-check.mjs dist-site",
     "seo:indexnow": "node scripts/indexnow.mjs",
     "check:site-theme": "node scripts/check-refy-site.mjs && npm run check:site-contract",
@@ -63,7 +63,9 @@
     "check:site-visual": "node scripts/refy-site-harness.mjs --compare",
     "check:site-acceptance": "node scripts/refy-site-harness.mjs --acceptance",
     "agent:build": "node scripts/agent-kit.mjs",
-    "agent:check": "node scripts/agent-kit.mjs --check && node --test tests/agent-kit.test.mjs tests/agent-discovery.test.mjs tests/collection-registry.test.mjs tests/agent-collections.test.mjs tests/agent-init.test.mjs tests/agent-mcp.test.mjs tests/agent-theme-extract.test.mjs tests/agent-compare.test.mjs tests/agent-plugin.test.mjs"
+    "mcp:worker": "node workers/mcp/build.mjs",
+    "mcp:smoke": "node workers/mcp/smoke.mjs",
+    "agent:check": "node scripts/agent-kit.mjs --check && node --test tests/agent-kit.test.mjs tests/agent-discovery.test.mjs tests/collection-registry.test.mjs tests/agent-collections.test.mjs tests/agent-init.test.mjs tests/agent-mcp.test.mjs tests/agent-theme-extract.test.mjs tests/agent-compare.test.mjs tests/agent-plugin.test.mjs tests/agent-mcp-remote.test.mjs tests/agent-check-guidance.test.mjs"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -86,6 +88,7 @@
     "@types/react-dom": "^19",
     "axe-core": "4.14.0",
     "buffer": "^6.0.3",
+    "esbuild": "0.25.12",
     "gsap": "3.15.1",
     "prettier": "^3.9.10",
     "react": "19.2.4",

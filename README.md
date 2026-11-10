@@ -132,7 +132,15 @@ Login, OTP, recuperação, arquivos e preferências dos exemplos são locais. Su
 
 ## Custo e customização
 
-A distribuição ESM permite ao bundler remover JavaScript e CSS de componentes não usados. Importar Button/Input não deve levar o runtime nem os estilos de charts/CodeBlock para a tela. Os imports de CSS acompanham os módulos usados; não é necessário importar styles.css no projeto novo. O import legado `@refy-design/web/styles.css` continua disponível para optar pela folha completa. Instalar o pacote ainda instala as dependências avançadas, mesmo quando o bundle final as elimina. Fontes só são solicitadas pelo navegador quando usadas e carregadas por CSS; os arquivos fazem parte do pacote instalado.
+A distribuição ESM permite ao bundler remover JavaScript e CSS de componentes não usados. Importar Button/Input não deve levar o runtime nem os estilos de charts/CodeBlock para a tela. No Vite, no Rollup e no webpack, os imports de CSS acompanham os módulos usados, também pela raiz do pacote; não é necessário importar styles.css no projeto novo.
+
+O esbuild (e ferramenta montada sobre ele) junta o CSS de todo arquivo que o import alcança antes de descartar o JavaScript: `import { Button } from '@refy-design/web'` leva o CSS de todas as famílias (cerca de 260 KB, medido em 09/11/2026 com esbuild 0.24 e 0.28), contra 7,5 KB do Button sozinho. No esbuild, importe cada família pelo caminho dela:
+
+```tsx
+import { Button } from '@refy-design/web/Button';
+import { Chip, ChipGroup } from '@refy-design/web/Chip';
+```
+ O import legado `@refy-design/web/styles.css` continua disponível para optar pela folha completa. Instalar o pacote ainda instala as dependências avançadas, mesmo quando o bundle final as elimina. Fontes só são solicitadas pelo navegador quando usadas e carregadas por CSS; os arquivos fazem parte do pacote instalado.
 
 [Medidas reais e como reproduzir](docs/PACKAGE_COST.md) distinguem download do pacote, JS/CSS da tela, fontes e tempo de build. Não confunda tamanho instalado com custo transferido a cada usuário.
 

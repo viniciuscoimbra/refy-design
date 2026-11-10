@@ -104,8 +104,14 @@ export type { CheckboxProps } from "./components/Checkbox";
 export { RadioGroup } from "./components/RadioGroup";
 export type { RadioGroupProps, RadioOption } from "./components/RadioGroup";
 
-export { Chip } from "./components/Chip";
-export type { ChipProps, ChipTone, ChipSelectionMode } from "./components/Chip";
+export { Chip, ChipGroup } from "./components/Chip";
+export type {
+  ChipProps,
+  ChipTone,
+  ChipSelectionMode,
+  ChipGroupProps,
+  ChipGroupMode,
+} from "./components/Chip";
 
 // Navegação / overlay / dados
 export { Tabs } from "./components/Tabs";

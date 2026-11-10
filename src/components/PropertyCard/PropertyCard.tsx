@@ -105,7 +105,7 @@ export function PropertyCard({
           {headerAction && <div className={styles.headerAction}>{headerAction}</div>}
         </div>
 
-        {(value ?? price) != null && <p className={styles.price}>{value ?? price}{(valueSuffix ?? priceSuffix) && <small>{valueSuffix ?? priceSuffix}</small>}</p>}
+        {(value ?? price) != null && <p className={styles.price}><span className={styles.amount}>{value ?? price}</span>{(valueSuffix ?? priceSuffix) && <small>{valueSuffix ?? priceSuffix}</small>}</p>}
 
         {facts.length > 0 && (
           <dl className={styles.facts}>

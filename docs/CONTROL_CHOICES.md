@@ -9,6 +9,8 @@
 | Procurar numa lista de opções | Combobox | Campo e opções cumprem a mesma tarefa; digitação filtra a escolha |
 | Selecionar várias opções com pesquisa | Multiselect | Chips e contador representam o valor; quantidade visível depende do espaço |
 | Uma opção entre poucas alternativas sempre visíveis | RadioGroup ou Segmented | Seleção exclusiva; não usar ToggleGroup para simular essa garantia |
+| Filtro de opção única acima da lista, em chips | ChipGroup (`mode="single"`) + Chip | Grupo de radio com uma parada de Tab e setas; Chip com `selectionMode="radio"` solto não tem teclado de radio |
+| Filtros independentes acima da lista, em chips | ChipGroup (`mode="multiple"`) + Chip | Cada chip liga e desliga com `aria-pressed`; o grupo dá o rótulo de campo |
 | Alternar opções independentes sempre visíveis | ToggleGroup | API de múltiplos valores (`string[]`); cada botão liga/desliga sua opção |
 | Escolher cards com texto ou mídia | ChoiceCardGroup + ChoiceCard | ChoiceCard exige o contexto do grupo; `single` usa uma opção e `multiple` aceita várias |
 | Escolher data sem digitação livre | DatePicker | Botão com calendário e limpeza; formato digitado, parsing e validação textual exigem outra composição |

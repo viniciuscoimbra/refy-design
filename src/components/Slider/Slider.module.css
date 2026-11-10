@@ -14,10 +14,9 @@
   justify-content: space-between;
   margin-bottom: 14px;
 }
+/* Rótulo vem da receita de campo (Input/Field.module.css, tokens --field-label-*). */
 .name {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semi);
-  color: var(--ink-1, var(--on-surface));
+  min-width: 0;
 }
 .readout {
   font-family: var(--interface-detail-font, var(--font-mono));

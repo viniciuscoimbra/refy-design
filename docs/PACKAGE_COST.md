@@ -74,3 +74,17 @@ O candidato com CSS seletivo e fallback Node fica em aproximadamente **1,1 MB co
 Nova medição React 19.2.4 / Node 22.22.3 / Vite 6.4.5, build de produção. React/DOM mínimo: 60.779 bytes gzip de JS; Button/Input: 62.173 bytes (delta Refy de 1.394 bytes), CSS 6.896 bytes gzip contra 43.719 no import legado agregado. D3Chart: 139.604 bytes de JS / 10.356 de CSS gzip; CodeBlock: 73.924 / 6.077; starter de teste ampliado com overlays, fontes, Block copiado e charts: 174.541 / 20.428. O starter ampliado não representa uma tela mínima.
 
 Nenhum módulo D3/Prism foi retido na variante Button/Input. Uma primeira medição desta rodada foi descartada porque o carregamento do validador pelo Vite deixava NODE_ENV de desenvolvimento ativo no verificador; o ambiente agora é restaurado, e a medição recusa módulos React de desenvolvimento. Não confundir essa falha do verificador com custo do pacote. Valores exatos do tarball e relatório acompanham o recibo externo; não se grava checksum circular no próprio pacote.
+
+## CSS por bundler, 09/11/2026
+
+Cenário: pacote 1.3.0 de `npm pack` num consumidor limpo com React 18.3.1, um arquivo que só renderiza Button. Bytes de CSS sem gzip.
+
+| Bundler | Pela raiz (`@refy-design/web`) | Pelo caminho da família (`@refy-design/web/Button`) |
+|---|---|---|
+| esbuild 0.24.2 | 260.431 | 7.544 |
+| esbuild 0.28.2 | 260.327 | 7.544 |
+| Vite 6 | 7.586 | 7.586 |
+| webpack 5 + mini-css-extract-plugin | 7.587 | 7.587 |
+
+O esbuild descarta o JavaScript das famílias não usadas, mas monta o CSS pelo grafo de imports antes disso: os 117 arquivos `.css` alcançados pelo barrel entram. `node scripts/check-css-budget.mjs`, dentro do `npm run check`, mede o Vite pela raiz e o esbuild pelo caminho da família contra o orçamento e imprime o esbuild pela raiz.
+

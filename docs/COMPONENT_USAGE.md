@@ -387,7 +387,8 @@ How to use:
 - Use it for filters people turn on and off above a list, and for choices shown inside a field.
 - Mark the active filter with `selected` and show how many items it has with `count`.
 - Use `removable` with `onRemove` for a choice that can be taken out, and update your list in it.
-- Set `selectionMode="radio"` when only one chip of the row can be on.
+- When only one chip of the row can be on, put the row in `ChipGroup` with `mode="single"` and a `label`: the group gives the arrow keys and one Tab stop.
+- For a row of independent filters with a name, use `ChipGroup` with `mode="multiple"`. Give each chip a `value`.
 
 Choose something else:
 
@@ -396,8 +397,10 @@ Choose something else:
 
 | Key | What it does |
 |---|---|
-| `Tab` | Moves from one chip to the next. |
+| `Tab` | Moves from one chip to the next. In a single-choice ChipGroup, enters the selected chip and leaves the group. |
 | `Enter` or `Space` | Turns the chip on or off. On the ×, removes it. |
+| `ArrowRight` or `ArrowLeft` | In a single-choice ChipGroup, moves focus and selection to the next or previous chip, skipping disabled ones. |
+| `Home` or `End` | In a single-choice ChipGroup, selects the first or last chip. |
 #### StatusDot
 
 [API and examples](../ai/components/StatusDot.json)

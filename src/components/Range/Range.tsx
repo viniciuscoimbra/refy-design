@@ -2,6 +2,7 @@
 import { forwardRef, useId, useRef, useState } from "react";
 import type { HTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
+import field from "../Input/Field.module.css";
 import styles from "./Range.module.css";
 
 import { useMessages } from "../../lib/locale";
@@ -164,7 +165,7 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(
       {(label || showValue) && (
         <div className={styles.row}>
           {label && (
-            <span className={styles.name} id={`${uid}-label`}>
+            <span className={cn(field.label, styles.name)} id={`${uid}-label`}>
               {label}
             </span>
           )}

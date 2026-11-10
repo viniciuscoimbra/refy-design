@@ -32,6 +32,7 @@ import {
   SettingsSubnav,
   ThemeProvider,
 } from "../../index";
+import { useResolvedMode } from "../../lib/ThemeProvider";
 import type { RefyTheme, SettingsSubnavLinkProps, ThemeMode } from "../../index";
 import { Icons } from "../../_demo/icons";
 import { componentCatalog, componentAreas } from "../PlaygroundPage/catalog";
@@ -206,7 +207,9 @@ function LanguageControl({ side = "bottom" }: { side?: "top" | "bottom" }) {
 }
 function ModeControl({ mode, onChange }: { mode: ThemeMode; onChange: (mode: ThemeMode) => void }) {
   const t = useText();
-  return <Segmented label={t({ pt: "Modo de cor", en: "Color mode", es: "Modo de color" })} iconOnly value={mode} onChange={value => onChange(value as ThemeMode)} options={[
+  // "system" shows the mode the browser resolved; picking one there turns it into an explicit choice.
+  const resolved = useResolvedMode();
+  return <Segmented label={t({ pt: "Modo de cor", en: "Color mode", es: "Modo de color" })} iconOnly value={mode === "system" ? resolved : mode} onChange={value => onChange(value as ThemeMode)} options={[
     { value:"light", label:t({ pt: "Ativar modo claro", en: "Switch to light mode", es: "Activar modo claro" }), icon:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg> },
     { value:"dark", label:t({ pt: "Ativar modo escuro", en: "Switch to dark mode", es: "Activar modo oscuro" }), icon:<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z"/></svg> },
   ]} />;
@@ -380,7 +383,7 @@ function frameThemeFromUrl(): Partial<PlaygroundConfig> | null {
   const fonts = params.get("refyFonts");
   if (fonts && Object.prototype.hasOwnProperty.call(fontSets, fonts)) patch.fonts = fonts as PlaygroundConfig["fonts"];
   const mode = params.get("refyMode");
-  if (mode === "light" || mode === "dark") patch.theme = mode;
+  if (mode === "light" || mode === "dark" || mode === "system") patch.theme = mode;
   return patch;
 }
 const footerPageLabels = {

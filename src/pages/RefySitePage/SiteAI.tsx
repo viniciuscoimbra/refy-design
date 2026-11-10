@@ -24,6 +24,7 @@ const mcpJson = `{
     }
   }
 }`;
+const mcpRemote = "https://refy.design/mcp";
 const mcpArgs = `["-y", "-p", "${packageName}@${packageVersion}", "refy-mcp"]`;
 const codexAdd = `codex mcp add refy -- npx -y -p ${packageName}@${packageVersion} refy-mcp`;
 const codexToml = `[mcp_servers.refy]
@@ -41,7 +42,8 @@ const vscodeJson = `{
 
 interface McpText {
   description: string;
-  sections: Record<"requisitos" | "claude-code" | "codex" | "kiro" | "outros" | "ferramentas" | "testar" | "terminal" | "limites", string>;
+  sections: Record<"web" | "requisitos" | "claude-code" | "codex" | "kiro" | "outros" | "ferramentas" | "testar" | "terminal" | "limites", string>;
+  web: ReactNode; webClaude: ReactNode; webChatgpt: ReactNode; webGemini: ReactNode; webLimit: ReactNode;
   requires: ReactNode; withPackage: ReactNode; pinned: ReactNode; others: ReactNode; envNote: ReactNode;
   codex: ReactNode; codexFile: ReactNode; kiro: ReactNode; vscode: ReactNode;
   head: [string, string]; tools: Array<[string, string]>; resources: ReactNode;
@@ -50,7 +52,12 @@ interface McpText {
 const mcpText: Record<Locale, McpText> = {
   pt: {
     description: "O pacote web traz um servidor MCP. Com ele, o agente acha o componente pela necessidade, lê a API, confere o código e gera tema sem sair da conversa.",
-    sections: { requisitos: "Requisitos", "claude-code": "Claude Code", codex: "Codex", kiro: "Kiro", outros: "Cursor, Windsurf e VS Code", ferramentas: "Ferramentas", testar: "Testar", terminal: "Sem MCP", limites: "Limites" },
+    sections: { web: "Claude, ChatGPT e Gemini na web", requisitos: "Requisitos", "claude-code": "Claude Code", codex: "Codex", kiro: "Kiro", outros: "Cursor, Windsurf e VS Code", ferramentas: "Ferramentas", testar: "Testar", terminal: "Sem MCP", limites: "Limites" },
+    web: <>No chat do navegador ou do celular, conecte o servidor remoto. Não precisa instalar nada nem fazer login:</>,
+    webClaude: <><strong>Claude.</strong> Em Configurações, Conectores, adicione um conector personalizado com o endereço acima e sem autenticação. Vale em todos os planos; no gratuito, cabe um conector personalizado.</>,
+    webChatgpt: <><strong>ChatGPT.</strong> Ative o modo de desenvolvedor nas configurações (planos Plus, Pro, Business, Enterprise e Edu, no site), crie um app com o endereço acima e autenticação nenhuma. Na conversa, ligue o refy pelo botão +.</>,
+    webGemini: <><strong>Gemini.</strong> Em gemini.google.com, Configurações, Apps conectados, adicione um app personalizado com o endereço acima. Por enquanto o Google libera isso só para conta pessoal nos Estados Unidos, em inglês.</>,
+    webLimit: <>O servidor remoto não lê arquivos da sua máquina: <code>refy_validate</code> recebe o código na conversa, e <code>refy_compare</code> só existe no servidor local.</>,
     requires: <>Node e <code>{packageName}</code> {packageVersion} ou mais. A validação usa o TypeScript do projeto (<code>npm install --save-dev typescript</code>).</>,
     withPackage: <>Com o pacote instalado no projeto, na pasta dele:</>,
     pinned: <>Sem o pacote no projeto, o npx baixa a versão indicada. Use a mesma versão do projeto, para o catálogo e a validação baterem:</>,
@@ -82,7 +89,12 @@ const mcpText: Record<Locale, McpText> = {
   },
   en: {
     description: "The web package ships an MCP server. With it, your agent finds the component by need, reads the API, checks the code and generates themes without leaving the chat.",
-    sections: { requisitos: "Requirements", "claude-code": "Claude Code", codex: "Codex", kiro: "Kiro", outros: "Cursor, Windsurf and VS Code", ferramentas: "Tools", testar: "Try it", terminal: "Without MCP", limites: "Limits" },
+    sections: { web: "Claude, ChatGPT and Gemini on the web", requisitos: "Requirements", "claude-code": "Claude Code", codex: "Codex", kiro: "Kiro", outros: "Cursor, Windsurf and VS Code", ferramentas: "Tools", testar: "Try it", terminal: "Without MCP", limites: "Limits" },
+    web: <>In the browser or phone chat, connect the remote server. Nothing to install and no login:</>,
+    webClaude: <><strong>Claude.</strong> In Settings, Connectors, add a custom connector with the address above and no authentication. Every plan has it; the free plan fits one custom connector.</>,
+    webChatgpt: <><strong>ChatGPT.</strong> Turn on developer mode in settings (Plus, Pro, Business, Enterprise and Edu plans, on the website), create an app with the address above and no authentication. In the chat, turn refy on from the + button.</>,
+    webGemini: <><strong>Gemini.</strong> On gemini.google.com, Settings, Connected apps, add a custom app with the address above. For now Google offers it only to personal accounts in the United States, in English.</>,
+    webLimit: <>The remote server does not read files on your machine: <code>refy_validate</code> takes the code from the chat, and <code>refy_compare</code> exists only in the local server.</>,
     requires: <>Node and <code>{packageName}</code> {packageVersion} or later. Validation uses the project's TypeScript (<code>npm install --save-dev typescript</code>).</>,
     withPackage: <>With the package installed in the project, from its folder:</>,
     pinned: <>Without the package in the project, npx downloads the given version. Use the project's version, so the catalog and the validation match it:</>,
@@ -114,7 +126,12 @@ const mcpText: Record<Locale, McpText> = {
   },
   es: {
     description: "El paquete web trae un servidor MCP. Con él, tu agente encuentra el componente por necesidad, lee la API, revisa el código y genera temas sin salir de la conversación.",
-    sections: { requisitos: "Requisitos", "claude-code": "Claude Code", codex: "Codex", kiro: "Kiro", outros: "Cursor, Windsurf y VS Code", ferramentas: "Herramientas", testar: "Probar", terminal: "Sin MCP", limites: "Límites" },
+    sections: { web: "Claude, ChatGPT y Gemini en la web", requisitos: "Requisitos", "claude-code": "Claude Code", codex: "Codex", kiro: "Kiro", outros: "Cursor, Windsurf y VS Code", ferramentas: "Herramientas", testar: "Probar", terminal: "Sin MCP", limites: "Límites" },
+    web: <>En el chat del navegador o del celular, conecta el servidor remoto. No hay que instalar nada ni iniciar sesión:</>,
+    webClaude: <><strong>Claude.</strong> En Configuración, Conectores, agrega un conector personalizado con la dirección de arriba y sin autenticación. Está en todos los planes; en el gratuito cabe un conector personalizado.</>,
+    webChatgpt: <><strong>ChatGPT.</strong> Activa el modo de desarrollador en la configuración (planes Plus, Pro, Business, Enterprise y Edu, en el sitio web), crea una app con la dirección de arriba y sin autenticación. En la conversación, activa refy con el botón +.</>,
+    webGemini: <><strong>Gemini.</strong> En gemini.google.com, Configuración, Apps conectadas, agrega una app personalizada con la dirección de arriba. Por ahora Google la ofrece solo a cuentas personales en Estados Unidos, en inglés.</>,
+    webLimit: <>El servidor remoto no lee archivos de tu máquina: <code>refy_validate</code> recibe el código desde la conversación, y <code>refy_compare</code> existe solo en el servidor local.</>,
     requires: <>Node y <code>{packageName}</code> {packageVersion} o superior. La validación usa el TypeScript del proyecto (<code>npm install --save-dev typescript</code>).</>,
     withPackage: <>Con el paquete instalado en el proyecto, desde su carpeta:</>,
     pinned: <>Sin el paquete en el proyecto, npx descarga la versión indicada. Usa la misma versión del proyecto, para que el catálogo y la validación coincidan:</>,
@@ -152,6 +169,15 @@ function mcpPage(locale: Locale): DocPage {
     label: "MCP", group: "ai", description: text.description,
     sections: Object.entries(text.sections),
     body: (<>
+      <section id="web">
+        <h2>{text.sections.web}</h2>
+        <p>{text.web}</p>
+        <CodeBlock label="URL" code={mcpRemote} wrap />
+        <p>{text.webClaude}</p>
+        <p>{text.webChatgpt}</p>
+        <p>{text.webGemini}</p>
+        <p>{text.webLimit}</p>
+      </section>
       <section id="requisitos">
         <h2>{text.sections.requisitos}</h2>
         <p>{text.requires}</p>

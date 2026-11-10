@@ -64,6 +64,25 @@ function validateCssSyntax(code, file) {
   if (/(?:^|[;{])\s*[\w-]+\s*:\s*(?:;|})/.test(clean))
     throw Error(`Cannot parse ${file}: empty CSS declaration`);
 }
+const SURFACE = /^(?:border(?:-(?:top|right|bottom|left|color|width|style))*|background(?:-color|-image)?|border-radius|border-(?:top|bottom)-(?:left|right)-radius|box-shadow)$/;
+const kebab = (name) => name.replace(/[A-Z]/g, (c) => "-" + c.toLowerCase());
+// AI-02: o que fazer com cada achado de aparência literal. Ordem: fallback literal em token
+// conhecido, token do tema definido na tela, caixa com borda/fundo/sombra, valor que já existe
+// num token, e por fim literal sem token.
+export function literalSuggestion(property, value, catalog) {
+  const prop = kebab(property);
+  const known = new Set(catalog.themeTokens ?? []);
+  const fallbacks = [...String(value).matchAll(/var\(\s*(--[\w-]+)\s*,\s*([^()]+?)\s*\)/g)].filter(([, token]) => known.has(token));
+  if (fallbacks.length)
+    return `Remova o fallback: ${fallbacks.map(([, token]) => `${token} é token do tema e sempre tem valor; escreva var(${token})`).join("; ")}.`;
+  if (known.has(prop)) return `${prop} é token do tema: defina no arquivo de tema (ThemeProvider), não no CSS da tela.`;
+  if (SURFACE.test(prop))
+    return "Caixa com borda, fundo, raio ou sombra é um Card: use <Card> do @refy-design/web e deixe a aparência com o tema (--card-border-width, --card-radius, --card-background). Mantenha no CSS da tela só o layout (display, gap, grid, padding).";
+  const literal = String(value).trim();
+  const same = Object.entries(catalog.tokenValues ?? {}).filter(([, v]) => v === literal).map(([token]) => token);
+  if (same.length) return `Use ${same.slice(0, 3).map((t) => `var(${t})`).join(" ou ")}, que já vale ${literal} no tema padrão.`;
+  return `Não há token com o valor ${literal} no tema padrão. Use um token próximo (refy_component lista os da família) ou, se a marca pede esse valor, ponha no tema ou no hook do componente (--<família>-*), não no CSS da tela.`;
+}
 export function localFile(root, input) {
   const absolute = realpathSync(resolve(root, input)),
     rel = relative(root, absolute);
@@ -196,7 +215,7 @@ export async function inspectFiles(root, files, catalog) {
   const findings = [],
     components = new Set(),
     scanned = [];
-  const add = (file, source, pos, rule, message, severity = "error") => {
+  const add = (file, source, pos, rule, message, severity = "error", extra = {}) => {
     const before = source.slice(0, pos),
       line = before.split("\n").length,
       column = pos - (before.lastIndexOf("\n") + 1) + 1;
@@ -215,9 +234,14 @@ export async function inspectFiles(root, files, catalog) {
       rule,
       severity,
       message,
+      ...extra,
       ...(exception ? { exception: exception.reason } : {}),
     });
   };
+  // Nome exportado → { prop deprecada: substituta }. PropertyCard é o nome de origem de ContentCard.
+  const deprecatedProps = new Map(Object.entries(catalog.deprecatedProps ?? {}));
+  const sourceNames = { PropertyCard: "ContentCard", PropertyActionGroup: "DecisionActions", PropertyMedia: "MediaGallery", SwipeDeck: "DecisionDeck", VisitSchedulePicker: "SchedulePicker", EventTimeline: "ActivityTimeline" };
+  for (const [from, to] of Object.entries(sourceNames)) if (deprecatedProps.has(to) && !deprecatedProps.has(from)) deprecatedProps.set(from, deprecatedProps.get(to));
   const warnUnknown = (file, source, pos, value) => {
     const token = value.trim().match(/^var\(\s*(--[\w-]+)\s*\)$/)?.[1];
     if (token && !themeTokens.has(token))
@@ -260,6 +284,8 @@ export async function inspectFiles(root, files, catalog) {
             match.index,
             "appearance-literal",
             `${match[1]} should use a public theme token; keep structural layout local.`,
+            "error",
+            { suggestion: literalSuggestion(match[1], match[2], catalog) },
           );
       }
       continue;
@@ -277,6 +303,7 @@ export async function inspectFiles(root, files, catalog) {
       throw Error(
         `Cannot parse ${file}: ${ts.flattenDiagnosticMessageText(sf.parseDiagnostics[0].messageText, " ")}`,
       );
+    const localRefy = new Map(); // nome local → nome exportado pelo Refy
     const checkSpecifier = (name, node) => {
       if (absoluteSpecifier(name))
         add(file, code, node.getStart(sf), refyInternals.test(name) ? "internal-import" : "absolute-import",
@@ -298,6 +325,9 @@ export async function inspectFiles(root, files, catalog) {
       ) {
         const name = node.moduleSpecifier.text;
         checkSpecifier(name, node);
+        if ((name === "@refy-design/web" || name.startsWith("@refy-design/web/")) && node.importClause?.namedBindings && ts.isNamedImports(node.importClause.namedBindings))
+          for (const item of node.importClause.namedBindings.elements)
+            localRefy.set(item.name.text, (item.propertyName ?? item.name).text);
         if (
           name === "@refy-design/web" &&
           node.importClause?.namedBindings &&
@@ -309,6 +339,17 @@ export async function inspectFiles(root, files, catalog) {
       if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) {
         const tag = node.tagName.getText(sf),
           props = node.attributes.properties;
+        const deprecated = deprecatedProps.get(localRefy.get(tag));
+        if (deprecated)
+          for (const p of props) {
+            if (!ts.isJsxAttribute(p)) continue;
+            const prop = p.name.getText(sf);
+            if (!Object.hasOwn(deprecated, prop)) continue;
+            const replacement = deprecated[prop];
+            add(file, code, p.getStart(sf), "deprecated-prop",
+              `${localRefy.get(tag)} ${prop} is deprecated${replacement ? `; use ${replacement}` : ""}.`, "warning",
+              { suggestion: replacement ? `Troque ${prop} por ${replacement}: a prop antiga continua funcionando, mas sai numa versão futura.` : `Veja a ficha de ${localRefy.get(tag)} para a substituta.` });
+          }
         if (controls[tag])
           add(
             file,
@@ -357,6 +398,8 @@ export async function inspectFiles(root, files, catalog) {
                 prop.getStart(sf),
                 "appearance-literal",
                 `${key} belongs in the public ThemeProvider configuration, not a page style.`,
+                "error",
+                { suggestion: literalSuggestion(key, "", catalog) },
               );
               continue;
             }
@@ -375,6 +418,8 @@ export async function inspectFiles(root, files, catalog) {
                 prop.getStart(sf),
                 "appearance-literal",
                 `${key} should use a public theme token.`,
+                "error",
+                { suggestion: literalSuggestion(key, text ?? String(value.text), catalog) },
               );
           }
       }

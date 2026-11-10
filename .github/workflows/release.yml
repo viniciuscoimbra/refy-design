@@ -1,6 +1,9 @@
 name: Release
-# Depois que o CI passa numa tag vX.Y.Z do repositório público, anexa o pacote ao
-# release (o README instala por esse link) e publica no npm quando houver token.
+# Depois que o CI passa numa versão do repositório público, anexa o pacote ao release (o README
+# instala por esse link) e publica no npm pelo Trusted Publishing: o npm confia neste workflow do
+# refy-design por OIDC, sem token e sem aprovação manual.
+# A versão chega de dois jeitos: tag vX.Y.Z empurrada junto com o main, ou só o commit
+# `refy X.Y.Z` no main. No segundo caso este workflow cria a tag no próprio commit.
 on:
   workflow_run:
     workflows: ["Validar biblioteca"]
@@ -13,43 +16,63 @@ jobs:
     if: >-
       github.repository == 'viniciuscoimbra/refy-design' &&
       github.event.workflow_run.conclusion == 'success' &&
-      startsWith(github.event.workflow_run.head_branch, 'v')
+      (startsWith(github.event.workflow_run.head_branch, 'v') || github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     env:
-      TAG: ${{ github.event.workflow_run.head_branch }}
+      HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v7.0.1
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
+      - name: Versão
+        run: |
+          if [ "$HEAD_BRANCH" != main ]; then echo "TAG=$HEAD_BRANCH" >> "$GITHUB_ENV"; exit 0; fi
+          MSG=$(git log -1 --format=%s "$HEAD_SHA")
+          VERSION="${MSG#refy }"
+          if [ "$MSG" = "$VERSION" ] || ! printf %s "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Commit do main sem versão ($MSG): nada a publicar."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
+          fi
+          # Tag que já existe tem o próprio run de CI; ele publica.
+          if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v$VERSION" >/dev/null 2>&1; then
+            echo "v$VERSION já existe: o run da tag publica."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
+          fi
+          gh api "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/v$VERSION" -f sha="$HEAD_SHA" >/dev/null
+          echo "TAG=v$VERSION" >> "$GITHUB_ENV"
       - uses: actions/setup-node@v7.1.0
+        if: env.PULAR != '1'
         with:
           node-version: '22'
           cache: npm
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci --no-audit --no-fund
+      - if: env.PULAR != '1'
+        run: npm ci --no-audit --no-fund
       - name: Pacote
+        if: env.PULAR != '1'
         run: |
           VERSION="${TAG#v}"
           test "$(node -p "require('./package.json').version")" = "$VERSION"
           npm pack
           # O pacote mobile sai do mesmo commit, com a versão do próprio package.json.
           (cd packages/native && npm ci --no-audit --no-fund && npm pack --pack-destination ../..)
+          # Extensão de um clique do Claude Desktop; o npm pack acima já montou dist/.
+          node scripts/build-mcpb.mjs
           awk -v v="$VERSION" '$0 ~ "^## "v"( |$)" {on=1; next} on && /^## / {exit} on' CHANGELOG.md > notas.md
           test -s notas.md
       - name: Release no GitHub
+        if: env.PULAR != '1'
         run: |
           VERSION="${TAG#v}"
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz --clobber
+            gh release upload "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz release/refy.mcpb --clobber
           else
-            gh release create "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz --verify-tag --title "refy $VERSION" --notes-file notas.md
+            gh release create "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz release/refy.mcpb --verify-tag --title "refy $VERSION" --notes-file notas.md
           fi
       - name: npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        if: env.PULAR != '1'
         run: |
           VERSION="${TAG#v}"
-          if [ -z "$NODE_AUTH_TOKEN" ]; then echo "Sem NPM_TOKEN: pacote só no release."; exit 0; fi
           if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1; then echo "@refy-design/web@$VERSION já está no npm."; exit 0; fi
-          npm publish "refy-design-web-$VERSION.tgz" --access public --provenance
+          # Trusted Publishing exige npm 11.5.1 ou mais novo; o Node 22 traz o 10.
+          npx -y npm@11.6.2 publish "refy-design-web-$VERSION.tgz" --access public --provenance

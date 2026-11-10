@@ -66,18 +66,30 @@
         },
         {
           "name": "address",
+          "deprecated": {
+            "replacement": "subtitle",
+            "note": "Use subtitle."
+          },
           "type": "ReactNode",
           "required": false,
           "description": ""
         },
         {
           "name": "price",
+          "deprecated": {
+            "replacement": "value",
+            "note": "Use value."
+          },
           "type": "ReactNode",
           "required": false,
           "description": ""
         },
         {
           "name": "priceSuffix",
+          "deprecated": {
+            "replacement": "valueSuffix",
+            "note": "Use valueSuffix."
+          },
           "type": "ReactNode",
           "required": false,
           "description": ""
@@ -178,6 +190,12 @@
       "label": "Extreme content",
       "description": "",
       "code": "import { Button } from '@refy-design/web';\nimport { ContentCard } from '@refy-design/web';\nimport type { ContentCardProps } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nconst sampleContent: ContentCardProps = {\n  title: 'Collaboration guide',\n  subtitle: 'Reference collection · updated today',\n  value: '12 files',\n  media: [\n    { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n    { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n    { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n  ],\n  badges: [\n    { label: 'New', tone: 'info' },\n    { label: 'Available', tone: 'success' },\n  ],\n  facts: [\n    { label: 'Format', value: 'PDF and images' },\n    { label: 'Size', value: '24 MB' },\n    { label: 'Version', value: '1.2' },\n  ],\n  summary:\n    'References and guidelines to organize work and share decisions with the team.',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ContentCard>,\n    | 'title'\n    | 'subtitle'\n    | 'value'\n    | 'media'\n    | 'badges'\n    | 'facts'\n    | 'summary'\n    | 'detailsAction'\n    | 'layout'\n    | 'valueSuffix'\n  > = {\n    title:\n      'A complete collaboration guide with detailed references for teams that need to organize decisions, files and responsibilities',\n    subtitle:\n      'Shared collection / Work guidelines / Documents reviewed by the operations team',\n    value: '1,240 files',\n    media: [\n      { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n      { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n      { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n    ],\n    badges: [\n      { label: 'New', tone: 'info' },\n      { label: 'Available', tone: 'success' },\n    ],\n    facts: [...sampleContent.facts!, { label: 'Update', value: '3 minutes ago' }],\n    summary:\n      'This long content checks reading, media alignment and access to actions in a real layout, including long values and several attributes.',\n    detailsAction: <Button size=\"sm\">View details</Button>,\n    layout: 'list',\n    valueSuffix: 'in 18 collections',\n  };\n  return <ContentCard {...args} />;\n}"
+    },
+    {
+      "id": "SufixoDoValor",
+      "label": "Value suffix",
+      "description": "Short and long value suffix in each layout: the suffix stays on the value line when it fits and moves below it as a whole when it does not.",
+      "code": "import { Button } from '@refy-design/web';\nimport { ContentCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nfunction sampleArtwork(color = '#c7d9ce', width = 1200, height = 800) {\n  const svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"${width}\" height=\"${height}\" viewBox=\"0 0 1200 800\"><rect width=\"1200\" height=\"800\" fill=\"${color}\"/><rect x=\"240\" y=\"110\" width=\"720\" height=\"580\" rx=\"16\" fill=\"#fafbf8\"/><rect x=\"300\" y=\"170\" width=\"280\" height=\"340\" rx=\"8\" fill=\"#254e3e\"/><circle cx=\"440\" cy=\"305\" r=\"86\" fill=\"${color}\"/><path d=\"M354 430h172\" stroke=\"#fafbf8\" stroke-width=\"8\"/><path d=\"M630 194h256m-256 40h182m-182 80h256m-256 32h256m-256 32h210m-210 132h220M300 570h586m-586 32h380\" stroke=\"#91a69a\" stroke-width=\"12\" stroke-linecap=\"round\"/></svg>`;\n  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;\n}\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ContentCard>,\n    | 'title'\n    | 'subtitle'\n    | 'value'\n    | 'media'\n    | 'badges'\n    | 'facts'\n    | 'summary'\n    | 'detailsAction'\n  > = {\n    title: 'Collaboration guide',\n    subtitle: 'Reference collection · updated today',\n    value: '12 files',\n    media: [\n      { src: sampleArtwork(), alt: 'Preview of a guide with an editorial layout' },\n      { src: sampleArtwork('#cbd4e4'), alt: 'Second version of the layout' },\n      { src: sampleArtwork('#e5d5bd'), alt: 'Third version of the layout' },\n    ],\n    badges: [\n      { label: 'New', tone: 'info' },\n      { label: 'Available', tone: 'success' },\n    ],\n    facts: [\n      { label: 'Format', value: 'PDF and images' },\n      { label: 'Size', value: '24 MB' },\n      { label: 'Version', value: '1.2' },\n    ],\n    summary:\n      'References and guidelines to organize work and share decisions with the team.',\n    detailsAction: <Button size=\"sm\">View details</Button>,\n  };\n  return (\n    <div style={{ display: 'grid', gap: 24 }}>\n      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'start' }}>\n        <div style={{ width: 280 }}>\n          <ContentCard\n            {...args}\n            layout=\"grid\"\n            actions={false}\n            value=\"$ 3,200\"\n            valueSuffix=\"/month\"\n          />\n        </div>\n        <div style={{ width: 280 }}>\n          <ContentCard\n            {...args}\n            layout=\"grid\"\n            actions={false}\n            value=\"$ 720,000\"\n            valueSuffix=\"+ $ 620 condo fee\"\n          />\n        </div>\n        <div style={{ width: 240 }}>\n          <ContentCard\n            {...args}\n            layout=\"grid\"\n            actions={false}\n            value=\"$ 12,500,000\"\n            valueSuffix=\"+ $ 4,800 condo fee and taxes\"\n          />\n        </div>\n      </div>\n      <div style={{ maxWidth: 600 }}>\n        <ContentCard\n          {...args}\n          layout=\"list\"\n          actions={false}\n          value=\"$ 720,000\"\n          valueSuffix=\"+ $ 620 condo fee\"\n        />\n      </div>\n      <div style={{ maxWidth: 440 }}>\n        <ContentCard\n          {...args}\n          layout=\"deck\"\n          actions={false}\n          value=\"$ 720,000\"\n          valueSuffix=\"+ $ 620 condo fee\"\n        />\n      </div>\n    </div>\n  );\n}"
     }
   ]
 }

@@ -419,6 +419,7 @@ function propsFor(symbol) {
   findDefaults(declaration);
   const rows = chosen.map((prop) => ({
     name: prop.name,
+    ...deprecation(prop),
     ...(defaults[prop.name] ? { defaultValue: defaults[prop.name] } : {}),
     type: checker
       .typeToString(
@@ -453,6 +454,47 @@ function propsFor(symbol) {
         ""),
   }));
   return rows.length ? { name: symbol.name, props: rows } : null;
+}
+// AI-05: `@deprecated Use value.` vira { replacement: "value" } na ficha e no catálogo de agentes.
+function deprecation(prop) {
+  const tag = prop.getJsDocTags(checker).find((t) => t.name === "deprecated");
+  if (!tag) return {};
+  const note = ts.displayPartsToString(tag.text ?? []).trim();
+  const replacement = note.match(/\bUse\s+`?([A-Za-z_$][\w$]*)`?/)?.[1];
+  return { deprecated: { ...(replacement ? { replacement } : {}), ...(note ? { note } : {}) } };
+}
+// AI-05: exemplo publicado não ensina prop deprecada. Lê o JSX do exemplo e recusa atributo
+// deprecado em qualquer membro da API (pelo nome público ou pelo nome de origem).
+function deprecatedUses(code, api) {
+  const deprecated = new Map();
+  for (const member of api)
+    for (const prop of member.props)
+      if (prop.deprecated) {
+        if (!deprecated.has(member.name)) deprecated.set(member.name, new Map());
+        deprecated.get(member.name).set(prop.name, prop.deprecated.replacement);
+      }
+  if (!deprecated.size) return [];
+  const sf = ts.createSourceFile("example.tsx", code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const found = [];
+  const visit = (node) => {
+    if ((ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) && ts.isIdentifier(node.tagName)) {
+      const props = deprecated.get(canonical(node.tagName.text)) ?? deprecated.get(node.tagName.text);
+      for (const attribute of node.attributes.properties)
+        if (props && ts.isJsxAttribute(attribute) && props.has(attribute.name.getText(sf)))
+          found.push(`${node.tagName.text} ${attribute.name.getText(sf)} (use ${props.get(attribute.name.getText(sf)) ?? "a substituta da ficha"})`);
+    }
+    // Exemplo derivado de args: `const args: Pick<ComponentProps<typeof ContentCard>, …> = { price: … }`.
+    if (ts.isVariableDeclaration(node) && node.type && node.initializer && ts.isObjectLiteralExpression(node.initializer)) {
+      const owner = node.type.getText(sf).match(/typeof\s+([A-Z]\w*)/)?.[1];
+      const props = owner && (deprecated.get(canonical(owner)) ?? deprecated.get(owner));
+      for (const item of props ? node.initializer.properties : [])
+        if (item.name && props.has(item.name.getText(sf).replace(/^['"]|['"]$/g, "")))
+          found.push(`${owner} ${item.name.getText(sf)} (use ${props.get(item.name.getText(sf).replace(/^['"]|['"]$/g, "")) ?? "a substituta da ficha"})`);
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(sf);
+  return found;
 }
 const collections = parseCollectionRegistry(readFileSync("src/catalog/collections.json", "utf8"), catalog.map(entry => entry.id));
 const allProps = exports.map(propsFor).filter(Boolean);
@@ -518,6 +560,10 @@ for (const entry of catalog) {
   const api = allProps.filter((item) =>
     related.some((symbol) => symbol.name === item.name),
   );
+  for (const example of examples) {
+    const uses = deprecatedUses(example.code, api);
+    assert(!uses.length, `${entry.id}/${example.id} usa prop deprecada: ${uses.join(", ")}`);
+  }
   const imports = new Set();
   for (const source of program
     .getSourceFiles()

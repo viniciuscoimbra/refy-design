@@ -1,0 +1,15 @@
+// Worker do MCP remoto do refy. Plano gratuito: sem nodejs_compat, sem armazenamento, sem segredo.
+// Montar antes: npm run build && node workers/mcp/build.mjs. Publicar: npx wrangler@4.157.0 deploy -c workers/mcp/wrangler.jsonc
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "refy-mcp",
+  "main": "dist/worker.js",
+  "no_bundle": true,
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "refy.design/mcp", "zone_name": "refy.design" },
+    { "pattern": "refy.design/mcp/*", "zone_name": "refy.design" }
+  ],
+  "observability": { "enabled": false }
+}

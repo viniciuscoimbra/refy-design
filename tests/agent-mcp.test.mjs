@@ -228,3 +228,9 @@ test("import de tipo sem `type` passa; cor fora de #rrggbb e hover sem contraste
   }
   assert.throws(() => generateTheme({ name: "x", primary: "#000", fontBody: 123 }, { catalog, foundations }), /fontBody/);
 });
+
+test("CHIPG: filtro de opção única e filtros acima da lista levam ao Chip, onde mora o ChipGroup", () => {
+  for (const query of ["filtro de opção única", "filtros acima da lista"])
+    assert.equal(searchCatalog(index, query, { limit: 3 }).results[0].id, "Chip", query);
+  assert(documentFor(catalog.components.find((c) => c.id === "Chip")).api.some((m) => m.name === "ChipGroup"));
+});

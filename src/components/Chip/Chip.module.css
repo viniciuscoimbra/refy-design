@@ -185,3 +185,24 @@
   width: 10px;
   height: 10px;
 }
+
+/* ChipGroup: rótulo de campo em cima, Chips em linha que quebra. */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--field-label-gap, 6px);
+  min-width: 0;
+}
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.hiddenLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

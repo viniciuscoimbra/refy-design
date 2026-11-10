@@ -1,2 +1,8 @@
-export { Chip } from "./Chip";
-export type { ChipProps, ChipTone, ChipSelectionMode } from "./Chip";
+export { Chip, ChipGroup } from "./Chip";
+export type {
+  ChipProps,
+  ChipTone,
+  ChipSelectionMode,
+  ChipGroupProps,
+  ChipGroupMode,
+} from "./Chip";

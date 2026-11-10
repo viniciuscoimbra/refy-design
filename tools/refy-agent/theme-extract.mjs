@@ -276,9 +276,10 @@ async function get(raw, accept) {
   }
   throw Error(`${raw} redireciona demais.`);
 }
-export async function fetchSite(raw) {
-  const { url } = await resolvePublic(raw);
-  const html = await get(url, "text/html");
+// `load` troca o transporte: o servidor remoto lê pelo fetch da plataforma, sem DNS nem socket.
+export async function fetchSite(raw, load = get) {
+  const url = checkUrl(raw);
+  const html = await load(url.href, "text/html");
   const hrefs = [...html.matchAll(/<link\b[^>]*>/gi)].map((m) => m[0]).filter((tag) => /rel=["']?[^"'>]*stylesheet/i.test(tag)).map((tag) => /href=["']([^"']+)["']/i.exec(tag)?.[1]).filter(Boolean);
   const css = [], read = [], failed = [];
   const queue = hrefs.map((h) => new URL(h.replace(/&amp;/g, "&"), url).href).filter((h) => !/fonts\.googleapis\.com/.test(h));
@@ -286,7 +287,7 @@ export async function fetchSite(raw) {
     const href = queue.shift();
     if (read.includes(href)) continue;
     try {
-      const text = await get(href, "text/css");
+      const text = await load(href, "text/css");
       read.push(href);
       css.push(text);
       for (const [, imported] of text.matchAll(/@import\s+(?:url\()?["']?([^"')\s;]+)/g)) if (read.length + queue.length < 12) queue.push(new URL(imported, href).href);

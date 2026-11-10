@@ -42,7 +42,7 @@ test("marketplaces do Claude e do Codex apontam para a pasta do plugin", () => {
 
 test("atalhos têm nome igual à pasta e só citam ferramentas e recursos do servidor", async () => {
   const tools = new Set((await listTools()).map((t) => t.name));
-  const mcp = readFileSync("tools/refy-agent/mcp.mjs", "utf8");
+  const mcp = readFileSync("tools/refy-agent/mcp-server.mjs", "utf8");
   const skills = readdirSync(join(plugin, "skills"));
   assert.deepEqual(skills.sort(), ["refy-reproduzir-tela", "refy-tela", "refy-tema-de-site"]);
   for (const skill of skills) {

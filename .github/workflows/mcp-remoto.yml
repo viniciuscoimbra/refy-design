@@ -1,0 +1,49 @@
+name: Publicar MCP remoto
+# Publica o Worker do MCP remoto (https://refy.design/mcp) pelo runner próprio do Mac, com o
+# login do wrangler que já está nele. Dispara com push numa branch publicar/mcp*; não gasta
+# minuto do GitHub. O Worker cabe no plano gratuito da Cloudflare (workers/mcp/build.mjs barra
+# acima de 3 MB comprimido).
+on:
+  push:
+    branches: ['publicar/mcp*']
+permissions:
+  contents: read
+concurrency:
+  group: publicar-mcp
+  cancel-in-progress: false
+jobs:
+  publicar:
+    runs-on: [self-hosted, macOS, refy]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Caminhos
+        run: |
+          echo "/opt/homebrew/bin" >> "$GITHUB_PATH"
+          echo "/usr/local/bin" >> "$GITHUB_PATH"
+      # Antes de tudo: a versão do pacote precisa estar no npm (RMCP-04).
+      - name: Versão publicada
+        run: node workers/mcp/check-published.mjs
+      - run: npm ci --no-audit --no-fund
+      # dist/ antes dos testes: sem os .d.ts a validação não confere valor de prop.
+      - run: npm run build
+      - name: Testes do MCP
+        run: node --test tests/agent-mcp.test.mjs tests/agent-mcp-remote.test.mjs
+      - name: Montar o Worker
+        run: |
+          node workers/mcp/build.mjs
+          shasum -a 256 workers/mcp/dist/worker.js
+      - name: Publicar na Cloudflare
+        run: npx -y wrangler@4.157.0 deploy -c workers/mcp/wrangler.jsonc
+      - name: Prova no ar
+        run: |
+          for i in $(seq 1 12); do
+            if node workers/mcp/smoke.mjs https://refy.design/mcp; then exit 0; fi
+            echo "esperando a rota ($i)..."
+            sleep 10
+          done
+          exit 1

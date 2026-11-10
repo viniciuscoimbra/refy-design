@@ -2,6 +2,7 @@
 import { forwardRef, useId, useRef, useState } from "react";
 import type { HTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
+import field from "../Input/Field.module.css";
 import styles from "./Slider.module.css";
 
 /** Props for the Slider control. */
@@ -124,7 +125,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(function Slider(
       {(visibleLabel || showValue) && (
         <div className={styles.row}>
           {visibleLabel && (
-            <span className={styles.name} id={`${uid}-label`}>
+            <span className={cn(field.label, styles.name)} id={`${uid}-label`}>
               {label}
             </span>
           )}

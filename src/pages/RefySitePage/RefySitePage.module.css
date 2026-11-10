@@ -582,11 +582,6 @@
 .demoShell .demoToolbar > div:first-of-type {
   width: 136px;
 }
-.homeSite .siteHeader,
-.homeSite .navigation {
-  height: 62px;
-  min-height: 62px;
-}
 .home {
   padding-top: 12px;
 }
@@ -601,10 +596,6 @@
   margin-bottom: 14px;
 }
 @media (max-width: 640px) {
-  .homeSite .siteHeader {
-    height: 76px;
-    min-height: 76px;
-  }
   .demoShell .demoToolbar {
     position: static;
   }

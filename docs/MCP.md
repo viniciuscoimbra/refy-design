@@ -34,13 +34,13 @@ claude mcp add refy -- npx --no-install refy-mcp
 Sem o pacote no projeto, o npx baixa a versão indicada. Fixe a mesma versão que o projeto usa, para o catálogo e a validação baterem com ela:
 
 ```bash
-claude mcp add refy -- npx -y -p @refy-design/web@1.3.0 refy-mcp
+claude mcp add refy -- npx -y -p @refy-design/web@1.3.1 refy-mcp
 ```
 
 Codex, no terminal:
 
 ```bash
-codex mcp add refy -- npx -y -p @refy-design/web@1.3.0 refy-mcp
+codex mcp add refy -- npx -y -p @refy-design/web@1.3.1 refy-mcp
 ```
 
 Ou em `~/.codex/config.toml`:
@@ -48,7 +48,7 @@ Ou em `~/.codex/config.toml`:
 ```toml
 [mcp_servers.refy]
 command = "npx"
-args = ["-y", "-p", "@refy-design/web@1.3.0", "refy-mcp"]
+args = ["-y", "-p", "@refy-design/web@1.3.1", "refy-mcp"]
 ```
 
 Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Cursor (`.cursor/mcp.json`), Windsurf e outros clientes que leem `mcpServers`:
@@ -56,7 +56,7 @@ Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Curs
 ```json
 {
   "mcpServers": {
-    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.3.0", "refy-mcp"] }
+    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.3.1", "refy-mcp"] }
   }
 }
 ```
@@ -66,7 +66,7 @@ VS Code usa a chave `servers`, em `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.3.0", "refy-mcp"] }
+    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.3.1", "refy-mcp"] }
   }
 }
 ```
@@ -77,14 +77,18 @@ O servidor fala por stdio. `REFY_MCP_PROJECT` muda a pasta que `refy_validate` l
 
 | Ferramenta | Entrada | O que devolve |
 |---|---|---|
-| `refy_search` | `query`, `limit`, `collection` | Famílias em ordem para a necessidade, com os termos que casaram, a razão (quando veio de "quando usar outro componente" ou da tabela de escolha de controles), como usar, alternativas e o import |
-| `refy_component` | `name` | A ficha da família: props com tipo, padrão e obrigatoriedade, exemplos de código, uso, alternativas e teclado. Aceita membro documentado, como `CardHeader` |
-| `refy_collections` | `query` | Coleções (core e especializadas) com os membros reais |
-| `refy_validate` | `code` e `filename`, ou `files` | Achados de contrato e regras estáticas, com linha, regra, severidade e mensagem. `passed` é falso quando há erro |
+| `refy_search` | `query`, `limit`, `collection`, `version` | Famílias em ordem para a necessidade, com os termos que casaram, a razão (quando veio de "quando usar outro componente" ou da tabela de escolha de controles), como usar, alternativas e o import |
+| `refy_component` | `name`, `version` | A ficha da família: props com tipo, padrão e obrigatoriedade, exemplos de código, uso, alternativas e teclado. Aceita membro documentado, como `CardHeader` |
+| `refy_collections` | `query`, `version` | Coleções (core e especializadas) com os membros reais |
+| `refy_validate` | `code` e `filename`, ou `files`; `version` | Achados de contrato e regras estáticas, com linha, regra, severidade e mensagem. `passed` é falso quando há erro |
 | `refy_theme_generate` | `name`, `primary`, `label`, `radius`, `density`, `fontBody`, `fontHeading`, `fontMono` | Tema claro e escuro no formato do `ThemeProvider`, as cores que precisaram de ajuste e o relatório de contraste |
 | `refy_theme_extract` | `url`, ou `html` e `css`, ou `observations`; `name`, `label`, `browser` | Tema claro e escuro tirado das cores, fontes e raios do site, com `decided` (o que foi escolhido), `evidence` (de onde veio cada escolha), `notes` (o que mudou para passar no contraste) e o relatório de contraste |
 | `refy_compare` | `original`, `candidate`, `threshold` | Porcentagem de pixels diferentes entre duas capturas PNG do mesmo tamanho, as regiões que mais diferem e a imagem de diferença (gravada na pasta temporária) |
 | `refy_theme_validate` | `theme` | O mesmo contrato dos temas do repositório: tokens reconhecidos, `label`, referências resolvíveis e contraste AA |
+
+Toda ferramenta é só de leitura e diz isso em `annotations` (`readOnlyHint: true`, `destructiveHint: false`); só `refy_theme_extract` sai para a rede (`openWorldHint: true`). Se o cliente ainda pedir aprovação, a regra é dele.
+
+Toda resposta traz `packageVersion`, a versão do catálogo que respondeu. No servidor local ela é a versão instalada. No remoto (`https://refy.design/mcp`), a resposta traz também `publishedVersion`, o `latest` do npm, e `warnings` quando o catálogo ainda não está publicado. O remoto carrega a versão atual e a anterior: passe `version` (ex.: `"1.2.0"`) para ler a API que o projeto instala. Versão que o servidor não tem volta como erro com a lista das disponíveis.
 
 Recursos: `refy://instructions`, `refy://control-choices`, `refy://theme-probe`, `refy://catalog` e `refy://component/{name}`.
 
@@ -97,7 +101,8 @@ A consulta passa por um glossário fechado de português e espanhol para os term
 - Prop obrigatória ausente (`Modal` sem `open`).
 - Valor literal fora da união aceita (`variant="big"` no `Button`). As uniões vêm dos `.d.ts` publicados em `dist/`, os mesmos do TypeScript do projeto.
 - Prop fora da API documentada, como aviso. Atributos HTML, `aria-*`, `data-*` e handlers `on*` passam.
-- As regras de `refy-agent check`: controle HTML cru, cor ou fonte literal, import interno ou absoluto.
+- As regras de `refy-agent check`: controle HTML cru, cor ou fonte literal, import interno ou absoluto. Cada achado de aparência literal traz `suggestion` com a troca indicada.
+- Prop deprecada (`price` no `ContentCard`), como aviso com a substituta. Na ficha que `refy_component` devolve, a prop vem com `deprecated.replacement`.
 
 Não confere valor vindo de variável, spread ou expressão, nem roda o TypeScript ou o navegador do projeto. Teste de fluxo e revisão visual continuam necessários.
 

@@ -1,6 +1,6 @@
 # Instanciar o Refy em uma aplicação
 
-Importe `@refy-design/web/tokens.css`; o CSS dos componentes é carregado automaticamente pelo bundler, depois use `ThemeProvider`.
+Importe `@refy-design/web/tokens.css`; o CSS dos componentes é carregado automaticamente pelo bundler, depois use `ThemeProvider`. No Vite, no Rollup e no webpack só entra o CSS das famílias usadas; no esbuild, importe pelo caminho da família (`@refy-design/web/Button`) para ter o mesmo corte, como explica o [README](../README.md).
 O provider aplica somente a base tipográfica, box sizing e foco dentro de seu
 escopo. `global.css` continua disponível, mas é um reset **opt-in do documento**:
 use somente quando a aplicação inteira adotar o Refy. Os tokens sem configuração

@@ -2,6 +2,15 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/). As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.3.1 (10/11/2026)
+
+- `ChipGroup`: rótulo, setas, Home e End e foco único para Chips de escolha única ou múltipla. Chip com `selectionMode="radio"` fora do grupo avisa em desenvolvimento.
+- O servidor MCP informa a versão que o npm instala hoje (`publishedVersion`) e avisa quando a documentação lida é de outra. As ferramentas aceitam `version` para ler a API de uma versão anterior e declaram `annotations` (só leitura).
+- `refy check` marca prop deprecada (`deprecated-prop`) com a substituta, e todo achado de cor, fonte, raio ou sombra literal traz `suggestion` com o token ou componente a usar.
+- O sufixo do valor no `ContentCard` desce inteiro quando não cabe, sem quebrar o número.
+- Rótulo do `Range` e do `Slider` usa o rótulo de campo do tema, igual ao do `Input`.
+- README e `docs/THEMING.md` explicam que o esbuild leva a folha inteira pela raiz do pacote e mostram o import direto por componente.
+
 ## 1.3.0
 
 - Plugin do Refy para Claude Code, app do Claude, Cowork e Codex, instalado pelo repositório (`/plugin marketplace add viniciuscoimbra/refy-design`, `codex plugin marketplace add viniciuscoimbra/refy-design`), com os atalhos `refy-tela`, `refy-tema-de-site` e `refy-reproduzir-tela`. Extensão `refy.mcpb` para o chat do Claude Desktop no release.

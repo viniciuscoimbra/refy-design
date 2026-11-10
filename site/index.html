@@ -7,6 +7,16 @@
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="./favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <script>
+      // Paints the saved color mode (or the browser's) before the page loads: no light flash in dark mode.
+      (function () {
+        var mode = new URLSearchParams(location.search).get("refyMode");
+        try { mode = mode || localStorage.getItem("refy:mode"); } catch (e) {}
+        if (mode !== "light" && mode !== "dark") mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = mode;
+        document.documentElement.style.colorScheme = mode;
+      })();
+    </script>
     <meta name="description" content="Componentes prontos, temas feitos de tokens e regras que a IA lê antes de montar a tela." />
   </head>
   <body>

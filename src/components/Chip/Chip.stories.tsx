@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Chip } from "./Chip";
+import { Chip, ChipGroup } from "./Chip";
 
 function ChipShowcase({ theme }: { theme?: "light" | "dark" }) {
   const [severities, setSeverities] = useState(["critical"]);
@@ -106,23 +106,11 @@ function ChipShowcase({ theme }: { theme?: "light" | "dark" }) {
             background: "var(--surface)",
           }}
         >
-          <span
-            style={{
-              display: "block",
-              marginBottom: 14,
-              color: "var(--ink-3)",
-              fontFamily: "var(--font-mono)",
-              fontSize: 10,
-              letterSpacing: ".14em",
-              textTransform: "uppercase",
-            }}
-          >
-            Filter · single selection
-          </span>
-          <div
-            role="radiogroup"
-            aria-label="Period"
-            style={{ display: "flex", flexWrap: "wrap", gap: 8 }}
+          <ChipGroup
+            label="Period · single selection"
+            mode="single"
+            value={period}
+            onChange={(next) => setPeriod(next as string)}
           >
             {[
               ["7", "7 days"],
@@ -130,17 +118,11 @@ function ChipShowcase({ theme }: { theme?: "light" | "dark" }) {
               ["90", "90 days"],
               ["all", "All"],
             ].map(([id, label]) => (
-              <Chip
-                key={id}
-                selectionMode="radio"
-                showCheck
-                selected={period === id}
-                onClick={() => setPeriod(id)}
-              >
+              <Chip key={id} value={id} showCheck>
                 {label}
               </Chip>
             ))}
-          </div>
+          </ChipGroup>
         </div>
 
         <div
@@ -325,6 +307,92 @@ export const Desabilitado: Story = { name: "Disabled",
       <Chip disabled selected>
         Selected filter
       </Chip>
+    </div>
+  ),
+};
+
+function RoomsFilter() {
+  const [rooms, setRooms] = useState("any");
+  return (
+    <div style={{ display: "grid", gap: 8, maxWidth: 420 }}>
+      <ChipGroup
+        label="Bedrooms"
+        mode="single"
+        value={rooms}
+        onChange={(next) => setRooms(next as string)}
+      >
+        <Chip value="any">Any</Chip>
+        <Chip value="1">1+</Chip>
+        <Chip value="2">2+</Chip>
+        <Chip value="3" disabled>
+          3+
+        </Chip>
+        <Chip value="4">4+</Chip>
+      </ChipGroup>
+      <span style={{ color: "var(--ink-3)" }}>Selected: {rooms}</span>
+    </div>
+  );
+}
+
+/**
+ * One option in a row: the group is one Tab stop, arrow keys move focus and selection together,
+ * Home and End jump to the ends and a disabled chip is skipped.
+ */
+export const GrupoSelecaoUnica: Story = {
+  name: "Group · single selection",
+  render: () => <RoomsFilter />,
+};
+
+function AmenitiesFilter() {
+  const [amenities, setAmenities] = useState<string[]>(["pool"]);
+  return (
+    <div style={{ display: "grid", gap: 8, maxWidth: 420 }}>
+      <ChipGroup
+        label="Amenities"
+        mode="multiple"
+        value={amenities}
+        onChange={(next) => setAmenities(next as string[])}
+      >
+        <Chip value="balcony" count={42}>
+          Balcony
+        </Chip>
+        <Chip value="pool" count={18}>
+          Pool
+        </Chip>
+        <Chip value="garage" count={65}>
+          Garage
+        </Chip>
+        <Chip value="pets" count={31}>
+          Pets allowed
+        </Chip>
+      </ChipGroup>
+      <span style={{ color: "var(--ink-3)" }}>
+        Selected: {amenities.join(", ") || "none"}
+      </span>
+    </div>
+  );
+}
+
+/** Independent options: Tab visits each chip and Space or Enter turns it on or off. */
+export const GrupoSelecaoMultipla: Story = {
+  name: "Group · multiple selection",
+  render: () => <AmenitiesFilter />,
+};
+
+/** A long group label wraps above the chips, with the same style as a field label. */
+export const GrupoRotuloLongo: Story = {
+  name: "Group · long label",
+  render: () => (
+    <div style={{ maxWidth: 280 }}>
+      <ChipGroup
+        label="Minimum number of parking spaces included in the price"
+        mode="single"
+        defaultValue="0"
+      >
+        <Chip value="0">Any</Chip>
+        <Chip value="1">1+</Chip>
+        <Chip value="2">2+</Chip>
+      </ChipGroup>
     </div>
   ),
 };

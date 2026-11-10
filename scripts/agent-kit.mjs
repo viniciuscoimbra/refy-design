@@ -83,8 +83,24 @@ const catalog = {
     count: entries.filter(entry => collectionIdsFor(registry, entry.id).includes(collection.id)).length,
   })),
   themeTokens: [...tokenNames].sort(),
+  // AI-02: valor literal de cada token simples do tema padrão (fundação + claro), para o check
+  // sugerir o token que já tem aquele valor. Referências var(...) e expressões ficam de fora.
+  tokenValues: Object.fromEntries(
+    Object.entries({ ...declarations(tokenSource.base), ...declarations(tokenSource.light) })
+      .filter(([, value]) => typeof value === "string" && !/var\(|calc\(|color-mix\(|,/.test(value))
+      .sort(([a], [b]) => a.localeCompare(b)),
+  ),
   publicImports: Object.keys(pkg.exports).map((key) =>
     key === "." ? pkg.name : pkg.name + key.slice(1),
+  ),
+  // AI-05/AI-06: prop deprecada → substituta, por nome exportado, para o check avisar sem abrir a ficha.
+  deprecatedProps: Object.fromEntries(
+    docs.flatMap(({ file }) =>
+      (JSON.parse(read(file)).api ?? []).flatMap((member) => {
+        const props = (member.props ?? []).filter((p) => p.deprecated);
+        return props.length ? [[member.name, Object.fromEntries(props.map((p) => [p.name, p.deprecated.replacement ?? null]))]] : [];
+      }),
+    ),
   ),
   instructions: "instructions.md",
   choices: "control-choices.md",
