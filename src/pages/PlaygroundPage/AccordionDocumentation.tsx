@@ -1,6 +1,7 @@
 import { tr } from "../RefySitePage/i18n";
 import { PackageInstall } from "../RefySitePage/PackageInstall";
 import { installCommands, packagePublished } from "../RefySitePage/packageRelease";
+import { useWebPin } from "../RefySitePage/docsVersion";
 import { useEffect, useId, useState } from "react";
 import { api as accordionApi, usage as accordionUsage } from "./documentation/Accordion.json";
 import { MobileDocumentation, MobileToc, PlatformToggle } from "./MobileDocumentation";
@@ -201,7 +202,8 @@ export function DocumentationGuidance({ usage, keyboard = true }: DocumentationG
 
 export function Installation() {
   const [manager, setManager] = useState("npm");
-  const commands: Record<string, string> = installCommands;
+  const pin = useWebPin();
+  const commands: Record<string, string> = Object.fromEntries(Object.entries(installCommands).map(([id, command]) => [id, command + pin]));
   return (
     <>
       <Tabs

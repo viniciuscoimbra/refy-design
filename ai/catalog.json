@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "package": "@refy-design/web",
-  "packageVersion": "1.3.1",
-  "sourceSha256": "9cf534befc84aa45f934739a8528cae359210f4bc5ce6cbb7b3149d67b1dde49",
+  "packageVersion": "1.3.2",
+  "sourceSha256": "3947af45d5db1048a2a455a34565b7bb4d2a19713ef909d54f40551f8c76b403",
   "collections": [
     {
       "id": "core",

@@ -324,6 +324,16 @@
   display: block;
   margin-top: 8px;
 }
+.propMark {
+  display: block;
+  margin-top: 6px;
+}
+.deprecatedNote {
+  display: block;
+  margin-top: 8px;
+  color: var(--ink-2);
+}
+
 @media (max-width: 760px) {
   .apiGroup table {
     table-layout: auto;

@@ -9,7 +9,9 @@ import type { Platform } from "./platform";
 import { projectBody, projectDescription, projectLabel, releaseSections } from "./SiteProject";
 import type { Locale } from "./i18n";
 import nativeComponents from "./nativeComponents.json";
-import { installCommands, mobileInstall, mobilePublished, packageName, packagePublished, packageVersion } from "./packageRelease";
+import { mobilePublished, packageName, packagePublished, packageVersion } from "./packageRelease";
+import { InstallCommand, NotInVersion, SinceBadge, VersionSelect, mobileSince } from "./docsVersion";
+import { versionsPolicy } from "./SiteVersions";
 
 // Docs técnica: uma página por assunto, menu da esquerda lista as páginas e o sumário da
 // direita lista as seções da página aberta. Texto curto, só o que o pacote faz hoje.
@@ -123,7 +125,7 @@ const packageSection = (locale: Locale, heading: string) => {
       {packagePublished ? (<>
         <p>{text.viaNpm}</p>
         <figure>
-          <CodeBlock language="bash" code={installCommands.npm} />
+          <InstallCommand />
           <figcaption>{text.requires}</figcaption>
         </figure>
       </>) : (<>
@@ -214,7 +216,7 @@ function startPage(locale: Locale): DocPage {
       </section>
       <section id="instalar">
         <h2>{text.sections.instalar}</h2>
-        {packagePublished ? <CodeBlock label="Terminal" language="bash" code={installCommands.npm} /> : firstScreenNotice(locale)}
+        {packagePublished ? <InstallCommand label="Terminal" /> : firstScreenNotice(locale)}
         <p>{text.install}</p>
       </section>
       <section id="estilos">
@@ -261,12 +263,15 @@ function PlatformBody({ web, mobile }: { web: ReactNode; mobile: ReactNode }) {
   );
 }
 
+// Versões: primeiro o método (o que cada número pode mudar, obsoletos, uma doc por versão maior),
+// depois o changelog de cada versão publicada.
 function versionsPage(locale: Locale): DocPage {
+  const policy = versionsPolicy(locale);
   return {
     label: projectLabel(locale, "releases"), group: "ref",
     description: projectDescription(locale, "releases"),
-    sections: releaseSections(locale),
-    body: projectBody(locale, "releases"),
+    sections: [...policy.sections, ...releaseSections(locale)],
+    body: (<>{policy.body}{projectBody(locale, "releases")}</>),
   };
 }
 
@@ -294,7 +299,7 @@ const pt: Record<DocTopic, DocPage> = {
         <section id="instalacao-mobile">
           <h2>Pacote</h2>
           <p>Num app Expo, instale o pacote e o <code>react-native-svg</code>:</p>
-          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
+          <InstallCommand label="Terminal" mobile />
         </section>
       )}
       <section id="uso">
@@ -377,7 +382,7 @@ const en: Record<DocTopic, DocPage> = {
         <section id="instalacao-mobile">
           <h2>Package</h2>
           <p>In an Expo app, install the package and <code>react-native-svg</code>:</p>
-          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
+          <InstallCommand label="Terminal" mobile />
         </section>
       )}
       <section id="uso">
@@ -460,7 +465,7 @@ const es: Record<DocTopic, DocPage> = {
         <section id="instalacao-mobile">
           <h2>Paquete</h2>
           <p>En una app Expo, instala el paquete y <code>react-native-svg</code>:</p>
-          <CodeBlock label="Terminal" language="bash" code={mobileInstall} wrap />
+          <InstallCommand label="Terminal" mobile />
         </section>
       )}
       <section id="uso">
@@ -549,10 +554,14 @@ export interface GuideProps {
   next?: GuideLink;
   /** Caminho em português; quem chama resolve a página e o idioma. */
   onLink: (href: string) => void;
+  /** Mostra o seletor de versão da doc. */
+  versioned?: boolean;
+  /** Versão em que o assunto da página chegou (pacote mobile, comando refy-mcp). */
+  since?: string | null;
 }
 
 /** Moldura das páginas de guia (Docs e Para IAs): menu à esquerda, texto, anterior e próximo, sumário. */
-export function GuidePage({ title, navLabel, groups, activeHref, page, eyebrow, previous, next, onLink }: GuideProps) {
+export function GuidePage({ title, navLabel, groups, activeHref, page, eyebrow, previous, next, onLink, versioned = false, since }: GuideProps) {
   const { locale } = useSiteLocale();
   const text = docsText[locale];
   const platform = usePlatform();
@@ -562,6 +571,7 @@ export function GuidePage({ title, navLabel, groups, activeHref, page, eyebrow, 
   return (
     <main id="site-content" className={styles.docGrid}>
       <SideNav title={title}>
+        {versioned && <VersionSelect />}
         <div className={styles.sideLinks}>
           <SettingsSubnav label={navLabel} activeHref={activeHref} renderLink={link} groups={groups} />
         </div>
@@ -575,7 +585,11 @@ export function GuidePage({ title, navLabel, groups, activeHref, page, eyebrow, 
           onLink(href);
         }}
       >
-        <Heading eyebrow={eyebrow} title={page.label} description={page.description} />
+        <Heading eyebrow={eyebrow} title={page.label} description={page.description}>
+          {since && <p className={styles.support}><SinceBadge since={since} /></p>}
+        </Heading>
+        {versioned && <div className={styles.versionMobile}><VersionSelect compact /></div>}
+        <NotInVersion since={since} />
         <Prose measure="full" className={styles.docProse}>{page.body}</Prose>
         <nav className={styles.docPager} aria-label={text.pager}>
           {previous && <NavCard direction="back" eyebrow={text.previous} title={previous.label} href={localePath(locale, previous.href)} onClick={go(previous.href)} />}
@@ -589,6 +603,7 @@ export function GuidePage({ title, navLabel, groups, activeHref, page, eyebrow, 
 
 export function DocsPage({ topic, onLink }: { topic: DocTopic; onLink: (href: string) => void }) {
   const { locale } = useSiteLocale();
+  const platform = usePlatform();
   const pages = localizedDocPages[locale];
   const page = pages[topic];
   const text = docsText[locale];
@@ -612,6 +627,9 @@ export function DocsPage({ topic, onLink }: { topic: DocTopic; onLink: (href: st
       previous={at(docTopics[index - 1])}
       next={at(docTopics[index + 1])}
       onLink={onLink}
+      versioned
+      // O pacote mobile chegou depois da primeira versão: a Instalação no Mobile mostra desde quando.
+      since={topic === "instalacao" && platform === "mobile" ? mobileSince() : undefined}
     />
   );
 }

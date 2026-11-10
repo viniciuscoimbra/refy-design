@@ -3,6 +3,7 @@ import { MobileDocumentation, MobileToc, PlatformToggle } from "./MobileDocument
 import { syncPlatformUrl, usePlatform } from "../RefySitePage/platform";
 import { useEffect, useState } from "react";
 import {
+  Badge,
   Button,
   Callout,
   CodeBlock,
@@ -21,6 +22,27 @@ import {
 import styles from "./ComponentDocumentation.module.css";
 import { collectionLabels } from "./collections";
 import { demoLabel } from "../RefySitePage/demoText";
+import { familySince, isNewerThanBaseline, missingIn, NotInVersion, propDeprecation, propSince, SinceBadge, useDocsVersion, VersionSelect } from "../RefySitePage/docsVersion";
+
+// Marca de versão da propriedade: obsoleta (com a troca, na coluna de uso) e a versão em que chegou,
+// quando chegou depois da primeira. Na versão escolhida em que ela ainda não existia, o aviso diz isso.
+function PropVersion({ api, prop }: { api: string; prop: string }) {
+  const version = useDocsVersion();
+  const since = propSince(api, prop);
+  const deprecation = propDeprecation(api, prop);
+  return (
+    <>
+      {deprecation && <span className={styles.propMark}><Badge tone="warn">{tr("Obsoleta")}</Badge></span>}
+      {isNewerThanBaseline(since) && (
+        <span className={styles.propMark}>
+          <Badge tone={missingIn(since, version) ? "warn" : "neutral"}>
+            {missingIn(since, version) ? `${tr("Não existe na")} ${version}` : `${tr("Desde a")} ${since}`}
+          </Badge>
+        </span>
+      )}
+    </>
+  );
+}
 
 const exampleLabel = (text: string) => {
   const site = tr(text);
@@ -33,6 +55,7 @@ type Prop = {
   required: boolean;
   description: string;
   defaultValue?: string;
+  deprecated?: { replacement?: string; note?: string };
 };
 type Api = { name: string; props: Prop[] };
 type ExampleSource = {
@@ -162,7 +185,7 @@ export function ComponentDocumentation({
   const slots =
     doc.api
       .find((api) => api.name === doc.publicName)
-      ?.props.filter((prop) => /ReactNode|ReactElement/.test(prop.type)) ?? [];
+      ?.props.filter((prop) => !prop.deprecated && /ReactNode|ReactElement/.test(prop.type)) ?? [];
   const composition = [
     `${doc.publicName} (${tr(entry.level).toLocaleLowerCase()})`,
     ...doc.composition.map(
@@ -187,12 +210,15 @@ export function ComponentDocumentation({
           <p>{tr(doc.description)}</p>
           <div className={styles.docMeta}>
             <span>{tr("Coleção:")} {collectionLabels(id).map((label) => tr(label)).join(" · ")}</span>
+            <SinceBadge since={familySince(id)} />
+            <VersionSelect compact />
             {onCustomize && (
               <Button variant="secondary" size="sm" onClick={onCustomize}>
                 {tr("Personalizar no Playground")}</Button>
             )}
           </div>
           <PlatformToggle id={id} />
+          <NotInVersion since={familySince(id)} />
         </header>
         {mobile ? <MobileDocumentation id={id} story={primary.id} usage={doc.usage} webProps={doc.api.find((api) => api.name === doc.publicName)?.props ?? []} /> : (<>
         <Example
@@ -288,15 +314,22 @@ export function ComponentDocumentation({
                           {prop.required && (
                             <span className={styles.required}>{tr("Obrigatória")}</span>
                           )}
+                          <PropVersion api={api.name} prop={prop.name} />
                         </td>
                         <td>
                           <code>{prop.type}</code>
                         </td>
                         <td>
-                          {tr(prop.description ||
+                          {tr(prop.description || (prop.deprecated ? "" :
                             (prop.required
                               ? "Informe esta propriedade."
-                              : "Opcional."))}
+                              : "Opcional.")))}
+                          {propDeprecation(api.name, prop.name) && (
+                            <span className={styles.deprecatedNote}>
+                              {tr(propDeprecation(api.name, prop.name)!.use)}{" "}
+                              {tr("Pode sair a partir da")} {propDeprecation(api.name, prop.name)!.removal}.
+                            </span>
+                          )}
                           {prop.defaultValue && (
                             <span className={styles.defaultValue}>
                               {tr("Padrão:")} <code>{prop.defaultValue}</code>

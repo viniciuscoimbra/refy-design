@@ -34,11 +34,17 @@ jobs:
           if [ "$MSG" = "$VERSION" ] || ! printf %s "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
             echo "Commit do main sem versão ($MSG): nada a publicar."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
           fi
-          # Tag que já existe tem o próprio run de CI; ele publica.
-          if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v$VERSION" >/dev/null 2>&1; then
-            echo "v$VERSION já existe: o run da tag publica."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
+          if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1; then
+            echo "@refy-design/web@$VERSION já está no npm."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
           fi
-          gh api "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/v$VERSION" -f sha="$HEAD_SHA" >/dev/null
+          TAG_SHA=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v$VERSION" --jq .object.sha 2>/dev/null || true)
+          if [ -z "$TAG_SHA" ]; then
+            gh api "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/v$VERSION" -f sha="$HEAD_SHA" >/dev/null
+          elif [ "$TAG_SHA" != "$HEAD_SHA" ] && ! gh release view "v$VERSION" >/dev/null 2>&1; then
+            # Tag anotada empurrada junto com o main: o run de CI da própria tag publica.
+            echo "v$VERSION veio empurrada: o run da tag publica."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
+          fi
+          # Tag já criada por um run anterior que caiu antes do npm: este run termina o trabalho.
           echo "TAG=v$VERSION" >> "$GITHUB_ENV"
       - uses: actions/setup-node@v7.1.0
         if: env.PULAR != '1'
@@ -75,4 +81,4 @@ jobs:
           VERSION="${TAG#v}"
           if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1; then echo "@refy-design/web@$VERSION já está no npm."; exit 0; fi
           # Trusted Publishing exige npm 11.5.1 ou mais novo; o Node 22 traz o 10.
-          npx -y npm@11.6.2 publish "refy-design-web-$VERSION.tgz" --access public --provenance
+          npx -y npm@11.6.2 publish "refy-design-web-$VERSION.tgz" --access public --provenance --loglevel verbose

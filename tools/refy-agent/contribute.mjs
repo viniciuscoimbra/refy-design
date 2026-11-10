@@ -30,6 +30,31 @@ export function validateSpec(spec) {
   return problems;
 }
 
+// Põe o item em "## Não publicado", dentro de "### <categoria>", criando o que faltar. A seção fica
+// no topo, antes da primeira versão, como pede o Keep a Changelog.
+export function unreleasedEntry(markdown, category, text) {
+  const lines = markdown.split("\n");
+  let start = lines.findIndex((line) => line.trim() === "## Não publicado");
+  if (start < 0) {
+    const first = lines.findIndex((line) => line.startsWith("## "));
+    start = first < 0 ? lines.length : first;
+    lines.splice(start, 0, "## Não publicado", "");
+  }
+  let end = lines.findIndex((line, index) => index > start && line.startsWith("## "));
+  if (end < 0) end = lines.length;
+  const head = lines.findIndex((line, index) => index > start && index < end && line.trim() === `### ${category}`);
+  if (head < 0) {
+    while (end > start + 1 && lines[end - 1].trim() === "") lines.splice(--end, 1);
+    lines.splice(end, 0, "", `### ${category}`, "", `- ${text}`, "");
+  } else {
+    let at = head + 1;
+    while (at < end && (lines[at].trim() === "" || lines[at].startsWith("- "))) at++;
+    while (at > head + 1 && lines[at - 1].trim() === "") at--;
+    lines.splice(at, 0, `- ${text}`);
+  }
+  return lines.join("\n");
+}
+
 function run(cmd, args, cwd, log) {
   const r = spawnSync(cmd, args, { cwd, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
   const out = (r.stdout || "") + (r.stderr || "");
@@ -100,15 +125,12 @@ export async function contribute(argv, { cwd = process.cwd(), log = console.log 
     const applied = run("git", ["apply", "--whitespace=nowarn", "contrib.patch"], wt, gates.steps);
     if (!applied.ok) throw Error("git apply falhou: " + applied.out);
     rmSync(join(wt, "contrib.patch"));
-    const pkg = JSON.parse(readFileSync(join(wt, "package.json"), "utf8"));
-    const [maj, min] = pkg.version.split(".").map(Number);
-    const next = `${maj}.${min + 1}.0`;
+    // A entrada vai para "## Não publicado" na categoria do Keep a Changelog: família nova é
+    // Adicionado, mudança numa família que já existe é Modificado. A versão só é escolhida na release.
     const changelog = join(wt, "CHANGELOG.md");
-    const current = existsSync(changelog) ? readFileSync(changelog, "utf8") : "# Changelog\n";
-    const at = current.indexOf("\n## ");
-    const entry = `\n## ${next} (proposta)\n\n- ${spec.component}: ${spec.changelog}\n`;
-    writeFileSync(changelog, at >= 0 ? current.slice(0, at) + entry + current.slice(at) : current + entry);
+    writeFileSync(changelog, unreleasedEntry(existsSync(changelog) ? readFileSync(changelog, "utf8") : "# Changelog\n", fresh ? "Adicionado" : "Modificado", `${spec.component}: ${spec.changelog}`));
     run("npm", ["run", "docs:build"], wt, gates.steps);
+    run("node", ["scripts/api-history.mjs"], wt, gates.steps);
     run("npm", ["run", "agent:build"], wt, gates.steps);
     // Gates.
     const gate = (label, cmd, args) => { const r = run(cmd, args, wt, gates.steps); gates[label] = r.ok; log(`${label}: ${r.ok ? "passa" : "falha"}`); return r.ok; };

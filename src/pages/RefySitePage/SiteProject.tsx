@@ -7,7 +7,8 @@ import { htmlLang, useSiteLocale } from "./i18n";
 import type { Locale } from "./i18n";
 import changelog from "../../../CHANGELOG.md?raw";
 import changelogText from "./locales/changelog.json";
-import { parseReleases } from "./releases.mjs";
+import { parseReleases, upgradeKind } from "./releases.mjs";
+import type { ChangeKind } from "./releases.mjs";
 
 // Páginas do projeto: Releases sai do CHANGELOG.md (a mesma fonte que a promoção exige antes da tag),
 // Contribuir resume CONTRIBUTING.md e GOVERNANCE.md. Link para o GitHub só com o repositório público
@@ -65,7 +66,7 @@ const installFor = (version: string) => `npm install @refy-design/web@${version}
 interface Copy {
   group: string;
   pages: string;
-  releases: { label: string; description: string; current: string; tag: string; install: string; onGithub: string; semverTitle: string; semver: ReactNode; empty: string };
+  releases: { label: string; description: string; current: string; tag: string; install: string; onGithub: string; semverTitle: string; semver: ReactNode; empty: string; kinds: Record<ChangeKind, string>; upgrade: Record<"first" | "major" | "minor" | "patch", (from: string) => string> };
   contribute: { label: string; description: string; sections: Array<[string, string]>; body: ReactNode };
 }
 
@@ -101,6 +102,8 @@ const copy: Record<Locale, Copy> = {
       semverTitle: "Como a versão muda",
       semver: <p>O refy segue versionamento semântico. Patch corrige sem mudar API. Minor acrescenta sem quebrar. Major quebra export, prop, token ou default, e vem com guia de migração no CHANGELOG.</p>,
       empty: "Nenhuma versão publicada ainda.",
+      kinds: { added: "Adicionado", changed: "Modificado", deprecated: "Obsoleto", removed: "Removido", fixed: "Corrigido", security: "Segurança" },
+      upgrade: { first: () => "Primeira versão", major: (from) => `Quebra a ${from}: leia Removido e Modificado antes de atualizar`, minor: (from) => `Atualizar da ${from} não pede mudança no código`, patch: (from) => `Só correção sobre a ${from}` },
     },
     contribute: {
       label: "Contribuir",
@@ -185,6 +188,8 @@ const copy: Record<Locale, Copy> = {
       semverTitle: "How versions change",
       semver: <p>refy follows semantic versioning. Patch fixes without changing the API. Minor adds without breaking. Major breaks an export, prop, token or default, and ships with a migration guide in the CHANGELOG.</p>,
       empty: "No published version yet.",
+      kinds: { added: "Added", changed: "Changed", deprecated: "Deprecated", removed: "Removed", fixed: "Fixed", security: "Security" },
+      upgrade: { first: () => "First version", major: (from) => `Breaks ${from}: read Removed and Changed before upgrading`, minor: (from) => `Upgrading from ${from} needs no code change`, patch: (from) => `Fixes only, on top of ${from}` },
     },
     contribute: {
       label: "Contributing",
@@ -269,6 +274,8 @@ const copy: Record<Locale, Copy> = {
       semverTitle: "Cómo cambia la versión",
       semver: <p>refy sigue el versionado semántico. Patch corrige sin cambiar la API. Minor agrega sin romper. Major rompe un export, prop, token o default, y trae una guía de migración en el CHANGELOG.</p>,
       empty: "Todavía no hay versiones publicadas.",
+      kinds: { added: "Agregado", changed: "Modificado", deprecated: "Obsoleto", removed: "Eliminado", fixed: "Corregido", security: "Seguridad" },
+      upgrade: { first: () => "Primera versión", major: (from) => `Rompe la ${from}: lee Eliminado y Modificado antes de actualizar`, minor: (from) => `Actualizar desde la ${from} no pide cambios en el código`, patch: (from) => `Solo correcciones sobre la ${from}` },
     },
     contribute: {
       label: "Contribuir",
@@ -354,7 +361,10 @@ function ReleasesBody({ locale }: { locale: Locale }) {
   return (
     <>
       {releases.length === 0 && <p>{text.empty}</p>}
-      {releases.map((release, index) => (
+      {releases.map((release, index) => {
+        const previous = releases[index + 1]?.version;
+        const upgrade = upgradeKind(release.version, previous);
+        return (
         <section key={release.version} id={releaseId(release.version)} className={index === 0 ? styles.firstSection : undefined}>
           <h2 className={styles.releaseTitle}>
             {release.version}{" "}
@@ -363,10 +373,18 @@ function ReleasesBody({ locale }: { locale: Locale }) {
           <p className={styles.releaseMeta}>
             <time dateTime={release.date}>{date.format(new Date(`${release.date}T00:00:00Z`))}</time> · {text.tag} <code>v{release.version}</code>
           </p>
+          <p className={styles.releaseMeta}>
+            <Badge tone={upgrade === "major" ? "danger" : "neutral"}>{text.upgrade[upgrade](previous ?? "")}</Badge>
+          </p>
           {release.summary && <p><Inline text={note(locale, release.summary)} /></p>}
-          <ul className={styles.projectList}>
-            {release.changes.map((change) => <li key={change}><Inline text={note(locale, change)} /></li>)}
-          </ul>
+          {release.groups.map((group, groupIndex) => (
+            <div key={groupIndex}>
+              {group.kind && <h3 className={styles.releaseKind}>{group.kind === "deprecated" || group.kind === "removed" ? <Badge tone={group.kind === "removed" ? "danger" : "warn"}>{text.kinds[group.kind]}</Badge> : text.kinds[group.kind]}</h3>}
+              <ul className={styles.projectList}>
+                {group.changes.map((change) => <li key={change}><Inline text={note(locale, change)} /></li>)}
+              </ul>
+            </div>
+          ))}
           {githubEnabled && (
             <>
               <CodeBlock label={text.install} language="bash" wrap code={installFor(release.version)} />
@@ -376,7 +394,8 @@ function ReleasesBody({ locale }: { locale: Locale }) {
             </>
           )}
         </section>
-      ))}
+        );
+      })}
       <section id="semver">
         <h2>{text.semverTitle}</h2>
         {text.semver}

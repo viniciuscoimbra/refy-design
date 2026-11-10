@@ -1,34 +1,63 @@
 # Changelog
 
-O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/). As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
+O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
+
+## 1.3.2 (10/11/2026)
+
+### Adicionado
+
+- A doc de cada componente diz desde que versão a família e cada propriedade existem, e marca a propriedade obsoleta com a troca. O histórico sai das tags de release (`src/catalog/versions.json`), e a verificação recusa remover família ou propriedade dentro da mesma versão maior.
+
+### Corrigido
+
+- A 1.3.1 ficou só no release do GitHub e não chegou ao npm. A 1.3.2 leva o conteúdo dela ao npm.
 
 ## 1.3.1 (10/11/2026)
+
+### Adicionado
 
 - `ChipGroup`: rótulo, setas, Home e End e foco único para Chips de escolha única ou múltipla. Chip com `selectionMode="radio"` fora do grupo avisa em desenvolvimento.
 - O servidor MCP informa a versão que o npm instala hoje (`publishedVersion`) e avisa quando a documentação lida é de outra. As ferramentas aceitam `version` para ler a API de uma versão anterior e declaram `annotations` (só leitura).
 - `refy check` marca prop deprecada (`deprecated-prop`) com a substituta, e todo achado de cor, fonte, raio ou sombra literal traz `suggestion` com o token ou componente a usar.
-- O sufixo do valor no `ContentCard` desce inteiro quando não cabe, sem quebrar o número.
+
+### Modificado
+
 - Rótulo do `Range` e do `Slider` usa o rótulo de campo do tema, igual ao do `Input`.
 - README e `docs/THEMING.md` explicam que o esbuild leva a folha inteira pela raiz do pacote e mostram o import direto por componente.
 
-## 1.3.0
+### Corrigido
+
+- O sufixo do valor no `ContentCard` desce inteiro quando não cabe, sem quebrar o número.
+
+## 1.3.0 (09/11/2026)
+
+### Adicionado
 
 - Plugin do Refy para Claude Code, app do Claude, Cowork e Codex, instalado pelo repositório (`/plugin marketplace add viniciuscoimbra/refy-design`, `codex plugin marketplace add viniciuscoimbra/refy-design`), com os atalhos `refy-tela`, `refy-tema-de-site` e `refy-reproduzir-tela`. Extensão `refy.mcpb` para o chat do Claude Desktop no release.
 - `refy_theme_extract`: tema claro e escuro a partir das cores, fontes e raios de um site, com a razão de cada escolha e contraste AA conferido. Sonda `refy://theme-probe` para ler site montado por JavaScript no navegador do agente. O jeito de botão, cartão, campo e selo vira token, e o que o Refy não recebe volta como lacuna com a rota de extensão.
 - `refy_compare`: compara a captura do original com a da tela do Refy e mostra onde diferem.
+
+### Segurança
+
 - `refy_theme_extract` com `url` só fala com endereço público: confere o IP para onde o nome aponta, cada redirecionamento e cada pedido feito pela página no navegador, e conecta no IP conferido.
 
 ## 1.2.0 (09/11/2026)
 
+### Adicionado
+
 - Servidor MCP no pacote `@refy-design/web` (`npx --no-install refy-mcp`). O agente acha a família pela necessidade escrita em português, inglês ou espanhol, lê a API, confere o código contra o contrato dos componentes e gera tema claro e escuro com contraste AA a partir de uma cor. Configuração em `docs/MCP.md`.
 
 ## 1.1.0 (07/11/2026)
+
+### Adicionado
 
 - Novo pacote `@refy-design/mobile`: os componentes do Refy em React Native, com o mesmo contrato de props da web (`npx expo install @refy-design/mobile react-native-svg`).
 
 ## 1.0.0 (07/11/2026)
 
 Primeira versão pública.
+
+### Adicionado
 
 - 118 famílias de componentes React e TypeScript em átomos, moléculas e organismos, com API, exemplos e teclado documentados.
 - Tema por arquivo: um JSON define cor, fonte, forma, espaço e movimento. Temas Refy, Fluido, Terracota e Cobalto incluídos.
@@ -37,6 +66,10 @@ Primeira versão pública.
 - Site [refy.design](https://refy.design) com páginas estáticas por rota, sitemap, `llms.txt` e `llms-full.txt`.
 - Testes de navegador em Chromium, Firefox e WebKit no CI público, e a publicação passa por varredura de segredos no código e no pacote.
 - Código de conduta, governança e mantenedores publicados.
+
+### Obsoleto
+
+- `ContentCard` (e o nome antigo `PropertyCard`): `address`, `price` e `priceSuffix` continuam funcionando e podem sair a partir da 2.0.0. Use `subtitle`, `value` e `valueSuffix`.
 
 ## Fechamento técnico local —31/10/2026
 

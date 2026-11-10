@@ -1,6 +1,6 @@
 {
   "name": "@refy-design/web",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Refy Design System — componentes React atômicos.",
   "license": "MIT",
   "type": "module",
@@ -57,7 +57,8 @@
     "contrast:check": "node scripts/check-contrast.mjs",
     "check:blocks": "node scripts/check-blocks.mjs",
     "docs:build": "node scripts/component-docs.mjs",
-    "docs:check": "node scripts/component-docs.mjs --check --compile && node --test tests/component-usage.test.mjs tests/component-colors.test.mjs tests/brand-logo-symbol.test.mjs",
+    "versions:build": "node scripts/api-history.mjs",
+    "docs:check": "node scripts/component-docs.mjs --check --compile && node scripts/api-history.mjs --check && node --test tests/component-usage.test.mjs tests/component-colors.test.mjs tests/brand-logo-symbol.test.mjs tests/site-releases.test.mjs",
     "motion:check": "node scripts/check-motion.mjs",
     "check:site-contract": "node scripts/refy-site-harness.mjs --contract",
     "check:site-visual": "node scripts/refy-site-harness.mjs --compare",

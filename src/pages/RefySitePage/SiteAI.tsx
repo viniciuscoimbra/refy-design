@@ -5,6 +5,7 @@ import type { Locale } from "./i18n";
 import { useSiteLocale } from "./i18n";
 import { packageName, packageVersion } from "./packageRelease";
 import { GuidePage, docGroupLabel } from "./SiteDocs";
+import { binSince } from "./docsVersion";
 import type { DocPage, GuideLink } from "./SiteDocs";
 
 // Para IAs: tudo que um agente de código usa para montar tela com o refy mora aqui (pedido de 09/11:
@@ -469,6 +470,8 @@ export function AiGuidePage({ topic, onLink }: { topic: AiTopic; onLink: (href: 
       previous={links[index - 1]}
       next={links[index + 1]}
       onLink={onLink}
+      versioned
+      since={topic === "mcp" ? binSince("refy-mcp") : undefined}
     />
   );
 }

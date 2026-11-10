@@ -458,6 +458,7 @@
   .sidebar {
     display: none;
   }
+
   .heading h1 {
     font-size: 40px;
   }
@@ -1971,6 +1972,33 @@
 .releaseMeta {
   color: var(--ink-3);
   font-size: var(--text-sm);
+}
+.versionSelect {
+  display: grid;
+  gap: 6px;
+  max-width: 220px;
+  font-size: var(--text-sm);
+}
+.versionMobile {
+  display: none;
+}
+@media (max-width: 640px) {
+  .versionMobile {
+    display: block;
+    margin: 0 0 24px;
+  }
+}
+.versionInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.versionNotice {
+  margin-bottom: 32px;
+}
+.releaseKind {
+  font-size: var(--text-md);
+  margin: 20px 0 8px;
 }
 .projectList,
 .projectSteps {

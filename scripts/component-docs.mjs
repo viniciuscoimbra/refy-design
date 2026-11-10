@@ -455,7 +455,8 @@ function propsFor(symbol) {
   }));
   return rows.length ? { name: symbol.name, props: rows } : null;
 }
-// AI-05: `@deprecated Use value.` vira { replacement: "value" } na ficha e no catálogo de agentes.
+// A marca `@deprecated` vai junto com a propriedade: sem ela, a doc mostrava como válida uma
+// propriedade que o código manda trocar. AI-05: `@deprecated Use value.` vira { replacement: "value" } na ficha e no catálogo de agentes.
 function deprecation(prop) {
   const tag = prop.getJsDocTags(checker).find((t) => t.name === "deprecated");
   if (!tag) return {};
