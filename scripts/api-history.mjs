@@ -47,6 +47,12 @@ function tagFor(version) {
       return name;
     } catch { /* tenta o outro nome */ }
   }
+  // No repositório público a versão é o commit "refy X.Y.Z" da linha de main; a tag dele pode
+  // nascer depois do CI, quando o release.yml roda.
+  try {
+    const sha = git("log", "--first-parent", "-1", "--format=%H", "-E", `--grep=^refy ${version.replaceAll(".", "\\.")}$`, "HEAD").trim();
+    if (sha) return sha;
+  } catch { /* fora de um repositório */ }
   return null;
 }
 
