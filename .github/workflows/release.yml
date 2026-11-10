@@ -29,15 +29,15 @@ jobs:
           fetch-depth: 0
       - name: Versão
         run: |
+          # Tag anotada pelo mantenedor, criada pelo git e empurrada com o token do checkout. Se o
+          # push for recusado, a versão sai mesmo assim com tag leve pela API, e o aviso fica no log.
           anotar() {
-            OBJ=$(gh api "repos/$GITHUB_REPOSITORY/git/tags" -f tag="$1" -f message="refy ${1#v}" -f object="$2" -f type=commit \
-              -f 'tagger[name]=Vinícius Coimbra' -f 'tagger[email]=966864+viniciuscoimbra@users.noreply.github.com' \
-              -f "tagger[date]=$(date -u +%Y-%m-%dT%H:%M:%SZ)" --jq .sha)
-            if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$1" >/dev/null 2>&1; then
-              gh api -X PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/$1" -f sha="$OBJ" -F force=true
-            else
-              gh api "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/$1" -f sha="$OBJ"
+            if GIT_COMMITTER_NAME='Vinícius Coimbra' GIT_COMMITTER_EMAIL='966864+viniciuscoimbra@users.noreply.github.com' \
+                git tag -f -a "$1" -m "refy ${1#v}" "$2" && git push -f origin "refs/tags/$1"; then
+              return 0
             fi
+            echo "::warning::$1 sem tag anotada; criada tag leve pela API"
+            gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$1" >/dev/null 2>&1 || gh api "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/$1" -f sha="$2" >/dev/null
           }
           # Versão anterior que ficou com tag leve (a 1.3.1) ou sem tag (a 1.3.2) ganha a tag anotada
           # no commit "refy X.Y.Z" dela, para o histórico conferir.
@@ -48,7 +48,7 @@ jobs:
             [ "$HEAD_BRANCH" = main ] && [ "$SHA" = "$HEAD_SHA" ] && continue
             TIPO=$(git cat-file -t "refs/tags/v$V" 2>/dev/null || true)
             if [ "$TIPO" != tag ] && { [ -z "$TIPO" ] || [ "$(git rev-parse "refs/tags/v$V")" = "$SHA" ]; }; then
-              echo "v$V: tag anotada no commit ${SHA:0:7}"; anotar "v$V" "$SHA" >/dev/null
+              echo "v$V: tag anotada no commit ${SHA:0:7}"; anotar "v$V" "$SHA" || echo "::warning::v$V continua sem tag anotada"
             fi
           done
           if [ "$HEAD_BRANCH" != main ]; then echo "TAG=$HEAD_BRANCH" >> "$GITHUB_ENV"; exit 0; fi
@@ -64,7 +64,7 @@ jobs:
           # da tag anotada na linha ^{}; o gh api, num 404, escreve o corpo do erro na saída.
           TAG_SHA=$(git ls-remote origin "refs/tags/v$VERSION" "refs/tags/v$VERSION^{}" | tail -1 | cut -f1)
           if [ -z "$TAG_SHA" ]; then
-            anotar "v$VERSION" "$HEAD_SHA" >/dev/null
+            anotar "v$VERSION" "$HEAD_SHA" || echo "::warning::v$VERSION sem tag; o release cria a tag no commit"
           elif [ "$TAG_SHA" != "$HEAD_SHA" ] && ! gh release view "v$VERSION" >/dev/null 2>&1; then
             # Tag anotada empurrada junto com o main: o run de CI da própria tag publica.
             echo "v$VERSION veio empurrada: o run da tag publica."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
@@ -98,7 +98,7 @@ jobs:
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz release/refy.mcpb --clobber
           else
-            gh release create "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz release/refy.mcpb --verify-tag --title "refy $VERSION" --notes-file notas.md
+            gh release create "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz release/refy.mcpb --target "$HEAD_SHA" --title "refy $VERSION" --notes-file notas.md
           fi
       - name: npm
         if: env.PULAR != '1'
