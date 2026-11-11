@@ -205,7 +205,7 @@ for (const mode of ["light"])
       page.on("pageerror", (error) => errors.push(error.message));
       await page.setViewportSize({ width, height: 900 });
       await page.goto(
-        `/iframe.html?id=refy-site--playground&viewMode=story&globals=theme:refy-site;mode:${mode}`,
+        `/iframe.html?id=fundamentos-playground--bancada&viewMode=story&globals=theme:refy-site;mode:${mode}`,
       );
       const firstDrawer = await openDrawer(page);
       const baselineDrawer = await drawerMetrics(firstDrawer);
@@ -303,7 +303,7 @@ for (const mode of ["light"])
       test.setTimeout(60000);
       await page.setViewportSize({ width, height: 900 });
       await page.goto(
-        `/iframe.html?id=refy-site--playground&viewMode=story&globals=theme:refy-site;mode:${mode}`,
+        `/iframe.html?id=fundamentos-playground--bancada&viewMode=story&globals=theme:refy-site;mode:${mode}`,
       );
       let dialog = await editor(page);
       const baseline = await exported(dialog);

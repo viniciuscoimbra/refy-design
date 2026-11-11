@@ -2016,6 +2016,16 @@
   flex-wrap: wrap;
   gap: 8px 20px;
 }
+.maintainer {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.maintainer h2 {
+  color: var(--ink-1);
+  margin: 0;
+}
 .projectArticle > section > :not(p) + p {
   margin-top: 16px;
 }

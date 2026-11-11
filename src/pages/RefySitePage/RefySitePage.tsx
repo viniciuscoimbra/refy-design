@@ -90,7 +90,8 @@ export type SitePage =
   | "playground"
   | "typography"
   | "collection"
-  | "contribute";
+  | "contribute"
+  | "maintainer";
 export interface RefySitePageProps {
   initialPage?: SitePage;
   initialMode?: ThemeMode;
@@ -114,6 +115,7 @@ const pagePaths: Record<SitePage, string> = {
   playground: "/playground",
   collection: "/componentes/colecoes",
   contribute: "/contribuir",
+  maintainer: "/quem-mantem",
 };
 const pageTitles: Record<SitePage, Record<Locale, string>> = {
   home: { pt: homeSeo.pt.title, en: homeSeo.en.title, es: homeSeo.es.title },
@@ -128,6 +130,7 @@ const pageTitles: Record<SitePage, Record<Locale, string>> = {
   playground: { pt: "Playground · refy", en: "Playground · refy", es: "Playground · refy" },
   collection: { pt: "Coleções · refy", en: "Collections · refy", es: "Colecciones · refy" },
   contribute: { pt: "Contribuir · refy", en: "Contributing · refy", es: "Contribuir · refy" },
+  maintainer: { pt: "Quem mantém · refy", en: "Maintainer · refy", es: "Quién lo mantiene · refy" },
 };
 const cta = {
   playground: { pt: "Abrir no Playground →", en: "Open in Playground →", es: "Abrir en el Playground →" },
@@ -180,6 +183,7 @@ const destinationLabels: Array<[SitePage, Record<Locale, string>]> = [
   ["ai", { pt: "Para IAs", en: "For AI", es: "Para IAs" }],
 ];
 const CreationPlayground = lazy(() => import("../PlaygroundPage/PlaygroundPage").then((module) => ({ default: module.StandalonePlayground })));
+const ComponentPlayground = lazy(() => import("../PlaygroundPage/PlaygroundStudio").then((module) => ({ default: module.PlaygroundStudio })));
 
 // The logo is 24px tall wherever the site shows it (header, menu and footer).
 function SiteBrand() {
@@ -730,7 +734,7 @@ function SiteShell({
   const [menu, setMenu] = useState(initialMenuOpen);
   const [customize, setCustomize] = useState(false);
   const [selection, setSelection] = useState<PlaygroundSelection>(() => {
-    const requested = initialPage === "playground" && typeof window !== "undefined"
+    const requested = (startRoute?.page ?? initialPage) === "playground" && typeof window !== "undefined"
       ? new URLSearchParams(window.location.search).get("component") ??
         new URLSearchParams(window.location.hash.slice(1)).get("component")
       : null;
@@ -818,13 +822,17 @@ function SiteShell({
     if (routing) window.history.pushState({ page: "blocks", template: id }, "", localePath(locale, pathFor("blocks", component, id)));
     window.scrollTo({ top: 0, left: 0 });
   };
-  const openComponent = (id: string) => {
+  // The Playground keeps the chosen component in its address, so a copied link opens the same one.
+  const playgroundComponent = (id: string) => {
     setSelection((current) => ({ ...current, view: "components", componentId: id }));
-    navigate("playground");
+    if (!routing) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("component", id);
+    window.history.replaceState(window.history.state, "", url);
   };
-  const openTemplate = (id: string) => {
-    setSelection((current) => ({ ...current, view: "blocks", blockId: id }));
+  const openComponent = (id: string) => {
     navigate("playground");
+    playgroundComponent(id);
   };
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -896,6 +904,7 @@ function SiteShell({
       onSelect: () => select(item.id),
     })),
     { id: "contribute", label: projectLabel(locale, "contribuir"), description: projectDescription(locale, "contribuir"), group: projectGroupLabel(locale), icon: Icons.projects, keywords: "contribuir contributing pull request contribuir", onSelect: () => navigate("contribute") },
+    { id: "maintainer", label: projectLabel(locale, "quem-mantem"), description: projectDescription(locale, "quem-mantem"), group: projectGroupLabel(locale), icon: Icons.projects, keywords: "quem mantém mantenedor maintainer autor vinícius coimbra sobre", onSelect: () => navigate("maintainer") },
     ...aiTopics.map((topic) => ({ id: `ai-${topic}`, label: localizedAiPages[locale][topic].label, description: localizedAiPages[locale][topic].description, group: t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon: Icons.code, keywords: `${topic} agente agent claude codex`, onSelect: () => navigate("ai", component, template, doc, collection, topic) })),
     {id:"agent-rules", label:t({ pt: "Regras de composição", en: "Composition rules", es: "Reglas de composición" }), description:t({ pt: "Contexto, componentes e contratos", en: "Context, components and contracts", es: "Contexto, componentes y contratos" }), group:t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon:Icons.code, keywords:"composição agente composition agent", onSelect:() => navigate("ai")},
     {id:"agent-recipes", label:t({ pt: "Receitas de composição", en: "Composition recipes", es: "Recetas de composición" }), description:t({ pt: "Padrões e exemplos práticos", en: "Patterns and practical examples", es: "Patrones y ejemplos prácticos" }), group:t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon:Icons.projects, keywords:"composição agente composition agent", onSelect:() => navigate("ai")},
@@ -998,16 +1007,16 @@ function SiteShell({
         )}
         {page === "blocks" && (
           <div id="site-content">
-            <BlocksPreview theme={theme} mode={config.theme} label="Templates" selectedId={template} onSelect={selectTemplate} onCustomize={openTemplate} />
+            <BlocksPreview theme={theme} mode={config.theme} label="Templates" selectedId={template} onSelect={selectTemplate} />
           </div>
         )}
         {page === "playground" && (
           <div id="site-content">
             <Suspense fallback={<p role="status">{t({ pt: "Carregando Playground…", en: "Loading Playground…", es: "Cargando Playground…" })}</p>}>
-              <CreationPlayground
+              <ComponentPlayground
                 chromeMode={config.theme}
-                selection={selection}
-                onSelectionChange={(patch) => setSelection((current) => ({ ...current, ...patch }))}
+                initialComponent={selection.componentId}
+                onComponentChange={playgroundComponent}
               />
             </Suspense>
           </div>
@@ -1026,6 +1035,7 @@ function SiteShell({
           </div>
         )}
         {page === "contribute" && <ProjectPage topic="contribuir" onLink={go} />}
+        {page === "maintainer" && <ProjectPage topic="quem-mantem" onLink={go} />}
         {page === "typography" && (
           <SiteTypography config={config} update={update} onBack={() => navigate("themes")} />
         )}
@@ -1066,6 +1076,7 @@ function SiteShell({
             title: projectGroupLabel(locale),
             links: [
               { label: projectLabel(locale, "contribuir"), href: localePath(locale, pagePaths.contribute), onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); navigate("contribute"); } },
+              { label: projectLabel(locale, "quem-mantem"), href: localePath(locale, pagePaths.maintainer), onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); navigate("maintainer"); } },
               ...(githubEnabled ? projectLinks.map(([href, label]) => ({ label: t(label), href: `${githubUrl}${href}`, external: true })) : []),
             ],
           },

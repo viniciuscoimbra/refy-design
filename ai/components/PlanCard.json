@@ -43,6 +43,12 @@
           "description": "Plan name. E.g. \"Pro\"."
         },
         {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Short text between the name and the price. E.g. \"For small teams\"."
+        },
+        {
           "name": "price",
           "type": "ReactNode",
           "required": true,
@@ -77,6 +83,13 @@
           "type": "ReactNode",
           "required": false,
           "description": "Plan CTA, a slot for `Button`. Ignored when `current` (becomes a disabled button)."
+        },
+        {
+          "name": "ctaPosition",
+          "defaultValue": "\"top\"",
+          "type": "\"top\" | \"bottom\" | undefined",
+          "required": false,
+          "description": "Where the CTA goes: after the price (`top`, default) or after the features, at the bottom of the card (`bottom`)."
         },
         {
           "name": "current",
@@ -209,6 +222,12 @@
       "label": "Interactive",
       "description": "",
       "code": "import { Button } from '@refy-design/web';\nimport { PlanCard } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction PlanCardExample() {\n  const [selected, setSelected] = useState('Essential');\n  return (\n    <div style={stack}>\n      <p>Local plan choice, no charge.</p>\n      <div\n        style={{\n          display: 'grid',\n          gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,220px),1fr))',\n          gap: 16,\n        }}\n      >\n        {['Essential', 'Team'].map((name, i) => (\n          <PlanCard\n            key={name}\n            name={name}\n            price={i ? 'R$ 199' : 'R$ 79'}\n            period=\"/mo\"\n            features={\n              i\n                ? ['Up to 10 members', 'Shared projects']\n                : ['1 member', 'Personal projects']\n            }\n            current={selected === name}\n            cta={<Button onClick={() => setSelected(name)}>Choose {name}</Button>}\n          />\n        ))}\n      </div>\n      <p role=\"status\">Selected plan: {selected}</p>\n    </div>\n  );\n}\nexport function Example() {\n  return <PlanCardExample />;\n}"
+    },
+    {
+      "id": "BotaoNoFim",
+      "label": "Button at the bottom",
+      "description": "`description` under the name, `ctaPosition=\"bottom\"` puts the button last, the tag goes right through `--plan-card-tag-inset-inline`, and the highlighted plan is a dark nested scope.",
+      "code": "import { Button } from '@refy-design/web';\nimport { PlanCard } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nexport function Example() {\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Pricing',\n        tokens: { '--plan-card-tag-inset-inline': 'auto var(--space-5)' },\n      }}\n    >\n      <div\n        data-testid=\"plans-bottom\"\n        style={{\n          display: 'grid',\n          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',\n          gap: 'var(--space-4)',\n          paddingTop: 'var(--space-3)',\n        }}\n      >\n        <PlanCard\n          name=\"Starter\"\n          description=\"For one seller testing the market.\"\n          price=\"$ 0\"\n          period=\"/month\"\n          features={['10 listings', 'Chat with buyers']}\n          ctaPosition=\"bottom\"\n          cta={\n            <Button variant=\"secondary\" block>\n              Start free\n            </Button>\n          }\n        />\n        <ThemeProvider mode=\"dark\">\n          <PlanCard\n            highlighted\n            name=\"Pro\"\n            description=\"For shops with weekly listings.\"\n            price=\"$ 29\"\n            period=\"/month\"\n            features={['Unlimited listings', 'Featured placement', 'Sales report']}\n            ctaPosition=\"bottom\"\n            cta={\n              <Button variant=\"primary\" block>\n                Choose Pro\n              </Button>\n            }\n          />\n        </ThemeProvider>\n        <PlanCard\n          name=\"Business\"\n          description=\"For teams with several stores.\"\n          price=\"$ 99\"\n          period=\"/month\"\n          features={['Everything in Pro', '5 members']}\n          ctaPosition=\"bottom\"\n          cta={\n            <Button variant=\"secondary\" block>\n              Talk to sales\n            </Button>\n          }\n        />\n      </div>\n    </ThemeProvider>\n  );\n}"
     }
   ]
 }

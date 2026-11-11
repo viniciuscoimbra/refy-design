@@ -146,6 +146,12 @@
       "label": "Playground",
       "description": "",
       "code": "import { Button } from '@refy-design/web';\nimport { Hero } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Hero>,\n    'title' | 'accent' | 'lead' | 'actions'\n  > = {\n    title: 'Your design, your way',\n    accent: '.',\n    lead: 'Build extensible UIs with native AI.',\n    actions: (\n      <>\n        <Button variant=\"primary\" size=\"lg\">\n          Open in Playground →\n        </Button>\n        <Button size=\"lg\" href=\"#docs\">\n          Read the docs\n        </Button>\n      </>\n    ),\n  };\n  return <Hero {...args} />;\n}"
+    },
+    {
+      "id": "LayoutHooks",
+      "label": "Layout hooks",
+      "description": "Margin under the title, lead line height and alignment come from the theme at any width.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Hero } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nexport function Example() {\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Hero layout',\n        tokens: {\n          '--hero-title-margin': '0 0 24px',\n          '--hero-lead-margin': '0 0 40px',\n          '--hero-lead-size': '18px',\n          '--hero-lead-leading': '1.625',\n          '--hero-align': 'center',\n        },\n      }}\n    >\n      <Hero\n        title=\"Find what you need nearby\"\n        lead=\"Buy and sell with people around you. Every listing shows the seller, the distance and the price before you open it.\"\n        actions={<Button variant=\"primary\">Start selling</Button>}\n      />\n    </ThemeProvider>\n  );\n}"
     }
   ]
 }

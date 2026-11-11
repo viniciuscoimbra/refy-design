@@ -15,7 +15,7 @@
   line-height: var(--control-line-height, normal);
   --button-resting-shadow: var(--control-shadow, none);
   box-shadow: var(--button-resting-shadow);
-  white-space: nowrap;
+  white-space: var(--button-white-space, nowrap);
   cursor: pointer;
   transition: background var(--duration-fast) var(--ease-out),
     border-color var(--duration-fast) var(--ease-out),
@@ -55,6 +55,7 @@
   --button-resting-shadow: var(--button-primary-shadow, var(--legacy-button-shadow));
   background: var(--button-primary-background, var(--primary));
   border-color: var(--button-primary-border, transparent);
+  border-width: var(--button-primary-border-width, var(--button-border-width, 1px));
   color: var(--button-primary-foreground, var(--on-primary));
   box-shadow: var(--button-primary-shadow, var(--legacy-button-shadow));
 }
@@ -86,6 +87,7 @@ a.btn {
   background: var(--button-secondary-background, var(--surface));
   color: var(--button-secondary-foreground, var(--ink-1));
   border-color: var(--button-secondary-border, var(--legacy-line));
+  border-width: var(--button-secondary-border-width, var(--button-border-width, 1px));
 }
 .secondary:not(:disabled):is(:hover, [data-refy-interaction="hover"]) {
   background: var(--button-secondary-background-hover, var(--surface-2));
@@ -98,6 +100,7 @@ a.btn {
 .ghost {
   box-shadow: none;
   background: var(--button-ghost-background, transparent);
+  border-width: var(--button-ghost-border-width, var(--button-border-width, 1px));
   color: var(--button-ghost-foreground, var(--ink-2));
 }
 .ghost:not(:disabled):is(:hover, [data-refy-interaction="hover"]) {
@@ -112,6 +115,7 @@ a.btn {
   background: var(--button-danger-background, var(--surface));
   color: var(--button-danger-foreground, var(--critical));
   border-color: var(--button-danger-border, var(--legacy-danger-line));
+  border-width: var(--button-danger-border-width, var(--button-border-width, 1px));
 }
 .danger:not(:disabled):is(:hover, [data-refy-interaction="hover"]) {
   background: var(--button-danger-background-hover, var(--critical-soft));

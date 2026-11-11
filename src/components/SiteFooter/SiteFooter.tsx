@@ -41,7 +41,7 @@ export const SiteFooter = forwardRef<HTMLElement, SiteFooterProps>(function Site
   ref,
 ) {
   return (
-    <footer ref={ref} className={cn(styles.footer, layout === "inline" && styles.inline, className)} style={{ ["--site-footer-columns" as string]: columns.length, ...style }} {...rest}>
+    <footer ref={ref} className={cn(styles.footer, layout === "inline" && styles.inline, className)} style={{ ["--site-footer-column-count" as string]: columns.length, ...style }} {...rest}>
       <div className={styles.grid}>
         <div className={styles.identity}>
           {brand}

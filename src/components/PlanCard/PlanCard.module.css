@@ -28,7 +28,8 @@
 .tag {
   position: absolute;
   top: -10px;
-  left: var(--space-5);
+  /* Início e fim: "auto var(--space-5)" leva a etiqueta para a direita. */
+  inset-inline: var(--plan-card-tag-inset-inline, var(--space-5) auto);
   background: var(--primary);
   color: var(--on-primary);
   font-family: var(--interface-detail-font, var(--font-mono));
@@ -54,6 +55,12 @@
   letter-spacing: -0.015em;
   color: var(--ink-1);
   margin: 0 0 var(--space-3);
+}
+.description {
+  margin: calc(var(--space-2) * -1) 0 var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  color: var(--ink-3);
 }
 .priceRow {
   display: flex;
@@ -86,6 +93,11 @@
 }
 .cta:empty {
   display: none;
+}
+/* Botão no fim: os botões de uma grade de planos ficam na mesma linha. */
+.ctaBottom {
+  margin: auto 0 0;
+  padding-top: var(--space-5);
 }
 
 /* ===== Features ===== */

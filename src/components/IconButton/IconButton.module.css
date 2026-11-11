@@ -24,16 +24,16 @@
   height: var(--icon-button-md, 32px);
 }
 .md :global(svg) {
-  width: 16px;
-  height: 16px;
+  width: var(--icon-button-icon-md, 16px);
+  height: var(--icon-button-icon-md, 16px);
 }
 .lg {
   width: var(--icon-button-lg, 36px);
   height: var(--icon-button-lg, 36px);
 }
 .lg :global(svg) {
-  width: 19px;
-  height: 19px;
+  width: var(--icon-button-icon-lg, 19px);
+  height: var(--icon-button-icon-lg, 19px);
 }
 .sm {
   width: var(--icon-button-sm, 28px);

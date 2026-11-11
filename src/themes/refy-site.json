@@ -156,7 +156,7 @@
     "--hero-title-weight": "800",
     "--hero-title-tracking": "-0.07em",
     "--hero-title-leading": "1.1",
-    "--hero-title-margin": "28px 0 0",
+    "--hero-title-margin": "28px 0 calc(var(--hero-title-descender, 0.12em) * -1)",
     "--hero-accent": "var(--brand-primary-container)",
     "--hero-lead-size": "clamp(22px, 2.5vw, 36px)",
     "--hero-lead-weight": "500",

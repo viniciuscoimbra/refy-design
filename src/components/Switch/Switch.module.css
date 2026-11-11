@@ -22,14 +22,14 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  background: var(--legacy-line);
+  background: var(--switch-track-off, var(--legacy-line));
   border-radius: var(--radius-pill);
   transition: background var(--motion-feedback-duration) var(--ease-out);
 }
 .thumb {
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: var(--switch-thumb-inset, 2px);
+  left: var(--switch-thumb-inset, 2px);
   width: var(--switch-thumb-size, 16px);
   height: var(--switch-thumb-size, 16px);
   background: var(--switch-thumb-off-color, var(--switch-thumb-color, var(--legacy-white)));
@@ -42,11 +42,11 @@
 }
 .input:checked + .track .thumb {
   background: var(--switch-thumb-color, var(--on-primary));
-  transform: translateX(var(--switch-travel, 16px));
+  transform: translateX(var(--switch-travel, calc(var(--switch-width, 36px) - var(--switch-thumb-size, 16px) - 2 * var(--switch-thumb-inset, 2px))));
 }
 /* microinterações: trilha escurece no hover, thumb "aperta" no press */
 .wrap:not(.disabled):hover .input:not(:checked) + .track {
-  background: color-mix(in srgb, var(--ink-1) 12%, var(--legacy-line));
+  background: color-mix(in srgb, var(--ink-1) 12%, var(--switch-track-off, var(--legacy-line)));
 }
 .wrap:not(.disabled):hover .input:checked + .track {
   background: color-mix(in srgb, var(--ink-1) 10%, var(--primary));
@@ -55,7 +55,7 @@
   transform: scale(0.9);
 }
 .wrap:not(.disabled):active .input:checked + .track .thumb {
-  transform: translateX(var(--switch-travel, 16px)) scale(0.9);
+  transform: translateX(var(--switch-travel, calc(var(--switch-width, 36px) - var(--switch-thumb-size, 16px) - 2 * var(--switch-thumb-inset, 2px)))) scale(0.9);
 }
 .input:focus-visible + .track {
   box-shadow: var(--shadow-focus-ring);

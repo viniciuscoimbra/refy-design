@@ -15,3 +15,5 @@ Os quatro rostos são de pessoas fictícias, gerados por IA. Não são fotos de 
 | leo.jpg | Leo Melo | Homem negro de cerca de 28 anos, cabelo crespo curto |
 
 Prompt comum: retrato quadrado fotorrealista de pessoa fictícia, que não se pareça com ninguém real ou famoso, de frente, sorriso leve, fundo cinza claro liso, luz suave, estilo de foto de perfil profissional, cabeça e ombros.
+
+`vinicius.jpg` é a foto real do mantenedor, Vinícius Coimbra, cedida por ele para a página Quem mantém. Não é gerada.

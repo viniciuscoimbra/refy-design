@@ -2,9 +2,9 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  height: 22px;
-  padding: 0 8px;
-  border-radius: var(--control-group-radius, var(--radius-pill));
+  height: var(--badge-height, 22px);
+  padding: 0 var(--badge-padding-inline, 8px);
+  border-radius: var(--badge-radius, var(--control-group-radius, var(--radius-pill)));
   font-family: var(--interface-detail-font, var(--font-mono));
   font-size: var(--text-2xs);
   font-weight: var(--weight-semi);

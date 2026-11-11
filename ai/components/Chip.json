@@ -299,6 +299,12 @@
       "label": "Group · long label",
       "description": "A long group label wraps above the chips, with the same style as a field label.",
       "code": "import { Chip } from '@refy-design/web';\nimport { ChipGroup } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ maxWidth: 280 }}>\n      <ChipGroup\n        label=\"Minimum number of parking spaces included in the price\"\n        mode=\"single\"\n        defaultValue=\"0\"\n      >\n        <Chip value=\"0\">Any</Chip>\n        <Chip value=\"1\">1+</Chip>\n        <Chip value=\"2\">2+</Chip>\n      </ChipGroup>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Medidas",
+      "label": "Measures",
+      "description": "Padding, gap and icon size come from `--chip-padding-inline`, `--chip-gap` and `--chip-icon-size`.",
+      "code": "import { Chip } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nexport function Example() {\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Chip measures',\n        tokens: {\n          '--chip-padding-inline': '16px',\n          '--chip-gap': '8px',\n          '--chip-icon-size': '16px',\n        },\n      }}\n    >\n      <div\n        style={{ display: 'flex', gap: 'var(--space-2)' }}\n        data-testid=\"chip-measures\"\n      >\n        <Chip\n          leadingIcon={\n            <svg\n              viewBox=\"0 0 24 24\"\n              fill=\"none\"\n              stroke=\"currentColor\"\n              strokeWidth={2}\n              strokeLinecap=\"round\"\n              strokeLinejoin=\"round\"\n            >\n              <path d=\"M3 9.5 12 3l9 6.5V21H3z\" />\n            </svg>\n          }\n        >\n          Houses\n        </Chip>\n        <Chip\n          leadingIcon={\n            <svg\n              viewBox=\"0 0 24 24\"\n              fill=\"none\"\n              stroke=\"currentColor\"\n              strokeWidth={2}\n              strokeLinecap=\"round\"\n              strokeLinejoin=\"round\"\n            >\n              <path d=\"M3 9.5 12 3l9 6.5V21H3z\" />\n            </svg>\n          }\n          selected\n        >\n          Apartments\n        </Chip>\n      </div>\n    </ThemeProvider>\n  );\n}"
     }
   ]
 }

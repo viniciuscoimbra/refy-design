@@ -8,6 +8,8 @@ import { useMessages } from "../../lib/locale";
 export interface PlanCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /** Plan name. E.g. "Pro". */
   name: ReactNode;
+  /** Short text between the name and the price. E.g. "For small teams". */
+  description?: ReactNode;
   /** Formatted price. E.g. "$ 199". */
   price: ReactNode;
   /** Price suffix. E.g. "/month". */
@@ -20,6 +22,8 @@ export interface PlanCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "tit
   checkIcon?: ReactNode;
   /** Plan CTA, a slot for `Button`. Ignored when `current` (becomes a disabled button). */
   cta?: ReactNode;
+  /** Where the CTA goes: after the price (`top`, default) or after the features, at the bottom of the card (`bottom`). */
+  ctaPosition?: "top" | "bottom";
   /** The workspace's current plan: tag + disabled CTA. */
   current?: boolean;
   /** Tag/CTA text when `current`. */
@@ -44,12 +48,14 @@ const defaultCheck = (
  */
 export function PlanCard({
   name,
+  description,
   price,
   period,
   priceNote,
   features,
   checkIcon,
   cta,
+  ctaPosition = "top",
   current = false,
   currentLabel: currentLabelProp,
   highlighted = false,
@@ -61,6 +67,17 @@ export function PlanCard({
   const currentLabel = currentLabelProp ?? m.current;
   const highlightLabel = highlightLabelProp ?? m.recommended;
   const tag = current ? currentLabel : highlighted ? highlightLabel : null;
+  const action = (
+    <div className={cn(styles.cta, ctaPosition === "bottom" && styles.ctaBottom)}>
+      {current ? (
+        <Button variant="secondary" block disabled>
+          {currentLabel}
+        </Button>
+      ) : (
+        cta
+      )}
+    </div>
+  );
   return (
     <div
       className={cn(
@@ -75,20 +92,13 @@ export function PlanCard({
         <span className={cn(styles.tag, current && !highlighted && styles.tagNeutral)}>{tag}</span>
       )}
       <h3 className={styles.name}>{name}</h3>
+      {description && <p className={styles.description}>{description}</p>}
       <div className={styles.priceRow}>
         <span className={styles.price}>{price}</span>
         {period && <span className={styles.period}>{period}</span>}
       </div>
       <div className={styles.priceNote}>{priceNote}</div>
-      <div className={styles.cta}>
-        {current ? (
-          <Button variant="secondary" block disabled>
-            {currentLabel}
-          </Button>
-        ) : (
-          cta
-        )}
-      </div>
+      {ctaPosition === "top" && action}
       {features && features.length > 0 && (
         <ul className={styles.features}>
           {features.map((feature, i) => (
@@ -101,6 +111,7 @@ export function PlanCard({
           ))}
         </ul>
       )}
+      {ctaPosition === "bottom" && action}
     </div>
   );
 }

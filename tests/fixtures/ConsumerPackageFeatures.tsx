@@ -42,6 +42,7 @@ export function ConsumerPackageFeatures() {
   return (
     <section aria-label="Recursos do pacote">
       <ThemeProvider
+        isolate
         data-testid="theme-consumer"
         theme={identities[identity]}
         mode={dark ? "dark" : "light"}

@@ -46,7 +46,7 @@ export function SiteTypography({ config, update, onBack }: {
       <div className={styles.typeTabs}><Segmented label={tr("Amostra tipográfica")} value={view} onChange={setView} options={[
         {value:"article",label:tr("Artigo")},{value:"scale",label:tr("Escala")},{value:"elements",label:tr("Elementos")},
       ]} /></div>
-      <ThemeProvider theme={theme} mode={config.theme}>
+      <ThemeProvider isolate theme={theme} mode={config.theme}>
         <div className={styles.typeColumns}>
           <div>
             <p className={styles.typeEyebrow}>{names[fonts as keyof typeof names] ?? "Legado"} {tr("/ Amostra")}</p>

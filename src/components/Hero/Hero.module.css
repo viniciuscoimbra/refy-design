@@ -17,10 +17,10 @@
 }
 .title {
   grid-area: title;
-  margin: var(--hero-title-margin, 4px 0 1px);
-  /* Room for descenders under a clipped fill (gradient text); the margin gives it back. */
+  /* Room for descenders under a clipped fill (gradient text). Without the hook, the bottom margin
+     gives that room back; with the hook, the four margins are the theme's. */
+  margin: var(--hero-title-margin, 4px 0 calc(var(--hero-title-descender, 0.12em) * -1));
   padding-bottom: var(--hero-title-descender, 0.12em);
-  margin-bottom: calc(var(--hero-title-descender, 0.12em) * -1);
   color: var(--hero-title-color, var(--ink-1));
   background: var(--hero-title-fill, none);
   -webkit-background-clip: text;
@@ -36,7 +36,7 @@
   grid-area: lead;
   margin: var(--hero-lead-margin, 4px 0 0);
   color: var(--hero-lead-color, var(--ink-1));
-  font: var(--hero-lead-weight, 500) var(--hero-lead-size, clamp(22px, 2.5vw, 36px)) / 1.25 var(--font-heading);
+  font: var(--hero-lead-weight, 500) var(--hero-lead-size, clamp(22px, 2.5vw, 36px)) / var(--hero-lead-leading, 1.25) var(--font-heading);
   letter-spacing: var(--hero-lead-tracking, -0.04em);
 }
 .actions {
@@ -63,8 +63,8 @@
   .fold {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "top" "title" "lead" "actions";
-    text-align: start;
+    text-align: var(--hero-align, start);
   }
-  .top { justify-self: start; }
-  .actions { justify-content: stretch; justify-self: stretch; width: auto; }
+  .top { justify-self: var(--hero-align, start); }
+  .actions { justify-content: var(--hero-align, start); justify-self: stretch; width: auto; }
 }

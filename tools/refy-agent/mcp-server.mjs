@@ -103,7 +103,7 @@ function typeScriptDir(roots) {
   return null;
 }
 
-async function validate({ code, filename = "Tela.tsx", files, version }, mode = LOCAL) {
+async function validate({ code, filename = "Tela.tsx", files, version, theme }, mode = LOCAL) {
   const versioned = contextFor(version);
   const { catalog, documentFor } = versioned;
   if (mode.remote && typeof code !== "string") throw Error("No servidor remoto passe o código da tela em code; ele não lê arquivos da sua máquina.");
@@ -121,7 +121,7 @@ async function validate({ code, filename = "Tela.tsx", files, version }, mode = 
       mkdirSync(join(temp, "node_modules"));
       symlinkSync(typeScriptDir(roots), join(temp, "node_modules", "typescript"), "junction");
       writeFileSync(join(temp, name), code);
-      staticReport = await inspectFiles(temp, [name], catalog);
+      staticReport = await inspectFiles(temp, [name], catalog, theme ? { theme } : {});
     } finally {
       rmSync(temp, { recursive: true, force: true });
     }
@@ -132,7 +132,7 @@ async function validate({ code, filename = "Tela.tsx", files, version }, mode = 
     }
   } else if (Array.isArray(files) && files.length) {
     const root = projectRoot();
-    staticReport = await inspectFiles(root, files, catalog);
+    staticReport = await inspectFiles(root, files, catalog, theme ? { theme } : {});
     for (const file of staticReport.scanned ?? files) {
       if (/\.css$/.test(file)) continue;
       const { absolute, file: rel } = localFile(root, file);
@@ -265,6 +265,7 @@ const TOOLS = [
         code: { type: "string", description: "Código da tela (TSX/JSX/TS/JS/CSS)." },
         filename: { type: "string", description: "Nome do arquivo do código, define a linguagem. Padrão: Tela.tsx." },
         files: { type: "array", items: { type: "string" }, description: "Caminhos dentro do projeto atual, no lugar de code." },
+        theme: { type: "object", description: "Tema do projeto (RefyTheme, ou objeto com vários temas). Tokens declarados nele não geram unverified-token. Com files, sem theme, vale o theme.json da raiz do projeto." },
         version: VERSION,
       },
     },

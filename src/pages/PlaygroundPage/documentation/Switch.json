@@ -163,6 +163,12 @@
       "label": "Disabled",
       "description": "",
       "code": "import { Switch } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Switch>,\n    'aria-label' | 'defaultChecked' | 'disabled'\n  > = { 'aria-label': 'Turn on auto top-up', defaultChecked: true, disabled: true };\n  return <Switch {...args} />;\n}"
+    },
+    {
+      "id": "PolegarETrilho",
+      "label": "Thumb and track",
+      "description": "Thumb inset and off track color come from `--switch-thumb-inset` and `--switch-track-off`.",
+      "code": "import { Switch } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Switch>, 'aria-label' | 'defaultChecked'> = {\n    'aria-label': 'Turn on auto top-up',\n    defaultChecked: false,\n  };\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Switch measures',\n        tokens: {\n          '--switch-height': '24px',\n          '--switch-width': '40px',\n          '--switch-thumb-size': '16px',\n          '--switch-thumb-inset': '4px',\n          '--switch-track-off': 'var(--line)',\n        },\n      }}\n    >\n      <div\n        data-testid=\"switch-measures\"\n        style={{ display: 'flex', gap: 'var(--space-3)' }}\n      >\n        <Switch {...args} aria-label=\"Off\" />\n        <Switch {...args} aria-label=\"On\" defaultChecked />\n      </div>\n    </ThemeProvider>\n  );\n}"
     }
   ]
 }

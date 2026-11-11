@@ -35,10 +35,10 @@ const themeFile = `{
   "label": "Cobalto",
   "tokens": {
     "--font-brand": "\\"Space Grotesk\\", system-ui, sans-serif",
-    "--primary": "#2643d1",
     "--radius-md": "8px"
   },
   "modes": {
+    "light": { "--primary": "#2643d1" },
     "dark": { "--primary": "#8ea0ff" }
   }
 }`;

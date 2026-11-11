@@ -6,8 +6,9 @@
 }
 .grid {
   display: grid;
-  /* One track per column: auto-fit added empty tracks that squeezed the brand column. */
-  grid-template-columns: minmax(0, 2fr) repeat(var(--site-footer-columns, 3), minmax(140px, 1fr));
+  /* One track per column: auto-fit added empty tracks that squeezed the brand column.
+     --site-footer-columns replaces the whole template, brand column included. */
+  grid-template-columns: var(--site-footer-columns, minmax(0, 2fr) repeat(var(--site-footer-column-count, 3), minmax(140px, 1fr)));
   gap: var(--site-footer-gap, 40px);
 }
 .identity {
@@ -24,13 +25,13 @@
 }
 .column {
   display: grid;
-  gap: 10px;
+  gap: var(--site-footer-link-gap, 10px);
   align-content: start;
 }
 .heading {
   margin: 0 0 4px;
   color: var(--ink-1);
-  font: var(--weight-semi) var(--text-sm) / 1.4 var(--font-body);
+  font: var(--site-footer-heading-weight, var(--weight-semi)) var(--text-sm) / 1.4 var(--font-body);
 }
 .link {
   color: var(--ink-3);

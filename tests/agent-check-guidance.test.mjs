@@ -56,7 +56,7 @@ test("AI-02: cada achado de aparência literal diz o que fazer, com as três lin
       ".rotulo { letter-spacing: var(--field-label-tracking, 0.08em); }",
       ".nota { font-size: 13px; }",
       ".nota { line-height: 1.37; }",
-      ".tela { --primary: var(--ink-1); }",
+      ".tela { --card-radius: 6px; }",
     ].join("\n") + "\n",
     "Tela.tsx": `export const T = () => <div style={{ fontSize: "13px", borderRadius: "6px" }} />;\n`,
   });
@@ -70,7 +70,7 @@ test("AI-02: cada achado de aparência literal diz o que fazer, com as três lin
     assert.match(one("tela.css", 3), /Remova o fallback: --field-label-tracking/);
     assert.match(one("tela.css", 4), /Use var\(--text-sm\)/);
     assert.match(one("tela.css", 5), /Não há token com o valor 1\.37 no tema padrão/);
-    assert.match(one("tela.css", 6), /--primary é token do tema: defina no arquivo de tema/);
+    assert.match(one("tela.css", 6), /--card-radius é token do tema: defina no arquivo de tema/);
     const jsx = report.findings.filter((f) => f.file === "Tela.tsx" && f.rule === "appearance-literal");
     assert.equal(jsx.length, 2);
     assert(jsx.every((f) => typeof f.suggestion === "string" && f.suggestion.length > 20));

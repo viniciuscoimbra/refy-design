@@ -61,13 +61,11 @@ test("toolbar única compartilha modo, tema e fonte com todas as visões e catá
   await choose(page, "theme", "dark");
   await choose(page, "skin", "gradient");
   await choose(page, "fonts", "plex");
-  // Theme, Components and Typography render in the preview iframe; Templates render each template in its own frame.
-  for (const view of ["Tema", "Componentes", "Tipografia", "Templates"]) {
+  // Theme, Components and Typography render in the preview iframe. Templates have their own page now.
+  await expect(frame.getByRole("radio", { name: "Templates", exact: true })).toHaveCount(0);
+  for (const view of ["Tema", "Componentes", "Tipografia"]) {
     await frame.getByRole("radio", { name: view, exact: true }).click();
-    const scope =
-      view === "Templates"
-        ? frame.locator("main iframe").first().contentFrame().locator("[data-refy-scope]").first()
-        : frame.locator('[data-testid="playground-frame"]').contentFrame().getByTestId("playground");
+    const scope = frame.locator('[data-testid="playground-frame"]').contentFrame().getByTestId("playground");
     await expect(scope, view).toHaveAttribute("data-theme", "dark");
     await expect(scope, view).toHaveAttribute("data-refy-brand", "Meu tema");
     await expect(scope, view).toHaveCSS("font-family", /IBM Plex Sans/);

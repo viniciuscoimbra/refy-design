@@ -46,6 +46,12 @@ const docs = entries.map((entry) => ({
   entry,
   file: `src/pages/PlaygroundPage/documentation/${entry.id}.json`,
 }));
+// AI-08: tokens que o CSS de cada família lê, para o check sugerir o hook no lugar de override por classe.
+const familyCss = (id) => {
+  const dir = resolve(root, "src/components", id);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter((name) => name.endsWith(".css")).sort().map((name) => `src/components/${id}/${name}`);
+};
 const hash = createHash("sha256");
 for (const file of [
   "package.json",
@@ -55,6 +61,7 @@ for (const file of [
   "src/tokens/foundations.tokens.json",
   "src/tokens/component-hooks.json",
   ...docs.map((d) => d.file),
+  ...entries.flatMap((entry) => familyCss(entry.id)),
 ])
   hash.update(file + "\0" + read(file) + "\0");
 const choices = read("docs/CONTROL_CHOICES.md")
@@ -125,6 +132,9 @@ const catalog = {
       howToUse: doc.usage.howToUse,
       alternatives: doc.usage.alternatives,
       composition: doc.composition,
+      hooks: [...new Set(familyCss(entry.id).flatMap((file) => [...read(file).matchAll(/var\(\s*(--[\w-]+)/g)].map((m) => m[1])))]
+        .filter((name) => tokenNames.has(name))
+        .sort(),
       document: `components/${entry.id}.json`,
     };
   }),

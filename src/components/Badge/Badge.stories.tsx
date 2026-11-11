@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Badge } from "./Badge";
+import { ThemeProvider } from "../../lib/ThemeProvider";
 
 const meta = {
   id: "components-atoms-badge",
@@ -28,5 +29,14 @@ export const Todos: Story = { name: "All",
       <Badge tone="danger">Failed</Badge>
       <Badge tone="neutral">Archived</Badge>
     </div>
+  ),
+};
+
+/** Height, inline padding and radius come from `--badge-height`, `--badge-padding-inline` and `--badge-radius`. */
+export const Medidas: Story = { name: "Measures",
+  render: () => (
+    <ThemeProvider theme={{ name: "Badge measures", tokens: { "--badge-height": "24px", "--badge-padding-inline": "8px", "--badge-radius": "4px" } }}>
+      <Badge tone="neutral" data-testid="badge-measures">New</Badge>
+    </ThemeProvider>
   ),
 };

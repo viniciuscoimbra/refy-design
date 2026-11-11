@@ -201,6 +201,12 @@
       "label": "Disabled input",
       "description": "",
       "code": "import { Input } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Input>,\n    'label' | 'placeholder' | 'block' | 'defaultValue' | 'disabled'\n  > = {\n    label: 'Plan',\n    placeholder: 'Example team',\n    block: true,\n    defaultValue: 'Pro Yearly',\n    disabled: true,\n  };\n  return <Input {...args} />;\n}"
+    },
+    {
+      "id": "PrefixoEFonte",
+      "label": "Prefix and font",
+      "description": "Prefix color and field font come from `--input-prefix-color` and `--field-font-family`.",
+      "code": "import { Input } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst SearchIcon = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n  >\n    <circle cx=\"11\" cy=\"11\" r=\"7\" />\n    <path d=\"m21 21-4.3-4.3\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Input>, 'label' | 'placeholder' | 'block'> = {\n    label: 'Workspace name',\n    placeholder: 'Example team',\n    block: true,\n  };\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Search field',\n        tokens: {\n          '--input-prefix-color': 'var(--ink-4)',\n          '--field-font-family': 'system-ui, sans-serif',\n        },\n      }}\n    >\n      <div data-testid=\"input-measures\">\n        <Input\n          {...args}\n          label=\"Search\"\n          prefix={SearchIcon}\n          placeholder=\"Bikes, sofas, phones\"\n        />\n      </div>\n    </ThemeProvider>\n  );\n}"
     }
   ]
 }

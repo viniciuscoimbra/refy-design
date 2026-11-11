@@ -107,7 +107,7 @@ function resolveToken(name, values, path = []) {
 export function validateTheme(theme, { catalog, foundations }) {
   const errors = [], pairs = [];
   const known = new Set(catalog.themeTokens);
-  if (!theme || typeof theme !== "object") return { passed: false, errors: ["O tema precisa ser um objeto JSON."], pairs };
+  if (!theme || typeof theme !== "object") return { passed: false, errors: ["O tema precisa ser um objeto JSON."], warnings: [], pairs };
   if (typeof theme.name !== "string" || !theme.name.trim()) errors.push("name: texto obrigatório.");
   if (typeof theme.label !== "string" || !theme.label.trim()) errors.push("label: nome de exibição obrigatório.");
   for (const mode of Object.keys(theme.modes ?? {}))
@@ -117,6 +117,12 @@ export function validateTheme(theme, { catalog, foundations }) {
       if (!known.has(key)) errors.push(`Token não reconhecido: ${key}.`);
       if (typeof value !== "string") errors.push(`${key}: o valor precisa ser texto.`);
     }
+  // O provider monta `{ ...tokens, ...modes[modo] }`: o mesmo nome no modo apaga o de `tokens` sem aviso.
+  const warnings = [];
+  for (const [mode, group] of Object.entries(theme.modes ?? {}))
+    for (const token of Object.keys(group ?? {}))
+      if (Object.hasOwn(theme.tokens ?? {}, token))
+        warnings.push({ code: "token-shadowed-by-mode", token, mode, message: `${token} está em tokens e em modes.${mode}; no modo ${mode} vale o valor de modes.${mode}. Defina o token só num lugar, ou nos dois modos.` });
   const modes = ["light", "dark", ...(theme.modes?.editorial ? ["editorial"] : [])];
   for (const mode of modes) {
     const values = { ...foundationValues(foundations, mode), ...theme.tokens, ...theme.modes?.[mode] };
@@ -141,7 +147,7 @@ export function validateTheme(theme, { catalog, foundations }) {
       if (ratio < min) errors.push(`${mode}: contraste ${fg}/${bg} = ${ratio} < ${min}.`);
     }
   }
-  return { passed: errors.length === 0, errors, pairs };
+  return { passed: errors.length === 0, errors, warnings, pairs };
 }
 
 // ---- geração ------------------------------------------------------------------------------

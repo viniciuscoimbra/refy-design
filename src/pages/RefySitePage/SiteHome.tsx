@@ -60,7 +60,7 @@ function ThemeSlide({ item, index }: { item: LandingTheme; index: number }) {
   return (
     <div className={styles.themeSlide} data-index={index} data-theme-slide="">
       <div ref={frame} className={styles.themeSlideInner} data-theme-slide-inner="">
-      <ThemeProvider theme={item.theme} className={styles.themeSlideScope}>
+      <ThemeProvider isolate theme={item.theme} className={styles.themeSlideScope}>
         <div className={styles.themeSlideHead}>
           <span className={styles.themeSlideName}>{item.label}</span>
           <span className={styles.themeSlideFile}>{item.id}.json</span>

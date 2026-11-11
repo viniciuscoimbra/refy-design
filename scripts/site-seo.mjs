@@ -130,7 +130,7 @@ for (const L of LOCALES) {
   const nav = `<nav aria-label="${w.nav}"><ul>${[
     link("/", w.start), link("/docs/primeiros-passos", "Docs"), link("/componentes", w.components),
     link("/templates", w.templates), link("/temas", w.themes), link("/para-ias", w.ai), link("/playground", "Playground"),
-    link("/contribuir", project.projectLabel(L, "contribuir")),
+    link("/contribuir", project.projectLabel(L, "contribuir")), link("/quem-mantem", project.projectLabel(L, "quem-mantem")),
   ].join("")}</ul></nav>`;
   const add = (r) => routes.push({ ...r, locale: L, key: r.path, path: at(L, r.path), nav });
 

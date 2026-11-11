@@ -75,7 +75,7 @@ export function PreviewFrame({
         src={`/block-preview.html?refy-view=${state.view}&lang=${currentLocale()}`}
         style={{ ...frameStyle, width }}
       />
-      <div style={caption} aria-live="polite">{actualWidth} px · viewport real</div>
+      <div style={caption} aria-live="polite">{actualWidth} px · {tr("viewport real")}</div>
     </div>
   );
 }

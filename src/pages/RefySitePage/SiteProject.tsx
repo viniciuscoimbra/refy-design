@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Badge, Button, CodeBlock, SettingsSubnav } from "../../index";
+import { Avatar, Badge, Button, CodeBlock, SettingsSubnav } from "../../index";
 import type { SettingsSubnavLinkProps } from "../../index";
 import { Heading, SideNav, Toc } from "./SiteCatalog";
 import styles from "./RefySitePage.module.css";
@@ -9,14 +9,15 @@ import changelog from "../../../CHANGELOG.md?raw";
 import changelogText from "./locales/changelog.json";
 import { parseReleases, upgradeKind } from "./releases.mjs";
 import type { ChangeKind } from "./releases.mjs";
+import maintainerPhoto from "./assets/avatars/vinicius.jpg";
 
 // Páginas do projeto: Releases sai do CHANGELOG.md (a mesma fonte que a promoção exige antes da tag),
 // Contribuir resume CONTRIBUTING.md e GOVERNANCE.md. Link para o GitHub só com o repositório público
 // no ar: o site publicado sem ele é construído com VITE_REFY_GITHUB=off.
 
-export type ProjectTopic = "releases" | "contribuir";
-// Releases virou a página Versões das Docs (/docs/versoes); Contribuir é a única página própria do projeto.
-export const projectTopics: ProjectTopic[] = ["contribuir"];
+export type ProjectTopic = "releases" | "contribuir" | "quem-mantem";
+// Releases virou a página Versões das Docs (/docs/versoes); Contribuir e Quem mantém são páginas próprias do projeto.
+export const projectTopics: ProjectTopic[] = ["contribuir", "quem-mantem"];
 export const projectHref = (topic: ProjectTopic) => (topic === "releases" ? "/docs/versoes" : `/${topic}`);
 
 const repoUrl = "https://github.com/viniciuscoimbra/refy-design";
@@ -68,6 +69,7 @@ interface Copy {
   pages: string;
   releases: { label: string; description: string; current: string; tag: string; install: string; onGithub: string; semverTitle: string; semver: ReactNode; empty: string; kinds: Record<ChangeKind, string>; upgrade: Record<"first" | "major" | "minor" | "patch", (from: string) => string> };
   contribute: { label: string; description: string; sections: Array<[string, string]>; body: ReactNode };
+  maintainer: { label: string; description: string; sections: Array<[string, string]>; body: ReactNode };
 }
 
 const ruleList = (items: Array<[string, ReactNode]>) => (
@@ -88,6 +90,30 @@ const issueButton = (label: string) =>
 const repoButton = (label: string) =>
   githubEnabled && <Button variant="secondary" href={repoUrl} target="_blank">{label} ↗</Button>;
 
+// Quem mantém (pedido de 10/11): mini bio e links. Sem e-mail: contato sobre o refy vai pelo GitHub.
+const maintainerLinks: Array<[string, string]> = [
+  ["Data Translator", "https://datatranslator.com.br"],
+  ["LinkedIn", "https://www.linkedin.com/in/viniciuscoimbra"],
+  ["Medium", "https://medium.com/@viniciuscoimbra_"],
+  ["GitHub", "https://github.com/viniciuscoimbra"],
+];
+const maintainerBody = (bio: ReactNode, linksTitle: string, issue: ReactNode) => (<>
+  <section id="vinicius" className={styles.firstSection}>
+    <div className={styles.maintainer}>
+      <Avatar src={maintainerPhoto} initials="VC" size="xl" alt="Vinícius Coimbra" />
+      <h2>Vinícius Coimbra</h2>
+    </div>
+    {bio}
+  </section>
+  <section id="links">
+    <h2>{linksTitle}</h2>
+    <p className={styles.projectLinks}>
+      {maintainerLinks.map(([label, href]) => <a key={href} href={href} target="_blank" rel="noreferrer">{label} ↗</a>)}
+    </p>
+    {githubEnabled && issue}
+  </section>
+</>);
+
 const copy: Record<Locale, Copy> = {
   pt: {
     group: "Projeto",
@@ -104,6 +130,16 @@ const copy: Record<Locale, Copy> = {
       empty: "Nenhuma versão publicada ainda.",
       kinds: { added: "Adicionado", changed: "Modificado", deprecated: "Obsoleto", removed: "Removido", fixed: "Corrigido", security: "Segurança" },
       upgrade: { first: () => "Primeira versão", major: (from) => `Quebra a ${from}: leia Removido e Modificado antes de atualizar`, minor: (from) => `Atualizar da ${from} não pede mudança no código`, patch: (from) => `Só correção sobre a ${from}` },
+    },
+    maintainer: {
+      label: "Quem mantém",
+      description: "Quem cuida do refy, de onde ele vem e onde encontrar o trabalho dele.",
+      sections: [["vinicius", "Vinícius Coimbra"], ["links", "Onde encontrar"]],
+      body: maintainerBody(<>
+        <p>Vinícius Coimbra mantém o refy.</p>
+        <p>Executivo de produto, dados e IA há mais de 22 anos. Foi CPTO, CTO e Director of Data Engineering em empresas com mais de 4 mil pessoas, e liderou times de dados com mais de 150 pessoas entre Brasil e México.</p>
+        <p>Fundou o Data Translator, formação pra quem liga dados, produto e negócio.</p>
+      </>, "Onde encontrar", <p>Pra falar sobre o refy, abra uma issue no <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer">GitHub</a>.</p>),
     },
     contribute: {
       label: "Contribuir",
@@ -191,6 +227,16 @@ const copy: Record<Locale, Copy> = {
       kinds: { added: "Added", changed: "Changed", deprecated: "Deprecated", removed: "Removed", fixed: "Fixed", security: "Security" },
       upgrade: { first: () => "First version", major: (from) => `Breaks ${from}: read Removed and Changed before upgrading`, minor: (from) => `Upgrading from ${from} needs no code change`, patch: (from) => `Fixes only, on top of ${from}` },
     },
+    maintainer: {
+      label: "Maintainer",
+      description: "Who looks after refy, his background and where to find his work.",
+      sections: [["vinicius", "Vinícius Coimbra"], ["links", "Where to find him"]],
+      body: maintainerBody(<>
+        <p>Vinícius Coimbra maintains refy.</p>
+        <p>Product, data and AI executive for more than 22 years. He was CPTO, CTO and Director of Data Engineering at companies with more than 4,000 people, and led data teams of more than 150 people across Brazil and Mexico.</p>
+        <p>He founded Data Translator, a program for people who connect data, product and business.</p>
+      </>, "Where to find him", <p>To talk about refy, open an issue on <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer">GitHub</a>.</p>),
+    },
     contribute: {
       label: "Contributing",
       description: "What your theme solves, what stays in your project and what becomes a pull request to refy.",
@@ -277,6 +323,16 @@ const copy: Record<Locale, Copy> = {
       kinds: { added: "Agregado", changed: "Modificado", deprecated: "Obsoleto", removed: "Eliminado", fixed: "Corregido", security: "Seguridad" },
       upgrade: { first: () => "Primera versión", major: (from) => `Rompe la ${from}: lee Eliminado y Modificado antes de actualizar`, minor: (from) => `Actualizar desde la ${from} no pide cambios en el código`, patch: (from) => `Solo correcciones sobre la ${from}` },
     },
+    maintainer: {
+      label: "Quién lo mantiene",
+      description: "Quién cuida refy, de dónde viene y dónde encontrar su trabajo.",
+      sections: [["vinicius", "Vinícius Coimbra"], ["links", "Dónde encontrarlo"]],
+      body: maintainerBody(<>
+        <p>Vinícius Coimbra mantiene refy.</p>
+        <p>Ejecutivo de producto, datos e IA desde hace más de 22 años. Fue CPTO, CTO y Director of Data Engineering en empresas con más de 4 mil personas, y lideró equipos de datos de más de 150 personas entre Brasil y México.</p>
+        <p>Fundó Data Translator, una formación para quien conecta datos, producto y negocio.</p>
+      </>, "Dónde encontrarlo", <p>Para hablar de refy, abre un issue en <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer">GitHub</a>.</p>),
+    },
     contribute: {
       label: "Contribuir",
       description: "Qué resuelve tu tema, qué queda en tu proyecto y qué se convierte en pull request a refy.",
@@ -349,8 +405,9 @@ const copy: Record<Locale, Copy> = {
   },
 };
 
-export const projectLabel = (locale: Locale, topic: ProjectTopic) => (topic === "releases" ? copy[locale].releases.label : copy[locale].contribute.label);
-export const projectDescription = (locale: Locale, topic: ProjectTopic) => (topic === "releases" ? copy[locale].releases.description : copy[locale].contribute.description);
+const topicCopy = (locale: Locale, topic: ProjectTopic) => (topic === "releases" ? copy[locale].releases : topic === "quem-mantem" ? copy[locale].maintainer : copy[locale].contribute);
+export const projectLabel = (locale: Locale, topic: ProjectTopic) => topicCopy(locale, topic).label;
+export const projectDescription = (locale: Locale, topic: ProjectTopic) => topicCopy(locale, topic).description;
 export const projectGroupLabel = (locale: Locale) => copy[locale].group;
 
 const releaseId = (version: string) => `v${version.replace(/\./g, "-")}`;
@@ -410,7 +467,7 @@ export const releaseSections = (locale: Locale): Array<[string, string]> =>
 
 /** Corpo da página sem a moldura, para o HTML estático de `scripts/site-seo.mjs`. */
 export const projectBody = (locale: Locale, topic: ProjectTopic) =>
-  topic === "releases" ? <ReleasesBody locale={locale} /> : copy[locale].contribute.body;
+  topic === "releases" ? <ReleasesBody locale={locale} /> : topic === "quem-mantem" ? copy[locale].maintainer.body : copy[locale].contribute.body;
 
 export function ProjectPage({ topic, onLink }: { topic: ProjectTopic; onLink: (href: string) => void }) {
   const { locale } = useSiteLocale();
@@ -418,7 +475,7 @@ export function ProjectPage({ topic, onLink }: { topic: ProjectTopic; onLink: (h
   const link = (item: { href: string }, props: SettingsSubnavLinkProps) => (
     <a {...props} onClick={(event) => { event.preventDefault(); onLink(item.href); }} />
   );
-  const sections: Array<[string, string]> = topic === "releases" ? releaseSections(locale) : text.contribute.sections;
+  const sections: Array<[string, string]> = topic === "releases" ? releaseSections(locale) : topic === "quem-mantem" ? text.maintainer.sections : text.contribute.sections;
   return (
     <main id="site-content" className={styles.docGrid}>
       <SideNav title={text.group}>
@@ -427,7 +484,7 @@ export function ProjectPage({ topic, onLink }: { topic: ProjectTopic; onLink: (h
             label={text.pages}
             activeHref={projectHref(topic)}
             renderLink={link}
-            items={(["contribuir", "releases"] as const).map((id) => ({ href: projectHref(id), label: projectLabel(locale, id) }))}
+            items={(["contribuir", "releases", "quem-mantem"] as const).map((id) => ({ href: projectHref(id), label: projectLabel(locale, id) }))}
           />
         </div>
       </SideNav>

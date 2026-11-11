@@ -111,7 +111,7 @@ test("regras, exceções rastreáveis, parse e limites de caminho", async () => 
     );
     writeFileSync(
       join(temp, "page.css"),
-      `.layout {display:grid;gap:var(--space-4)} .color{color:#fff} .fallback{color:var(--primary, red)} .local {--primary:var(--ink-1)}`,
+      `.layout {display:grid;gap:var(--space-4)} .color{color:#fff} .fallback{color:var(--primary, red)} .local {--primary:var(--ink-1)} .literal {--card-radius:6px}`,
     );
     let report = await inspectFiles(temp, ["page.tsx", "page.css"], catalog);
     assert.equal(report.findings.length, 6);

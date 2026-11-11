@@ -806,7 +806,7 @@ export function ThemeEditor({
                 </Select>
                 <p className={styles.caption}>
                   {tr("Feedback confirma ações. Menus revelam contexto. Diálogos orientam o foco. A preferência de movimento reduzido do sistema é sempre respeitada.")}</p>
-                <ThemeProvider theme={resolveTheme(config)} mode={mode}>
+                <ThemeProvider isolate theme={resolveTheme(config)} mode={mode}>
                   <div className={styles.motionSample}>
                     <Popover
                       open={motionExample}

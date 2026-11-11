@@ -1,10 +1,12 @@
 .bubble {
-  max-width: 65ch;
-  padding: var(--space-3) var(--space-4);
+  max-width: var(--bubble-max-width, 65ch);
+  padding: var(--bubble-padding, var(--space-3) var(--space-4));
   background: var(--surface-2);
   color: var(--ink-1);
   border: var(--surface-border-width, 1px) solid var(--line);
-  border-radius: var(--radius-lg);
+  border-radius: var(--bubble-radius, var(--radius-lg));
+  /* O canto do lado de quem fala: em cima, no início para start e no fim para end. */
+  border-start-start-radius: var(--bubble-tail-radius, var(--bubble-radius, var(--radius-lg)));
   font: inherit;
   line-height: var(--leading-normal);
   overflow-wrap: anywhere;
@@ -12,6 +14,9 @@
 .end {
   background: var(--primary-soft);
   border-color: var(--primary-ink);
+  border-width: var(--bubble-end-border-width, var(--surface-border-width, 1px));
+  border-start-start-radius: var(--bubble-radius, var(--radius-lg));
+  border-start-end-radius: var(--bubble-tail-radius, var(--bubble-radius, var(--radius-lg)));
   color: var(--primary-ink);
   margin-inline-start: auto;
 }

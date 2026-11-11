@@ -1,11 +1,18 @@
-:where([data-refy-scope]) {
+/* Base do escopo só na raiz (provider de fora ou com isolate). O aninhado herda tipografia e
+   fundo de quem está em volta; trocando de modo, só a cor do texto acompanha o modo novo. */
+:where([data-refy-root]) {
   font-family: var(--font-body, system-ui, sans-serif);
   font-size: var(--text-base, 14px);
   font-weight: var(--weight-regular, 400);
   line-height: var(--leading-normal, 1.55);
   color: var(--ink-2);
   background: var(--bg);
-  overflow-wrap: anywhere;
+  overflow-wrap: var(--scope-overflow-wrap, normal);
+}
+:where([data-refy-scope]:not([data-refy-root])[data-refy-mode-switch]) {
+  color: var(--ink-2);
+}
+:where([data-refy-scope]) {
   min-width: 0;
 }
 :where([data-refy-scope], [data-refy-scope] *, [data-refy-scope] *::before, [data-refy-scope] *::after) {

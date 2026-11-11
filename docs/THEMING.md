@@ -34,8 +34,7 @@ export function App() {
 
 A API é aditiva. `theme` identifica o produto e define tokens comuns e por modo;
 `mode` seleciona `light`, `dark` ou `system` (acompanha a preferência do dispositivo e suas mudanças). `editorial` é um valor legado da API, mantido por compatibilidade, sem seletor público. Valores não personalizados usam a fundação
-completa daquele modo. Providers aninhados herdam identidade/modo quando omitidos;
-quando explícitos estabelecem um novo escopo. A troca não remonta os filhos.
+completa daquele modo. A troca não remonta os filhos.
 Uma cor primária nova exige conferir também texto sobre ela, hover, active e foco.
 Um preset parcial não é prova de contraste em todos os estados.
 
@@ -43,6 +42,70 @@ O Playground permite selecionar presets e personalizar a identidade com os mesmo
 componentes. A story de compatibilidade `fundacao-temas-por-aplicacao--instancias`
 mostra identidades sintéticas com Button, Input, Card e superfícies sobrepostas;
 não representa marcas homologadas nem é a entrada principal de criação.
+
+## Precedência dentro do tema
+
+O provider monta os valores de um tema nesta ordem: primeiro `tokens`, depois
+`modes[modo]`. Para o mesmo nome, `modes[modo]` prevalece sobre `tokens`. Um token
+que está em `tokens` e em `modes.light` só vale, no claro, pelo valor de
+`modes.light`. `refy_theme_validate` avisa esse caso com `token-shadowed-by-mode`.
+
+Ponha em `tokens` o que não muda com o modo (fonte, raio, medida) e em `modes` o
+que muda (cor). Para derivar um tema de outro, sobreponha os papéis de cor nos
+dois modos:
+
+```ts
+const base: RefyTheme = {
+  name: 'loja',
+  tokens: { '--radius-default': '8px' },
+  modes: {
+    light: { '--ink-1': '#14171a', '--primary': '#2163ad' },
+    dark: { '--ink-1': '#f2f4f6', '--primary': '#a7cfff' },
+  },
+};
+// Errado: '--ink-1' em tokens perde para modes.light e modes.dark de base.
+// const destaque = { ...base, tokens: { ...base.tokens, '--ink-1': '#ffffff' } };
+const destaque: RefyTheme = {
+  ...base,
+  name: 'loja-destaque',
+  modes: {
+    light: { ...base.modes?.light, '--ink-1': '#ffffff' },
+    dark: { ...base.modes?.dark, '--ink-1': '#ffffff' },
+  },
+};
+```
+
+## Escopos aninhados
+
+Um `ThemeProvider` dentro de outro herda tudo o que o escopo de fora calculou e
+aplica por cima só o próprio tema. Ele não pinta fundo, não muda fonte, tamanho,
+entrelinha nem quebra de palavra: fica igual a quem está em volta. Use um provider
+por região quando ela precisa de hook diferente:
+
+```tsx
+<ThemeProvider theme={base} mode="light">
+  <ThemeProvider theme={{ name: 'cards', tokens: { '--card-radius': '16px' } }}>
+    <Card>…</Card>   {/* raio de 16px, resto do tema base */}
+  </ThemeProvider>
+</ThemeProvider>
+```
+
+Com `mode` diferente do pai, o aninhado aplica os papéis daquele modo e a cor do
+texto do modo, e reaplica os temas dos providers de fora no modo novo. A
+superfície continua vindo do componente (`Card`, `Surface`). Sobreposição feita
+por CSS local entre dois providers (`.secao { --card-radius: … }`) não é
+reaplicada na troca de modo; ponha esse valor no tema.
+
+Token derivado segue o token de que deriva: `--field-radius` vale
+`var(--control-radius)`, então um aninhado que troca `--control-radius` muda
+também o campo. Se o tema de fora fixou `--field-radius` com um valor (tema
+exportado pelo editor faz isso), o valor fixo continua valendo no aninhado até
+ele trocar `--field-radius` também.
+
+`isolate` faz o aninhado começar do zero, como a raiz: volta à fundação, pinta
+`--bg` e aplica a base tipográfica. É o que uma vitrine ou prévia de outro tema
+precisa, inclusive quem alterna identidades inteiras. Na raiz, a quebra de palavra é `normal`; defina
+`--scope-overflow-wrap: anywhere` no tema para quebrar entre letras.
 
 ## Personalização de componentes existentes
 

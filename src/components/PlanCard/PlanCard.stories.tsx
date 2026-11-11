@@ -2,6 +2,7 @@ import { PlanCardExample } from "../../_demo/MoleculeExamples";
 import type { Meta, StoryObj } from "@storybook/react";
 import { PlanCard } from "./PlanCard";
 import { Button } from "../Button";
+import { ThemeProvider } from "../../lib/ThemeProvider";
 
 const meta = {
   id: "components-molecules-plancard",
@@ -165,3 +166,19 @@ export const GradeDePlanos: Story = {
 };
 
 export const Interativo: Story = { name: "Interactive", render: () => <PlanCardExample /> };
+
+/** `description` under the name, `ctaPosition="bottom"` puts the button last, the tag goes right through `--plan-card-tag-inset-inline`, and the highlighted plan is a dark nested scope. */
+export const BotaoNoFim: Story = { name: "Button at the bottom",
+  args: { name: "Pro", price: "$ 29" },
+  render: () => (
+    <ThemeProvider theme={{ name: "Pricing", tokens: { "--plan-card-tag-inset-inline": "auto var(--space-5)" } }}>
+      <div data-testid="plans-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "var(--space-4)", paddingTop: "var(--space-3)" }}>
+        <PlanCard name="Starter" description="For one seller testing the market." price="$ 0" period="/month" features={["10 listings", "Chat with buyers"]} ctaPosition="bottom" cta={<Button variant="secondary" block>Start free</Button>} />
+        <ThemeProvider mode="dark">
+          <PlanCard highlighted name="Pro" description="For shops with weekly listings." price="$ 29" period="/month" features={["Unlimited listings", "Featured placement", "Sales report"]} ctaPosition="bottom" cta={<Button variant="primary" block>Choose Pro</Button>} />
+        </ThemeProvider>
+        <PlanCard name="Business" description="For teams with several stores." price="$ 99" period="/month" features={["Everything in Pro", "5 members"]} ctaPosition="bottom" cta={<Button variant="secondary" block>Talk to sales</Button>} />
+      </div>
+    </ThemeProvider>
+  ),
+};

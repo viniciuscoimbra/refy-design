@@ -20,7 +20,7 @@
   border: 0;
   outline: none;
   background: transparent;
-  font-family: var(--font-body);
+  font-family: var(--field-font-family, var(--font-body));
   font-size: var(--field-font-size, var(--text-sm));
   color: var(--ink-1);
 }
@@ -41,7 +41,7 @@
   border-right: 1px solid var(--line);
   border-radius: calc(var(--radius-default) - 1px) 0 0 calc(var(--radius-default) - 1px);
   background: var(--surface-2);
-  color: var(--ink-2);
+  color: var(--input-prefix-color, var(--ink-2));
   font-weight: var(--weight-medium);
 }
 /* Icon-only prefix (search, mail): themes may draw it inline instead of as an addon. */

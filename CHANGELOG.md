@@ -2,6 +2,37 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## Não publicado
+
+### Corrigido
+
+- `Modal`: as ações do rodapé quebram linha quando não cabem lado a lado, em vez de serem cortadas num diálogo da largura de um celular.
+
+## 1.4.0 (10/11/2026)
+
+### Modificado
+
+- **Mudança de comportamento:** `ThemeProvider` dentro de outro herda o que o escopo de fora calculou e aplica só o próprio tema. Ele não pinta fundo e não muda fonte, tamanho, entrelinha nem quebra de palavra. Com `mode` diferente do pai, aplica os papéis daquele modo e a cor do texto, e reaplica os temas de fora no modo novo. Antes, todo provider aninhado voltava à fundação inteira: virava uma caixa com `--bg`, voltava o texto ao tamanho do tema e apagava o que o escopo de fora tinha sobreposto. Token derivado (`--field-radius: var(--control-radius)`) resolve com o token do aninhado; se o tema de fora fixou o derivado com valor, esse valor continua valendo. Para manter o comportamento antigo numa vitrine, numa prévia de outro tema ou numa troca de identidade inteira, passe `isolate`.
+- **Mudança de comportamento:** o escopo do Refy usa `overflow-wrap: normal`; antes era `anywhere`, que quebrava palavra entre letras em barra estreita. Para voltar, defina `--scope-overflow-wrap: anywhere` no tema.
+- **Mudança de comportamento:** no `Hero`, a margem de baixo de `--hero-title-margin` passa a valer e `--hero-align` vale também abaixo de 720 px. Tema que declarava a margem sem querer a de baixo usa `calc(var(--hero-title-descender, 0.12em) * -1)` no terceiro valor, como os temas incluídos.
+- `--site-footer-columns` passa a ser o template inteiro da grade do `SiteFooter`; a contagem de colunas que o componente escrevia virou `--site-footer-column-count`.
+- `refy check` aceita hook ou token do tema declarado no CSS da tela com `var(--token)`, em qualquer seletor, media query ou pseudo-classe. Com valor literal, continua erro.
+- `refy check` dá um aviso `unverified-token` por token, com a contagem de usos, e trata como verificado o que o tema do projeto declara (`--theme <arquivo>` ou `theme.json` na raiz). `refy_validate` aceita `theme`.
+- Os temas Cobalto e Terracota declaram a cor primária do claro em `modes.light`, sem mudar a aparência.
+
+### Adicionado
+
+- `isolate` no `ThemeProvider`.
+- `refy check` avisa `class-override` quando uma classe passada a componente do Refy muda cor, fundo, borda, raio, sombra ou fonte, e sugere o hook da família. O catálogo leva os hooks que o CSS de cada família lê.
+- `refy_theme_validate` avisa `token-shadowed-by-mode` quando o mesmo token está em `tokens` e num modo. `docs/THEMING.md` explica a precedência, os escopos aninhados e o tema derivado.
+- Hooks de medida: `--chip-padding-inline`, `--chip-gap`, `--chip-icon-size`, `--badge-height`, `--badge-padding-inline`, `--badge-radius`, `--bubble-padding`, `--bubble-max-width`, `--bubble-radius`, `--bubble-tail-radius`, `--bubble-end-border-width`, `--icon-button-icon-md`, `--icon-button-icon-lg`, `--switch-thumb-inset`, `--switch-track-off`, `--input-prefix-color`, `--field-font-family`, `--hero-lead-leading`.
+- `Button`: borda por variante (`--button-primary-border-width`, `--button-secondary-border-width`, `--button-ghost-border-width`, `--button-danger-border-width`) e `--button-white-space`.
+- `PlanCard`: `description`, `ctaPosition` e `--plan-card-tag-inset-inline`. `SiteFooter`: `--site-footer-heading-weight` e `--site-footer-link-gap`.
+
+### Corrigido
+
+- O polegar do `Switch` anda o que sobra da largura, do polegar e do recuo; antes andava 16 px fixos.
+
 ## 1.3.4 (10/11/2026)
 
 ### Corrigido

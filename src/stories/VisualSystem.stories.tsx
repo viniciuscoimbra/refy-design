@@ -188,7 +188,7 @@ function Personalize({
         .
       </p>
       <div className={styles.preview}>
-        <ThemeProvider
+        <ThemeProvider isolate
           theme={identity}
           mode={mode}
           className={styles.previewScope}
@@ -289,7 +289,7 @@ function Personalize({
             onDismiss={() => setNotice(false)}
           />
         </ThemeProvider>
-        <ThemeProvider
+        <ThemeProvider isolate
           theme={identity}
           mode={mode}
           className={styles.controls}

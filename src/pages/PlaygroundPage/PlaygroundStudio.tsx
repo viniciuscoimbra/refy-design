@@ -16,10 +16,11 @@ import type { StudioControl } from "./studioSources";
 import styles from "./PlaygroundStudio.module.css";
 
 /**
- * Draft for the Playground proposal: one component working in a real viewport, a compact picker,
- * and a panel that customizes the component (props from its story) and the theme tokens it reads.
+ * The Playground: one component working in a real viewport, a compact picker, and a panel that
+ * customizes the component (props from its story) and the theme tokens it reads.
  */
 const levels = ["Átomos", "Moléculas", "Organismos"] as const;
+const singular: Record<string, string> = { "Átomos": "Átomo", "Moléculas": "Molécula", "Organismos": "Organismo" };
 const widths = { desktop: "100%", tablet: "768px", mobile: "390px" } as const;
 const chromeTheme = resolveTheme(defaultConfig);
 const isColor = (value: string) => /^(#|rgb|hsl|oklch|color-mix)/i.test(value.trim());
@@ -41,13 +42,22 @@ export function PlaygroundStudio({
   initialComponent = "Button",
   chromeMode = "light",
   initialSheet = "closed",
-}: { initialComponent?: string; chromeMode?: ThemeMode; initialSheet?: Sheet }) {
+  onComponentChange,
+}: {
+  initialComponent?: string;
+  chromeMode?: ThemeMode;
+  initialSheet?: Sheet;
+  /** Called when the person picks another component, so the page can keep it in its address. */
+  onComponentChange?: (id: string) => void;
+}) {
   // On a phone the properties live in a bottom sheet that never covers the component: closed, half or full.
   const phone = usePhone();
   const [sheet, setSheet] = useState<Sheet>(initialSheet);
   const [config, setConfig] = useState<PlaygroundConfig>({ ...defaultConfig, theme: chromeMode === "dark" ? "dark" : "light" });
   const update = (patch: Partial<PlaygroundConfig>) => setConfig((current) => changeConfig(current, patch));
   const [componentId, setComponentId] = useState(initialComponent);
+  // A link from a component's page ("Open in Playground") arrives as a new initial component.
+  useEffect(() => setComponentId(initialComponent), [initialComponent]);
   const [query, setQuery] = useState("");
   const [viewport, setViewport] = useState<keyof typeof widths>("desktop");
   const [panel, setPanel] = useState("component");
@@ -98,7 +108,7 @@ export function PlaygroundStudio({
   const groups = levels
     .map((level) => ({
       id: level,
-      title: level,
+      title: tr(level),
       items: componentCatalog
         .filter((item) => item.level === level && hasStory(item.id) && `${item.label}`.toLowerCase().includes(query.trim().toLowerCase()))
         .sort((a, b) => a.label.localeCompare(b.label))
@@ -106,6 +116,12 @@ export function PlaygroundStudio({
     }))
     .filter((group) => group.items.length);
   const entry = componentCatalog.find((item) => item.id === componentId);
+  const choose = (id: string) => {
+    setComponentId(id);
+    setExample(undefined);
+    setOverrides({});
+    onComponentChange?.(id);
+  };
   const setArg = (name: string, value: string | number | boolean) => setArgs((current) => ({ ...current, [name]: value }));
 
   const control = (item: StudioControl) => {
@@ -213,14 +229,14 @@ export function PlaygroundStudio({
   );
 
   return (
-    <ThemeProvider theme={chromeTheme} mode={chromeMode} className={styles.studio} data-testid="playground-studio">
-      <ThemeProvider theme={theme} mode={config.theme} hidden aria-hidden="true"><div ref={probe} /></ThemeProvider>
+    <ThemeProvider isolate theme={chromeTheme} mode={chromeMode} className={styles.studio} data-testid="playground-studio">
+      <ThemeProvider isolate theme={theme} mode={config.theme} hidden aria-hidden="true"><div ref={probe} /></ThemeProvider>
       <header className={styles.bar}>
         <div className={styles.title}>
           <strong>{tr("Playground")}</strong>
-          <span>{entry ? `${entry.label} · ${entry.level.replace(/s$/, "")}` : componentId}</span>
+          <span>{entry ? `${entry.label} · ${tr(singular[entry.level] ?? entry.level)}` : componentId}</span>
         </div>
-        <Select aria-label={tr("Componente")} className={styles.mobilePicker} value={componentId} onChange={(event) => { setComponentId(event.target.value); setExample(undefined); setOverrides({}); }}>
+        <Select aria-label={tr("Componente")} className={styles.mobilePicker} value={componentId} onChange={(event) => choose(event.target.value)}>
           {groups.map((group) => (
             <optgroup key={group.id} label={group.title}>
               {group.items.map((item) => <option key={item.href} value={item.href.slice(1)}>{item.label}</option>)}
@@ -235,7 +251,7 @@ export function PlaygroundStudio({
           options={[
             { value: "desktop", label: tr("Desktop"), icon: Icons.desktop },
             { value: "tablet", label: tr("Tablet"), icon: Icons.tablet },
-            { value: "mobile", label: tr("Celular"), icon: Icons.phone },
+            { value: "mobile", label: "Mobile", icon: Icons.phone },
           ]}
         /></span>
         <span className={styles.desktopOnly}><Segmented
@@ -253,14 +269,14 @@ export function PlaygroundStudio({
             label={tr("Componentes por camada")}
             activeHref={`#${componentId}`}
             groups={groups}
-            renderLink={(item, props) => <a {...props} onClick={(event) => { event.preventDefault(); setComponentId(item.href.slice(1)); setExample(undefined); setOverrides({}); }} />}
+            renderLink={(item, props) => <a {...props} onClick={(event) => { event.preventDefault(); choose(item.href.slice(1)); }} />}
           />
         </aside>
         <main className={styles.stage}>
           <PreviewFrame state={{ view: "component", theme, mode: config.theme, componentId, example, args }} width={widths[viewport]} />
         </main>
         {!phone && (
-          <section className={styles.code} aria-label={`Código de ${componentId}`}>
+          <section className={styles.code} aria-label={`${tr("Código de")} ${componentId}`}>
             <CodeBlock label={`${componentId}.tsx`} language="tsx" code={ownState && exampleCode ? exampleCode : jsxSample(componentId, args)} />
           </section>
         )}
@@ -283,7 +299,7 @@ export function PlaygroundStudio({
           modal={false}
           open={sheet !== "closed"}
           onOpenChange={(open) => setSheet(open ? "half" : "closed")}
-          title={`Propriedades do ${componentId}`}
+          title={`${tr("Propriedades do")} ${componentId}`}
         >
           <div className={styles.sheet} data-size={sheet} aria-label={tr("Personalizar")}>
             {sizeToggle}

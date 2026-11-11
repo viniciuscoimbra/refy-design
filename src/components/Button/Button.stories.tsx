@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
 import type { ButtonProgressEffect } from "./Button";
+import { ThemeProvider } from "../../lib/ThemeProvider";
 
 const PlusIcon = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round">
@@ -92,4 +93,17 @@ export const EfeitosDeProgresso: Story = {
     );
   },
   parameters: { layout: "fullscreen" },
+};
+
+/** Border width per variant and text wrapping come from `--button-<variant>-border-width` and `--button-white-space`. */
+export const BordaEQuebra: Story = { name: "Border and wrap",
+  render: () => (
+    <ThemeProvider theme={{ name: "Button border", tokens: { "--button-primary-border-width": "0px", "--button-border-width": "1px", "--button-height-md": "36px", "--button-padding-md": "16px", "--button-white-space": "normal" } }}>
+      <div style={{ display: "flex", gap: "var(--space-2)", alignItems: "center" }} data-testid="button-border">
+        <Button variant="primary" leadingIcon={PlusIcon}>Sell item</Button>
+        <Button variant="secondary">Log in</Button>
+        <div style={{ width: 72 }}><Button variant="primary" data-testid="button-wrap">Sell item</Button></div>
+      </div>
+    </ThemeProvider>
+  ),
 };

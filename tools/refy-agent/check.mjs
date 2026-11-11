@@ -83,6 +83,66 @@ export function literalSuggestion(property, value, catalog) {
   if (same.length) return `Use ${same.slice(0, 3).map((t) => `var(${t})`).join(" ou ")}, que já vale ${literal} no tema padrão.`;
   return `Não há token com o valor ${literal} no tema padrão. Use um token próximo (refy_component lista os da família) ou, se a marca pede esse valor, ponha no tema ou no hook do componente (--<família>-*), não no CSS da tela.`;
 }
+// AI-07: hook ou token do tema declarado com outro token (`--card-radius: var(--app-radius)`) é o
+// caminho documentado de personalizar por região, breakpoint ou estado.
+const tokenReference = (value) => /^var\(\s*--[\w-]+\s*\)$/.test(String(value).trim());
+// Blocos do CSS com o seletor de cada um, para saber a que regra pertence uma declaração.
+function cssBlocks(clean) {
+  const blocks = [], stack = [];
+  let start = 0;
+  for (let i = 0; i < clean.length; i++) {
+    const c = clean[i];
+    if (c === "{") { stack.push({ prelude: clean.slice(start, i).trim(), open: i }); start = i + 1; }
+    else if (c === "}") { const block = stack.pop(); if (block) blocks.push({ ...block, close: i }); start = i + 1; }
+    else if (c === ";") start = i + 1;
+  }
+  return blocks;
+}
+const selectorAt = (blocks, pos) =>
+  blocks.filter((b) => b.open < pos && pos < b.close && !b.prelude.startsWith("@")).sort((a, b) => b.open - a.open)[0]?.prelude ?? "";
+// Classe no último composto de algum seletor da lista: é ela que recebe a declaração.
+const subjectClasses = (selector) =>
+  selector.split(",").flatMap((part) => {
+    const compound = part.trim().split(/\s*[>+~]\s*|\s+/).pop() ?? "";
+    return [...compound.matchAll(/\.([\w-]+)/g)].map((m) => m[1]);
+  });
+const PROPERTY_WORDS = [
+  [/radius/, ["radius"]],
+  [/^border|^outline/, ["border", "line", "outline"]],
+  [/^background/, ["background", "surface", "bg"]],
+  [/shadow/, ["shadow", "elevation"]],
+  [/^font|line-height|letter-spacing/, ["font", "size", "weight", "leading", "tracking"]],
+  [/^color$/, ["ink", "color", "text", "foreground"]],
+];
+export function hookSuggestion(property, component) {
+  const words = PROPERTY_WORDS.find(([pattern]) => pattern.test(property))?.[1] ?? [];
+  const hooks = (component.hooks ?? []).filter((hook) => words.some((word) => hook.includes(word))).slice(0, 4);
+  return hooks.length
+    ? `${property} de ${component.publicName} vem do tema: declare ${hooks.join(" ou ")} no escopo do ${component.publicName} (no tema ou no CSS como hook: var(--token)), em vez de mudar a propriedade pela classe.`
+    : `${property} de ${component.publicName} não tem hook próprio: use o tema ou peça o hook ao Refy, em vez de mudar a propriedade pela classe.`;
+}
+// AI-09: tokens que o tema do projeto declara, em tokens ou em qualquer modo. Aceita um RefyTheme
+// ou um objeto cujos valores são temas.
+export function projectThemeTokens(theme) {
+  const names = new Set();
+  const collect = (item) => {
+    if (!item || typeof item !== "object") return;
+    for (const name of Object.keys(item.tokens ?? {})) names.add(name);
+    for (const group of Object.values(item.modes ?? {})) for (const name of Object.keys(group ?? {})) names.add(name);
+  };
+  if (theme && typeof theme === "object" && ("tokens" in theme || "modes" in theme)) collect(theme);
+  else for (const value of Object.values(theme ?? {})) collect(value);
+  return names;
+}
+export function readProjectTheme(root, input) {
+  const path = input ? resolve(root, input) : resolve(root, "theme.json");
+  if (!input && !existsSync(path)) return null;
+  let text;
+  try { text = readFileSync(path, "utf8"); }
+  catch (error) { throw Error(`Cannot read theme ${input ?? "theme.json"}: ${error.message}`); }
+  try { return { file: relative(root, path).split(sep).join("/"), theme: JSON.parse(text) }; }
+  catch (error) { throw Error(`Cannot read theme ${input ?? "theme.json"}: ${error.message}`); }
+}
 export function localFile(root, input) {
   const absolute = realpathSync(resolve(root, input)),
     rel = relative(root, absolute);
@@ -101,8 +161,13 @@ function expandDirectory(root, absolute, out) {
       out.push(relative(root, path).split(sep).join("/"));
   }
 }
-export async function inspectFiles(root, files, catalog) {
+export async function inspectFiles(root, files, catalog, options = {}) {
   root = realpathSync(root);
+  // AI-09: --theme <arquivo>, um tema já lido (MCP) ou theme.json na raiz.
+  const project = options.theme !== undefined && typeof options.theme === "object"
+    ? { file: null, theme: options.theme }
+    : readProjectTheme(root, options.theme);
+  const projectTokens = projectThemeTokens(project?.theme);
   let ts;
   try {
     ts = createRequire(resolve(root, "package.json"))("typescript");
@@ -242,18 +307,19 @@ export async function inspectFiles(root, files, catalog) {
   const deprecatedProps = new Map(Object.entries(catalog.deprecatedProps ?? {}));
   const sourceNames = { PropertyCard: "ContentCard", PropertyActionGroup: "DecisionActions", PropertyMedia: "MediaGallery", SwipeDeck: "DecisionDeck", VisitSchedulePicker: "SchedulePicker", EventTimeline: "ActivityTimeline" };
   for (const [from, to] of Object.entries(sourceNames)) if (deprecatedProps.has(to) && !deprecatedProps.has(from)) deprecatedProps.set(from, deprecatedProps.get(to));
+  // AI-09: um aviso por token, com a contagem de usos; o primeiro uso dá arquivo e linha.
+  const unknown = new Map();
   const warnUnknown = (file, source, pos, value) => {
     const token = value.trim().match(/^var\(\s*(--[\w-]+)\s*\)$/)?.[1];
-    if (token && !themeTokens.has(token))
-      add(
-        file,
-        source,
-        pos,
-        "unverified-token",
-        `${token} is not in the Refy catalog. Verify that this project defines and scopes it; no computed-style validation was performed.`,
-        "warning",
-      );
+    if (!token || themeTokens.has(token) || projectTokens.has(token)) return;
+    const entry = unknown.get(token);
+    if (entry) entry.count++;
+    else unknown.set(token, { file, source, pos, count: 1 });
   };
+  // AI-08: classe passada a componente do Refy, por arquivo TSX; o CSS é avaliado depois de ler tudo.
+  const byName = new Map(catalog.components.map((c) => [c.publicName, c]));
+  const componentClasses = new Map();
+  const cssRules = [];
   for (const input of files) {
     const { absolute, file } = localFile(root, input);
     if (scanned.includes(file) || isExcluded(file)) continue;
@@ -264,6 +330,7 @@ export async function inspectFiles(root, files, catalog) {
       const clean = code.replace(/\/\*[\s\S]*?\*\//g, (m) =>
         m.replace(/[^\n]/g, " "),
       );
+      const blocks = cssBlocks(clean);
       for (const match of clean.matchAll(
         /([\w-]+)\s*:\s*([^;{}]+)(?:;|(?=\}))/g,
       )) {
@@ -272,18 +339,23 @@ export async function inspectFiles(root, files, catalog) {
           add(file, code, match.index, "color-literal", `${match[1]} uses a literal color; colors belong to the theme (ThemeProvider/theme file) as tokens.`);
           continue;
         }
-        if (cssAppearance.test(match[1]))
+        const hook = themeTokens.has(match[1]);
+        if (cssAppearance.test(match[1]) || (hook && tokenReference(match[2])))
           warnUnknown(file, code, match.index, match[2]);
+        if (cssAppearance.test(match[1]))
+          cssRules.push({ file, code, pos: match.index, property: match[1], selector: selectorAt(blocks, match.index) });
         if (
           (cssAppearance.test(match[1]) && !safeValue(match[2])) ||
-          themeTokens.has(match[1])
+          (hook && !tokenReference(match[2]))
         )
           add(
             file,
             code,
             match.index,
             "appearance-literal",
-            `${match[1]} should use a public theme token; keep structural layout local.`,
+            hook
+              ? `${match[1]} is a Refy theme token; declare it with var(--token) and keep the value in the theme.`
+              : `${match[1]} should use a public theme token; keep structural layout local.`,
             "error",
             { suggestion: literalSuggestion(match[1], match[2], catalog) },
           );
@@ -339,6 +411,14 @@ export async function inspectFiles(root, files, catalog) {
       if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) {
         const tag = node.tagName.getText(sf),
           props = node.attributes.properties;
+        const refyComponent = byName.get(localRefy.get(tag));
+        if (refyComponent) {
+          const classAttr = props.find((p) => ts.isJsxAttribute(p) && p.name.getText(sf) === "className")?.initializer;
+          const expression = classAttr && ts.isJsxExpression(classAttr) ? classAttr.expression : classAttr;
+          const names = staticText(expression)?.split(/\s+/) ??
+            (expression && ts.isPropertyAccessExpression(expression) ? [expression.name.text] : []);
+          for (const name of names.filter(Boolean)) if (!componentClasses.has(name)) componentClasses.set(name, refyComponent);
+        }
         const deprecated = deprecatedProps.get(localRefy.get(tag));
         if (deprecated)
           for (const p of props) {
@@ -427,6 +507,17 @@ export async function inspectFiles(root, files, catalog) {
     };
     visit(sf);
   }
+  for (const rule of cssRules) {
+    const component = subjectClasses(rule.selector).map((name) => componentClasses.get(name)).find(Boolean);
+    if (component)
+      add(rule.file, rule.code, rule.pos, "class-override",
+        `${rule.selector} changes ${rule.property} of a Refy ${component.publicName}; appearance of Refy components comes from the theme or a component hook.`,
+        "warning", { suggestion: hookSuggestion(rule.property, component) });
+  }
+  for (const [token, { file, source, pos, count }] of unknown)
+    add(file, source, pos, "unverified-token",
+      `${token} is not in the Refy catalog${project ? " nor in the project theme" : ""} (${count} ${count === 1 ? "use" : "uses"}). Verify that this project defines and scopes it; no computed-style validation was performed.`,
+      "warning", { token, count });
   for (const { image, message } of boardFindings) add(image, "", 0, "board-source", message);
   return {
     schemaVersion: 1,
@@ -434,6 +525,7 @@ export async function inspectFiles(root, files, catalog) {
     boards: boardFiles,
     excluded,
     themeFiles: [...themes],
+    ...(project ? { projectTheme: project.file ?? "(inline)", projectTokens: projectTokens.size } : {}),
     components: [...components].sort(),
     findings,
     passed: !findings.some((f) => f.severity === "error" && !f.exception),

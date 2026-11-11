@@ -53,8 +53,10 @@
   font-size: var(--text-base);
   line-height: 1.55;
 }
+/* Two long actions do not fit side by side in a phone-width dialog: they wrap instead of being cut. */
 .footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
   gap: 10px;

@@ -1,6 +1,6 @@
 import { useThemeConfiguration } from "./useThemeConfiguration";
 import type { Meta, StoryObj } from "@storybook/react";
-import { PlaygroundPage } from "../pages/PlaygroundPage/PlaygroundPage";
+import { PlaygroundPage, StandalonePlayground } from "../pages/PlaygroundPage/PlaygroundPage";
 import type { PlaygroundView } from "../pages/PlaygroundPage/PlaygroundPage";
 
 const meta = {
@@ -60,4 +60,12 @@ export const ChartsComparacao: StoryObj = {
   tags: ["refy-internal"],
   name: "Charts · comparação",
   render: () => renderWorkbench("chart-comparison"),
+};
+
+// The theme workbench with its own configuration, as the Themes page of the site uses it: importing
+// a theme stays inside the workbench. Public theme-editor tests run against this story.
+export const Bancada: StoryObj = {
+  tags: ["refy-internal"],
+  name: "Bancada de tema",
+  render: () => <StandalonePlayground initialView="components" />,
 };

@@ -26,9 +26,10 @@ import styles from "./Workbench.module.css";
 export type PlaygroundView =
   | "theme"
   | "components"
-  | "blocks"
   | "typography"
-  // Views without a tab: kept for direct links, stories and regression fixtures.
+  // Views without a tab: kept for direct links, stories and regression fixtures. Templates live on
+  // their own page now.
+  | "blocks"
   | "application"
   | "access"
   | "setup"
@@ -120,8 +121,8 @@ export function PlaygroundPage({
   const width = viewportWidths[viewport];
   const legacy = !["theme", "components", "blocks", "typography"].includes(view) || (view === "components" && componentPreview);
   return (
-    <ThemeProvider theme={chromeTheme} mode={chromeMode} className={styles.workbench} data-testid="theme-workbench">
-      <ThemeProvider theme={theme} mode={config.theme} hidden aria-hidden="true">
+    <ThemeProvider isolate theme={chromeTheme} mode={chromeMode} className={styles.workbench} data-testid="theme-workbench">
+      <ThemeProvider isolate theme={theme} mode={config.theme} hidden aria-hidden="true">
         <div ref={probe} />
       </ThemeProvider>
       <header className={styles.toolbar} aria-label={tr("Editor de tema")}>
@@ -180,7 +181,6 @@ export function PlaygroundPage({
           options={[
             { value: "theme", label: tr("Tema") },
             { value: "components", label: tr("Componentes") },
-            { value: "blocks", label: tr("Templates") },
             { value: "typography", label: tr("Tipografia") },
           ]}
         />
@@ -205,7 +205,7 @@ export function PlaygroundPage({
           </div>
         )}
         {view === "blocks" && (
-          <ThemeProvider theme={theme} mode={config.theme} className={styles.preview} data-testid="playground">
+          <ThemeProvider isolate theme={theme} mode={config.theme} className={styles.preview} data-testid="playground">
             <BlocksPreview
               theme={theme}
               mode={config.theme}
@@ -246,7 +246,7 @@ export function PlaygroundPage({
           </div>
         )}
         {legacy && (
-          <ThemeProvider theme={theme} mode={config.theme} className={styles.preview} data-testid="playground">
+          <ThemeProvider isolate theme={theme} mode={config.theme} className={styles.preview} data-testid="playground">
             <div className={styles.previewInner}>
               {view === "application" && (
                 <header className={styles.journeyIntro}>
@@ -308,7 +308,7 @@ export function StandalonePlayground({
         onChange={(patch) => setConfig((current) => changeConfig(current, patch))}
         onStartDefault={() => (config.customTheme ? setConfirmDefault(true) : startDefault())}
       />
-      <ThemeProvider theme={chromeTheme} mode={chromeMode}>
+      <ThemeProvider isolate theme={chromeTheme} mode={chromeMode}>
         <Modal
           open={confirmDefault}
           onClose={() => setConfirmDefault(false)}

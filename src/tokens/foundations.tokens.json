@@ -746,6 +746,11 @@
           "value": "#f0f4f9",
           "description": "Papel CSS --auth-control-active; botão de entrada com Google, cores da especificação de marca do Google; escopo base; ativo, sem remoção prevista.",
           "deprecated": false
+        },
+        "--scope-overflow-wrap": {
+          "value": "normal",
+          "description": "Quebra de palavra do escopo raiz do ThemeProvider; anywhere quebra entre letras. Origem Refy 1.4.0; escopo base; ativo, sem remoção prevista.",
+          "deprecated": false
         }
       }
     },

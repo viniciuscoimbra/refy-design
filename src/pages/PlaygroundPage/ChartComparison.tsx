@@ -23,7 +23,7 @@ export function ChartComparison({ theme, onBack }: { theme: RefyTheme; onBack: (
       <div className={styles.scroll} tabIndex={0} aria-label={`Comparar lado a lado · ${mode === 'light' ? 'claro' : 'escuro'}`}>
         <div className={styles.pair}>
           <div><h3>{tr("shadcn · Recharts")}</h3><p>{tr("Captura original · 23/10/2026")}</p><img className={styles.capture} src={captures[`./chart-reference/${variant}-${mode}.jpg`]} width={373} height={460} alt={`${title} original no modo ${mode === 'light' ? 'claro' : 'escuro'}`} /></div>
-          <div><h3>{tr("Refy · D3")}</h3><p>{tr("Componente real · tema personalizável")}</p><ThemeProvider theme={theme} mode={mode} className={styles.live} data-testid={`chart-comparison-${mode}`}>
+          <div><h3>{tr("Refy · D3")}</h3><p>{tr("Componente real · tema personalizável")}</p><ThemeProvider isolate theme={theme} mode={mode} className={styles.live} data-testid={`chart-comparison-${mode}`}>
             <Card><CardHeader title={title} /><p className={styles.description}>{tr("Showing total visitors for the last 6 months")}</p>
               <AreaChart title={title} showTitle={false} label={`${title} · ${mode}`} xLabels={sample.labels} data={variant === 'stacked' ? undefined : sample.desktop} series={variant === 'stacked' ? [{ name: 'Desktop', data: sample.desktop, tone: 'primary' }, { name: 'Mobile', data: sample.mobile, tone: 'info' }] : undefined} stacked={variant === 'stacked'} curve={variant === 'linear' ? 'linear' : 'smooth'} />
               <footer className={styles.footer}><strong>{tr("Trending up by 5.2% this month ↗")}</strong><span>{tr("January - June 2024")}</span></footer>

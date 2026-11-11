@@ -29,7 +29,7 @@ function Controls({ id }: { id: string }) {
 function Sample({ id, theme, mode }: { id: string; theme?: RefyTheme; mode: ThemeMode }) {
   const [modal, setModal] = useState(false);
   const [drawer, setDrawer] = useState(false);
-  return <ThemeProvider theme={theme} mode={mode} data-testid={id} style={{ padding: 16 }}>
+  return <ThemeProvider isolate theme={theme} mode={mode} data-testid={id} style={{ padding: 16 }}>
     <Card><CardHeader title="Uma composição com os mesmos componentes em identidades diferentes" />
       <BrandLogo aria-label="Marca de exemplo"><strong>Exemplo</strong></BrandLogo>
       <Controls id={id}/>
@@ -57,3 +57,25 @@ export const Instancias: Story = {};
 export const Claro: Story = { render: () => <Sample id="default" mode="light"/> };
 export const Escuro: Story = { render: () => <Sample id="default" mode="dark"/> };
 export const Editorial: Story = { render: () => <Sample id="default" mode="editorial"/> };
+
+const base: RefyTheme = { name: "heranca-base", tokens: { "--space-3": "8px", "--card-radius": "12px" } };
+const cardRadius: RefyTheme = { name: "heranca-card", tokens: { "--card-radius": "16px" } };
+const controlRadius: RefyTheme = { name: "heranca-controle", tokens: { "--control-radius": "18px" } };
+/** Provider aninhado herda o escopo de fora e aplica só o que o próprio tema traz. */
+function HerancaDemo() {
+  return <ThemeProvider theme={base} data-testid="inherit-parent">
+    <section data-testid="inherit-section" style={{ background: "rgb(238, 238, 238)", padding: 16, fontSize: 14 }}>
+      <ThemeProvider theme={cardRadius} data-testid="inherit-child">
+        <p data-testid="inherit-text">Balão sem tamanho próprio</p>
+        <Card><CardHeader title="Card com raio do tema filho" /></Card>
+      </ThemeProvider>
+      <div style={{ width: 40 }}>
+        <ThemeProvider theme={cardRadius}><span data-testid="inherit-word">Marketplace</span></ThemeProvider>
+      </div>
+      <ThemeProvider mode="dark" data-testid="inherit-dark"><Card><CardHeader title="Card escuro em página clara" /></Card></ThemeProvider>
+      <ThemeProvider theme={controlRadius} data-testid="inherit-alias"><Input label="Campo com raio do tema filho" /></ThemeProvider>
+      <ThemeProvider theme={cardRadius} isolate data-testid="inherit-isolated"><p>Escopo isolado</p></ThemeProvider>
+    </section>
+  </ThemeProvider>;
+}
+export const Heranca: Story = { name: "Herança", render: () => <HerancaDemo /> };

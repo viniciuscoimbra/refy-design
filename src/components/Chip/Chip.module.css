@@ -1,9 +1,9 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--chip-gap, 6px);
   height: var(--chip-height, 30px);
-  padding: 0 10px;
+  padding: 0 var(--chip-padding-inline, 10px);
   border: var(--control-border-width, 1px) solid var(--chip-border, var(--line));
   border-radius: var(--chip-radius, var(--radius-pill));
   background: var(--chip-surface, var(--surface));
@@ -50,8 +50,8 @@
 
 .icon {
   display: inline-flex;
-  width: 14px;
-  height: 14px;
+  width: var(--chip-icon-size, 14px);
+  height: var(--chip-icon-size, 14px);
 }
 .icon svg {
   width: 100%;

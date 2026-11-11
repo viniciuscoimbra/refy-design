@@ -136,6 +136,12 @@
       "label": "All",
       "description": "",
       "code": "import { Badge } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>\n      <Badge tone=\"success\">Paid</Badge>\n      <Badge tone=\"info\">Agency plan</Badge>\n      <Badge tone=\"warn\">Pending</Badge>\n      <Badge tone=\"danger\">Failed</Badge>\n      <Badge tone=\"neutral\">Archived</Badge>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Medidas",
+      "label": "Measures",
+      "description": "Height, inline padding and radius come from `--badge-height`, `--badge-padding-inline` and `--badge-radius`.",
+      "code": "import { Badge } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nexport function Example() {\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Badge measures',\n        tokens: {\n          '--badge-height': '24px',\n          '--badge-padding-inline': '8px',\n          '--badge-radius': '4px',\n        },\n      }}\n    >\n      <Badge tone=\"neutral\" data-testid=\"badge-measures\">\n        New\n      </Badge>\n    </ThemeProvider>\n  );\n}"
     }
   ]
 }

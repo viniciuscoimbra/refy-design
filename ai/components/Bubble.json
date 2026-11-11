@@ -115,6 +115,12 @@
       "label": "Interactive",
       "description": "",
       "code": "import { Bubble } from '@refy-design/web';\nimport { Button } from '@refy-design/web';\nimport { useState } from 'react';\nconst stack = { display: 'grid', gap: 'var(--space-4)', minWidth: 0 } as const;\nfunction BubbleExample() {\n  const [sent, setSent] = useState(false);\n  return (\n    <div style={stack}>\n      <Bubble>Can we review the material today?</Bubble>\n      {sent && <Bubble side=\"end\">Yes, the review is confirmed.</Bubble>}\n      <Button onClick={() => setSent(!sent)}>{sent ? 'Clear answer' : 'Reply'}</Button>\n    </div>\n  );\n}\nexport function Example() {\n  return <BubbleExample />;\n}"
+    },
+    {
+      "id": "Medidas",
+      "label": "Measures",
+      "description": "Padding, width, radius, the sender's corner and the outgoing border come from `--bubble-*` hooks.",
+      "code": "import { Bubble } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nexport function Example() {\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Bubble measures',\n        tokens: {\n          '--bubble-padding': '8px 16px',\n          '--bubble-max-width': '320px',\n          '--bubble-radius': '16px',\n          '--bubble-tail-radius': '2px',\n          '--bubble-end-border-width': '0px',\n        },\n      }}\n    >\n      <div style={{ display: 'grid', gap: 'var(--space-2)', maxWidth: 560 }}>\n        <Bubble data-testid=\"bubble-start\">\n          Is the bike still available? I can pick it up this afternoon near the station.\n        </Bubble>\n        <Bubble side=\"end\" data-testid=\"bubble-end\">\n          Yes, it is. I am home after 3 pm.\n        </Bubble>\n      </div>\n    </ThemeProvider>\n  );\n}"
     }
   ]
 }

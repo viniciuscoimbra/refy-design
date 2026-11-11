@@ -43,7 +43,7 @@ try {
             "init [--from <tgz>] [--entry <file>] [--dry-run] [--offline]",
             "contribute <Nome> [--refy <repo>]  (refy-extensions/<Nome> → refy-contrib/<Nome>, sem PR nem push)",
             "inspect [files-or-dirs...]",
-            "check [files-or-dirs...]  (default: include from refy-agent.config.json)",
+            "check [--theme <file>] [files-or-dirs...]  (default: include from refy-agent.config.json; theme.json in the project root when --theme is absent)",
           ],
           prerequisite:
             "inspect/check require TypeScript in the consumer; catalog/component require only Node.",
@@ -130,7 +130,11 @@ try {
     const { init } = await import("./init.mjs");
     await init(args);
   } else if (command === "inspect" || command === "check") {
-    const report = await inspectFiles(process.cwd(), args, catalog);
+    const at = args.indexOf("--theme");
+    if (at >= 0 && !args[at + 1]) throw Error("--theme requires a JSON file: refy check --theme theme.json src");
+    const theme = at >= 0 ? args[at + 1] : undefined;
+    const files = at >= 0 ? args.filter((_, i) => i !== at && i !== at + 1) : args;
+    const report = await inspectFiles(process.cwd(), files, catalog, { theme });
     console.log(JSON.stringify(report, null, 2));
     if (command === "check" && !report.passed) process.exitCode = 1;
   } else

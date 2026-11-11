@@ -33,7 +33,7 @@ for (const mode of ["light"]) {
     page,
   }) => {
     await page.goto(
-      `/iframe.html?id=refy-site--playground&viewMode=story&globals=theme:refy-site;mode:${mode}`,
+      `/iframe.html?id=fundamentos-playground--bancada&viewMode=story&globals=theme:refy-site;mode:${mode}`,
     );
     await page
       .getByTestId("theme-workbench")
@@ -84,7 +84,7 @@ for (const mode of ["light"]) {
     page,
   }) => {
     await page.goto(
-      `/iframe.html?id=refy-site--playground&viewMode=story&globals=theme:refy-site;mode:${mode}`,
+      `/iframe.html?id=fundamentos-playground--bancada&viewMode=story&globals=theme:refy-site;mode:${mode}`,
     );
     await page
       .getByTestId("theme-workbench")
@@ -116,7 +116,7 @@ for (const mode of ["light"]) {
     page,
   }) => {
     await page.goto(
-      `/iframe.html?id=refy-site--playground&viewMode=story&globals=theme:refy-site;mode:${mode}`,
+      `/iframe.html?id=fundamentos-playground--bancada&viewMode=story&globals=theme:refy-site;mode:${mode}`,
     );
     await page
       .getByTestId("theme-workbench")
@@ -156,7 +156,7 @@ for (const mode of ["light"]) {
     page,
   }) => {
     await page.goto(
-      `/iframe.html?id=refy-site--playground&viewMode=story&globals=theme:refy-site;mode:${mode}`,
+      `/iframe.html?id=fundamentos-playground--bancada&viewMode=story&globals=theme:refy-site;mode:${mode}`,
     );
     await page
       .getByTestId("theme-workbench")

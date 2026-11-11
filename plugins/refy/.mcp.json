@@ -3,7 +3,7 @@
     "refy": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "--package=@refy-design/web@^1.3.0", "refy-mcp"]
+      "args": ["-y", "--package=@refy-design/web@^1.4.0", "refy-mcp"]
     }
   }
 }

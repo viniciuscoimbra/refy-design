@@ -171,6 +171,12 @@
       "label": "Disabled",
       "description": "Explicit public state; it does not call external services.",
       "code": "import { IconButton } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Search = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"11\" cy=\"11\" r=\"7\" />\n    <path d=\"m21 21-4.3-4.3\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof IconButton>,\n    'aria-label' | 'icon' | 'variant' | 'size' | 'disabled'\n  > = {\n    'aria-label': 'Search',\n    icon: Search,\n    variant: 'ghost',\n    size: 'md',\n    disabled: true,\n  };\n  return <IconButton {...args} />;\n}"
+    },
+    {
+      "id": "TamanhoDoIcone",
+      "label": "Icon size",
+      "description": "Icon size per size comes from `--icon-button-icon-md` and `--icon-button-icon-lg`.",
+      "code": "import { IconButton } from '@refy-design/web';\nimport { ThemeProvider } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst Search = (\n  <svg\n    viewBox=\"0 0 24 24\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeWidth={1.8}\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n  >\n    <circle cx=\"11\" cy=\"11\" r=\"7\" />\n    <path d=\"m21 21-4.3-4.3\" />\n  </svg>\n);\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof IconButton>,\n    'aria-label' | 'icon' | 'variant' | 'size'\n  > = { 'aria-label': 'Search', icon: Search, variant: 'ghost', size: 'md' };\n  return (\n    <ThemeProvider\n      theme={{\n        name: 'Icon size',\n        tokens: { '--icon-button-lg': '36px', '--icon-button-icon-lg': '20px' },\n      }}\n    >\n      <IconButton {...args} size=\"lg\" data-testid=\"iconbutton-lg\" />\n    </ThemeProvider>\n  );\n}"
     }
   ]
 }
