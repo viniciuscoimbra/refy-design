@@ -30,9 +30,24 @@ codex plugin marketplace add viniciuscoimbra/refy-design
 No terminal, instale com `codex plugin add refy@refy`. No app, instale **Refy** na lista de plugins. Só o servidor, sem os atalhos:
 
 ```
-codex mcp add refy -- npx -y --package=@refy-design/web@^1.5.0 refy-mcp
+codex mcp add refy -- npx -y --package=@refy-design/web@1.5.1 refy-mcp
 ```
 
-## O que o servidor faz e o que não faz
+## O que o plugin roda e o que envia
 
-Lê o catálogo e a fundação de tokens que vêm no pacote. Não escreve no projeto e não chama IA. Só `refy_theme_extract` com `url` fala com a rede, e só com o endereço público que você passou.
+O plugin liga um servidor MCP local: `npx` baixa `@refy-design/web` na versão exata do plugin (1.5.1) do registro do npm e roda o comando `refy-mcp` do pacote. Esse servidor:
+
+- lê o catálogo e a fundação de tokens que vêm no pacote;
+- não escreve no projeto e não chama IA; só grava a imagem de diferença do `refy_compare`, na pasta temporária do sistema;
+- do projeto, lê o TypeScript instalado (em toda conferência), os arquivos que você passa em `refy_validate` com `refy-agent.config.json`, `theme.json` e o registro de pranchas, as imagens que você passa em `refy_compare` e o Playwright instalado, quando `refy_theme_extract` abre um site;
+- só fala com a rede em `refy_theme_extract` com `url`: lê a página indicada e as folhas de estilo que ela carrega (até 12, inclusive de outros domínios). Endereço interno (localhost, rede privada) é recusado.
+
+Os atalhos são texto em Markdown. Não há hook, script nem binário no plugin.
+
+## Privacidade
+
+O refy não tem conta, não coleta dado pessoal e não guarda o que você pede ao agente. A política completa está em [PRIVACY.md](https://github.com/viniciuscoimbra/refy-design/blob/main/PRIVACY.md).
+
+## Suporte
+
+Dúvida ou defeito: [issues do refy-design](https://github.com/viniciuscoimbra/refy-design/issues). Licença MIT.

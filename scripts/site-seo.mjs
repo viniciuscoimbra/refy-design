@@ -288,8 +288,11 @@ for (const r of routes) {
 }
 writeFileSync(join(out, "_redirects"), `${[...redirects].map(([from, to]) => `${from} ${to} 301`).join("\n")}\n${LOCALES.map((L) => `${oldAt(L, "/blocks")}/* ${at(L, "/templates")}/:splat 301`).join("\n")}\n`);
 // Arquivo com hash muda de nome a cada build: pode ficar um ano no cache. HTML revalida sempre.
-writeFileSync(join(out, "_headers"), `/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n`);
+writeFileSync(join(out, "_headers"), `/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/.well-known/mcp-registry-auth\n  Content-Type: text/plain; charset=utf-8\n`);
 copyFileSync("site/og.png", join(out, "og.png"));
+// Chave pública que prova ao registro oficial de servidores MCP que refy.design publica design.refy/refy.
+mkdirSync(join(out, ".well-known"), { recursive: true });
+copyFileSync("site/well-known/mcp-registry-auth", join(out, ".well-known", "mcp-registry-auth"));
 // IndexNow: Bing e Yandex aceitam aviso de página nova com esta chave pública (scripts/indexnow.mjs).
 writeFileSync(join(out, `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY);
 writeFileSync(join(out, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /block-preview.html\n\nSitemap: ${SITE}/sitemap.xml\n`);

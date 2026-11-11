@@ -1,10 +1,21 @@
 {
   "name": "refy",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Telas com o design system Refy: busca o componente pela necessidade, confere o código contra a API real e gera tema claro e escuro, inclusive a partir de um site.",
-  "author": { "name": "Vinícius Coimbra", "url": "https://github.com/viniciuscoimbra" },
+  "author": {
+    "name": "Vinícius Coimbra",
+    "url": "https://github.com/viniciuscoimbra"
+  },
   "homepage": "https://refy.design/para-ias/plugin",
   "repository": "https://github.com/viniciuscoimbra/refy-design",
   "license": "MIT",
-  "keywords": ["design-system", "react", "react-native", "mcp", "theme", "ui"]
+  "keywords": [
+    "design-system",
+    "react",
+    "react-native",
+    "mcp",
+    "theme",
+    "ui"
+  ],
+  "icon": "./assets/refy.png"
 }

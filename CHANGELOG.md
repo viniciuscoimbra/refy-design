@@ -2,6 +2,18 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.5.1 (11/11/2026)
+
+### Adicionado
+
+- `PRIVACY.md`: o que o pacote, o plugin e os servidores MCP local e remoto leem, enviam e guardam (nada é guardado).
+- `server.json` descreve o servidor remoto para o registro oficial de servidores MCP.
+
+### Modificado
+
+- O plugin fixa a versão exata do pacote (`@refy-design/web@1.5.1`) em vez de `^1.5.0`. Os diretórios de plugins do Claude e do OpenAI recusam `npx` com faixa de versão; cada release sobe o plugin junto com o pacote.
+- O README do plugin diz o que ele roda e o que envia, e traz privacidade e suporte. O manifesto do Codex ganha ícone, privacidade, termos e suporte.
+
 ## 1.5.0 (11/11/2026)
 
 ### Adicionado

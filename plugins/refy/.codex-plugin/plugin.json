@@ -1,12 +1,22 @@
 {
   "name": "refy",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Telas com o design system Refy: busca o componente pela necessidade, confere o código contra a API real e gera tema claro e escuro, inclusive a partir de um site.",
-  "author": { "name": "Vinícius Coimbra", "url": "https://github.com/viniciuscoimbra" },
+  "author": {
+    "name": "Vinícius Coimbra",
+    "url": "https://github.com/viniciuscoimbra"
+  },
   "homepage": "https://refy.design/para-ias/plugin",
   "repository": "https://github.com/viniciuscoimbra/refy-design",
   "license": "MIT",
-  "keywords": ["design-system", "react", "react-native", "mcp", "theme", "ui"],
+  "keywords": [
+    "design-system",
+    "react",
+    "react-native",
+    "mcp",
+    "theme",
+    "ui"
+  ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
@@ -15,9 +25,21 @@
     "longDescription": "Acha o componente do Refy pela necessidade da tela, escreve o código com a API documentada e roda a conferência do Refy no fim. Gera tema claro e escuro com contraste AA a partir de uma cor ou de um site.",
     "developerName": "Vinícius Coimbra",
     "category": "Design",
-    "capabilities": ["Interactive", "Write"],
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
     "websiteURL": "https://refy.design",
-    "defaultPrompt": ["Faça uma tela de login com refy", "Crie um tema refy a partir de um site", "Confira esta tela contra o refy"],
-    "brandColor": "#2163ad"
+    "defaultPrompt": [
+      "Faça uma tela de login com refy",
+      "Crie um tema refy a partir de um site",
+      "Confira esta tela contra o refy"
+    ],
+    "brandColor": "#2163ad",
+    "supportURL": "https://github.com/viniciuscoimbra/refy-design/issues",
+    "privacyPolicyURL": "https://github.com/viniciuscoimbra/refy-design/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/viniciuscoimbra/refy-design/blob/main/LICENSE",
+    "logo": "./assets/refy.png",
+    "composerIcon": "./assets/refy.png"
   }
 }
