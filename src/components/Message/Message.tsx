@@ -3,7 +3,8 @@ import { Avatar } from "../Avatar";
 import { Bubble } from "../Bubble";
 import { cn } from "../../lib/cn";
 import styles from "./Message.module.css";
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface MessageProps {
   author: string;
   initials?: string;
@@ -19,7 +20,7 @@ export function Message({
   side = "start",
   children,
 }: MessageProps) {
-  const m = useMessages("message");
+  const m = useComponentMessages("message", enMessages.message);
   return (
     <article
       data-refy-message=""

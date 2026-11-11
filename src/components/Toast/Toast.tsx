@@ -11,7 +11,8 @@ import type { ReactNode } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./Toast.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type ToastTone = "default" | "success" | "danger";
 
 /** Dados de um toast na pilha. */
@@ -73,7 +74,7 @@ export function Toast({
   duration = 5000,
   onDismiss,
 }: ToastProps) {
-  const common = useMessages("common");
+  const common = useComponentMessages("common", enMessages.common);
   const nodeRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
   useLayoutEffect(() => {

@@ -6,7 +6,8 @@ import { Fab } from "../Fab";
 import { Menu, type MenuEntry } from "../Menu";
 import styles from "./FabMenu.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface FabMenuAction {
   id: string;
   label: string;
@@ -49,7 +50,7 @@ export function FabMenu({
   align = "end",
   className,
 }: FabMenuProps) {
-  const m = useMessages("fabMenu");
+  const m = useComponentMessages("fabMenu", enMessages.fabMenu);
   const label = labelProp ?? m.open;
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const isControlled = open !== undefined;

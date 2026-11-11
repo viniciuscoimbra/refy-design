@@ -30,7 +30,7 @@ codex plugin marketplace add viniciuscoimbra/refy-design
 No terminal, instale com `codex plugin add refy@refy`. No app, instale **Refy** na lista de plugins. Só o servidor, sem os atalhos:
 
 ```
-codex mcp add refy -- npx -y --package=@refy-design/web@^1.4.0 refy-mcp
+codex mcp add refy -- npx -y --package=@refy-design/web@^1.5.0 refy-mcp
 ```
 
 ## O que o servidor faz e o que não faz

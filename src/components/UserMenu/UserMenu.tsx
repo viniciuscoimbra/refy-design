@@ -5,7 +5,8 @@ import { Menu, type MenuEntry } from "../Menu";
 import { cn } from "../../lib/cn";
 import styles from "./UserMenu.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 import type { RefyMessages } from "../../lib/messages/en";
 export interface UserMenuUser {
   name: string;
@@ -82,7 +83,7 @@ export function UserMenu({
   className,
   "aria-describedby": describedBy,
 }: UserMenuProps) {
-  const m = useMessages("userMenu");
+  const m = useComponentMessages("userMenu", enMessages.userMenu);
   const entries = entriesProp ?? defaultEntries(m);
   const [open, setOpen] = useState(false);
   return (

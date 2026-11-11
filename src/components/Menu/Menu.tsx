@@ -6,7 +6,8 @@ import { Kbd } from "../Kbd";
 import { cn } from "../../lib/cn";
 import styles from "./Menu.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Item acionável, separador ou rótulo de seção. */
 export type MenuEntry =
   | {
@@ -75,7 +76,7 @@ export function Menu({
   matchWidth = false,
   anchorPoint,
 }: MenuProps) {
-  const m = useMessages("menu");
+  const m = useComponentMessages("menu", enMessages.menu);
   const ariaLabel = ariaLabelProp ?? m.label;
   const generatedId = useId();
   const menuId = id ?? generatedId;

@@ -4,7 +4,8 @@ import type { ReactNode } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./Matrix2x2.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Um item plotado na matriz. `x`/`y` em % (0–100). */
 export interface MatrixPoint {
   id: string;
@@ -63,7 +64,7 @@ export function Matrix2x2({
   onPointClick,
   className,
 }: Matrix2x2Props) {
-  const m = useMessages("matrix2x2");
+  const m = useComponentMessages("matrix2x2", enMessages.matrix2x2);
   const xLabel = xLabelProp ?? m.xLabel;
   const yLabel = yLabelProp ?? m.yLabel;
   const legend = legendProp ?? [m.high, m.low];

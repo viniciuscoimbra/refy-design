@@ -4,7 +4,8 @@ import { Button } from "../Button";
 import { cn } from "../../lib/cn";
 import styles from "./GoogleButton.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type GoogleButtonProps = Omit<ButtonProps, "variant" | "leadingIcon">;
 
 function GoogleIcon() {
@@ -22,7 +23,7 @@ export const GoogleButton = forwardRef<HTMLButtonElement, GoogleButtonProps>(fun
   { children: childrenProp, className, ...props },
   ref
 ) {
-  const continueWith = useMessages("oauthButton").continueWith;
+  const continueWith = useComponentMessages("oauthButton", enMessages.oauthButton).continueWith;
   const children = childrenProp ?? continueWith("Google");
   return (
     <Button

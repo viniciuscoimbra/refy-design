@@ -8,7 +8,8 @@ import { useDialogFocusTrap } from "../../lib/useDialogFocusTrap";
 import { IconButton } from "../IconButton";
 import styles from "./Modal.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 const CloseIcon = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M18 6 6 18M6 6l12 12" />
@@ -36,8 +37,8 @@ export interface ModalProps extends ModalCoreProps {
 
 /** Modal centralizado com scrim, fecha no Esc / clique fora / botão ✕. */
 export function Modal({ role = "dialog", hideCloseButton = false, closeOnBackdrop = true, ariaDescribedBy, open, onClose, title, ariaLabel: ariaLabelProp, footer, width = 520, children, className }: ModalProps) {
-  const m = useMessages("modal");
-  const common = useMessages("common");
+  const m = useComponentMessages("modal", enMessages.modal);
+  const common = useComponentMessages("common", enMessages.common);
   const ariaLabel = ariaLabelProp ?? m.label;
   const modalRef = useRef<HTMLDivElement>(null);
   const present = usePresence(open, modalRef);

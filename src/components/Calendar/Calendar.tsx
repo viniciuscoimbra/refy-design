@@ -3,7 +3,8 @@ import { useMemo, useState } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./Calendar.module.css";
 
-import { useMessages, useLocale } from "../../lib/locale";
+import { useComponentMessages, useLocale } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type CalendarMode = "single" | "range";
 
 /** Intervalo de datas (modo `range`). */
@@ -76,7 +77,7 @@ export function Calendar({
   monthLabelStyle = "long",
   className,
 }: CalendarProps) {
-  const m = useMessages("calendar");
+  const m = useComponentMessages("calendar", enMessages.calendar);
   const contextLocale = useLocale();
   const locale = localeProp ?? contextLocale;
   const emptyRange: DateRange = { start: null, end: null };

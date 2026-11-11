@@ -3,7 +3,8 @@ import { cn } from "../../lib/cn";
 import { Card } from "../Card";
 import styles from "./BillingCard.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Props for the BillingCard component. */
 export interface BillingCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /** Method brand/icon (ReactNode; the DS does not bundle logos). E.g. <span>VISA</span>. */
@@ -47,7 +48,7 @@ export function BillingCard({
   className,
   ...rest
 }: BillingCardProps) {
-  const m = useMessages("billingCard");
+  const m = useComponentMessages("billingCard", enMessages.billingCard);
   const nextChargeLabel = nextChargeLabelProp ?? m.nextCharge;
   const hasFooter = nextChargeAmount != null || actions != null;
   return (

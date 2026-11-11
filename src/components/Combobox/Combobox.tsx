@@ -7,7 +7,8 @@ import { Avatar } from "../Avatar";
 import { cn } from "../../lib/cn";
 import styles from "./Combobox.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Avatar de uma opção "pessoa ou equipe". */
 export interface ComboboxOptionAvatar {
   /** Nome — origem das iniciais quando não há foto. */
@@ -163,7 +164,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
     },
     ref,
   ) {
-    const m = useMessages("combobox");
+    const m = useComponentMessages("combobox", enMessages.combobox);
     const emptyMessage = emptyMessageProp ?? m.empty;
     const placeholder = placeholderProp ?? m.placeholder;
     const uid = useId();

@@ -1,4 +1,4 @@
-import { en } from "../../../lib/messages/en";
+import { d3Chart as enD3Chart } from "../../../lib/messages/en";
 import type { RefyMessages } from "../../../lib/messages/en";
 import {
   forceSimulation,
@@ -18,7 +18,7 @@ export function relationScene(
   props: D3ChartProps,
   layout: ChartLayout,
   hidden: string[],
-  text: RefyMessages["d3Chart"] = en.d3Chart,
+  text: RefyMessages["d3Chart"] = enD3Chart,
 ): ChartScene {
   const { width: w, height: h, left: l, right: r, top: t, bottom: b } = layout,
     W = w - l - r,

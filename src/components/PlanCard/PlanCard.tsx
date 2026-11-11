@@ -3,7 +3,8 @@ import { cn } from "../../lib/cn";
 import { Button } from "../Button";
 import styles from "./PlanCard.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Props for the PlanCard component. */
 export interface PlanCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /** Plan name. E.g. "Pro". */
@@ -63,7 +64,7 @@ export function PlanCard({
   className,
   ...rest
 }: PlanCardProps) {
-  const m = useMessages("planCard");
+  const m = useComponentMessages("planCard", enMessages.planCard);
   const currentLabel = currentLabelProp ?? m.current;
   const highlightLabel = highlightLabelProp ?? m.recommended;
   const tag = current ? currentLabel : highlighted ? highlightLabel : null;

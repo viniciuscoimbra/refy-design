@@ -17,7 +17,8 @@ import type { InputHTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./Multiselect.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Uma opção selecionável do Multiselect. */
 export interface MultiselectOption {
   /** Identificador estável da opção. */
@@ -85,7 +86,7 @@ export const Multiselect = forwardRef<HTMLInputElement, MultiselectProps>(
     },
     ref,
   ) {
-    const m = useMessages("multiselect");
+    const m = useComponentMessages("multiselect", enMessages.multiselect);
     const emptyMessage = emptyMessageProp ?? m.empty;
     const placeholder = placeholderProp ?? m.placeholder;
     const uid = useId();

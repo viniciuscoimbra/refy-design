@@ -6,7 +6,8 @@ import { Tooltip } from "../Tooltip";
 import { cn } from "../../lib/cn";
 import styles from "./AvatarGroup.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Uma pessoa (ou workspace) dentro do AvatarGroup. */
 export interface AvatarGroupItem {
   /** Nome completo — vira tooltip e origem das iniciais. */
@@ -56,7 +57,7 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(function
   { items, max = 4, size = "md", onItemClick, onOverflowClick, className, ...rest },
   ref
 ) {
-  const m = useMessages("avatarGroup");
+  const m = useComponentMessages("avatarGroup", enMessages.avatarGroup);
   const visible = items.slice(0, Math.max(0, max));
   const rest_ = items.slice(Math.max(0, max));
   const overflow = rest_.length;

@@ -8,7 +8,8 @@ import { Select } from "../Select";
 import { Skeleton } from "../Skeleton";
 import styles from "./Table.module.css";
 
-import { useLocale, useMessages } from "../../lib/locale";
+import { useLocale, useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface Column<Row> {
   /** Chave única da coluna. */
   key: string;
@@ -97,7 +98,7 @@ export function Table<Row>({
   minTableWidth,
   className,
 }: TableProps<Row>) {
-  const m = useMessages("table");
+  const m = useComponentMessages("table", enMessages.table);
   const searchPlaceholder = searchPlaceholderProp ?? m.search;
   const locale = useLocale();
   const [query, setQuery] = useState("");

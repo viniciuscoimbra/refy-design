@@ -6,7 +6,8 @@ import { Button } from "../Button";
 import styles from "./MessageScroller.module.css";
 import { ScrollArea } from "../ScrollArea";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export function MessageScroller({
   children,
   label: labelProp,
@@ -16,7 +17,7 @@ export function MessageScroller({
   label?: string;
   maxHeight?: number;
 }) {
-  const m = useMessages("messageScroller");
+  const m = useComponentMessages("messageScroller", enMessages.messageScroller);
   const label = labelProp ?? m.label;
   const ref = useRef<HTMLDivElement>(null),
     [follow, setFollow] = useState(true);

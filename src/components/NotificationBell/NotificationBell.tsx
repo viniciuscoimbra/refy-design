@@ -5,7 +5,8 @@ import { IconButton } from "../IconButton";
 import { cn } from "../../lib/cn";
 import styles from "./NotificationBell.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface NotificationItem {
   id: string;
   title: string;
@@ -46,7 +47,7 @@ export function NotificationBell({
   emptyMessage: emptyMessageProp,
   className,
 }: NotificationBellProps) {
-  const m = useMessages("notificationBell");
+  const m = useComponentMessages("notificationBell", enMessages.notificationBell);
   const title = titleProp ?? m.title;
   const emptyMessage = emptyMessageProp ?? m.empty;
   const [open, setOpen] = useState(false);

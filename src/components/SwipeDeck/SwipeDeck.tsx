@@ -13,7 +13,8 @@ import { motionTiming } from "../../lib/motionTiming";
 import { useDecisionLabels } from "../PropertyActionGroup/PropertyActionGroup";
 import styles from "./SwipeDeck.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface SwipeDeckItem extends PropertyCardProps {
   id: string;
 }
@@ -47,7 +48,7 @@ export function SwipeDeck({
   title: titleProp,
   instructions = "visible",
 }: SwipeDeckProps) {
-  const m = useMessages("swipeDeck");
+  const m = useComponentMessages("swipeDeck", enMessages.swipeDeck);
   const title = titleProp ?? m.title;
   const decisionLabels = useDecisionLabels();
   const [internalIndex, setInternalIndex] = useState(defaultIndex);

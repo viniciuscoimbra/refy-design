@@ -88,3 +88,25 @@ Cenário: pacote 1.3.0 de `npm pack` num consumidor limpo com React 18.3.1, um a
 
 O esbuild descarta o JavaScript das famílias não usadas, mas monta o CSS pelo grafo de imports antes disso: os 117 arquivos `.css` alcançados pelo barrel entram. `node scripts/check-css-budget.mjs`, dentro do `npm run check`, mede o Vite pela raiz e o esbuild pelo caminho da família contra o orçamento e imprime o esbuild pela raiz.
 
+## Textos prontos e tokens, 11/11/2026
+
+O artigo da LBP sobre o refy mediu 184 KB de JS gzip num app real e disse, com razão, que o número não isolava o refy. A medição por família (`node scripts/measure-family-cost.mjs`, depois do `npm run build`) achou dois custos que nenhuma família precisava pagar:
+
+- Qualquer componente com texto pronto (Tabs, Pagination, Callout, Table e mais 65) levava o dicionário em inglês de todos os componentes, 16 KB sem gzip. Agora cada componente importa só o próprio texto; `LocaleProvider` continua trazendo os três idiomas, porque é ele que troca o idioma. `node scripts/check-messages-split.mjs`, no `npm run check`, reprova a volta.
+- `tokens.css` repetia nos modos claro, escuro e editorial os mesmos 312 de 399 tokens. O que é igual nos três modos agora sai uma vez, num seletor que casa os mesmos elementos. Num navegador, 33.930 valores computados (raiz, escopo aninhado, troca de modo e tema próprio) saíram iguais antes e depois.
+
+Vite 6, React externo, tokens.css mais uma família importada pela raiz, bytes gzip:
+
+| | Antes | Depois |
+|---|---:|---:|
+| tokens.css sozinho (CSS) | 7.987 | 6.803 |
+| tokens.css sem gzip | 97.856 | 53.803 |
+| JS mediano das 122 famílias | 6.489 | 1.755 |
+| Pagination (JS) | 6.179 | 985 |
+| Tabs (JS) | 7.020 | 1.804 |
+| Callout (JS) | 6.975 | 1.726 |
+| Table (JS) | 10.643 | 5.611 |
+| 15 famílias de painel juntas: Button, Card, Callout, Badge, Table, Input, Select, Tabs, Toast, Modal, EmptyState, Stat, Topbar, Skeleton, ProgressBar (JS / CSS) | 26.559 / 19.329 | 21.745 / 18.150 |
+
+Para medir de novo qualquer família: `node scripts/measure-family-cost.mjs saida.json Pagination Tabs`. Button, Card e Badge não mudaram de JS: não tinham texto pronto.
+

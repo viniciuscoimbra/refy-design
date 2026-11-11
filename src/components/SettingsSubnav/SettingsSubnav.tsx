@@ -2,7 +2,8 @@ import type { MouseEventHandler, ReactElement, ReactNode } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./SettingsSubnav.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Uma subpágina do menu secundário. */
 export interface SettingsSubnavItem {
   href: string;
@@ -67,7 +68,7 @@ export function SettingsSubnav({
   onNavigate,
   className,
 }: SettingsSubnavProps) {
-  const m = useMessages("settingsSubnav");
+  const m = useComponentMessages("settingsSubnav", enMessages.settingsSubnav);
   const label = labelProp ?? m.label;
   const resolvedGroups: SettingsSubnavGroup[] = groups ?? (items ? [{ items }] : []);
 

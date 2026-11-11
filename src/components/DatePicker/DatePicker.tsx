@@ -4,7 +4,8 @@ import { Button } from '../Button';
 import { Label } from '../Label';
 import { Popover } from '../Popover';
 import { Calendar } from '../Calendar';
-import { useMessages, useLocale } from "../../lib/locale";
+import { useComponentMessages, useLocale } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface DatePickerProps {
   label: string;
   value?: Date | null;
@@ -23,7 +24,7 @@ export function DatePicker({
   max,
   disabled,
 }: DatePickerProps) {
-  const m = useMessages("datePicker");
+  const m = useComponentMessages("datePicker", enMessages.datePicker);
   const locale = useLocale();
   const [internal, setInternal] = useState(defaultValue),
     [open, setOpen] = useState(false),

@@ -6,7 +6,8 @@ import { IconButton } from "../IconButton";
 import styles from "./CodeBlock.module.css";
 import { highlight } from "./highlight";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Props for the CodeBlock component. */
 export interface CodeBlockProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -141,7 +142,7 @@ export function CodeBlock({
   className,
   ...rest
 }: CodeBlockProps) {
-  const m = useMessages("codeBlock");
+  const m = useComponentMessages("codeBlock", enMessages.codeBlock);
   const copyLabel = copyLabelProp ?? m.copy;
   const copiedLabel = copiedLabelProp ?? m.copied;
   const revealLabel = revealLabelProp ?? m.reveal;

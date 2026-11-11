@@ -5,7 +5,8 @@ import type { ReactNode } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./Tabs.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface TabItem {
   id: string;
   label: string;
@@ -45,7 +46,7 @@ export function Tabs({
   wrap = false,
   className,
 }: TabsProps) {
-  const m = useMessages("tabs");
+  const m = useComponentMessages("tabs", enMessages.tabs);
   const [internal, setInternal] = useState(defaultValue ?? items[0]?.id);
   const active = value ?? internal;
   const base = useId();

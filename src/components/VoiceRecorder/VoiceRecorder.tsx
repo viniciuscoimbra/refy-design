@@ -6,7 +6,8 @@ import { IconButton } from "../IconButton";
 import { ProgressBar } from "../ProgressBar";
 import styles from "./VoiceRecorder.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type VoiceRecorderState = "idle" | "listening" | "paused" | "error" | "fallback";
 
 export interface VoiceRecorderProps {
@@ -58,7 +59,7 @@ export function VoiceRecorder({
   onUseFallback,
   className,
 }: VoiceRecorderProps) {
-  const m = useMessages("voiceRecorder");
+  const m = useComponentMessages("voiceRecorder", enMessages.voiceRecorder);
   const errorMessage = errorMessageProp ?? m.error;
   const normalizedLevel = Math.max(0, Math.min(100, level));
 

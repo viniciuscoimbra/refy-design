@@ -5,7 +5,8 @@ import type { InputHTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./PhoneInput.module.css";
 
-import { useLocale, useMessages } from "../../lib/locale";
+import { useLocale, useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface PhoneCountry {
   code: string;
   name: string;
@@ -63,7 +64,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(function
   const generatedId = useId();
   const fieldId = id ?? `${generatedId}-phone`;
   const helpId = error || hint ? `${fieldId}-help` : undefined;
-  const m = useMessages("phoneInput");
+  const m = useComponentMessages("phoneInput", enMessages.phoneInput);
   const locale = useLocale();
   const regionName = (item: PhoneCountry) => {
     try {

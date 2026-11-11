@@ -5,7 +5,8 @@ import type { MouseEvent } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./TableOfContents.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Uma âncora do sumário. `id` é o id do elemento-alvo na página. */
 export interface TocItem {
   id: string;
@@ -62,7 +63,7 @@ export function TableOfContents({
   sticky = false,
   className,
 }: TableOfContentsProps) {
-  const m = useMessages("tableOfContents");
+  const m = useComponentMessages("tableOfContents", enMessages.tableOfContents);
   const label = labelProp ?? m.label;
   const [internal, setInternal] = useState<string | undefined>(
     defaultActiveId ?? items[0]?.id,

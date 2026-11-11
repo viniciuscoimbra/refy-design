@@ -2,7 +2,8 @@ import { useId } from 'react';
 import type { ReactNode } from 'react';
 import { Modal } from '../Modal';
 import { Button } from '../Button';
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface AlertDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -25,7 +26,7 @@ export function AlertDialog({
   destructive = false,
   pending = false,
 }: AlertDialogProps) {
-  const m = useMessages("alertDialog");
+  const m = useComponentMessages("alertDialog", enMessages.alertDialog);
   const confirmLabel = confirmLabelProp ?? m.confirm;
   const cancelLabel = cancelLabelProp ?? m.cancel;
   const description = useId();

@@ -12,8 +12,10 @@ type DeepPartial<T> = { [K in keyof T]?: T[K] extends (...args: never[]) => unkn
 /** Textos que os componentes trazem prontos, por idioma. Outro idioma entra por `messages`. */
 export const builtInMessages: Record<"en" | "pt" | "es", RefyMessages> = { en, pt, es };
 
-interface LocaleScope { locale: string; messages: RefyMessages }
-const Context = createContext<LocaleScope>({ locale: "en", messages: en });
+// Sem provider não há dicionário no contexto: cada componente cai no próprio texto em inglês, que
+// ele importa sozinho. Assim uma tela sem LocaleProvider não leva os textos dos outros componentes.
+interface LocaleScope { locale: string; messages?: RefyMessages }
+const Context = createContext<LocaleScope>({ locale: "en" });
 
 export interface LocaleProviderProps {
   /** Tag BCP 47, como "en", "pt-BR" ou "es". Define os textos prontos e a formatação de datas e números. */
@@ -45,5 +47,10 @@ export function useLocale() { return useContext(Context).locale; }
 
 /** Textos prontos de um componente no idioma em vigor. */
 export function useMessages<K extends keyof RefyMessages>(component: K): RefyMessages[K] {
-  return useContext(Context).messages[component];
+  return useContext(Context).messages?.[component] ?? en[component];
+}
+
+/** Uso interno: o componente passa o próprio texto em inglês e não puxa o dicionário inteiro. */
+export function useComponentMessages<K extends keyof RefyMessages>(component: K, fallback: RefyMessages[K]): RefyMessages[K] {
+  return useContext(Context).messages?.[component] ?? fallback;
 }

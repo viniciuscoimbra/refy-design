@@ -9,7 +9,8 @@ import { Skeleton } from "../Skeleton";
 import { cn } from "../../lib/cn";
 import styles from "./PropertyMedia.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface PropertyMediaItem {
   src: string;
   alt: string;
@@ -73,7 +74,7 @@ export function PropertyMedia({
   onKeyDown,
   ...rest
 }: PropertyMediaProps) {
-  const m = useMessages("propertyMedia");
+  const m = useComponentMessages("propertyMedia", enMessages.propertyMedia);
   const [internalIndex, setInternalIndex] = useState(defaultIndex);
   const [imageResult, setImageResult] = useState<{
     src?: string;

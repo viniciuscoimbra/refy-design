@@ -13,7 +13,7 @@
 
 [Criar com componentes, templates e Playground](docs/CREATION_PLAYGROUND.md): escolha uma composição, personalize o tema e exporte para seu projeto. O site [refy.design](https://refy.design) mostra os mesmos componentes rodando.
 
-[Guia das 118 famílias](docs/COMPONENT_USAGE.md): quando usar, alternativas e teclado implementado, com API e exemplos do pacote.
+[Guia das 122 famílias](docs/COMPONENT_USAGE.md): quando usar, alternativas e teclado implementado, com API e exemplos do pacote.
 
 **A mesma interface, com a identidade do seu produto.** Refy é uma biblioteca React/TypeScript criada por Vinícius Coimbra, sob licença [MIT](LICENSE).
 
@@ -52,10 +52,10 @@ Além de átomos, moléculas e organismos, o catálogo oferece coleções por ca
 
 ## Usar com agentes
 
-O pacote inclui um catálogo versionado de componentes, APIs, exemplos e instruções para transformar telas React preservando seus fluxos. Depois de instalar o tarball no projeto, consulte apenas o que precisa:
+O pacote inclui um catálogo versionado de componentes, APIs, exemplos e instruções para transformar telas React preservando seus fluxos. Depois de instalar o pacote, consulte só o que precisa. `catalog` aceita o nome exato ou a necessidade em português, inglês ou espanhol, com a mesma busca do `refy_search`:
 
 ```bash
-npm exec --offline -- refy-agent catalog formulário
+npm exec --offline -- refy-agent catalog tabela de dados
 npm exec --offline -- refy-agent component Input
 npm exec --offline -- refy-agent inspect src/Tela.tsx
 npm exec --offline -- refy-agent check src/Tela.tsx src/tela.css
@@ -67,7 +67,7 @@ O mesmo kit roda como servidor MCP, para o agente consultar sem sair da conversa
 claude mcp add refy -- npx --no-install refy-mcp
 ```
 
-São seis ferramentas: `refy_search` acha a família pela necessidade escrita em português, inglês ou espanhol; `refy_component` lê a API; `refy_collections` lista as coleções; `refy_validate` confere o código contra a API e as regras do `check`; `refy_theme_generate` e `refy_theme_validate` geram e conferem tema com contraste AA. [Configuração em outros clientes e limites](docs/MCP.md).
+São oito ferramentas: `refy_search` acha a família pela necessidade escrita em português, inglês ou espanhol; `refy_component` lê a API; `refy_collections` lista as coleções; `refy_validate` confere o código contra a API e as regras do `check`; `refy_theme_generate` e `refy_theme_validate` geram e conferem tema com contraste AA; `refy_theme_extract` tira o tema de um site; `refy_compare` compara a captura do original com a tela do refy. O servidor remoto (refy.design/mcp) tem as sete primeiras: ele não lê arquivos da sua máquina. [Configuração em outros clientes e limites](docs/MCP.md).
 
 Consulta exige Node; análise de código usa o TypeScript de desenvolvimento do projeto. O kit é local, somente leitura e não carrega parser ou IA no navegador. As verificações detectam regras conhecidas e informam exceções/limites; testes de fluxo e revisão visual continuam necessários. [Contrato, piloto antes/depois e uso completo](docs/AGENT_ADOPTION.md).
 
@@ -118,13 +118,13 @@ export function Cadastro() {
 
 `global.css` é um reset **opcional** para projetos novos; afeta a aplicação inteira. Sistemas existentes podem manter seu próprio reset. `fonts.css` também é opcional se o produto já fornece suas fontes. [Temas e exportação](docs/THEMING.md).
 
-Next.js App Router (Server Components): [docs/NEXT_E_REACT_NATIVE.md](docs/NEXT_E_REACT_NATIVE.md). React Native: em breve. O código está em `packages/native`, mas ainda não há pacote para instalar.
+Next.js App Router (Server Components): [docs/NEXT_E_REACT_NATIVE.md](docs/NEXT_E_REACT_NATIVE.md). React Native: `npx expo install @refy-design/mobile react-native-svg`, com o mesmo contrato de props e o mesmo JSON de tema da web ([guia](packages/native/README.md)).
 
 ## O que há no catálogo
 
-- **Componentes:** 118 famílias, organizadas em Átomos, Moléculas e Organismos, com uso, composição, API, exemplos interativos e código copiável. Os 460 trechos derivados das fontes são compilados contra a API pública; isso não certifica todas as famílias.
-- **Demonstração:** jornada de aplicação. Acesso e Setup ficam nas composições de Blocks e nos fluxos internos. [Roteiro e limites](docs/PLAYGROUND_JOURNEYS.md).
-- **Blocks:** categorias e variações de composições com prévia responsiva e arquivos reais. [Guia](docs/BLOCKS.md).
+- **Componentes:** 122 famílias (33 átomos, 63 moléculas e 26 organismos), com uso, composição, API, exemplos interativos e código copiável. Os 523 trechos derivados das fontes são compilados contra a API pública; isso não certifica todas as famílias.
+- **Demonstração:** jornada de aplicação. Acesso e Setup ficam nos templates e nos fluxos internos. [Roteiro e limites](docs/PLAYGROUND_JOURNEYS.md).
+- **Templates** (`Block` no código, /templates no site): telas inteiras por finalidade com prévia responsiva e arquivos reais. [Guia](docs/BLOCKS.md).
 - **Charts:** catálogo D3 com 24 tipos, eixos, legendas, tooltip, zoom/brush e streaming conforme cada família. [Contratos](docs/CHARTS.md).
 - **Tipografia:** texto Lorem ipsum para experimentar a tipografia do tema.
 

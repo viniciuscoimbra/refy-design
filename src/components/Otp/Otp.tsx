@@ -4,7 +4,8 @@ import type { HTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./Otp.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Props for the OTP input group. */
 export interface OtpProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange"> {
@@ -58,7 +59,7 @@ export const Otp = forwardRef<HTMLDivElement, OtpProps>(function Otp(
   },
   ref
 ) {
-  const m = useMessages("otp");
+  const m = useComponentMessages("otp", enMessages.otp);
   const label = labelProp ?? m.label;
   const [internal, setInternal] = useState(defaultValue.slice(0, length));
   const code = (value !== undefined ? value : internal).slice(0, length);

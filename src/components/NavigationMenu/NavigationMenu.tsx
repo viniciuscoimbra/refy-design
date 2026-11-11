@@ -4,7 +4,8 @@ import { Button } from '../Button';
 import { Menu } from '../Menu';
 import type { MenuEntry } from '../Menu';
 import styles from './NavigationMenu.module.css';
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface NavigationMenuItem {
   id: string;
   label: string;
@@ -23,7 +24,7 @@ export function NavigationMenu({
   onNavigate,
   label: labelProp,
 }: NavigationMenuProps) {
-  const m = useMessages("navigationMenu");
+  const m = useComponentMessages("navigationMenu", enMessages.navigationMenu);
   const label = labelProp ?? m.label;
   const [open, setOpen] = useState('');
   return (

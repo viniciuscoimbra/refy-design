@@ -7,7 +7,8 @@ import { Tabs, type TabItem } from "../Tabs";
 import { cn } from "../../lib/cn";
 import styles from "./Topbar.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface Crumb {
   label: string;
   href?: string;
@@ -56,7 +57,7 @@ export function Topbar({
   actions,
   className,
 }: TopbarProps) {
-  const m = useMessages("topbar");
+  const m = useComponentMessages("topbar", enMessages.topbar);
   const searchPlaceholder = searchPlaceholderProp ?? m.search;
   return (
     <header className={cn(styles.topbar, composition === "dense" && styles.dense, className)}>

@@ -2,7 +2,8 @@
 import { useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import styles from './Resizable.module.css';
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface ResizableProps {
   first: ReactNode;
   second: ReactNode;
@@ -23,7 +24,7 @@ export function Resizable({
   min = 20,
   max = 80,
 }: ResizableProps) {
-  const m = useMessages("resizable");
+  const m = useComponentMessages("resizable", enMessages.resizable);
   const label = labelProp ?? m.label;
   const [internal, setInternal] = useState(defaultSize),
     ref = useRef<HTMLDivElement>(null),

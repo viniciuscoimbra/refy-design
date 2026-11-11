@@ -1,4 +1,4 @@
-import { en } from "../../../lib/messages/en";
+import { d3Chart as enD3Chart } from "../../../lib/messages/en";
 import type { RefyMessages } from "../../../lib/messages/en";
 import {
   hierarchy,
@@ -24,7 +24,7 @@ export function hierarchyScene(
   props: D3ChartProps,
   layout: ChartLayout,
   hidden: string[],
-  text: RefyMessages["d3Chart"] = en.d3Chart,
+  text: RefyMessages["d3Chart"] = enD3Chart,
 ): ChartScene {
   if (!("root" in props)) return { marks: [] };
   const { width: w, height: h, top: t, bottom: b, left: l, right: r } = layout,

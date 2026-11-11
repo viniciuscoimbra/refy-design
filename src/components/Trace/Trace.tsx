@@ -1,7 +1,8 @@
 import { Accordion } from '../Accordion';
 import { Badge } from '../Badge';
 import { CodeBlock } from '../CodeBlock';
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface TraceStep {
   id: string;
   title: string;
@@ -14,7 +15,7 @@ export interface TraceProps {
   label?: string;
 }
 export function Trace({ steps, label: labelProp }: TraceProps) {
-  const m = useMessages("trace");
+  const m = useComponentMessages("trace", enMessages.trace);
   const label = labelProp ?? m.label;
   const labels = { pending: m.pending, running: m.running, complete: m.complete, error: m.error };
   return (

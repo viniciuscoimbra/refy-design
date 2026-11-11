@@ -14,7 +14,8 @@ import { WorkspaceSwitcher } from "../WorkspaceSwitcher";
 import type { Workspace } from "../WorkspaceSwitcher";
 import styles from "./Sidebar.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface SidebarNavItem {
   id: string;
   label: string;
@@ -91,7 +92,7 @@ export function Sidebar({
   onModeChange,
   onNavigate,
 }: SidebarProps) {
-  const m = useMessages("sidebar");
+  const m = useComponentMessages("sidebar", enMessages.sidebar);
   const [internalMode, setInternalMode] = useState<SidebarMode>(defaultMode ?? (defaultCollapsed ? "compact" : "expanded"));
   const [internalActive, setInternalActive] = useState(defaultActiveId);
   const active = activeId !== undefined ? activeId : internalActive;

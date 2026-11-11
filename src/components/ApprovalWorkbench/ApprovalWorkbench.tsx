@@ -4,7 +4,8 @@ import { ProgressBar } from "../ProgressBar";
 import { cn } from "../../lib/cn";
 import styles from "./ApprovalWorkbench.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type ApprovalWorkbenchItemState =
   | "not-started"
   | "in-progress"
@@ -51,7 +52,7 @@ export function ApprovalWorkbench({
   className,
   ...rest
 }: ApprovalWorkbenchProps) {
-  const m = useMessages("approvalWorkbench");
+  const m = useComponentMessages("approvalWorkbench", enMessages.approvalWorkbench);
   const label = labelProp ?? m.label;
   const completed = items.filter((item) => item.state === "complete").length;
   const progress = items.length === 0 ? 0 : (completed / items.length) * 100;

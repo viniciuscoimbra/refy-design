@@ -7,7 +7,8 @@ import { StatusDot } from "../StatusDot";
 import { cn } from "../../lib/cn";
 import styles from "./Timeline.module.css";
 
-import { useLocale, useMessages } from "../../lib/locale";
+import { useLocale, useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface TimelineMilestone {
   id: string;
   timestamp: Date | string;
@@ -30,7 +31,7 @@ export interface TimelineProps {
 }
 /** Marcos de uma jornada. Ocorrências e autoria pertencem a ActivityTimeline. */
 export function Timeline({ items, title, description, orientation = "vertical", locale: localeProp, timezone = "America/Sao_Paulo", emptyMessage: emptyMessageProp, className }: TimelineProps) {
-  const m = useMessages("timeline");
+  const m = useComponentMessages("timeline", enMessages.timeline);
   const contextLocale = useLocale();
   const locale = localeProp ?? contextLocale;
   const emptyMessage = emptyMessageProp ?? m.empty;

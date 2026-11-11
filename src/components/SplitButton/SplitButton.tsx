@@ -6,7 +6,8 @@ import { Button } from "../Button";
 import { Menu, type MenuEntry } from "../Menu";
 import styles from "./SplitButton.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface SplitButtonOption {
   id?: string;
   label: string;
@@ -64,7 +65,7 @@ export function SplitButton({
   defaultOptionId,
   className,
 }: SplitButtonProps) {
-  const m = useMessages("splitButton");
+  const m = useComponentMessages("splitButton", enMessages.splitButton);
   const loadingLabel = loadingLabelProp ?? m.loading;
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const optionId = (option: SplitButtonOption, index: number) => option.id ?? `${index}-${option.label}`;

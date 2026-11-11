@@ -21,7 +21,7 @@ const GLOSSARY = {
   botao: ["button", "action"], boton: ["button", "action"], acao: ["action"], acoes: ["action"], accion: ["action"],
   clicar: ["click", "button"], clique: ["click"], enviar: ["send", "submit", "button"], salvar: ["save", "button"],
   guardar: ["save"], confirmar: ["confirm", "confirmation"], confirmacao: ["confirm", "confirmation"], confirmacion: ["confirm", "confirmation"],
-  cancelar: ["cancel"], excluir: ["delete", "danger"], apagar: ["delete", "danger"], eliminar: ["delete", "danger"],
+  cancelar: ["cancel"], excluir: ["delete", "danger"], apagar: ["delete", "danger"], exclusao: ["delete", "danger"], exclusion: ["delete", "danger"], eliminar: ["delete", "danger"],
   borrar: ["delete", "danger"], perigo: ["danger", "sensitive"], peligro: ["danger"], irreversivel: ["undone", "danger"],
   icone: ["icon"], icono: ["icon"], flutuante: ["floating"], flotante: ["floating"],
   entrar: ["sign", "login"], login: ["sign", "login"], logar: ["sign"], acesso: ["sign", "access"],
@@ -100,6 +100,9 @@ const GLOSSARY = {
   imovel: ["property", "card"], imoveis: ["property"], produto: ["product", "card"], loja: ["store", "card", "price"],
   deslizar_cartas: ["swipe"], swipe: ["swipe", "deck", "gestures"], arrastar: ["drag", "slider", "kanban"],
   direcao: ["direction"], pagina: ["page"], paginas: ["page"], ir: ["going", "go"], outra: ["another"], outro: ["another"], otra: ["another"],
+  dados: ["data", "table"], datos: ["data", "table"], dado: ["data"], registros: ["records", "table"],
+  tabela_de_dados: ["table", "data"], tabla_de_datos: ["table", "data"], data_table: ["table", "data"], data_grid: ["table", "data"],
+  tela_de_login: ["sign", "login", "oauth"], pantalla_de_login: ["sign", "login"], sign_in: ["sign", "login"],
   lista: ["list"], listas: ["list"], upload: ["upload", "file"], some: ["temporary", "dismissal"],
   sozinho: ["duration", "temporary"], temporario: ["temporary"], breve: ["brief", "temporary"], submit: ["submit", "button"], send: ["send", "button"], rtl: ["direction", "reversed"], contexto: ["context", "contextual"], direito: ["right", "context"],
 };
@@ -129,6 +132,15 @@ export function stem(word) {
     }
   return word.length > 4 && word.endsWith("e") ? word.slice(0, -1) : word;
 }
+
+// Frase que nega ("no submenus", "instead of hiding the table", "not only in the color") cita o
+// termo para dizer que a família NÃO serve para ele. As palavras depois da negação, até a próxima
+// pontuação, ficam fora do índice: senão a família sobe justamente para o que ela recusa.
+const NEGATION = /\b(?:no|not|never|without|instead of|rather than|avoid)\b[^.,;:!?()]*/gi;
+function affirmed(value) {
+  return String(value).replace(/`[^`]*`/g, (code) => code).replace(NEGATION, " ");
+}
+const PROSE = new Set(["description", "howTo"]);
 
 const FIELDS = { name: 6, collection: 1.5, description: 2, area: 1, howTo: 1, api: 0.5 };
 
@@ -179,7 +191,7 @@ export function buildIndex(catalog, documentFor, choicesMarkdown) {
     const terms = {};
     for (const [field, values] of Object.entries(fields)) {
       const bag = new Map();
-      for (const word of values.flatMap(words)) {
+      for (const word of values.flatMap((value) => words(PROSE.has(field) ? affirmed(value) : value))) {
         if (STOP.has(word)) continue;
         const key = stem(word);
         bag.set(key, (bag.get(key) ?? 0) + 1);
@@ -212,12 +224,18 @@ export function expandQuery(query) {
     if (!current || current.weight < weight) terms.set(key, { weight, from });
   };
   // Expressões de duas palavras primeiro ("linha do tempo" vira linha_do_tempo no glossário).
-  const joined = tokens.join("_");
+  // A palavra que já entrou numa expressão não é expandida sozinha: "data table" é tabela, e o
+  // "data" dela não pode virar a data do calendário em português.
+  const joined = `_${tokens.join("_")}_`;
+  const consumed = new Set();
   for (const phrase of Object.keys(GLOSSARY).filter((k) => k.includes("_")))
-    if (joined.includes(phrase)) for (const term of GLOSSARY[phrase]) add(term, 1, phrase.replace(/_/g, " "));
+    if (joined.includes(`_${phrase}_`)) {
+      for (const term of GLOSSARY[phrase]) add(term, 1, phrase.replace(/_/g, " "));
+      phrase.split("_").forEach((part) => consumed.add(part));
+    }
   for (const token of tokens) {
     if (STOP.has(token)) continue;
-    const mapped = Object.hasOwn(GLOSSARY, token) ? GLOSSARY[token] : undefined;
+    const mapped = Object.hasOwn(GLOSSARY, token) && !consumed.has(token) ? GLOSSARY[token] : undefined;
     if (mapped) mapped.forEach((term, i) => add(term, i === 0 ? 1 : 0.7, token));
     add(token, mapped ? 0.6 : 1, token);
   }
@@ -242,6 +260,8 @@ export function searchCatalog(index, query, { limit = 8, collection } = {}) {
       const idf = Math.log(1 + (index.total - n + 0.5) / (n + 0.5));
       score += weight * idf * ((tf * (k1 + 1)) / (tf + k1 * (1 - b + (b * family.length) / index.averageLength)));
       matched.add(from);
+      // O termo principal que bate no nome da família vale mais que mil menções no texto.
+      if (weight === 1 && family.terms.name.has(term)) score += 2 * idf;
     }
     if (score > 0) scores.set(component.id, { score, matched, reasons: [] });
   }

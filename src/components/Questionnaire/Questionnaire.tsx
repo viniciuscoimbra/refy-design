@@ -4,7 +4,8 @@ import { Input } from '../Input';
 import { RadioGroup } from '../RadioGroup';
 import { Button } from '../Button';
 import { ProgressBar } from '../ProgressBar';
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface Question {
   id: string;
   title: string;
@@ -17,7 +18,7 @@ export interface QuestionnaireProps {
   onSubmit: (answers: Record<string, string>) => void;
 }
 export function Questionnaire({ questions, onSubmit }: QuestionnaireProps) {
-  const m = useMessages("questionnaire");
+  const m = useComponentMessages("questionnaire", enMessages.questionnaire);
   const [step, setStep] = useState(0),
     [answers, setAnswers] = useState<Record<string, string>>({}),
     [error, setError] = useState(''),

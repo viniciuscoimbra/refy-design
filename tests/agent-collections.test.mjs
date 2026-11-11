@@ -13,7 +13,7 @@ test('collections discovery uses packaged definitions and actual members, includ
   try {
     mkdirSync(join(temp, 'tools/refy-agent'), { recursive: true });
     mkdirSync(join(temp, 'ai/components'), { recursive: true });
-    for (const file of ['cli.mjs', 'check.mjs']) cpSync(join(root, 'tools/refy-agent', file), join(temp, 'tools/refy-agent', file));
+    for (const file of ['cli.mjs', 'check.mjs', 'search.mjs']) cpSync(join(root, 'tools/refy-agent', file), join(temp, 'tools/refy-agent', file));
     const cli = join(temp, 'tools/refy-agent/cli.mjs');
     const definitions = [
       { id: 'core', label: 'Core', kind: 'core', keywords: [] },

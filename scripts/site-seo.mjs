@@ -31,6 +31,7 @@ async function load(locale) {
   try {
     const i18n = await vite.ssrLoadModule("/src/pages/RefySitePage/i18n.tsx");
     i18n.initLocale(locale);
+    await i18n.loadLocaleText(locale);
     const { componentCatalog: catalog } = await vite.ssrLoadModule("/src/pages/PlaygroundPage/catalog.ts");
     const { blockRegistry: blocks } = await vite.ssrLoadModule("/src/pages/PlaygroundPage/blockRegistry.tsx");
     const { collectionDefinitions: collections } = await vite.ssrLoadModule("/src/pages/PlaygroundPage/collections.ts");

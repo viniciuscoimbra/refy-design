@@ -1,7 +1,8 @@
 import { cn } from "../../lib/cn";
 import styles from "./Pagination.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Props for the Pagination control. */
 export interface PaginationProps {
   /** Current page (1-based, controlled). */
@@ -38,7 +39,7 @@ function pages(page: number, pageCount: number, siblingCount: number): Array<num
  *   <Pagination page={page} pageCount={12} onPageChange={setPage} />
  */
 export function Pagination({ page, pageCount, onPageChange, siblingCount = 1, className }: PaginationProps) {
-  const m = useMessages("pagination");
+  const m = useComponentMessages("pagination", enMessages.pagination);
   const go = (p: number) => onPageChange(Math.max(1, Math.min(pageCount, p)));
   return (
     <nav aria-label={m.label} className={cn(styles.pagination, className)}>

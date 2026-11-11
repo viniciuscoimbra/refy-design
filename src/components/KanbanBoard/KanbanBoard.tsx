@@ -11,7 +11,8 @@ import { StatusDot } from "../StatusDot";
 import { KanbanCard, type KanbanCardItem } from "../KanbanCard";
 import { cn } from "../../lib/cn";
 import styles from "./KanbanBoard.module.css";
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type { KanbanCardItem } from "../KanbanCard";
 
 export interface KanbanColumnItem {
@@ -50,7 +51,7 @@ const label = (value: ReactNode, fallback: string) => typeof value === "string" 
 
 /** Quadro com regras compartilhadas por arraste, toque, teclado e menu. */
 export function KanbanBoard({ columns, onColumnsChange, onCardClick, wipLimit, allowedTransitions, toolbar, filter, onAddCard, columnActions, ariaLabel: ariaLabelProp, className, instructions = "visible" }: KanbanBoardProps) {
-  const m = useMessages("kanbanBoard");
+  const m = useComponentMessages("kanbanBoard", enMessages.kanbanBoard);
   const ariaLabel = ariaLabelProp ?? m.label;
   const uid = useId();
   const root = useRef<HTMLDivElement>(null);

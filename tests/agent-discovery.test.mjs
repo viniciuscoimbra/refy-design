@@ -35,7 +35,7 @@ test('derived API discovery refuses ambiguity and escaped document paths', () =>
   try {
     mkdirSync(join(temp, 'tools/refy-agent'), { recursive: true });
     mkdirSync(join(temp, 'ai/components'), { recursive: true });
-    for (const file of ['cli.mjs', 'check.mjs']) cpSync(join(root, 'tools/refy-agent', file), join(temp, 'tools/refy-agent', file));
+    for (const file of ['cli.mjs', 'check.mjs', 'search.mjs']) cpSync(join(root, 'tools/refy-agent', file), join(temp, 'tools/refy-agent', file));
     const cli = join(temp, 'tools/refy-agent/cli.mjs');
     const components = ['One', 'Two'].map(id => ({ id, publicName: id, document: `components/${id}.json` }));
     for (const entry of components) writeFileSync(join(temp, 'ai', entry.document), JSON.stringify({ id: entry.id, api: [{ name: 'SharedApi' }], examples: [] }));
@@ -66,4 +66,23 @@ test('public check remains usable after discovery changes', () => {
     assert.equal(result.status, 0, result.stderr + result.stdout);
     assert.equal(JSON.parse(result.stdout).passed, true);
   } finally { rmSync(temp, { recursive: true, force: true }); }
+});
+test('catalog answers a need in pt, en or es with the same ranking as refy_search', () => {
+  // Artigo da LBP sobre a 1.2.0: "tabela" e "login" voltavam zero na CLI e só o MCP achava.
+  for (const [query, first] of [['tabela', 'Table'], ['tabela de dados', 'Table'], ['data table', 'Table'], ['tabla de datos', 'Table'], ['login', 'GoogleButton'], ['gráfico', 'Charts']]) {
+    const result = run(['catalog', ...query.split(' ')]);
+    assert.equal(result.status, 0, result.stderr);
+    const out = JSON.parse(result.stdout);
+    assert.equal(out.components[0]?.id, first, query);
+    assert.equal(out.ranking[0].id, first, query);
+  }
+  const search = JSON.parse(run(['search', 'tela', 'de', 'login']).stdout);
+  assert.deepEqual(search.components.slice(0, 2).map(c => c.id).sort(), ['GoogleButton', 'OAuthButton']);
+});
+test('a family that only mentions a term to refuse it does not rank for that term', () => {
+  // Menu diz "no nested submenus"; DatePicker diz "no free typing". Nenhum dos dois sobe por isso.
+  const submenu = JSON.parse(run(['search', 'submenu']).stdout).components.map(c => c.id);
+  assert(!submenu.includes('Menu'), submenu.join(' '));
+  const typing = JSON.parse(run(['search', 'free', 'typing']).stdout).components.map(c => c.id);
+  assert.notEqual(typing[0], 'DatePicker', typing.join(' '));
 });

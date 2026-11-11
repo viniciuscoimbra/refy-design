@@ -3,7 +3,8 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./DeviceFrame.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type DeviceFrameVariant = "browser" | "phone";
 
 /** Props for the DeviceFrame. */
@@ -34,7 +35,7 @@ export const DeviceFrame = forwardRef<HTMLElement, DeviceFrameProps>(function De
   { variant = "browser", src, frameTitle, viewport, address, caption, children, className, ...rest },
   ref,
 ) {
-  const m = useMessages("deviceFrame");
+  const m = useComponentMessages("deviceFrame", enMessages.deviceFrame);
   const size = viewport ?? defaults[variant];
   const screen = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);

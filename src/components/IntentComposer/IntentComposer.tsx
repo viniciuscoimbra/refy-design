@@ -15,7 +15,8 @@ import { VoiceRecorder } from "../VoiceRecorder";
 import type { VoiceRecorderProps } from "../VoiceRecorder";
 import styles from "./IntentComposer.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type IntentComposerState =
   "idle" | "listening" | "processing" | "understood" | "error";
 
@@ -108,7 +109,7 @@ export function IntentComposer({
   processingContent,
   className,
 }: IntentComposerProps) {
-  const m = useMessages("intentComposer");
+  const m = useComponentMessages("intentComposer", enMessages.intentComposer);
   const label = labelProp ?? m.label;
   const placeholder = placeholderProp ?? m.placeholder;
   const submitLabel = submitLabelProp ?? m.submit;

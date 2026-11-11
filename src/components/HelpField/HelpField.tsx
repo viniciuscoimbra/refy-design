@@ -5,7 +5,8 @@ import { HoverCard } from "../HoverCard";
 import { cn } from "../../lib/cn";
 import styles from "./HelpField.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Props for the HelpField form-row wrapper. */
 export interface HelpFieldProps {
   /** Plain field label (never the internal technical name). */
@@ -56,7 +57,7 @@ export function HelpField({
   side = "top",
   className,
 }: HelpFieldProps) {
-  const m = useMessages("helpField");
+  const m = useComponentMessages("helpField", enMessages.helpField);
   const learnMoreLabel = learnMoreLabelProp ?? m.learnMore;
   const uid = useId();
   const helpId = `${uid}-help`;

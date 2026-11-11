@@ -7,7 +7,8 @@ import { motionTiming } from "../../lib/motionTiming";
 import { cn } from "../../lib/cn";
 import styles from "./Coverflow.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface CoverflowItem {
   /** Identidade estável e única, preservada quando a lista muda de ordem. */
   id: string;
@@ -45,8 +46,8 @@ export function Coverflow<T extends CoverflowItem>({
   emptyContent: emptyContentProp,
   className,
 }: CoverflowProps<T>) {
-  const m = useMessages("coverflow");
-  const carousel = useMessages("carousel");
+  const m = useComponentMessages("coverflow", enMessages.coverflow);
+  const carousel = useComponentMessages("carousel", enMessages.carousel);
   const label = labelProp ?? m.label;
   const emptyContent = emptyContentProp ?? m.empty;
   const [internalId, setInternalId] = useState(defaultSelectedId);

@@ -12,7 +12,8 @@ import { Topbar } from "../Topbar";
 import type { TopbarProps } from "../Topbar";
 import styles from "./AppShell.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Props for the authenticated application shell layout. */
 export interface AppShellProps {
   /** Props passed to the Sidebar. */
@@ -43,7 +44,7 @@ export function AppShell({
   children,
   className,
 }: AppShellProps) {
-  const m = useMessages("appShell");
+  const m = useComponentMessages("appShell", enMessages.appShell);
   const navigationLabel = navigationLabelProp ?? m.openNavigation;
   const [mobile, setMobile] = useState(false);
   const shellRef = useRef<HTMLDivElement>(null);

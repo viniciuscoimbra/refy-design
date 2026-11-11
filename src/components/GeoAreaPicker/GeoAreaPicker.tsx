@@ -9,7 +9,8 @@ import { SettingRow, SettingRowGroup } from "../SettingRow";
 import { cn } from "../../lib/cn";
 import styles from "./GeoAreaPicker.module.css";
 
-import { useMessages, useLocale } from "../../lib/locale";
+import { useComponentMessages, useLocale } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface GeoNeighborhood {
   id: string;
   label: string;
@@ -57,7 +58,7 @@ export function GeoAreaPicker({
   error,
   className,
 }: GeoAreaPickerProps) {
-  const m = useMessages("geoAreaPicker");
+  const m = useComponentMessages("geoAreaPicker", enMessages.geoAreaPicker);
   const locale = useLocale();
   const mapLabel = mapLabelProp ?? m.mapLabel;
   const instanceId = useId();

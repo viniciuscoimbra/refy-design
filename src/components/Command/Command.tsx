@@ -7,7 +7,8 @@ import { Kbd } from "../Kbd";
 import { cn } from "../../lib/cn";
 import styles from "./Command.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Um comando ou resultado da paleta. */
 export interface CommandItem {
   /** Identificador estável. */
@@ -85,7 +86,7 @@ export function Command({
   width = 560,
   className,
 }: CommandProps) {
-  const m = useMessages("command");
+  const m = useComponentMessages("command", enMessages.command);
   const placeholder = placeholderProp ?? m.placeholder;
   const emptyMessage = emptyMessageProp ?? m.empty;
   const [query, setQuery] = useState("");

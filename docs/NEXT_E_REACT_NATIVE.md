@@ -45,12 +45,14 @@ Next 15.5.6 com React 19.2.4, build de produção, `dist` local do Refy:
 
 Ainda não testado: OpenNext com wrangler na Cloudflare.
 
-## React Native (em breve)
+## React Native
 
-O pacote nativo ainda não está disponível para instalação. O que existe hoje é o código em desenvolvimento, descrito abaixo.
+```sh
+npx expo install @refy-design/mobile react-native-svg
+```
 
 `packages/native` (`@refy-design/mobile`) tem os componentes nativos e `packages/tokens` (`@refy/tokens`) gera o tema resolvido para o RN a partir dos mesmos tokens da web. Uso, verificação e galeria Expo estão em [packages/native/README.md](../packages/native/README.md). O que muda em relação à web está em [packages/native/DIVERGENCIAS.md](../packages/native/DIVERGENCIAS.md).
 
 Os dois lados implementam `@refy-design/web/contracts`. Uma prop nova num componente web que também exista no nativo entra primeiro no contrato; o `tsc` de cada lado reprova quem divergir.
 
-Os dois pacotes são privados. Nenhum foi publicado.
+`@refy-design/mobile` está no npm e traz os tokens resolvidos dentro dele; `@refy/tokens` é interno e não é publicado à parte.

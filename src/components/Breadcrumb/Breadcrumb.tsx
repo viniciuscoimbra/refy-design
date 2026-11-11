@@ -5,7 +5,8 @@ import { Menu } from "../Menu";
 import { cn } from "../../lib/cn";
 import styles from "./Breadcrumb.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Um nível da trilha. Sem `href` (ou o último) renderiza como página atual. */
 export interface BreadcrumbItem {
   label: ReactNode;
@@ -35,7 +36,7 @@ export interface BreadcrumbProps {
  *   <Breadcrumb items={[{ label: "Projetos", href: "/p" }, { label: "refy.com.br" }]} />
  */
 export function Breadcrumb({ items, root, separator = "/", collapseAfter = 5, className }: BreadcrumbProps) {
-  const m = useMessages("breadcrumb");
+  const m = useComponentMessages("breadcrumb", enMessages.breadcrumb);
   const [menuOpen, setMenuOpen] = useState(false);
   const uid = useId().replace(/:/g, "");
   const collapsed = items.length >= collapseAfter;

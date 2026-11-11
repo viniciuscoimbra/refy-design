@@ -2,11 +2,23 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
-## Não publicado
+## 1.5.0 (11/11/2026)
+
+### Adicionado
+
+- `refy search <necessidade>`: a mesma busca do `refy_search` na linha de comando, em português, inglês ou espanhol.
+
+### Modificado
+
+- `refy catalog` responde a necessidade além do nome: `catalog tabela` e `catalog login` voltavam vazios e agora trazem Table e GoogleButton primeiro. O nome exato de família ou de membro da API continua respondendo pelo casamento literal.
+- A busca (`refy_search` e `refy catalog`) não sobe mais família que cita o termo só para recusá-lo ("no nested submenus", "instead of hiding the table"), dá peso ao nome da família e lê "data table" e "tabela de dados" como tabela.
+- Cada componente leva para a tela só o próprio texto pronto. Antes, Tabs, Pagination, Callout, Table e outros 65 levavam o texto em inglês de todos os componentes: o JS gzip mediano por família cai de 6,5 KB para 1,8 KB. `LocaleProvider` continua trazendo os três idiomas.
+- `tokens.css` declara uma vez o que é igual nos modos claro, escuro e editorial: de 98 KB para 54 KB (8,0 KB para 6,8 KB gzip), com os mesmos valores computados.
 
 ### Corrigido
 
 - `Modal`: as ações do rodapé quebram linha quando não cabem lado a lado, em vez de serem cortadas num diálogo da largura de um celular.
+- O README dizia 118 famílias, seis ferramentas no MCP e React Native "em breve". São 122 famílias, oito ferramentas e `@refy-design/mobile` está no npm.
 
 ## 1.4.0 (10/11/2026)
 

@@ -7,7 +7,8 @@ import { IconButton } from "../IconButton";
 import { ProgressBar } from "../ProgressBar";
 import styles from "./WizardStepper.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface WizardStep {
   id: string;
   label: string;
@@ -47,7 +48,7 @@ export function WizardStepper({
   backLabel: backLabelProp,
   className,
 }: WizardStepperProps) {
-  const m = useMessages("wizardStepper");
+  const m = useComponentMessages("wizardStepper", enMessages.wizardStepper);
   const label = labelProp ?? m.label;
   const backLabel = backLabelProp ?? m.back;
   const currentIndex = Math.max(0, steps.findIndex((step) => step.id === current));

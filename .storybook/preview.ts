@@ -17,6 +17,13 @@ import {
   usePlaygroundConfig,
 } from "../src/pages/PlaygroundPage/themeConfig";
 import { skins } from "../src/stories/skins";
+import { registerLocaleText } from "../src/pages/RefySitePage/i18n";
+import docsPt from "../src/pages/RefySitePage/locales/docs.pt.json";
+import demoPt from "../src/pages/RefySitePage/locales/demo.pt.json";
+
+// As páginas do site traduzem texto no nível de módulo, e o Storybook mostra o site em português:
+// o dicionário entra aqui, antes de qualquer story ser importada.
+registerLocaleText("pt", { docs: docsPt, demo: demoPt });
 import type { PlaygroundConfig } from "../src/pages/PlaygroundPage/themeConfig";
 
 function SharedConfiguration({

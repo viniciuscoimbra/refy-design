@@ -37,7 +37,8 @@ try {
           package: catalog.package,
           version: catalog.packageVersion,
           commands: [
-            "catalog [query]",
+            "catalog [name-or-need]  (exact name first; otherwise the same ranked search as refy_search, in pt, en or es)",
+            "search <need>  (ranked search only, same as refy_search)",
             "collections [id-or-query]",
             "component <family-or-documented-api>",
             "init [--from <tgz>] [--entry <file>] [--dry-run] [--offline]",
@@ -73,15 +74,32 @@ try {
       }),
       limits: catalog.limits,
     }, null, 2));
-  } else if (command === "catalog") {
-    const query = normalize(args.join(" "));
-    const match = catalog.components.filter((component) =>
+  } else if (command === "catalog" || command === "search") {
+    // O nome exato (família ou membro da API) responde pelo casamento literal. A necessidade em
+    // qualquer das três línguas ("tabela", "tela de login") passa pela mesma busca do refy_search,
+    // para a CLI e o MCP darem a mesma resposta à mesma pergunta.
+    const text = args.join(" ");
+    const query = normalize(text);
+    const { buildIndex, searchCatalog } = await import("./search.mjs");
+    let choicesMarkdown = "";
+    try {
+      choicesMarkdown = readFileSync(fileURLToPath(new URL("../../ai/control-choices.md", import.meta.url)), "utf8");
+    } catch {}
+    const ranked = query
+      ? searchCatalog(buildIndex(catalog, documentFor, choicesMarkdown), text, { limit: 12 }).results
+      : [];
+    const rank = new Map(ranked.map((result, position) => [result.id, position]));
+    const literal = command === "catalog" ? catalog.components.filter((component) =>
       normalize(JSON.stringify(component)).includes(query) ||
       definitions.some(collection => (component.collections ?? []).includes(collection.id) && collectionMatches(collection, query)) ||
       (documentFor(component).api ?? []).some((member) =>
         normalize(member.name).includes(query),
       ),
-    );
+    ) : [];
+    const matchedBy = literal.length ? "literal" : "intent";
+    const match = literal.length
+      ? [...literal].sort((a, b) => (rank.get(a.id) ?? Infinity) - (rank.get(b.id) ?? Infinity))
+      : ranked.map((result) => catalog.components.find((component) => component.id === result.id));
     console.log(
       JSON.stringify(
         {
@@ -92,6 +110,11 @@ try {
           instructions: catalog.instructions,
           choices: catalog.choices,
           collections: definitions,
+          query: text,
+          matchedBy,
+          ranking: ranked
+            .filter((result) => match.some((component) => component.id === result.id))
+            .map(({ id, score, matched, reasons }) => ({ id, score, matched, reasons })),
           components: match,
           limits: catalog.limits,
         },
@@ -139,7 +162,7 @@ try {
     if (command === "check" && !report.passed) process.exitCode = 1;
   } else
     throw Error(
-      "Usage: refy collections [id-or-query] | catalog [query] | component <name> | init [--from <tgz>] | inspect [files...] | check [files...]",
+      "Usage: refy collections [id-or-query] | catalog [query] | search <need> | component <name> | init [--from <tgz>] | inspect [files...] | check [files...]",
     );
 } catch (error) {
   console.error(JSON.stringify({ error: error.message }));

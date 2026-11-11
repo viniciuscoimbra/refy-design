@@ -3,7 +3,8 @@ import { useRef, useState } from 'react';
 import { Button } from '../Button';
 import { Menu } from '../Menu';
 import type { MenuEntry } from '../Menu';
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface MenubarItem {
   id: string;
   label: string;
@@ -19,7 +20,7 @@ export function Menubar({
   label: labelProp,
   onSelect,
 }: MenubarProps) {
-  const m = useMessages("menubar");
+  const m = useComponentMessages("menubar", enMessages.menubar);
   const label = labelProp ?? m.label;
   const [open, setOpen] = useState(''),
     ref = useRef<HTMLDivElement>(null);

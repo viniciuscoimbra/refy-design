@@ -9,7 +9,8 @@ import { StatusDot, type StatusDotTone } from "../StatusDot";
 import { cn } from "../../lib/cn";
 import styles from "./EventTimeline.module.css";
 
-import { useMessages, useLocale } from "../../lib/locale";
+import { useComponentMessages, useLocale } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type TimelineActor = ActivityActor;
 export interface TimelineEvent {
   id: string;
@@ -43,7 +44,7 @@ export type ActivityTimelineProps = EventTimelineProps;
 export type ActivityEvent = TimelineEvent;
 /** Histórico de atividades. Para marcos de uma jornada, use Timeline. */
 export function ActivityTimeline({ title: titleProp, context, events, locale: localeProp, timezone = "America/Sao_Paulo", error, onRetry, emptyTitle: emptyTitleProp, emptyMessage: emptyMessageProp, density = "default", showHeader = true, groupByDate = true, className }: ActivityTimelineProps) {
-  const m = useMessages("activityTimeline");
+  const m = useComponentMessages("activityTimeline", enMessages.activityTimeline);
   const contextLocale = useLocale();
   const locale = localeProp ?? contextLocale;
   const title = titleProp ?? m.title;

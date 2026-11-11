@@ -9,7 +9,8 @@ import { ProgressBar } from "../ProgressBar";
 import { cn } from "../../lib/cn";
 import styles from "./GuidedTour.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface GuidedTourAction {
   label: string;
   onAction: () => void;
@@ -113,7 +114,7 @@ export function GuidedTour({
 }
 
 function TourCard({ step, index, context }: { step: GuidedTourStep; index: number; context: GuidedTourContextValue }) {
-  const m = useMessages("guidedTour");
+  const m = useComponentMessages("guidedTour", enMessages.guidedTour);
   const last = index === context.steps.length - 1;
   return (
     <div className={styles.card}>

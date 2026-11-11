@@ -5,10 +5,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { LocaleProvider } from "../../lib/locale";
 import type { ReactNode } from "react";
 import styles from "./RefySitePage.module.css";
-import en from "./locales/en.json";
-import es from "./locales/es.json";
-import docsPt from "./locales/docs.pt.json";
-import docsEs from "./locales/docs.es.json";
 
 export type Locale = "pt" | "en" | "es";
 export const locales: Locale[] = ["pt", "en", "es"];
@@ -137,12 +133,36 @@ export function useText() {
 // idiomas. A ficha de cada componente (descrição, quando usar, propriedades, exemplos) vem da
 // biblioteca e é escrita em inglês, como o código; docs.pt/docs.es a levam para português e
 // espanhol. Frase sem tradução aparece como está na fonte.
-const dictionaries: Record<Exclude<Locale, "pt">, Record<string, string>> = { en, es };
-const docDictionaries: Record<Exclude<Locale, "en">, Record<string, string>> = { pt: docsPt, es: docsEs };
+// Cada visita baixa só os dicionários do próprio idioma: eram 1,3 MB dos três idiomas no primeiro
+// carregamento, e quem lê em português nunca usa o espanhol. As entradas do site (e o Storybook)
+// chamam loadLocaleText antes de importar a página, porque há texto traduzido no nível de módulo.
+type Dictionary = Record<string, string>;
+const dictionaries: Partial<Record<Exclude<Locale, "pt">, Dictionary>> = {};
+const docDictionaries: Partial<Record<Exclude<Locale, "en">, Dictionary>> = {};
+/** Textos dos exemplos e templates por idioma, arquivo e frase (ver demoText.ts). */
+export const demoDictionaries: Partial<Record<"pt" | "es", Record<string, Record<string, string | string[]>>>> = {};
+/** Registra dicionários já importados. O Storybook importa os do português antes das stories, que
+ * traduzem texto no nível de módulo e rodariam antes de qualquer carga assíncrona. */
+export function registerLocaleText(locale: Locale, text: { site?: Dictionary; docs?: Dictionary; demo?: Record<string, Record<string, string | string[]>> }) {
+  if (locale !== "pt" && text.site) dictionaries[locale] ??= text.site;
+  if (locale !== "en" && text.docs) docDictionaries[locale] ??= text.docs;
+  if (locale !== "en" && text.demo) demoDictionaries[locale] ??= text.demo;
+}
+export async function loadLocaleText(locale: Locale): Promise<void> {
+  if (locale === "en") {
+    dictionaries.en ??= (await import("./locales/en.json")).default;
+  } else if (locale === "es") {
+    const [site, docs, demo] = await Promise.all([import("./locales/es.json"), import("./locales/docs.es.json"), import("./locales/demo.es.json")]);
+    dictionaries.es ??= site.default; docDictionaries.es ??= docs.default; demoDictionaries.es ??= demo.default;
+  } else {
+    const [docs, demo] = await Promise.all([import("./locales/docs.pt.json"), import("./locales/demo.pt.json")]);
+    docDictionaries.pt ??= docs.default; demoDictionaries.pt ??= demo.default;
+  }
+}
 export function translate(locale: Locale, text: string): string {
   if (!text) return text;
-  if (locale === "pt") return docDictionaries.pt[text] ?? text;
-  return dictionaries[locale][text] ?? (locale === "es" ? docDictionaries.es[text] : undefined) ?? text;
+  if (locale === "pt") return docDictionaries.pt?.[text] ?? text;
+  return dictionaries[locale]?.[text] ?? (locale === "es" ? docDictionaries.es?.[text] : undefined) ?? text;
 }
 // Idioma em vigor para quem lê texto fora de hook (dados, templates). O SiteLocaleProvider o define
 // antes de renderizar os filhos, e todo o site renderiza de novo quando ele muda.

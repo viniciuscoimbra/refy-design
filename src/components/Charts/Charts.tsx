@@ -23,7 +23,8 @@ const toneColors = {
 import { Table } from "../Table";
 import { useChartWidth } from "./useChartWidth";
 
-import { useLocale, useMessages } from "../../lib/locale";
+import { useLocale, useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /* =========================================================
  * Charts — line/bar/donut/sparkline com D3 por trás
  * (d3-scale para escalas/ticks, d3-shape para curvas/arcos)
@@ -103,7 +104,7 @@ export function LineChart({
   label,
   className,
 }: LineChartProps) {
-  const m = useMessages("charts");
+  const m = useComponentMessages("charts", enMessages.charts);
   const locale = useLocale();
   const gradId = useId().replace(/:/g, "");
   const svgRef = useRef<SVGSVGElement>(null);
@@ -500,7 +501,7 @@ export function BarChart({
   label,
   className,
 }: BarChartProps) {
-  const m = useMessages("charts");
+  const m = useComponentMessages("charts", enMessages.charts);
   const svgRef = useRef<SVGSVGElement>(null);
   const W = useChartWidth(svgRef);
   const barX = Math.min(118, W * 0.29);
@@ -679,7 +680,7 @@ export function DonutChart({
   label,
   className,
 }: DonutChartProps) {
-  const m = useMessages("charts");
+  const m = useComponentMessages("charts", enMessages.charts);
   const filled = Math.max(0, Math.min(100, value ?? 0));
   const [sweep, setSweep] = useState(0);
   useEffect(() => {
@@ -859,7 +860,7 @@ function ChartDataTable({
   label: string;
   rows: { index: number; label: string; values: string }[];
 }) {
-  const m = useMessages("charts");
+  const m = useComponentMessages("charts", enMessages.charts);
   return (
     <details className={styles.data}>
       <summary>{m.viewData(String(label))}</summary>

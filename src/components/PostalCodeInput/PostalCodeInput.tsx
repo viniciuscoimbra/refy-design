@@ -6,7 +6,8 @@ import { Input } from "../Input";
 import { cn } from "../../lib/cn";
 import styles from "./PostalCodeInput.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface PostalCodeAddress {
   postalCode: string;
   street: string;
@@ -39,7 +40,7 @@ export function PostalCodeInput({
   className,
   onBlur,
 }: PostalCodeInputProps) {
-  const m = useMessages("postalCodeInput");
+  const m = useComponentMessages("postalCodeInput", enMessages.postalCodeInput);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const searching = useRef<string | null>(null);

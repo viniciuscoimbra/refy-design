@@ -5,7 +5,8 @@ import { Menu, type MenuEntry } from "../Menu";
 import { cn } from "../../lib/cn";
 import styles from "./HelpMenu.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 import type { RefyMessages } from "../../lib/locale";
 /** Props for the HelpMenu component. */
 export interface HelpMenuProps {
@@ -34,7 +35,7 @@ const defaultEntries = (m: RefyMessages["helpMenu"]): MenuEntry[] => [
  *   <HelpMenu onSelect={(id) => id === "docs" && openDocs()} />
  */
 export function HelpMenu({ entries: entriesProp, onSelect, label: labelProp, className }: HelpMenuProps) {
-  const m = useMessages("helpMenu");
+  const m = useComponentMessages("helpMenu", enMessages.helpMenu);
   const entries = entriesProp ?? defaultEntries(m);
   const label = labelProp ?? m.label;
   const [open, setOpen] = useState(false);

@@ -36,11 +36,7 @@ import { useResolvedMode } from "../../lib/ThemeProvider";
 import type { RefyTheme, SettingsSubnavLinkProps, ThemeMode } from "../../index";
 import { Icons } from "../../_demo/icons";
 import { componentCatalog, componentAreas } from "../PlaygroundPage/catalog";
-import { BlocksPreview } from "../PlaygroundPage/BlocksPreview";
-import { D3ChartCatalog } from "../PlaygroundPage/D3ChartCatalog";
-import { SiteTypography } from "./SiteTypography";
 import { loadThemeFonts, playHeroEntrance, switchWithTransition } from "./heroMotion";
-import { ThemeEditor } from "../PlaygroundPage/ThemeEditor";
 import {
   changeConfig,
   defaultConfig,
@@ -49,7 +45,6 @@ import {
 } from "../PlaygroundPage/themeConfig";
 import type { PlaygroundConfig, Skin } from "../PlaygroundPage/themeConfig";
 import type { PlaygroundSelection } from "../PlaygroundPage/PlaygroundPage";
-import { blockRegistry } from "../PlaygroundPage/blockRegistry";
 import { skins } from "../../stories/skins";
 import { fontSets } from "../../lib/fontSets";
 import styles from "./RefySitePage.module.css";
@@ -162,7 +157,7 @@ export function routeFromLocation(pathname: string): SiteRoute | null {
   const group = /^\/componentes\/colecoes\/([^/]+)$/.exec(path);
   if (group) return collectionDefinitions.some((item) => item.id === group[1]) ? { page: "collection", collection: group[1] } : { page: "components" };
   const template = /^\/templates(?:\/([^/]+))?$/.exec(path);
-  if (template) return { page: "blocks", template: blockRegistry.find((item) => item.id === template[1])?.id };
+  if (template) return { page: "blocks", template: template[1] };
   const family = /^\/componentes\/([^/]+)$/.exec(path);
   if (family) {
     const slug = decodeURIComponent(family[1]).toLowerCase();
@@ -182,6 +177,18 @@ const destinationLabels: Array<[SitePage, Record<Locale, string>]> = [
   ["themes", { pt: "Temas", en: "Themes", es: "Temas" }],
   ["ai", { pt: "Para IAs", en: "For AI", es: "Para IAs" }],
 ];
+// Páginas pesadas chegam quando a pessoa abre a página: templates (26 telas, com o código de cada
+// uma), gráficos (D3), tipografia e o editor de tema. Antes iam todas no primeiro carregamento.
+const BlocksPreview = lazy(() =>
+  Promise.all([import("../PlaygroundPage/BlocksPreview"), import("../PlaygroundPage/blockRegistry")]).then(([module, { blockRegistry }]) => ({
+    default: (props: Parameters<typeof module.BlocksPreview>[0]) => (
+      <module.BlocksPreview {...props} selectedId={props.selectedId === "" || blockRegistry.some((item) => item.id === props.selectedId) ? props.selectedId : undefined} />
+    ),
+  })),
+);
+const D3ChartCatalog = lazy(() => import("../PlaygroundPage/D3ChartCatalog").then((module) => ({ default: module.D3ChartCatalog })));
+const SiteTypography = lazy(() => import("./SiteTypography").then((module) => ({ default: module.SiteTypography })));
+const ThemeEditor = lazy(() => import("../PlaygroundPage/ThemeEditor").then((module) => ({ default: module.ThemeEditor })));
 const CreationPlayground = lazy(() => import("../PlaygroundPage/PlaygroundPage").then((module) => ({ default: module.StandalonePlayground })));
 const ComponentPlayground = lazy(() => import("../PlaygroundPage/PlaygroundStudio").then((module) => ({ default: module.PlaygroundStudio })));
 
@@ -733,6 +740,9 @@ function SiteShell({
   const [search, setSearch] = useState(initialSearchOpen);
   const [menu, setMenu] = useState(initialMenuOpen);
   const [customize, setCustomize] = useState(false);
+  // O editor de tema só baixa na primeira vez que a gaveta abre, e fica montado depois disso.
+  const [editorOpened, setEditorOpened] = useState(false);
+  useEffect(() => { if (customize) setEditorOpened(true); }, [customize]);
   const [selection, setSelection] = useState<PlaygroundSelection>(() => {
     const requested = (startRoute?.page ?? initialPage) === "playground" && typeof window !== "undefined"
       ? new URLSearchParams(window.location.search).get("component") ??
@@ -741,7 +751,7 @@ function SiteShell({
     return {
       view: "components",
       componentId: componentCatalog.some((entry) => entry.id === requested) ? requested! : "Button",
-      blockId: blockRegistry[0].id,
+      blockId: "",
     };
   });
   const preview = useRef<HTMLDivElement>(null);
@@ -873,7 +883,14 @@ function SiteShell({
   }, [routing]);
   useEffect(() => {
     if (!routing) return;
-    document.title = page === "accordion" ? `${component} · refy` : page === "blocks" ? `${tr(blockRegistry.find((item) => item.id === template)?.title ?? "Templates")} · refy` : page === "docs" ? `${docPages[doc].label} · refy` : page === "ai" && aiTopic ? `${localizedAiPages[locale][aiTopic].label} · refy` : page === "collection" ? `${tr(collectionDefinitions.find((item) => item.id === collection)?.label ?? "")} · refy` : t(pageTitles[page]);
+    if (page === "blocks") {
+      let current = true;
+      import("../PlaygroundPage/blockRegistry").then(({ blockRegistry }) => {
+        if (current) document.title = `${tr(blockRegistry.find((item) => item.id === template)?.title ?? "Templates")} · refy`;
+      });
+      return () => { current = false; };
+    }
+    document.title = page === "accordion" ? `${component} · refy` : page === "docs" ? `${docPages[doc].label} · refy` : page === "ai" && aiTopic ? `${localizedAiPages[locale][aiTopic].label} · refy` : page === "collection" ? `${tr(collectionDefinitions.find((item) => item.id === collection)?.label ?? "")} · refy` : t(pageTitles[page]);
   }, [routing, page, component, template, doc, collection, aiTopic, locale]);
   useEffect(() => {
     if (initialMode !== undefined) update({ theme: initialMode });
@@ -1007,7 +1024,9 @@ function SiteShell({
         )}
         {page === "blocks" && (
           <div id="site-content">
-            <BlocksPreview theme={theme} mode={config.theme} label="Templates" selectedId={template} onSelect={selectTemplate} />
+            <Suspense fallback={<p role="status">{t({ pt: "Carregando templates…", en: "Loading templates…", es: "Cargando plantillas…" })}</p>}>
+              <BlocksPreview theme={theme} mode={config.theme} label="Templates" selectedId={template} onSelect={selectTemplate} />
+            </Suspense>
           </div>
         )}
         {page === "playground" && (
@@ -1023,7 +1042,9 @@ function SiteShell({
         )}
         {page === "charts" && (
           <div id="site-content">
-            <D3ChartCatalog />
+            <Suspense fallback={null}>
+              <D3ChartCatalog />
+            </Suspense>
           </div>
         )}
         {page === "ai" && (aiTopic ? <AiGuidePage topic={aiTopic} onLink={go} /> : <AIPage navigate={navigate} go={go} config={config} />)}
@@ -1037,7 +1058,9 @@ function SiteShell({
         {page === "contribute" && <ProjectPage topic="contribuir" onLink={go} />}
         {page === "maintainer" && <ProjectPage topic="quem-mantem" onLink={go} />}
         {page === "typography" && (
-          <SiteTypography config={config} update={update} onBack={() => navigate("themes")} />
+          <Suspense fallback={null}>
+            <SiteTypography config={config} update={update} onBack={() => navigate("themes")} />
+          </Suspense>
         )}
       </div>
       <SiteFooter
@@ -1118,7 +1141,11 @@ function SiteShell({
         title={t({ pt: "Personalizar tema", en: "Customize theme", es: "Personalizar tema" })}
         width={460}
       >
-        <ThemeEditor config={config} onChange={update} preview={preview} />
+        {editorOpened && (
+          <Suspense fallback={null}>
+            <ThemeEditor config={config} onChange={update} preview={preview} />
+          </Suspense>
+        )}
       </Drawer>
     </ThemeProvider>
     </SiteThemeContext.Provider>

@@ -4,7 +4,8 @@ import { Button, type ButtonProps } from "../Button";
 import { GoogleButton } from "../GoogleButton";
 import { providerIcons } from "./providerIcons";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export const oauthProviders = {
   google: "Google",
   facebook: "Facebook",
@@ -26,7 +27,7 @@ export interface OAuthButtonProps extends Omit<
 /** Composição de Button. Não abre janelas nem armazena credenciais. */
 export const OAuthButton = forwardRef<HTMLButtonElement, OAuthButtonProps>(
   function OAuthButton({ provider, children, ...props }, ref) {
-    const continueWith = useMessages("oauthButton").continueWith;
+    const continueWith = useComponentMessages("oauthButton", enMessages.oauthButton).continueWith;
     const label = children ?? continueWith(oauthProviders[provider]);
     if (provider === "google")
       return (

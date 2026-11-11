@@ -7,7 +7,8 @@ import { cn } from "../../lib/cn";
 import { useDialogFocusTrap } from "../../lib/useDialogFocusTrap";
 import styles from "./Drawer.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type DrawerSide = "left" | "right" | "bottom" | "full";
 
 /** Props for the Drawer component. */
@@ -52,7 +53,7 @@ export function Drawer({
   hideClose,
   className,
 }: DrawerProps) {
-  const m = useMessages("common");
+  const m = useComponentMessages("common", enMessages.common);
   const panelRef = useRef<HTMLDivElement>(null);
   const present = usePresence(open, panelRef);
   const titleId = useId();

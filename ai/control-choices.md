@@ -1,6 +1,6 @@
 # Escolher e compor controles
 
-[Orientação das 117 famílias](https://github.com/viniciuscoimbra/refy-design/blob/main/docs/COMPONENT_USAGE.md): usos, alternativas e teclado por Atomic Design.
+[Orientação das 122 famílias](https://github.com/viniciuscoimbra/refy-design/blob/main/docs/COMPONENT_USAGE.md): usos, alternativas e teclado por Atomic Design.
 
 | Necessidade | Componente | Razão / limite |
 |---|---|---|

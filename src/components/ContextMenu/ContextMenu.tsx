@@ -3,7 +3,8 @@ import { useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Menu } from '../Menu';
 import type { MenuEntry } from '../Menu';
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface ContextMenuProps {
   children: ReactNode;
   entries: MenuEntry[];
@@ -16,7 +17,7 @@ export function ContextMenu({
   label: labelProp,
   onSelect,
 }: ContextMenuProps) {
-  const m = useMessages("contextMenu");
+  const m = useComponentMessages("contextMenu", enMessages.contextMenu);
   const label = labelProp ?? m.label;
   const [open, setOpen] = useState(false),
     [point, setPoint] = useState({ x: 0, y: 0 }),

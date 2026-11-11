@@ -13,7 +13,8 @@ import { cn } from "../../lib/cn";
 import { IconButton } from "../IconButton";
 import styles from "./Callout.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type CalloutTone = "info" | "note" | "success" | "warn" | "danger" | "upsell";
 
 /** Props for the Callout component. */
@@ -60,7 +61,7 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
     },
     ref,
   ) {
-    const m = useMessages("callout");
+    const m = useComponentMessages("callout", enMessages.callout);
     const dismissLabel = dismissLabelProp ?? m.dismiss;
     const [closing, setClosing] = useState(false);
     const node = useRef<HTMLDivElement>(null);

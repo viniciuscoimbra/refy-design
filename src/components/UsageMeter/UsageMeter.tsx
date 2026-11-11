@@ -4,7 +4,8 @@ import { ProgressBar } from "../ProgressBar";
 import type { ProgressTone } from "../ProgressBar";
 import styles from "./UsageMeter.module.css";
 
-import { useLocale, useMessages } from "../../lib/locale";
+import { useLocale, useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Props for the UsageMeter component. */
 export interface UsageMeterProps extends HTMLAttributes<HTMLDivElement> {
   /** Name of the measured resource. E.g. "Cycle credits". */
@@ -57,7 +58,7 @@ export function UsageMeter({
   className,
   ...rest
 }: UsageMeterProps) {
-  const m = useMessages("usageMeter");
+  const m = useComponentMessages("usageMeter", enMessages.usageMeter);
   const locale = useLocale();
   const formatValue = formatValueProp ?? ((value: number) => new Intl.NumberFormat(locale).format(value));
   const percent = limit > 0 ? (used / limit) * 100 : 0;

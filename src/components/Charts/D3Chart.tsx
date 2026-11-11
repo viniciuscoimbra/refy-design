@@ -22,11 +22,12 @@ import { relationScene } from "./d3/relations";
 import { formatX } from "./d3/shared";
 import styles from "./D3Chart.module.css";
 
-import { useLocale, useMessages } from "../../lib/locale";
+import { useLocale, useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Geometria D3, DOM React, tokens Refy. Cada família conserva seu contrato de dados. */
 export function D3Chart(input: D3ChartProps) {
-  const m = useMessages("d3Chart");
-  const charts = useMessages("charts");
+  const m = useComponentMessages("d3Chart", enMessages.d3Chart);
+  const charts = useComponentMessages("charts", enMessages.charts);
   const streaming = useChartStream(input);
   const contextLocale = useLocale();
   const props = { ...streaming.props, locale: streaming.props.locale ?? contextLocale };

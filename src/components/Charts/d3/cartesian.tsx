@@ -1,4 +1,4 @@
-import { en } from "../../../lib/messages/en";
+import { d3Chart as enD3Chart } from "../../../lib/messages/en";
 import type { RefyMessages } from "../../../lib/messages/en";
 import { bin, quantileSorted } from "d3-array";
 import { scaleBand, scaleSqrt } from "d3-scale";
@@ -66,7 +66,7 @@ export function cartesianScene(
   layout: ChartLayout,
   hidden: string[],
   viewport?: ChartViewport,
-  text: RefyMessages["d3Chart"] = en.d3Chart,
+  text: RefyMessages["d3Chart"] = enD3Chart,
 ): ChartScene {
   const { width: w, height: h, top: t, right: r, bottom: b } = layout;
   let l = layout.left;

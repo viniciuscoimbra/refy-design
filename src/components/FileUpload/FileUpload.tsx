@@ -9,7 +9,8 @@ import { ProgressBar } from "../ProgressBar";
 import { cn } from "../../lib/cn";
 import styles from "./FileUpload.module.css";
 
-import { useMessages, useLocale } from "../../lib/locale";
+import { useComponentMessages, useLocale } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type FileUploadState = "idle" | "uploading" | "success" | "error";
 
 export interface FileUploadProps {
@@ -56,7 +57,7 @@ export function FileUpload({
   hint: hintProp,
   className,
 }: FileUploadProps) {
-  const m = useMessages("fileUpload");
+  const m = useComponentMessages("fileUpload", enMessages.fileUpload);
   const locale = useLocale();
   const label = labelProp ?? m.label;
   const hint = hintProp ?? m.hint;

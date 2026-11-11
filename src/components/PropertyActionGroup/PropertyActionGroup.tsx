@@ -4,7 +4,8 @@ import type { ButtonStatus } from "../Button";
 import { cn } from "../../lib/cn";
 import styles from "./PropertyActionGroup.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type PropertyAction = "reject" | "save" | "visit";
 export type PropertyActionGroupState = "idle" | "processing" | "completed" | "unavailable";
 
@@ -26,7 +27,7 @@ const icons: Record<PropertyAction, ReactNode> = {
 
 /** Rótulos das ações no idioma atual. */
 export function useDecisionLabels(): Record<PropertyAction, string> {
-  const m = useMessages("propertyActionGroup");
+  const m = useComponentMessages("propertyActionGroup", enMessages.propertyActionGroup);
   return { reject: m.reject, save: m.save, visit: m.visit };
 }
 
@@ -42,7 +43,7 @@ export function PropertyActionGroup({
   className,
   ...rest
 }: PropertyActionGroupProps) {
-  const m = useMessages("propertyActionGroup");
+  const m = useComponentMessages("propertyActionGroup", enMessages.propertyActionGroup);
   const decisionLabels = useDecisionLabels();
   const labels = { ...decisionLabels, ...Object.fromEntries(Object.entries(labelOverrides ?? {}).filter(([, value]) => value !== undefined)) };
   const actions: PropertyAction[] = ["reject", "save", "visit"];

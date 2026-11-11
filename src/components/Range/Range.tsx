@@ -5,7 +5,8 @@ import { cn } from "../../lib/cn";
 import field from "../Input/Field.module.css";
 import styles from "./Range.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 /** Intervalo selecionado: [mínimo, máximo]. */
 export type RangeValue = [number, number];
 
@@ -70,7 +71,7 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(
   },
   ref
 ) {
-  const m = useMessages("range");
+  const m = useComponentMessages("range", enMessages.range);
   const uid = useId();
   const trackRef = useRef<HTMLDivElement>(null);
   const [internal, setInternal] = useState<RangeValue>(defaultValue ?? [min, max]);

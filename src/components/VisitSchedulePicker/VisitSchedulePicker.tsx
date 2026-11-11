@@ -7,7 +7,8 @@ import { ToggleGroup } from "../ToggleGroup";
 import { cn } from "../../lib/cn";
 import styles from "./VisitSchedulePicker.module.css";
 
-import { useLocale, useMessages } from "../../lib/locale";
+import { useLocale, useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type VisitAvailability = Record<string, string[]>;
 
 export interface VisitSchedulePickerProps {
@@ -85,7 +86,7 @@ export function VisitSchedulePicker({
   disabled = false,
   className,
 }: VisitSchedulePickerProps) {
-  const m = useMessages("visitSchedulePicker");
+  const m = useComponentMessages("visitSchedulePicker", enMessages.visitSchedulePicker);
   const locale = useLocale();
   const summaryId = useId();
   const initialKey = dateKey(defaultActiveDate);

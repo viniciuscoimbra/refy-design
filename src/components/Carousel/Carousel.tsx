@@ -4,7 +4,8 @@ import { useId, useState } from "react";
 import type { ReactNode } from "react";
 import { IconButton } from "../IconButton";
 import styles from "./Carousel.module.css";
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface CarouselItem {
   id: string;
   label: string;
@@ -24,7 +25,7 @@ export function Carousel({
   defaultIndex = 0,
   onIndexChange,
 }: CarouselProps) {
-  const m = useMessages("carousel");
+  const m = useComponentMessages("carousel", enMessages.carousel);
   const label = labelProp ?? m.label;
   const [internal, setInternal] = useState(defaultIndex),
     id = useId(),

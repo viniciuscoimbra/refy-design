@@ -6,7 +6,8 @@ import { Avatar } from "../Avatar";
 import { cn } from "../../lib/cn";
 import styles from "./WorkspaceSwitcher.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export interface Workspace {
   id: string;
   name: string;
@@ -47,7 +48,7 @@ export function WorkspaceSwitcher({
   className,
   "aria-describedby": describedBy,
 }: WorkspaceSwitcherProps) {
-  const m = useMessages("workspaceSwitcher");
+  const m = useComponentMessages("workspaceSwitcher", enMessages.workspaceSwitcher);
   const [internal, setInternal] = useState(defaultValue ?? workspaces[0]?.id);
   const currentId = value !== undefined ? value : internal;
   const current = workspaces.find((w) => w.id === currentId) ?? workspaces[0];

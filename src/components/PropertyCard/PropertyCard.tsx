@@ -11,7 +11,8 @@ import { ScoreGauge } from "../ScoreGauge";
 import { cn } from "../../lib/cn";
 import styles from "./PropertyCard.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type PropertyCardLayout = "grid" | "list" | "deck";
 
 export interface PropertyCardBadge {
@@ -69,7 +70,7 @@ export function PropertyCard({
   detailsAction,
   className,
 }: PropertyCardProps) {
-  const m = useMessages("propertyCard");
+  const m = useComponentMessages("propertyCard", enMessages.propertyCard);
   const headingId = useId();
   const showActions = actions !== false && (layout === "deck" || actions != null);
 

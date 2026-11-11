@@ -4,7 +4,8 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./Stat.module.css";
 
-import { useMessages } from "../../lib/locale";
+import { useComponentMessages } from "../../lib/locale";
+import * as enMessages from "../../lib/messages/en";
 export type StatSize = "sm" | "md" | "lg";
 export type StatTrend = "up" | "down";
 export type StatDeltaSentiment = "positive" | "negative" | "neutral";
@@ -59,7 +60,7 @@ export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
   { label, value, unit, description, delta, chart, size = "md", className, ...rest },
   ref
 ) {
-  const m = useMessages("stat");
+  const m = useComponentMessages("stat", enMessages.stat);
   const sentiment = delta?.sentiment ?? (delta?.trend === "up" ? "positive" : "negative");
   return (
     <div ref={ref} className={cn(styles.stat, styles[size], className)} {...rest}>
