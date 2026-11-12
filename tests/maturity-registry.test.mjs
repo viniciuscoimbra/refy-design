@@ -28,26 +28,30 @@ test('registry accepts entries that carry the evidence each state requires', () 
 });
 test('registry refuses claims without evidence, unknown families and malformed schemas', () => {
   const mutations = [
-    r => { r.schemaVersion = 2; },
-    r => { r.extra = true; },
-    r => { r.states.pop(); },
-    r => { r.states.reverse(); },
-    r => { r.states[0].label = ''; },
-    r => { r.states[0].surprise = true; },
-    r => { r.families.NotARealFamily = { state: 'experimental', since: '1.6.2', gaps: ['x'] }; },
-    r => { r.families.Button = { state: 'certificado', since: '1.6.2' }; },
-    r => { r.families.Button = { state: 'nao-avaliado' }; },
-    r => { r.families.Button = { state: 'estavel', since: '1.6.2' }; },
-    r => { r.families.Button = { state: 'estavel', since: '1.6.2', evidence: [] }; },
-    r => { r.families.Button = { state: 'estavel', since: 'next', evidence: ['e.md'] }; },
-    r => { r.families.Button = { state: 'estavel', since: '1.6.2', evidence: ['e.md'], wcag: 'AA' }; },
-    r => { r.families.Button = { state: 'experimental', since: '1.6.2' }; },
-    r => { r.families.Button = { state: 'experimental', since: '1.6.2', gaps: ['x', 'x'] }; },
-    r => { r.families.Button = { state: 'depreciado', since: '1.6.2', replacement: 'Button', migration: 'm', removal: '2.0.0' }; },
-    r => { r.families.Button = { state: 'depreciado', since: '1.6.2', replacement: 'Missing', migration: 'm', removal: '2.0.0' }; },
-    r => { r.families.Button = { state: 'depreciado', since: '1.6.2', replacement: 'Chip', migration: '', removal: '2.0.0' }; },
+    [r => { r.schemaVersion = 2; }, /Unsupported maturity schema/],
+    [r => { r.extra = true; }, /registry: unexpected or missing fields/],
+    [r => { r.states.pop(); }, /states must list the four QUALITY\.md states in order/],
+    [r => { r.states.reverse(); }, /states must list the four QUALITY\.md states in order/],
+    [r => { r.states[0].label = ''; }, /label must be nonempty trimmed text/],
+    [r => { r.states[0].surprise = true; }, /state nao-avaliado: unexpected or missing fields/],
+    [r => { r.families.NotARealFamily = { state: 'experimental', since: '1.6.2', gaps: ['x'] }; }, /Unknown family: NotARealFamily/],
+    [r => { r.families.Button = { state: 'certificado', since: '1.6.2' }; }, /Invalid maturity state: Button/],
+    [r => { r.families.Button = { state: 'nao-avaliado' }; }, /Redundant entry, nao-avaliado is the default: Button/],
+    [r => { r.families.Button = { state: 'estavel', since: '1.6.2' }; }, /Button: unexpected or missing fields/],
+    [r => { r.families.Button = { state: 'estavel', since: '1.6.2', evidence: [] }; }, /Button\.evidence must be a nonempty list/],
+    [r => { r.families.Button = { state: 'estavel', since: '1.6.2', evidence: null }; }, /Button\.evidence must be a nonempty list/],
+    [r => { r.families.Button = { state: 'estavel', since: '1.6.2', evidence: '' }; }, /Button\.evidence must be a nonempty list/],
+    [r => { r.families.Button = { state: 'estavel', since: 'next', evidence: ['e.md'] }; }, /Button: since must be a semver version/],
+    [r => { r.families.Button = { state: 'estavel', since: '1.6.2', evidence: ['e.md'], wcag: 'AA' }; }, /Button: unexpected or missing fields/],
+    [r => { r.families.Button = { state: 'experimental', since: '1.6.2' }; }, /Button: unexpected or missing fields/],
+    [r => { r.families.Button = { state: 'experimental', since: '1.6.2', gaps: null }; }, /Button\.gaps must be a nonempty list/],
+    [r => { r.families.Button = { state: 'experimental', since: '1.6.2', gaps: '' }; }, /Button\.gaps must be a nonempty list/],
+    [r => { r.families.Button = { state: 'experimental', since: '1.6.2', gaps: ['x', 'x'] }; }, /Button\.gaps: duplicate entry/],
+    [r => { r.families.Button = { state: 'depreciado', since: '1.6.2', replacement: 'Button', migration: 'm', removal: '2.0.0' }; }, /Button: replacement must be another family/],
+    [r => { r.families.Button = { state: 'depreciado', since: '1.6.2', replacement: 'Missing', migration: 'm', removal: '2.0.0' }; }, /Button: replacement must be another family/],
+    [r => { r.families.Button = { state: 'depreciado', since: '1.6.2', replacement: 'Chip', migration: '', removal: '2.0.0' }; }, /Button\.migration must be nonempty trimmed text/],
   ];
-  for (const mutate of mutations) { const value = clone(); mutate(value); assert.throws(() => parseMaturityRegistry(value, familyIds), JSON.stringify(value.families)); }
+  for (const [mutate, reason] of mutations) { const value = clone(); mutate(value); assert.throws(() => parseMaturityRegistry(value, familyIds), reason, JSON.stringify(value.families)); }
 });
 test('generated agent catalog carries the states and one maturity per family', () => {
   assert.deepEqual(catalog.maturity.map(state => state.id), MATURITY_STATES);

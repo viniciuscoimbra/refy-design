@@ -43,9 +43,9 @@ export function parseMaturityRegistry(raw, familyIds) {
     assert(MATURITY_STATES.includes(entry.state), `Invalid maturity state: ${family}`);
     assert.notEqual(entry.state, DEFAULT_MATURITY, `Redundant entry, ${DEFAULT_MATURITY} is the default: ${family}`);
     fields(entry, REQUIRED[entry.state], family);
-    assert(VERSION.test(entry.since ?? ''), `${family}: since must be a released version`);
-    if (entry.gaps) list(entry.gaps, `${family}.gaps`);
-    if (entry.evidence) list(entry.evidence, `${family}.evidence`);
+    assert(VERSION.test(entry.since ?? ''), `${family}: since must be a semver version`);
+    if (REQUIRED[entry.state].includes('gaps')) list(entry.gaps, `${family}.gaps`);
+    if (REQUIRED[entry.state].includes('evidence')) list(entry.evidence, `${family}.evidence`);
     if (entry.state === 'depreciado') {
       assert(families.has(entry.replacement) && entry.replacement !== family, `${family}: replacement must be another family`);
       text(entry.migration, `${family}.migration`);
