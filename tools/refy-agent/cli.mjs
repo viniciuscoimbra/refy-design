@@ -139,7 +139,7 @@ try {
     if (candidates.length > 1)
       throw Error(`Ambiguous API member ${args[0]}; use family id: ${candidates.map(c => c.id).join(", ")}`);
     const component = candidates[0];
-    const document = documentFor(component);
+    const document = { ...documentFor(component), maturity: component.maturity };
     console.log(JSON.stringify(primary ? document : {
       ...document,
       resolution: {
