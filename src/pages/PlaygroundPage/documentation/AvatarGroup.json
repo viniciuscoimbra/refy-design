@@ -5,7 +5,8 @@
     "howToUse": [
       "Use it to show who takes part in something in little space: members of a project, people in a conversation.",
       "Pass the `items` in a stable order and limit with `max`; the rest becomes \"+N\".",
-      "Use `onOverflowClick` to open the full list, and `onItemClick` to open a person."
+      "Use `onOverflowClick` to open the full list, and `onItemClick` to open a person.",
+      "A screen reader announces each person as an image with the name, with a photo or with initials; with `onItemClick`, as a button with the name."
     ],
     "alternatives": [
       "One person: Avatar.",

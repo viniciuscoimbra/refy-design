@@ -49,7 +49,7 @@ import { skins } from "../../stories/skins";
 import { fontSets } from "../../lib/fontSets";
 import styles from "./RefySitePage.module.css";
 import { SiteThemeContext } from "./platform";
-import { SiteLocaleProvider, canonicalPath, flags, htmlLang, localeNames, localePath, locales, stripLocale, useSiteLocale, useText, useTr } from "./i18n";
+import { SiteLocaleProvider, canonicalPath, flags, htmlLang, localeNames, localePath, locales, prefetchReferenceText, stripLocale, useReferenceText, useSiteLocale, useText, useTr } from "./i18n";
 import type { Locale } from "./i18n";
 import { homeSeo } from "./seo";
 import { packageName, packagePublished, packageVersion } from "./packageRelease";
@@ -64,13 +64,11 @@ import {
   SideNav,
   ComponentNav,
   stroke,
-  ComponentCatalog,
-  AccordionPage,
   describe,
-  CollectionPage,
   familySlug,
 } from "./SiteCatalog";
 import { collectionDefinitions } from "../PlaygroundPage/collections";
+import { searchCommands, useFamilySearch } from "./familySearch";
 
 
 export type SitePage =
@@ -178,7 +176,8 @@ const destinationLabels: Array<[SitePage, Record<Locale, string>]> = [
   ["ai", { pt: "Para IAs", en: "For AI", es: "Para IAs" }],
 ];
 // Páginas pesadas chegam quando a pessoa abre a página: templates (26 telas, com o código de cada
-// uma), gráficos (D3), tipografia e o editor de tema. Antes iam todas no primeiro carregamento.
+// uma), gráficos (D3), tipografia, o editor de tema e as páginas do catálogo. Antes iam todas no
+// primeiro carregamento.
 const BlocksPreview = lazy(() =>
   Promise.all([import("../PlaygroundPage/BlocksPreview"), import("../PlaygroundPage/blockRegistry")]).then(([module, { blockRegistry }]) => ({
     default: (props: Parameters<typeof module.BlocksPreview>[0]) => (
@@ -191,6 +190,9 @@ const SiteTypography = lazy(() => import("./SiteTypography").then((module) => ({
 const ThemeEditor = lazy(() => import("../PlaygroundPage/ThemeEditor").then((module) => ({ default: module.ThemeEditor })));
 const CreationPlayground = lazy(() => import("../PlaygroundPage/PlaygroundPage").then((module) => ({ default: module.StandalonePlayground })));
 const ComponentPlayground = lazy(() => import("../PlaygroundPage/PlaygroundStudio").then((module) => ({ default: module.PlaygroundStudio })));
+const ComponentCatalog = lazy(() => import("./SiteCatalogPages").then((module) => ({ default: module.ComponentCatalog })));
+const CollectionPage = lazy(() => import("./SiteCatalogPages").then((module) => ({ default: module.CollectionPage })));
+const AccordionPage = lazy(() => import("./SiteCatalogPages").then((module) => ({ default: module.AccordionPage })));
 
 // The logo is 24px tall wherever the site shows it (header, menu and footer).
 function SiteBrand() {
@@ -241,6 +243,7 @@ function Home({
 }) {
   const home = useRef<HTMLElement>(null);
   const t = useText();
+  const { locale } = useSiteLocale();
   // The switcher lists every theme file marked `featured`, in that order: dropping a file adds it.
   const heroSkins = Object.keys(skins).filter((id) => skins[id].featured).sort((a, b) => (skins[a].featured ?? 0) - (skins[b].featured ?? 0));
   // Entrance choreography on load only. A theme switch is the View Transition's job: replaying the
@@ -251,7 +254,10 @@ function Home({
     const targets = [...root.querySelectorAll("[data-hero-part]")];
     const entrance = playHeroEntrance(root, targets);
     const words = playWords(root);
-    return () => { entrance(); words(); };
+    // Quem sai da home quase sempre vai a uma página que precisa da ficha e dos exemplos. As molduras
+    // de celular e desktop montam a mesma Home: só a página de cima baixa.
+    const prefetch = embedded ? () => undefined : prefetchReferenceText(locale);
+    return () => { entrance(); words(); prefetch(); };
   }, []);
   // Preload every featured theme's faces; the switcher is enabled only after every face is ready,
   // so the first switch never snapshots a fallback font.
@@ -738,11 +744,15 @@ function SiteShell({
   });
   const config = configuration ?? localConfig;
   const [search, setSearch] = useState(initialSearchOpen);
+  const rankFamilies = useFamilySearch(search);
   const [menu, setMenu] = useState(initialMenuOpen);
   const [customize, setCustomize] = useState(false);
   // O editor de tema só baixa na primeira vez que a gaveta abre, e fica montado depois disso.
   const [editorOpened, setEditorOpened] = useState(false);
   useEffect(() => { if (customize) setEditorOpened(true); }, [customize]);
+  // Fora da home, a página espera a ficha dos componentes e os exemplos traduzidos (useReferenceText).
+  const referenceReady = useReferenceText(page !== "home" || menu || customize, page);
+  const shownPage = page === "home" || referenceReady ? page : null;
   const [selection, setSelection] = useState<PlaygroundSelection>(() => {
     const requested = (startRoute?.page ?? initialPage) === "playground" && typeof window !== "undefined"
       ? new URLSearchParams(window.location.search).get("component") ??
@@ -758,6 +768,7 @@ function SiteShell({
   const t = useText();
   const tr = useTr();
   const { locale } = useSiteLocale();
+  const loading = <p role="status">{t({ pt: "Carregando…", en: "Loading…", es: "Cargando…" })}</p>;
   const docPages = localizedDocPages[locale];
   const destinations = destinationLabels.map(([id, label]): [SitePage, string] => [id, t(label)]);
   const theme: RefyTheme = resolveTheme(config);
@@ -1008,56 +1019,60 @@ function SiteShell({
         </div>
       </header>
       <div ref={preview} className={styles.pageBody}>
-        {page === "home" && (
+        {shownPage === "home" && (
           <Home navigate={navigate} config={config} update={update} />
         )}
-        {page === "docs" && <DocsPage topic={doc} onLink={go} />}
-        {page === "components" && <ComponentCatalog select={select} openCollection={openCollection} openCharts={() => select("Charts")} />}
-        {page === "collection" && <CollectionPage id={collection} select={select} openCollection={openCollection} openCharts={() => select("Charts")} onCatalog={() => navigate("components")} />}
-        {page === "accordion" && (
-          <AccordionPage
-            navigate={navigate}
-            select={select}
-            component={component}
-            onCustomize={() => openComponent(component)}
-          />
-        )}
-        {page === "blocks" && (
+        {shownPage === null && <div id="site-content">{loading}</div>}
+        {shownPage === "docs" && <DocsPage topic={doc} onLink={go} />}
+        <Suspense fallback={<div id="site-content">{loading}</div>}>
+          {shownPage === "components" && <ComponentCatalog select={select} openCollection={openCollection} openCharts={() => select("Charts")} />}
+          {shownPage === "collection" && <CollectionPage id={collection} select={select} openCollection={openCollection} openCharts={() => select("Charts")} onCatalog={() => navigate("components")} />}
+          {shownPage === "accordion" && (
+            <AccordionPage
+              navigate={navigate}
+              select={select}
+              component={component}
+              onCustomize={() => openComponent(component)}
+            />
+          )}
+        </Suspense>
+        {shownPage === "blocks" && (
           <div id="site-content">
             <Suspense fallback={<p role="status">{t({ pt: "Carregando templates…", en: "Loading templates…", es: "Cargando plantillas…" })}</p>}>
               <BlocksPreview theme={theme} mode={config.theme} label="Templates" selectedId={template} onSelect={selectTemplate} />
             </Suspense>
           </div>
         )}
-        {page === "playground" && (
+        {shownPage === "playground" && (
           <div id="site-content">
             <Suspense fallback={<p role="status">{t({ pt: "Carregando Playground…", en: "Loading Playground…", es: "Cargando Playground…" })}</p>}>
               <ComponentPlayground
                 chromeMode={config.theme}
+                skin={config.skin}
                 initialComponent={selection.componentId}
                 onComponentChange={playgroundComponent}
               />
             </Suspense>
           </div>
         )}
-        {page === "charts" && (
+        {shownPage === "charts" && (
           <div id="site-content">
             <Suspense fallback={null}>
               <D3ChartCatalog />
             </Suspense>
           </div>
         )}
-        {page === "ai" && (aiTopic ? <AiGuidePage topic={aiTopic} onLink={go} /> : <AIPage navigate={navigate} go={go} config={config} />)}
-        {page === "themes" && (
+        {shownPage === "ai" && (aiTopic ? <AiGuidePage topic={aiTopic} onLink={go} /> : <AIPage navigate={navigate} go={go} config={config} />)}
+        {shownPage === "themes" && (
           <div id="site-content">
             <Suspense fallback={<p role="status">{t({ pt: "Carregando Playground…", en: "Loading Playground…", es: "Cargando Playground…" })}</p>}>
-              <CreationPlayground chromeMode={config.theme} initialView="theme" />
+              <CreationPlayground chromeMode={config.theme} skin={config.skin} initialView="theme" />
             </Suspense>
           </div>
         )}
-        {page === "contribute" && <ProjectPage topic="contribuir" onLink={go} />}
-        {page === "maintainer" && <ProjectPage topic="quem-mantem" onLink={go} />}
-        {page === "typography" && (
+        {shownPage === "contribute" && <ProjectPage topic="contribuir" onLink={go} />}
+        {shownPage === "maintainer" && <ProjectPage topic="quem-mantem" onLink={go} />}
+        {shownPage === "typography" && (
           <Suspense fallback={null}>
             <SiteTypography config={config} update={update} onBack={() => navigate("themes")} />
           </Suspense>
@@ -1116,6 +1131,7 @@ function SiteShell({
         open={search}
         onOpenChange={setSearch}
         items={commands}
+        search={(items, query) => searchCommands(items, query, rankFamilies)}
         placeholder={t({ pt: "Buscar páginas e componentes…", en: "Search pages and components…", es: "Buscar páginas y componentes…" })}
         emptyMessage={t({ pt: "Nenhum resultado. Tente outro termo.", en: "No results. Try another term.", es: "Sin resultados. Prueba otro término." })}
       />

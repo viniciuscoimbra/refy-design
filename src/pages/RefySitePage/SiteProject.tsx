@@ -60,7 +60,7 @@ const contributionFile = `{
     }]
   }
 }`;
-const contributeCommand = "npx refy contribute Segmented --refy ../refy-design";
+const contributeCommand = "npx -p @refy-design/web refy contribute Segmented --refy ../refy-design";
 const setupCommands = "npm ci\nnpm run storybook\nnpm run check";
 const installFor = (version: string) => `npm install @refy-design/web@${version}`;
 
@@ -161,7 +161,7 @@ const copy: Record<Locale, Copy> = {
           {ruleList([
             ["Abra uma issue \"Falta no refy\".", "Diga a tela que precisa e o que o componente não deixa fazer. Pra família nova, diga também a camada e a finalidade. Quem precisar da mesma coisa encontra a issue e soma."],
             ["Faça a peça no seu projeto.", <>Em <code>refy-extensions/&lt;Nome&gt;/</code>, sem esperar a biblioteca: sua tela não fica parada.</>],
-            ["Mande pro refy.", <><code>npx refy contribute &lt;Nome&gt;</code> testa a peça numa cópia do refy e escreve o PR. Quando ela entra numa versão, você atualiza o refy e apaga a extensão.</>],
+            ["Mande pro refy.", <><code>npx -p @refy-design/web refy contribute &lt;Nome&gt;</code> testa a peça numa cópia do refy e escreve o PR. Quando ela entra numa versão, você atualiza o refy e apaga a extensão.</>],
           ])}
           {issueButton("Abrir issue")}
         </section>
@@ -257,7 +257,7 @@ const copy: Record<Locale, Copy> = {
           {ruleList([
             ["Open a \"Falta no refy\" issue.", "Say which screen needs it and what the component doesn't let you do. For a new family, also give the layer and the purpose. Anyone who needs the same thing finds the issue and joins in."],
             ["Build the piece in your project.", <>In <code>refy-extensions/&lt;Name&gt;/</code>, without waiting for the library: your screen doesn't stall.</>],
-            ["Send it to refy.", <><code>npx refy contribute &lt;Name&gt;</code> tests the piece on a copy of refy and writes the PR. Once it ships in a version, you update refy and delete the extension.</>],
+            ["Send it to refy.", <><code>npx -p @refy-design/web refy contribute &lt;Name&gt;</code> tests the piece on a copy of refy and writes the PR. Once it ships in a version, you update refy and delete the extension.</>],
           ])}
           {issueButton("Open an issue")}
         </section>
@@ -353,7 +353,7 @@ const copy: Record<Locale, Copy> = {
           {ruleList([
             ["Abre un issue \"Falta no refy\".", "Di qué pantalla lo necesita y qué no deja hacer el componente. Para una familia nueva, indica también la capa y la finalidad. Quien necesite lo mismo encuentra el issue y se suma."],
             ["Haz la pieza en tu proyecto.", <>En <code>refy-extensions/&lt;Name&gt;/</code>, sin esperar a la biblioteca: tu pantalla no se detiene.</>],
-            ["Envíala a refy.", <><code>npx refy contribute &lt;Name&gt;</code> prueba la pieza en una copia de refy y escribe el PR. Cuando entra en una versión, actualizas refy y borras la extensión.</>],
+            ["Envíala a refy.", <><code>npx -p @refy-design/web refy contribute &lt;Name&gt;</code> prueba la pieza en una copia de refy y escribe el PR. Cuando entra en una versión, actualizas refy y borras la extensión.</>],
           ])}
           {issueButton("Abrir issue")}
         </section>

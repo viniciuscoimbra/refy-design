@@ -43,6 +43,8 @@ export interface CommandProps {
   onSelect?: (item: CommandItem) => void;
   placeholder?: string;
   emptyMessage?: string;
+  /** Your own search: receives the items and the typed text, without leading or trailing spaces, and returns the items to show, in order. It is not called while the field is empty, when every item shows. Without it, an item shows when its label, description or keywords contain the text. */
+  search?: (items: CommandItem[], query: string) => CommandItem[];
   /** Maximum palette width; keeps 560px when omitted. */
   width?: number;
   className?: string;
@@ -83,6 +85,7 @@ export function Command({
   onSelect,
   placeholder: placeholderProp,
   emptyMessage: emptyMessageProp,
+  search,
   width = 560,
   className,
 }: CommandProps) {
@@ -106,6 +109,7 @@ export function Command({
   }, [open]);
 
   const filtered = useMemo(() => {
+    if (search && query.trim()) return search(items, query.trim());
     const q = query.trim().toLowerCase();
     if (!q) return items;
     return items.filter(
@@ -114,7 +118,7 @@ export function Command({
         it.description?.toLowerCase().includes(q) ||
         it.keywords?.toLowerCase().includes(q),
     );
-  }, [items, query]);
+  }, [items, query, search]);
 
   const sections = useMemo(() => {
     const map = new Map<string, CommandItem[]>();

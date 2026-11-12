@@ -69,7 +69,7 @@ test('public check remains usable after discovery changes', () => {
 });
 test('catalog answers a need in pt, en or es with the same ranking as refy_search', () => {
   // Artigo da LBP sobre a 1.2.0: "tabela" e "login" voltavam zero na CLI e só o MCP achava.
-  for (const [query, first] of [['tabela', 'Table'], ['tabela de dados', 'Table'], ['data table', 'Table'], ['tabla de datos', 'Table'], ['login', 'GoogleButton'], ['gráfico', 'Charts']]) {
+  for (const [query, first] of [['tabela', 'Table'], ['tabela de dados', 'Table'], ['data table', 'Table'], ['tabla de datos', 'Table'], ['login', 'OAuthButton'], ['gráfico', 'Charts']]) {
     const result = run(['catalog', ...query.split(' ')]);
     assert.equal(result.status, 0, result.stderr);
     const out = JSON.parse(result.stdout);

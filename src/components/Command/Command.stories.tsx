@@ -178,3 +178,26 @@ export const ComDescricoes: Story = { name: "With descriptions",
     );
   },
 };
+
+/** `search` replaces the built-in filter: here a word must match a keyword exactly, in any of the three languages. */
+export const BuscaPropria: Story = { name: "Own search",
+  args: { open: false, onOpenChange: () => {}, items: [] },
+  render: () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Search by keyword</Button>
+        <Command
+          open={open}
+          onOpenChange={setOpen}
+          search={(list, query) => list.filter((item) => item.keywords?.split(" ").includes(query.toLowerCase()))}
+          items={[
+            { id: "button", label: "Button", keywords: "button botão botón" },
+            { id: "table", label: "Table", keywords: "table tabela tabla" },
+            { id: "input", label: "Input", keywords: "input campo" },
+          ]}
+        />
+      </>
+    );
+  },
+};

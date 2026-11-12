@@ -2,6 +2,27 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.6.0 (12/11/2026)
+
+Correções das issues #6 a #13, abertas por @iosbilario. Obrigado.
+
+### Adicionado
+
+- `Command` aceita `search(items, query)`: quem usa a paleta decide quais itens aparecem e em que ordem. Sem a propriedade, a busca continua como antes ([#7](https://github.com/viniciuscoimbra/refy-design/issues/7)).
+
+### Corrigido
+
+- A busca do site, do Playground e do `refy-agent catalog` acha termos em português e espanhol: "tabela" traz Table, "botao" traz Button e "senha" traz Input ([#7](https://github.com/viniciuscoimbra/refy-design/issues/7)).
+- A página inicial baixa 274 KB de JavaScript comprimido em vez de 436 KB. A ficha dos componentes e os exemplos baixam quando a página precisa deles ou quando o navegador fica ocioso, e nunca com economia de dados ligada ([#6](https://github.com/viniciuscoimbra/refy-design/issues/6)).
+- No celular, o título, a frase e os botões da abertura aparecem no primeiro quadro em vez de surgir depois de cerca de 2 segundos ([#9](https://github.com/viniciuscoimbra/refy-design/issues/9)).
+- O editor de tema avisa no próprio campo quando a cor principal fica sem contraste com o texto e oferece usar texto preto ([#8](https://github.com/viniciuscoimbra/refy-design/issues/8)).
+- O validador de tema não arredonda mais a razão de contraste antes de comparar com o mínimo e mostra a razão arredondada para baixo ([#8](https://github.com/viniciuscoimbra/refy-design/issues/8)).
+- O tema escolhido na página inicial vale também no Playground, e o caminho inverso também ([#10](https://github.com/viniciuscoimbra/refy-design/issues/10)).
+- `AvatarGroup` anuncia o nome de cada pessoa para leitores de tela, com ou sem foto ([#10](https://github.com/viniciuscoimbra/refy-design/issues/10)).
+- A página /contribuir, o CLI, as skills e o template de issue mandam rodar `npx -p @refy-design/web refy contribute`, que não baixa um pacote `refy` de terceiros ([#11](https://github.com/viniciuscoimbra/refy-design/issues/11)).
+- A label `gap`, usada pelo template "Falta no refy", passa a existir no repositório ([#12](https://github.com/viniciuscoimbra/refy-design/issues/12)).
+- O CONTRIBUTING.md abre com o caminho para propor um componente: as perguntas antes de abrir, a issue "Falta no refy", a pasta `refy-extensions/` e o comando seguro ([#13](https://github.com/viniciuscoimbra/refy-design/issues/13)).
+
 ## 1.5.2 (12/11/2026)
 
 ### Adicionado

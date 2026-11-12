@@ -2,12 +2,11 @@ import assert from 'node:assert/strict';
 import { writeFileSync } from 'node:fs';
 import { themeValues } from './tokens.mjs';
 import { resolveToken } from './check-tokens.mjs';
-const luminance = hex => {
-  assert(/^#[0-9a-f]{6}$/i.test(hex), `Cor não suportada nesta medição: ${hex}`);
-  const rgb = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(x => x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4);
-  return rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722;
+import { contrast, measurePairs } from '../tools/refy-agent/contrast.mjs';
+const ratio = (a, b) => {
+  assert(/^#[0-9a-f]{6}$/i.test(a) && /^#[0-9a-f]{6}$/i.test(b), `Cor não suportada nesta medição: ${a} / ${b}`);
+  return contrast(a, b);
 };
-const ratio = (a, b) => (Math.max(luminance(a), luminance(b)) + .05) / (Math.min(luminance(a), luminance(b)) + .05);
 assert.equal(ratio('#000000', '#ffffff'), 21);
 assert.equal(ratio('#ffffff', '#ffffff'), 1);
 const rows = [];
@@ -29,7 +28,8 @@ for (const mode of ['light', 'dark', 'editorial']) {
     ...['comment','keyword','string','number','tag','function','property','punctuation'].map(name => [`--code-syntax-${name}`, '--surface-2', `sintaxe ${name}`, 4.5]),
   ]) {
     const a = resolveToken(fg, values), b = resolveToken(bg, values), result = ratio(a, b);
-    rows.push({ mode, context, fg, bg, foreground: a, background: b, ratio: +result.toFixed(3), minimum, pass: result >= minimum });
+    const [{ passed }] = measurePairs({ [fg]: a, [bg]: b }, [[fg, bg, minimum]]);
+    rows.push({ mode, context, fg, bg, foreground: a, background: b, ratio: +result.toFixed(3), minimum, pass: passed });
   }
 }
 writeFileSync('docs/CONTRAST.json', JSON.stringify({ scope: 'Pares opacos sRGB da fundação. Não cobre transparências, todas as famílias ou conformidade WCAG global. Axe/browser complementam esta medição.', rows }, null, 2) + '\n');

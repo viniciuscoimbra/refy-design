@@ -4,6 +4,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { refySiteTheme, ThemeProvider, Button, Accordion, Calendar } from "@refy-design/web";
 import { themeValues } from "./tokens.mjs";
+import { measurePairs } from "../tools/refy-agent/contrast.mjs";
 
 const source = JSON.parse(readFileSync("src/themes/refy-site.json", "utf8"));
 assert.deepEqual(
@@ -29,19 +30,6 @@ function resolve(name, values, path = []) {
     resolve(next, values, [...path, name]),
   );
 }
-function luminance(hex) {
-  assert.match(hex, /^#[\da-f]{6}$/i);
-  const [r, g, b] = [1, 3, 5].map((index) => {
-    const value = parseInt(hex.slice(index, index + 2), 16) / 255;
-    return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
-  });
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-function contrast(a, b) {
-  const x = luminance(a),
-    y = luminance(b);
-  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
-}
 for (const mode of ["light", "dark"]) {
   const values = {
     ...themeValues(mode),
@@ -49,22 +37,23 @@ for (const mode of ["light", "dark"]) {
     ...source.modes[mode],
   };
   for (const token of Object.keys(source.tokens)) resolve(token, values);
-  for (const [fg, bg] of [
-    ["--ink-1", "--bg"],
-    ["--ink-2", "--surface"],
-    ["--ink-3", "--surface"],
-    ["--on-primary", "--primary"],
-    ["--on-primary", "--primary-hover"],
-    ["--on-primary-container", "--primary-container"],
-    ["--primary-ink", "--primary-soft"],
-    ["--code-text", "--code-surface"],
-    ["--code-syntax-keyword", "--code-surface"],
-    ["--code-syntax-string", "--code-surface"],
-  ])
-    assert(
-      contrast(resolve(fg, values), resolve(bg, values)) >= 4.5,
-      mode + ": contraste " + fg + "/" + bg,
-    );
+  // Pares do site, mais estritos que os do validador: todos com 4,5:1 e cores sólidas.
+  const sitePairs = [
+    ["--ink-1", "--bg", 4.5],
+    ["--ink-2", "--surface", 4.5],
+    ["--ink-3", "--surface", 4.5],
+    ["--on-primary", "--primary", 4.5],
+    ["--on-primary", "--primary-hover", 4.5],
+    ["--on-primary-container", "--primary-container", 4.5],
+    ["--primary-ink", "--primary-soft", 4.5],
+    ["--code-text", "--code-surface", 4.5],
+    ["--code-syntax-keyword", "--code-surface", 4.5],
+    ["--code-syntax-string", "--code-surface", 4.5],
+  ];
+  const colors = Object.fromEntries(sitePairs.flatMap(([fg, bg]) => [fg, bg]).map((name) => [name, resolve(name, values)]));
+  for (const name of Object.keys(colors)) assert.match(colors[name], /^#[\da-f]{6}$/i, mode + ": " + name + " precisa ser #rrggbb");
+  for (const pair of measurePairs(colors, sitePairs))
+    assert(pair.passed, mode + ": contraste " + pair.foreground + "/" + pair.background + " = " + pair.ratio);
   for (const [name, value] of Object.entries(source.modes[mode]))
     assert(
       !/radius|height|font|padding|gap|--text-/.test(name),

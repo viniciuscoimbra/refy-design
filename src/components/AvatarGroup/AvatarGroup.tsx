@@ -62,8 +62,8 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(function
   const rest_ = items.slice(Math.max(0, max));
   const overflow = rest_.length;
 
-  const defaultLabel =
-    items.length === 1 ? items[0].name : `${items.length} pessoas`;
+  // With one person the item already says the name: the group would only repeat it.
+  const defaultLabel = items.length === 1 ? undefined : `${items.length} pessoas`;
 
   return (
     <div
@@ -99,7 +99,8 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(function
                 {avatar}
               </button>
             ) : (
-              <span className={styles.item} style={{ zIndex: z }}>
+              // The item says the name, with a photo or with initials; the photo itself stays alt="".
+              <span className={styles.item} style={{ zIndex: z }} role="img" aria-label={item.name}>
                 {avatar}
               </span>
             )}

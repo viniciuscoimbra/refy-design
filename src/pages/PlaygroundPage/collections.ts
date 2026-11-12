@@ -17,8 +17,12 @@ export function collectionLabels(id: string): string[] {
   return collectionDefinitions.filter(item => componentCollectionIds(id).includes(item.id)).map(item => item.label);
 }
 
+/** Texto de busca sem acento e em minúsculas: "Botão" e "botao" casam igual. */
+export function normalizeSearchText(value: string): string {
+  return value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLocaleLowerCase();
+}
+
 export function matchesCollectionSearch(id: string, query: string, text = ""): boolean {
-  const normalize = (value: string) => value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLocaleLowerCase();
-  const haystack = normalize([id, text, ...collectionSearchTerms(id)].join(" "));
-  return normalize(query).trim().split(/\s+/).filter(Boolean).every(term => haystack.includes(term));
+  const haystack = normalizeSearchText([id, text, ...collectionSearchTerms(id)].join(" "));
+  return normalizeSearchText(query).trim().split(/\s+/).filter(Boolean).every(term => haystack.includes(term));
 }

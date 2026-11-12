@@ -19,3 +19,4 @@ dist-site*/
 .dev.vars*
 !.dev.vars.example
 /release/
+.claude/worktrees/

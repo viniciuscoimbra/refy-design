@@ -3,16 +3,13 @@
 // este módulo lê só o que vai no pacote (foundations.tokens.json e catalog.themeTokens), então
 // funciona dentro de node_modules sem os scripts do repositório.
 
+import { CONTRAST_PAIRS, contrast, measurePairs, parseHex, toLinear } from "./contrast.mjs";
+
+export { CONTRAST_PAIRS, contrast, parseHex };
+
 // ---- cor: sRGB ↔ OKLCH --------------------------------------------------------------------
-const toLinear = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
 const toGamma = (c) => (c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055);
 
-export function parseHex(hex) {
-  const match = /^#?([\da-f]{3}|[\da-f]{6})$/i.exec(String(hex).trim());
-  if (!match) throw Error(`Cor inválida: ${hex}. Use hexadecimal, como #2163ad.`);
-  const full = match[1].length === 3 ? [...match[1]].map((c) => c + c).join("") : match[1];
-  return [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16) / 255);
-}
 const toHex = (rgb) => "#" + rgb.map((c) => Math.round(Math.min(1, Math.max(0, c)) * 255).toString(16).padStart(2, "0")).join("");
 
 export function hexToOklch(hex) {
@@ -50,14 +47,6 @@ export function oklchToHex({ l, c, h }) {
   }
   return toHex(rgb.map(toGamma));
 }
-function luminance(hex) {
-  const [r, g, b] = parseHex(hex).map(toLinear);
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-export function contrast(a, b) {
-  const [x, y] = [luminance(a), luminance(b)];
-  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
-}
 // Anda na luminosidade até o contraste mínimo, mantendo matiz e croma.
 export function fit(color, against, min, direction) {
   let current = { ...color };
@@ -85,18 +74,6 @@ function declarations(group = {}) {
   return values;
 }
 export const foundationValues = (foundations, mode) => ({ ...declarations(foundations.base), ...declarations(foundations[mode]) });
-
-export const CONTRAST_PAIRS = [
-  ["--ink-1", "--bg", 4.5], ["--ink-2", "--surface", 4.5], ["--ink-3", "--surface", 4.5],
-  ["--on-primary", "--primary", 4.5], ["--primary-ink", "--surface", 4.5],
-  ["--good-ink", "--good-soft", 4.5], ["--on-good", "--good", 4.5], ["--good", "--surface", 3],
-  ["--critical-ink", "--critical-soft", 4.5], ["--on-critical", "--critical", 4.5],
-  ["--info-ink", "--info-soft", 4.5], ["--on-info", "--info", 4.5],
-  ["--brand-mark", "--bg", 3],
-  ["--code-syntax-string", "--code-surface", 4.5], ["--brand-on-primary-container", "--brand-primary-container", 3],
-  // Fora de check-themes: Button pinta --on-primary sobre --primary-hover.
-  ["--on-primary", "--primary-hover", 4.5],
-];
 
 function resolveToken(name, values, path = []) {
   if (path.includes(name)) throw Error("Ciclo de tokens: " + [...path, name].join(" → "));
@@ -142,9 +119,9 @@ export function validateTheme(theme, { catalog, foundations }) {
         errors.push(`${mode}: ${fg}/${bg} usa ${unmeasurable.join(" e ")}, que não dá para medir; use hexadecimal #rrggbb.`);
         continue;
       }
-      const ratio = Math.round(contrast(a, b) * 100) / 100;
-      pairs.push({ mode, foreground: fg, background: bg, values: [a, b], min, ratio, passed: ratio >= min });
-      if (ratio < min) errors.push(`${mode}: contraste ${fg}/${bg} = ${ratio} < ${min}.`);
+      const [{ ratio, passed }] = measurePairs({ [fg]: a, [bg]: b }, [[fg, bg, min]]);
+      pairs.push({ mode, foreground: fg, background: bg, values: [a, b], min, ratio, passed });
+      if (!passed) errors.push(`${mode}: contraste ${fg}/${bg} = ${ratio} < ${min}.`);
     }
   }
   return { passed: errors.length === 0, errors, warnings, pairs };

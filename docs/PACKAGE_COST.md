@@ -110,3 +110,32 @@ Vite 6, React externo, tokens.css mais uma família importada pela raiz, bytes g
 
 Para medir de novo qualquer família: `node scripts/measure-family-cost.mjs saida.json Pagination Tabs`. Button, Card e Badge não mudaram de JS: não tinham texto pronto.
 
+
+## Primeira carga da home do site, 12/11/2026
+
+Issues #6 e #9 do repositório público. Medido no navegador: tudo que a home pede ao próprio site até a rede parar, depois do `npm run build:site`, com gzip padrão do Node sobre cada arquivo. O que a home baixa com o navegador ocioso, depois da carga, fica fora da conta.
+
+| Arquivo da home | Antes, bruto / gzip | Depois, bruto / gzip |
+|---|---:|---:|
+| `themeConfig-*.js` (React DOM, tema, catálogo) | 599.504 / 154.843 | 527.254 / 133.153 |
+| `app-*.js` (página do site, gsap) | 340.604 / 110.632 | 342.609 / 111.255 |
+| `docs.pt-*.js` (ficha dos componentes em português) | 274.297 / 95.146 | depois da carga |
+| `demo.pt-*.js` (exemplos e templates em português) | 131.765 / 46.593 | depois da carga |
+| `locale-*.js` (React, textos do site) | 65.156 / 22.379 | 65.956 / 22.659 |
+| JS total | 1.424.731 / 436.327 | 949.224 / 273.788 |
+| CSS total | 216.597 / 39.425 | 183.218 / 34.066 |
+
+O que saiu da primeira carga:
+
+- A ficha dos componentes e os textos dos exemplos e templates traduzidos baixam quando o navegador fica ocioso depois da carga, ou com a primeira página que precisa deles, que mostra "Carregando…" enquanto espera. Nas 522 rotas do sitemap, o texto renderizado ficou igual ao de antes, abrindo pelo endereço e vindo da home pelo menu.
+- As páginas do catálogo, da família e da coleção (`SiteCatalogPages.tsx`, com a documentação de cada família e as prévias do catálogo) carregam quando a pessoa abre uma delas.
+
+O que fica na home e por quê:
+
+- gsap, cerca de 77 KB gzip somando os módulos (núcleo 31,5, CSSPlugin 18,7, ScrollTrigger 21,3, Observer 5,7): faz a entrada, as cenas de rolagem e o coverflow aprovados.
+- Prism, cerca de 21 KB gzip: os blocos de código da própria home.
+- As páginas das Docs, de Para IAs e do projeto, com o CHANGELOG (cerca de 45 KB gzip): os rótulos de menu e de busca moram no mesmo objeto que o corpo de cada página.
+
+`tests/site-home-budget.spec.ts` reprova a home acima de 300.000 B de JS gzip, cerca de 10% sobre o número de depois.
+
+Num celular emulado (375×812, CPU 4x, 1,6 Mbps, 150 ms de latência, servidor com gzip), o LCP mediano de 5 cargas caiu de 4.188 ms para 3.068 ms. O elemento do LCP é a frase da hero nos dois casos. A hero também deixou de começar transparente: a entrada só desloca título, frase e botões (o seletor de tema e a mídia mantêm o fade), e o estado final é igual pixel a pixel ao de antes.

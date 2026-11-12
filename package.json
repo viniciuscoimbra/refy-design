@@ -1,6 +1,6 @@
 {
   "name": "@refy-design/web",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "Refy Design System — componentes React atômicos.",
   "license": "MIT",
   "type": "module",
@@ -58,7 +58,7 @@
     "check:blocks": "node scripts/check-blocks.mjs",
     "docs:build": "node scripts/component-docs.mjs",
     "versions:build": "node scripts/api-history.mjs",
-    "docs:check": "node scripts/component-docs.mjs --check --compile && node scripts/api-history.mjs --check && node --test tests/component-usage.test.mjs tests/component-colors.test.mjs tests/brand-logo-symbol.test.mjs tests/site-releases.test.mjs",
+    "docs:check": "node scripts/component-docs.mjs --check --compile && node scripts/api-history.mjs --check && node --test tests/component-usage.test.mjs tests/component-colors.test.mjs tests/brand-logo-symbol.test.mjs tests/site-releases.test.mjs tests/repo-labels.test.mjs",
     "motion:check": "node scripts/check-motion.mjs",
     "check:site-contract": "node scripts/refy-site-harness.mjs --contract",
     "check:site-visual": "node scripts/refy-site-harness.mjs --compare",
@@ -66,7 +66,7 @@
     "agent:build": "node scripts/agent-kit.mjs",
     "mcp:worker": "node workers/mcp/build.mjs",
     "mcp:smoke": "node workers/mcp/smoke.mjs",
-    "agent:check": "node scripts/agent-kit.mjs --check && node --test tests/agent-kit.test.mjs tests/agent-discovery.test.mjs tests/collection-registry.test.mjs tests/agent-collections.test.mjs tests/agent-init.test.mjs tests/agent-mcp.test.mjs tests/agent-theme-extract.test.mjs tests/agent-compare.test.mjs tests/agent-plugin.test.mjs tests/agent-mcp-remote.test.mjs tests/agent-check-guidance.test.mjs tests/agent-theme-precedence.test.mjs tests/agent-check-hooks.test.mjs tests/readme-facts.test.mjs"
+    "agent:check": "node scripts/agent-kit.mjs --check && node --test tests/agent-kit.test.mjs tests/agent-discovery.test.mjs tests/collection-registry.test.mjs tests/agent-collections.test.mjs tests/agent-init.test.mjs tests/agent-mcp.test.mjs tests/agent-theme-extract.test.mjs tests/agent-compare.test.mjs tests/agent-plugin.test.mjs tests/agent-mcp-remote.test.mjs tests/agent-check-guidance.test.mjs tests/agent-theme-precedence.test.mjs tests/agent-check-hooks.test.mjs tests/readme-facts.test.mjs tests/contribute-command.test.mjs tests/theme-contrast.test.mjs tests/avatar-group-names.test.mjs tests/catalog-search-terms.test.mjs"
   },
   "peerDependencies": {
     "react": ">=18",

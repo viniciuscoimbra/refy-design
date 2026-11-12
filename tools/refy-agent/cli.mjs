@@ -3,6 +3,7 @@ import { readFileSync, realpathSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { resolve, relative, isAbsolute, sep } from "node:path";
 import { inspectFiles } from "./check.mjs";
+import { buildIndex, normalize, searchCatalog } from "./search.mjs";
 const catalog = JSON.parse(
   readFileSync(
     fileURLToPath(new URL("../../ai/catalog.json", import.meta.url)),
@@ -21,12 +22,14 @@ function documentFor(component) {
   }
   return documents.get(component.id);
 }
-function normalize(value) {
-  return value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLocaleLowerCase();
-}
 const definitions = catalog.collections ?? [];
 function collectionMatches(collection, query) {
   return normalize([collection.id, collection.label, collection.description, ...(collection.keywords ?? [])].join(" ")).includes(query);
+}
+// Coleção pelo nome ou por uma palavra-chave inteira: "form" não pode casar "formas de pagamento".
+function collectionNamed(collection, query) {
+  return [collection.id, collection.label, ...(collection.keywords ?? [])]
+    .some((name) => normalize(name).split(/\s+/).includes(query) || normalize(name) === query);
 }
 const [command, ...args] = process.argv.slice(2);
 try {
@@ -80,7 +83,6 @@ try {
     // para a CLI e o MCP darem a mesma resposta à mesma pergunta.
     const text = args.join(" ");
     const query = normalize(text);
-    const { buildIndex, searchCatalog } = await import("./search.mjs");
     let choicesMarkdown = "";
     try {
       choicesMarkdown = readFileSync(fileURLToPath(new URL("../../ai/control-choices.md", import.meta.url)), "utf8");
@@ -89,9 +91,11 @@ try {
       ? searchCatalog(buildIndex(catalog, documentFor, choicesMarkdown), text, { limit: 12 }).results
       : [];
     const rank = new Map(ranked.map((result, position) => [result.id, position]));
+    // Só nome casa literalmente: o texto livre do catálogo cita "botão" e "formulário" em famílias
+    // que não são nem uma coisa nem outra, e o literal vencia a busca por intenção.
     const literal = command === "catalog" ? catalog.components.filter((component) =>
-      normalize(JSON.stringify(component)).includes(query) ||
-      definitions.some(collection => (component.collections ?? []).includes(collection.id) && collectionMatches(collection, query)) ||
+      [component.id, component.publicName, component.label].some((name) => normalize(name ?? "").includes(query)) ||
+      definitions.some(collection => (component.collections ?? []).includes(collection.id) && collectionNamed(collection, query)) ||
       (documentFor(component).api ?? []).some((member) =>
         normalize(member.name).includes(query),
       ),

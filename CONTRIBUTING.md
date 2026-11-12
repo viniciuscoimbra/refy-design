@@ -3,6 +3,28 @@
 O Refy é uma biblioteca React sob MIT, mantida por Vinícius Coimbra. A licença
 permite derivação; não licencia automaticamente marcas, fontes ou assets de terceiros.
 
+## Antes de propor
+
+Faça as três perguntas nesta ordem. A primeira resposta sim diz onde a mudança mora.
+
+1. **O tema resolve?** Se o componente já lê um token ou uma variante que chega no
+   visual que você quer, a mudança é no arquivo de tema do seu projeto. O refy não muda.
+2. **É composição do seu produto?** Tela ou peça montada com componentes do refy fica
+   no seu projeto, mesmo que se repita em várias telas.
+3. **Falta prop ou token?** Aí é contribuição: o componente não tem como fazer isso, e a
+   capacidade serve pra qualquer produto. Mostre a linha do componente que impede.
+
+Se a resposta foi a terceira, abra uma issue "Falta no refy" com a tela que precisa e o
+que o componente não deixa fazer. Faça a peça no seu projeto, em
+`refy-extensions/<Nome>/`, com o patch e um `contribution.json`. Depois rode:
+
+```bash
+npx -p @refy-design/web refy contribute <Nome>
+```
+
+O comando testa a peça numa cópia do refy e escreve o PR. O passo a passo completo está
+em [refy.design/contribuir](https://refy.design/contribuir).
+
 ## Propor e implementar
 
 1. Descreva a necessidade em uma mudança OpenSpec, com proposal, design, specs e

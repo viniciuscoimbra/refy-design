@@ -5,10 +5,12 @@ import type { RefyTheme, ThemeMode } from "../../lib/ThemeProvider";
 import type { FontSet } from "../../lib/fontSets";
 import { Icons } from "../../_demo/icons";
 import { componentCatalog } from "./catalog";
+import { searchFamilies, useFamilySearch } from "../RefySitePage/familySearch";
+import { normalizeSearchText } from "./collections";
 import { PreviewFrame } from "./PreviewFrame";
 import { ThemeEditor } from "./ThemeEditor";
-import { changeConfig, defaultConfig, resolveTheme } from "./themeConfig";
-import type { PlaygroundConfig } from "./themeConfig";
+import { changeConfig, defaultConfig, resolveTheme, usePreviewConfig } from "./themeConfig";
+import type { PlaygroundConfig, Skin } from "./themeConfig";
 import { downloadThemeFile } from "./themeFile";
 import { typographyNames, typographyTheme } from "./typographySample";
 import { hasStory, jsxSample, loadComponentTokens, loadExampleCode, loadStudioSource, plainArgs } from "./studioSources";
@@ -43,17 +45,20 @@ export function PlaygroundStudio({
   chromeMode = "light",
   initialSheet = "closed",
   onComponentChange,
+  skin,
 }: {
   initialComponent?: string;
   chromeMode?: ThemeMode;
   initialSheet?: Sheet;
   /** Called when the person picks another component, so the page can keep it in its address. */
   onComponentChange?: (id: string) => void;
+  /** Theme chosen on the page around the Playground; the preview starts from it. */
+  skin?: Skin;
 }) {
   // On a phone the properties live in a bottom sheet that never covers the component: closed, half or full.
   const phone = usePhone();
   const [sheet, setSheet] = useState<Sheet>(initialSheet);
-  const [config, setConfig] = useState<PlaygroundConfig>({ ...defaultConfig, theme: chromeMode === "dark" ? "dark" : "light" });
+  const [config, setConfig] = usePreviewConfig(skin, chromeMode);
   const update = (patch: Partial<PlaygroundConfig>) => setConfig((current) => changeConfig(current, patch));
   const [componentId, setComponentId] = useState(initialComponent);
   // A link from a component's page ("Open in Playground") arrives as a new initial component.
@@ -105,12 +110,14 @@ export function PlaygroundStudio({
     setValues(Object.fromEntries([...tokens.hooks, ...tokens.foundation].map((name) => [name, css.getPropertyValue(name).trim()])));
   }, [theme, tokens]);
 
+  const rankFamilies = useFamilySearch(query.trim() !== "");
+  const matches = searchFamilies(componentCatalog, query, rankFamilies, (item) => normalizeSearchText(item.label).includes(normalizeSearchText(query.trim())));
   const groups = levels
     .map((level) => ({
       id: level,
       title: tr(level),
-      items: componentCatalog
-        .filter((item) => item.level === level && hasStory(item.id) && `${item.label}`.toLowerCase().includes(query.trim().toLowerCase()))
+      items: matches
+        .filter((item) => item.level === level && hasStory(item.id))
         .sort((a, b) => a.label.localeCompare(b.label))
         .map((item) => ({ href: `#${item.id}`, label: item.label })),
     }))

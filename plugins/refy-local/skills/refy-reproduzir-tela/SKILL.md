@@ -13,7 +13,7 @@ Toda diferença entre o original e a tela do Refy se resolve nesta ordem, e voc�
 
 1. **Tema.** O componente já lê um token para isso? Ajuste o token no tema do projeto (`refy_theme_extract` dá o ponto de partida; `elements.tokens` traz o jeito de botão, cartão, campo e selo).
 2. **Composição.** É arranjo da página (grade, ordem, espaço entre blocos)? Monte com componentes do Refy e CSS de layout da própria tela, sem cor, fonte ou raio solto.
-3. **Extensão.** O componente não tem prop nem token para isso (o `gaps` do `refy_theme_extract` lista os casos, como caixa alta no botão)? Crie a extensão em `refy-extensions/<Nome>/` sobre o componente público, com `contribution.json`. Se servir a outros projetos, `npx refy contribute <Nome>` prepara a contribuição ao Refy.
+3. **Extensão.** O componente não tem prop nem token para isso (o `gaps` do `refy_theme_extract` lista os casos, como caixa alta no botão)? Crie a extensão em `refy-extensions/<Nome>/` sobre o componente público, com `contribution.json`. Se servir a outros projetos, `npx -p @refy-design/web refy contribute <Nome>` prepara a contribuição ao Refy.
 4. **Sem saída.** Se nada disso deixa igual, diga o que ficou diferente e por quê. Não esconda.
 
 ## Fluxo

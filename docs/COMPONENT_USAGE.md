@@ -104,6 +104,7 @@ How to use:
 - Use it for one line of free text: name, e-mail, link, amount.
 - Always give it a `label`. Use `hint` for the format expected ("Only numbers"), and `error` to say what is wrong and how to fix it.
 - Set the right `type` (`email`, `url`, `tel`, `number`): the mobile keyboard changes with it.
+- For a password, use `type="password"`: the browser hides the characters and can offer to save it.
 - Use `prefix` and `suffix` for fixed parts, such as a currency symbol or a domain.
 
 Choose something else:
@@ -1462,6 +1463,7 @@ How to use:
 - Use it to show who takes part in something in little space: members of a project, people in a conversation.
 - Pass the `items` in a stable order and limit with `max`; the rest becomes "+N".
 - Use `onOverflowClick` to open the full list, and `onItemClick` to open a person.
+- A screen reader announces each person as an image with the name, with a photo or with initials; with `onItemClick`, as a button with the name.
 
 Choose something else:
 

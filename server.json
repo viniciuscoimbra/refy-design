@@ -3,7 +3,7 @@
   "name": "design.refy/refy",
   "title": "Refy",
   "description": "Design system for agents: find components by need, check code against the real API, build themes.",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "websiteUrl": "https://refy.design/para-ias/plugin",
   "repository": { "url": "https://github.com/viniciuscoimbra/refy-design", "source": "github" },
   "remotes": [{ "type": "streamable-http", "url": "https://refy.design/mcp" }]

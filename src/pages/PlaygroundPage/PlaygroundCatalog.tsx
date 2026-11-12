@@ -1,7 +1,7 @@
 import { tr } from "../RefySitePage/i18n";
 import { useEffect, useState } from "react";
 import { Button } from "../../index";
-import { AccordionPage, ComponentCatalog } from "../RefySitePage/SiteCatalog";
+import { AccordionPage, ComponentCatalog } from "../RefySitePage/SiteCatalogPages";
 import { componentCatalog } from "./catalog";
 import styles from "./Workbench.module.css";
 

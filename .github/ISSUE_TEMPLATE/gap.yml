@@ -45,4 +45,4 @@ body:
     attributes:
       label: Contribuição
       options:
-        - label: Vou mandar o pull request gerado por `npx refy contribute`.
+        - label: Vou mandar o pull request gerado por `npx -p @refy-design/web refy contribute`.

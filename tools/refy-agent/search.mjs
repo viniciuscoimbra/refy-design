@@ -25,9 +25,11 @@ const GLOSSARY = {
   borrar: ["delete", "danger"], perigo: ["danger", "sensitive"], peligro: ["danger"], irreversivel: ["undone", "danger"],
   icone: ["icon"], icono: ["icon"], flutuante: ["floating"], flotante: ["floating"],
   entrar: ["sign", "login"], login: ["sign", "login"], logar: ["sign"], acesso: ["sign", "access"],
+  sesion: ["sign", "login"], inicio_de_sesion: ["sign", "login"],
   google: ["google"], social: ["oauth", "sign"],
   campo: ["input", "field"], campos: ["input", "field"], texto: ["text"], digitar: ["input", "text", "typing"],
-  escrever: ["text", "input"], formulario: ["form"], form: ["form", "field"],
+  digitacao: ["input", "text", "typing"],
+  escrever: ["text", "input"], formulario: ["form", "input", "field"], form: ["form", "input", "field"],
   senha: ["password", "input"], contrasena: ["password", "input"], email: ["email", "input"], nome: ["name", "input"],
   multilinha: ["multi", "line"], comentario: ["textarea", "multi", "line"], descricao: ["textarea", "description"],
   selecionar: ["select", "selection", "choice"], selecao: ["selection", "select"], seleccionar: ["select", "selection"],
@@ -67,7 +69,8 @@ const GLOSSARY = {
   janela: ["modal", "dialog"], dialogo: ["dialog", "modal"], ventana: ["modal", "dialog"], popup: ["modal", "popover"],
   painel: ["panel", "drawer"], panel: ["panel", "drawer"], gaveta: ["drawer", "panel"], tour: ["tour", "guidance"],
   tabela: ["table", "data"], tabla: ["table", "data"], planilha: ["table"], linhas: ["rows", "table"], colunas: ["columns", "table"],
-  ordenar: ["sorting", "table"], grafico: ["chart", "d3"], graficos: ["chart", "d3"], dashboard: ["chart", "stat", "indicator"],
+  ordenar: ["sorting", "table"], grafico: ["chart", "d3"], graficos: ["chart", "d3"], grafica: ["chart", "d3"],
+  grafico_de_barras: ["chart", "d3"], grafica_de_barras: ["chart", "d3"], bar_chart: ["chart", "d3"], dashboard: ["chart", "stat", "indicator"],
   indicador: ["stat", "value", "indicator"], metrica: ["stat", "value"], kpi: ["stat", "value"], numero_grande: ["stat"],
   pontuacao: ["score", "gauge"], nota: ["score"], quadrante: ["quadrants", "matrix"], linha_do_tempo: ["timeline"],
   historico: ["history", "activity", "timeline"], historia: ["history"], atividade: ["activity"], actividad: ["activity"],
@@ -138,7 +141,13 @@ export function stem(word) {
 // pontuação, ficam fora do índice: senão a família sobe justamente para o que ela recusa.
 const NEGATION = /\b(?:no|not|never|without|instead of|rather than|avoid)\b[^.,;:!?()]*/gi;
 function affirmed(value) {
-  return String(value).replace(/`[^`]*`/g, (code) => code).replace(NEGATION, " ");
+  return String(value).replace(NEGATION, " ");
+}
+// A tabela de escolha de controles é em português: "Escolher data sem digitação livre" não pode subir
+// o DatePicker para "digitação livre". "no" fica de fora, porque em português é "em + o".
+const PORTUGUESE_NEGATION = /(?<![\p{L}])(?:não|sem|nunca|em vez de)(?![\p{L}])[^.,;:!?()]*/giu;
+function affirmedPortuguese(value) {
+  return String(value).replace(PORTUGUESE_NEGATION, " ");
 }
 const PROSE = new Set(["description", "howTo"]);
 
@@ -164,7 +173,7 @@ function parseAlternatives(component, ids) {
     const situation = cut > 0 ? line.slice(0, cut) : line;
     const advice = cut > 0 ? line.slice(cut + 1) : line;
     const targets = [...new Set((advice.match(/\b[A-Z][A-Za-z0-9]+\b/g) ?? []).filter((name) => ids.has(name)))];
-    return { from: component.id, line, situation, terms: new Set(words(situation).filter((w) => !STOP.has(w)).map(stem)), targets };
+    return { from: component.id, line, situation, terms: new Set(words(affirmed(situation)).filter((w) => !STOP.has(w)).map(stem)), targets };
   });
 }
 
@@ -178,7 +187,7 @@ export function parseChoices(markdown, ids) {
       from: "control-choices",
       line: `${need}: ${family} (${reason})`,
       situation: need,
-      terms: new Set(words(need).filter((w) => !STOP.has(w)).map(stem)),
+      terms: new Set(words(affirmedPortuguese(need)).filter((w) => !STOP.has(w)).map(stem)),
       targets: [...new Set((family.match(/\b[A-Z][A-Za-z0-9]+\b/g) ?? []).filter((name) => ids.has(name)))],
     }))
     .filter((entry) => entry.targets.length);
@@ -242,6 +251,24 @@ export function expandQuery(query) {
   return terms;
 }
 
+// Consulta inteira (sem acento, palavras unidas por _) que nomeia uma família em pt ou es, ou a peça
+// que responde sozinha por ela. Vale como o nome exato digitado. Lista fechada e revisada à mão: o
+// primeiro termo do glossário não serve, porque "índice" e "sumário" virariam Table.
+const FAMILY_NAMES = {
+  botao: "Button", boton: "Button", tabela: "Table", tabla: "Table", planilha: "Table",
+  formulario: "Input", form: "Input", campo: "Input", campos: "Input", nome: "Input",
+  senha: "Input", contrasena: "Input", password: "Input",
+  cartao: "Card", tarjeta: "Card", secao: "Section", seccion: "Section", mensaje: "Message",
+  login: "OAuthButton", sign_in: "OAuthButton", inicio_de_sesion: "OAuthButton",
+  entrar: "OAuthButton", logar: "OAuthButton", sesion: "OAuthButton",
+};
+
+function exactNames(query) {
+  const key = normalize(query).split(/[^a-z0-9]+/).filter(Boolean).join("_");
+  const named = Object.hasOwn(FAMILY_NAMES, key) ? normalize(FAMILY_NAMES[key]) : "";
+  return new Set([normalize(query).replace(/\s+/g, ""), named].filter(Boolean));
+}
+
 export function searchCatalog(index, query, { limit = 8, collection } = {}) {
   const terms = expandQuery(query);
   if (!terms.size) return { query, terms: [], results: [] };
@@ -279,11 +306,11 @@ export function searchCatalog(index, query, { limit = 8, collection } = {}) {
       scores.set(target, entry);
     }
   }
-  const exact = normalize(query).replace(/\s+/g, "");
+  const exact = exactNames(query);
   const ranked = [...scores.entries()]
     .map(([id, entry]) => {
       const component = index.families.find((f) => f.component.id === id).component;
-      if (normalize(component.id) === exact || normalize(component.publicName ?? "") === exact) entry.score += 100;
+      if (exact.has(normalize(component.id)) || exact.has(normalize(component.publicName ?? ""))) entry.score += 100;
       return { component, ...entry };
     })
     .sort((a, b) => b.score - a.score || a.component.id.localeCompare(b.component.id))

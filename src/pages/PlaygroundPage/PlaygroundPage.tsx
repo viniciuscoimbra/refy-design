@@ -15,7 +15,7 @@ import { AccessPreview, SetupPreview } from "./FlowPreviews";
 import { PreviewFrame } from "./PreviewFrame";
 import type { PreviewEvent } from "./PreviewFrame";
 import { ThemeEditor } from "./ThemeEditor";
-import { changeConfig, defaultConfig, resolveTheme } from "./themeConfig";
+import { changeConfig, defaultConfig, resolveTheme, usePreviewConfig } from "./themeConfig";
 import type { PlaygroundConfig, Skin } from "./themeConfig";
 import { downloadThemeFile } from "./themeFile";
 import { typographyNames, typographyTheme } from "./typographySample";
@@ -288,12 +288,16 @@ export function PlaygroundPage({
   );
 }
 
-/** The Playground with its own configuration: choosing a theme here never touches the page around it. */
+/**
+ * The Playground with its own configuration: it opens on the theme chosen on the page around it,
+ * and choosing a theme here never touches that page.
+ */
 export function StandalonePlayground({
   chromeMode = "light",
+  skin,
   ...props
-}: Omit<Parameters<typeof PlaygroundPage>[0], "config" | "onChange">) {
-  const [config, setConfig] = useState<PlaygroundConfig>({ ...defaultConfig, theme: chromeMode === "dark" ? "dark" : "light" });
+}: Omit<Parameters<typeof PlaygroundPage>[0], "config" | "onChange"> & { skin?: Skin }) {
+  const [config, setConfig] = usePreviewConfig(skin, chromeMode);
   const [confirmDefault, setConfirmDefault] = useState(false);
   const startDefault = () => {
     setConfig((current) => ({ ...defaultConfig, theme: current.theme }));

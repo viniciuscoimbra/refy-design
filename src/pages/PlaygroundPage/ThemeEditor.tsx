@@ -1,5 +1,5 @@
-import { tr } from "../RefySitePage/i18n";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { currentLocale, htmlLang, tr } from "../RefySitePage/i18n";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, RefObject } from "react";
 import {
   Button,
@@ -32,6 +32,8 @@ import { VisualTokenEditor } from "./VisualTokenEditor";
 import { fontSets } from "../../lib/fontSets";
 import type { FontSet } from "../../lib/fontSets";
 import foundation from "../../tokens/foundations.tokens.json";
+import { CONTRAST_PAIRS, contrast, contrastIssues, measurePairs, readableText } from "../../../tools/refy-agent/contrast.mjs";
+import type { ContrastIssue } from "../../../tools/refy-agent/contrast.mjs";
 
 const palette = [
   ["--primary", "Ação principal"],
@@ -72,33 +74,48 @@ const hex = (value: string) => {
     .map((n) => n.toString(16).padStart(2, "0"))
     .join("")}`;
 };
-function luminance(value: string) {
-  const match = /^#([\da-f]{6})$/i.exec(value);
-  if (!match) return null;
-  const [r, g, b] = [0, 2, 4].map((i) => {
-    const c = parseInt(match[1].slice(i, i + 2), 16) / 255;
-    return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-  });
-  return r * 0.2126 + g * 0.7152 + b * 0.0722;
-}
-
 function emphasis(color: string, background: string) {
   const channels = [1, 3, 5].map((i) => parseInt(color.slice(i, i + 2), 16));
-  const bg = luminance(hex(background))!;
-  const dark = bg < 0.179;
+  const bg = hex(background);
+  const target = readableText(bg);
+  const toward = target === "#ffffff" ? 255 : 0;
   for (let amount = 0; amount <= 1; amount += 0.1) {
     const candidate = `#${channels
       .map((n) =>
-        Math.round(n * (1 - amount) + (dark ? 255 : 0) * amount)
+        Math.round(n * (1 - amount) + toward * amount)
           .toString(16)
           .padStart(2, "0"),
       )
       .join("")}`;
-    const fg = luminance(candidate)!;
-    if ((Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05) >= 4.5)
-      return candidate;
+    if (contrast(candidate, bg) >= 4.5) return candidate;
   }
-  return dark ? "#ffffff" : "#000000";
+  return target;
+}
+
+// Pares do validador de tema em que texto e fundo são campos deste editor: só esses a pessoa
+// consegue corrigir aqui.
+const paletteLabels: Record<string, string> = Object.fromEntries(palette);
+const editablePairs = CONTRAST_PAIRS.filter(
+  ([foreground, background]) => foreground in paletteLabels && background in paletteLabels,
+);
+const editableTokens = [...new Set(editablePairs.flatMap(([foreground, background]) => [foreground, background]))];
+const ratioText = (ratio: number) =>
+  ratio.toLocaleString(htmlLang[currentLocale()], { maximumFractionDigits: 2 });
+
+function ContrastWarning({ issue, onUse }: { issue: ContrastIssue; onUse: (color: string) => void }) {
+  return (
+    <Callout
+      tone="warn"
+      title={tr("Pouco contraste para texto")}
+      action={
+        <Button size="sm" variant="secondary" onClick={() => onUse(issue.suggestion)}>
+          {issue.suggestion === "#000000" ? tr("Usar texto preto") : tr("Usar texto branco")}
+        </Button>
+      }
+    >
+      {`${tr("Contraste com")} ${tr(paletteLabels[issue.background])}: ${ratioText(issue.ratio)}:1 (${tr("mínimo")} ${ratioText(issue.min)}:1).`}
+    </Callout>
+  );
 }
 
 function usePrefersDark() {
@@ -318,17 +335,12 @@ export function ThemeEditor({
   const effective = resolveTheme(config);
   const exportJSON = JSON.stringify(effective, null, 2);
   const snippet = `import { ThemeProvider } from '@refy-design/web';\nimport '@refy-design/web/tokens.css';\nimport '@refy-design/web/fonts.css';\nimport theme from './refy-theme.json';\n\n<ThemeProvider theme={theme} mode="${config.theme}">\n  <MinhaAplicacao />\n</ThemeProvider>`;
-  const pairs = [
-    ["Texto principal", "--ink-1", "--bg"],
-    ["Texto de apoio", "--ink-3", "--surface"],
-    ["Ação principal", "--on-primary", "--primary"],
-  ].flatMap(([label, fg, bg]) => {
-    const a = luminance(values[fg]),
-      b = luminance(values[bg]);
-    return a === null || b === null
-      ? []
-      : [{ label, ratio: (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05) }];
-  });
+  // Antes da primeira leitura da prévia os valores estão vazios: sem eles, não há o que medir.
+  const editorColors = Object.fromEntries(
+    editableTokens.filter((name) => values[name]).map((name) => [name, hex(values[name])]),
+  );
+  const measuredPairs = measurePairs(editorColors, editablePairs);
+  const contrastWarnings = contrastIssues(editorColors, editablePairs);
   const download = () => {
     const url = URL.createObjectURL(
       new Blob([exportJSON], { type: "application/json" }),
@@ -356,37 +368,48 @@ export function ThemeEditor({
                   <option value="dark">{tr("Escuro")}</option>
                 </Select>
                 {palette.map(([name, label]) => (
-                  <label className={styles.colorRow} key={name}>
-                    <span>{label}</span>
-                    <input
-                      type="color"
-                      aria-label={label}
-                      value={hex(values[name] ?? "")}
-                      onChange={(e) => color(name, e.target.value)}
-                    />
-                    <Input
-                      key={values[name]}
-                      aria-label={`${label} ${tr("em hexadecimal")}`}
-                      defaultValue={hex(values[name] ?? "")}
-                      onBlur={(e) => {
-                        if (/^#[0-9a-f]{6}$/i.test(e.target.value))
-                          color(name, e.target.value);
-                        else e.target.value = hex(values[name] ?? "");
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") e.currentTarget.blur();
-                      }}
-                    />
-                  </label>
+                  <Fragment key={name}>
+                    <label className={styles.colorRow}>
+                      <span>{tr(label)}</span>
+                      <input
+                        type="color"
+                        aria-label={tr(label)}
+                        value={hex(values[name] ?? "")}
+                        onChange={(e) => color(name, e.target.value)}
+                      />
+                      <Input
+                        key={values[name]}
+                        aria-label={`${tr(label)} ${tr("em hexadecimal")}`}
+                        defaultValue={hex(values[name] ?? "")}
+                        onBlur={(e) => {
+                          if (/^#[0-9a-f]{6}$/i.test(e.target.value))
+                            color(name, e.target.value);
+                          else e.target.value = hex(values[name] ?? "");
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") e.currentTarget.blur();
+                        }}
+                      />
+                    </label>
+                    {contrastWarnings
+                      .filter((issue) => issue.foreground === name)
+                      .map((issue) => (
+                        <ContrastWarning
+                          key={issue.background}
+                          issue={issue}
+                          onUse={(suggestion) => color(name, suggestion)}
+                        />
+                      ))}
+                  </Fragment>
                 ))}
                 <div
                   className={styles.contrast}
                   aria-label={tr("Contraste das cores")}
                 >
-                  {pairs.map((pair) => (
-                    <span key={pair.label} data-pass={pair.ratio >= 4.5}>
-                      {pair.label}: {pair.ratio.toFixed(1)}:1{" "}
-                      {pair.ratio >= 4.5 ? "✓" : tr("· ajustar cores")}
+                  {measuredPairs.map((pair) => (
+                    <span key={`${pair.foreground}/${pair.background}`} data-pass={pair.passed}>
+                      {tr(paletteLabels[pair.foreground])} / {tr(paletteLabels[pair.background])}:{" "}
+                      {ratioText(pair.ratio)}:1 {pair.passed ? "✓" : tr("· ajustar cores")}
                     </span>
                   ))}
                   <small>

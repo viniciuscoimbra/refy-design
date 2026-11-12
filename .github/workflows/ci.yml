@@ -64,6 +64,9 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm run build
       - run: npm run build-storybook
+      # Os specs da home do site (orçamento de JS, primeiro quadro da hero) leem dist-site. O passo
+      # fica sem `if` porque a promoção só roda `- run:` e precisa do site antes do Playwright.
+      - run: npm run build:site
       - run: npx playwright test --project=${{ matrix.project }}
       - uses: actions/upload-artifact@v4
         if: failure()
@@ -147,6 +150,8 @@ jobs:
       - run: npx playwright install chromium webkit
       - run: npm run build
       - run: npm run build-storybook
+      # Os specs da home do site leem dist-site; só rodam no Chromium, o Firefox abaixo não os vê.
+      - run: npm run build:site
       - run: npx playwright test --project=chromium --project=webkit
       # O Firefox do Playwright não abre no macOS 27 ("Could not find profile folder"), nem fora
       # do Playwright. Ele roda na imagem Linux oficial da mesma versão, sobre o Storybook já

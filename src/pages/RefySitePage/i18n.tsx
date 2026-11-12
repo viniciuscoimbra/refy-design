@@ -134,8 +134,8 @@ export function useText() {
 // biblioteca e é escrita em inglês, como o código; docs.pt/docs.es a levam para português e
 // espanhol. Frase sem tradução aparece como está na fonte.
 // Cada visita baixa só os dicionários do próprio idioma: eram 1,3 MB dos três idiomas no primeiro
-// carregamento, e quem lê em português nunca usa o espanhol. As entradas do site (e o Storybook)
-// chamam loadLocaleText antes de importar a página, porque há texto traduzido no nível de módulo.
+// carregamento, e quem lê em português nunca usa o espanhol. As entradas chamam loadLocaleText (ou
+// o site, loadSiteText) antes de importar a página, porque há texto traduzido no nível de módulo.
 type Dictionary = Record<string, string>;
 const dictionaries: Partial<Record<Exclude<Locale, "pt">, Dictionary>> = {};
 const docDictionaries: Partial<Record<Exclude<Locale, "en">, Dictionary>> = {};
@@ -148,16 +148,69 @@ export function registerLocaleText(locale: Locale, text: { site?: Dictionary; do
   if (locale !== "en" && text.docs) docDictionaries[locale] ??= text.docs;
   if (locale !== "en" && text.demo) demoDictionaries[locale] ??= text.demo;
 }
-export async function loadLocaleText(locale: Locale): Promise<void> {
-  if (locale === "en") {
-    dictionaries.en ??= (await import("./locales/en.json")).default;
-  } else if (locale === "es") {
-    const [site, docs, demo] = await Promise.all([import("./locales/es.json"), import("./locales/docs.es.json"), import("./locales/demo.es.json")]);
-    dictionaries.es ??= site.default; docDictionaries.es ??= docs.default; demoDictionaries.es ??= demo.default;
-  } else {
-    const [docs, demo] = await Promise.all([import("./locales/docs.pt.json"), import("./locales/demo.pt.json")]);
-    docDictionaries.pt ??= docs.default; demoDictionaries.pt ??= demo.default;
+/** Texto do próprio site (menus, home, rodapé). Em português não há o que baixar. */
+export async function loadSiteText(locale: Locale): Promise<void> {
+  if (locale === "en") dictionaries.en ??= (await import("./locales/en.json")).default;
+  if (locale === "es") dictionaries.es ??= (await import("./locales/es.json")).default;
+}
+// A ficha dos componentes e os textos dos exemplos e templates somam 140 KB gzip em português e
+// a home não mostra nenhum deles: o site os baixa depois da home ou na primeira página que os usa.
+const referenceLoaders: Record<Exclude<Locale, "en">, () => Promise<[{ default: Dictionary }, { default: typeof demoDictionaries.pt }]>> = {
+  pt: () => Promise.all([import("./locales/docs.pt.json"), import("./locales/demo.pt.json")]),
+  es: () => Promise.all([import("./locales/docs.es.json"), import("./locales/demo.es.json")]),
+};
+const referenceLoads = new Map<Locale, Promise<void>>();
+const hasReferenceText = (locale: Locale) => locale === "en" || (!!docDictionaries[locale] && !!demoDictionaries[locale]);
+/** Ficha dos componentes, exemplos e templates traduzidos. Em inglês não há o que baixar. */
+export function loadReferenceText(locale: Locale): Promise<void> {
+  if (locale === "en" || hasReferenceText(locale)) return Promise.resolve();
+  let load = referenceLoads.get(locale);
+  if (!load) {
+    load = referenceLoaders[locale]().then(([docs, demo]) => {
+      docDictionaries[locale] ??= docs.default;
+      demoDictionaries[locale] ??= demo.default;
+    });
+    // Uma falha de rede não fica guardada: a próxima tentativa baixa de novo.
+    load.catch(() => referenceLoads.delete(locale));
+    referenceLoads.set(locale, load);
   }
+  return load;
+}
+export async function loadLocaleText(locale: Locale): Promise<void> {
+  await Promise.all([loadSiteText(locale), loadReferenceText(locale)]);
+}
+// Quem pediu economia de dados, ou está em 2G, só baixa a ficha quando abre uma página que a usa.
+const savingData = () => {
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+  return !!connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType ?? "");
+};
+/** Baixa a ficha e os exemplos quando o navegador fica ocioso depois da carga; devolve o cancelamento. */
+export function prefetchReferenceText(locale: Locale): () => void {
+  if (typeof window === "undefined" || hasReferenceText(locale) || savingData()) return () => undefined;
+  const idle = window.requestIdleCallback ?? ((run: () => void) => window.setTimeout(run, 2000));
+  const cancelIdle = window.cancelIdleCallback ?? window.clearTimeout;
+  let handle = 0;
+  const schedule = () => { handle = idle(() => { loadReferenceText(locale).catch(() => undefined); }); };
+  if (document.readyState === "complete") schedule();
+  else window.addEventListener("load", schedule, { once: true });
+  return () => { window.removeEventListener("load", schedule); cancelIdle(handle); };
+}
+/**
+ * Pede a ficha e os exemplos quando `needed` e diz se a página já pode aparecer. Se o download
+ * falhar, a página aparece com o texto da fonte, e a próxima `page` tenta baixar de novo.
+ */
+export function useReferenceText(needed: boolean, page: string): boolean {
+  const { locale } = useSiteLocale();
+  const [settledPage, setSettledPage] = useState<string | null>(null);
+  const ready = hasReferenceText(locale) || settledPage === page;
+  useEffect(() => {
+    if (!needed || ready) return;
+    let alive = true;
+    const settle = () => { if (alive) setSettledPage(page); };
+    loadReferenceText(locale).then(settle, settle);
+    return () => { alive = false; };
+  }, [needed, ready, locale, page]);
+  return ready;
 }
 export function translate(locale: Locale, text: string): string {
   if (!text) return text;

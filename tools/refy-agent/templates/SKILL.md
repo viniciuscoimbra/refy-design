@@ -43,7 +43,7 @@ Responda nesta ordem e pare na primeira resposta que resolver.
    - Organismo: seção com estado e composição própria.
    - Veja `docs/ADVANCED_ORGANISMS.md`.
 5. **É do produto?** Se a peça fala o vocabulário do produto, ou só junta componentes existentes para uma tela, ela fica no produto. Monte com peças Refy em `refy-extensions/` ou num Block.
-6. **Falta no Refy?** O componente não expressa o valor por token nem por prop e qualquer produto usaria a peça. Então estenda localmente em `refy-extensions/<Nome>/`, com `contribution.json` informando finalidade, camada e coleção (`collections`, `core` se for de uso geral). Depois rode `refy contribute <Nome>`.
+6. **Falta no Refy?** O componente não expressa o valor por token nem por prop e qualquer produto usaria a peça. Então estenda localmente em `refy-extensions/<Nome>/`, com `contribution.json` informando finalidade, camada e coleção (`collections`, `core` se for de uso geral). Depois rode `npx -p @refy-design/web refy contribute <Nome>`.
    - Gera patch, PR, gates e imagens em `refy-contrib/<Nome>/`.
    - Não abre PR nem faz push.
    - O padrão novo não pode mudar o visual de quem já usa o componente.

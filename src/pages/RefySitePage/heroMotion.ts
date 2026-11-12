@@ -48,21 +48,25 @@ export function readHeroMotion(element: Element): HeroMotion {
   return { duration, ease: cubicBezier(easeCss), easeCss, distance: 24, stagger: 0.07, switchDuration: duration * 1000 };
 }
 
-const from = (motion: HeroMotion): gsap.TweenVars => ({ y: motion.distance, opacity: 0 });
+// Title, lead and actions: the title and the parts after it in the fold.
+const isTextPart = (part: Element) => part.matches("h1, h1 ~ [data-hero-part]");
+// No opacity on text: it must be readable from the first frame. The theme switcher and the media
+// keep the fade.
+const from = (motion: HeroMotion, part: Element): gsap.TweenVars =>
+  isTextPart(part)
+    ? { y: motion.distance, clearProps: "transform" }
+    : { y: motion.distance, opacity: 0, clearProps: "transform,opacity" };
 
 /** Plays the first-fold entrance; returns a cleanup that leaves no inline styles behind. */
 export function playHeroEntrance(root: HTMLElement, targets: Element[]) {
   if (prefersReducedMotion() || targets.length === 0) return () => undefined;
   const motion = readHeroMotion(root);
-  const tween = gsap.from(targets, {
-    ...from(motion),
-    duration: motion.duration,
-    ease: motion.ease,
-    stagger: motion.stagger,
-    clearProps: "transform,opacity,filter",
+  const timeline = gsap.timeline();
+  targets.forEach((part, index) => {
+    timeline.from(part, { ...from(motion, part), duration: motion.duration, ease: motion.ease }, index * motion.stagger);
   });
   return () => {
-    tween.progress(1).kill();
+    timeline.progress(1).kill();
   };
 }
 

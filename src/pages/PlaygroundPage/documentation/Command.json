@@ -81,6 +81,12 @@
           "description": ""
         },
         {
+          "name": "search",
+          "type": "((items: CommandItem[], query: string) => CommandItem[]) | undefined",
+          "required": false,
+          "description": "Your own search: receives the items and the typed text, without leading or trailing spaces, and returns the items to show, in order. It is not called while the field is empty, when every item shows. Without it, an item shows when its label, description or keywords contain the text."
+        },
+        {
           "name": "width",
           "defaultValue": "560",
           "type": "number | undefined",
@@ -114,6 +120,12 @@
       "label": "With descriptions",
       "description": "",
       "code": "import { Button } from '@refy-design/web';\nimport { Command } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [open, setOpen] = useState(false);\n  const [chosen, setChosen] = useState('No component selected');\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Search components</Button>\n      <p role=\"status\">{chosen}</p>\n      <Command\n        open={open}\n        onOpenChange={setOpen}\n        width={760}\n        onSelect={(item) => setChosen(item.label)}\n        items={[\n          {\n            id: 'themes',\n            label: 'Themes',\n            description: 'Settings you can export to your product.',\n          },\n          {\n            id: 'components',\n            label: 'Components',\n            description: 'Atoms, molecules and organisms from the library.',\n          },\n        ]}\n      />\n    </>\n  );\n}"
+    },
+    {
+      "id": "BuscaPropria",
+      "label": "Own search",
+      "description": "`search` replaces the built-in filter: here a word must match a keyword exactly, in any of the three languages.",
+      "code": "import { Button } from '@refy-design/web';\nimport { Command } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Search by keyword</Button>\n      <Command\n        open={open}\n        onOpenChange={setOpen}\n        search={(list, query) =>\n          list.filter((item) => item.keywords?.split(' ').includes(query.toLowerCase()))\n        }\n        items={[\n          { id: 'button', label: 'Button', keywords: 'button botão botón' },\n          { id: 'table', label: 'Table', keywords: 'table tabela tabla' },\n          { id: 'input', label: 'Input', keywords: 'input campo' },\n        ]}\n      />\n    </>\n  );\n}"
     }
   ]
 }

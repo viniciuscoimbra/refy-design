@@ -1,0 +1,27 @@
+name: Labels das issues
+# Os modelos de issue só aplicam label que já existe no repositório. As labels que eles usam
+# ficam em .github/labels.json, e este workflow cria ou atualiza cada uma no público.
+on:
+  push:
+    branches: [main]
+    paths: ['.github/labels.json']
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  labels:
+    if: github.repository == 'viniciuscoimbra/refy-design'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          jq -c '.[]' .github/labels.json | while read -r label; do
+            gh label create "$(jq -r .name <<<"$label")" \
+              --color "$(jq -r .color <<<"$label")" \
+              --description "$(jq -r .description <<<"$label")" \
+              --force --repo "$GITHUB_REPOSITORY"
+          done

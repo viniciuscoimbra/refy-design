@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import type {
   RefyTheme,
   ThemeMode,
@@ -308,6 +308,22 @@ export function changeConfig(
     patch = { ...patch, customTheme: JSON.stringify(custom) };
   }
   return { ...config, ...patch };
+}
+/**
+ * The playground's own configuration. It starts from the theme chosen on the page around it (the
+ * site) and follows that choice, so both show the same theme; edits made inside stay local.
+ */
+export function usePreviewConfig(skin: Skin | undefined, mode: ThemeMode) {
+  const [config, setConfig] = useState<PlaygroundConfig>(() =>
+    changeConfig({ ...defaultConfig, theme: mode === "dark" ? "dark" : "light" }, skin ? { skin } : {}),
+  );
+  // changeConfig with a new skin clears customTheme: an edit made here is lost when the site's
+  // theme changes. Today that cannot happen while editing, because the only control for the
+  // site's theme is the home switcher, and the Playground unmounts when the person leaves for it.
+  useEffect(() => {
+    if (skin) setConfig((current) => (current.skin === skin ? current : changeConfig(current, { skin })));
+  }, [skin]);
+  return [config, setConfig] as const;
 }
 export function resolveTheme(config: PlaygroundConfig): RefyTheme {
   const base = skins[config.skin]?.theme;

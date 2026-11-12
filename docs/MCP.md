@@ -36,13 +36,13 @@ claude mcp add refy -- npx --no-install refy-mcp
 Sem o pacote no projeto, o npx baixa a versão indicada. Fixe a mesma versão que o projeto usa, para o catálogo e a validação baterem com ela:
 
 ```bash
-claude mcp add refy -- npx -y -p @refy-design/web@1.5.2 refy-mcp
+claude mcp add refy -- npx -y -p @refy-design/web@1.6.0 refy-mcp
 ```
 
 Codex, no terminal:
 
 ```bash
-codex mcp add refy -- npx -y -p @refy-design/web@1.5.2 refy-mcp
+codex mcp add refy -- npx -y -p @refy-design/web@1.6.0 refy-mcp
 ```
 
 Ou em `~/.codex/config.toml`:
@@ -50,7 +50,7 @@ Ou em `~/.codex/config.toml`:
 ```toml
 [mcp_servers.refy]
 command = "npx"
-args = ["-y", "-p", "@refy-design/web@1.5.2", "refy-mcp"]
+args = ["-y", "-p", "@refy-design/web@1.6.0", "refy-mcp"]
 ```
 
 Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Cursor (`.cursor/mcp.json`), Windsurf e outros clientes que leem `mcpServers`:
@@ -58,7 +58,7 @@ Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Curs
 ```json
 {
   "mcpServers": {
-    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.5.2", "refy-mcp"] }
+    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.6.0", "refy-mcp"] }
   }
 }
 ```
@@ -68,7 +68,7 @@ VS Code usa a chave `servers`, em `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.5.2", "refy-mcp"] }
+    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.6.0", "refy-mcp"] }
   }
 }
 ```
@@ -122,7 +122,7 @@ As cores de superfície, texto, linha e primária saem da matiz da cor informada
 
 A escolha segue esta ordem. Fundo: o do `body`, depois variável de fundo (`--background`, `--bg`), depois a cor que mais ocupa a tela. Texto: o do `body`. Superfície: variável de cartão ou fundo de cartão próximo do fundo da página. Primária: variável de marca (`--primary`, `--accent`, `--brand`), depois fundo de botão, depois a cor com croma mais frequente. Fontes: variável, depois `body`, títulos e código. Raio: mediana dos botões e cartões.
 
-Com a sonda, o jeito de cada elemento também vira token, em `elements`: botão (altura, espaço lateral, peso da letra, sombra, formato pílula e cores do secundário), cartão (sombra, borda e espaço interno), campo (altura, raio, borda e sombra), selo (raio, caixa alta e espaço entre letras) e espaço entre letras de títulos e sobretítulos. O que o Refy não tem token para receber, como caixa alta no botão, volta em `elements.gaps` com a rota: extensão em `refy-extensions/<Nome>` ou contribuição com `npx refy contribute <Nome>`.
+Com a sonda, o jeito de cada elemento também vira token, em `elements`: botão (altura, espaço lateral, peso da letra, sombra, formato pílula e cores do secundário), cartão (sombra, borda e espaço interno), campo (altura, raio, borda e sombra), selo (raio, caixa alta e espaço entre letras) e espaço entre letras de títulos e sobretítulos. O que o Refy não tem token para receber, como caixa alta no botão, volta em `elements.gaps` com a rota: extensão em `refy-extensions/<Nome>` ou contribuição com `npx -p @refy-design/web refy contribute <Nome>`.
 
 O fundo, a superfície e o texto medidos entram no modo do site (claro ou escuro); o outro modo sai do gerador com a mesma primária. Se os neutros do site derrubarem algum par de contraste, o modo volta para os neutros gerados e `notes` diz qual par caiu.
 

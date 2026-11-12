@@ -499,7 +499,7 @@ export function chooseTokens(observations) {
 // ---- elementos ----------------------------------------------------------------------------
 // O jeito de botão, cartão, campo, selo, título e sobretítulo vira token de componente. O que o
 // Refy não tem token para receber volta em gaps, com a rota: extensão no projeto ou contribuição.
-const GAP_ROUTE = "Extensão no projeto em refy-extensions/<Nome> sobre o componente público, com contribution.json; se servir a outros projetos, `npx refy contribute <Nome>` prepara a contribuição ao Refy.";
+const GAP_ROUTE = "Extensão no projeto em refy-extensions/<Nome> sobre o componente público, com contribution.json; se servir a outros projetos, `npx -p @refy-design/web refy contribute <Nome>` prepara a contribuição ao Refy.";
 const median = (values) => { const v = values.filter((x) => Number.isFinite(x)).sort((a, b) => a - b); return v.length ? v[Math.floor(v.length / 2)] : null; };
 const mode = (values) => { const counts = new Map(); for (const v of values) counts.set(v, (counts.get(v) ?? 0) + 1); return [...counts].sort((a, b) => b[1] - a[1])[0]?.[0] ?? null; };
 const px = (n) => `${Math.round(n)}px`;
