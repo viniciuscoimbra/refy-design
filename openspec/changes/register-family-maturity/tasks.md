@@ -1,6 +1,7 @@
 ## 1. Gate do predecessor
 
-- [ ] 1.1 Confirmar com o mantenedor que `establish-refy-governance` está concluída e que o escopo desta mudança está autorizado. Aceite: resposta registrada no PR. Evidência: link do comentário.
+- [x] 1.1 Confirmar com o mantenedor que o escopo desta mudança está autorizado. Aceite: resposta do mantenedor registrada. Evidência: respostas M1, M2 e M3 do grill de 12/11/2026 (campo e gate aceitos; promoção feita pelo mantenedor com a evidência do QUALITY.md).
+- [ ] 1.2 Confirmar no PR que `establish-refy-governance` está concluída. Aceite: comentário do mantenedor.
 
 ## 2. Registro e validador (LIFE-03)
 

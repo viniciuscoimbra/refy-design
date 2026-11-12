@@ -34,7 +34,7 @@ Mudança aditiva no catálogo (`schemaVersion` segue 1). Nenhum export, prop, to
 
 ## Autorização
 
-Proposta de contribuidor externo (Gabriel Gripp), sem autorização de escopo do mantenedor até aqui. Esta proposta é o pedido: a implementação acompanha para mostrar o tamanho real, e o mantenedor decide aceitar, ajustar ou recusar.
+Proposta de contribuidor externo (Gabriel Gripp). Em 12/11/2026, no grill de contribuição, o mantenedor respondeu que nenhuma família é estável hoje (M1), que topa um campo de maturidade por família no catálogo com gate que recusa estável sem evidência (M2) e que a promoção é dele, com a evidência listada no QUALITY.md (M3). Esta mudança fica nesse escopo: cria o campo e o gate, não promove nada.
 
 ## Gate de saída
 
