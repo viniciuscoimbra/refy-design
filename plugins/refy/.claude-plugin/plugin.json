@@ -1,6 +1,6 @@
 {
   "name": "refy",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Telas com o design system Refy: busca o componente pela necessidade, confere o código contra a API real e gera tema claro e escuro, inclusive a partir de um site.",
   "author": {
     "name": "Vinícius Coimbra",
@@ -17,5 +17,6 @@
     "theme",
     "ui"
   ],
-  "icon": "./assets/refy.png"
+  "icon": "./assets/refy.png",
+  "privacyPolicyUrl": "https://github.com/viniciuscoimbra/refy-design/blob/main/PRIVACY.md"
 }

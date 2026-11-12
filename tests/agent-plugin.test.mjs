@@ -9,52 +9,66 @@ import { listTools, manifest } from "../scripts/build-mcpb.mjs";
 const json = (path) => JSON.parse(readFileSync(path, "utf8"));
 const pkg = json("package.json");
 const plugin = "plugins/refy";
+const local = "plugins/refy-local";
 
 test("manifestos do Claude e do Codex têm o nome e a versão do pacote", () => {
-  for (const file of [".claude-plugin/plugin.json", ".codex-plugin/plugin.json"]) {
-    const m = json(join(plugin, file));
-    assert.equal(m.name, "refy", file);
+  for (const [dir, name] of [[plugin, "refy"], [local, "refy-local"]]) for (const file of [".claude-plugin/plugin.json", ".codex-plugin/plugin.json"]) {
+    const m = json(join(dir, file));
+    assert.equal(m.name, name, file);
     assert.equal(m.version, pkg.version, file);
     assert.equal(m.license, pkg.license ?? "MIT", file);
   }
-  const codex = json(join(plugin, ".codex-plugin/plugin.json"));
-  assert.ok(existsSync(join(plugin, codex.mcpServers)), "mcpServers aponta para arquivo que existe");
-  assert.ok(existsSync(join(plugin, codex.skills)), "skills aponta para pasta que existe");
-  for (const prompt of codex.interface.defaultPrompt) assert.ok(prompt.length <= 128, prompt);
+  for (const dir of [plugin, local]) {
+    const codex = json(join(dir, ".codex-plugin/plugin.json"));
+    assert.ok(existsSync(join(dir, codex.mcpServers)), "mcpServers aponta para arquivo que existe");
+    assert.ok(existsSync(join(dir, codex.skills)), "skills aponta para pasta que existe");
+    for (const prompt of codex.interface.defaultPrompt) assert.ok(prompt.length <= 128, prompt);
+  }
 });
 
-// Os diretórios de plugins do Claude e do OpenAI recusam npx com faixa de versão: o plugin fixa a
-// versão exata do pacote, e cada release sobe as duas juntas.
-test("o servidor do plugin é o bin refy-mcp do pacote, na versão exata deste plugin", () => {
-  const server = json(join(plugin, ".mcp.json")).mcpServers.refy;
+// O diretório de plugins do Claude recusa servidor MCP que roda na máquina de quem usa (só aceita de
+// organização verificada): o plugin refy liga o remoto. O refy-local roda o refy-mcp com npx na versão
+// exata do pacote, porque os diretórios recusam faixa de versão; cada release sobe os dois juntos.
+test("o plugin refy liga o servidor remoto e o refy-local o bin refy-mcp na versão exata", () => {
+  const remote = { type: "http", url: "https://refy.design/mcp" };
+  assert.deepEqual(json(join(plugin, ".mcp.json")).mcpServers, { refy: remote });
+  const codex = json(join(plugin, ".codex-plugin/plugin.json"));
+  assert.deepEqual(json(join(plugin, codex.mcpServers)).mcpServers, { refy: { type: "streamable-http", url: remote.url } });
+  const server = json(join(local, ".mcp.json")).mcpServers.refy;
   assert.equal(server.command, "npx");
   assert.equal(server.type, "stdio");
   assert.ok(server.args.includes(`--package=${pkg.name}@${pkg.version}`), server.args.join(" "));
-  const readme = readFileSync(join(plugin, "README.md"), "utf8");
-  for (const [spec] of readme.matchAll(/@refy-design\/web@[^\s`]+/g)) assert.equal(spec, `${pkg.name}@${pkg.version}`, "README cita outra versão");
   assert.equal(server.args.at(-1), "refy-mcp");
   assert.equal(pkg.bin["refy-mcp"], "./tools/refy-agent/mcp.mjs");
+  for (const dir of [plugin, local]) {
+    const readme = readFileSync(join(dir, "README.md"), "utf8");
+    for (const [spec] of readme.matchAll(/@refy-design\/web@[^\s`]+/g)) assert.equal(spec, `${pkg.name}@${pkg.version}`, `${dir}: README cita outra versão`);
+  }
 });
 
 test("marketplaces do Claude e do Codex apontam para a pasta do plugin", () => {
   const claude = json(".claude-plugin/marketplace.json");
-  assert.deepEqual(claude.plugins.map((p) => [p.name, p.source]), [["refy", `./${plugin}`]]);
+  assert.deepEqual(claude.plugins.map((p) => [p.name, p.source]), [["refy", `./${plugin}`], ["refy-local", `./${local}`]]);
   const codex = json(".agents/plugins/marketplace.json");
-  assert.deepEqual(codex.plugins.map((p) => [p.name, p.source.path, p.policy.installation]), [["refy", `./${plugin}`, "AVAILABLE"]]);
+  assert.deepEqual(codex.plugins.map((p) => [p.name, p.source.path, p.policy.installation]), [["refy", `./${plugin}`, "AVAILABLE"], ["refy-local", `./${local}`, "AVAILABLE"]]);
 });
 
-test("atalhos têm nome igual à pasta e só citam ferramentas e recursos do servidor", async () => {
+test("atalhos têm nome igual à pasta e só citam o que o servidor de cada plugin tem", async () => {
   const tools = new Set((await listTools()).map((t) => t.name));
+  const remote = new Set([...tools].filter((n) => n !== "refy_compare"));
   const mcp = readFileSync("tools/refy-agent/mcp-server.mjs", "utf8");
-  const skills = readdirSync(join(plugin, "skills"));
-  assert.deepEqual(skills.sort(), ["refy-reproduzir-tela", "refy-tela", "refy-tema-de-site"]);
-  for (const skill of skills) {
-    const text = readFileSync(join(plugin, "skills", skill, "SKILL.md"), "utf8");
-    const front = /^---\nname: ([\w-]+)\ndescription: (.+)\n---\n/.exec(text);
-    assert.ok(front, `${skill}: frontmatter com name e description`);
-    assert.equal(front[1], skill);
-    for (const [name] of text.matchAll(/refy_[a-z_]+/g)) assert.ok(tools.has(name), `${skill} cita ${name}, que o servidor não tem`);
-    for (const [uri] of text.matchAll(/refy:\/\/[\w-]+/g)) assert.ok(mcp.includes(`"${uri}"`), `${skill} cita ${uri}, que o servidor não tem`);
+  for (const [dir, expected, available] of [[plugin, ["refy-tela", "refy-tema-de-site"], remote], [local, ["refy-reproduzir-tela", "refy-tela", "refy-tema-de-site"], tools]]) {
+    const skills = readdirSync(join(dir, "skills"));
+    assert.deepEqual(skills.sort(), expected);
+    for (const skill of skills) {
+      const text = readFileSync(join(dir, "skills", skill, "SKILL.md"), "utf8");
+      const front = /^---\nname: ([\w-]+)\ndescription: (.+)\n---\n/.exec(text);
+      assert.ok(front, `${skill}: frontmatter com name e description`);
+      assert.equal(front[1], skill);
+      for (const [name] of text.matchAll(/refy_[a-z_]+/g)) assert.ok(available.has(name), `${dir}/${skill} cita ${name}, que o servidor não tem`);
+      for (const [uri] of text.matchAll(/refy:\/\/[\w-]+/g)) assert.ok(mcp.includes(`"${uri}"`), `${skill} cita ${uri}, que o servidor não tem`);
+      if (dir === plugin) assert.ok(!text.includes("`files`") && !/Playwright do projeto/.test(text), `${skill} promete o que o remoto não faz`);
+    }
   }
 });
 
@@ -83,10 +97,11 @@ test("listagem nos diretórios: ícone quadrado, privacidade, termos e suporte e
 test("pacote do diretório do OpenAI: MCP remoto e atalhos que só citam o que o remoto tem", async () => {
   const { openaiFiles, REMOTE_URL } = await import("../scripts/build-openai-plugin.mjs");
   const files = openaiFiles();
-  assert.deepEqual(JSON.parse(files["mcp.json"]).mcpServers.refy, { type: "streamable-http", url: REMOTE_URL });
-  const m = JSON.parse(files["plugin.json"]);
+  assert.deepEqual(JSON.parse(files[".mcp.json"]).mcpServers.refy, { type: "streamable-http", url: REMOTE_URL });
+  const m = JSON.parse(files[".agent-plugin/plugin.json"]);
   assert.equal(m.version, pkg.version);
-  const ui = m.extensions["com.openai"].interface;
+  const ui = m.interface;
+  for (const key of ["displayName", "shortDescription", "longDescription", "developerName", "category", "capabilities"]) assert.ok(ui[key], key);
   assert.ok(ui.displayName.length <= 30 && ui.shortDescription.length <= 30, "nome e descrição curta até 30");
   assert.ok(ui.longDescription.length <= 4000);
   const cases = m.extensions["com.openai"].review.test_cases;

@@ -1,0 +1,22 @@
+{
+  "name": "refy-local",
+  "version": "1.5.2",
+  "description": "Servidor MCP do Refy na sua máquina, com comparação de capturas: reproduz uma tela igual ao original só com componentes do Refy e extensões.",
+  "author": {
+    "name": "Vinícius Coimbra",
+    "url": "https://github.com/viniciuscoimbra"
+  },
+  "homepage": "https://refy.design/para-ias/plugin",
+  "repository": "https://github.com/viniciuscoimbra/refy-design",
+  "license": "MIT",
+  "keywords": [
+    "design-system",
+    "react",
+    "react-native",
+    "mcp",
+    "theme",
+    "ui"
+  ],
+  "icon": "./assets/refy.png",
+  "privacyPolicyUrl": "https://github.com/viniciuscoimbra/refy-design/blob/main/PRIVACY.md"
+}

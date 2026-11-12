@@ -1,7 +1,6 @@
 // Monta refy-openai-plugin.zip, o pacote que vai ao diretório de plugins do OpenAI (ChatGPT e Codex).
-// O diretório só aceita servidor MCP remoto de quem não é parceiro: o pacote liga https://refy.design/mcp
-// em vez do npx do plugin local, e leva só os atalhos que funcionam no remoto (sem refy_compare e sem
-// caminho de arquivo em refy_validate). Listagem e casos de teste da revisão vão no plugin.json.
+// O diretório só aceita servidor MCP remoto de quem não é parceiro, como o plugin refy: o pacote liga
+// https://refy.design/mcp e leva os atalhos do plugin. Listagem e casos de teste da revisão vão no plugin.json.
 // Uso: node scripts/build-openai-plugin.mjs [saída]   (padrão: release/refy-openai-plugin.zip)
 import { execFileSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -16,11 +15,6 @@ const local = JSON.parse(readFileSync(join(plugin, ".codex-plugin/plugin.json"),
 
 export const REMOTE_URL = "https://refy.design/mcp";
 export const REMOTE_SKILLS = ["refy-tela", "refy-tema-de-site"];
-
-// No remoto, refy_validate recebe só o código e refy_theme_extract só lê o HTML e o CSS servidos.
-const remoteSkill = (text) => text
-  .replace("com `files` (os arquivos que você escreveu) ou `code`", "com `code` (o código de cada arquivo da tela)")
-  .replace("O servidor tenta o Playwright do projeto e, sem ele, lê o HTML e o CSS servidos.", "O servidor lê o HTML e o CSS servidos.");
 
 const REMOTE_README = `# Refy
 
@@ -52,25 +46,27 @@ export function openaiFiles() {
     license: local.license,
     keywords: local.keywords,
     skills: "./skills/",
-    mcpServers: "./mcp.json",
+    mcpServers: "./.mcp.json",
+    // O portal exige interface no nível de cima do manifesto; revisão e publicação ficam em extensions.
+    interface: {
+      displayName: "Refy",
+      shortDescription: "Design system for UI screens",
+      longDescription: "Refy finds the right component for each part of a screen, writes the code with the documented API and checks it against the real API before you ship. It also builds light and dark themes with AA contrast from one color or from a public website, with the reason behind each choice. No account, no key, nothing stored.",
+      developerName: ui.developerName,
+      // O portal recusa "Design"; "Productivity" é a categoria do exemplo do próprio OpenAI.
+      category: "Productivity",
+      capabilities: ui.capabilities,
+      websiteURL: ui.websiteURL,
+      supportURL: ui.supportURL,
+      privacyPolicyURL: ui.privacyPolicyURL,
+      termsOfServiceURL: ui.termsOfServiceURL,
+      defaultPrompt: ["Build a login screen with Refy", "Create a Refy theme from a website", "Check this screen against Refy"],
+      brandColor: ui.brandColor,
+      logo: "./assets/refy.png",
+      composerIcon: "./assets/refy.png",
+    },
     extensions: {
       "com.openai": {
-        interface: {
-          displayName: "Refy",
-          shortDescription: "Design system for UI screens",
-          longDescription: "Refy finds the right component for each part of a screen, writes the code with the documented API and checks it against the real API before you ship. It also builds light and dark themes with AA contrast from one color or from a public website, with the reason behind each choice. No account, no key, nothing stored.",
-          developerName: ui.developerName,
-          category: ui.category,
-          capabilities: ui.capabilities,
-          websiteURL: ui.websiteURL,
-          supportURL: ui.supportURL,
-          privacyPolicyURL: ui.privacyPolicyURL,
-          termsOfServiceURL: ui.termsOfServiceURL,
-          defaultPrompt: ["Build a login screen with Refy", "Create a Refy theme from a website", "Check this screen against Refy"],
-          brandColor: ui.brandColor,
-          logo: "./assets/refy.png",
-          composerIcon: "./assets/refy.png",
-        },
         review: {
           test_cases: {
             positive: [
@@ -96,12 +92,13 @@ export function openaiFiles() {
     },
   };
   const files = {
-    "plugin.json": JSON.stringify(manifest, null, 2) + "\n",
-    "mcp.json": JSON.stringify({ mcpServers: { refy: { type: "streamable-http", url: REMOTE_URL } } }, null, 2) + "\n",
+    // O portal procura o manifesto em .agent-plugin/plugin.json; plugin.json na raiz é recusado.
+    ".agent-plugin/plugin.json": JSON.stringify(manifest, null, 2) + "\n",
+    ".mcp.json": JSON.stringify({ mcpServers: { refy: { type: "streamable-http", url: REMOTE_URL } } }, null, 2) + "\n",
     "README.md": REMOTE_README,
     "assets/refy.png": readFileSync(join(plugin, "assets/refy.png")),
   };
-  for (const skill of REMOTE_SKILLS) files[`skills/${skill}/SKILL.md`] = remoteSkill(readFileSync(join(plugin, "skills", skill, "SKILL.md"), "utf8"));
+  for (const skill of REMOTE_SKILLS) files[`skills/${skill}/SKILL.md`] = readFileSync(join(plugin, "skills", skill, "SKILL.md"), "utf8");
   return files;
 }
 

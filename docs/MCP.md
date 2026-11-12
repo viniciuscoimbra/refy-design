@@ -4,7 +4,7 @@ O pacote `@refy-design/web` traz um servidor MCP (`refy-mcp`) que expõe o catá
 
 ## Plugin para Claude e Codex
 
-O plugin liga o servidor e três atalhos: `refy-tela` (busca o componente, escreve a tela e roda `refy_validate` no fim), `refy-tema-de-site` (pega os elementos claros de um site e vira tema, sem copiar a tela) e `refy-reproduzir-tela` (só quando a pessoa pede: reproduz a tela igual ao original com Refy e extensões, e compara com `refy_compare` até bater).
+O plugin `refy` liga o servidor remoto `https://refy.design/mcp`, sem instalar nada, e dois atalhos: `refy-tela` (busca o componente, escreve a tela e roda `refy_validate` no fim) e `refy-tema-de-site` (pega os elementos claros de um site e vira tema, sem copiar a tela). O plugin `refy-local`, do mesmo marketplace, roda o `refy-mcp` na sua máquina com `npx` e traz os mesmos atalhos mais `refy-reproduzir-tela` (só quando a pessoa pede: reproduz a tela igual ao original com Refy e extensões, e compara com `refy_compare` até bater).
 
 Claude Code, app do Claude e Cowork:
 
@@ -12,6 +12,8 @@ Claude Code, app do Claude e Cowork:
 /plugin marketplace add viniciuscoimbra/refy-design
 /plugin install refy@refy
 ```
+
+Para o servidor na sua máquina, instale `refy-local@refy` no lugar de `refy@refy`.
 
 Chat do Claude Desktop: baixe `refy.mcpb` do release e abra com dois cliques. O Claude Desktop já traz o Node.
 
@@ -21,7 +23,7 @@ Codex, no terminal e no app:
 codex plugin marketplace add viniciuscoimbra/refy-design
 ```
 
-e instale **Refy** na lista de plugins.
+e instale **Refy** (ou **Refy local**) na lista de plugins.
 
 ## Instalar só o servidor
 
@@ -34,13 +36,13 @@ claude mcp add refy -- npx --no-install refy-mcp
 Sem o pacote no projeto, o npx baixa a versão indicada. Fixe a mesma versão que o projeto usa, para o catálogo e a validação baterem com ela:
 
 ```bash
-claude mcp add refy -- npx -y -p @refy-design/web@1.5.1 refy-mcp
+claude mcp add refy -- npx -y -p @refy-design/web@1.5.2 refy-mcp
 ```
 
 Codex, no terminal:
 
 ```bash
-codex mcp add refy -- npx -y -p @refy-design/web@1.5.1 refy-mcp
+codex mcp add refy -- npx -y -p @refy-design/web@1.5.2 refy-mcp
 ```
 
 Ou em `~/.codex/config.toml`:
@@ -48,7 +50,7 @@ Ou em `~/.codex/config.toml`:
 ```toml
 [mcp_servers.refy]
 command = "npx"
-args = ["-y", "-p", "@refy-design/web@1.5.1", "refy-mcp"]
+args = ["-y", "-p", "@refy-design/web@1.5.2", "refy-mcp"]
 ```
 
 Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Cursor (`.cursor/mcp.json`), Windsurf e outros clientes que leem `mcpServers`:
@@ -56,7 +58,7 @@ Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Curs
 ```json
 {
   "mcpServers": {
-    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.5.1", "refy-mcp"] }
+    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.5.2", "refy-mcp"] }
   }
 }
 ```
@@ -66,7 +68,7 @@ VS Code usa a chave `servers`, em `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.5.1", "refy-mcp"] }
+    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.5.2", "refy-mcp"] }
   }
 }
 ```

@@ -9,7 +9,7 @@ Use as ferramentas do servidor MCP `refy`. Responda na língua da pessoa.
 
 ## Fluxo
 
-1. **Leitura.** Chame `refy_theme_extract` com `url`. O servidor tenta o Playwright do projeto e, sem ele, lê o HTML e o CSS servidos.
+1. **Leitura.** Chame `refy_theme_extract` com `url`. O servidor lê o HTML e o CSS servidos.
 2. **Site montado por JavaScript.** Se a ferramenta disser que não achou cor de destaque, ou `source.observations` vier baixo (menos de 30), e você tiver um navegador (Claude in Chrome, Playwright, navegador do Codex): abra o site, leia o recurso `refy://theme-probe`, rode o script na página (se o resultado trouxer `frames`, a tela está num iframe: abra o endereço do frame e rode de novo lá) e chame `refy_theme_extract` de novo com `observations` igual ao campo `observations` do resultado.
 3. **Arquivo.** Grave `theme` em `<name>.theme.json` na pasta de temas do projeto (ou em `src/themes/` se não houver uma).
 4. **Explicação.** Mostre à pessoa, em lista curta, o que veio de onde: `decided` com a razão em `evidence` (ex.: "primária #7c5cff: variável --accent e fundo de botão"). Inclua `notes`, que dizem o que foi ajustado para passar no contraste AA.

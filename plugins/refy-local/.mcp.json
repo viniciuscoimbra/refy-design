@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "refy": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "--package=@refy-design/web@1.5.2",
+        "refy-mcp"
+      ]
+    }
+  }
+}

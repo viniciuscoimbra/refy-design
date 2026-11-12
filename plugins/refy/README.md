@@ -1,12 +1,11 @@
 # Plugin do Refy
 
-Liga o servidor MCP do [Refy](https://refy.design) e três atalhos ao Claude e ao Codex:
+Liga o servidor MCP remoto do [Refy](https://refy.design) (`https://refy.design/mcp`) e dois atalhos ao Claude e ao Codex:
 
 - **refy-tela**: acha o componente pela necessidade, escreve a tela com a API documentada e roda a conferência do Refy no fim.
 - **refy-tema-de-site**: pega os elementos claros de um site (cores, fontes, raios e o jeito de botão, cartão, campo e selo) e gera um tema claro e escuro conferido em contraste AA, com a razão de cada escolha. Não copia a tela.
-- **refy-reproduzir-tela**: só quando você pede; reproduz a tela igual ao original com componentes do Refy e extensões, e compara as duas capturas até bater.
 
-Precisa de Node.js 20 ou mais novo. O servidor roda na sua máquina com `npx`, sem conta e sem chave.
+Sem conta, sem chave e sem instalar nada: o plugin não roda programa na sua máquina.
 
 ## Claude Code, app do Claude e Cowork
 
@@ -17,30 +16,21 @@ Precisa de Node.js 20 ou mais novo. O servidor roda na sua máquina com `npx`, s
 
 No app do Claude, adicione o mesmo repositório como marketplace na tela de plugins.
 
-## Chat do Claude Desktop
-
-Baixe `refy.mcpb` do release mais recente e abra com dois cliques. O Claude Desktop já traz o Node.
-
 ## Codex (terminal e app)
 
 ```
 codex plugin marketplace add viniciuscoimbra/refy-design
 ```
 
-No terminal, instale com `codex plugin add refy@refy`. No app, instale **Refy** na lista de plugins. Só o servidor, sem os atalhos:
+No terminal, instale com `codex plugin add refy@refy`. No app, instale **Refy** na lista de plugins.
 
-```
-codex mcp add refy -- npx -y --package=@refy-design/web@1.5.1 refy-mcp
-```
+## Servidor na sua máquina
 
-## O que o plugin roda e o que envia
+Para conferir arquivos do projeto com o TypeScript instalado e comparar capturas (`refy_compare`), instale no lugar dele o plugin **refy-local** do mesmo marketplace (`/plugin install refy-local@refy` ou `codex plugin add refy-local@refy`). Ele roda o servidor na sua máquina (veja o README do refy-local) e traz os mesmos atalhos mais `refy-reproduzir-tela`. No chat do Claude Desktop, use `refy.mcpb` do release mais recente.
 
-O plugin liga um servidor MCP local: `npx` baixa `@refy-design/web` na versão exata do plugin (1.5.1) do registro do npm e roda o comando `refy-mcp` do pacote. Esse servidor:
+## O que o servidor remoto faz e o que envia
 
-- lê o catálogo e a fundação de tokens que vêm no pacote;
-- não escreve no projeto e não chama IA; só grava a imagem de diferença do `refy_compare`, na pasta temporária do sistema;
-- do projeto, lê o TypeScript instalado (em toda conferência), os arquivos que você passa em `refy_validate` com `refy-agent.config.json`, `theme.json` e o registro de pranchas, as imagens que você passa em `refy_compare` e o Playwright instalado, quando `refy_theme_extract` abre um site;
-- só fala com a rede em `refy_theme_extract` com `url`: lê a página indicada e as folhas de estilo que ela carrega (até 12, inclusive de outros domínios). Endereço interno (localhost, rede privada) é recusado.
+Responde com o catálogo, a API e os tokens do pacote `@refy-design/web`. Não lê arquivo da sua máquina: `refy_validate` recebe o código no pedido. Só busca na rede em `refy_theme_extract` com `url`: a página indicada e as folhas de estilo que ela carrega (até 12, inclusive de outros domínios), e recusa endereço interno (localhost, rede privada). Consulta o registro do npm para saber a versão mais nova do pacote. Não guarda pedido nem resposta.
 
 Os atalhos são texto em Markdown. Não há hook, script nem binário no plugin.
 

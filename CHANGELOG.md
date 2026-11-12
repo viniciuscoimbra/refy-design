@@ -2,6 +2,20 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.5.2 (12/11/2026)
+
+### Adicionado
+
+- Plugin `refy-local` no mesmo marketplace: roda o `refy-mcp` na sua máquina com `npx` (`@refy-design/web@1.5.2`) e traz `refy-tela`, `refy-tema-de-site` e `refy-reproduzir-tela`, que usa `refy_compare`.
+
+### Modificado
+
+- O plugin `refy` liga o servidor remoto `https://refy.design/mcp` em vez de rodar o `refy-mcp` com `npx`. O diretório de plugins do Claude só aceita servidor que roda na máquina de quem usa vindo de organização verificada. Sem instalar nada, o plugin traz `refy-tela` e `refy-tema-de-site`.
+
+### Removido
+
+- O plugin `refy` deixa de trazer `refy-reproduzir-tela`, a conferência por `files` e o Playwright do projeto em `refy_theme_extract`, que precisam do servidor na sua máquina. Para tê-los, instale `refy-local@refy` no lugar de `refy@refy`.
+
 ## 1.5.1 (11/11/2026)
 
 ### Adicionado

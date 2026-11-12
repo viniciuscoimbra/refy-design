@@ -13,7 +13,7 @@ Use as ferramentas do servidor MCP `refy`. Responda na língua da pessoa.
 2. **Escolha.** Para cada parte da tela, chame `refy_search` com a necessidade em linguagem natural ("confirmar antes de apagar", "lista com busca"). Leia `alternatives` do resultado: se a situação da tela estiver lá, use a família indicada.
 3. **API.** Chame `refy_component` para cada família escolhida. Escreva o código só com as props que a ficha documenta, nos valores que ela aceita.
 4. **Código.** Importe só de `@refy-design/web`. Cor, fonte, raio e sombra vêm do tema: nada de hexadecimal, `font-family` ou `button`/`input`/`select`/`textarea` crus. Layout (grid, flex) e regra de negócio ficam na tela.
-5. **Conferência.** Rode `refy_validate` com `files` (os arquivos que você escreveu) ou `code`. Corrija cada erro e rode de novo até `passed: true`.
+5. **Conferência.** Rode `refy_validate` com `code` (o código de cada arquivo da tela). Corrija cada erro e rode de novo até `passed: true`.
 6. **Entrega.** Mostre à pessoa o resultado da conferência em uma linha (famílias usadas e zero erros) e, se houver servidor de desenvolvimento, abra a tela para ela ver.
 
 ## O que não fazer
