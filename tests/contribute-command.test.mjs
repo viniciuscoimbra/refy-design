@@ -28,11 +28,19 @@ function walk(dir) {
   });
 }
 
+// O CI público roda num contêiner cujo usuário não é o dono do checkout, e lá o git recusa o
+// repositório ("dubious ownership"). Sem git utilizável, vale a pasta.
+function listFiles() {
+  if (!existsSync('.git')) return walk('.');
+  try {
+    return execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).split('\0');
+  } catch {
+    return walk('.');
+  }
+}
+
 function trackedPublicFiles() {
-  const files = existsSync('.git')
-    ? execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8' }).split('\0')
-    : walk('.');
-  return files.filter(file => file && isPublic(file) && existsSync(file));
+  return listFiles().filter(file => file && isPublic(file) && existsSync(file));
 }
 
 test('o padrão pega o pacote de terceiros em qualquer grafia do npx', () => {

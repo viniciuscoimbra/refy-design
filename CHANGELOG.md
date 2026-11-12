@@ -2,6 +2,12 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.6.1 (12/11/2026)
+
+### Corrigido
+
+- A 1.6.0 não chegou ao npm: um teste do repositório falhava no CI público, que roda num contêiner onde o git recusa o checkout. O teste passa a ler a pasta quando o git não responde. O pacote é o mesmo da 1.6.0, com as correções das issues #6 a #13.
+
 ## 1.6.0 (12/11/2026)
 
 Correções das issues #6 a #13, abertas por @iosbilario. Obrigado.
