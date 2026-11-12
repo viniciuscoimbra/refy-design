@@ -15,7 +15,7 @@ No Codex: `codex plugin add refy-local@refy` depois de adicionar o mesmo marketp
 
 ## O que o plugin roda e o que envia
 
-`npx` baixa `@refy-design/web` na versão exata do plugin (1.6.1) do registro do npm e roda o comando `refy-mcp` do pacote. Esse servidor:
+`npx` baixa `@refy-design/web` na versão exata do plugin (1.6.2) do registro do npm e roda o comando `refy-mcp` do pacote. Esse servidor:
 
 - lê o catálogo e a fundação de tokens que vêm no pacote;
 - não escreve no projeto e não chama IA; só grava a imagem de diferença do `refy_compare`, na pasta temporária do sistema;

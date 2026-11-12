@@ -27,6 +27,7 @@ export const approvalWorkbench = {
 };
 export const avatarGroup = {
   more: (n: number) => `${n} more ${n === 1 ? "person" : "people"}`,
+  people: (n: number) => `${n} people`,
 };
 export const billingCard = {
   nextCharge: "Next charge",

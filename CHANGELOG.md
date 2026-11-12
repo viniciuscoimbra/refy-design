@@ -2,6 +2,14 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.6.2 (12/11/2026)
+
+### Corrigido
+
+- O catálogo do site mostra a descrição de cada componente, e a busca do menu acha o componente pela descrição (#14).
+- `AvatarGroup` anuncia o grupo no idioma da página e o "+N" sem botão é lido pelo leitor de tela (#15).
+- **Mudança de comportamento:** tela sem `LocaleProvider` passa a ler o grupo do `AvatarGroup` em inglês ("3 people"), como o resto das mensagens. Quem passa um objeto de mensagens completo ganha a chave `avatarGroup.people`.
+
 ## 1.6.1 (12/11/2026)
 
 ### Corrigido

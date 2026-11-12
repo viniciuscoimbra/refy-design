@@ -158,7 +158,8 @@ export function ComponentNav({
 // module, so only the description lands in the main chunk; the full file (examples, about 1 MB in
 // all) stays in the chunk ComponentDocumentation loads on demand.
 export const familyDescriptions = import.meta.glob<string>("../PlaygroundPage/documentation/*.json", { eager: true, import: "description", query: "?description" });
-export const describe = (id: string) => familyDescriptions[`../PlaygroundPage/documentation/${id}.json?description`] ?? "";
+// As chaves de import.meta.glob ficam sem a query: com "?description" no fim, a procura voltava vazia.
+export const describe = (id: string) => familyDescriptions[`../PlaygroundPage/documentation/${id}.json`] ?? "";
 export const stroke = (children: ReactNode) => areaIcon(children);
 // Rostos fictícios gerados por IA; origem em assets/avatars/AVATAR_CREDITS.md.
 export const ana = { name: "Ana Lima", src: anaPhoto };

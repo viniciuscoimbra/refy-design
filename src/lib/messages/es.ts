@@ -27,6 +27,7 @@ export const es: RefyMessages = {
   },
   avatarGroup: {
     more: (n: number) => `${n} ${n === 1 ? "persona" : "personas"} más`,
+    people: (n: number) => `${n} personas`,
   },
   billingCard: {
     nextCharge: "Próximo cobro",

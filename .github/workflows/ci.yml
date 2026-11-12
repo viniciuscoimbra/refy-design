@@ -1,10 +1,11 @@
 name: Validar biblioteca
-# Um commit de PR roda uma vez, pelo pull_request. O push só dispara em main, nas branches de
-# trabalho e nas tags de versão (v* dispara release.yml), e um commit novo cancela a rodada
+# Um commit de PR roda uma vez, pelo pull_request. O push só dispara no main e nas tags de versão
+# (v* dispara release.yml): juntar um PR na branch de trabalho não roda tudo de novo, porque o PR
+# já passou e a preparação de cada versão roda a suíte inteira. Um commit novo cancela a rodada
 # antiga do mesmo PR.
 on:
   push:
-    branches: [main, 'trabalho/**']
+    branches: [main]
     tags: ['aprovado/**', 'v*']
   pull_request:
 concurrency:
@@ -16,6 +17,23 @@ permissions:
 # o rótulo `refy` (self-hosted, macOS), que não gasta minutos do GitHub; sem ela, rodam nos
 # runners do GitHub. O projeto não paga Actions. Job pulado por `if` não gasta minuto.
 jobs:
+  # Num PR, navegador e consumidores só rodam se ele mexe em algo que eles testam
+  # (scripts/ci-scope.mjs). Push e tag rodam tudo.
+  scope:
+    runs-on: ${{ vars.CI_RUNNER == 'mac' && fromJSON('["self-hosted","macOS","refy"]') || 'ubuntu-latest' }}
+    timeout-minutes: 5
+    outputs:
+      browser: ${{ steps.scope.outputs.browser }}
+      consumers: ${{ steps.scope.outputs.consumers }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+      - id: scope
+        run: node scripts/ci-scope.mjs
   check:
     if: vars.CI_RUNNER != 'mac'
     runs-on: ubuntu-latest
@@ -40,7 +58,8 @@ jobs:
   # navegador muda o comportamento (foco, select nativo, portal). A lista fica em
   # playwright.config.ts.
   browser:
-    if: vars.CI_RUNNER != 'mac'
+    needs: scope
+    if: vars.CI_RUNNER != 'mac' && needs.scope.outputs.browser == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     # A imagem já traz os navegadores e as dependências do sistema: instalar pelo apt
@@ -77,7 +96,8 @@ jobs:
             test-results/
   # Instala o pacote do npm pack em consumidores React 18 e 19 e testa o build deles.
   consumers:
-    if: vars.CI_RUNNER != 'mac'
+    needs: scope
+    if: vars.CI_RUNNER != 'mac' && needs.scope.outputs.consumers == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     # A imagem já traz os navegadores e as dependências do sistema: instalar pelo apt
@@ -134,7 +154,8 @@ jobs:
       - run: npm pack --dry-run
   browser-mac:
     name: browser
-    if: vars.CI_RUNNER == 'mac'
+    needs: scope
+    if: vars.CI_RUNNER == 'mac' && needs.scope.outputs.browser == 'true'
     runs-on: [self-hosted, macOS, refy]
     timeout-minutes: 60
     steps:
@@ -156,8 +177,10 @@ jobs:
       # O Firefox do Playwright não abre no macOS 27 ("Could not find profile folder"), nem fora
       # do Playwright. Ele roda na imagem Linux oficial da mesma versão, sobre o Storybook já
       # construído; node_modules fica num volume à parte para não trocar os binários do macOS.
+      # O Docker Desktop do Mac pode estar fechado: ensure-docker abre e espera o daemon.
       - if: success() || failure()
         run: |
+          node scripts/ensure-docker.mjs
           docker run --rm -e CI=1 \
             -e REFY_STORYBOOK_PORT -e PLAYWRIGHT_HTML_REPORT=playwright-report-firefox \
             -v "$PWD":/work -v /work/node_modules -w /work \
@@ -174,7 +197,8 @@ jobs:
             test-results-firefox/
   consumers-mac:
     name: consumers
-    if: vars.CI_RUNNER == 'mac'
+    needs: scope
+    if: vars.CI_RUNNER == 'mac' && needs.scope.outputs.consumers == 'true'
     runs-on: [self-hosted, macOS, refy]
     timeout-minutes: 30
     steps:

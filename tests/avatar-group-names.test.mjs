@@ -41,3 +41,16 @@ test("com uma pessoa só, o grupo não repete o nome", async () => {
   // A dica abre em portal, fora deste HTML: aqui o nome só pode estar no item.
   assert.equal(html.match(/Ana Lima/g)?.length, 1, "o nome aparece uma vez, no item");
 });
+
+// Issue viniciuscoimbra/refy-design#15: o rótulo do grupo saía fixo em português ("2 pessoas")
+// e o "+N" sem botão era um span com aria-label, que leitor de tela ignora.
+test("o rótulo do grupo vem das mensagens do idioma, não fixo em português", async () => {
+  const html = await render({ items: [ana, bia] });
+  assert.match(html, /role="group"[^>]*aria-label="2 people"/);
+  assert.doesNotMatch(html, /pessoas/);
+});
+
+test('o "+N" sem botão é imagem com o rótulo, para o leitor de tela anunciar', async () => {
+  const html = await render({ items: [ana, bia, { name: "Caio" }], max: 2 });
+  assert.match(html, /role="img"[^>]*aria-label="1 more person"/);
+});

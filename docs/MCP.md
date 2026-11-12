@@ -36,13 +36,13 @@ claude mcp add refy -- npx --no-install refy-mcp
 Sem o pacote no projeto, o npx baixa a versão indicada. Fixe a mesma versão que o projeto usa, para o catálogo e a validação baterem com ela:
 
 ```bash
-claude mcp add refy -- npx -y -p @refy-design/web@1.6.1 refy-mcp
+claude mcp add refy -- npx -y -p @refy-design/web@1.6.2 refy-mcp
 ```
 
 Codex, no terminal:
 
 ```bash
-codex mcp add refy -- npx -y -p @refy-design/web@1.6.1 refy-mcp
+codex mcp add refy -- npx -y -p @refy-design/web@1.6.2 refy-mcp
 ```
 
 Ou em `~/.codex/config.toml`:
@@ -50,7 +50,7 @@ Ou em `~/.codex/config.toml`:
 ```toml
 [mcp_servers.refy]
 command = "npx"
-args = ["-y", "-p", "@refy-design/web@1.6.1", "refy-mcp"]
+args = ["-y", "-p", "@refy-design/web@1.6.2", "refy-mcp"]
 ```
 
 Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Cursor (`.cursor/mcp.json`), Windsurf e outros clientes que leem `mcpServers`:
@@ -58,7 +58,7 @@ Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Curs
 ```json
 {
   "mcpServers": {
-    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.6.1", "refy-mcp"] }
+    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.6.2", "refy-mcp"] }
   }
 }
 ```
@@ -68,7 +68,7 @@ VS Code usa a chave `servers`, em `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.6.1", "refy-mcp"] }
+    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.6.2", "refy-mcp"] }
   }
 }
 ```

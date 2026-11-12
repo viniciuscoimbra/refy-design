@@ -63,7 +63,7 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(function
   const overflow = rest_.length;
 
   // With one person the item already says the name: the group would only repeat it.
-  const defaultLabel = items.length === 1 ? undefined : `${items.length} pessoas`;
+  const defaultLabel = items.length === 1 ? undefined : m.people(items.length);
 
   return (
     <div
@@ -129,6 +129,7 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(function
             <span
               className={styles.item}
               style={{ zIndex: 0 }}
+              role="img"
               aria-label={m.more(overflow)}
             >
               <Avatar
