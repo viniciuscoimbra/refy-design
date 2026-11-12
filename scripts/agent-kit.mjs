@@ -11,6 +11,7 @@ import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import ts from "typescript";
 import { parseCollectionRegistry, collectionIdsFor } from "./collection-registry.mjs";
+import { parseMaturityRegistry, maturityFor } from "./maturity-registry.mjs";
 import { source as tokenSource, declarations } from "./tokens.mjs";
 const root = fileURLToPath(new URL("..", import.meta.url));
 const read = (file) => readFileSync(resolve(root, file), "utf8");
@@ -41,6 +42,7 @@ const entries = declaration.initializer.elements.map((node) =>
   ),
 );
 const registry = parseCollectionRegistry(read("src/catalog/collections.json"), entries.map(entry => entry.id));
+const maturity = parseMaturityRegistry(read("src/catalog/maturity.json"), entries.map(entry => entry.id));
 const pkg = JSON.parse(read("package.json"));
 const docs = entries.map((entry) => ({
   entry,
@@ -57,6 +59,7 @@ for (const file of [
   "package.json",
   "src/pages/PlaygroundPage/catalog.ts",
   "src/catalog/collections.json",
+  "src/catalog/maturity.json",
   "docs/CONTROL_CHOICES.md",
   "src/tokens/foundations.tokens.json",
   "src/tokens/component-hooks.json",
@@ -89,6 +92,7 @@ const catalog = {
     ...collection,
     count: entries.filter(entry => collectionIdsFor(registry, entry.id).includes(collection.id)).length,
   })),
+  maturity: maturity.states,
   themeTokens: [...tokenNames].sort(),
   // AI-02: valor literal de cada token simples do tema padrão (fundação + claro), para o check
   // sugerir o token que já tem aquele valor. Referências var(...) e expressões ficam de fora.
@@ -123,6 +127,7 @@ const catalog = {
     return {
       ...entry,
       collections: doc.collections,
+      maturity: maturityFor(maturity, entry.id),
       publicName: doc.publicName,
       description: doc.description,
       usage: choices

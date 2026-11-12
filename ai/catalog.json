@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "package": "@refy-design/web",
   "packageVersion": "1.6.2",
-  "sourceSha256": "70af275e00bd8290f8be71dba76e53640122b3369c182260d9e8198554a187d9",
+  "sourceSha256": "5d3affb94d97ba6195d36b5de53061759bd4c7eedfe91148f68fd95c9a20e043",
   "collections": [
     {
       "id": "core",
@@ -140,6 +140,28 @@
         "leitura"
       ],
       "count": 2
+    }
+  ],
+  "maturity": [
+    {
+      "id": "nao-avaliado",
+      "label": "Não avaliado",
+      "criteria": "Código existente sem verificação suficiente; estado inicial do catálogo."
+    },
+    {
+      "id": "experimental",
+      "label": "Experimental",
+      "criteria": "Contrato/proposta explícitos; lacunas e riscos visíveis."
+    },
+    {
+      "id": "estavel",
+      "label": "Estável",
+      "criteria": "API, documentação, testes de estados e interação, revisão visual, acessibilidade e compatibilidade aplicáveis aprovados e vinculados a uma versão."
+    },
+    {
+      "id": "depreciado",
+      "label": "Depreciado",
+      "criteria": "Alternativa, migração, consumidores e condição/versão de remoção documentados."
     }
   ],
   "themeTokens": [
@@ -1191,6 +1213,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Button",
       "description": "An action triggered by mouse, touch or keyboard, with progress and result states.",
       "usage": [],
@@ -1314,6 +1337,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "IconButton",
       "description": "Compact action shown as an icon, with a required accessible name.",
       "usage": [],
@@ -1385,6 +1409,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ButtonGroup",
       "description": "Grouping of related controls; selection and events belong to the child components.",
       "usage": [],
@@ -1415,6 +1440,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "SplitButton",
       "description": "Main action paired with a menu of alternative actions.",
       "usage": [],
@@ -1453,6 +1479,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "OAuthButton",
       "description": "Sign-in buttons for Google, Facebook, LinkedIn, Spotify, GitHub, X, Apple and Microsoft. They compose Button/GoogleButton; the application implements the OAuth flow.",
       "usage": [],
@@ -1483,6 +1510,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "GoogleButton",
       "description": "Google sign-in action, keeping the provider's identity and the control's states.",
       "usage": [],
@@ -1520,6 +1548,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Fab",
       "description": "Main floating action, compact or with a label.",
       "usage": [],
@@ -1572,6 +1601,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "FabMenu",
       "description": "Floating action that reveals a set of related actions.",
       "usage": [],
@@ -1607,6 +1637,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "DecisionActions",
       "description": "Related decision actions, with processing, done and unavailable states.",
       "usage": [],
@@ -1642,6 +1673,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Input",
       "description": "Text input with label, help, prefixes and error messaging.",
       "usage": [
@@ -1725,6 +1757,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Textarea",
       "description": "Multi-line text input with label, help and error.",
       "usage": [
@@ -1767,6 +1800,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Select",
       "description": "Native selection of one option, with groups, label and help.",
       "usage": [
@@ -1812,6 +1846,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Combobox",
       "description": "Search field and selection of one option, with keyboard navigation.",
       "usage": [
@@ -1893,6 +1928,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Multiselect",
       "description": "Search and selection of multiple options, showing and removing the choices.",
       "usage": [
@@ -1961,6 +1997,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Checkbox",
       "description": "Independent choice, with label, description and selected or disabled states.",
       "usage": [],
@@ -2019,6 +2056,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "RadioGroup",
       "description": "Set of mutually exclusive alternatives, with labels and descriptions.",
       "usage": [
@@ -2078,6 +2116,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Switch",
       "description": "Toggle of a preference between on and off.",
       "usage": [],
@@ -2147,6 +2186,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Segmented",
       "description": "Choice between related alternatives shown in a segmented control.",
       "usage": [
@@ -2214,6 +2254,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ToggleGroup",
       "description": "A set of independent toggles with multiple values; for exclusive choice, use Segmented or RadioGroup.",
       "usage": [
@@ -2266,6 +2307,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Range",
       "description": "Selection of a numeric range with two bounds and keyboard support.",
       "usage": [],
@@ -2315,6 +2357,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Slider",
       "description": "Pick a numeric value by dragging, track or keyboard.",
       "usage": [],
@@ -2366,6 +2409,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Otp",
       "description": "Verification code input, with multiple slots and paste support.",
       "usage": [],
@@ -2417,6 +2461,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "PhoneInput",
       "description": "Phone input with country selection, international code and formatting.",
       "usage": [],
@@ -2457,6 +2502,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "PostalCodeInput",
       "description": "Postal code (CEP) input and lookup, with searching, result and error states.",
       "usage": [],
@@ -2492,6 +2538,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Calendar",
       "description": "Calendar to pick a date or a range, with limits and navigation between months.",
       "usage": [],
@@ -2568,6 +2615,7 @@
       "collections": [
         "operations"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "SchedulePicker",
       "description": "Selection of available days and times, with summary and time zone.",
       "usage": [],
@@ -2620,6 +2668,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ChoiceCardGroup",
       "description": "Choice shown in a card, with single or multiple selection and explanatory content.",
       "usage": [
@@ -2683,6 +2732,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "FileUpload",
       "description": "File selection and preview, with validation, progress and removal.",
       "usage": [],
@@ -2748,6 +2798,7 @@
       "collections": [
         "geolocation"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "GeoAreaPicker",
       "description": "Select an area by radius or regions, with optional map integration.",
       "usage": [],
@@ -2803,6 +2854,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Breadcrumb",
       "description": "Hierarchical navigation path, showing the current page.",
       "usage": [],
@@ -2850,6 +2902,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Tabs",
       "description": "Related content organized in tabs with keyboard navigation.",
       "usage": [],
@@ -2918,6 +2971,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "NavCard",
       "description": "Navigation destination shown as an actionable card.",
       "usage": [],
@@ -2969,6 +3023,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Pagination",
       "description": "Navigation between result pages, with current position and bounds.",
       "usage": [],
@@ -3016,6 +3071,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "SettingsSubnav",
       "description": "Navigation between settings areas, with groups and the current section marked.",
       "usage": [],
@@ -3082,6 +3138,7 @@
       "collections": [
         "content"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "TableOfContents",
       "description": "Anchor table of contents that follows the visible section of a document.",
       "usage": [],
@@ -3139,6 +3196,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "WorkspaceSwitcher",
       "description": "Selecting and searching a workspace, with management actions.",
       "usage": [],
@@ -3202,6 +3260,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "UserMenu",
       "description": "Account menu with identity and actions provided by the application.",
       "usage": [],
@@ -3246,6 +3305,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "HelpMenu",
       "description": "Menu of help resources, documentation and support.",
       "usage": [],
@@ -3278,6 +3338,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "WizardStepper",
       "description": "The steps of a flow, with current, done and pending states.",
       "usage": [],
@@ -3330,6 +3391,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Menu",
       "description": "Contextual list of actions, separators and labels, with keyboard navigation; no nested submenus.",
       "usage": [
@@ -3395,6 +3457,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Badge",
       "description": "Compact label to convey category, quantity or state.",
       "usage": [],
@@ -3447,6 +3510,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Chip",
       "description": "Filter or selection tag, with semantic tone and optional removal.",
       "usage": [
@@ -3530,6 +3594,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "StatusDot",
       "description": "Compact signal of a state, with label and activity indicator.",
       "usage": [],
@@ -3572,6 +3637,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Callout",
       "description": "Contextual message with a semantic tone, content and optional actions.",
       "usage": [
@@ -3646,6 +3712,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "EmptyState",
       "description": "Empty state that explains the situation and offers a next action when it applies.",
       "usage": [],
@@ -3690,6 +3757,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Skeleton",
       "description": "Temporary visual structure that stands in for the content while it loads.",
       "usage": [],
@@ -3722,6 +3790,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ProgressBar",
       "description": "Progress of a task or usage of a quota, with tone and loading state.",
       "usage": [],
@@ -3758,6 +3827,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "UsageMeter",
       "description": "Resource usage against a limit, with a value and a visual state.",
       "usage": [],
@@ -3802,6 +3872,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ToastRegion",
       "description": "Result notice with configurable action, dismissal and duration.",
       "usage": [
@@ -3862,6 +3933,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Snackbar",
       "description": "Result message with an optional contextual action; position and duration are set by the app.",
       "usage": [],
@@ -3906,6 +3978,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "NotificationBell",
       "description": "Access to notifications, with the unread count and read actions.",
       "usage": [],
@@ -3978,6 +4051,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Tooltip",
       "description": "Short explanation of a control, shown on focus or hover.",
       "usage": [],
@@ -4023,6 +4097,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Popover",
       "description": "Contextual content anchored to a control, with controllable open and close.",
       "usage": [],
@@ -4064,6 +4139,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "HoverCard",
       "description": "Extra information revealed on hover or focus of an element.",
       "usage": [],
@@ -4105,6 +4181,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "HelpField",
       "description": "Help tied to a field, with an explanation and optional deeper detail.",
       "usage": [],
@@ -4156,6 +4233,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "GuidedTour",
       "description": "Sequence of guidance anchored to interface elements.",
       "usage": [],
@@ -4206,6 +4284,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Modal",
       "description": "Dialog over the interface, with title, content, actions and focus management.",
       "usage": [
@@ -4268,6 +4347,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Drawer",
       "description": "Side or bottom panel for content and actions related to the current context.",
       "usage": [
@@ -4333,6 +4413,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Command",
       "description": "Command palette with search, groups and shortcuts to run app actions.",
       "usage": [],
@@ -4401,6 +4482,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Table",
       "description": "Data table with search, filters, sorting, pagination and content states.",
       "usage": [],
@@ -4483,6 +4565,7 @@
       "collections": [
         "analytics"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "LineChart",
       "description": "D3 charts: cartesian, radial, statistical, hierarchical, networks, flows and maps; accessible legends, axes, tooltip and data.",
       "usage": [],
@@ -4568,6 +4651,7 @@
       "collections": [
         "analytics"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Stat",
       "description": "Display of a value with optional label, change and trend.",
       "usage": [],
@@ -4618,6 +4702,7 @@
       "collections": [
         "analytics"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ScoreGauge",
       "description": "Score indicator with bands, label and size variations.",
       "usage": [],
@@ -4667,6 +4752,7 @@
       "collections": [
         "analytics"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Matrix2x2",
       "description": "Points distributed in four quadrants, with axes, labels and selection.",
       "usage": [],
@@ -4721,6 +4807,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ActivityItem",
       "description": "An event with author, time, content and context. Molecule shared by the feed and the compact version of ActivityTimeline.",
       "usage": [],
@@ -4772,6 +4859,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Timeline",
       "description": "Milestones of a journey with dates and a time axis. Alternating vertical or horizontal, with optional media and actions. For events by people and systems, use ActivityTimeline.",
       "usage": [],
@@ -4827,6 +4915,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ActivityTimeline",
       "description": "Activity history grouped by date: author next to content, context and actions. ActivityTimeline also builds compact widgets. EventTimeline is a compatibility alias. For milestones of a journey, use Timeline.",
       "usage": [],
@@ -4882,6 +4971,7 @@
       "collections": [
         "operations"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "KanbanCard",
       "description": "Work card with composed opening, metadata and actions. The same molecule is used in the column and in the KanbanBoard drag preview.",
       "usage": [],
@@ -4921,6 +5011,7 @@
       "collections": [
         "operations"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "KanbanBoard",
       "description": "Board with global or per-stage WIP, per-column colors and transition rules. Drag by the handle or use keyboard/menu. Column and toolbar actions are composition, with no built-in business rules.",
       "usage": [],
@@ -4979,6 +5070,7 @@
       "collections": [
         "operations"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ApprovalWorkbench",
       "description": "Reusable review area, with information, progress and decision actions.",
       "usage": [],
@@ -5029,6 +5121,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Avatar",
       "description": "Visual identity of a person or entity, by image or initials.",
       "usage": [],
@@ -5073,6 +5166,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "AvatarGroup",
       "description": "Stack of avatars with a visible limit, overlap and a count of extra participants.",
       "usage": [],
@@ -5114,6 +5208,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "BrandLogo",
       "description": "Refy wordmark and symbol with sizes and display variants.",
       "usage": [],
@@ -5156,6 +5251,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "PersonCell",
       "description": "Identification of a person or entity for rows, lists and tables.",
       "usage": [],
@@ -5197,6 +5293,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Card",
       "description": "Content surface with spacing, header and elevation levels.",
       "usage": [],
@@ -5277,6 +5374,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Accordion",
       "description": "Expandable sections that reveal content when their titles are triggered.",
       "usage": [],
@@ -5345,6 +5443,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "CodeBlock",
       "description": "Code with syntax colors, monospaced font and copy of the original content.",
       "usage": [],
@@ -5415,6 +5514,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ContentCard",
       "description": "Content card with media, information and actions, in different compositions.",
       "usage": [],
@@ -5475,6 +5575,7 @@
       "collections": [
         "media"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Coverflow",
       "description": "Finite browsing of visual content with selection by identity, navigation, gesture and explicit activation.",
       "usage": [],
@@ -5520,6 +5621,7 @@
       "collections": [
         "media"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "MediaGallery",
       "description": "Media display with aspect ratios, navigation and loading or error states.",
       "usage": [],
@@ -5564,6 +5666,7 @@
       "collections": [
         "media"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "DecisionDeck",
       "description": "Sequence of decision cards with navigation, gestures and explicit actions.",
       "usage": [],
@@ -5627,6 +5730,7 @@
         "media",
         "conversation"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "VoiceRecorder",
       "description": "Controlled interface for recording, pause, error and a text alternative; capture, permissions and transcription are wired by the app.",
       "usage": [
@@ -5686,6 +5790,7 @@
       "collections": [
         "conversation"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "IntentComposer",
       "description": "Composing a request, with suggestions and processing states.",
       "usage": [],
@@ -5758,6 +5863,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Kbd",
       "description": "Visual representation of a key or shortcut combination.",
       "usage": [],
@@ -5794,6 +5900,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "AppShell",
       "description": "Application structure combining side navigation, top bar and content area.",
       "usage": [],
@@ -5835,6 +5942,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Sidebar",
       "description": "The app's side navigation, with expanded, compact and collapsed versions.",
       "usage": [],
@@ -5911,6 +6019,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Topbar",
       "description": "Top bar with path, search, tabs or segments and slots for actions; notifications, help and account are compositions by the consumer.",
       "usage": [],
@@ -5961,6 +6070,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "PageHeader",
       "description": "Page header with title, description, path and contextual actions.",
       "usage": [],
@@ -6009,6 +6119,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "SectionHeader",
       "description": "Section title with count, description and optional action.",
       "usage": [],
@@ -6054,6 +6165,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Hero",
       "description": "A page's first fold with title, accent, lead and actions; the composition comes from the theme.",
       "usage": [],
@@ -6110,6 +6222,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Section",
       "description": "Page block with text and proof side by side, stacked or in the theme's columns.",
       "usage": [],
@@ -6146,6 +6259,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "DeviceFrame",
       "description": "Browser or phone frame with the live page at the device's real width.",
       "usage": [],
@@ -6187,6 +6301,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "SiteFooter",
       "description": "Site footer with brand, link columns and credits.",
       "usage": [],
@@ -6226,6 +6341,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Divider",
       "description": "Visual separation between content groups, with optional orientation and label.",
       "usage": [],
@@ -6264,6 +6380,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "StickyBar",
       "description": "Action bar tied to the context, kept during scrolling.",
       "usage": [],
@@ -6303,6 +6420,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "StickyFooter",
       "description": "Persistent footer with actions and information provided by the application; does not validate forms.",
       "usage": [],
@@ -6338,6 +6456,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "SettingRow",
       "description": "Settings row with description, state and an associated action or control.",
       "usage": [],
@@ -6391,6 +6510,7 @@
       "collections": [
         "commerce"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "PlanCard",
       "description": "Comparable presentation of a plan, with features, price and a choose action.",
       "usage": [],
@@ -6456,6 +6576,7 @@
         "commerce",
         "finance"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "BillingCard",
       "description": "Billing summary and payment method, with actions provided by the application.",
       "usage": [],
@@ -6508,6 +6629,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ConnectorCard",
       "description": "State of a connection or integration, with options to connect, manage or remove.",
       "usage": [],
@@ -6558,6 +6680,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "DangerZone",
       "description": "Area for sensitive actions, with explanation and callbacks; the application provides the confirmation before running.",
       "usage": [],
@@ -6609,6 +6732,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "AlertDialog",
       "description": "Confirmation of an important action, with explicit confirm or cancel options.",
       "usage": [],
@@ -6638,6 +6762,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "AspectRatio",
       "description": "Container that keeps the aspect ratio of images, videos and other media.",
       "usage": [],
@@ -6661,6 +6786,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Bubble",
       "description": "Bubble that shows a piece of a conversation and identifies its source.",
       "usage": [],
@@ -6700,6 +6826,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Carousel",
       "description": "Sequence of navigable content, with position indicator and forward controls.",
       "usage": [],
@@ -6734,6 +6861,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Collapsible",
       "description": "Area that toggles content visibility through an expand control.",
       "usage": [],
@@ -6759,6 +6887,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ContextMenu",
       "description": "Context menu triggered on a specific area or item.",
       "usage": [],
@@ -6785,6 +6914,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "DatePicker",
       "description": "Date selection by button and calendar, with clearing; no free typing.",
       "usage": [
@@ -6820,6 +6950,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Direction",
       "description": "Container that sets the reading direction, left to right or reversed.",
       "usage": [],
@@ -6843,6 +6974,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Item",
       "description": "Content row with title, description, visuals and optional action.",
       "usage": [],
@@ -6889,6 +7021,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Label",
       "description": "Form label tied to a control by the htmlFor attribute.",
       "usage": [],
@@ -6913,6 +7046,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Marker",
       "description": "Marking a piece of text with the theme's colors and shape.",
       "usage": [],
@@ -6936,6 +7070,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Menubar",
       "description": "Bar of related menus, with options organized by purpose.",
       "usage": [],
@@ -6963,6 +7098,7 @@
       "collections": [
         "conversation"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Message",
       "description": "Conversation message with identity, content, time and optional actions.",
       "usage": [],
@@ -7001,6 +7137,7 @@
       "collections": [
         "conversation"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "MessageScroller",
       "description": "Message area with scrolling and access to the latest messages.",
       "usage": [],
@@ -7031,6 +7168,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "NavigationMenu",
       "description": "Main navigation with groups and supporting content.",
       "usage": [],
@@ -7084,6 +7222,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Questionnaire",
       "description": "A sequence of questions with answer selection, navigation and completion.",
       "usage": [],
@@ -7112,6 +7251,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Resizable",
       "description": "Split of an area into resizable panels.",
       "usage": [],
@@ -7143,6 +7283,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "ScrollArea",
       "description": "Area with limited height and its own scrolling, keyboard accessible.",
       "usage": [],
@@ -7166,6 +7307,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Spinner",
       "description": "Visual indicator of an operation in progress.",
       "usage": [],
@@ -7193,6 +7335,7 @@
       "collections": [
         "core"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Trace",
       "description": "Expandable sequence of steps to show an operation's progress.",
       "usage": [],
@@ -7220,6 +7363,7 @@
       "collections": [
         "content"
       ],
+      "maturity": "nao-avaliado",
       "publicName": "Prose",
       "description": "Typography for editorial content, including headings, paragraphs, lists, links and tables.",
       "usage": [],

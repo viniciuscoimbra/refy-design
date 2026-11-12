@@ -17,7 +17,7 @@ Cada família em catalog.json traz `howToUse` (como montar na tela e com quais p
 
 ## Ferramenta local
 
-- `npm exec --offline -- refy-agent catalog [termo]`: encontra famílias por nome, finalidade, camada, área, coleção ou membro documentado da API.
+- `npm exec --offline -- refy-agent catalog [termo]`: encontra famílias por nome, finalidade, camada, área, coleção ou membro documentado da API. Cada resultado traz `maturity`, um dos quatro estados de docs/QUALITY.md (`nao-avaliado`, `experimental`, `estavel`, `depreciado`). `nao-avaliado` é estado declarado, não defeito: a família funciona, só não tem evidência de promoção registrada. Não apresente família como estável sem `maturity: estavel`.
 - `npm exec --offline -- refy-agent collections [id-ou-termo]`: lista coleções e seus membros reais, com contagem e indicação de resultado vazio. Core é propósito geral; coleções especializadas são capacidades, não pacotes separados nem certificação. Uma família pode integrar várias coleções sem duplicar implementação ou mudar import/atomicidade. Candidatos ainda não implementados não são componentes disponíveis.
 - `npm exec --offline -- refy-agent component Input`: lê API/exemplos reais de uma família. Também aceita membros como `D3Chart` ou `CardHeader`; nesses casos identifica a família de origem e não presume que todo nome documentado seja um export de execução.
 - `npm exec --offline -- refy-agent inspect src/Tela.tsx src/tela.css`: retorna composição e achados estáticos.

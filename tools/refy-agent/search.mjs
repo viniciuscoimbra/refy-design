@@ -324,6 +324,7 @@ export function searchCatalog(index, query, { limit = 8, collection } = {}) {
       level: component.level,
       area: component.area,
       collections: component.collections,
+      maturity: component.maturity,
       description: component.description,
       score: Math.round(score * 100) / 100,
       matched: [...matched],
