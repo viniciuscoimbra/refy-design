@@ -1,6 +1,6 @@
 ## 1. Gate do predecessor
 
-- [x] 1.1 Confirmar com o mantenedor que o escopo desta mudança está autorizado. Aceite: resposta do mantenedor registrada. Evidência: respostas M1, M2 e M3 do grill de 12/11/2026 (campo e gate aceitos; promoção feita pelo mantenedor com a evidência do QUALITY.md).
+- [x] 1.1 Confirmar com o mantenedor que o escopo desta mudança está autorizado. Aceite: resposta do mantenedor registrada. Evidência: `evidence.md` desta mudança, seção "Autorização humana e limites" (respostas M1, M2 e M3 do grill de 12/11/2026).
 - [ ] 1.2 Confirmar no PR que `establish-refy-governance` está concluída. Aceite: comentário do mantenedor.
 
 ## 2. Registro e validador (LIFE-03)
@@ -13,6 +13,6 @@
 
 ## 3. Gate da mudança
 
-- [x] 3.1 `npm run check` passa. Evidência: rodado em 12/11/2026 sobre 391903a + esta mudança, Node 22, macOS; exit 0, `agent:check` com 0 falhas e `tests/maturity-registry.test.mjs` com 4 de 4.
-- [x] 3.2 `npm run check:specs` passa com esta mudança. Evidência: openspec 1.5.0, `change/register-family-maturity` válida, 6 de 6 itens, controle inválido recusado.
+- [x] 3.1 `npm run check` passa. Evidência: rodado em 12/11/2026 sobre 391903a + esta mudança, Node v25.8.1, macOS; exit 0, `agent:check` com 163 testes (159 passam, 0 falhas, 4 ignorados) e `tests/maturity-registry.test.mjs` com 4 de 4. Detalhe em `evidence.md`.
+- [x] 3.2 `npm run check:specs` passa com esta mudança. Evidência: openspec 1.5.0, `change/register-family-maturity` válida, 6 de 6 itens, controle inválido recusado. Detalhe em `evidence.md`.
 - [ ] 3.3 Revisão do mantenedor e decisão de versão (minor).

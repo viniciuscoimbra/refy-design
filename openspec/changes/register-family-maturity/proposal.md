@@ -14,7 +14,7 @@ Mudança aditiva no catálogo (`schemaVersion` segue 1). Nenhum export, prop, to
 
 ## Predecessor
 
-`establish-refy-governance`, já implementada (specs `component-lifecycle` e `change-governance`). Esta mudança só cumpre em dado o que LIFE-01 e LIFE-02 já exigem.
+`establish-refy-governance`, cujas specs `component-lifecycle` e `change-governance` já estão em `openspec/specs/`; a conclusão do gate fica para o mantenedor confirmar (tarefa 1.2). Esta mudança só cumpre em dado o que LIFE-01 e LIFE-02 já exigem.
 
 ## Não objetivos
 
