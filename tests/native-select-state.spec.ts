@@ -24,6 +24,7 @@ test.use({ screenshot: "off", trace: "off", reducedMotion: "reduce" });
 for (const example of examples)
   for (const mode of ["light"])
     for (const width of [390, 800]) {
+      // interação: Select, PhoneInput
       test(`${example.family} native open/close and trusted keyboard selection (${mode}/${width})`, async ({
         page,
         browserName,

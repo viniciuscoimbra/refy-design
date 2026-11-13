@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 test.use({ screenshot: "off", trace: "off" });
 for (const mode of ["light"])
   for (const width of [390, 800]) {
+    // interação: Coverflow
     test(`Coverflow finite keyboard, controlled identity and explicit activation ${mode}/${width}`, async ({
       page,
     }) => {
@@ -69,6 +70,7 @@ for (const mode of ["light"])
       );
       expect(overflow).toBe(false);
     });
+    // interação: Coverflow
     test(`Coverflow drag, cancel and nonactivation ${mode}/${width}`, async ({
       page,
     }) => {

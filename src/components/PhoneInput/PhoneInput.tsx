@@ -4,6 +4,8 @@ import { forwardRef, useId } from "react";
 import type { InputHTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
 import styles from "./PhoneInput.module.css";
+import { formatBrazilianPhone } from "./formatBrazilianPhone";
+export { formatBrazilianPhone };
 
 import { useLocale, useComponentMessages } from "../../lib/locale";
 import * as enMessages from "../../lib/messages/en";
@@ -33,14 +35,6 @@ export interface PhoneInputProps
   countries?: PhoneCountry[];
   onCountryChange?: (country: PhoneCountry) => void;
   onChange?: InputHTMLAttributes<HTMLInputElement>["onChange"];
-}
-
-export function formatBrazilianPhone(value: string) {
-  const number = value.replace(/\D/g, "").slice(0, 11);
-  if (number.length <= 2) return number.replace(/^(\d+)/, "($1");
-  if (number.length <= 6) return number.replace(/^(\d{2})(\d+)/, "($1) $2");
-  if (number.length <= 10) return number.replace(/^(\d{2})(\d{4})(\d+)/, "($1) $2-$3");
-  return number.replace(/^(\d{2})(\d{5})(\d+)/, "($1) $2-$3");
 }
 
 /** Telefone com país e código internacional explícitos no mesmo campo. */

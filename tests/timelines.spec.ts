@@ -23,6 +23,7 @@ for (const mode of ['light']) {
     await expect(trigger).toBeFocused();
   });
 
+  // interação: EventTimeline
   test(`${mode}: widget reutiliza conteúdo compacto e abre histórico; popover fecha por teclado`, async ({ page }) => {
     await page.goto(story('components-organisms-eventtimeline--widget', mode));
     await expect(page.locator('[data-activity-id]')).toHaveCount(4);
@@ -40,6 +41,7 @@ for (const mode of ['light']) {
     await expect(trigger).toBeFocused();
   });
 
+  // interação: Timeline
   test(`${mode}: marcos alternam, preservam ordem e abrem detalhes`, async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(story('components-organisms-timeline--vertical', mode));
@@ -57,6 +59,7 @@ for (const mode of ['light']) {
     await expect(trigger).toBeFocused();
   });
 
+  // interação: Timeline
   test(`${mode}: horizontal rola por teclado sem aumentar a página`, async ({ page }) => {
     await page.setViewportSize({ width: 700, height: 800 });
     await page.goto(story('components-organisms-timeline--horizontal', mode));

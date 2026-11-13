@@ -2,6 +2,7 @@ import { chooseChart } from "./chart-navigation";
 import { test, expect } from "@playwright/test";
 test.use({ screenshot: "off", trace: "off" });
 for (const mode of ["light"])
+  // interação: Charts
   test(`zoom, brush, controles e opções · ${mode}`, async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (e) => errors.push(e.message));

@@ -45,6 +45,7 @@ test('DecisionDeck apresenta transição e registra uma única decisão no modo 
   await expect(page.getByRole('status').last()).toContainText('Event: save');
 });
 
+// interação: SwipeDeck
 test('DecisionDeck controlado avança por posição e reinicia mesmo com IDs repetidos', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/iframe.html?id=verificacao-contratos-essenciais--deck-controlado&viewMode=story');

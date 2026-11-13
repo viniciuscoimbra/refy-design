@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 const story = (name: string, mode = 'light', theme = 'refy', fonts = 'humanist') => `/iframe.html?id=${name}&viewMode=story&globals=theme:${theme};mode:${mode};fonts:${fonts}`;
 for (const mode of ['light']) {
+  // interação: KanbanBoard
   test(`${mode}: Kanban WIP e transições bloqueiam menu e teclado sem perder cards`, async ({ page }) => {
     await page.goto(story('components-organisms-kanbanboard--com-regras', mode));
     const todo = page.locator('[data-kanban-column="todo"]'), card = todo.locator('[data-kanban-card="a"]');
@@ -119,6 +120,7 @@ for (const mode of ['light']) {
 }
 
 for (const mode of ['light']) for (const font of ['humanist', 'plex', 'studio']) {
+  // interação: VisitSchedulePicker
   test(`${mode}/${font}: SchedulePicker em telefone com toque e múltiplos dias`, async ({ browser }, testInfo) => {
     const context = await browser.newContext({ viewport: { width: 320, height: 760 }, hasTouch: true, isMobile: true });
     const page = await context.newPage();

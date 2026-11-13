@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { divergenceNames, parity } from "./native-parity.mjs";
 import {
   readFileSync,
   readdirSync,
@@ -63,10 +64,17 @@ for (const file of [
   "docs/CONTROL_CHOICES.md",
   "src/tokens/foundations.tokens.json",
   "src/tokens/component-hooks.json",
+  "src/pages/RefySitePage/nativeComponents.json",
+  "packages/native/DIVERGENCIAS.md",
   ...docs.map((d) => d.file),
   ...entries.flatMap((entry) => familyCss(entry.id)),
 ])
   hash.update(file + "\0" + read(file) + "\0");
+const mobileStatus = parity(
+  docs.map(({ entry, file }) => ({ id: entry.id, publicName: JSON.parse(read(file)).publicName })),
+  JSON.parse(read("src/pages/RefySitePage/nativeComponents.json")),
+  divergenceNames(read("packages/native/DIVERGENCIAS.md")),
+);
 const choices = read("docs/CONTROL_CHOICES.md")
   .split("\n")
   .filter((line) => line.startsWith("|"))
@@ -140,6 +148,8 @@ const catalog = {
       hooks: [...new Set(familyCss(entry.id).flatMap((file) => [...read(file).matchAll(/var\(\s*(--[\w-]+)/g)].map((m) => m[1])))]
         .filter((name) => tokenNames.has(name))
         .sort(),
+      // NATP-02: igual, com-divergencia (seção no DIVERGENCIAS.md) ou so-web.
+      mobile: mobileStatus[entry.id],
       document: `components/${entry.id}.json`,
     };
   }),

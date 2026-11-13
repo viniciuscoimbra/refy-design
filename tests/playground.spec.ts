@@ -258,6 +258,7 @@ test("galeria mantém FabMenu, NavCard e SettingsSubnav locais e contém links d
 });
 
 for (const width of [375, 768, 1280])
+  // interação: Drawer
   test(`${width}px: drawer direito por abas, validação, exportação e retorno de foco`, async ({
     page,
   }, info) => {

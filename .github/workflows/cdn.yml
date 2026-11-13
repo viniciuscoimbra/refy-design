@@ -1,0 +1,27 @@
+name: CDN
+# CDN-01: depois do npm, confere que a versão roda numa página HTML sem build, pelo /+esm
+# do jsDelivr (scripts/check-cdn.mjs). Só no repositório público, onde o minuto é grátis.
+on:
+  workflow_run:
+    workflows: ["Release"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cdn:
+    if: >-
+      github.repository == 'viniciuscoimbra/refy-design' &&
+      (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/check-cdn.mjs "$(node -p "require('./package.json').version")"

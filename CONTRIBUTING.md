@@ -45,15 +45,27 @@ Não copie dados ou código privado para demonstrar compatibilidade; use fixture
 ## O caminho do seu pull request
 
 1. Abra o pull request contra `main`. O CI roda tipos, build e testes.
-2. O mantenedor leva a mudança para o repositório de trabalho e roda a bateria
-   completa, com testes de navegador em todos os temas.
+2. O mantenedor leva a mudança para o repositório de trabalho e roda de novo os
+   mesmos passos do CI, mais a varredura de nomes internos e de segredos. Os testes
+   de navegador e de acessibilidade são os do CI público, então você reproduz
+   qualquer falha de componente com `npx playwright test`.
 3. Passou: o pull request é aprovado e entra na próxima versão como merge, com os
    seus commits e a sua autoria. Você aparece entre os contribuidores do GitHub e
-   no CHANGELOG. Não passou: o pull request é fechado com o motivo e o teste que
-   falhou.
+   no CHANGELOG. Não passou: o pull request é fechado com o motivo, o comando e o
+   teste que falharam e o trecho da saída.
 
 O pull request não é mergeado sozinho antes da versão. Ele entra junto com ela,
 para que `main` só tenha versões testadas.
+
+## Pull request de ferramenta
+
+Gate, script de verificação, teste ou revisor automático não usam
+`npx -p @refy-design/web refy contribute`, que é para componente. O caminho é o geral:
+
+1. Uma mudança OpenSpec com a regra nova (proposal, spec com o cenário de falha e tasks).
+2. O caso que o gate recusa e o vizinho parecido que ele deixa passar, os dois no
+   teste. Sem o vizinho, o gate ensina a desviar dele.
+3. CI verde e a mesma bateria do repositório de trabalho.
 
 ## Desenvolvimento
 

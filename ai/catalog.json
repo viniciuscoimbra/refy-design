@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "package": "@refy-design/web",
-  "packageVersion": "1.7.0",
-  "sourceSha256": "ff470e4422d1f008d668837f60d1afac0a39c146a40515e87f910c74a45357af",
+  "packageVersion": "1.8.0",
+  "sourceSha256": "31dff7611bcd2d685a84c3580c86cf7244bc707630324a998c64ea08d397ef4b",
   "collections": [
     {
       "id": "core",
@@ -1326,6 +1326,7 @@
         "--weight-regular",
         "--weight-semi"
       ],
+      "mobile": "igual",
       "document": "components/Button.json"
     },
     {
@@ -1398,6 +1399,7 @@
         "--surface-2",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/IconButton.json"
     },
     {
@@ -1429,6 +1431,7 @@
         "--button-radius",
         "--control-radius"
       ],
+      "mobile": "com-divergencia",
       "document": "components/ButtonGroup.json"
     },
     {
@@ -1467,6 +1470,7 @@
         "--radius-default",
         "--split-control-size"
       ],
+      "mobile": "com-divergencia",
       "document": "components/SplitButton.json"
     },
     {
@@ -1498,6 +1502,7 @@
         "GoogleButton"
       ],
       "hooks": [],
+      "mobile": "igual",
       "document": "components/OAuthButton.json"
     },
     {
@@ -1537,6 +1542,7 @@
         "--control-font-size",
         "--control-shadow"
       ],
+      "mobile": "com-divergencia",
       "document": "components/GoogleButton.json"
     },
     {
@@ -1590,6 +1596,7 @@
         "--surface",
         "--text-base"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Fab.json"
     },
     {
@@ -1626,6 +1633,7 @@
         "--ink-1",
         "--z-overlay"
       ],
+      "mobile": "com-divergencia",
       "document": "components/FabMenu.json"
     },
     {
@@ -1662,6 +1670,7 @@
         "--space-2",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/PropertyActionGroup.json"
     },
     {
@@ -1746,6 +1755,7 @@
         "--text-xs",
         "--weight-medium"
       ],
+      "mobile": "igual",
       "document": "components/Input.json"
     },
     {
@@ -1789,6 +1799,7 @@
         "--text-sm",
         "--text-xs"
       ],
+      "mobile": "igual",
       "document": "components/Textarea.json"
     },
     {
@@ -1835,6 +1846,7 @@
         "--text-sm",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Select.json"
     },
     {
@@ -1917,6 +1929,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Combobox.json"
     },
     {
@@ -1986,6 +1999,7 @@
         "--text-xs",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Multiselect.json"
     },
     {
@@ -2045,6 +2059,7 @@
         "--text-sm",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Checkbox.json"
     },
     {
@@ -2105,6 +2120,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/RadioGroup.json"
     },
     {
@@ -2175,6 +2191,7 @@
         "--text-xs",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Switch.json"
     },
     {
@@ -2243,6 +2260,7 @@
         "--text-xs",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Segmented.json"
     },
     {
@@ -2296,6 +2314,7 @@
         "--toggle-padding",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/ToggleGroup.json"
     },
     {
@@ -2346,6 +2365,7 @@
         "--text-eyebrow",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Range.json"
     },
     {
@@ -2398,6 +2418,7 @@
         "--text-xs",
         "--tracking-uppercase"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Slider.json"
     },
     {
@@ -2450,6 +2471,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Otp.json"
     },
     {
@@ -2491,6 +2513,7 @@
         "--text-sm",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/PhoneInput.json"
     },
     {
@@ -2527,6 +2550,7 @@
         "--space-5",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/PostalCodeInput.json"
     },
     {
@@ -2604,6 +2628,7 @@
         "--text-base",
         "--text-sm"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Calendar.json"
     },
     {
@@ -2657,6 +2682,7 @@
         "--text-sm",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/VisitSchedulePicker.json"
     },
     {
@@ -2720,6 +2746,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/ChoiceCard.json"
     },
     {
@@ -2786,6 +2813,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/FileUpload.json"
     },
     {
@@ -2843,6 +2871,7 @@
         "--text-sm",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/GeoAreaPicker.json"
     },
     {
@@ -2891,6 +2920,7 @@
         "--text-2xs",
         "--weight-semi"
       ],
+      "mobile": "so-web",
       "document": "components/Breadcrumb.json"
     },
     {
@@ -2960,6 +2990,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Tabs.json"
     },
     {
@@ -3012,6 +3043,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/NavCard.json"
     },
     {
@@ -3060,6 +3092,7 @@
         "--text-xs",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Pagination.json"
     },
     {
@@ -3127,6 +3160,7 @@
         "--weight-regular",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/SettingsSubnav.json"
     },
     {
@@ -3185,6 +3219,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "so-web",
       "document": "components/TableOfContents.json"
     },
     {
@@ -3249,6 +3284,7 @@
         "--weight-semi",
         "--z-dropdown"
       ],
+      "mobile": "com-divergencia",
       "document": "components/WorkspaceSwitcher.json"
     },
     {
@@ -3294,6 +3330,7 @@
         "--text-sm",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/UserMenu.json"
     },
     {
@@ -3327,6 +3364,7 @@
         "--surface-2",
         "--surface-container-low"
       ],
+      "mobile": "com-divergencia",
       "document": "components/HelpMenu.json"
     },
     {
@@ -3380,6 +3418,7 @@
         "--weight-medium",
         "--weight-semibold"
       ],
+      "mobile": "com-divergencia",
       "document": "components/WizardStepper.json"
     },
     {
@@ -3446,6 +3485,7 @@
         "--text-sm",
         "--z-dropdown"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Menu.json"
     },
     {
@@ -3499,6 +3539,7 @@
         "--weak-soft",
         "--weight-semi"
       ],
+      "mobile": "igual",
       "document": "components/Badge.json"
     },
     {
@@ -3583,6 +3624,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Chip.json"
     },
     {
@@ -3626,6 +3668,7 @@
         "--weak-ink",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/StatusDot.json"
     },
     {
@@ -3701,6 +3744,7 @@
         "--weak",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Callout.json"
     },
     {
@@ -3746,6 +3790,7 @@
         "--text-sm",
         "--weight-semi"
       ],
+      "mobile": "igual",
       "document": "components/EmptyState.json"
     },
     {
@@ -3779,6 +3824,7 @@
         "--surface-container-high",
         "--surface-container-low"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Skeleton.json"
     },
     {
@@ -3816,6 +3862,7 @@
         "--radius-pill",
         "--weak"
       ],
+      "mobile": "igual",
       "document": "components/ProgressBar.json"
     },
     {
@@ -3861,6 +3908,7 @@
         "--weight-regular",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/UsageMeter.json"
     },
     {
@@ -3922,6 +3970,7 @@
         "--weight-semi",
         "--z-toast"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Toast.json"
     },
     {
@@ -3967,6 +4016,7 @@
         "--text-sm",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Snackbar.json"
     },
     {
@@ -4040,6 +4090,7 @@
         "--weight-semi",
         "--z-popover"
       ],
+      "mobile": "com-divergencia",
       "document": "components/NotificationBell.json"
     },
     {
@@ -4086,6 +4137,7 @@
         "--weight-regular",
         "--z-tooltip"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Tooltip.json"
     },
     {
@@ -4128,6 +4180,7 @@
         "--text-sm",
         "--z-popover"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Popover.json"
     },
     {
@@ -4170,6 +4223,7 @@
         "--text-xs",
         "--z-popover"
       ],
+      "mobile": "so-web",
       "document": "components/HoverCard.json"
     },
     {
@@ -4222,6 +4276,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/HelpField.json"
     },
     {
@@ -4273,6 +4328,7 @@
         "--tracking-uppercase",
         "--z-popover"
       ],
+      "mobile": "com-divergencia",
       "document": "components/GuidedTour.json"
     },
     {
@@ -4336,6 +4392,7 @@
         "--weight-semi",
         "--z-modal"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Modal.json"
     },
     {
@@ -4402,6 +4459,7 @@
         "--z-modal",
         "--z-overlay"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Drawer.json"
     },
     {
@@ -4471,6 +4529,7 @@
         "--weight-bold",
         "--weight-semi"
       ],
+      "mobile": "so-web",
       "document": "components/Command.json"
     },
     {
@@ -4554,6 +4613,7 @@
         "--weight-medium",
         "--z-dropdown"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Table.json"
     },
     {
@@ -4640,6 +4700,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Charts.json"
     },
     {
@@ -4691,6 +4752,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "igual",
       "document": "components/Stat.json"
     },
     {
@@ -4741,6 +4803,7 @@
         "--weight-bold",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/ScoreGauge.json"
     },
     {
@@ -4796,6 +4859,7 @@
         "--text-xs",
         "--weight-bold"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Matrix2x2.json"
     },
     {
@@ -4848,6 +4912,7 @@
         "--weight-bold",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/ActivityItem.json"
     },
     {
@@ -4904,6 +4969,7 @@
         "--text-xs",
         "--timeline-line"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Timeline.json"
     },
     {
@@ -4960,6 +5026,7 @@
         "--timeline-line",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/EventTimeline.json"
     },
     {
@@ -5000,6 +5067,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/KanbanCard.json"
     },
     {
@@ -5059,6 +5127,7 @@
         "--weight-semi",
         "--z-popover"
       ],
+      "mobile": "com-divergencia",
       "document": "components/KanbanBoard.json"
     },
     {
@@ -5110,6 +5179,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/ApprovalWorkbench.json"
     },
     {
@@ -5155,6 +5225,7 @@
         "--weak",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Avatar.json"
     },
     {
@@ -5197,6 +5268,7 @@
         "--primary",
         "--surface"
       ],
+      "mobile": "com-divergencia",
       "document": "components/AvatarGroup.json"
     },
     {
@@ -5240,6 +5312,7 @@
         "--radius-default",
         "--weight-bold"
       ],
+      "mobile": "com-divergencia",
       "document": "components/BrandLogo.json"
     },
     {
@@ -5282,6 +5355,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/PersonCell.json"
     },
     {
@@ -5363,6 +5437,7 @@
         "--text-sm",
         "--weight-semi"
       ],
+      "mobile": "igual",
       "document": "components/Card.json"
     },
     {
@@ -5432,6 +5507,7 @@
         "--text-sm",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Accordion.json"
     },
     {
@@ -5503,6 +5579,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/CodeBlock.json"
     },
     {
@@ -5563,6 +5640,7 @@
         "--weight-bold",
         "--weight-regular"
       ],
+      "mobile": "com-divergencia",
       "document": "components/PropertyCard.json"
     },
     {
@@ -5610,6 +5688,7 @@
         "--space-8",
         "--text-sm"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Coverflow.json"
     },
     {
@@ -5655,6 +5734,7 @@
         "--surface-border-width",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/PropertyMedia.json"
     },
     {
@@ -5717,6 +5797,7 @@
         "--text-sm",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/SwipeDeck.json"
     },
     {
@@ -5778,6 +5859,7 @@
         "--text-sm",
         "--text-xs"
       ],
+      "mobile": "com-divergencia",
       "document": "components/VoiceRecorder.json"
     },
     {
@@ -5852,6 +5934,7 @@
         "--text-xs",
         "--tracking-uppercase"
       ],
+      "mobile": "com-divergencia",
       "document": "components/IntentComposer.json"
     },
     {
@@ -5889,6 +5972,7 @@
         "--text-2xs",
         "--weight-semi"
       ],
+      "mobile": "so-web",
       "document": "components/Kbd.json"
     },
     {
@@ -5931,6 +6015,7 @@
         "--surface",
         "--text-base"
       ],
+      "mobile": "so-web",
       "document": "components/AppShell.json"
     },
     {
@@ -6008,6 +6093,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "so-web",
       "document": "components/Sidebar.json"
     },
     {
@@ -6059,6 +6145,7 @@
         "--text-sm",
         "--z-sticky"
       ],
+      "mobile": "so-web",
       "document": "components/Topbar.json"
     },
     {
@@ -6108,6 +6195,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "igual",
       "document": "components/PageHeader.json"
     },
     {
@@ -6154,6 +6242,7 @@
         "--tracking-uppercase",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/SectionHeader.json"
     },
     {
@@ -6211,6 +6300,7 @@
         "--space-8",
         "--text-display"
       ],
+      "mobile": "so-web",
       "document": "components/Hero.json"
     },
     {
@@ -6248,6 +6338,7 @@
         "--space-4",
         "--space-8"
       ],
+      "mobile": "so-web",
       "document": "components/Section.json"
     },
     {
@@ -6290,6 +6381,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "so-web",
       "document": "components/DeviceFrame.json"
     },
     {
@@ -6330,6 +6422,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "so-web",
       "document": "components/SiteFooter.json"
     },
     {
@@ -6369,6 +6462,7 @@
         "--tracking-uppercase",
         "--weight-medium"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Divider.json"
     },
     {
@@ -6409,6 +6503,7 @@
         "--weight-semi",
         "--z-sticky"
       ],
+      "mobile": "com-divergencia",
       "document": "components/StickyBar.json"
     },
     {
@@ -6445,6 +6540,7 @@
         "--text-sm",
         "--z-sticky"
       ],
+      "mobile": "com-divergencia",
       "document": "components/StickyFooter.json"
     },
     {
@@ -6499,6 +6595,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/SettingRow.json"
     },
     {
@@ -6563,6 +6660,7 @@
         "--weight-bold",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/PlanCard.json"
     },
     {
@@ -6617,6 +6715,7 @@
         "--weight-regular",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/BillingCard.json"
     },
     {
@@ -6668,6 +6767,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "igual",
       "document": "components/ConnectorCard.json"
     },
     {
@@ -6721,6 +6821,7 @@
         "--weight-medium",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/DangerZone.json"
     },
     {
@@ -6751,6 +6852,7 @@
         "Modal"
       ],
       "hooks": [],
+      "mobile": "com-divergencia",
       "document": "components/AlertDialog.json"
     },
     {
@@ -6775,6 +6877,7 @@
       ],
       "composition": [],
       "hooks": [],
+      "mobile": "com-divergencia",
       "document": "components/AspectRatio.json"
     },
     {
@@ -6815,6 +6918,7 @@
         "--surface-2",
         "--surface-border-width"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Bubble.json"
     },
     {
@@ -6850,6 +6954,7 @@
         "--space-3",
         "--text-sm"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Carousel.json"
     },
     {
@@ -6876,6 +6981,7 @@
         "Button"
       ],
       "hooks": [],
+      "mobile": "com-divergencia",
       "document": "components/Collapsible.json"
     },
     {
@@ -6903,6 +7009,7 @@
         "Menu"
       ],
       "hooks": [],
+      "mobile": "com-divergencia",
       "document": "components/ContextMenu.json"
     },
     {
@@ -6939,6 +7046,7 @@
         "Popover"
       ],
       "hooks": [],
+      "mobile": "com-divergencia",
       "document": "components/DatePicker.json"
     },
     {
@@ -6963,6 +7071,7 @@
       ],
       "composition": [],
       "hooks": [],
+      "mobile": "so-web",
       "document": "components/Direction.json"
     },
     {
@@ -7010,6 +7119,7 @@
         "--surface-border-width",
         "--text-sm"
       ],
+      "mobile": "igual",
       "document": "components/Item.json"
     },
     {
@@ -7035,6 +7145,7 @@
       ],
       "composition": [],
       "hooks": [],
+      "mobile": "so-web",
       "document": "components/Label.json"
     },
     {
@@ -7059,6 +7170,7 @@
       ],
       "composition": [],
       "hooks": [],
+      "mobile": "com-divergencia",
       "document": "components/Marker.json"
     },
     {
@@ -7087,6 +7199,7 @@
         "Menu"
       ],
       "hooks": [],
+      "mobile": "so-web",
       "document": "components/Menubar.json"
     },
     {
@@ -7126,6 +7239,7 @@
         "--text-xs",
         "--weight-semi"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Message.json"
     },
     {
@@ -7157,6 +7271,7 @@
         "--space-3",
         "--space-4"
       ],
+      "mobile": "com-divergencia",
       "document": "components/MessageScroller.json"
     },
     {
@@ -7211,6 +7326,7 @@
         "--text-sm",
         "--weight-semi"
       ],
+      "mobile": "so-web",
       "document": "components/NavigationMenu.json"
     },
     {
@@ -7240,6 +7356,7 @@
         "RadioGroup"
       ],
       "hooks": [],
+      "mobile": "com-divergencia",
       "document": "components/Questionnaire.json"
     },
     {
@@ -7272,6 +7389,7 @@
         "--space-4",
         "--surface-2"
       ],
+      "mobile": "so-web",
       "document": "components/Resizable.json"
     },
     {
@@ -7296,6 +7414,7 @@
       ],
       "composition": [],
       "hooks": [],
+      "mobile": "com-divergencia",
       "document": "components/ScrollArea.json"
     },
     {
@@ -7324,6 +7443,7 @@
         "--line",
         "--primary-ink"
       ],
+      "mobile": "com-divergencia",
       "document": "components/Spinner.json"
     },
     {
@@ -7352,6 +7472,7 @@
         "CodeBlock"
       ],
       "hooks": [],
+      "mobile": "com-divergencia",
       "document": "components/Trace.json"
     },
     {
@@ -7426,6 +7547,7 @@
         "--tracking-heading",
         "--weight-semi"
       ],
+      "mobile": "so-web",
       "document": "components/Prose.json"
     }
   ]

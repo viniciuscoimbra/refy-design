@@ -41,6 +41,7 @@ const story = (id: string, globals: string, args = "") =>
 
 for (const theme of ["refy-site"])
   for (const mode of ["light"])
+    // interação: IconButton, Switch
     test(`anel de foco do tema em IconButton e Switch control (${theme}/${mode})`, async ({
       page,
     }) => {

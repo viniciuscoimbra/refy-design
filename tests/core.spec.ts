@@ -5,6 +5,7 @@ const require = createRequire(import.meta.url);
 function url(mode = 'light', surface = 'modal', before = true, portalled = true) {
   return `/iframe.html?id=verificacao-contratos-essenciais--camadas&viewMode=story&args=mode:${mode};surface:${surface};before:${before};portalled:${portalled}`;
 }
+// interação: Button
 test('Button respeita bloqueios e dispara uma ação por ativação', async ({ page }) => {
   await page.goto(url());
   await expect(page.getByRole('button', { name: 'Desabilitado', exact: true })).toBeDisabled();
@@ -26,6 +27,7 @@ test('Input repete rótulo sem repetir ID e mantém descrições e erro', async 
   for (const id of ids) expect(await page.locator(`[id="${id}"]`).count()).toBe(1);
 });
 
+// interação: Menu
 test('Menu pula item bloqueado, navega, busca, seleciona e restaura foco', async ({ page }) => {
   await page.goto(url()); await page.getByRole('button', { name: 'Abrir fluxo' }).click();
   const trigger = page.getByRole('button', { name: 'Ações do fluxo' });
@@ -38,6 +40,7 @@ test('Menu pula item bloqueado, navega, busca, seleciona e restaura foco', async
   await trigger.press('ArrowUp'); await expect(page.getByRole('menu')).toBeFocused(); expect(await active()).toContain('archive');
 });
 
+// interação: Modal
 test('Diálogos aninhados restauram foco, inert e bloqueio de scroll', async ({ page }) => {
   await page.goto(url()); const trigger = page.getByRole('button', { name: 'Abrir fluxo' }); await trigger.click();
   const outer = page.getByRole('dialog', { name: 'Fluxo modal', exact: true });

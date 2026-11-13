@@ -13,6 +13,7 @@ async function openPalette(page: import("@playwright/test").Page) {
   return page.getByRole("dialog");
 }
 
+// interação: Command
 test("Command.search recebe o texto aparado e substitui o filtro embutido", async ({ page }) => {
   const dialog = await openPalette(page);
   const search = dialog.getByRole("combobox");

@@ -133,6 +133,7 @@ for (const mode of ["light"]) {
     ).toBeVisible();
   });
 
+  // interação: Command
   test(`${mode}: Command compõe Modal com foco, saída e reabertura`, async ({
     page,
   }) => {

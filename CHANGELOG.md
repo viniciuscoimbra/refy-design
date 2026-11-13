@@ -2,6 +2,18 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.8.0 (13/11/2026)
+
+### Adicionado
+
+- Cada família do catálogo de IA traz `mobile`: `igual`, `com-divergencia` ou `so-web`, gerado de `src/catalog/native-parity.json`. Hoje são 12, 92 e 18. `refy-agent component` e o `refy_component` do MCP devolvem o campo.
+- `docs/INTERACTION_COVERAGE.md` lista as famílias com teste de clique, teclado ou digitação: 21 de 122. O check recusa que esse número caia.
+- Depois de cada release, um workflow monta Button, Input e Card direto do jsDelivr, sem bundler, e confere o tema e o console.
+
+### Modificado
+
+- GOVERNANCE.md e CONTRIBUTING.md descrevem só as verificações que a promoção roda, e um teste confere essa lista contra o script.
+
 ## 1.7.0 (12/11/2026)
 
 ### Adicionado

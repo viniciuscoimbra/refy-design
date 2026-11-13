@@ -166,6 +166,7 @@ for (const mode of ["light"])
   });
 for (const mode of ["light"])
   for (const surface of ["modal", "drawer"])
+    // interação: IntentComposer
     test(`${mode}/${surface}: opções acima do diálogo e Escape em duas etapas`, async ({
       page,
     }) => {

@@ -5,7 +5,10 @@ import { cn } from "../../lib/cn";
 import styles from "./ScoreGauge.module.css";
 
 export type ScoreGaugeSize = "sm" | "md" | "lg";
-export type ScoreBand = "ok" | "warn" | "critical";
+import { scoreBand } from "./scoreBand";
+import type { ScoreBand } from "./scoreBand";
+export { scoreBand };
+export type { ScoreBand };
 
 /** Props for the ScoreGauge component. */
 export interface ScoreGaugeProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
@@ -27,13 +30,6 @@ export interface ScoreGaugeProps extends Omit<HTMLAttributes<HTMLDivElement>, "c
 
 const RADIUS = 28;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-
-/** Deriva a banda de tom a partir do score e dos limiares. */
-export function scoreBand(value: number, okAt = 70, warnAt = 40): ScoreBand {
-  if (value >= okAt) return "ok";
-  if (value >= warnAt) return "warn";
-  return "critical";
-}
 
 const clamp = (v: number) => Math.min(100, Math.max(0, v));
 

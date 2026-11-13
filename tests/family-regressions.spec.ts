@@ -71,6 +71,7 @@ for (const context of ["story", "consumer"])
       { preference: "reduce", explicit: false },
       { preference: "no-preference", explicit: true },
     ] as const)
+      // interação: Matrix2x2
       test(`Matrix pointer and keyboard selection preserve structural positioning (${context}/${mode}/${motion.preference}/${motion.explicit ? "explicit" : "system"})`, async ({
         page,
       }) => {
@@ -109,6 +110,7 @@ for (const context of ["story", "consumer"])
         }
       });
 
+    // interação: AppShell
     test(`AppShell navigation persists after responsive drawer closes (${context}/${mode})`, async ({
       page,
     }) => {

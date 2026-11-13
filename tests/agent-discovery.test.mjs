@@ -25,8 +25,9 @@ test('discovery resolves documented secondary APIs without creating families or 
   for (const name of ['Charts', 'Card', 'Input']) {
     const result = run(['component', name]);
     assert.equal(result.status, 0);
-    const maturity = JSON.parse(readFileSync(join(root, 'ai/catalog.json'))).components.find(c => c.id === name).maturity;
-    assert.deepEqual(JSON.parse(result.stdout), { ...JSON.parse(readFileSync(join(root, `ai/components/${name}.json`))), maturity });
+    // NATP-02 e LIFE-03: a CLI acrescenta ao documento o estado no @refy-design/mobile e a maturidade, vindos do catálogo.
+    const entry = JSON.parse(readFileSync(join(root, 'ai/catalog.json'))).components.find(c => c.id === name);
+    assert.deepEqual(JSON.parse(result.stdout), { ...JSON.parse(readFileSync(join(root, `ai/components/${name}.json`))), maturity: entry.maturity, mobile: entry.mobile });
   }
   assert.equal(run(['component', 'NoSuchPublicMember']).status, 2);
   assert.equal(JSON.parse(run(['catalog', 'NoSuchPublicMember']).stdout).components.length, 0);

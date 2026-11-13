@@ -11,6 +11,7 @@ const labelStyle = (page: Page, selector: string) =>
     return { fontFamily: s.fontFamily, fontSize: s.fontSize, textTransform: s.textTransform, letterSpacing: s.letterSpacing, color: s.color };
   });
 
+// interação: Chip
 test("CHIPG-01: seleção única tem uma parada de Tab e setas movem foco e seleção", async ({ page }) => {
   await story(page, "components-atoms-chip--grupo-selecao-unica");
   const group = page.getByRole("radiogroup", { name: "Bedrooms" });
@@ -49,6 +50,7 @@ test("CHIPG-01: seleção única tem uma parada de Tab e setas movem foco e sele
   await expect(group.getByRole("radio", { name: "3+" })).toBeDisabled();
 });
 
+// interação: Chip
 test("CHIPG-02: seleção múltipla alterna com Space e Enter e Tab passa por cada Chip", async ({ page }) => {
   await story(page, "components-atoms-chip--grupo-selecao-multipla");
   const group = page.getByRole("group", { name: "Amenities" });

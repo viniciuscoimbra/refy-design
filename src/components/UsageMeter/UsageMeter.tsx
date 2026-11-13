@@ -1,8 +1,9 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "../../lib/cn";
 import { ProgressBar } from "../ProgressBar";
-import type { ProgressTone } from "../ProgressBar";
 import styles from "./UsageMeter.module.css";
+import { usageTone } from "./usageTone";
+export { usageTone };
 
 import { useLocale, useComponentMessages } from "../../lib/locale";
 import * as enMessages from "../../lib/messages/en";
@@ -33,13 +34,6 @@ export interface UsageMeterGroupProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-
-/** Deriva o tom da barra a partir do % consumido e dos limiares. */
-export function usageTone(percent: number, warnAt = 80, criticalAt = 100): ProgressTone {
-  if (percent >= criticalAt) return "critical";
-  if (percent >= warnAt) return "warn";
-  return "primary";
-}
 
 /**
  * Consumo vs limite: label, "usado / limite" e barra (composição sobre

@@ -24,6 +24,10 @@ O acréscimo medido dos controles cai de 43.688 para 1.394 bytes gzip; o custo t
 - Preservar módulos reduziu o JS final, mas aumentou os módulos processados pelo Vite neste ensaio (604 para 869 nos controles). Os tempos observados foram próximos; não comprovam compilação mais rápida.
 - A medição não mede FPS, latência de interação, SSR completo, navegação real nem compilação em hardware do usuário.
 
+## Tipos em dependencies
+
+`@types/geojson`, `@types/d3-geo`, `@types/d3-scale` e `@types/d3-shape` ficam em `dependencies` de propósito: os tipos públicos de Charts (`src/components/Charts/d3/types.ts`) importam `FeatureCollection`, `GeoProjection`, `ScaleContinuousNumeric` e `CurveFactory`. Em `devDependencies`, o `.d.ts` publicado apontaria para tipos que o projeto de quem consome não tem. `tests/package-types.test.mjs` recusa `@types/*` em `dependencies` que nenhum tipo do pacote importa. Passar o d3 para peer ou para um subpacote de gráficos quebraria quem usa gráfico hoje, então só entra em versão major.
+
 ## Reproduzir
 
 ```bash

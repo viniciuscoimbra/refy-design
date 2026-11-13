@@ -4,6 +4,7 @@ import { expect, test } from "@playwright/test";
 // O anel vem só do foco real (:focus-within).
 const catalog = "/iframe.html?id=refy-site--componentes&viewMode=story&globals=theme:refy-site;mode:light";
 
+// interação: Combobox
 test("Combobox aberto sem foco não mostra anel de foco", async ({ page }) => {
   await page.goto(catalog);
   const input = page.getByRole("combobox").filter({ has: page.locator("xpath=.") }).first();

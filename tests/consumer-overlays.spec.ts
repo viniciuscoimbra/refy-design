@@ -17,6 +17,7 @@ async function reachable(target: Locator) {
 }
 
 for (const mode of ["Light", "Dark", "System"]) {
+  // interação: Modal, Drawer, Menu
   test(`consumidor isolado: modal/drawer, menu, seleção e foco — ${mode}`, async ({
     page,
   }) => {
