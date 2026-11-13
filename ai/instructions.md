@@ -17,13 +17,13 @@ Cada família em catalog.json traz `howToUse` (como montar na tela e com quais p
 
 ## Ferramenta local
 
-- `npm exec --offline -- refy-agent catalog [termo]`: encontra famílias por nome, finalidade, camada, área, coleção ou membro documentado da API.
+- `npm exec --offline -- refy-agent catalog [termo]`: encontra famílias por nome, finalidade, camada, área, coleção ou membro documentado da API. Cada resultado traz `maturity`, um dos quatro estados de docs/QUALITY.md (`nao-avaliado`, `experimental`, `estavel`, `depreciado`). `nao-avaliado` é estado declarado, não defeito: a família existe e pode ser usada, mas não tem verificação registrada. Não apresente família como estável sem `maturity: estavel`.
 - `npm exec --offline -- refy-agent collections [id-ou-termo]`: lista coleções e seus membros reais, com contagem e indicação de resultado vazio. Core é propósito geral; coleções especializadas são capacidades, não pacotes separados nem certificação. Uma família pode integrar várias coleções sem duplicar implementação ou mudar import/atomicidade. Candidatos ainda não implementados não são componentes disponíveis.
-- `npm exec --offline -- refy-agent component Input`: lê API/exemplos reais de uma família. Também aceita membros como `D3Chart` ou `CardHeader`; nesses casos identifica a família de origem e não presume que todo nome documentado seja um export de execução.
+- `npm exec --offline -- refy-agent component Input`: lê API/exemplos reais de uma família. Também aceita membros como `D3Chart` ou `CardHeader`; nesses casos identifica a família de origem e não presume que todo nome documentado seja um export de execução. A resposta também traz `maturity` da família.
 - `npm exec --offline -- refy-agent inspect src/Tela.tsx src/tela.css`: retorna composição e achados estáticos.
 - `npm exec --offline -- refy-agent check src/Tela.tsx src/tela.css`: mesma análise, exit 1 quando há achados de erro não justificados.
 
-- `npx --no-install refy-mcp`: o mesmo kit como servidor MCP por stdio. Ferramentas `refy_search` (busca por intenção em pt, en ou es), `refy_component`, `refy_collections`, `refy_validate` (contrato da API mais as regras de check), `refy_theme_generate` e `refy_theme_validate`. Configuração em docs/MCP.md do pacote.
+- `npx --no-install refy-mcp`: o mesmo kit como servidor MCP por stdio. Ferramentas `refy_search` (busca por intenção em pt, en ou es), `refy_component` (a resposta também traz `maturity` da família), `refy_collections`, `refy_validate` (contrato da API mais as regras de check), `refy_theme_generate` e `refy_theme_validate`. Configuração em docs/MCP.md do pacote.
 
 Consulta exige apenas Node; inspect/check exigem TypeScript como ferramenta de desenvolvimento do projeto (`npm install --save-dev typescript`). A UI não importa este kit, não executa IA e não carrega o parser no navegador. O checker é somente leitura, sem telemetria ou acesso de rede. Ele recebe arquivos explícitos dentro do projeto, incluindo CSS indicado separadamente; não descobre toda a árvore de estilos/imports.
 

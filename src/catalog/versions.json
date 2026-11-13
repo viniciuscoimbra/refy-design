@@ -1,8 +1,16 @@
 {
   "$comment": "Gerado por scripts/api-history.mjs a partir das tags de release. Não edite à mão.",
-  "current": "1.6.2",
+  "current": "1.7.0",
   "baseline": "1.0.0",
   "releases": [
+    {
+      "version": "1.7.0",
+      "date": "2026-11-12",
+      "packages": {
+        "web": "1.7.0",
+        "mobile": "1.1.0"
+      }
+    },
     {
       "version": "1.6.2",
       "date": "2026-11-12",

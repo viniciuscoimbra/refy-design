@@ -5,7 +5,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "--package=@refy-design/web@1.6.2",
+        "--package=@refy-design/web@1.7.0",
         "refy-mcp"
       ]
     }

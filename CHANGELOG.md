@@ -2,6 +2,13 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.7.0 (12/11/2026)
+
+### Adicionado
+
+- Cada família do catálogo de IA traz `maturity`, um dos quatro estados do QUALITY.md (`nao-avaliado`, `experimental`, `estavel`, `depreciado`), lido de `src/catalog/maturity.json`. Hoje as 122 famílias estão em `nao-avaliado`. `refy-agent catalog`, `refy-agent component` e o `refy_component` do MCP devolvem o campo (#16).
+- O check recusa família promovida sem a evidência que o estado exige, com estado desconhecido, campo a mais ou nome fora do catálogo.
+
 ## 1.6.2 (12/11/2026)
 
 ### Corrigido

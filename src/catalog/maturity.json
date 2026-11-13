@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "states": [
+    {
+      "id": "nao-avaliado",
+      "label": "Não avaliado",
+      "criteria": "Código existente sem verificação suficiente; estado inicial do catálogo."
+    },
+    {
+      "id": "experimental",
+      "label": "Experimental",
+      "criteria": "Contrato/proposta explícitos; lacunas e riscos visíveis."
+    },
+    {
+      "id": "estavel",
+      "label": "Estável",
+      "criteria": "API, documentação, testes de estados e interação, revisão visual, acessibilidade e compatibilidade aplicáveis aprovados e vinculados a uma versão."
+    },
+    {
+      "id": "depreciado",
+      "label": "Depreciado",
+      "criteria": "Alternativa, migração, consumidores e condição/versão de remoção documentados."
+    }
+  ],
+  "families": {}
+}

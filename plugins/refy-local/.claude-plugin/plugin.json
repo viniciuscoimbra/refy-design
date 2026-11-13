@@ -1,6 +1,6 @@
 {
   "name": "refy-local",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "Servidor MCP do Refy na sua máquina, com comparação de capturas: reproduz uma tela igual ao original só com componentes do Refy e extensões.",
   "author": {
     "name": "Vinícius Coimbra",

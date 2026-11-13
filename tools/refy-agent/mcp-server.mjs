@@ -236,7 +236,7 @@ const TOOLS = [
     run: ({ name, version }) => {
       const context = contextFor(version);
       const { component, member } = findComponent(String(name), context);
-      return { ...context.header, ...context.documentFor(component), ...(member ? { resolution: { family: component.id, apiMember: member } } : {}) };
+      return { ...context.header, ...context.documentFor(component), maturity: component.maturity, ...(member ? { resolution: { family: component.id, apiMember: member } } : {}) };
     },
   },
   {

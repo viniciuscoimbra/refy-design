@@ -1,6 +1,6 @@
 {
   "name": "@refy-design/web",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "Refy Design System — componentes React atômicos.",
   "license": "MIT",
   "type": "module",
@@ -66,7 +66,7 @@
     "agent:build": "node scripts/agent-kit.mjs",
     "mcp:worker": "node workers/mcp/build.mjs",
     "mcp:smoke": "node workers/mcp/smoke.mjs",
-    "agent:check": "node scripts/agent-kit.mjs --check && node --test tests/agent-kit.test.mjs tests/agent-discovery.test.mjs tests/collection-registry.test.mjs tests/agent-collections.test.mjs tests/agent-init.test.mjs tests/agent-mcp.test.mjs tests/agent-theme-extract.test.mjs tests/agent-compare.test.mjs tests/agent-plugin.test.mjs tests/agent-mcp-remote.test.mjs tests/agent-check-guidance.test.mjs tests/agent-theme-precedence.test.mjs tests/agent-check-hooks.test.mjs tests/readme-facts.test.mjs tests/contribute-command.test.mjs tests/theme-contrast.test.mjs tests/avatar-group-names.test.mjs tests/catalog-search-terms.test.mjs tests/ci-scope.test.mjs tests/ensure-docker.test.mjs"
+    "agent:check": "node scripts/agent-kit.mjs --check && node --test tests/agent-kit.test.mjs tests/agent-discovery.test.mjs tests/collection-registry.test.mjs tests/maturity-registry.test.mjs tests/agent-collections.test.mjs tests/agent-init.test.mjs tests/agent-mcp.test.mjs tests/agent-theme-extract.test.mjs tests/agent-compare.test.mjs tests/agent-plugin.test.mjs tests/agent-mcp-remote.test.mjs tests/agent-check-guidance.test.mjs tests/agent-theme-precedence.test.mjs tests/agent-check-hooks.test.mjs tests/readme-facts.test.mjs tests/contribute-command.test.mjs tests/theme-contrast.test.mjs tests/avatar-group-names.test.mjs tests/catalog-search-terms.test.mjs tests/ci-scope.test.mjs tests/ensure-docker.test.mjs"
   },
   "peerDependencies": {
     "react": ">=18",
