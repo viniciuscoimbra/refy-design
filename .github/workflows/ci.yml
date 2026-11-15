@@ -51,6 +51,9 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm install --global @fission-ai/openspec@1.5.0
       - run: npm run check:specs
+      # Código e superfícies (README, docs, plugins, site em pt/en/es) em sincronia, e registro de
+      # impacto do PR fechado (docs/sync). Roda antes do resto porque é rápido e barra o merge.
+      - run: node scripts/docs-sync.mjs --check
       - run: npm run check
       - run: npm run build-storybook
       - run: npm pack --dry-run
@@ -149,6 +152,9 @@ jobs:
           npm install --no-audit --no-fund --prefix "$RUNNER_TEMP/openspec" @fission-ai/openspec@1.5.0
           echo "$RUNNER_TEMP/openspec/node_modules/.bin" >> "$GITHUB_PATH"
       - run: npm run check:specs
+      # Código e superfícies (README, docs, plugins, site em pt/en/es) em sincronia, e registro de
+      # impacto do PR fechado (docs/sync). Roda antes do resto porque é rápido e barra o merge.
+      - run: node scripts/docs-sync.mjs --check
       - run: npm run check
       - run: npm run build-storybook
       - run: npm pack --dry-run

@@ -5,6 +5,7 @@ A licença MIT na raiz cobre o código Refy de autoria de Vinícius Coimbra. Cad
 - React e React DOM são dependências fornecidas pela aplicação consumidora.
 - D3 Array, Scale, Shape, Hierarchy, Force, Chord, Geo, Sankey, Selection, Zoom e Brush são dependências para gráficos. São externas ao JavaScript compilado da biblioteca; conservam suas licenças nos pacotes instalados.
 - PrismJS (MIT) é usado para tokenizar TSX/TypeScript, JavaScript, JSON, CSS, HTML e comandos no CodeBlock. As cores são tokens Refy; código é renderizado como texto escapado pelo React.
+- `@refy-design/a2ui` depende de `@a2ui/web_core` e `@a2ui/react` 0.15.0 (Apache-2.0) e de Zod (MIT). São externas ao JavaScript compilado do pacote; conservam suas licenças nos pacotes instalados.
 - Storybook, Vite, TypeScript e os demais pacotes de desenvolvimento são ferramentas usadas para desenvolver e compilar o projeto.
 - Inter, Space Grotesk e JetBrains Mono são redistribuídas em formato WOFF2 variável (subconjunto latino), sob SIL Open Font License. Arquivos e licenças originais ficam em `src/assets/fonts/`. Origem: Google Fonts e repositório oficial google/fonts, obtidos em 22/10/2026. O catálogo as carrega localmente. Consumidores podem importar `@refy-design/web/fonts.css` ou fornecer suas próprias fontes; `tokens.css` não inicia conexões externas.
 

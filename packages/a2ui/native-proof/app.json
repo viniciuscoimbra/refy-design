@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "Refy A2UI Hermes",
+    "slug": "refy-a2ui-hermes",
+    "version": "0.0.0",
+    "platforms": ["ios"],
+    "jsEngine": "hermes"
+  }
+}

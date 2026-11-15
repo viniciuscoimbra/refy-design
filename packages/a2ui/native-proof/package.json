@@ -1,0 +1,21 @@
+{
+  "name": "refy-a2ui-native-proof",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "ios": "expo start --ios"
+  },
+  "dependencies": {
+    "@a2ui/web_core": "0.15.0",
+    "expo": "~54.0.0",
+    "react": "19.1.0",
+    "react-native": "0.81.4",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.10",
+    "typescript": "~5.9.2"
+  }
+}

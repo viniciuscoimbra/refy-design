@@ -9,7 +9,9 @@ import changelog from "../../../CHANGELOG.md?raw";
 import changelogText from "./locales/changelog.json";
 import { parseReleases, upgradeKind } from "./releases.mjs";
 import type { ChangeKind } from "./releases.mjs";
-import maintainerPhoto from "./assets/avatars/vinicius.jpg";
+import viniciusPhoto from "./assets/avatars/vinicius.jpg";
+import gabrielPhoto from "./assets/avatars/gabriel.jpg";
+import leandroPhoto from "./assets/avatars/leandro.jpg";
 
 // Páginas do projeto: Releases sai do CHANGELOG.md (a mesma fonte que a promoção exige antes da tag),
 // Contribuir resume CONTRIBUTING.md e GOVERNANCE.md. Link para o GitHub só com o repositório público
@@ -90,28 +92,45 @@ const issueButton = (label: string) =>
 const repoButton = (label: string) =>
   githubEnabled && <Button variant="secondary" href={repoUrl} target="_blank">{label} ↗</Button>;
 
-// Quem mantém (pedido de 10/11): mini bio e links. Sem e-mail: contato sobre o refy vai pelo GitHub.
-const maintainerLinks: Array<[string, string]> = [
-  ["Data Translator", "https://datatranslator.com.br"],
-  ["LinkedIn", "https://www.linkedin.com/in/viniciuscoimbra"],
-  ["Medium", "https://medium.com/@viniciuscoimbra_"],
-  ["GitHub", "https://github.com/viniciuscoimbra"],
+// Quem mantém (pedido de 10/11; Gabriel e Leandro entram em 13/11): foto pública do GitHub de cada um e
+// links que eles mesmos publicam. Sem e-mail: contato sobre o refy vai pelo GitHub.
+type MaintainerId = "vinicius" | "gabriel" | "leandro";
+const maintainers: Array<{ id: MaintainerId; name: string; initials: string; photo: string; links: Array<[string, string]> }> = [
+  { id: "vinicius", name: "Vinícius Coimbra", initials: "VC", photo: viniciusPhoto, links: [
+    ["Data Translator", "https://datatranslator.com.br"],
+    ["LinkedIn", "https://www.linkedin.com/in/viniciuscoimbra"],
+    ["Medium", "https://medium.com/@viniciuscoimbra_"],
+    ["GitHub", "https://github.com/viniciuscoimbra"],
+  ] },
+  { id: "gabriel", name: "Gabriel Gripp", initials: "GG", photo: gabrielPhoto, links: [
+    ["gripp.link", "https://gripp.link"],
+    ["DEV", "https://dev.to/grippado"],
+    ["GitHub", "https://github.com/grippado"],
+  ] },
+  { id: "leandro", name: "Leandro Pereira", initials: "LP", photo: leandroPhoto, links: [
+    ["LBP Tecnologia", "https://lbptecnologia.com.br"],
+    ["LinkedIn", "https://www.linkedin.com/in/lepereira31/"],
+    ["GitHub", "https://github.com/iosbilario"],
+  ] },
 ];
-const maintainerBody = (bio: ReactNode, linksTitle: string, issue: ReactNode) => (<>
-  <section id="vinicius" className={styles.firstSection}>
-    <div className={styles.maintainer}>
-      <Avatar src={maintainerPhoto} initials="VC" size="xl" alt="Vinícius Coimbra" />
-      <h2>Vinícius Coimbra</h2>
-    </div>
-    {bio}
-  </section>
-  <section id="links">
-    <h2>{linksTitle}</h2>
-    <p className={styles.projectLinks}>
-      {maintainerLinks.map(([label, href]) => <a key={href} href={href} target="_blank" rel="noreferrer">{label} ↗</a>)}
-    </p>
-    {githubEnabled && issue}
-  </section>
+const maintainerSections = (contactTitle: string): Array<[string, string]> => [...maintainers.map(({ id, name }): [string, string] => [id, name]), ["contato", contactTitle]];
+const maintainerBody = (bios: Record<MaintainerId, ReactNode>, contactTitle: string, contact: ReactNode) => (<>
+  {maintainers.map(({ id, name, initials, photo, links }, index) => (
+    <section key={id} id={id} className={index === 0 ? styles.firstSection : undefined}>
+      <div className={styles.maintainer}>
+        <Avatar src={photo} initials={initials} size="xl" alt={name} />
+        <h2>{name}</h2>
+      </div>
+      {bios[id]}
+      <p className={styles.projectLinks}>
+        {links.map(([label, href]) => <a key={href} href={href} target="_blank" rel="noreferrer">{label} ↗</a>)}
+      </p>
+    </section>
+  ))}
+  {githubEnabled && <section id="contato">
+    <h2>{contactTitle}</h2>
+    {contact}
+  </section>}
 </>);
 
 const copy: Record<Locale, Copy> = {
@@ -133,13 +152,23 @@ const copy: Record<Locale, Copy> = {
     },
     maintainer: {
       label: "Quem mantém",
-      description: "Quem cuida do refy, de onde ele vem e onde encontrar o trabalho dele.",
-      sections: [["vinicius", "Vinícius Coimbra"], ["links", "Onde encontrar"]],
-      body: maintainerBody(<>
-        <p>Vinícius Coimbra mantém o refy.</p>
-        <p>Executivo de produto, dados e IA há mais de 22 anos. Foi CPTO, CTO e Director of Data Engineering em empresas com mais de 4 mil pessoas, e liderou times de dados com mais de 150 pessoas entre Brasil e México.</p>
-        <p>Fundou o Data Translator, formação pra quem liga dados, produto e negócio.</p>
-      </>, "Onde encontrar", <p>Pra falar sobre o refy, abra uma issue no <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer">GitHub</a>.</p>),
+      description: "Quem cuida do refy, de onde cada um vem e onde encontrar o trabalho de cada um.",
+      sections: maintainerSections("Falar sobre o refy"),
+      body: maintainerBody({
+        vinicius: <>
+          <p>Vinícius Coimbra criou o refy e mantém o projeto.</p>
+          <p>Executivo de produto, dados e IA há mais de 22 anos. Foi CPTO, CTO e Director of Data Engineering em empresas com mais de 4 mil pessoas, e liderou times de dados com mais de 150 pessoas entre Brasil e México.</p>
+          <p>Fundou o Data Translator, formação pra quem liga dados, produto e negócio.</p>
+        </>,
+        gabriel: <>
+          <p>Staff software engineer com mais de 15 anos de full stack em edtech, fintech e e-commerce. Escreve sobre desenvolvimento com IA e ferramentas de dev, e é autor do claude-atlas.</p>
+          <p>No refy, trouxe o registro de maturidade de cada família de componentes, publicado na 1.7.0.</p>
+        </>,
+        leandro: <>
+          <p>Engenheiro de dados e fundador da LBP Tecnologia, consultoria de São Paulo que monta plataformas de dados na AWS, dashboards auditáveis e sistemas web sob medida.</p>
+          <p>No refy, apontou o peso da home, a busca que não achava termos em português, o contraste no editor de tema e as falhas no fluxo de contribuição. Tudo saiu corrigido na 1.6.0.</p>
+        </>,
+      }, "Falar sobre o refy", <p>Abra uma issue no <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer">GitHub</a>.</p>),
     },
     contribute: {
       label: "Contribuir",
@@ -228,14 +257,24 @@ const copy: Record<Locale, Copy> = {
       upgrade: { first: () => "First version", major: (from) => `Breaks ${from}: read Removed and Changed before upgrading`, minor: (from) => `Upgrading from ${from} needs no code change`, patch: (from) => `Fixes only, on top of ${from}` },
     },
     maintainer: {
-      label: "Maintainer",
-      description: "Who looks after refy, his background and where to find his work.",
-      sections: [["vinicius", "Vinícius Coimbra"], ["links", "Where to find him"]],
-      body: maintainerBody(<>
-        <p>Vinícius Coimbra maintains refy.</p>
-        <p>Product, data and AI executive for more than 22 years. He was CPTO, CTO and Director of Data Engineering at companies with more than 4,000 people, and led data teams of more than 150 people across Brazil and Mexico.</p>
-        <p>He founded Data Translator, a program for people who connect data, product and business.</p>
-      </>, "Where to find him", <p>To talk about refy, open an issue on <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer">GitHub</a>.</p>),
+      label: "Maintainers",
+      description: "Who looks after refy, their background and where to find their work.",
+      sections: maintainerSections("Talk about refy"),
+      body: maintainerBody({
+        vinicius: <>
+          <p>Vinícius Coimbra created refy and maintains the project.</p>
+          <p>Product, data and AI executive for more than 22 years. He was CPTO, CTO and Director of Data Engineering at companies with more than 4,000 people, and led data teams of more than 150 people across Brazil and Mexico.</p>
+          <p>He founded Data Translator, a program for people who connect data, product and business.</p>
+        </>,
+        gabriel: <>
+          <p>Staff software engineer with more than 15 years of full-stack work in edtech, fintech and e-commerce. He writes about AI-assisted development and developer tools, and is the author of claude-atlas.</p>
+          <p>In refy, he brought the maturity record for each component family, shipped in 1.7.0.</p>
+        </>,
+        leandro: <>
+          <p>Data engineer and founder of LBP Tecnologia, a São Paulo consultancy that builds data platforms on AWS, auditable dashboards and custom web systems.</p>
+          <p>In refy, he flagged the home page weight, the search that missed Portuguese terms, the theme editor contrast and the gaps in the contribution flow. All of it was fixed in 1.6.0.</p>
+        </>,
+      }, "Talk about refy", <p>Open an issue on <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer">GitHub</a>.</p>),
     },
     contribute: {
       label: "Contributing",
@@ -325,13 +364,23 @@ const copy: Record<Locale, Copy> = {
     },
     maintainer: {
       label: "Quién lo mantiene",
-      description: "Quién cuida refy, de dónde viene y dónde encontrar su trabajo.",
-      sections: [["vinicius", "Vinícius Coimbra"], ["links", "Dónde encontrarlo"]],
-      body: maintainerBody(<>
-        <p>Vinícius Coimbra mantiene refy.</p>
-        <p>Ejecutivo de producto, datos e IA desde hace más de 22 años. Fue CPTO, CTO y Director of Data Engineering en empresas con más de 4 mil personas, y lideró equipos de datos de más de 150 personas entre Brasil y México.</p>
-        <p>Fundó Data Translator, una formación para quien conecta datos, producto y negocio.</p>
-      </>, "Dónde encontrarlo", <p>Para hablar de refy, abre un issue en <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer">GitHub</a>.</p>),
+      description: "Quién cuida refy, de dónde viene cada uno y dónde encontrar su trabajo.",
+      sections: maintainerSections("Hablar de refy"),
+      body: maintainerBody({
+        vinicius: <>
+          <p>Vinícius Coimbra creó refy y mantiene el proyecto.</p>
+          <p>Ejecutivo de producto, datos e IA desde hace más de 22 años. Fue CPTO, CTO y Director of Data Engineering en empresas con más de 4 mil personas, y lideró equipos de datos de más de 150 personas entre Brasil y México.</p>
+          <p>Fundó Data Translator, una formación para quien conecta datos, producto y negocio.</p>
+        </>,
+        gabriel: <>
+          <p>Staff software engineer con más de 15 años de full stack en edtech, fintech y e-commerce. Escribe sobre desarrollo con IA y herramientas para desarrolladores, y es autor de claude-atlas.</p>
+          <p>En refy, trajo el registro de madurez de cada familia de componentes, publicado en la 1.7.0.</p>
+        </>,
+        leandro: <>
+          <p>Ingeniero de datos y fundador de LBP Tecnologia, consultora de São Paulo que construye plataformas de datos en AWS, dashboards auditables y sistemas web a medida.</p>
+          <p>En refy, señaló el peso de la home, la búsqueda que no encontraba términos en portugués, el contraste del editor de tema y los huecos del flujo de contribución. Todo salió corregido en la 1.6.0.</p>
+        </>,
+      }, "Hablar de refy", <p>Abre un issue en <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer">GitHub</a>.</p>),
     },
     contribute: {
       label: "Contribuir",

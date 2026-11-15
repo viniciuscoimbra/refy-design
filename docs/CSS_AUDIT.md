@@ -35,7 +35,7 @@ npx vite preview --host 127.0.0.1 --port 6190 --strictPort
 REFY_CSS_CATALOG_URL=http://127.0.0.1:6190 npx playwright test tests/consumer-css-catalog.spec.ts --project=chromium --project=webkit --workers=2
 ```
 
-Os relatórios css-catalog.json identificam família, exemplo e modo. REFY_CSS_FAMILIES permite investigação pontual; a rodada integral usa as 116 famílias sem filtro. O verificador de pacote e os testes consumer-overlays/consumer-package-features fazem a regressão das camadas e do reset opcional.
+Os relatórios css-catalog.json identificam família, exemplo e modo. REFY_CSS_FAMILIES permite investigação pontual; a rodada integral usa todas as famílias, sem filtro. O verificador de pacote e os testes consumer-overlays/consumer-package-features fazem a regressão das camadas e do reset opcional.
 
 ## Limites
 

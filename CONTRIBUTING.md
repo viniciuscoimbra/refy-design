@@ -71,6 +71,9 @@ Gate, script de verificação, teste ou revisor automático não usam
 
 Node 22.12 ou posterior, instalação pelo lockfile (`npm ci`). `npm run storybook`
 abre o catálogo local; `npm run check` verifica tipos, build e distribuição.
+`node scripts/docs-sync.mjs --check` (também no `check`) recusa README, docs,
+plugins ou site que digam número, versão ou promessa que o código desmente; o
+que cada página afirma e de onde vem está em `docs/sync/surfaces/`.
 Para revisar specs, instale `@fission-ai/openspec@1.5.0` e execute
 `npm run check:specs`. O CI usa essa versão fixa.
 

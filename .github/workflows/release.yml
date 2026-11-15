@@ -57,8 +57,11 @@ jobs:
           if [ "$MSG" = "$VERSION" ] || ! printf %s "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
             echo "Commit do main sem versão ($MSG): nada a publicar."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
           fi
-          if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1; then
-            echo "@refy-design/web@$VERSION já está no npm."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
+          # Pula só se a web e o A2UI desta versão já estão no npm: se a web saiu e o A2UI falhou,
+          # rodar de novo publica o que faltou.
+          A2UI=$(node -p "require('./packages/a2ui/package.json').version")
+          if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1 && npm view "@refy-design/a2ui@$A2UI" version >/dev/null 2>&1; then
+            echo "@refy-design/web@$VERSION e @refy-design/a2ui@$A2UI já estão no npm."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
           fi
           # A tag é anotada pelo mantenedor, como o autoria.yml cobra. O ls-remote devolve o commit
           # da tag anotada na linha ^{}; o gh api, num 404, escreve o corpo do erro na saída.
@@ -87,6 +90,8 @@ jobs:
           npm pack
           # O pacote mobile sai do mesmo commit, com a versão do próprio package.json.
           (cd packages/native && npm ci --no-audit --no-fund && npm pack --pack-destination ../..)
+          # O catálogo A2UI também, com a versão do próprio package.json.
+          (cd packages/a2ui && npm ci --no-audit --no-fund && npm pack --pack-destination ../..)
           # Extensão de um clique do Claude Desktop; o npm pack acima já montou dist/.
           node scripts/build-mcpb.mjs
           awk -v v="$VERSION" '$0 ~ "^## "v"( |$)" {on=1; next} on && /^## / {exit} on' CHANGELOG.md > notas.md
@@ -96,14 +101,24 @@ jobs:
         run: |
           VERSION="${TAG#v}"
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz release/refy.mcpb --clobber
+            gh release upload "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz refy-design-a2ui-*.tgz release/refy.mcpb --clobber
           else
-            gh release create "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz release/refy.mcpb --target "$HEAD_SHA" --title "refy $VERSION" --notes-file notas.md
+            gh release create "$TAG" "refy-design-web-$VERSION.tgz" refy-design-mobile-*.tgz refy-design-a2ui-*.tgz release/refy.mcpb --target "$HEAD_SHA" --title "refy $VERSION" --notes-file notas.md
           fi
       - name: npm
         if: env.PULAR != '1'
         run: |
           VERSION="${TAG#v}"
-          if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1; then echo "@refy-design/web@$VERSION já está no npm."; exit 0; fi
           # Trusted Publishing exige npm 11.5.1 ou mais novo; o Node 22 traz o 10.
-          npx -y npm@11.6.2 publish "refy-design-web-$VERSION.tgz" --access public --provenance --loglevel verbose
+          if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1; then
+            echo "@refy-design/web@$VERSION já está no npm."
+          else
+            npx -y npm@11.6.2 publish "refy-design-web-$VERSION.tgz" --access public --provenance --loglevel verbose
+          fi
+          # O catálogo A2UI sai com a versão dele; publica só se ela ainda não está no npm.
+          A2UI=$(node -p "require('./packages/a2ui/package.json').version")
+          if npm view "@refy-design/a2ui@$A2UI" version >/dev/null 2>&1; then
+            echo "@refy-design/a2ui@$A2UI já está no npm."
+          else
+            npx -y npm@11.6.2 publish "refy-design-a2ui-$A2UI.tgz" --access public --provenance --loglevel verbose
+          fi

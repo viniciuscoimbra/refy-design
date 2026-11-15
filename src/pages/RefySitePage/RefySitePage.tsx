@@ -123,7 +123,7 @@ const pageTitles: Record<SitePage, Record<Locale, string>> = {
   playground: { pt: "Playground · refy", en: "Playground · refy", es: "Playground · refy" },
   collection: { pt: "Coleções · refy", en: "Collections · refy", es: "Colecciones · refy" },
   contribute: { pt: "Contribuir · refy", en: "Contributing · refy", es: "Contribuir · refy" },
-  maintainer: { pt: "Quem mantém · refy", en: "Maintainer · refy", es: "Quién lo mantiene · refy" },
+  maintainer: { pt: "Quem mantém · refy", en: "Maintainers · refy", es: "Quién lo mantiene · refy" },
 };
 const cta = {
   playground: { pt: "Abrir no Playground →", en: "Open in Playground →", es: "Abrir en el Playground →" },
@@ -932,7 +932,7 @@ function SiteShell({
       onSelect: () => select(item.id),
     })),
     { id: "contribute", label: projectLabel(locale, "contribuir"), description: projectDescription(locale, "contribuir"), group: projectGroupLabel(locale), icon: Icons.projects, keywords: "contribuir contributing pull request contribuir", onSelect: () => navigate("contribute") },
-    { id: "maintainer", label: projectLabel(locale, "quem-mantem"), description: projectDescription(locale, "quem-mantem"), group: projectGroupLabel(locale), icon: Icons.projects, keywords: "quem mantém mantenedor maintainer autor vinícius coimbra sobre", onSelect: () => navigate("maintainer") },
+    { id: "maintainer", label: projectLabel(locale, "quem-mantem"), description: projectDescription(locale, "quem-mantem"), group: projectGroupLabel(locale), icon: Icons.projects, keywords: "quem mantém mantenedores maintainers autor vinícius coimbra gabriel gripp leandro pereira sobre", onSelect: () => navigate("maintainer") },
     ...aiTopics.map((topic) => ({ id: `ai-${topic}`, label: localizedAiPages[locale][topic].label, description: localizedAiPages[locale][topic].description, group: t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon: Icons.code, keywords: `${topic} agente agent claude codex`, onSelect: () => navigate("ai", component, template, doc, collection, topic) })),
     {id:"agent-rules", label:t({ pt: "Regras de composição", en: "Composition rules", es: "Reglas de composición" }), description:t({ pt: "Contexto, componentes e contratos", en: "Context, components and contracts", es: "Contexto, componentes y contratos" }), group:t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon:Icons.code, keywords:"composição agente composition agent", onSelect:() => navigate("ai")},
     {id:"agent-recipes", label:t({ pt: "Receitas de composição", en: "Composition recipes", es: "Recetas de composición" }), description:t({ pt: "Padrões e exemplos práticos", en: "Patterns and practical examples", es: "Patrones y ejemplos prácticos" }), group:t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon:Icons.projects, keywords:"composição agente composition agent", onSelect:() => navigate("ai")},

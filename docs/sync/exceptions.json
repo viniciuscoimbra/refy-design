@@ -1,0 +1,11 @@
+{
+  "about": "Linhas que citam um número do catálogo que não é o total atual, com o motivo. A exceção vale só enquanto o texto exato existir; se a linha mudar, docs-sync reprova e a exceção sai ou é revista.",
+  "exceptions": [
+    { "file": "docs/CSS_AUDIT.md", "text": "gerado das fontes de documentação: 116 famílias, claro/escuro, Chromium/WebKit (464 combinações)", "reason": "Registro da auditoria de 24/10/2026: 116 famílias × 2 modos × 2 navegadores = 464 combinações daquela rodada." },
+    { "file": "docs/MOLECULE_INTERACTIONS.md", "text": "59 famílias: 52 demonstrações com interação e 7 informativas", "reason": "Registro da revisão de moléculas no Playground, quando havia 59; a contagem 52 + 7 é daquela rodada." },
+    { "file": "docs/PACKAGE_COST.md", "text": "| 15 famílias de painel juntas:", "reason": "Subconjunto medido: as 15 famílias nomeadas na própria linha." },
+    { "file": "docs/THEME_COVERAGE.md", "text": "Registro local de 22/10/2026. As 113 famílias abaixo", "reason": "Matriz datada de 22/10/2026; as 113 famílias são as linhas da tabela daquela data." },
+    { "file": "docs/TYPOGRAPHY_INTERACTIONS.md", "text": "Preservar texto com as três famílias", "reason": "Famílias tipográficas (Manrope, IBM Plex, DM Sans), não famílias do catálogo." },
+    { "file": "docs/TYPOGRAPHY_INTERACTIONS.md", "text": "sobre as 92 famílias e telas de Aplicação", "reason": "Matriz da rodada de tipografia registrada no documento, quando o catálogo tinha 92 famílias com stories." }
+  ]
+}

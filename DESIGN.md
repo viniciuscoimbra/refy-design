@@ -69,7 +69,7 @@ Galeria com exemplos em largura integral e opção de um por vez; busca e seleç
 
 ## Correção de direção — documentação por componente
 
-Em 22/10/2026 o mantenedor rejeitou visualmente a entrega de galeria, blocks, charts e blog. A referência de documentação é https://ui.shadcn.com/docs/components/base/accordion. A página de componentes deve ter navegação por Átomos/Moléculas/Organismos, um componente por vez e documentação de instalação, uso, composição e variantes com código legível. A estrutura do Accordion foi aprovada pelo mantenedor. A expansão atual documenta todas as 113 famílias com exemplos e tipos derivados das fontes reais; a revisão visual de cada família continua humana. A matriz simultânea fica oculta, apenas para regressões. As críticas às demais páginas permanecem pendentes e os testes não comprovam aprovação visual.
+Em 22/10/2026 o mantenedor rejeitou visualmente a entrega de galeria, blocks, charts e blog. A referência de documentação é https://ui.shadcn.com/docs/components/base/accordion. A página de componentes deve ter navegação por Átomos/Moléculas/Organismos, um componente por vez e documentação de instalação, uso, composição e variantes com código legível. A estrutura do Accordion foi aprovada pelo mantenedor. A expansão atual documenta todas as 122 famílias com exemplos e tipos derivados das fontes reais; a revisão visual de cada família continua humana. A matriz simultânea fica oculta, apenas para regressões. As críticas às demais páginas permanecem pendentes e os testes não comprovam aprovação visual.
 
 ## Tema completo e documentação integral — direção vigente
 

@@ -6,7 +6,7 @@
 | Tokens editoriais podiam preservar fonte anterior ao aplicar conjunto | Aplicar conjunto atualiza também os papéis Prose e remove overrides antigos desses papéis nos modos; famílias continuam editáveis individualmente |
 | Escala mostrava títulos/corpo, sem amostra mono | Escala inclui código e todas as visões exibem os três papéis |
 | Artigo curto tornava navegação pouco útil | Lorem ipsum longo, quatro âncoras e sumário acompanhando a leitura |
-| Charts abria explorador, exemplos repetidos, comparação e outro catálogo | Charts abre diretamente D3, com busca/lista lateral, 24 famílias e Streaming separado |
+| Charts abria explorador, exemplos repetidos, comparação e outro catálogo | Charts abre diretamente D3, com busca/lista lateral, 24 tipos e Streaming separado |
 | Blocks montava várias prévias em categoria | Lista lateral de categorias/variantes, uma prévia por vez, viewport e código real preservados |
 | Aplicação/Acesso/Setup como destinos públicos paralelos | Demonstração; Acesso/Setup permanecem nos Blocks e fluxos internos |
 | Builds e relatórios HTML podiam recarregar a prévia e zerar sua interação | Pastas geradas saem do watcher, mantendo atualizações de src |

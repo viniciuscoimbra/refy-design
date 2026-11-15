@@ -111,7 +111,10 @@ function snapshot(tag) {
   const manifest = JSON.parse(files.read("package.json"));
   const web = manifest.version;
   const bins = new Set(Object.keys(manifest.bin ?? {}));
-  return { bins, files, families, props, owner, mobile, packages: { web, mobile: nativeVersion === "0.0.0" ? null : nativeVersion } };
+  // O catálogo A2UI entra no histórico a partir da versão em que deixou de ser privado.
+  const a2ui = JSON.parse(files.read("packages/a2ui/package.json") ?? '{"private":true}');
+  const packages = { web, mobile: nativeVersion === "0.0.0" ? null : nativeVersion, ...(a2ui.private ? {} : { a2ui: a2ui.version }) };
+  return { bins, files, families, props, owner, mobile, packages };
 }
 
 // A ficha guarda a marca como { replacement, note } desde a 1.3.1; antes, a tag não trazia marca.

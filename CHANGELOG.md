@@ -2,6 +2,32 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.9.0 (15/11/2026)
+
+### Adicionado
+
+- Pacote novo `@refy-design/a2ui` 0.1.0: os componentes do refy como catálogo [A2UI](https://a2ui.org) 1.0, com id `https://refy.design/a2ui/v1` e 12 peças (Text, Image, Row, Column, List, Card, Divider, Button, TextField, CheckBox, ChoicePicker, Slider). Um agente manda as mensagens; o app React desenha com os componentes e o tema do refy. Só web nesta versão: a ponte para React Native ainda não existe.
+- `@refy-design/a2ui/definition` traz o catálogo sem React e sem DOM, para o servidor do app validar a resposta do agente com as mesmas regras do renderizador. Peça fora do catálogo é recusada com `A2uiValidationError`.
+- O release anexa o pacote `@refy-design/a2ui` e o publica no npm quando a versão dele ainda não está lá.
+
+### Corrigido
+
+- A 1.8.1 não chegou ao npm: a árvore exportada pela promoção não tem git, e o `docs-sync --check` cobrava entrada no mapa para a saída de teste que o Firefox deixa na pasta. Sem git, o check confere só os fatos e ignora `test-results*` e `playwright-report*`. A 1.9.0 traz tudo o que estava na 1.8.1.
+
+## 1.8.1 (13/11/2026)
+
+### Adicionado
+
+- `node scripts/docs-sync.mjs --check` confere README, docs, plugins, catálogo de IA, server.json e site em pt, en e es contra números e versões calculados do código (famílias, ferramentas e recursos do MCP, tipos D3, trechos, templates, idiomas) e recusa promessa de futuro para o que já existe. Roda no check, no CI e na promoção.
+
+### Corrigido
+
+- README: 524 trechos compilados, não 523.
+- `docs/MCP.md`: o exemplo de `version` é a versão anterior que o servidor remoto carrega; dizia 1.2.0.
+- REFY_SITE.md, THEMING.md e DESIGN.md: 122 famílias; diziam 117 e 113.
+- Para IAs, em pt, en e es: a lista de recursos do MCP inclui `refy://theme-probe`.
+- PLAYGROUND_CATALOGS.md: Charts tem 24 tipos, não 24 famílias.
+
 ## 1.8.0 (13/11/2026)
 
 ### Adicionado

@@ -55,7 +55,7 @@ KanbanBoard permite arrastar pela alça, reordenar e mover pelo menu (também no
 
 SchedulePicker se adapta ao host, não só à janela. Message agrupa Avatar, autoria, horário e Bubble reais. MessageScroller não força o fim durante leitura do histórico e retorna o foco ao histórico quando o usuário escolhe as recentes. A referência de Message mencionada pelo mantenedor ainda não foi recebida; estes ajustes não representam sua reprodução nem adoção de tokens de outro produto.
 
-## Revisão por finalidade das 113 famílias
+## Revisão por finalidade de cada família
 
 Cada família tem `purpose`, `behavior` e infraestrutura no [inventário](MOTION_INVENTORY.json). O verificador exige cobertura exata, sem família esquecida ou duplicada. A decisão de manter uma família estável também é intencional; nível atômico não obriga um efeito de entrada.
 
@@ -75,4 +75,4 @@ Cada família tem `purpose`, `behavior` e infraestrutura no [inventário](MOTION
 
 `motionTiming` compartilha preferência do sistema, redução explícita do escopo e duração zero entre DisclosureRegion, mídia, novas mensagens, Kanban e sumário. Rolagem suave do sumário é nativa, sem garantia de duração exata do navegador; com redução/Instantâneo é imediata. `usePresence` compartilha conclusão real de saídas de superfícies, avisos e diálogos.
 
-A revisão automatizada cobre renderização das 113 famílias nos dois modos e redução, com trajetórias e ações específicas nas famílias com comportamento alterado. Isso não equivale a homologação estética humana de todas as variantes ou medição em hardware físico.
+A revisão automatizada cobre renderização de cada família do inventário nos dois modos e redução, com trajetórias e ações específicas nas famílias com comportamento alterado. Isso não equivale a homologação estética humana de todas as variantes ou medição em hardware físico.

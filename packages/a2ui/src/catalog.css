@@ -1,0 +1,14 @@
+.ra-row { display: flex; flex-direction: row; flex-wrap: wrap; gap: var(--space-2); }
+.ra-column { display: flex; flex-direction: column; gap: var(--space-3); }
+.ra-slot { display: contents; }
+.ra-heading { margin: 0; font-family: var(--font-heading); color: var(--ink-1); line-height: 1.2; }
+h3.ra-heading { font-size: 1.375rem; }
+h4.ra-heading { font-size: 1.125rem; }
+.ra-body { margin: 0; color: var(--ink-1); }
+.ra-caption { margin: 0; color: var(--ink-2); font-size: var(--text-sm, 0.875rem); }
+.ra-caption:empty { display: none; }
+.ra-image { display: block; width: 100%; border-radius: var(--radius-md); }
+.ra-image-header { aspect-ratio: 16 / 9; }
+.ra-image-avatar { width: 48px; height: 48px; border-radius: 50%; }
+/* Texto dentro de botão herda a cor e o peso do botão (ex.: rótulo claro no botão primário). */
+button .ra-body, button .ra-caption { color: inherit; font: inherit; }
