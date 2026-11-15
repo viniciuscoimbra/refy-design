@@ -2,6 +2,12 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.9.1 (15/11/2026)
+
+### Corrigido
+
+- A 1.9.0 não foi publicada no npm; tudo o que ela traz está na 1.9.1.
+
 ## 1.9.0 (15/11/2026)
 
 ### Adicionado
