@@ -9,16 +9,7 @@ O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o form
 - Pacote novo `@refy-design/a2ui` 0.1.0: os componentes do refy como catálogo [A2UI](https://a2ui.org) 1.0, com id `https://refy.design/a2ui/v1` e 12 peças (Text, Image, Row, Column, List, Card, Divider, Button, TextField, CheckBox, ChoicePicker, Slider). Um agente manda as mensagens; o app React desenha com os componentes e o tema do refy. Só web nesta versão: a ponte para React Native ainda não existe.
 - `@refy-design/a2ui/definition` traz o catálogo sem React e sem DOM, para o servidor do app validar a resposta do agente com as mesmas regras do renderizador. Peça fora do catálogo é recusada com `A2uiValidationError`.
 - O release anexa o pacote `@refy-design/a2ui` e o publica no npm quando a versão dele ainda não está lá.
-
-### Corrigido
-
-- A 1.8.1 não chegou ao npm: a árvore exportada pela promoção não tem git, e o `docs-sync --check` cobrava entrada no mapa para a saída de teste que o Firefox deixa na pasta. Sem git, o check confere só os fatos e ignora `test-results*` e `playwright-report*`. A 1.9.0 traz tudo o que estava na 1.8.1.
-
-## 1.8.1 (13/11/2026)
-
-### Adicionado
-
-- `node scripts/docs-sync.mjs --check` confere README, docs, plugins, catálogo de IA, server.json e site em pt, en e es contra números e versões calculados do código (famílias, ferramentas e recursos do MCP, tipos D3, trechos, templates, idiomas) e recusa promessa de futuro para o que já existe. Roda no check, no CI e na promoção.
+- `node scripts/docs-sync.mjs --check` confere README, docs, plugins, catálogo de IA, server.json e site em pt, en e es contra números e versões calculados do código (famílias, ferramentas e recursos do MCP, tipos D3, trechos, templates, idiomas) e recusa promessa de futuro para o que já existe. Roda no check, no CI e na promoção; na árvore exportada pela promoção, que não tem git, confere só os fatos e ignora `test-results*` e `playwright-report*`.
 
 ### Corrigido
 

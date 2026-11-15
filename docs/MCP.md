@@ -90,7 +90,7 @@ O servidor fala por stdio. `REFY_MCP_PROJECT` muda a pasta que `refy_validate` l
 
 Toda ferramenta é só de leitura e diz isso em `annotations` (`readOnlyHint: true`, `destructiveHint: false`); só `refy_theme_extract` sai para a rede (`openWorldHint: true`). Se o cliente ainda pedir aprovação, a regra é dele.
 
-Toda resposta traz `packageVersion`, a versão do catálogo que respondeu. No servidor local ela é a versão instalada. No remoto (`https://refy.design/mcp`), a resposta traz também `publishedVersion`, o `latest` do npm, e `warnings` quando o catálogo ainda não está publicado. O remoto carrega a versão atual e a anterior: passe `version` (ex.: `"1.8.1"`) para ler a API que o projeto instala. Versão que o servidor não tem volta como erro com a lista das disponíveis.
+Toda resposta traz `packageVersion`, a versão do catálogo que respondeu. No servidor local ela é a versão instalada. No remoto (`https://refy.design/mcp`), a resposta traz também `publishedVersion`, o `latest` do npm, e `warnings` quando o catálogo ainda não está publicado. O remoto carrega a versão atual e a anterior: passe `version` (ex.: `"1.8.0"`) para ler a API que o projeto instala. Versão que o servidor não tem volta como erro com a lista das disponíveis.
 
 Recursos: `refy://instructions`, `refy://control-choices`, `refy://theme-probe`, `refy://catalog` e `refy://component/{name}`.
 
