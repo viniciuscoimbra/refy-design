@@ -6,7 +6,8 @@ import type {
 } from "../../lib/ThemeProvider";
 import { fontSets, type FontSet } from "../../lib/fontSets";
 import { skins } from "../../stories/skins";
-import source from "../../tokens/foundations.tokens.json";
+// Só tipos, escala de texto e referências var(): a fonte inteira (146 KB) fica fora do site.
+import meta from "../../tokens/foundations.meta.json";
 import componentHooks from "../../tokens/component-hooks.json";
 
 // Each theme file names the font set it was designed with.
@@ -30,28 +31,10 @@ export const defaultConfig: PlaygroundConfig = {
 export const preferenceKey = "refy.playground.theme.v1";
 export const tokenDefinitions = Object.fromEntries([
   ...componentHooks.map((name) => [name, { type: "css" }]),
-  ...[source.base, source.light, source.dark].flatMap((group) => [
-    ...Object.entries(group)
-      .filter(([key]) => !key.startsWith("$"))
-      .map(([key, token]) => [
-        `--${key}`,
-        { type: (token as { $type: string }).$type },
-      ]),
-    ...Object.keys(group.$extensions["org.refy.css"]).map((key) => [
-      key,
-      { type: "css" },
-    ]),
-  ]),
+  ...Object.entries(meta.types).map(([name, type]) => [name, { type }]),
 ]) as Record<string, { type: string }>;
 export const tokenNames = Object.keys(tokenDefinitions).sort();
-export const textScale = Object.fromEntries(
-  Object.entries(source.base)
-    .filter(([name]) => name.startsWith("text-"))
-    .map(([name, token]) => [
-      `--${name}`,
-      (token as { $value: { value: number } }).$value.value,
-    ]),
-);
+export const textScale: Record<string, number> = meta.textScale;
 
 export function tokenProperty(name: string): string {
   const type = tokenDefinitions[name]?.type;
@@ -155,18 +138,8 @@ export function validToken(name: string, value: unknown): boolean {
 
 function rejectTokenCycles(theme: RefyTheme) {
   for (const mode of ["light", "dark"] as const) {
-    const graph: Record<string, string> = {};
-    for (const group of [source.base, source[mode]]) {
-      for (const [name, token] of Object.entries(group))
-        if (!name.startsWith("$"))
-          graph[`--${name}`] = JSON.stringify(
-            (token as { $value: unknown }).$value,
-          );
-      for (const [name, token] of Object.entries(
-        group.$extensions["org.refy.css"],
-      ))
-        graph[name] = token.value;
-    }
+    // Valores sem var() não ligam a nenhum token: o derivado guarda só os que ligam.
+    const graph: Record<string, string> = { ...meta.references[mode] };
     Object.assign(graph, theme.tokens, theme.modes?.[mode]);
     const visited = new Set<string>(),
       visiting = new Set<string>();

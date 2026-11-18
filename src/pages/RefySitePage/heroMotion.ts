@@ -1,6 +1,6 @@
-// Hero choreography for the refy.design site only (site motion). GSAP
-// orchestrates the entrance; the View Transition animates theme switches.
-import { gsap } from "gsap";
+// Hero choreography for the refy.design site only (site motion). siteMotion plays the entrance
+// (the same frames GSAP drew, without loading GSAP); the View Transition animates theme switches.
+import { playFrom } from "./siteMotion";
 
 interface HeroMotion {
   duration: number;
@@ -52,22 +52,18 @@ export function readHeroMotion(element: Element): HeroMotion {
 const isTextPart = (part: Element) => part.matches("h1, h1 ~ [data-hero-part]");
 // No opacity on text: it must be readable from the first frame. The theme switcher and the media
 // keep the fade.
-const from = (motion: HeroMotion, part: Element): gsap.TweenVars =>
-  isTextPart(part)
-    ? { y: motion.distance, clearProps: "transform" }
-    : { y: motion.distance, opacity: 0, clearProps: "transform,opacity" };
-
 /** Plays the first-fold entrance; returns a cleanup that leaves no inline styles behind. */
 export function playHeroEntrance(root: HTMLElement, targets: Element[]) {
   if (prefersReducedMotion() || targets.length === 0) return () => undefined;
   const motion = readHeroMotion(root);
-  const timeline = gsap.timeline();
-  targets.forEach((part, index) => {
-    timeline.from(part, { ...from(motion, part), duration: motion.duration, ease: motion.ease }, index * motion.stagger);
-  });
-  return () => {
-    timeline.progress(1).kill();
-  };
+  return playFrom(targets.map((part, index) => ({
+    target: part as HTMLElement,
+    start: index * motion.stagger,
+    duration: motion.duration,
+    ease: motion.ease,
+    from: isTextPart(part) ? { y: motion.distance } : { y: motion.distance, opacity: 0 },
+    clearOpacity: !isTextPart(part),
+  })));
 }
 
 /** Loads the faces a theme uses, so a switch never paints the fallback font first. */

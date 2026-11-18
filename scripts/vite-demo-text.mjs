@@ -6,6 +6,7 @@
 import { readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import ts from "typescript";
+import { demoTextImport } from "./vite-locale-split.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 const scope = /^src\/(components\/[^/]+\/[^/]+\.stories\.tsx|blocks\/[^/]+\.tsx?|_demo\/[^/]+\.tsx?|stories\/(BlockFrame|TypographySample)\.tsx|stories\/(skins|useThemeConfiguration)\.ts)$/;
@@ -93,7 +94,8 @@ export function demoText() {
       if (out === code) return null;
       const directive = out.match(/^\s*["']use client["'];?\s*/);
       const at = directive ? directive[0].length : 0;
-      return { code: out.slice(0, at) + `import { __refyText, __refyTemplate, __refyValue } from ${JSON.stringify(runtime)};\n` + out.slice(at), map: null };
+      // O arquivo traz os próprios textos em pt e es (vite-locale-split), antes do código dele rodar.
+      return { code: out.slice(0, at) + demoTextImport(file) + `import { __refyText, __refyTemplate, __refyValue } from ${JSON.stringify(runtime)};\n` + out.slice(at), map: null };
     },
   };
 }

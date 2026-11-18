@@ -137,42 +137,109 @@ export function useText() {
 // carregamento, e quem lê em português nunca usa o espanhol. As entradas chamam loadLocaleText (ou
 // o site, loadSiteText) antes de importar a página, porque há texto traduzido no nível de módulo.
 type Dictionary = Record<string, string>;
+type DemoDictionary = Record<string, Record<string, string | string[]>>;
 const dictionaries: Partial<Record<Exclude<Locale, "pt">, Dictionary>> = {};
 const docDictionaries: Partial<Record<Exclude<Locale, "en">, Dictionary>> = {};
 /** Textos dos exemplos e templates por idioma, arquivo e frase (ver demoText.ts). */
-export const demoDictionaries: Partial<Record<"pt" | "es", Record<string, Record<string, string | string[]>>>> = {};
+export const demoDictionaries: Partial<Record<"pt" | "es", DemoDictionary>> = {};
+/** Nomes de exemplo traduzidos, para a ficha (demoLabel): o valor que o primeiro arquivo dá. */
+export const demoLabels: Partial<Record<"pt" | "es", Dictionary>> = {};
 /** Registra dicionários já importados. O Storybook importa os do português antes das stories, que
  * traduzem texto no nível de módulo e rodariam antes de qualquer carga assíncrona. */
-export function registerLocaleText(locale: Locale, text: { site?: Dictionary; docs?: Dictionary; demo?: Record<string, Record<string, string | string[]>> }) {
+export function registerLocaleText(locale: Locale, text: { site?: Dictionary; docs?: Dictionary; demo?: DemoDictionary }) {
   if (locale !== "pt" && text.site) dictionaries[locale] ??= text.site;
   if (locale !== "en" && text.docs) docDictionaries[locale] ??= text.docs;
   if (locale !== "en" && text.demo) demoDictionaries[locale] ??= text.demo;
 }
+/** Textos de um arquivo de exemplo, registrados pelo próprio arquivo no build do site (vite-locale-split). */
+export function registerDemoText(file: string, text: Partial<Record<"pt" | "es", Record<string, string | string[]>>>) {
+  for (const locale of ["pt", "es"] as const) {
+    const entries = text[locale];
+    if (entries) (demoDictionaries[locale] ??= {})[file] ??= entries;
+  }
+}
+
+// Como cada parte chega. Sem registro (Storybook, testes), valem os arquivos inteiros; o site
+// registra as partes divididas no build (site/localeChunks.ts e scripts/vite-locale-split.mjs).
+interface ReferenceText { docs?: Dictionary; site?: Dictionary; demo?: DemoDictionary; demoLabels?: Dictionary }
+type FamilyLoader = () => Promise<{ default: Dictionary }>;
+interface ReferenceModule { default: ReferenceText; families?: Record<string, FamilyLoader> }
+interface LocaleLoaders {
+  site: Partial<Record<Exclude<Locale, "pt">, () => Promise<{ default: Dictionary }>>>;
+  reference: Partial<Record<Locale, () => Promise<ReferenceModule>>>;
+}
+const loaders: LocaleLoaders = {
+  site: {
+    en: () => import("./locales/en.json"),
+    es: () => import("./locales/es.json"),
+  },
+  // A ficha dos componentes e os textos dos exemplos e templates somam 140 KB gzip em português e
+  // a home não mostra nenhum deles: o site os baixa depois da home ou na primeira página que os usa.
+  reference: {
+    pt: () => Promise.all([import("./locales/docs.pt.json"), import("./locales/demo.pt.json")]).then(([docs, demo]) => ({ default: { docs: docs.default, demo: demo.default } })),
+    es: () => Promise.all([import("./locales/docs.es.json"), import("./locales/demo.es.json")]).then(([docs, demo]) => ({ default: { docs: docs.default, demo: demo.default } })),
+  },
+};
+/** O site troca os arquivos inteiros pelas partes divididas no build. */
+export function registerLocaleLoaders(next: LocaleLoaders) {
+  loaders.site = next.site;
+  loaders.reference = next.reference;
+}
 /** Texto do próprio site (menus, home, rodapé). Em português não há o que baixar. */
 export async function loadSiteText(locale: Locale): Promise<void> {
-  if (locale === "en") dictionaries.en ??= (await import("./locales/en.json")).default;
-  if (locale === "es") dictionaries.es ??= (await import("./locales/es.json")).default;
+  if (locale === "pt" || dictionaries[locale]) return;
+  const load = loaders.site[locale];
+  if (load) dictionaries[locale] ??= { ...(await load()).default };
 }
-// A ficha dos componentes e os textos dos exemplos e templates somam 140 KB gzip em português e
-// a home não mostra nenhum deles: o site os baixa depois da home ou na primeira página que os usa.
-const referenceLoaders: Record<Exclude<Locale, "en">, () => Promise<[{ default: Dictionary }, { default: typeof demoDictionaries.pt }]>> = {
-  pt: () => Promise.all([import("./locales/docs.pt.json"), import("./locales/demo.pt.json")]),
-  es: () => Promise.all([import("./locales/docs.es.json"), import("./locales/demo.es.json")]),
-};
 const referenceLoads = new Map<Locale, Promise<void>>();
-const hasReferenceText = (locale: Locale) => locale === "en" || (!!docDictionaries[locale] && !!demoDictionaries[locale]);
-/** Ficha dos componentes, exemplos e templates traduzidos. Em inglês não há o que baixar. */
+const referenceDone = new Set<Locale>();
+const familyLoaders: Partial<Record<Locale, Record<string, FamilyLoader>>> = {};
+const hasReferenceText = (locale: Locale) =>
+  referenceDone.has(locale) || !loaders.reference[locale] || (locale !== "en" && !!docDictionaries[locale] && !!demoDictionaries[locale]);
+/** Ficha dos componentes, exemplos e templates traduzidos, e o texto do site que vem de dados. */
 export function loadReferenceText(locale: Locale): Promise<void> {
-  if (locale === "en" || hasReferenceText(locale)) return Promise.resolve();
+  if (hasReferenceText(locale)) return Promise.resolve();
   let load = referenceLoads.get(locale);
   if (!load) {
-    load = referenceLoaders[locale]().then(([docs, demo]) => {
-      docDictionaries[locale] ??= docs.default;
-      demoDictionaries[locale] ??= demo.default;
+    load = loaders.reference[locale]!().then(({ default: text, families }) => {
+      if (locale !== "pt" && text.site) dictionaries[locale] = { ...dictionaries[locale], ...text.site };
+      if (locale !== "en") {
+        if (text.docs) docDictionaries[locale] = { ...text.docs, ...docDictionaries[locale] };
+        if (text.demo) demoDictionaries[locale] ??= text.demo;
+        if (text.demoLabels) demoLabels[locale] ??= text.demoLabels;
+      }
+      if (families) familyLoaders[locale] = families;
+      referenceDone.add(locale);
     });
     // Uma falha de rede não fica guardada: a próxima tentativa baixa de novo.
     load.catch(() => referenceLoads.delete(locale));
     referenceLoads.set(locale, load);
+  }
+  return load;
+}
+const familyLoads = new Map<string, Promise<void>>();
+/**
+ * Frases da ficha que só a ficha desta família mostra. A ficha espera por elas; sem a divisão
+ * (Storybook) ou com falha de rede, resolve e a frase aparece como está na fonte. Depois de uma
+ * falha, a próxima chamada (outra visita à mesma ficha) baixa de novo.
+ */
+export function loadFamilyText(id: string): Promise<void> {
+  const locale = activeLocale;
+  if (locale === "en") return Promise.resolve();
+  const key = `${locale}:${id}`;
+  let load = familyLoads.get(key);
+  if (!load) {
+    load = loadReferenceText(locale)
+      .then(async () => {
+        const loader = familyLoaders[locale]?.[id];
+        if (!loader) return;
+        // Com o `vite:preloadError` cancelado (site/main.tsx), o import que falhou resolve vazio.
+        const module = await loader();
+        if (!module) throw new Error(`Sem as frases da família ${id}`);
+        docDictionaries[locale] = { ...docDictionaries[locale], ...module.default };
+      })
+      .catch(() => { familyLoads.delete(key); });
+    familyLoads.set(key, load);
   }
   return load;
 }

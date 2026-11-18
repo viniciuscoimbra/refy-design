@@ -85,7 +85,37 @@ export function componentHooks() {
   const hooks = JSON.parse(readFileSync(new URL('../src/tokens/component-hooks.json', import.meta.url), 'utf8'));
   return hooks.filter(name => !Object.hasOwn(themeValues('light'), name));
 }
+/**
+ * O que o site e o Playground leem da fonte sem carregar os 146 KB dela: o tipo de cada token, a
+ * escala de texto e, por modo, só os valores que citam outro token (bastam para achar ciclos).
+ */
+export function generateMeta() {
+  const types = {};
+  for (const group of [source.base, source.light, source.dark]) {
+    for (const [key, token] of Object.entries(group)) if (!key.startsWith('$')) types[`--${key}`] = token.$type;
+    for (const key of Object.keys(group.$extensions['org.refy.css'])) types[key] = 'css';
+  }
+  const textScale = Object.fromEntries(Object.entries(source.base).filter(([name]) => name.startsWith('text-')).map(([name, token]) => [`--${name}`, token.$value.value]));
+  const references = {};
+  for (const mode of ['light', 'dark']) {
+    references[mode] = {};
+    for (const group of [source.base, source[mode]]) {
+      for (const [name, token] of Object.entries(group)) {
+        if (name.startsWith('$')) continue;
+        const value = JSON.stringify(token.$value);
+        if (value.includes('var(')) references[mode][`--${name}`] = value;
+        else delete references[mode][`--${name}`];
+      }
+      for (const [name, token] of Object.entries(group.$extensions['org.refy.css'])) {
+        if (String(token.value).includes('var(')) references[mode][name] = token.value;
+        else delete references[mode][name];
+      }
+    }
+  }
+  return JSON.stringify({ $description: 'Gerado por npm run tokens:build a partir de foundations.tokens.json. Não editar.', types, textScale, references }, null, 1) + '\n';
+}
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   writeFileSync(new URL('../src/tokens/tokens.css', import.meta.url), generateCSS());
-  console.log('OK: tokens.css gerado a partir da fonte estruturada.');
+  writeFileSync(new URL('../src/tokens/foundations.meta.json', import.meta.url), generateMeta());
+  console.log('OK: tokens.css e foundations.meta.json gerados a partir da fonte estruturada.');
 }

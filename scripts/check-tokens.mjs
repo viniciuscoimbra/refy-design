@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { cssValue, generateCSS, themeValues } from './tokens.mjs';
+import { cssValue, generateCSS, generateMeta, themeValues } from './tokens.mjs';
 
 export function resolveToken(name, values, stack = []) {
   assert(!stack.includes(name), `Ciclo: ${[...stack, name].join(' → ')}`);
@@ -32,6 +32,7 @@ for (const mode of ['light', 'dark', 'editorial']) {
 }
 assert.equal(generateCSS(), generateCSS(), 'Geração não determinística');
 assert.equal(readFileSync('src/tokens/tokens.css', 'utf8'), generateCSS(), 'CSS diverge da fonte; execute npm run tokens:build');
+assert.equal(readFileSync('src/tokens/foundations.meta.json', 'utf8'), generateMeta(), 'foundations.meta.json diverge da fonte; execute npm run tokens:build');
 assert.throws(() => resolveToken('--missing', {}), /ausente/);
 assert.throws(() => resolveToken('--a', { '--a': 'var(--b)', '--b': 'var(--a)' }), /Ciclo/);
 assert.throws(() => cssValue({ $type: 'dimension', $value: { value: 1, unit: 'banana' } }));

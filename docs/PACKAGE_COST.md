@@ -143,3 +143,36 @@ O que fica na home e por quê:
 `tests/site-home-budget.spec.ts` reprova a home acima de 300.000 B de JS gzip, cerca de 10% sobre o número de depois.
 
 Num celular emulado (375×812, CPU 4x, 1,6 Mbps, 150 ms de latência, servidor com gzip), o LCP mediano de 5 cargas caiu de 4.188 ms para 3.068 ms. O elemento do LCP é a frase da hero nos dois casos. A hero também deixou de começar transparente: a entrada só desloca título, frase e botões (o seletor de tema e a mídia mantêm o fade), e o estado final é igual pixel a pixel ao de antes.
+
+## Carga sob demanda no site, 18/11/2026
+
+Change `perf-site-carga-sob-demanda`. Medido com `node scripts/measure-site-load.mjs`: build do site do código de partida (`89240ff`) e build desta change, servidor local com gzip, JS gzip que cada página pede ao próprio site até a rede parar, com o `requestIdleCallback` desligado (o que baixa com o navegador ocioso fica de fora). LCP: 375×812, CPU 4x, 1,6 Mbps, 150 ms de latência, cache vazio, mediana de 5 cargas.
+
+| Página | Antes, JS gzip | Depois, JS gzip |
+|---|---:|---:|
+| Home (pt), primeira carga | 286.709 | 233.232 |
+| Home (pt), com o navegador ocioso | 428.972 | 341.532 |
+| Home en | 367.576 | 260.234 |
+| Home es | 363.700 | 258.961 |
+| Ficha do Button (pt) | 462.300 | 330.159 |
+| Ficha do Button en | 400.904 | 347.284 |
+| Ficha do Button es | 540.573 | 405.472 |
+| Aba Mobile da ficha (a mais) | 273.232 | 273.240 |
+| Temas | 727.383 | 620.269 |
+| Playground | 700.837 | 591.827 |
+
+| LCP, celular emulado | Antes | Depois |
+|---|---:|---:|
+| Home | 2.540 ms | 2.296 ms |
+| Ficha do Button | 4.644 ms | 4.012 ms |
+
+O que mudou:
+
+- GSAP e ScrollTrigger (~77 KB gzip) saíram do `app-*.js` (121.644 → 75.957 B gzip). A entrada da hero e o carrossel rodam em `siteMotion.ts`, que reproduz o relógio, o arredondamento e as strings de transform do GSAP 3; `tests/site-hero-motion.spec.ts` confere quadro a quadro (281 quadros em 4,5 s, 1280 e 375 px) contra os estilos gravados do GSAP, e `tests/site-motion-ticker.test.mjs` confere o relógio contra o do GSAP com a montagem atrasada. O GSAP vem em `homeScenes-*.js` (46.456 B gzip) quando uma cena de rolagem chega perto da tela ou o navegador fica ocioso.
+- Dicionários divididos no build (`scripts/vite-locale-split.mjs`). Em pt, a ficha baixava `docs.pt` (95.642) e `demo.pt` (46.621) inteiros; agora baixa a parte comum (`locale-reference-pt-*.js`, 61.640), a parte da família (Button: 893 B) e os textos de exemplo junto do próprio exemplo. Em en e es, a primeira carga baixava o dicionário do site inteiro (en: 80.867); agora só as frases escritas no código (en: 27.067), e o resto vem com a ficha.
+- O tema lê `src/tokens/foundations.meta.json` (3.436 B gzip), gerado por `npm run tokens:build`, em vez de `foundations.tokens.json` (146 KB bruto); `themeConfig-*.js` caiu de 135.548 para 127.131 B gzip. `check-tokens` reprova os metadados se divergirem da fonte.
+- O preview nativo já era carregado só ao abrir a aba Mobile: 0 B na primeira carga da ficha, antes e depois. Pesa 252.591 B gzip (`NativePreview-*.js`) mais 20.648 da página Mobile; antes o número de referência era ~206 KB, cresceu com as famílias nativas novas.
+
+O pacote publicado não muda: `node scripts/measure-family-cost.mjs` antes e depois deu 123 entradas iguais (JS e CSS por família).
+
+`tests/site-home-budget.spec.ts` agora reprova a home acima de 256.000 B (~10% sobre 233.232).

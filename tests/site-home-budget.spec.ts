@@ -6,8 +6,10 @@ import { gzipSync } from "node:zlib";
 import { serveBuiltSite, siteDist } from "./support/builtSite";
 
 // refy-design#6, change fix-issues-desempenho-home, requisito "Home baixa só o que mostra".
-// 273.788 B medidos em 12/11/2026 depois do conserto, com folga de ~10%; ver docs/PACKAGE_COST.md.
-const HOME_JS_GZIP_BUDGET = 300_000;
+// 273.788 B medidos em 12/11/2026; 233.232 B em 18/11/2026, depois de tirar o GSAP, o JSON de tokens
+// e os dicionários inteiros da primeira carga (change perf-site-carga-sob-demanda). Folga de ~10%;
+// ver docs/PACKAGE_COST.md.
+const HOME_JS_GZIP_BUDGET = 256_000;
 
 let site: Awaited<ReturnType<typeof serveBuiltSite>>;
 test.beforeAll(async () => { site = await serveBuiltSite(); });
@@ -40,7 +42,27 @@ test("a primeira carga da home fica no orçamento de JavaScript gzip", async ({ 
 
 test("com o navegador ocioso, a home já deixa baixada a ficha dos componentes", async ({ page }) => {
   await page.route((url) => url.origin !== new URL(site.url).origin, (route) => route.abort());
-  const reference = page.waitForRequest(/\/docs\.pt-[^/]+\.js$/);
+  // Parte comum da ficha em pt (scripts/vite-locale-split.mjs), antes o docs.pt.json inteiro.
+  const reference = page.waitForRequest(/\/locale-reference-pt-[^/]+\.js$/);
   await page.goto(site.url, { waitUntil: "load" });
   await reference;
+});
+
+test("se as cenas da home não baixam, a próxima visita à home tenta de novo e as monta", async ({ page }) => {
+  const origin = new URL(site.url).origin;
+  await page.route((url) => url.origin !== origin, (route) => route.abort());
+  // A recarga única de site/main.tsx já aconteceu nesta rota: a falha não some com um reload.
+  await page.addInitScript(() => { try { sessionStorage.setItem("refy:reloaded-for-build", "/"); } catch { /* sem storage */ } });
+  let asked = 0;
+  await page.route(/\/homeScenes-[^/]+\.js$/, (route) => (++asked === 1 ? route.abort() : route.continue()));
+  await page.goto(site.url, { waitUntil: "load" });
+  await expect.poll(() => asked).toBe(1);
+  await page.locator('a[href$="/componentes"]').first().click();
+  await expect(page).toHaveURL(/\/componentes/);
+  await page.goBack();
+  await expect(page.locator("#site-content h1")).toBeVisible();
+  await expect.poll(() => asked, { message: "a segunda visita pede as cenas de novo" }).toBe(2);
+  // A cena do manifesto pinta as linhas pelo GSAP: estilo inline nelas mostra que ela montou.
+  await page.locator("[data-manifesto-line]").first().scrollIntoViewIfNeeded();
+  await expect.poll(() => page.locator("[data-manifesto-line]").first().getAttribute("style")).toBeTruthy();
 });

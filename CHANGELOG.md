@@ -2,6 +2,12 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.9.2 (18/11/2026)
+
+### Modificado
+
+- O site baixa só o que cada página usa: o GSAP fica só nas cenas de rolagem da home e chega depois da primeira pintura, os textos da documentação chegam por página e por família, e o JSON de tokens de origem saiu da primeira carga. A home em português baixa 233 KB de JavaScript gzip em vez de 287 KB, e a ficha de um componente, 330 KB em vez de 462 KB. A aparência e os pacotes publicados não mudam.
+
 ## 1.9.1 (15/11/2026)
 
 ### Corrigido

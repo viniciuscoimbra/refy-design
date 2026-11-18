@@ -1,6 +1,6 @@
 // Tradução dos textos dos exemplos e templates no site (ver scripts/vite-demo-text.mjs). O código
 // fica em inglês; aqui a tela renderizada troca cada texto pelo idioma em vigor.
-import { currentLocale, demoDictionaries as dictionaries } from "./i18n";
+import { currentLocale, demoDictionaries as dictionaries, demoLabels } from "./i18n";
 
 export function __refyText(file: string, text: string): string {
   const locale = currentLocale();
@@ -24,6 +24,9 @@ export function __refyTemplate(file: string, key: string, values: unknown[]): st
 export function demoLabel(text: string): string {
   const locale = currentLocale();
   if (locale === "en") return text;
+  // No site os textos chegam por arquivo; a lista de nomes guarda o valor do primeiro arquivo.
+  const label = demoLabels[locale]?.[text];
+  if (typeof label === "string") return label;
   for (const entries of Object.values(dictionaries[locale] ?? {})) {
     const value = entries[text];
     if (typeof value === "string") return value;

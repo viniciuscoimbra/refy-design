@@ -1,17 +1,69 @@
-// Home sections with scroll and type motion. GSAP lives only in the site (decision 05/11); every
-// themed sample below is a ThemeProvider fed by a theme file, nothing is painted by the site.
+// Home sections with scroll and type motion. GSAP lives only in the site (decision 05/11) and only
+// in homeScenes.ts, loaded after the first paint for the scroll scenes; the first fold moves with
+// siteMotion.ts, which draws the same frames. Every themed sample below is a ThemeProvider fed by a
+// theme file, nothing is painted by the site.
 import { Children, Fragment, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AvatarGroup, Badge, BrandLogo, Button, Calendar, Callout, Card, CardHeader, Chip, CodeBlock, Input, ProgressBar, Segmented, Stat, Switch, ThemeProvider } from "../../index";
 import { projectTeam } from "./SiteCatalog";
 import type { RefyTheme } from "../../index";
 import { prefersReducedMotion } from "./heroMotion";
+import { clearCards, playFrom, power4Out, setCard, ticker } from "./siteMotion";
 import styles from "./RefySitePage.module.css";
 import { currentLocale, htmlLang, useText } from "./i18n";
 
-gsap.registerPlugin(ScrollTrigger);
+/**
+ * Scroll scenes (GSAP and ScrollTrigger), fetched once: when the browser is idle after the load, or
+ * as soon as a scene comes within a quarter screen of the viewport, whichever comes first.
+ */
+let scenes: Promise<typeof import("./homeScenes")> | undefined;
+/**
+ * A failed download is not cached: the next visit asks again. With the reload-once handler in
+ * site/main.tsx a failed chunk resolves to undefined instead of rejecting, so that is a failure too.
+ */
+const loadScenes = () => (scenes ??= import("./homeScenes").then((module) => {
+  if (!module) throw new Error("Sem as cenas da home");
+  return module;
+}).catch((error: unknown) => {
+  scenes = undefined;
+  throw error;
+}));
+/**
+ * Calls `run` with the scenes module once `element` is near or the browser is idle after the load.
+ * The returned cleanup stops the wait and, if the module was not asked for yet, never asks for it:
+ * leaving the home before that does not download GSAP on another page.
+ */
+function withScenes(element: Element, run: (module: typeof import("./homeScenes")) => () => void) {
+  let alive = true;
+  let stop: () => void = () => undefined;
+  const observer = typeof IntersectionObserver === "undefined" ? undefined : new IntersectionObserver((entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) done();
+  }, { rootMargin: "25% 0px" });
+  const idle = window.requestIdleCallback ?? ((callback: () => void) => window.setTimeout(callback, 2000));
+  const cancelIdle = window.cancelIdleCallback ?? window.clearTimeout;
+  let handle = 0;
+  const schedule = () => { handle = idle(() => done()); };
+  function quiet() {
+    observer?.disconnect();
+    window.removeEventListener("load", schedule);
+    cancelIdle(handle);
+  }
+  function done() {
+    quiet();
+    if (!alive) return;
+    loadScenes().then((module) => {
+      if (alive) stop = run(module);
+    }, () => undefined);
+  }
+  observer?.observe(element);
+  if (document.readyState === "complete") schedule();
+  else window.addEventListener("load", schedule, { once: true });
+  return () => {
+    alive = false;
+    quiet();
+    stop();
+  };
+}
 
 export interface LandingTheme {
   id: string;
@@ -36,10 +88,9 @@ export function HeroWords({ text }: { text: string }) {
 }
 
 export function playWords(root: HTMLElement) {
-  const words = root.querySelectorAll("[data-hero-word]");
+  const words = [...root.querySelectorAll<HTMLElement>("[data-hero-word]")];
   if (prefersReducedMotion() || !words.length) return () => undefined;
-  const tween = gsap.from(words, { yPercent: 115, duration: 1, ease: "power4.out", stagger: 0.07, delay: 0.05, clearProps: "transform" });
-  return () => { tween.progress(1).kill(); };
+  return playFrom(words.map((word, index) => ({ target: word, start: 0.05 + index * 0.07, duration: 1, ease: power4Out, from: { yPercent: 115 } })));
 }
 
 const tokenKeys = ["--primary", "--font-heading", "--radius-md", "--field-height"] as const;
@@ -101,33 +152,7 @@ export function ThemeScroll({ themes, intro }: { themes: LandingTheme[]; intro: 
     const inner = slides.map((slide) => slide.querySelector<HTMLElement>("[data-theme-slide-inner]")!);
     const count = slides.length;
     if (count < 2) return;
-    const reduced = prefersReducedMotion();
-    // Read from the real geometry on every scroll: a slide is on top once it reached its sticky
-    // place, and the slide under it shrinks as the next one climbs over it.
-    const trigger = ScrollTrigger.create({
-      trigger: box,
-      start: "top bottom",
-      end: "bottom top",
-      onUpdate: () => {
-        const tops = slides.map((slide) => slide.getBoundingClientRect().top);
-        // Each slide's sticky `top` comes from the stylesheet (its stacking position).
-        const stuck = (index: number) => parseFloat(getComputedStyle(slides[index]).top) || 0;
-        let current = 0;
-        tops.forEach((value, index) => { if (value <= stuck(index) + 2) current = index; });
-        setActive(current);
-        if (reduced) return;
-        inner.forEach((element, index) => {
-          if (index === count - 1) return;
-          const travel = window.innerHeight - stuck(index + 1);
-          const amount = Math.min(1, Math.max(0, (window.innerHeight - tops[index + 1]) / travel));
-          gsap.set(element, { scale: 1 - 0.05 * amount, transformOrigin: "50% 0%" });
-        });
-      },
-    });
-    return () => {
-      trigger.kill();
-      gsap.set(inner, { clearProps: "transform" });
-    };
+    return withScenes(box, ({ themeScrollScene }) => themeScrollScene(box, slides, inner, setActive));
   }, [themes]);
   return (
     <section ref={root} className={styles.themeScroll} aria-labelledby="landing-theme">
@@ -170,57 +195,7 @@ export function ManifestoScene({ children }: { children: ReactNode }) {
   useEffect(() => {
     const root = scene.current;
     if (!root || reduced) return;
-    let trigger: ScrollTrigger | undefined;
-    let timeline: gsap.core.Timeline | undefined;
-    const build = () => {
-      const progress = trigger?.progress ?? 0;
-      trigger?.kill();
-      timeline?.kill();
-      const style = getComputedStyle(root);
-      const from = style.getPropertyValue("--ink-3").trim();
-      const to = style.getPropertyValue("--primary").trim();
-      const lines = [...root.querySelectorAll<HTMLElement>("[data-manifesto-line]")];
-      const last = lines[lines.length - 1];
-      const lead = last.querySelector<HTMLElement>("[data-manifesto-lead]")!;
-      const accent = last.querySelector<HTMLElement>("strong")!;
-      const signature = root.querySelector<HTMLElement>("[data-manifesto-signature]")!;
-      timeline = gsap.timeline({ paused: true });
-      lines.forEach((line, index) => {
-        const words = line.querySelectorAll("[data-word]");
-        const at = index * 1.4;
-        // Words rise from below a mask line and leave upward, never sideways.
-        timeline!.fromTo(words, { yPercent: 110, opacity: 0, filter: "blur(6px)" }, { yPercent: 0, opacity: 1, filter: "blur(0px)", stagger: 0.06, duration: 0.7, ease: "power4.out" }, at);
-        if (index < lines.length - 1) {
-          timeline!.fromTo(line, { color: from }, { color: to, duration: 1.2, ease: "none" }, at);
-          timeline!.to(words, { yPercent: -110, opacity: 0, filter: "blur(6px)", stagger: 0.04, duration: 0.5, ease: "power2.in" }, at + 1);
-        }
-      });
-      const end = (lines.length - 1) * 1.4;
-      timeline.to(lead.querySelectorAll("[data-word]"), { yPercent: -110, opacity: 0, filter: "blur(6px)", stagger: 0.04, duration: 0.5, ease: "power2.in" }, end + 1.1);
-      // The accent only slides to the centre once "Seu design," is gone, and it is gone before the
-      // signature rises: one phrase on screen at a time.
-      timeline.to(accent, { scale: 1.12, x: () => (innerWidth > 700 ? -lead.offsetWidth / 2 : 0), duration: 0.7, ease: "power3.inOut" }, end + 1.7);
-      timeline.to(accent, { yPercent: -110, opacity: 0, filter: "blur(6px)", duration: 0.5, ease: "power2.in" }, end + 2.7);
-      timeline.fromTo(signature, { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, end + 3.2);
-      timeline.fromTo(signature.querySelector("[data-manifesto-logo]"), { scale: 0.9 }, { scale: () => (innerWidth > 700 ? 1.7 : 1.15), duration: 1, ease: "power3.out" }, end + 3.2);
-      trigger = ScrollTrigger.create({
-        trigger: root,
-        start: "top top",
-        end: "bottom bottom",
-        onUpdate: (self) => timeline!.progress(self.progress),
-      });
-      timeline.progress(progress);
-    };
-    build();
-    // A theme switch changes the colours the timeline was built with.
-    const scope = root.closest("[data-refy-brand]");
-    const observer = new MutationObserver(build);
-    if (scope) observer.observe(scope, { attributes: true, attributeFilter: ["data-refy-brand", "data-theme"] });
-    return () => {
-      observer.disconnect();
-      trigger?.kill();
-      timeline?.revert();
-    };
+    return withScenes(root, ({ manifestoScene }) => manifestoScene(root));
   }, [reduced, copy]);
   return (
     <section ref={scene} className={styles.manifestoScene} data-reduced={reduced || undefined} aria-labelledby="landing-closing">
@@ -361,7 +336,7 @@ export function ShowcaseReel() {
         const mid = rowLeft + (parseFloat(getComputedStyle(row).paddingLeft) || 0) + base + shift + width / 2;
         const distance = (mid - center) / (box.clientWidth / 2);
         const clamped = Math.max(-1.2, Math.min(1.2, distance));
-        gsap.set(item, { x: shift, rotateY: clamped * -22, scale: 1 - Math.abs(clamped) * 0.12, z: -Math.abs(clamped) * 80 });
+        setCard(item, { x: shift, rotateY: clamped * -22, scale: 1 - Math.abs(clamped) * 0.12, z: -Math.abs(clamped) * 80 });
       }
     };
     const stop = () => { paused = true; };
@@ -370,13 +345,13 @@ export function ShowcaseReel() {
     box.addEventListener("pointerleave", go);
     box.addEventListener("focusin", stop);
     box.addEventListener("focusout", () => setTimeout(go));
-    gsap.ticker.add(tick);
+    ticker.add(tick);
     return () => {
-      gsap.ticker.remove(tick);
+      ticker.remove(tick);
       box.removeEventListener("pointerenter", stop);
       box.removeEventListener("pointerleave", go);
       box.removeEventListener("focusin", stop);
-      gsap.set(items, { clearProps: "transform" });
+      clearCards(items);
     };
   }, []);
   const reduced = typeof window !== "undefined" && prefersReducedMotion();

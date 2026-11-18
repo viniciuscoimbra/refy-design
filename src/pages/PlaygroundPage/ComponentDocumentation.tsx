@@ -1,7 +1,7 @@
-import { tr } from "../RefySitePage/i18n";
+import { loadFamilyText, tr } from "../RefySitePage/i18n";
 import { MobileDocumentation, MobileToc, PlatformToggle } from "./MobileDocumentation";
 import { syncPlatformUrl, usePlatform } from "../RefySitePage/platform";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import {
   Badge,
   Button,
@@ -120,6 +120,7 @@ export function ComponentDocumentation({
   );
   const doc = loadedDoc?.id === id ? loadedDoc : cache.get(id);
   const [failed, setFailed] = useState<string>();
+  const [, retranslate] = useReducer((n: number) => n + 1, 0);
   const platform = usePlatform();
   const mobile = platform === "mobile";
   useEffect(() => syncPlatformUrl(true), [id, platform]);
@@ -128,11 +129,18 @@ export function ComponentDocumentation({
     setFailed(undefined);
     if (cache.has(id)) {
       setDoc(cache.get(id));
-      return;
+      // As frases da família podem ter falhado na primeira visita: tenta de novo e redesenha.
+      void loadFamilyText(id).then(() => {
+        if (current) retranslate();
+      });
+      return () => {
+        current = false;
+      };
     }
     setDoc(undefined);
-    sources[`./documentation/${id}.json`]()
-      .then((value) => {
+    // A ficha espera também as frases dela que só ela mostra (loadFamilyText).
+    Promise.all([sources[`./documentation/${id}.json`](), loadFamilyText(id)])
+      .then(([value]) => {
         cache.set(id, value);
         if (current) setDoc(value);
       })

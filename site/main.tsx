@@ -1,5 +1,6 @@
 // Entrada do site refy.design: a mesma página do Storybook, servida sozinha, sem o Storybook.
 import { siteLocale } from "./locale";
+import { registerLocaleChunks } from "./localeChunks";
 import { loadSiteText } from "../src/pages/RefySitePage/i18n";
 import "../src/tokens/tokens.css";
 import "../src/styles/fonts.css";
@@ -18,4 +19,5 @@ window.addEventListener("vite:preloadError", (event) => {
 // Os textos do idioma chegam antes da página: há frase traduzida no nível de módulo, que precisa
 // do dicionário já carregado quando o módulo roda. Cada visita baixa só o próprio idioma; a ficha
 // dos componentes e os exemplos chegam com a primeira página que os mostra (useReferenceText).
+registerLocaleChunks();
 loadSiteText(siteLocale).then(() => import("./app")).then(({ mount }) => mount());
