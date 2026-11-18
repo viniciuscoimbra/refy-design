@@ -1,4 +1,4 @@
-import { Catalog, MessageProcessor, STRICT_VALIDATION } from "@a2ui/web_core";
+import { Catalog, MessageProcessor } from "@a2ui/web_core";
 import type { MessageProcessorOptions } from "@a2ui/web_core";
 import {
   BASIC_FUNCTIONS,
@@ -15,6 +15,7 @@ import {
   TextApi,
   TextFieldApi,
 } from "@a2ui/web_core/catalogs/basic/v1";
+import { REFY_CATALOG_ID, REFY_VALIDATION } from "./ids.js";
 
 /**
  * O catálogo do refy sem React e sem DOM: id, as 12 peças e a validação.
@@ -22,9 +23,7 @@ import {
  * com as mesmas regras do renderizador. Importar `@refy-design/a2ui` no servidor puxa o
  * renderizador (Lit) e quebra com `HTMLElement is not defined`.
  */
-
-/** Id próprio: o refy não responde pelo id do catálogo básico enquanto não cobrir as 18 peças. */
-export const REFY_CATALOG_ID = "https://refy.design/a2ui/v1";
+export { REFY_CATALOG_ID, REFY_VALIDATION };
 
 /** As peças do catálogo, na ordem do renderizador. */
 export const REFY_COMPONENT_APIS = [
@@ -41,12 +40,6 @@ export const REFY_COMPONENT_APIS = [
   ChoicePickerApi,
   SliderApi,
 ] as const;
-
-/**
- * Validação estrita do web_core, menos a regra de órfãos: o agente troca o layout com
- * `updateComponents` e as peças que saem da árvore ficam guardadas (o A2UI 1.0 não apaga peça).
- */
-export const REFY_VALIDATION = Object.freeze({ ...STRICT_VALIDATION, allowOrphanComponents: true });
 
 /** Definição do catálogo sem implementação visual, para validar mensagens fora do navegador. */
 export const refyCatalogDefinition = new Catalog(REFY_CATALOG_ID, "1.0", [...REFY_COMPONENT_APIS], BASIC_FUNCTIONS);

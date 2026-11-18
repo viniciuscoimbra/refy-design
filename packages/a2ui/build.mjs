@@ -17,7 +17,7 @@ const external = [
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist, { recursive: true });
 await build({
-  entryPoints: { index: join(here, "src/index.ts"), definition: join(here, "src/definition.ts") },
+  entryPoints: { index: join(here, "src/index.ts"), definition: join(here, "src/definition.ts"), native: join(here, "src/native.tsx") },
   outdir: dist,
   bundle: true,
   splitting: true,

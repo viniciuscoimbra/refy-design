@@ -2,6 +2,16 @@
 
 O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/) e o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Cada versão separa o que foi adicionado, modificado, marcado como obsoleto, removido, corrigido e o que é de segurança. As seções abaixo da 1.0.0 registram o trabalho anterior ao primeiro lançamento público.
 
+## 1.9.3 (18/11/2026)
+
+### Adicionado
+
+- Pacote `@refy-design/a2ui` 0.2.0 com React Native: `@refy-design/a2ui/native` desenha o mesmo JSON do agente com as mesmas 12 peças sobre o `@refy-design/mobile`, com o tema do `RefyProvider` do app. A função `openUrl` abre pelo `Linking` e os erros da superfície (função recusada, link que o sistema não abre, expressão inválida) chegam a `onError` da `A2uiNativeSurface`.
+
+### Modificado
+
+- No `@refy-design/a2ui`, `@a2ui/react`, `react-dom`, `@refy-design/web`, `@refy-design/mobile` e `react-native` viram peers opcionais: cada app instala só o da sua plataforma. Na web, instale `@a2ui/react@0.15.0` junto.
+
 ## 1.9.2 (18/11/2026)
 
 ### Modificado

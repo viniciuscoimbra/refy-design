@@ -1,17 +1,22 @@
 # @refy-design/a2ui
 
-Refy components as an [A2UI](https://a2ui.org) 1.0 catalog. An agent sends A2UI messages; your React app draws them with Refy's components and your Refy theme.
+Refy components as an [A2UI](https://a2ui.org) 1.0 catalog. An agent sends A2UI messages; your React app (web or React Native) draws them with Refy's components and your Refy theme.
 
 - Catalog id: `https://refy.design/a2ui/v1`
 - 12 components: Text, Image, Row, Column, List, Card, Divider, Button, TextField, CheckBox, ChoicePicker, Slider. They use the A2UI basic catalog v1 schemas.
-- Web only (React 19). The React Native bridge is not part of this version.
+- Web (React 19, `@refy-design/web`) and React Native (`@refy-design/mobile`): the same messages draw the same 12 components on both.
 - Experimental (0.x): the A2UI libraries are pinned at 0.15.0 and the API may change between minor versions.
 
 ## Install
 
 ```bash
-npm install @refy-design/a2ui @refy-design/web react react-dom
+# Web
+npm install @refy-design/a2ui @a2ui/react@0.15.0 @refy-design/web react react-dom
+# React Native (Expo)
+npx expo install @refy-design/a2ui @refy-design/mobile react-native-svg
 ```
+
+Each platform installs only its own renderer: `@a2ui/react` and `react-dom` are optional peers, so a React Native app does not get them.
 
 ## Render a surface
 
@@ -36,6 +41,28 @@ export function Screen() {
 ```
 
 A2UI 1.0 does not carry a theme in `createSurface`. The look comes from the `ThemeProvider` around the surface, so the same messages follow any Refy theme and light or dark mode.
+
+## React Native
+
+```tsx
+import { RefyProvider } from "@refy-design/mobile";
+import { A2uiNativeSurface, createRefyNativeProcessor } from "@refy-design/a2ui/native";
+
+const processor = createRefyNativeProcessor((action) => {
+  // Same action as on the web: name, surfaceId, resolved context.
+});
+
+processor.processMessages(messagesFromAgent);
+const surface = processor.model.surfacesMap.get("my-surface");
+
+export function Screen() {
+  return <RefyProvider theme={appTheme}>{surface ? <A2uiNativeSurface surface={surface} /> : null}</RefyProvider>;
+}
+```
+
+The theme is your app's, as on the web: `RefyProvider` takes the same theme JSON as `ThemeProvider`. Pass `fonts` to `RefyProvider` with the families your app loaded through expo-font, or the system font is used.
+
+The bridge reads the component schemas from a file of `@a2ui/web_core` that its `exports` map does not list (the catalog index uses `document`, which Hermes does not have). Metro resolves it by file path and prints a warning about it; the warning is expected.
 
 ## Validate on the server
 

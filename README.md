@@ -120,7 +120,7 @@ export function Cadastro() {
 
 Next.js App Router (Server Components): [docs/NEXT_E_REACT_NATIVE.md](docs/NEXT_E_REACT_NATIVE.md). React Native: `npx expo install @refy-design/mobile react-native-svg`, com o mesmo contrato de props e o mesmo JSON de tema da web ([guia](packages/native/README.md)).
 
-Agentes com A2UI: `npm install @refy-design/a2ui` desenha as mensagens A2UI 1.0 de um agente com os componentes e o tema do refy, em 12 peças. Só web nesta versão ([guia](packages/a2ui/README.md)).
+Agentes com A2UI: `npm install @refy-design/a2ui` desenha as mensagens A2UI 1.0 de um agente com os componentes e o tema do refy, em 12 peças, na web ou no React Native (`@refy-design/a2ui/native`, sobre o `@refy-design/mobile`) ([guia](packages/a2ui/README.md)).
 
 ## O que há no catálogo
 
