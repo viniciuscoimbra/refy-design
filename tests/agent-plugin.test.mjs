@@ -16,7 +16,7 @@ test("manifestos do Claude e do Codex têm o nome e a versão do pacote", () => 
     const m = json(join(dir, file));
     assert.equal(m.name, name, file);
     assert.equal(m.version, pkg.version, file);
-    assert.equal(m.license, pkg.license ?? "MIT", file);
+    assert.equal(m.license, pkg.license ?? "Apache-2.0", file);
   }
   for (const dir of [plugin, local]) {
     const codex = json(join(dir, ".codex-plugin/plugin.json"));

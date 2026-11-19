@@ -1,23 +1,34 @@
-# Governança
+# Governance
 
-## Papéis
+[Português](docs/pt-BR/GOVERNANCE.md) · [Español](docs/es/GOVERNANCE.md)
 
-- **Mantenedor**: decide o que entra, aprova versões e responde por segurança e conduta. Os nomes estão em [MAINTAINERS.md](MAINTAINERS.md).
-- **Contribuidor**: qualquer pessoa que abre issue, pull request ou revisão.
+refy has one lead maintainer, who answers for what ships. Anyone can propose a change, review one or report a security improvement.
 
-## Como uma mudança entra
+## Roles
 
-1. A mudança nasce como issue ou pull request, com o problema, a proposta e o impacto em exports, props, tokens e defaults.
-2. Mudança de comportamento traz spec em `openspec/specs/` e teste que a cobre.
-3. O CI do pull request precisa passar. Depois o mantenedor leva a mudança para o repositório de trabalho do refy e roda ali de novo os mesmos passos do CI, duas vezes: na árvore de trabalho e na árvore que vai para o público. A promoção ainda confere a sincronia entre código e documentação (números, versões e promessas de README, docs, plugins e site), faz a varredura de nomes e links internos, a varredura de segredos com o gitleaks no código e no pacote do npm, e confere o histórico de `main`. Os testes de navegador e de acessibilidade são os mesmos do CI público: quem contribui reproduz na própria máquina qualquer falha de componente.
-4. Passou: o pull request é aprovado e a mudança sai na próxima versão. Não passou: o pull request é fechado com o motivo, o comando e o teste que falharam e o trecho da saída.
-5. A versão sai como um commit do mantenedor, `refy X.Y.Z`, com a árvore aprovada no repositório de trabalho. Os pull requests aceitos naquela versão entram nesse commit como merge: o GitHub marca cada um como mergeado, os commits continuam com a autoria de quem escreveu, e a pessoa aparece entre os contribuidores do repositório e no CHANGELOG.
-6. A linha principal de `main` (o primeiro pai de cada commit) só tem versões. O CI do repositório (`scripts/check-release-history.mjs`) recusa qualquer outra coisa nessa linha.
+- **Lead maintainer**: decides what goes in, approves each version and answers for security and conduct. Today this is Vinícius Coimbra. Names are in [MAINTAINERS.md](MAINTAINERS.md).
+- **Maintainer**: reviews and merges pull requests in the areas listed next to their name in MAINTAINERS.md. The lead maintainer invites a maintainer after sustained contributions and records the change in MAINTAINERS.md and the CHANGELOG.
+- **Contributor**: anyone who opens an issue, a pull request or a review. Accepted contributors appear in the GitHub contributors list and are credited in the CHANGELOG of the version that ships their work.
 
-## Versões
+## How decisions are made
 
-O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/). Patch corrige sem mudar API. Minor acrescenta sem quebrar. Major quebra, com guia de migração no CHANGELOG. Cada versão tem tag `vX.Y.Z` e pacote anexado ao release.
+Bugs, proposals and discussions happen in the [public issues](https://github.com/viniciuscoimbra/refy-design/issues). A pull request goes in when its checks pass and a maintainer approves it. When people disagree, the discussion happens in the issue or pull request, in public. If there is no agreement, the lead maintainer decides and writes down the reason in the same thread.
 
-## Mudar esta governança
+Breaking changes, license changes and changes to this document are always decided by the lead maintainer.
 
-Mudança neste arquivo segue o mesmo caminho de qualquer outra e é registrada no CHANGELOG.
+## How a change gets in
+
+1. A change starts as an issue or a pull request, with the problem, the proposal and the impact on exports, props, tokens and defaults.
+2. A behavior change comes with a spec in `openspec/specs/` and a test that covers it.
+3. The pull request CI must pass. Then the maintainer runs the same CI steps again in the release pipeline, twice: on the working tree and on the tree that goes public. The release also checks the sync between code and documentation (numbers, versions and promises in README, docs, plugins and site), runs the scan for internal names and links, runs the secret scan with gitleaks on the code and on the npm package, and checks the history of `main`. Browser and accessibility tests are the same as in the public CI, so a contributor reproduces any component failure on their own machine.
+4. Passed: the pull request is approved and ships in the next version. Did not pass: the pull request is closed with the reason, the command and the test that failed, and the relevant output.
+5. The version ships as one commit by the maintainer, `refy X.Y.Z`, with the approved tree. Pull requests accepted in that version are merged into that commit: GitHub marks each one as merged, the commits keep their authors, and each author appears among the repository contributors and in the CHANGELOG.
+6. The first-parent line of `main` holds only versions. The repository CI (`scripts/check-release-history.mjs`) rejects anything else on that line.
+
+## Versions
+
+refy follows [Semantic Versioning](https://semver.org/). Patch fixes without changing the API. Minor adds without breaking. Major breaks, with a migration guide in the CHANGELOG. Every version has a `vX.Y.Z` tag and its package attached to the release. The process is in [RELEASES.md](RELEASES.md).
+
+## Changing this governance
+
+A change to this file follows the same path as any other change and is recorded in the CHANGELOG.

@@ -1,6 +1,6 @@
 # Dependências e fontes
 
-A licença MIT na raiz cobre o código Refy de autoria de Vinícius Coimbra. Cada dependência mantém sua própria licença e avisos; consulte os pacotes e o lockfile.
+A licença Apache 2.0 na raiz (com o [NOTICE](NOTICE)) cobre o código Refy de autoria de Vinícius Coimbra e dos contribuidores. As versões até a 1.9.3 saíram sob MIT. Cada dependência mantém sua própria licença e avisos; consulte os pacotes e o lockfile.
 
 - React e React DOM são dependências fornecidas pela aplicação consumidora.
 - D3 Array, Scale, Shape, Hierarchy, Force, Chord, Geo, Sankey, Selection, Zoom e Brush são dependências para gráficos. São externas ao JavaScript compilado da biblioteca; conservam suas licenças nos pacotes instalados.

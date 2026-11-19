@@ -30,15 +30,15 @@ export function validateSpec(spec) {
   return problems;
 }
 
-// Põe o item em "## Não publicado", dentro de "### <categoria>", criando o que faltar. A seção fica
+// Põe o item em "## [Unreleased]", dentro de "### <categoria>", criando o que faltar. A seção fica
 // no topo, antes da primeira versão, como pede o Keep a Changelog.
 export function unreleasedEntry(markdown, category, text) {
   const lines = markdown.split("\n");
-  let start = lines.findIndex((line) => line.trim() === "## Não publicado");
+  let start = lines.findIndex((line) => line.trim() === "## [Unreleased]");
   if (start < 0) {
     const first = lines.findIndex((line) => line.startsWith("## "));
     start = first < 0 ? lines.length : first;
-    lines.splice(start, 0, "## Não publicado", "");
+    lines.splice(start, 0, "## [Unreleased]", "");
   }
   let end = lines.findIndex((line, index) => index > start && line.startsWith("## "));
   if (end < 0) end = lines.length;
@@ -125,10 +125,11 @@ export async function contribute(argv, { cwd = process.cwd(), log = console.log 
     const applied = run("git", ["apply", "--whitespace=nowarn", "contrib.patch"], wt, gates.steps);
     if (!applied.ok) throw Error("git apply falhou: " + applied.out);
     rmSync(join(wt, "contrib.patch"));
-    // A entrada vai para "## Não publicado" na categoria do Keep a Changelog: família nova é
-    // Adicionado, mudança numa família que já existe é Modificado. A versão só é escolhida na release.
+    // A entrada vai para "## [Unreleased]" na categoria do Keep a Changelog: família nova é
+    // Added, mudança numa família que já existe é Changed. A versão só é escolhida na release.
     const changelog = join(wt, "CHANGELOG.md");
-    writeFileSync(changelog, unreleasedEntry(existsSync(changelog) ? readFileSync(changelog, "utf8") : "# Changelog\n", fresh ? "Adicionado" : "Modificado", `${spec.component}: ${spec.changelog}`));
+    writeFileSync(changelog, unreleasedEntry(existsSync(changelog) ? readFileSync(changelog, "utf8") : "# Changelog\n", fresh ? "Added" : "Changed", `${spec.component}: ${spec.changelog}`));
+    run("node", ["scripts/changelog-i18n.mjs"], wt, gates.steps);
     run("npm", ["run", "docs:build"], wt, gates.steps);
     run("node", ["scripts/api-history.mjs"], wt, gates.steps);
     run("npm", ["run", "agent:build"], wt, gates.steps);

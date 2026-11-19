@@ -40,4 +40,4 @@ O refy não tem conta, não coleta dado pessoal e não guarda o que você pede a
 
 ## Suporte
 
-Dúvida ou defeito: [issues do refy-design](https://github.com/viniciuscoimbra/refy-design/issues). Licença MIT.
+Dúvida ou defeito: [issues do refy-design](https://github.com/viniciuscoimbra/refy-design/issues). Licença Apache 2.0.

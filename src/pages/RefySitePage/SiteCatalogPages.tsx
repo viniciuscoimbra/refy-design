@@ -57,7 +57,7 @@ export const faqFor = (tr: (text: string) => string) => [
     id: "license",
     title: tr("Posso usar em projetos comerciais?"),
     content: (
-      <p>{tr("Sim. A licença MIT permite uso comercial; mantenha o aviso de autoria e a licença junto do código.")}</p>
+      <p>{tr("Sim. A licença Apache 2.0 permite uso comercial. Mantenha a licença e o NOTICE junto do código, e não use o nome refy no seu produto.")}</p>
     ),
   },
   {

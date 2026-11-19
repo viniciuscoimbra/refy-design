@@ -35,7 +35,7 @@ export const Playground: Story = {
       { title: "Project", links: [{ label: "Repository", href: "https://example.com/refy", external: true }] },
     ],
     credits: "Created by Vinícius Coimbra.",
-    legal: "© 2026 refy · MIT License",
+    legal: "© 2026 refy · Apache License 2.0",
   },
 };
 

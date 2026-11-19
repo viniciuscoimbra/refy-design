@@ -411,10 +411,14 @@ const footerPageLabels = {
   ai: { pt: "Para IAs", en: "For AI", es: "Para IAs" },
 } satisfies Partial<Record<SitePage, Record<Locale, string>>>;
 const footerDocs: DocTopic[] = ["primeiros-passos", "instalacao", "tema-por-arquivo", "versoes"];
-const projectLinks: Array<[string, Record<Locale, string>]> = [
+// Documentos do repositório: inglês na raiz, português e espanhol em docs/pt-BR e docs/es.
+const repoDoc = (file: string): Record<Locale, string> => ({ pt: `/blob/main/docs/pt-BR/${file}`, en: `/blob/main/${file}`, es: `/blob/main/docs/es/${file}` });
+const projectLinks: Array<[string | Record<Locale, string>, Record<Locale, string>]> = [
   ["", { pt: "Código no GitHub", en: "Source on GitHub", es: "Código en GitHub" }],
-  ["/blob/main/SECURITY.md", { pt: "Segurança", en: "Security", es: "Seguridad" }],
-  ["/blob/main/LICENSE", { pt: "Licença MIT", en: "MIT License", es: "Licencia MIT" }],
+  [repoDoc("ROADMAP.md"), { pt: "Roadmap", en: "Roadmap", es: "Roadmap" }],
+  [repoDoc("GOVERNANCE.md"), { pt: "Governança", en: "Governance", es: "Gobernanza" }],
+  [repoDoc("SECURITY.md"), { pt: "Segurança", en: "Security", es: "Seguridad" }],
+  ["/blob/main/LICENSE", { pt: "Licença Apache 2.0", en: "Apache License 2.0", es: "Licencia Apache 2.0" }],
 ];
 // Sales sections: one per argument, each with a live proof built from refy.
 function LandingCtas({ navigate }: { navigate: (page: SitePage) => void }) {
@@ -932,7 +936,7 @@ function SiteShell({
       onSelect: () => select(item.id),
     })),
     { id: "contribute", label: projectLabel(locale, "contribuir"), description: projectDescription(locale, "contribuir"), group: projectGroupLabel(locale), icon: Icons.projects, keywords: "contribuir contributing pull request contribuir", onSelect: () => navigate("contribute") },
-    { id: "maintainer", label: projectLabel(locale, "quem-mantem"), description: projectDescription(locale, "quem-mantem"), group: projectGroupLabel(locale), icon: Icons.projects, keywords: "quem mantém mantenedores maintainers autor vinícius coimbra gabriel gripp leandro pereira sobre", onSelect: () => navigate("maintainer") },
+    { id: "maintainer", label: projectLabel(locale, "quem-mantem"), description: projectDescription(locale, "quem-mantem"), group: projectGroupLabel(locale), icon: Icons.projects, keywords: "quem mantém mantenedores maintainers contribuidores contributors autor vinícius coimbra sobre", onSelect: () => navigate("maintainer") },
     ...aiTopics.map((topic) => ({ id: `ai-${topic}`, label: localizedAiPages[locale][topic].label, description: localizedAiPages[locale][topic].description, group: t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon: Icons.code, keywords: `${topic} agente agent claude codex`, onSelect: () => navigate("ai", component, template, doc, collection, topic) })),
     {id:"agent-rules", label:t({ pt: "Regras de composição", en: "Composition rules", es: "Reglas de composición" }), description:t({ pt: "Contexto, componentes e contratos", en: "Context, components and contracts", es: "Contexto, componentes y contratos" }), group:t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon:Icons.code, keywords:"composição agente composition agent", onSelect:() => navigate("ai")},
     {id:"agent-recipes", label:t({ pt: "Receitas de composição", en: "Composition recipes", es: "Recetas de composición" }), description:t({ pt: "Padrões e exemplos práticos", en: "Patterns and practical examples", es: "Patrones y ejemplos prácticos" }), group:t({ pt: "Para IAs", en: "For AI", es: "Para IAs" }), icon:Icons.projects, keywords:"composição agente composition agent", onSelect:() => navigate("ai")},
@@ -1115,7 +1119,7 @@ function SiteShell({
             links: [
               { label: projectLabel(locale, "contribuir"), href: localePath(locale, pagePaths.contribute), onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); navigate("contribute"); } },
               { label: projectLabel(locale, "quem-mantem"), href: localePath(locale, pagePaths.maintainer), onClick: (event: { preventDefault: () => void }) => { event.preventDefault(); navigate("maintainer"); } },
-              ...(githubEnabled ? projectLinks.map(([href, label]) => ({ label: t(label), href: `${githubUrl}${href}`, external: true })) : []),
+              ...(githubEnabled ? projectLinks.map(([href, label]) => ({ label: t(label), href: `${githubUrl}${typeof href === "string" ? href : t(href)}`, external: true })) : []),
             ],
           },
         ]}
@@ -1123,8 +1127,8 @@ function SiteShell({
           <LanguageControl side="top" />
           <ModeControl mode={config.theme} onChange={theme => update({theme})} />
         </>}
-        credits={<>{t({ pt: "Criado por", en: "Created by", es: "Creado por" })} <a href="https://github.com/viniciuscoimbra" target="_blank" rel="noreferrer">Vinícius Coimbra</a>.</>}
-        legal={<>© 2026 refy · {t({ pt: "Licença MIT", en: "MIT License", es: "Licencia MIT" })} · <a href="https://refy.design">refy.design</a></>}
+        credits={<>{t({ pt: "Mantido por", en: "Maintained by", es: "Mantenido por" })} <a href="https://github.com/viniciuscoimbra" target="_blank" rel="noreferrer">Vinícius Coimbra</a> {t({ pt: "e", en: "and", es: "y" })} {githubEnabled ? <a href={`${githubUrl}/graphs/contributors`} target="_blank" rel="noreferrer">{t({ pt: "contribuidores", en: "contributors", es: "contribuidores" })}</a> : t({ pt: "contribuidores", en: "contributors", es: "contribuidores" })}.</>}
+        legal={<>© 2026 refy · {t({ pt: "Licença Apache 2.0", en: "Apache License 2.0", es: "Licencia Apache 2.0" })} · <a href="https://refy.design">refy.design</a></>}
       />
       <Command
         width={760}

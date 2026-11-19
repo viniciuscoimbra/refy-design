@@ -1,85 +1,61 @@
-# Contribuir com o Refy
+# Contributing to refy
 
-O Refy é uma biblioteca React sob MIT, mantida por Vinícius Coimbra. A licença
-permite derivação; não licencia automaticamente marcas, fontes ou assets de terceiros.
+[Português](docs/pt-BR/CONTRIBUTING.md) · [Español](docs/es/CONTRIBUTING.md)
 
-## Antes de propor
+refy is a React library under Apache 2.0, maintained by Vinícius Coimbra. The license allows derivative work; it does not license trademarks, fonts or third-party assets. See [TRADEMARKS.md](TRADEMARKS.md).
 
-Faça as três perguntas nesta ordem. A primeira resposta sim diz onde a mudança mora.
+## Before you propose
 
-1. **O tema resolve?** Se o componente já lê um token ou uma variante que chega no
-   visual que você quer, a mudança é no arquivo de tema do seu projeto. O refy não muda.
-2. **É composição do seu produto?** Tela ou peça montada com componentes do refy fica
-   no seu projeto, mesmo que se repita em várias telas.
-3. **Falta prop ou token?** Aí é contribuição: o componente não tem como fazer isso, e a
-   capacidade serve pra qualquer produto. Mostre a linha do componente que impede.
+Ask these three questions in order. The first yes tells you where the change lives.
 
-Se a resposta foi a terceira, abra uma issue "Falta no refy" com a tela que precisa e o
-que o componente não deixa fazer. Faça a peça no seu projeto, em
-`refy-extensions/<Nome>/`, com o patch e um `contribution.json`. Depois rode:
+1. **Does the theme solve it?** If the component already reads a token or a variant that gets you the look you want, the change belongs in your project's theme file. refy does not change.
+2. **Is it a composition of your product?** A screen or piece built from refy components stays in your project, even if it repeats across screens.
+3. **Is a prop or token missing?** Then it is a contribution: the component cannot do it, and the capability serves any product. Point to the line of the component that blocks it.
+
+If the answer was the third, open a **Missing in refy** issue with the screen that needs it and what the component does not allow. Build the piece in your project, in `refy-extensions/<Name>/`, with the patch and a `contribution.json`. Then run:
 
 ```bash
-npx -p @refy-design/web refy contribute <Nome>
+npx -p @refy-design/web refy contribute <Name>
 ```
 
-O comando testa a peça numa cópia do refy e escreve o PR. O passo a passo completo está
-em [refy.design/contribuir](https://refy.design/contribuir).
+The command tests the piece in a copy of refy and writes the pull request. The full walkthrough is at [refy.design/en/contributing](https://refy.design/en/contributing).
 
-## Propor e implementar
+## Propose and implement
 
-1. Descreva a necessidade em uma mudança OpenSpec, com proposal, design, specs e
-   tasks. Inclua alternativas existentes, consumidores afetados e critérios de aceite.
-2. Registre o escopo autorizado antes de implementar. Para uma nova família,
-   justifique por que composição dos componentes existentes não resolve a necessidade.
-3. Identifique responsável e revisor no PR. Vinícius é o mantenedor inicial e decide
-   alterações incompatíveis e publicação. Contribuidores podem revisar; uma revisão
-   feita pelo próprio agente autor deve se identificar, sem alegar independência.
-4. Execute os testes aplicáveis e preencha a evidência por requisito/tarefa. Registre
-   alterações de API, tokens, defaults e comportamento com um de–para e migração.
-5. Sincronize specs implementadas e conclua o gate somente com os aceites atendidos.
+1. Describe the need in an OpenSpec change, with proposal, design, specs and tasks. Include existing alternatives, affected consumers and acceptance criteria.
+2. Record the authorized scope before implementing. For a new family, explain why composing existing components does not solve the need.
+3. Name the owner and the reviewer in the pull request. Vinícius is the lead maintainer and decides breaking changes and releases. Contributors can review; a review by the authoring agent must say so, without claiming independence.
+4. Run the applicable tests and fill in the evidence per requirement or task. Record changes to API, tokens, defaults and behavior with a before and after and a migration.
+5. Sync the implemented specs and close the gate only when the acceptance criteria are met.
 
-O refy segue [versionamento semântico](https://semver.org/lang/pt-BR/): mudança que
-quebra export, prop, token ou default só entra em versão major, com de–para e migração.
-Não copie dados ou código privado para demonstrar compatibilidade; use fixtures sintéticas.
+refy follows [Semantic Versioning](https://semver.org/): a change that breaks an export, prop, token or default only lands in a major version, with a before and after and a migration. Do not copy private data or code to show compatibility; use synthetic fixtures.
 
-## O caminho do seu pull request
+## The path of your pull request
 
-1. Abra o pull request contra `main`. O CI roda tipos, build e testes.
-2. O mantenedor leva a mudança para o repositório de trabalho e roda de novo os
-   mesmos passos do CI, mais a varredura de nomes internos e de segredos. Os testes
-   de navegador e de acessibilidade são os do CI público, então você reproduz
-   qualquer falha de componente com `npx playwright test`.
-3. Passou: o pull request é aprovado e entra na próxima versão como merge, com os
-   seus commits e a sua autoria. Você aparece entre os contribuidores do GitHub e
-   no CHANGELOG. Não passou: o pull request é fechado com o motivo, o comando e o
-   teste que falharam e o trecho da saída.
+1. Open the pull request against `main`. CI runs types, build and tests.
+2. The maintainer runs the same CI steps again in the release pipeline, plus the scan for internal names and secrets. Browser and accessibility tests are the ones in the public CI, so you reproduce any component failure with `npx playwright test`.
+3. Passed: the pull request is approved and ships in the next version as a merge, with your commits and your authorship. You appear among the GitHub contributors and in the CHANGELOG. Did not pass: the pull request is closed with the reason, the command and the test that failed, and the relevant output.
 
-O pull request não é mergeado sozinho antes da versão. Ele entra junto com ela,
-para que `main` só tenha versões testadas.
+The pull request is not merged on its own before the version. It goes in with the version, so `main` only holds tested versions.
 
-## Pull request de ferramenta
+## Tooling pull requests
 
-Gate, script de verificação, teste ou revisor automático não usam
-`npx -p @refy-design/web refy contribute`, que é para componente. O caminho é o geral:
+Gates, verification scripts, tests and automated reviewers do not use `npx -p @refy-design/web refy contribute`, which is for components. The path is the general one:
 
-1. Uma mudança OpenSpec com a regra nova (proposal, spec com o cenário de falha e tasks).
-2. O caso que o gate recusa e o vizinho parecido que ele deixa passar, os dois no
-   teste. Sem o vizinho, o gate ensina a desviar dele.
-3. CI verde e a mesma bateria do repositório de trabalho.
+1. An OpenSpec change with the new rule (proposal, a spec with the failure scenario, and tasks).
+2. The case the gate rejects and the similar neighbor it lets through, both in the test. Without the neighbor, the gate teaches people to route around it.
+3. Green CI and the same checks as the release pipeline.
 
-## Desenvolvimento
+## Development
 
-Node 22.12 ou posterior, instalação pelo lockfile (`npm ci`). `npm run storybook`
-abre o catálogo local; `npm run check` verifica tipos, build e distribuição.
-`node scripts/docs-sync.mjs --check` (também no `check`) recusa README, docs,
-plugins ou site que digam número, versão ou promessa que o código desmente; o
-que cada página afirma e de onde vem está em `docs/sync/surfaces/`.
-Para revisar specs, instale `@fission-ai/openspec@1.5.0` e execute
-`npm run check:specs`. O CI usa essa versão fixa.
+Node 22.12 or later, installed from the lockfile (`npm ci`). `npm run storybook` opens the local catalog; `npm run check` verifies types, build and distribution. `node scripts/docs-sync.mjs --check` (also part of `check`) rejects README, docs, plugins or site that state a number, version or promise the code contradicts; what each page claims and where it comes from is in `docs/sync/surfaces/`. To review specs, install `@fission-ai/openspec@1.5.0` and run `npm run check:specs`. CI uses that pinned version.
 
-O [contrato de qualidade](docs/QUALITY.md) explica camadas, maturidade, evidências
-e exceções. Um build ou um grande número de stories não certifica uma família.
+The [quality contract](docs/QUALITY.md) explains layers, maturity, evidence and exceptions. A build or a large number of stories does not certify a family.
 
-## Criar capacidades reutilizáveis
+## Reusable capabilities
 
-Leia o [guia avançado](docs/ADVANCED_ORGANISMS.md) e o [playbook do Coverflow](docs/ORGANISM_PLAYBOOK.md) antes de propor um organismo.
+Read the [advanced guide](docs/ADVANCED_ORGANISMS.md) and the [Coverflow playbook](docs/ORGANISM_PLAYBOOK.md) before proposing an organism.
+
+## Languages
+
+Repository documents are written in English first, with Portuguese and Spanish versions in `docs/pt-BR/` and `docs/es/`. A change to one language updates the other two in the same pull request. Code and identifiers are in English.

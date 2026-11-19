@@ -31,7 +31,7 @@ Responde com o catálogo, a API e os tokens do pacote \`@refy-design/web\`. Não
 
 ## Privacidade e suporte
 
-[Política de privacidade](https://github.com/viniciuscoimbra/refy-design/blob/main/PRIVACY.md). Dúvida ou defeito: [issues do refy-design](https://github.com/viniciuscoimbra/refy-design/issues). Licença MIT.
+[Política de privacidade](https://github.com/viniciuscoimbra/refy-design/blob/main/PRIVACY.md). Dúvida ou defeito: [issues do refy-design](https://github.com/viniciuscoimbra/refy-design/issues). Licença Apache 2.0.
 `;
 
 export function openaiFiles() {

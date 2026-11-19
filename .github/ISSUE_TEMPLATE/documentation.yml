@@ -1,0 +1,26 @@
+name: Documentation
+description: A page in the repository or on refy.design is wrong, missing or unclear.
+labels: ["documentation"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      placeholder: https://refy.design/en/docs/theming
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      multiple: true
+      options:
+        - English
+        - Português
+        - Español
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or missing
+    validations:
+      required: true

@@ -17,5 +17,3 @@ Os quatro rostos são de pessoas fictícias, gerados por IA. Não são fotos de 
 Prompt comum: retrato quadrado fotorrealista de pessoa fictícia, que não se pareça com ninguém real ou famoso, de frente, sorriso leve, fundo cinza claro liso, luz suave, estilo de foto de perfil profissional, cabeça e ombros.
 
 `vinicius.jpg` é a foto real do mantenedor, Vinícius Coimbra, cedida por ele para a página Quem mantém. Não é gerada.
-
-`gabriel.jpg` e `leandro.jpg` são as fotos públicas de perfil do GitHub de Gabriel Gripp (grippado) e Leandro Pereira (iosbilario), reduzidas para 144 px em JPEG 85, para a página Quem mantém. Não são geradas.

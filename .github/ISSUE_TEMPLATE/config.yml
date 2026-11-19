@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security improvement
+    url: https://github.com/viniciuscoimbra/refy-design/security/advisories/new
+    about: Report privately. Do not open a public issue.
+  - name: Documentation
+    url: https://refy.design/en/docs
+    about: How to install, theme and use refy with agents.

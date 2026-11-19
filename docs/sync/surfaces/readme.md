@@ -1,11 +1,11 @@
 ---
 id: readme
 title: README do repositório
-files: README.md
+files: README.md, README.pt-BR.md, README.es.md
 mcpTools: local
 requires: mcp-tool-names, mobile-install, tool-count, family-levels
 ---
-Primeira página do repositório público e do pacote no npm. Só em português.
+Primeira página do repositório público e do pacote no npm. Escrita em inglês, com `README.pt-BR.md` e `README.es.md`.
 
 | Afirmação | Fonte no código |
 |---|---|

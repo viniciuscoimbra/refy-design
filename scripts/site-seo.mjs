@@ -84,7 +84,7 @@ const W = {
     typographyDesc: "Escala tipográfica do tema refy aplicada a títulos, texto e código.",
     aiDesc: "Catálogo, contratos e CLI que agentes de código consultam antes de montar uma tela com o refy.",
     playgroundDesc: "Escolha um componente, troque tema e propriedades e copie o código.",
-    homeFacts: (c, b) => `Biblioteca React e TypeScript sob licença MIT, com ${c} famílias de componentes organizadas em átomos, moléculas e organismos, ${b} templates e pacote nativo para celular.`,
+    homeFacts: (c, b) => `Biblioteca React e TypeScript sob licença Apache 2.0, com ${c} famílias de componentes organizadas em átomos, moléculas e organismos, ${b} templates e pacote nativo para celular.`,
     family: (label, level) => `${label}: componente do refy (${level}).`,
     headline: (label) => `${label}, componente do refy`,
     notFound: "Página não encontrada", notFoundDesc: "Este endereço não existe no refy.design.", back: "Voltar ao início" },
@@ -96,7 +96,7 @@ const W = {
     typographyDesc: "The refy theme type scale applied to headings, text and code.",
     aiDesc: "Catalog, contracts and CLI that coding agents check before they build a screen with refy.",
     playgroundDesc: "Pick a component, change theme and props, and copy the code.",
-    homeFacts: (c, b) => `React and TypeScript library under the MIT license, with ${c} component families organized as atoms, molecules and organisms, ${b} templates and a native package for mobile.`,
+    homeFacts: (c, b) => `React and TypeScript library under the Apache 2.0 license, with ${c} component families organized as atoms, molecules and organisms, ${b} templates and a native package for mobile.`,
     family: (label, level) => `${label}: refy component (${level}).`,
     headline: (label) => `${label}, a refy component`,
     notFound: "Page not found", notFoundDesc: "This address does not exist on refy.design.", back: "Back to home" },
@@ -108,7 +108,7 @@ const W = {
     typographyDesc: "Escala tipográfica del tema refy aplicada a títulos, texto y código.",
     aiDesc: "Catálogo, contratos y CLI que los agentes de código consultan antes de montar una pantalla con refy.",
     playgroundDesc: "Elige un componente, cambia tema y propiedades y copia el código.",
-    homeFacts: (c, b) => `Biblioteca React y TypeScript con licencia MIT, con ${c} familias de componentes organizadas en átomos, moléculas y organismos, ${b} plantillas y paquete nativo para móvil.`,
+    homeFacts: (c, b) => `Biblioteca React y TypeScript con licencia Apache 2.0, con ${c} familias de componentes organizadas en átomos, moléculas y organismos, ${b} plantillas y paquete nativo para móvil.`,
     family: (label, level) => `${label}: componente de refy (${level}).`,
     headline: (label) => `${label}, componente de refy`,
     notFound: "Página no encontrada", notFoundDesc: "Esta dirección no existe en refy.design.", back: "Volver al inicio" },
@@ -142,7 +142,7 @@ for (const L of LOCALES) {
 <h2>${w.templates}</h2><ul>${blocks.map((b) => link(`/templates/${b.id}`, b.title)).join("")}</ul>`,
     ld: [
       { "@type": "WebSite", "@id": `${SITE}/#website`, name: "refy", alternateName: "refy.design", url: SITE + "/", inLanguage: LOCALES.map((l) => HTML_LANG[l]), publisher: author },
-      { "@type": "SoftwareSourceCode", name: "refy", description: d.home.description, url: SITE + at(L, "/"), codeRepository: REPO, programmingLanguage: ["TypeScript", "React"], runtimePlatform: ["Web", "React Native"], license: "https://opensource.org/licenses/MIT", author, sameAs: [REPO, "https://www.npmjs.com/package/@refy-design/web", "https://www.npmjs.com/package/@refy-design/mobile"] },
+      { "@type": "SoftwareSourceCode", name: "refy", description: d.home.description, url: SITE + at(L, "/"), codeRepository: REPO, programmingLanguage: ["TypeScript", "React"], runtimePlatform: ["Web", "React Native"], license: "https://www.apache.org/licenses/LICENSE-2.0", author, sameAs: [REPO, "https://www.npmjs.com/package/@refy-design/web", "https://www.npmjs.com/package/@refy-design/mobile"] },
     ],
   });
   for (const topic of docs.docTopics) {
@@ -308,7 +308,7 @@ const section = (title, list) => `## ${title}\n\n${list.map((r) => `- [${r.title
 const by = (prefix) => ptRoutes.filter((r) => r.path.startsWith(prefix));
 writeFileSync(join(out, "llms.txt"), `# refy
 
-> ${homeDescription} Biblioteca React e TypeScript, licença MIT, pacote \`@refy-design/web\`.
+> ${homeDescription} Biblioteca React e TypeScript, licença Apache 2.0, pacote \`@refy-design/web\`.
 
 O texto completo de docs, componentes e templates está em ${SITE}/llms-full.txt. Agentes de código que já instalaram o pacote consultam o catálogo local com \`npm exec --offline -- refy-agent catalog <necessidade>\` ou pelo servidor MCP (${SITE}/para-ias/mcp).
 

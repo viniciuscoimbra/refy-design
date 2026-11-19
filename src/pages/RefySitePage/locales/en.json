@@ -1758,7 +1758,7 @@
  "Seções expansíveis que revelam conteúdo ao acionar seus títulos.": "Expandable sections that reveal content when their titles are triggered.",
  "Seções múltiplas via `group` — Recentes + Mais visitadas.": "Multiple sections via `group`: Recent + Most visited.",
  "Seções que revelam ou ocultam conteúdo.": "Sections that reveal or hide content.",
- "Sim. A licença MIT permite uso comercial; mantenha o aviso de autoria e a licença junto do código.": "Yes. The MIT license allows commercial use; keep the copyright notice and the license with the code.",
+ "Sim. A licença Apache 2.0 permite uso comercial. Mantenha a licença e o NOTICE junto do código, e não use o nome refy no seu produto.": "Yes. The Apache 2.0 license allows commercial use. Keep the license and the NOTICE with the code, and don't use the refy name for your product.",
  "Simbolo": "Symbol",
  "Simples": "Simple",
  "Sinalização compacta de um estado, com rótulo e indicação de atividade.": "Compact signal of a state, with label and activity indicator.",

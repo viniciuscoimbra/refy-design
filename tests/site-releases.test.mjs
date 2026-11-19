@@ -1,5 +1,6 @@
-// A página Releases do site lê o CHANGELOG.md. Cada frase de versão publicada precisa de inglês e
-// espanhol em locales/changelog.json, senão o site mostra português para quem lê em outro idioma.
+// A página Releases do site lê o CHANGELOG.md, escrito em inglês. Cada frase de versão publicada
+// precisa de português e espanhol em locales/changelog.json, senão o site mostra inglês para quem lê
+// em outro idioma.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -10,12 +11,12 @@ const changelog = readFileSync("CHANGELOG.md", "utf8");
 const text = JSON.parse(readFileSync("src/pages/RefySitePage/locales/changelog.json", "utf8"));
 
 test("só seção com versão e data vira release", () => {
-  const parsed = parseReleases("# C\n\n## 1.1.0 (proposta)\n\n- x\n\n## 1.0.0 (06/11/2026)\n\nResumo.\n\n- a\n- b\n\n## Desenvolvimento local — 29/10/2026\n- c\n");
-  assert.deepEqual(parsed, [{ version: "1.0.0", date: "2026-11-06", summary: "Resumo.", groups: [{ kind: null, changes: ["a", "b"] }], changes: ["a", "b"] }]);
+  const parsed = parseReleases("# C\n\n## [Unreleased]\n\n- x\n\n## [1.0.0] - 2026-11-06\n\nSummary.\n\n- a\n- b\n\n## Local notes\n- c\n");
+  assert.deepEqual(parsed, [{ version: "1.0.0", date: "2026-11-06", summary: "Summary.", groups: [{ kind: null, changes: ["a", "b"] }], changes: ["a", "b"] }]);
 });
 
 test("mudança fica na categoria do Keep a Changelog", () => {
-  const [release] = parseReleases("## 1.1.0 (07/11/2026)\n\n### Adicionado\n\n- a\n\n### Obsoleto\n\n- b\n");
+  const [release] = parseReleases("## [1.1.0] - 2026-11-07\n\n### Added\n\n- a\n\n### Deprecated\n\n- b\n");
   assert.deepEqual(release.groups, [{ kind: "added", changes: ["a"] }, { kind: "deprecated", changes: ["b"] }]);
 });
 
@@ -33,19 +34,19 @@ test("SemVer diz o que a atualização pede", () => {
   assert.equal(upgradeKind("2.0.0", "1.2.0"), "major");
 });
 
-test("contribuição entra em Não publicado, na categoria certa", () => {
-  const base = "# Changelog\n\n## 1.0.0 (07/11/2026)\n\n### Adicionado\n\n- x\n";
-  const once = unreleasedEntry(base, "Adicionado", "Novo.");
-  assert.equal(once, "# Changelog\n\n## Não publicado\n\n### Adicionado\n\n- Novo.\n\n## 1.0.0 (07/11/2026)\n\n### Adicionado\n\n- x\n");
-  const twice = unreleasedEntry(once, "Adicionado", "Outro.");
-  assert.match(twice, /- Novo\.\n- Outro\.\n\n## 1\.0\.0/);
-  assert.equal(parseReleases(twice).length, 1, "Não publicado não vira release");
+test("contribuição entra em Unreleased, na categoria certa", () => {
+  const base = "# Changelog\n\n## [1.0.0] - 2026-11-07\n\n### Added\n\n- x\n";
+  const once = unreleasedEntry(base, "Added", "New.");
+  assert.equal(once, "# Changelog\n\n## [Unreleased]\n\n### Added\n\n- New.\n\n## [1.0.0] - 2026-11-07\n\n### Added\n\n- x\n");
+  const twice = unreleasedEntry(once, "Added", "Other.");
+  assert.match(twice, /- New\.\n- Other\.\n\n## \[1\.0\.0\]/);
+  assert.equal(parseReleases(twice).length, 1, "Unreleased não vira release");
 });
 
-test("toda frase de release publicada tem inglês e espanhol", () => {
+test("toda frase de release publicada tem português e espanhol", () => {
   const releases = parseReleases(changelog);
   assert.ok(releases.length > 0, "CHANGELOG sem versão publicada");
   const missing = releases.flatMap((r) => [r.summary, ...r.changes].filter(Boolean))
-    .flatMap((line) => ["en", "es"].filter((l) => !text[l][line]).map((l) => `${l}: ${line}`));
+    .flatMap((line) => ["pt", "es"].filter((l) => !text[l][line]).map((l) => `${l}: ${line}`));
   assert.deepEqual(missing, []);
 });

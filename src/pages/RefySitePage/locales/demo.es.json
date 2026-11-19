@@ -2690,7 +2690,7 @@
     "Project": "Proyecto",
     "Ready components, themes made of tokens and rules the AI reads before building the screen.": "Componentes listos, temas hechos de tokens y reglas que la IA lee antes de armar la pantalla.",
     "Repository": "Repositorio",
-    "© 2026 refy · MIT License": "© 2026 refy · Licencia MIT"
+    "© 2026 refy · Apache License 2.0": "© 2026 refy · Licencia Apache 2.0"
   },
   "src/components/Skeleton/Skeleton.stories.tsx": {
     "Avatar and user": "Avatar y usuario",

@@ -82,4 +82,4 @@ validator.processMessages(messagesFromAgent); // throws A2uiValidationError on a
 
 ## License
 
-MIT
+Apache-2.0

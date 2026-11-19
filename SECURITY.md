@@ -1,23 +1,44 @@
-# Segurança
+# Security policy
 
-Não publique credenciais ou dados privados em issues, PRs ou exemplos. Use relato privado de segurança do GitHub quando habilitado; a preparação local não confirma a configuração remota.
+[Português](docs/pt-BR/SECURITY.md) · [Español](docs/es/SECURITY.md)
 
-## Verificação de31/10/2026 — cadeia de descoberta do Storybook
+refy takes security improvements through a private channel, so a fix ships before the details are public.
 
-A auditoria atual encontrou quatro alertas moderados transitivos em desenvolvimento: react-vite → vite-plugin-react-docgen-typescript → glob/minimatch. Runtime permaneceu sem alertas. Os advisories reportados foram [cancelamento de travessia em glob](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4) e [amplificação em minimatch](https://github.com/advisories/GHSA-g3hv-75wg-m249).
+## Supported versions
 
-Foi mantido Storybook8.6.19 e aplicado override restrito ao caller `@joshwooding/vite-plugin-react-docgen-typescript`: glob14.0.2 e minimatch11.0.1. O plugin usa globSync. A resolução foi validada nesse caller com ESM/CJS, descoberta real de TSX aninhado, resultado vazio e controles negativos que recusam versões anteriores. As engines declaradas de glob/minimatch permitem Node22.12+, requisito do projeto. Dependências de runtime não foram alteradas; o override uuid anterior foi preservado.
+| Package | Receives security improvements |
+|---|---|
+| `@refy-design/web` | Latest minor of 1.x |
+| `@refy-design/mobile` | Latest minor of 1.x |
+| `@refy-design/a2ui` | Latest minor of 0.x |
+| Remote MCP server at `https://refy.design/mcp` | Current deployment |
 
-Após a correção, `npm audit` e `npm audit --omit=dev` retornaram zero alertas nesta execução. Resultado datado, sem equivaler a auditoria independente. Rever o override quando o plugin suportar essa cadeia segura diretamente; não aceitar um downgrade ou suprimir advisories para limpar o relatório.
+Older versions get no backports. Update to the latest version to receive an improvement.
 
-## Verificação de 24/10/2026 — após correção
+## Scope
 
-`npm audit` e `npm audit --omit=dev` retornaram **zero alertas** nesta execução. Esse resultado é datado e não é auditoria independente ou garantia de ausência de vulnerabilidades. Novos advisories podem mudar o resultado.
+The npm packages above, the local MCP server (`refy-mcp`), the remote MCP server, the `refy` and `refy-local` plugins, the `refy-agent` CLI and the refy.design site.
 
-Os três alertas anteriores tinham uma única origem: uuid<11.1.1, na cadeia addon-essentials → addon-actions. O addon 8.6.19 usa v4 via ESM/CJS; foi aplicado override **restrito a @storybook/addon-actions → uuid 11.1.1**, com lockfile atualizado. Não houve supressão de advisories, downgrade de Storybook ou audit fix --force.
+## How to report a security improvement
 
-A versão corrigida é documentada no [advisory](https://github.com/advisories/GHSA-w5hq-g745-h8pq) e na [release oficial 11.1.1](https://github.com/uuidjs/uuid/releases/tag/v11.1.1). scripts/check-storybook-deps.mjs confere resolução, v4 ESM/CJS e rejeição de buffer inválido. O painel Actions também deve ser testado no navegador após mudanças dessa cadeia.
+1. Open the repository **Security** tab and choose **Report a vulnerability**. The report stays private between you and the maintainers.
+2. Describe what can be improved, the affected package and version, and the steps to reproduce it.
+3. Do not open a public issue, pull request or discussion about it, and do not include credentials or personal data.
 
-A proposta de exceção moderada anterior deixa de ser necessária para esses três avisos após a correção e a regressão. O override precisa ser removido quando uma atualização compatível do addon já depender de uuid seguro; não trocar para uuid ESM-only sem validar os callers CJS.
+## What happens next
 
-O dev server do Storybook permanece em 127.0.0.1. Não exponha esse servidor à internet; uma publicação futura usa a saída estática revisada. Nenhum segredo de npm/hosting deve entrar no repo ou no pacote. Publicação continua exigindo revisão e autorização.
+| Step | Target |
+|---|---|
+| Acknowledgment | 3 business days |
+| First assessment, with severity | 7 days |
+| Fix released | 90 days, sooner for high severity |
+
+The fix ships in a new version with a GitHub Security Advisory and a `Security` entry in the CHANGELOG. You are credited in the advisory unless you prefer not to be.
+
+## Dependencies
+
+`npm audit` runs on every release. A dependency advisory is fixed by updating or by an override scoped to the affected caller, never by suppressing the advisory.
+
+## Development servers
+
+The Storybook dev server listens on 127.0.0.1. Do not expose it to the internet; publish the static build instead. No npm or hosting secret belongs in the repository or the package.

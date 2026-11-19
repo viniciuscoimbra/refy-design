@@ -1,0 +1,38 @@
+name: Bug report
+description: Something in refy does not work as documented.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For a security improvement, do not open an issue: use the Security tab, Report a vulnerability (see SECURITY.md). You can write in English, Portuguese or Spanish.
+  - type: input
+    id: package
+    attributes:
+      label: Package and version
+      placeholder: "@refy-design/web 1.9.4"
+    validations:
+      required: true
+  - type: input
+    id: component
+    attributes:
+      label: Component, tool or page
+      placeholder: Combobox, refy_validate, refy.design/docs
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The smallest code or the clicks that show the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected and what happened
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser or device, React or React Native version, bundler.

@@ -1,6 +1,6 @@
 schema: spec-driven
 context: |
-  Refy UI (@refy-design/web) é uma biblioteca pública React/TypeScript sob MIT,
+  Refy UI (@refy-design/web) é uma biblioteca pública React/TypeScript sob Apache 2.0,
   de autoria de Vinícius Coimbra. Baseline: commit c3f03fd, versão 0.4.0,
   92 famílias e 371 stories; esses números não comprovam certificação.
   Stack: Node >=22.12, React, CSS Modules, Vite e Storybook.

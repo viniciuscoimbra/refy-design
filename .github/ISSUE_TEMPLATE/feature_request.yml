@@ -1,0 +1,26 @@
+name: Feature request
+description: A capability that is not a missing prop or component, such as a tool, a theme feature or an agent kit check.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A prop, token or component that is missing goes in "Missing in refy". You can write in English, Portuguese or Spanish.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What you are trying to do and what stops you today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What refy could offer, and who else would use it.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you tried

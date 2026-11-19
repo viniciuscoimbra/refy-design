@@ -1,8 +1,8 @@
 {
   "name": "@refy-design/web",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "description": "Refy Design System — componentes React atômicos.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "sideEffects": [
     "**/*.css",
@@ -58,7 +58,8 @@
     "check:blocks": "node scripts/check-blocks.mjs",
     "docs:build": "node scripts/component-docs.mjs",
     "versions:build": "node scripts/api-history.mjs",
-    "docs:check": "node scripts/component-docs.mjs --check --compile && node scripts/api-history.mjs --check && node --test tests/component-usage.test.mjs tests/component-colors.test.mjs tests/brand-logo-symbol.test.mjs tests/site-releases.test.mjs tests/repo-labels.test.mjs tests/package-types.test.mjs tests/interaction-coverage.test.mjs && node --experimental-strip-types --test tests/pure-logic.test.mjs && node scripts/interaction-coverage.mjs --check",
+    "changelog:build": "node scripts/changelog-i18n.mjs",
+    "docs:check": "node scripts/component-docs.mjs --check --compile && node scripts/api-history.mjs --check && node scripts/changelog-i18n.mjs --check && node --test tests/component-usage.test.mjs tests/component-colors.test.mjs tests/brand-logo-symbol.test.mjs tests/site-releases.test.mjs tests/repo-labels.test.mjs tests/package-types.test.mjs tests/interaction-coverage.test.mjs && node --experimental-strip-types --test tests/pure-logic.test.mjs && node scripts/interaction-coverage.mjs --check",
     "motion:check": "node scripts/check-motion.mjs",
     "check:site-contract": "node scripts/refy-site-harness.mjs --contract",
     "check:site-visual": "node scripts/refy-site-harness.mjs --compare",
@@ -127,6 +128,7 @@
     "src/tokens/tokens.css",
     "src/styles/global.css",
     "LICENSE",
+    "NOTICE",
     "README.md",
     "THIRD_PARTY_NOTICES.md",
     "src/tokens/foundations.tokens.json",

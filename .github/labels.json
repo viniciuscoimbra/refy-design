@@ -1,3 +1,6 @@
 [
-  { "name": "gap", "description": "Falta no refy: lacuna de componente, prop ou token", "color": "5319e7" }
+  { "name": "gap", "description": "Missing in refy: component, prop or token gap", "color": "5319e7" },
+  { "name": "bug", "description": "Something does not work as documented", "color": "d73a4a" },
+  { "name": "enhancement", "description": "New capability", "color": "a2eeef" },
+  { "name": "documentation", "description": "Repository or site documentation", "color": "0075ca" }
 ]

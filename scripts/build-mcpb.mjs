@@ -39,7 +39,7 @@ export const manifest = (tools) => ({
   homepage: "https://refy.design",
   documentation: "https://refy.design/para-ias/mcp",
   repository: { type: "git", url: "https://github.com/viniciuscoimbra/refy-design" },
-  license: pkg.license ?? "MIT",
+  license: pkg.license ?? "Apache-2.0",
   keywords: ["design-system", "react", "theme", "ui"],
   server: {
     type: "node",

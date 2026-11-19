@@ -94,7 +94,7 @@ jobs:
           (cd packages/a2ui && npm ci --no-audit --no-fund && npm pack --pack-destination ../..)
           # Extensão de um clique do Claude Desktop; o npm pack acima já montou dist/.
           node scripts/build-mcpb.mjs
-          awk -v v="$VERSION" '$0 ~ "^## "v"( |$)" {on=1; next} on && /^## / {exit} on' CHANGELOG.md > notas.md
+          awk -v v="$VERSION" 'index($0, "## [" v "]") == 1 {on=1; next} on && /^## / {exit} on' CHANGELOG.md > notas.md
           test -s notas.md
       - name: Release no GitHub
         if: env.PULAR != '1'

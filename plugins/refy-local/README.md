@@ -15,11 +15,11 @@ No Codex: `codex plugin add refy-local@refy` depois de adicionar o mesmo marketp
 
 ## O que o plugin roda e o que envia
 
-`npx` baixa `@refy-design/web` na versão exata do plugin (1.9.3) do registro do npm e roda o comando `refy-mcp` do pacote. Esse servidor:
+`npx` baixa `@refy-design/web` na versão exata do plugin (1.9.4) do registro do npm e roda o comando `refy-mcp` do pacote. Esse servidor:
 
 - lê o catálogo e a fundação de tokens que vêm no pacote;
 - não escreve no projeto e não chama IA; só grava a imagem de diferença do `refy_compare`, na pasta temporária do sistema;
 - do projeto, lê o TypeScript instalado (em toda conferência), os arquivos que você passa em `refy_validate` com `refy-agent.config.json`, `theme.json` e o registro de pranchas, as imagens que você passa em `refy_compare` e o Playwright instalado, quando `refy_theme_extract` abre um site;
 - só fala com a rede em `refy_theme_extract` com `url`: lê a página indicada e as folhas de estilo que ela carrega (até 12, inclusive de outros domínios). Endereço interno (localhost, rede privada) é recusado.
 
-Privacidade: [PRIVACY.md](https://github.com/viniciuscoimbra/refy-design/blob/main/PRIVACY.md). Suporte: [issues do refy-design](https://github.com/viniciuscoimbra/refy-design/issues). Licença MIT.
+Privacidade: [PRIVACY.md](https://github.com/viniciuscoimbra/refy-design/blob/main/PRIVACY.md). Suporte: [issues do refy-design](https://github.com/viniciuscoimbra/refy-design/issues). Licença Apache 2.0.

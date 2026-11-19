@@ -1,11 +1,17 @@
-# Código de conduta
+# Code of conduct
 
-O refy adota o [Contributor Covenant 2.1](https://www.contributor-covenant.org/pt-br/version/2/1/code_of_conduct/) como código de conduta de todos os espaços do projeto: issues, pull requests, discussões e qualquer canal que fale em nome do refy.
+[Português](docs/pt-BR/CODE_OF_CONDUCT.md) · [Español](docs/es/CODE_OF_CONDUCT.md)
 
-## Como relatar
+refy adopts the [Contributor Covenant 2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) in every project space: issues, pull requests, discussions and any channel that speaks for refy.
 
-Relate conduta inaceitável em privado pelo GitHub, na aba **Security › Report a vulnerability** do repositório, com o título começando por `Conduta:`. Só o mantenedor lê esses relatos. Quem relata tem a identidade preservada.
+## Our standards
 
-## Como o mantenedor responde
+Be respectful and specific, assume good intent, and accept review of your work. Harassment, personal attacks, discriminatory language and publishing someone's private information are not accepted.
 
-O mantenedor confirma o recebimento em até 7 dias e aplica as medidas do Contributor Covenant: correção, advertência, suspensão temporária ou banimento, conforme a gravidade e a repetição.
+## How to report
+
+Report privately through the repository **Security** tab, choosing **Report a vulnerability**, with a title that starts with `Conduct:`. Only maintainers read these reports. The identity of whoever reports is kept private.
+
+## How maintainers respond
+
+Maintainers acknowledge the report within 7 days and apply the Contributor Covenant enforcement guidelines: correction, warning, temporary ban or permanent ban, according to severity and repetition.

@@ -1,21 +1,21 @@
-// Lê as versões publicadas do CHANGELOG.md. Só conta como release a seção com versão semântica e
-// data (`## 1.0.0 (06/11/2026)`): é a que `promote.mjs` exige antes de criar a tag `vX.Y.Z`.
-// Seções de trabalho local e propostas (`## 1.1.0 (proposta)`) ficam de fora.
+// Lê as versões publicadas do CHANGELOG.md, no formato do Keep a Changelog 1.1
+// (https://keepachangelog.com/en/1.1.0/). Só conta como release a seção com versão semântica e
+// data ISO (`## [1.0.0] - 2026-11-06`): é a que `promote.mjs` exige antes de criar a tag `vX.Y.Z`.
+// `## [Unreleased]` e qualquer outra seção ficam de fora.
 //
-// Dentro da versão, as mudanças seguem as categorias do Keep a Changelog na tradução pt-BR
-// (https://keepachangelog.com/pt-BR/1.1.0/): `### Adicionado`, `### Modificado`, `### Obsoleto`,
-// `### Removido`, `### Corrigido` e `### Segurança`. Item fora de categoria fica com `kind: null`, e o
-// teste do site recusa isso em versão publicada.
-const heading = /^## (\d+\.\d+\.\d+) \((\d{2})\/(\d{2})\/(\d{4})\)\s*$/;
+// O CHANGELOG é escrito em inglês. Dentro da versão, as mudanças seguem as categorias `### Added`,
+// `### Changed`, `### Deprecated`, `### Removed`, `### Fixed` e `### Security`. Item fora de
+// categoria fica com `kind: null`, e o teste do site recusa isso em versão publicada.
+const heading = /^## \[(\d+\.\d+\.\d+)\] - (\d{4})-(\d{2})-(\d{2})\s*$/;
 
-/** Categoria do Keep a Changelog pelo título pt-BR usado no CHANGELOG.md. */
+/** Categoria do Keep a Changelog pelo título usado no CHANGELOG.md. */
 export const changeKinds = {
-  Adicionado: "added",
-  Modificado: "changed",
-  Obsoleto: "deprecated",
-  Removido: "removed",
-  Corrigido: "fixed",
-  "Segurança": "security",
+  Added: "added",
+  Changed: "changed",
+  Deprecated: "deprecated",
+  Removed: "removed",
+  Fixed: "fixed",
+  Security: "security",
 };
 
 /** @param {string} markdown */
@@ -26,7 +26,7 @@ export function parseReleases(markdown) {
   for (const line of markdown.split("\n")) {
     if (line.startsWith("## ")) {
       const match = heading.exec(line);
-      current = match ? { version: match[1], date: `${match[4]}-${match[3]}-${match[2]}`, summary: "", groups: [] } : null;
+      current = match ? { version: match[1], date: `${match[2]}-${match[3]}-${match[4]}`, summary: "", groups: [] } : null;
       kind = null;
       if (current) releases.push(current);
       continue;
