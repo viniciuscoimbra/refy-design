@@ -601,6 +601,12 @@
         "onlyMobile": false
       },
       {
+        "name": "height",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
         "name": "markOnly",
         "type": "boolean",
         "required": false,
@@ -613,16 +619,19 @@
         "onlyMobile": false
       },
       {
+        "name": "symbol",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
         "name": "tone",
         "type": "\"default\" | \"inverse\"",
         "required": false,
         "onlyMobile": false
       }
     ],
-    "onlyWeb": [
-      "height",
-      "symbol"
-    ],
+    "onlyWeb": [],
     "example": "<BrandLogo key={size} size={size} />",
     "section": "BrandLogo"
   },
@@ -4401,6 +4410,12 @@
         "onlyMobile": false
       },
       {
+        "name": "ctaPosition",
+        "type": "\"top\" | \"bottom\"",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
         "name": "current",
         "type": "boolean",
         "required": false,
@@ -4409,6 +4424,12 @@
       {
         "name": "currentLabel",
         "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
         "required": false,
         "onlyMobile": false
       },
@@ -4443,10 +4464,7 @@
         "onlyMobile": false
       }
     ],
-    "onlyWeb": [
-      "ctaPosition",
-      "description"
-    ],
+    "onlyWeb": [],
     "example": "<PlanCard highlighted style={{ marginTop: 10 }} name=\"Profissional\" price=\"R$ 19\" period=\"/mês\" priceNote=\"R$ 228 cobrados por ano\" features={[\"Espaço sem limite\", \"Histórico de versões\", \"Revisões ilimitadas\"]} cta={<Button variant=\"primary\" block>Assinar</Button>} />",
     "section": "BillingCard / PlanCard / DangerZone"
   },

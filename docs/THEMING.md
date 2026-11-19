@@ -158,7 +158,7 @@ validar somente a paleta.
 
 Abra **Playground → Componentes**. A barra do Storybook tem somente **Tema** e **Modo**. Tema reúne cores, famílias tipográficas, medidas, espaçamentos, alinhamentos, geometria, estados e demais tokens. Modo escolhe **Claro**, **Escuro** ou **Sistema**. Os presets completos combinam Refy com Manrope/Source Sans 3/Source Code Pro; Geométrico com IBM Plex Sans/Mono; Fluido com DM Sans/Geist Mono. As famílias e todos os papéis podem ser personalizados no mesmo objeto.
 
-A navegação preserva as 122 famílias em **Átomos**, **Moléculas** e **Organismos**, com busca e um documento por componente. Cada documento tem instalação, uso, composição, exemplos com código real e API derivada dos tipos. Os snippets são verificados contra a distribuição pública. A matriz simultânea é somente uma fixture de regressão oculta, não a documentação de adoção.
+A navegação preserva as 123 famílias em **Átomos**, **Moléculas** e **Organismos**, com busca e um documento por componente. Cada documento tem instalação, uso, composição, exemplos com código real e API derivada dos tipos. Os snippets são verificados contra a distribuição pública. A matriz simultânea é somente uma fixture de regressão oculta, não a documentação de adoção.
 
 **Personalizar tema** abre um drawer à direita. As abas **Cores**, **Forma**, **Tipografia**, **Espaçamento**, **Tokens** e **Exportar** concentram a edição. Na tipografia, escolha um dos seis conjuntos ou cada família por função. Espaçamento controla a escala e as medidas disponíveis; alinhamentos específicos de escolhas e modais usam seus próprios tokens. A aba Tokens oferece busca e controles por tipo. Fonte não tem mais variável independente na toolbar.
 

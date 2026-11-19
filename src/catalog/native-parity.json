@@ -1,10 +1,10 @@
 {
   "about": "Gerado por scripts/native-parity.mjs. igual: existe no mobile sem seção no DIVERGENCIAS.md; com-divergencia: existe e tem seção; so-web: não existe no mobile.",
-  "mobileVersion": "1.1.0",
+  "mobileVersion": "1.2.0",
   "summary": {
     "igual": 12,
     "com-divergencia": 93,
-    "so-web": 17
+    "so-web": 18
   },
   "families": {
     "Button": "igual",
@@ -31,6 +31,7 @@
     "Otp": "com-divergencia",
     "PhoneInput": "com-divergencia",
     "PostalCodeInput": "com-divergencia",
+    "ColorField": "so-web",
     "Calendar": "com-divergencia",
     "VisitSchedulePicker": "com-divergencia",
     "ChoiceCard": "com-divergencia",

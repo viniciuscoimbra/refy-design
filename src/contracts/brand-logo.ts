@@ -12,6 +12,10 @@ export interface BrandLogoCoreProps {
   tone?: "default" | "inverse";
   animated?: boolean;
   markOnly?: boolean;
+  /** The refy symbol before the word; its color comes from `--brand-mark`. */
+  symbol?: boolean;
+  /** Exact height of the logo, for headers with a fixed slot. Overrides `size`. */
+  height?: number;
   /** Marca fornecida pelo consumidor. Não inclui assets de terceiros no Refy. */
   children?: ReactNode;
 }

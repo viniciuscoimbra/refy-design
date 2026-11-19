@@ -295,7 +295,9 @@ for (const width of [375, 768, 1280])
     }
     await expect(editor.locator("details")).toHaveCount(0);
     await expect(editor.getByRole("tab")).toHaveCount(7);
-    await editor.getByLabel("Ação principal", { exact: true }).fill("#1749b8");
+    const primaryHex = editor.getByLabel("Ação principal in hexadecimal", { exact: true });
+    await primaryHex.fill("#1749b8");
+    await primaryHex.press("Enter");
     await expect(primary).toHaveCSS("background-image", /rgb\(23, 73, 184\)/);
     await editor.getByRole("tab", { name: "Forma", exact: true }).click();
     await editor.getByLabel("Arredondamento geral (px)").fill("0");

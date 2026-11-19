@@ -1,0 +1,4 @@
+{
+  "$comment": "Versões do @refy-design/web que têm tag/release mas nunca chegaram ao npm (o CHANGELOG explica cada uma). O CDN só serve o que está no npm: a página Sem bundler mostra aviso no lugar do trecho nessas versões. tests/cdn-check.test.mjs confere esta lista com as notas do CHANGELOG.md, sem rede.",
+  "web": ["1.3.1", "1.3.2", "1.3.3", "1.6.0", "1.9.0"]
+}

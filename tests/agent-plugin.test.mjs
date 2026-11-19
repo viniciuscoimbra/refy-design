@@ -57,7 +57,7 @@ test("atalhos têm nome igual à pasta e só citam o que o servidor de cada plug
   const tools = new Set((await listTools()).map((t) => t.name));
   const remote = new Set([...tools].filter((n) => n !== "refy_compare"));
   const mcp = readFileSync("tools/refy-agent/mcp-server.mjs", "utf8");
-  for (const [dir, expected, available] of [[plugin, ["refy-tela", "refy-tema-de-site"], remote], [local, ["refy-reproduzir-tela", "refy-tela", "refy-tema-de-site"], tools]]) {
+  for (const [dir, expected, available] of [[plugin, ["refy-pagina-solta", "refy-tela", "refy-tema-de-site"], remote], [local, ["refy-pagina-solta", "refy-reproduzir-tela", "refy-tela", "refy-tema-de-site"], tools]]) {
     const skills = readdirSync(join(dir, "skills"));
     assert.deepEqual(skills.sort(), expected);
     for (const skill of skills) {

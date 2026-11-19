@@ -7,8 +7,10 @@ const baseURL = process.env.REFY_STORYBOOK_URL || `http://127.0.0.1:${port}`;
 // nativo e conteúdo em portal. O resto da suíte pública roda no Chromium.
 const crossBrowser = [
   "core", "themes", "refy-residual-focus", "control-focus-ring",
-  "combobox-focus-ring", "native-select-state", "consumer-overlays",
+  "combobox-focus-ring", "native-select-state", "consumer-overlays", "coverflow-loop-autoplay", "color-field",
 ].map((name) => `**/${name}.spec.ts`);
+// Templates com mapa e conversa: teclado e toque também no Safari.
+const webkitOnly = ["template-map-conversation"].map((name) => `**/${name}.spec.ts`);
 export default defineConfig({
   testDir: "./tests",
   // Os *.test.mjs são do node --test; tests/oficina/ é a matriz da oficina
@@ -25,7 +27,7 @@ export default defineConfig({
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
     { name: "firefox", testMatch: crossBrowser, use: { ...devices["Desktop Firefox"] } },
-    { name: "webkit", testMatch: crossBrowser, use: { ...devices["Desktop Safari"] } },
+    { name: "webkit", testMatch: [...crossBrowser, ...webkitOnly], use: { ...devices["Desktop Safari"] } },
   ],
   webServer: process.env.REFY_STORYBOOK_URL ? undefined : { command: process.env.CI ? `vite preview --outDir storybook-static --host 127.0.0.1 --port ${port} --strictPort` : `storybook dev -p ${port} --host 127.0.0.1 --no-open --ci`, url: `http://127.0.0.1:${port}`, reuseExistingServer: !process.env.CI, timeout: 120000 },
 });

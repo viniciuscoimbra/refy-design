@@ -4,8 +4,9 @@
 // Tudo vem de src/catalog/versions.json, gerado das tags de release por scripts/api-history.mjs.
 import { useSyncExternalStore } from "react";
 import { Badge, Callout, CodeBlock, Select } from "../../index";
-import { installCommands, mobilePackage, mobilePeers } from "./packageRelease";
+import { installCommands, mobilePackage, mobilePeers, packageVersion } from "./packageRelease";
 import versions from "../../catalog/versions.json";
+import npmUnpublished from "../../catalog/npm-unpublished.json";
 import { tr } from "./i18n";
 import styles from "./RefySitePage.module.css";
 
@@ -121,6 +122,16 @@ export function InstallCommand({ label, mobile: forMobile = false }: { label?: s
     : `${installCommands.npm}${pinned ? `@${pinned}` : ""}`;
   return <CodeBlock label={label} language="bash" wrap={forMobile} code={code} />;
 }
+
+/** Versão do pacote web na doc escolhida: a do package.json na atual, a do release numa anterior. */
+export function webVersionFor(version: string): string {
+  if (version === latestVersion) return packageVersion;
+  return versions.releases.find((item) => item.version === version)?.packages.web ?? packageVersion;
+}
+export const useWebVersion = () => webVersionFor(useDocsVersion());
+/** A versão web está no npm (e portanto no CDN)? A lista vem de src/catalog/npm-unpublished.json.
+ *  A versão do package.json ainda não publicada conta como publicada: a doc dela sai junto com a publicação. */
+export const webOnNpm = (version: string) => !npmUnpublished.web.includes(version);
 
 /** `@1.1.0` quando a pessoa escolheu uma versão anterior; vazio na atual. */
 export function useWebPin() {

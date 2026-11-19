@@ -10,13 +10,14 @@ import { projectBody, projectDescription, projectLabel, releaseSections } from "
 import type { Locale } from "./i18n";
 import nativeComponents from "./nativeComponents.json";
 import { mobilePublished, packageName, packagePublished, packageVersion } from "./packageRelease";
-import { InstallCommand, NotInVersion, SinceBadge, VersionSelect, mobileSince } from "./docsVersion";
+import { InstallCommand, NotInVersion, SinceBadge, VersionSelect, mobileSince, useWebVersion, webOnNpm } from "./docsVersion";
 import { versionsPolicy } from "./SiteVersions";
+import { cdnPage } from "./cdnPage.mjs";
 
 // Docs técnica: uma página por assunto, menu da esquerda lista as páginas e o sumário da
 // direita lista as seções da página aberta. Texto curto, só o que o pacote faz hoje.
 
-export type DocTopic = "primeiros-passos" | "instalacao" | "tema-por-arquivo" | "compatibilidade" | "versoes" | "a2ui";
+export type DocTopic = "primeiros-passos" | "instalacao" | "tema-por-arquivo" | "sem-bundler" | "compatibilidade" | "versoes" | "a2ui";
 
 const appCodeFor = (label: string) => `import { Button, ThemeProvider, refySiteTheme } from "@refy-design/web";
 import "@refy-design/web/tokens.css";
@@ -235,6 +236,89 @@ function startPage(locale: Locale): DocPage {
         <div className={styles.docNext}>
           {text.next.map(([href, title, description]) => <NavCard key={href} href={href} title={title} description={description} />)}
         </div>
+      </section>
+    </>),
+  };
+}
+
+// Sem bundler: o trecho é o HTML que scripts/check-cdn.mjs abre no navegador (mesma função,
+// mesma versão do pacote). Só o texto em volta muda de língua; o HTML fica igual nas três.
+interface NoBundlerText {
+  label: string; description: string;
+  sections: Record<"pagina" | "react" | "tema" | "teste", string>;
+  page: ReactNode; react: ReactNode; noJsx: ReactNode; theme: ReactNode; test: ReactNode;
+}
+const noBundlerText: Record<Locale, NoBundlerText> = {
+  pt: {
+    label: "Sem bundler", description: "Uma página HTML solta, sem npm nem build: o refy e o React vêm do jsDelivr.",
+    sections: { pagina: "A página", react: "Um React só", tema: "Tema e fontes", teste: "Testada a cada versão" },
+    page: <>Salve como <code>index.html</code> e abra no navegador. Precisa de internet; não instala nada.</>,
+    react: <>O <code>/+esm</code> do jsDelivr serve o pacote como módulo e troca <code>react</code> por um endereço do próprio CDN. A página lê esse endereço e importa o React dele. Com outro endereço, a página e o refy teriam duas cópias do React e o primeiro hook quebraria.</>,
+    noJsx: <>Sem build não há JSX: <code>createElement</code> (aqui <code>h</code>) monta a árvore.</>,
+    theme: <><code>tokens.css</code> traz o tema do refy, <code>fonts.css</code> as fontes dele, <code>global.css</code> aplica fonte e fundo do tema na página inteira e <code>style.css</code> traz os componentes. Cor, fonte e raio vêm desses arquivos: não escreva cor nem fonte à mão na página.</>,
+    test: <>É o mesmo HTML que <code>scripts/check-cdn.mjs</code> abre no Chromium depois de cada release: console sem erro, uma instância só de React, campo com rótulo, botão primário na cor do tema e fontes carregadas. O endereço usa a versão <CdnVersion />.</>,
+  },
+  en: {
+    label: "No bundler", description: "A standalone HTML page, no npm and no build: refy and React come from jsDelivr.",
+    sections: { pagina: "The page", react: "One React", tema: "Theme and fonts", teste: "Tested on every release" },
+    page: <>Save it as <code>index.html</code> and open it in the browser. It needs internet access and installs nothing.</>,
+    react: <>jsDelivr's <code>/+esm</code> serves the package as a module and rewrites <code>react</code> to a URL on the CDN itself. The page reads that URL and imports React from it. With another URL, the page and refy would load two copies of React and the first hook would break.</>,
+    noJsx: <>Without a build there is no JSX: <code>createElement</code> (here <code>h</code>) builds the tree.</>,
+    theme: <><code>tokens.css</code> brings the refy theme, <code>fonts.css</code> its fonts, <code>global.css</code> applies the theme font and background to the whole page and <code>style.css</code> brings the components. Color, font and radius come from these files: don't hand-write colors or fonts in the page.</>,
+    test: <>It is the same HTML that <code>scripts/check-cdn.mjs</code> opens in Chromium after every release: no console errors, a single React instance, a labelled input, the primary button in the theme color and the fonts loaded. The URLs use version <CdnVersion />.</>,
+  },
+  es: {
+    label: "Sin bundler", description: "Una página HTML suelta, sin npm ni build: refy y React vienen de jsDelivr.",
+    sections: { pagina: "La página", react: "Un solo React", tema: "Tema y fuentes", teste: "Probada en cada versión" },
+    page: <>Guárdala como <code>index.html</code> y ábrela en el navegador. Necesita internet y no instala nada.</>,
+    react: <>El <code>/+esm</code> de jsDelivr sirve el paquete como módulo y cambia <code>react</code> por una dirección del propio CDN. La página lee esa dirección e importa React de ella. Con otra dirección, la página y refy tendrían dos copias de React y el primer hook fallaría.</>,
+    noJsx: <>Sin build no hay JSX: <code>createElement</code> (aquí <code>h</code>) arma el árbol.</>,
+    theme: <><code>tokens.css</code> trae el tema de refy, <code>fonts.css</code> sus fuentes, <code>global.css</code> aplica la fuente y el fondo del tema a toda la página y <code>style.css</code> trae los componentes. Color, fuente y radio vienen de esos archivos: no escribas colores ni fuentes a mano en la página.</>,
+    test: <>Es el mismo HTML que <code>scripts/check-cdn.mjs</code> abre en Chromium después de cada release: consola sin errores, una sola instancia de React, campo con etiqueta, botón primario en el color del tema y fuentes cargadas. La dirección usa la versión <CdnVersion />.</>,
+  },
+};
+
+/** O HTML do teste do CDN na versão web da doc escolhida (`?v=`); `version` fixa a versão (teste). */
+const notOnNpm: Record<Locale, { title: string; body: string }> = {
+  pt: { title: "Versão fora do npm", body: "Esta versão não foi publicada no npm; o trecho só funciona com versões publicadas." },
+  en: { title: "Version not on npm", body: "This version was not published to npm; the snippet only works with published versions." },
+  es: { title: "Versión fuera de npm", body: "Esta versión no se publicó en npm; el fragmento solo funciona con versiones publicadas." },
+};
+export function CdnSnippet({ version }: { version?: string }) {
+  const chosen = useWebVersion();
+  const { locale } = useSiteLocale();
+  const web = version ?? chosen;
+  // O jsDelivr só serve o que está no npm: versão com tag que nunca foi publicada daria 404.
+  if (!webOnNpm(web)) return <Callout tone="warn" icon={warnIcon} title={notOnNpm[locale].title}>{notOnNpm[locale].body}</Callout>;
+  return <CodeBlock label="index.html" language="html" code={cdnPage(web)} />;
+}
+function CdnVersion() {
+  return <>{useWebVersion()}</>;
+}
+
+function noBundlerPage(locale: Locale): DocPage {
+  const text = noBundlerText[locale];
+  return {
+    label: text.label, group: "use", description: text.description,
+    sections: Object.entries(text.sections),
+    body: (<>
+      <section id="pagina">
+        <h2>{text.sections.pagina}</h2>
+        <p>{text.page}</p>
+        <CdnSnippet />
+      </section>
+      <section id="react">
+        <h2>{text.sections.react}</h2>
+        <p>{text.react}</p>
+        <p>{text.noJsx}</p>
+      </section>
+      <section id="tema">
+        <h2>{text.sections.tema}</h2>
+        <p>{text.theme}</p>
+      </section>
+      <section id="teste">
+        <h2>{text.sections.teste}</h2>
+        <p>{text.test}</p>
       </section>
     </>),
   };
@@ -529,6 +613,7 @@ const pt: Record<DocTopic, DocPage> = {
       </section>
     </>),
   },
+  "sem-bundler": noBundlerPage("pt"),
   compatibilidade: {
     label: "Compatibilidade", group: "ref",
     description: "Versões que o pacote exige.",
@@ -613,6 +698,7 @@ const en: Record<DocTopic, DocPage> = {
       </section>
     </>),
   },
+  "sem-bundler": noBundlerPage("en"),
   compatibilidade: {
     label: "Compatibility", group: "ref",
     description: "Versions the package requires.",
@@ -697,6 +783,7 @@ const es: Record<DocTopic, DocPage> = {
       </section>
     </>),
   },
+  "sem-bundler": noBundlerPage("es"),
   compatibilidade: {
     label: "Compatibilidad", group: "ref",
     description: "Versiones que exige el paquete.",

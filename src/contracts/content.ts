@@ -66,12 +66,16 @@ export interface BillingCardCoreProps {
 /** Props for the PlanCard component. */
 export interface PlanCardCoreProps {
   name: ReactNode;
+  /** Short text between the name and the price. */
+  description?: ReactNode;
   price: ReactNode;
   period?: ReactNode;
   priceNote?: ReactNode;
   features?: ReactNode[];
   checkIcon?: ReactNode;
   cta?: ReactNode;
+  /** Where the CTA goes: after the price (`top`, default) or at the bottom of the card (`bottom`). */
+  ctaPosition?: "top" | "bottom";
   current?: boolean;
   currentLabel?: string;
   highlighted?: boolean;

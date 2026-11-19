@@ -71,6 +71,8 @@ export { FileUpload } from "./components/FileUpload";
 export type { FileUploadProps, FileUploadState } from "./components/FileUpload";
 export { PhoneInput, phoneCountries } from "./components/PhoneInput";
 export type { PhoneCountry, PhoneInputProps } from "./components/PhoneInput";
+export { ColorField } from "./components/ColorField";
+export type { ColorFieldProps } from "./components/ColorField";
 export { PostalCodeInput } from "./components/PostalCodeInput";
 export type { PostalCodeAddress, PostalCodeInputProps } from "./components/PostalCodeInput";
 export { KanbanBoard } from "./components/KanbanBoard";

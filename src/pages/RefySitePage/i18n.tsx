@@ -28,11 +28,11 @@ const slugs: Record<Exclude<Locale, "pt">, Record<string, string>> = {
   en: {
     componentes: "components", colecoes: "collections", temas: "themes", tipografia: "typography", "para-ias": "for-ai",
     contribuir: "contributing", "quem-mantem": "maintainer", "primeiros-passos": "getting-started", instalacao: "installation",
-    "tema-por-arquivo": "theming", compatibilidade: "compatibility", versoes: "releases",
+    "tema-por-arquivo": "theming", "sem-bundler": "no-bundler", compatibilidade: "compatibility", versoes: "releases",
   },
   es: {
     colecoes: "colecciones", templates: "plantillas", "quem-mantem": "quien-lo-mantiene", "primeiros-passos": "primeros-pasos", instalacao: "instalacion",
-    "tema-por-arquivo": "tema-por-archivo", compatibilidade: "compatibilidad", versoes: "versiones",
+    "tema-por-arquivo": "tema-por-archivo", "sem-bundler": "sin-bundler", compatibilidade: "compatibilidad", versoes: "versiones",
   },
 };
 const unslugs = Object.fromEntries(

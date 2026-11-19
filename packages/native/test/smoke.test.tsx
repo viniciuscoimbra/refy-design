@@ -398,6 +398,48 @@ test("PlanCard atual trava o CTA e DangerZoneRow só pede confirmação", () => 
   expect(asked).toEqual([1]);
 });
 
+test("PlanCard mostra a descrição e põe o CTA no fim com ctaPosition bottom", () => {
+  const { PlanCard, Button } = require("../src");
+  let tree!: ReturnType<typeof create>;
+  act(() => { tree = create(<RefyProvider><PlanCard name="Equipe" description="Para times pequenos" price="R$ 49" features={["Até 10 pessoas"]} cta={<Button>Assinar</Button>} ctaPosition="bottom" /></RefyProvider>); });
+  const texts = tree.root.findAllByType(Text).map((n) => n.props.children).flat().filter((c) => typeof c === "string");
+  expect(texts.indexOf("Para times pequenos")).toBeGreaterThan(texts.indexOf("Equipe"));
+  expect(texts.indexOf("Para times pequenos")).toBeLessThan(texts.indexOf("R$ 49"));
+  // No fim: o botão vem depois dos recursos.
+  expect(texts.indexOf("Assinar")).toBeGreaterThan(texts.indexOf("Até 10 pessoas"));
+  act(() => { tree.update(<RefyProvider><PlanCard name="Equipe" price="R$ 49" features={["Até 10 pessoas"]} cta={<Button>Assinar</Button>} /></RefyProvider>); });
+  const top = tree.root.findAllByType(Text).map((n) => n.props.children).flat().filter((c) => typeof c === "string");
+  expect(top.indexOf("Assinar")).toBeLessThan(top.indexOf("Até 10 pessoas"));
+});
+
+test("BrandLogo com symbol desenha o símbolo e height fixa a altura", () => {
+  const { BrandLogo } = require("../src");
+  let tree!: ReturnType<typeof create>;
+  act(() => { tree = create(<RefyProvider><BrandLogo symbol height={36} /></RefyProvider>); });
+  const root = tree.root.find((n) => typeof n.type === "string" && n.props.accessibilityRole === "image");
+  const flat = (s: unknown): Record<string, unknown> => Array.isArray(s) ? Object.assign({}, ...s.map(flat)) : (s as Record<string, unknown>) ?? {};
+  expect(flat(root.props.style).height).toBe(36);
+  const word = tree.root.findAllByType(Text).find((n) => n.props.children === "refy")!;
+  expect(flat(word.props.style).fontSize).toBeCloseTo(36 / 1.22);
+  // Desenho fechado: a palavra não cresce com a fonte do sistema.
+  expect(word.props.allowFontScaling).toBe(false);
+  act(() => { tree.update(<RefyProvider><BrandLogo symbol markOnly /></RefyProvider>); });
+  expect(tree.root.findAllByType(Text).filter((n) => n.props.children === "refy")).toHaveLength(0);
+});
+
+test("BrandLogo markOnly com height: o monograma tem a altura pedida", () => {
+  const { BrandLogo } = require("../src");
+  let tree!: ReturnType<typeof create>;
+  act(() => { tree = create(<RefyProvider><BrandLogo markOnly height={36} /></RefyProvider>); });
+  const flat = (s: unknown): Record<string, unknown> => Array.isArray(s) ? Object.assign({}, ...s.map(flat)) : (s as Record<string, unknown>) ?? {};
+  const r = tree.root.findAllByType(Text).find((n) => n.props.children === "r")!;
+  const square = tree.root.findAll((n) => typeof n.type === "string" && flat(n.props.style).borderRadius !== undefined && flat(n.props.style).width !== undefined)[0];
+  expect(flat(square.props.style).width).toBe(36);
+  expect(flat(square.props.style).height).toBe(36);
+  expect(flat(r.props.style).fontSize).toBeCloseTo(0.72 * (36 / 1.75));
+  expect(r.props.allowFontScaling).toBe(false);
+});
+
 const hosts = (tree: ReturnType<typeof create>, pred: (p: Record<string, any>) => boolean) => tree.root.findAll((n) => typeof n.type === "string" && pred(n.props));
 
 test("UserMenu abre a conta e devolve o item escolhido", async () => {

@@ -15,3 +15,10 @@ test("BrandLogo symbol + markOnly mostra só o símbolo; symbol sozinho mantém 
   assert.match(completo, /data-refy-brand-mark=""/);
   assert.match(completo, />refy</, "com a palavra refy");
 });
+
+test("BrandLogo markOnly com height: o quadrado do monograma tem a altura pedida", () => {
+  const html = render({ markOnly: true, height: 36 });
+  assert.match(html, /--brand-mark-size:36px/);
+  assert.match(html, /font-size:20\.57\d*px/);
+  assert.match(html, /height:36px/);
+});

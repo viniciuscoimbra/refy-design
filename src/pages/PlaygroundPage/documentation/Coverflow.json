@@ -5,7 +5,9 @@
     "howToUse": [
       "Use it to browse a finite set of covers or visual references and pick one: albums, themes, templates.",
       "Draw each item with `renderItem` using only image and text: links and buttons inside it do not work.",
-      "Selecting moves the item to the center (`onSelectionChange`); opening it is a separate step (`onActivate`)."
+      "Selecting moves the item to the center (`onSelectionChange`); opening it is a separate step (`onActivate`).",
+      "`loop` makes it circular: next on the last item goes back to the first. `autoplay` advances on its own every 5 s, or `{ interval }` from 2 s up, and offers a pause button.",
+      "`autoplay` stops while the pointer is over it, while focus is inside, with the tab hidden and with reduced motion. Without `loop`, it stops on the last item."
     ],
     "alternatives": [
       "A long list to read: a list or a grid of ContentCard.",
@@ -104,6 +106,20 @@
           "type": "string | undefined",
           "required": false,
           "description": "Extra CSS class."
+        },
+        {
+          "name": "loop",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Circular navigation: next on the last item goes to the first, previous on the first goes to the\nlast. Applies to buttons, arrow keys and drag. Home and End still go to the ends."
+        },
+        {
+          "name": "autoplay",
+          "defaultValue": "false",
+          "type": "boolean | { interval?: number | undefined; } | undefined",
+          "required": false,
+          "description": "Advances on its own every `interval` ms (default 5000, minimum 2000). Pauses on hover, while pressed, on focus\ninside, with the tab hidden and when `disabled`; never runs with reduced motion. Without `loop`\nit stops on the last item. A visible button pauses and resumes it."
         }
       ]
     }
@@ -162,6 +178,24 @@
       "label": "Covers",
       "description": "Abstract covers made for the demo, with no albums, artists or external assets.",
       "code": "import { AspectRatio } from '@refy-design/web';\nimport { Coverflow } from '@refy-design/web';\nimport { Modal } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [active, setActive] = useState<string | null>(null);\n  return (\n    <>\n      <Coverflow\n        label=\"Browse content covers\"\n        items={[\n          { id: 'lines', label: 'Volume 01 — Lines' },\n          { id: 'orbits', label: 'Volume 02 — Orbits' },\n          { id: 'layers', label: 'Volume 03 — Layers' },\n          { id: 'paths', label: 'Volume 04 — Paths' },\n        ]}\n        onActivate={(item) => setActive(item.label)}\n        renderItem={(item, state) => (\n          <span style={{ display: 'grid', width: '100%', gap: 'var(--space-3)' }}>\n            <AspectRatio ratio={1}>\n              <svg\n                viewBox=\"0 0 200 200\"\n                width=\"100%\"\n                height=\"100%\"\n                aria-hidden=\"true\"\n                style={{ background: 'var(--surface-2)' }}\n              >\n                <circle\n                  cx={62 + state.index * 19}\n                  cy=\"92\"\n                  r={48 + state.index * 5}\n                  fill=\"var(--primary-soft)\"\n                />\n                <path\n                  d={`M20 ${130 - state.index * 12} L180 ${60 + state.index * 18}`}\n                  stroke=\"var(--primary)\"\n                  strokeWidth=\"3\"\n                />\n                <circle\n                  cx=\"100\"\n                  cy=\"100\"\n                  r={22 + state.index * 8}\n                  fill=\"none\"\n                  stroke=\"var(--ink-2)\"\n                  strokeWidth=\"1\"\n                />\n                <text\n                  x=\"20\"\n                  y=\"178\"\n                  fill=\"var(--ink-1)\"\n                  style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-h2)' }}\n                >\n                  {String(state.index + 1).padStart(2, '0')}\n                </text>\n              </svg>\n            </AspectRatio>\n            <strong>{item.label}</strong>\n          </span>\n        )}\n      />\n      <p>Select a cover to center it. Activate the selected one to open its details.</p>\n      <Modal\n        open={active !== null}\n        onClose={() => setActive(null)}\n        title={active ?? 'Content details'}\n      >\n        <p>Sample content. Activation comes from the app, with no external service.</p>\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "id": "Circular",
+      "label": "Loop",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return (\n    <Coverflow items={items} renderItem={renderItem} loop label=\"Circular references\" />\n  );\n}"
+    },
+    {
+      "id": "Automatico",
+      "label": "Autoplay",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return (\n    <Coverflow\n      items={items}\n      renderItem={renderItem}\n      autoplay={{ interval: 4000 }}\n      label=\"References that advance on their own\"\n    />\n  );\n}"
+    },
+    {
+      "id": "CircularAutomatico",
+      "label": "Loop and autoplay",
+      "description": "",
+      "code": "import { Coverflow } from '@refy-design/web';\nconst items = [\n  { id: 'one', label: 'First reference' },\n  { id: 'two', label: 'Second reference' },\n  { id: 'three', label: 'Third reference' },\n  { id: 'four', label: 'Fourth reference' },\n];\nconst renderItem = (\n  item: {\n    id: string;\n    label: string;\n  },\n  state: {\n    selected: boolean;\n    index: number;\n  },\n) => (\n  <span\n    style={{\n      display: 'grid',\n      gap: 'var(--space-3)',\n      paddingBlock: 'var(--space-6)',\n    }}\n  >\n    <span\n      aria-hidden=\"true\"\n      style={{ fontSize: 'var(--text-h2)', color: 'var(--primary)' }}\n    >\n      {String(state.index + 1).padStart(2, '0')}\n    </span>\n    <strong>{item.label}</strong>\n    <span>{state.selected ? 'Selected' : 'Select'}</span>\n  </span>\n);\nexport function Example() {\n  return (\n    <Coverflow\n      items={items}\n      renderItem={renderItem}\n      loop\n      autoplay\n      label=\"References in a continuous cycle\"\n    />\n  );\n}"
     }
   ]
 }

@@ -27,7 +27,11 @@ the symbol color comes from the theme's `--brand-mark` token.
 const SYMBOL_EM = 1.22;
 
 export function BrandLogo({ brand = "refy", size = "sm", tone = "default", animated = false, markOnly = false, symbol = false, height, children, className, style, ...rest }: BrandLogoProps) {
-  const sized = height ? { ...style, fontSize: `${height / (symbol && !children ? SYMBOL_EM : 1)}px`, height: `${height}px` } : style;
+  // No monograma (quadrado de 1.75em) a altura pedida é o lado do quadrado.
+  const monogram = markOnly && !symbol && !children;
+  const sized = height
+    ? { ...style, fontSize: `${height / (symbol && !children ? SYMBOL_EM : monogram ? 1.75 : 1)}px`, height: `${height}px`, ...(monogram ? { "--brand-mark-size": `${height}px` } : {}) }
+    : style;
   if (symbol && !children) {
     return <span role="img" aria-label={brand} className={cn(styles.logo, styles.refy, styles.withSymbol, styles[size], styles[tone], markOnly && styles.markOnly, className)} style={sized} {...rest}>
       <svg className={styles.symbol} viewBox="0 0 26 36" fill="currentColor" aria-hidden="true" data-refy-brand-mark="">

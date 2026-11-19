@@ -1016,6 +1016,12 @@
       "label": "SiteFooter",
       "story": "Playground",
       "storyId": "components-organisms-sitefooter--playground"
+    },
+    {
+      "id": "ColorField",
+      "label": "ColorField",
+      "story": "Controlado",
+      "storyId": "components-molecules-colorfield--controlado"
     }
   ],
   "coverage": {

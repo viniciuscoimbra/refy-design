@@ -2201,5 +2201,9 @@
  "↑/↓ percorrem habilitados; Home/End vão às extremidades; letra busca rótulo textual; Enter/Espaço acionam; Escape/Tab fecham. Sem submenu aninhado.": "↑/↓ recorren los habilitados; Home/End van a los extremos; una letra busca la etiqueta; Enter/Espacio activan; Escape/Tab cierran. Sin submenú anidado.",
  "↻ Restaurar padrão": "↻ Restaurar predeterminado",
  "No mobile, sem htmlFor": "En mobile, sin htmlFor",
- "O React Native não tem <label for>. Dê um nativeID ao Label e passe o mesmo valor em accessibilityLabelledBy no campo. Input, Textarea e Select já fazem isso sozinhos com a prop label.": "React Native no tiene <label for>. Dale un nativeID al Label y pasa el mismo valor en accessibilityLabelledBy en el campo. Input, Textarea y Select ya lo hacen solos con la prop label."
+ "O React Native não tem <label for>. Dê um nativeID ao Label e passe o mesmo valor em accessibilityLabelledBy no campo. Input, Textarea e Select já fazem isso sozinhos com a prop label.": "React Native no tiene <label for>. Dale un nativeID al Label y pasa el mismo valor en accessibilityLabelledBy en el campo. Input, Textarea y Select ya lo hacen solos con la prop label.",
+ "Roteiro de visitas": "Ruta de visitas",
+ "Cinco visitas do dia no mapa de bairros de Belo Horizonte. Escolher no mapa ou na lista destaca a parada nos dois, e cada visita feita muda a cor do bairro.": "Cinco visitas del día en el mapa de barrios de Belo Horizonte. Elegir en el mapa o en la lista destaca la parada en ambos, y cada visita hecha cambia el color del barrio.",
+ "Caixa de atendimento": "Bandeja de atención",
+ "Lista de conversas, conversa aberta e resposta no mesmo lugar. Responder, resolver e reabrir funcionam; no celular, lista e conversa viram duas telas.": "Lista de conversaciones, conversación abierta y respuesta en el mismo lugar. Responder, resolver y reabrir funcionan; en el celular, la lista y la conversación se vuelven dos pantallas."
 }

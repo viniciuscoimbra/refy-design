@@ -14,6 +14,7 @@
   "Bubble": "Bubble that shows a piece of a conversation and identifies its source.",
   "Button": "An action triggered by mouse, touch or keyboard, with progress and result states.",
   "ButtonGroup": "Grouping of related controls; selection and events belong to the child components.",
+  "ColorField": "Color field: a swatch that opens a picker with hue, saturation and lightness, next to the editable hexadecimal value.",
   "Calendar": "Calendar to pick a date or a range, with limits and navigation between months.",
   "Callout": "Contextual message with a semantic tone, content and optional actions.",
   "Card": "Content surface with spacing, header and elevation levels.",

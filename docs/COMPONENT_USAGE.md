@@ -836,6 +836,28 @@ Choose something else:
 |---|---|
 | `Tab` | Moves from the field to the Search button. Leaving a complete CEP also starts the search. |
 | `Enter` or `Space` on Search | Searches the CEP. |
+#### ColorField
+
+[API and examples](../ai/components/ColorField.json)
+
+How to use:
+
+- Use it wherever people pick a color: theme editors, labels, charts. The value is always `#rrggbb`.
+- The swatch opens the picker with hue, saturation and lightness; the field next to it takes a typed hexadecimal and checks it.
+- Pass the theme colors in `presets` so the usual choices are one click away.
+
+Choose something else:
+
+- A choice among a few named colors: Segmented or RadioGroup.
+- A token value that is not a color, such as a font or a radius: Input or Select.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Moves from the swatch to the hexadecimal field. |
+| `Enter` or `Space` on the swatch | Opens or closes the picker. |
+| `←` `→` `↑` `↓` on a slider | Changes hue, saturation or lightness. |
+| `Enter` in the field | Applies the typed color. |
+| `Esc` | Closes the picker. |
 #### Calendar
 
 [API and examples](../ai/components/Calendar.json)
@@ -2226,6 +2248,8 @@ How to use:
 - Use it to browse a finite set of covers or visual references and pick one: albums, themes, templates.
 - Draw each item with `renderItem` using only image and text: links and buttons inside it do not work.
 - Selecting moves the item to the center (`onSelectionChange`); opening it is a separate step (`onActivate`).
+- `loop` makes it circular: next on the last item goes back to the first. `autoplay` advances on its own every 5 s, or `{ interval }` from 2 s up, and offers a pause button.
+- `autoplay` stops while the pointer is over it, while focus is inside, with the tab hidden and with reduced motion. Without `loop`, it stops on the last item.
 
 Choose something else:
 

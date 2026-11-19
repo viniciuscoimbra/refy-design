@@ -1,7 +1,7 @@
 import { tr } from "../RefySitePage/i18n";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
-import { Button, Input, Select } from "../../index";
+import { Button, ColorField, Input, Select } from "../../index";
 import { fontSets } from "../../lib/fontSets";
 import {
   tokenDefinitions,
@@ -315,16 +315,16 @@ export function VisualTokenEditor({
             </option>
           </Select>
           {kind === "color" && (
-            <label className={styles.colorRow}>
-              <span>{tr("Cor do token")}</span>
-              <input
-                type="color"
-                aria-label={tr("Cor do token")}
+            <div className={styles.colorRow}>
+              <ColorField
+                // Um campo por token: trocar de token não herda rascunho nem erro do anterior.
+                key={current}
+                label={tr("Cor do token")}
                 value={toHex(draft)}
-                onChange={(event) => commit(event.target.value)}
+                onChange={(next) => commit(next)}
               />
               <code>{draft || "Sem valor global"}</code>
-            </label>
+            </div>
           )}
           {kind === "font" && (
             <>
@@ -393,21 +393,14 @@ export function VisualTokenEditor({
               <p className={styles.caption}>
                 {tr("Degradê linear com duas cores. Expressões mais complexas continuam disponíveis na edição CSS.")}</p>
               {[0, 1].map((index) => (
-                <label className={styles.colorRow} key={index}>
-                  <span>{index === 0 ? tr("Cor inicial") : tr("Cor final")}</span>
-                  <input
-                    type="color"
-                    aria-label={
-                      index === 0
-                        ? tr("Cor inicial do degradê")
-                        : tr("Cor final do degradê")
-                    }
+                <div className={styles.colorRow} key={index}>
+                  <ColorField
+                    key={`${current}-${index}`}
+                    label={index === 0 ? tr("Cor inicial do degradê") : tr("Cor final do degradê")}
                     value={toHex(gradient.colors[index] ?? values["--primary"])}
-                    onChange={(event) =>
-                      editGradient(event.target.value, index)
-                    }
+                    onChange={(next) => editGradient(next, index)}
                   />
-                </label>
+                </div>
               ))}
               <Input
                 label={tr("Ângulo do degradê")}

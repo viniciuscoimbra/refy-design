@@ -256,6 +256,7 @@ const pluginText: Record<Locale, PluginText> = {
     skills: [
       ["refy-tela", "Acha o componente pela necessidade, escreve a tela com a API documentada e roda a conferência do refy no fim."],
       ["refy-tema-de-site", "Pega as cores, fontes, raios e o jeito de botão, cartão, campo e selo de um site e gera tema claro e escuro com contraste AA, com a razão de cada escolha. Não copia a tela."],
+      ["refy-pagina-solta", "Monta uma página HTML solta, sem projeto React nem build: o refy vem pelo CDN, como na página Sem bundler, e cor e fonte vêm do tema do refy."],
       ["refy-reproduzir-tela", "Só no plugin refy-local, e só quando você pede: reproduz a tela igual ao original com componentes do refy e extensões, e compara as duas capturas até bater."],
     ],
     claude: <>No Claude Code e no Cowork:</>,
@@ -274,6 +275,7 @@ const pluginText: Record<Locale, PluginText> = {
     skills: [
       ["refy-tela", "Finds the component by need, writes the screen with the documented API and runs the refy check at the end."],
       ["refy-tema-de-site", "Takes a site's colors, fonts, radii and the shape of its buttons, cards, fields and badges, and builds light and dark themes with AA contrast and the reason for each choice. It does not copy the screen."],
+      ["refy-pagina-solta", "Builds a standalone HTML page, with no React project and no build: refy comes from the CDN, as on the No bundler page, and color and font come from the refy theme."],
       ["refy-reproduzir-tela", "Only in the refy-local plugin, and only when you ask: rebuilds a screen exactly like the original with refy components and extensions, and compares both captures until they match."],
     ],
     claude: <>In Claude Code and Cowork:</>,
@@ -292,6 +294,7 @@ const pluginText: Record<Locale, PluginText> = {
     skills: [
       ["refy-tela", "Encuentra el componente por necesidad, escribe la pantalla con la API documentada y ejecuta la revisión de refy al final."],
       ["refy-tema-de-site", "Toma los colores, fuentes, radios y la forma de botones, tarjetas, campos y etiquetas de un sitio, y genera tema claro y oscuro con contraste AA y el motivo de cada elección. No copia la pantalla."],
+      ["refy-pagina-solta", "Arma una página HTML suelta, sin proyecto React ni build: refy viene del CDN, como en la página Sin bundler, y el color y la fuente vienen del tema de refy."],
       ["refy-reproduzir-tela", "Solo en el plugin refy-local, y solo cuando lo pides: reproduce la pantalla igual al original con componentes de refy y extensiones, y compara las dos capturas hasta que coincidan."],
     ],
     claude: <>En Claude Code y Cowork:</>,

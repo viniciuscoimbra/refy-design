@@ -159,3 +159,12 @@ export const Capas = { name: "Covers",
     </>;
   },
 };
+export const Circular = { name: "Loop",
+  render: () => <Coverflow items={items} renderItem={renderItem} loop label="Circular references" />,
+};
+export const Automatico = { name: "Autoplay",
+  render: () => <Coverflow items={items} renderItem={renderItem} autoplay={{ interval: 4000 }} label="References that advance on their own" />,
+};
+export const CircularAutomatico = { name: "Loop and autoplay",
+  render: () => <Coverflow items={items} renderItem={renderItem} loop autoplay label="References in a continuous cycle" />,
+};

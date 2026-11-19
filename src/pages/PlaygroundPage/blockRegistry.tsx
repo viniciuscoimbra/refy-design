@@ -33,6 +33,12 @@ import assistantCSS from "../../blocks/AssistantSearchBlock.module.css?raw";
 import areaSearch from "../../blocks/AreaSearchBlock.tsx?raw";
 import areaSearchCSS from "../../blocks/AreaSearchBlock.module.css?raw";
 import neighborhoods from "../../blocks/neighborhoods.geojson.ts?raw";
+import { VisitRouteBlock } from "../../blocks/VisitRouteBlock";
+import visitRoute from "../../blocks/VisitRouteBlock.tsx?raw";
+import visitRouteCSS from "../../blocks/VisitRouteBlock.module.css?raw";
+import { InboxBlock } from "../../blocks/InboxBlock";
+import inbox from "../../blocks/InboxBlock.tsx?raw";
+import inboxCSS from "../../blocks/InboxBlock.module.css?raw";
 import photoIndex from "../../blocks/photos/index.ts?raw";
 import taskBoard from "../../blocks/TaskBoardBlock.tsx?raw";
 import taskBoardCSS from "../../blocks/TaskBoardBlock.module.css?raw";
@@ -105,6 +111,8 @@ function recipe<P extends object>(
     "VisitBlock",
     "OrderBlock",
     "AssistantSearchBlock",
+    "VisitRouteBlock",
+    "InboxBlock",
   ].includes(name)
     ? "0"
     : "var(--space-6)";
@@ -185,6 +193,19 @@ export const blockRegistry = [
     }),
   },
   {
+    id: "route-01",
+    title: tr("Roteiro de visitas"),
+    category: "discovery",
+    description:
+      tr("Cinco visitas do dia no mapa de bairros de Belo Horizonte. Escolher no mapa ou na lista destaca a parada nos dois, e cada visita feita muda a cor do bairro."),
+    composition: "D3Chart (geo) · Item · Badge · ProgressBar · Segmented · Avatar · EmptyState · PageHeader",
+    ...recipe(VisitRouteBlock, "VisitRouteBlock", {}, {
+      "VisitRouteBlock.tsx": visitRoute,
+      "VisitRouteBlock.module.css": visitRouteCSS,
+      "neighborhoods.geojson.ts": neighborhoods,
+    }),
+  },
+  {
     id: "assistant-01",
     title: tr("Assistente de busca"),
     category: "conversation",
@@ -195,6 +216,18 @@ export const blockRegistry = [
     ...recipe(AssistantSearchBlock, "AssistantSearchBlock", {}, {
       "AssistantSearchBlock.tsx": assistant,
       "AssistantSearchBlock.module.css": assistantCSS,
+    }),
+  },
+  {
+    id: "inbox-01",
+    title: tr("Caixa de atendimento"),
+    category: "conversation",
+    description:
+      tr("Lista de conversas, conversa aberta e resposta no mesmo lugar. Responder, resolver e reabrir funcionam; no celular, lista e conversa viram duas telas."),
+    composition: "Item · Avatar · Badge · Segmented · MessageScroller · Message · IntentComposer · IconButton · EmptyState",
+    ...recipe(InboxBlock, "InboxBlock", {}, {
+      "InboxBlock.tsx": inbox,
+      "InboxBlock.module.css": inboxCSS,
     }),
   },
   {

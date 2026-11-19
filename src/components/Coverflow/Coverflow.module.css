@@ -34,7 +34,8 @@
   flex: 0 0 auto;
   width: min(var(--coverflow-item-width, 16rem), calc(100cqw - var(--space-8)));
   min-width: 0;
-  transform: perspective(var(--coverflow-perspective, 900px))
+  transform: translateX(var(--coverflow-shift, 0px))
+    perspective(var(--coverflow-perspective, 900px))
     rotateY(calc(var(--coverflow-side) * var(--coverflow-angle, -12deg)))
     scale(calc(1 - var(--coverflow-distance) * 0.04));
   transition: transform var(--motion-context-duration) var(--motion-ease-enter);
@@ -71,7 +72,8 @@
   color: var(--ink-3);
 }
 .viewport[data-dragging] .track,
-.viewport[data-dragging] .item {
+.viewport[data-dragging] .item,
+.item[data-wrapping] {
   transition: none;
 }
 .root[data-reduced-motion] .track,
@@ -81,6 +83,10 @@
 .root[data-reduced-motion] .item {
   transform: none;
 }
+/* Movimento reduzido tira a perspectiva e a escala, mas não a posição circular do loop. */
+.root[data-loop][data-reduced-motion] .item {
+  transform: translateX(var(--coverflow-shift, 0px));
+}
 @media (prefers-reduced-motion: reduce) {
   .track,
   .item {
@@ -88,5 +94,8 @@
   }
   .item {
     transform: none;
+  }
+  .root[data-loop] .item {
+    transform: translateX(var(--coverflow-shift, 0px));
   }
 }

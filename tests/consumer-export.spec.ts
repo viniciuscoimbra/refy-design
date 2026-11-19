@@ -30,8 +30,12 @@ test("exportação real de tema para o starter local", async ({ page }) => {
     await modeSelect.selectOption(mode);
     // No Storybook o modo chega pelos globals, de forma assíncrona: só edita depois que o editor mostra o modo novo.
     await expect(modeSelect).toHaveValue(mode);
-    await editor.getByLabel("Ação principal", { exact: true }).fill(action);
-    await editor.getByLabel("Dados · série 1", { exact: true }).fill(data);
+    // ColorField: a cor entra pelo campo hexadecimal e vale no Enter.
+    for (const [name, hex] of [["Ação principal", action], ["Dados · série 1", data]]) {
+      const field = editor.getByLabel(`${name} in hexadecimal`, { exact: true });
+      await field.fill(hex);
+      await field.press("Enter");
+    }
   }
   await editor.getByRole("tab", { name: "Exportar", exact: true }).click();
   const theme = JSON.parse(

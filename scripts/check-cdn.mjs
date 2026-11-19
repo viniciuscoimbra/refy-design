@@ -1,45 +1,16 @@
 // CDN-01: o refy publicado no npm roda numa página HTML sem build, pelo /+esm do jsDelivr.
-// Abre a página no Chromium, espera o React montar Button, Input e Card e confere três
+// Abre a página no Chromium, espera o React montar Button, Input e Card e confere quatro
 // coisas: nenhum erro no console, uma instância só de React (Input usa useId; com duas
-// cópias o React lança "Invalid hook call") e o botão primário com a cor do tema.
+// cópias o React lança "Invalid hook call"), o botão primário com a cor do tema e as fontes
+// do tema carregadas pelo fonts.css.
 //   node scripts/check-cdn.mjs 1.6.2          versão publicada no npm
 //   node scripts/check-cdn.mjs 1.6.2 --html   só imprime a página testada
 // Precisa de internet. Não roda no CI de cada PR: roda depois do release, no público.
 import { createServer } from 'node:http';
+import { cdnPage } from '../src/pages/RefySitePage/cdnPage.mjs';
 
-export function cdnPage(version) {
-  const npm = 'https://cdn.jsdelivr.net/npm';
-  return `<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="${npm}/@refy-design/web@${version}/src/tokens/tokens.css">
-<link rel="stylesheet" href="${npm}/@refy-design/web@${version}/dist/style.css">
-</head>
-<body>
-<div id="root"></div>
-<script type="module">
-// O /+esm do jsDelivr reescreve "react" para uma URL com versão fechada. A página importa
-// o React dessa mesma URL; com outra, o refy e a página teriam duas cópias do React.
-const refy = "${npm}/@refy-design/web@${version}/+esm";
-const source = await (await fetch(refy)).text();
-const at = source.indexOf("/npm/react@");
-if (at < 0) throw new Error("o /+esm do refy não importa o React do jsDelivr");
-const react = source.slice(at + "/npm/react@".length, source.indexOf("/", at + "/npm/react@".length));
-const [{ createElement: h }, { createRoot }, { Button, Card, Input }] = await Promise.all([
-  import("${npm}/react@" + react + "/+esm"),
-  import("${npm}/react-dom@" + react + "/client/+esm"),
-  import(refy),
-]);
-createRoot(document.getElementById("root")).render(
-  h(Card, { "data-cdn": "card" },
-    h(Input, { label: "Nome" }),
-    h(Button, { variant: "primary", "data-cdn": "button" }, "Enviar")));
-</script>
-</body>
-</html>`;
-}
+// A página mora em src/ porque a página "Sem bundler" do site mostra o mesmo texto.
+export { cdnPage };
 
 export async function checkCdn(version, { chromium, timeout = 30000 } = {}) {
   const html = cdnPage(version);
@@ -65,7 +36,13 @@ export async function checkCdn(version, { chromium, timeout = 30000 } = {}) {
       return { theme, button: button ? getComputedStyle(button).backgroundColor : null };
     });
     if (colors.button !== colors.theme) errors.push(`botão primário ${colors.button}, tema ${colors.theme}`);
-    return { errors, colors };
+    // fonts.css do mesmo CDN: sem ele o texto cai na fonte do sistema.
+    const fonts = await page.evaluate(async () => {
+      await document.fonts.ready;
+      return [...new Set([...document.fonts].filter((face) => face.status === 'loaded').map((face) => face.family.replace(/["']/g, '')))];
+    });
+    if (!fonts.length) errors.push('nenhuma fonte do tema carregou pelo fonts.css');
+    return { errors, colors, fonts };
   } finally {
     await browser.close();
     server.close();
@@ -85,5 +62,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     if (attempt < 5) await new Promise((done) => setTimeout(done, 60000));
   }
   if (result.errors.length) { console.error(`refy ${version} pelo CDN falhou:\n${result.errors.join('\n')}`); process.exit(1); }
-  console.log(`OK: refy ${version} pelo jsDelivr, sem bundler. Botão primário ${result.colors.button}.`);
+  console.log(`OK: refy ${version} pelo jsDelivr, sem bundler. Botão primário ${result.colors.button}. Fontes: ${result.fonts.join(', ')}.`);
 }

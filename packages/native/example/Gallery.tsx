@@ -97,6 +97,7 @@ export function Gallery({ initialModalOpen = false, showToasts = true, only }: {
         <Section title="BrandLogo">
           <Row>{logoSizes.map((size) => <BrandLogo key={size} size={size} />)}</Row>
           <Row><BrandLogo size="md" animated /><BrandLogo size="md" markOnly /><View style={{ backgroundColor: t.pick<string>("--ink-1"), padding: 8 }}><BrandLogo size="md" tone="inverse" /></View></Row>
+          <Row><BrandLogo symbol size="md" /><BrandLogo symbol markOnly height={32} /><BrandLogo height={24} /></Row>
         </Section>
         <Section title="Chip">
           <Row>
@@ -371,6 +372,7 @@ export function Gallery({ initialModalOpen = false, showToasts = true, only }: {
           <BillingCard brandIcon="VISA" methodLabel="Cartão de crédito" lastDigits="4242" methodMeta="Vence em 09/2028" status={<Badge tone="success" dot>Ativa</Badge>} nextChargeAmount="R$ 2.388" nextChargeDate="em 2 mai. 2027" actions={<Button size="sm">Trocar cartão</Button>} />
           <PlanCard highlighted style={{ marginTop: 10 }} name="Profissional" price="R$ 19" period="/mês" priceNote="R$ 228 cobrados por ano" features={["Espaço sem limite", "Histórico de versões", "Revisões ilimitadas"]} cta={<Button variant="primary" block>Assinar</Button>} />
           <PlanCard current style={{ marginTop: 10 }} name="Grátis" price="R$ 0" period="/mês" features={["Até 500 arquivos", "1 alerta de preço"]} />
+          <PlanCard style={{ marginTop: 10 }} name="Equipe" description="Para times pequenos" price="R$ 49" period="/mês" features={["Até 10 pessoas", "Papéis e permissões"]} cta={<Button variant="secondary" block>Falar com vendas</Button>} ctaPosition="bottom" />
           <DangerZone title="Zona de perigo">
             <DangerZoneRow title="Apagar espaço" description="Remove os 320 arquivos. Não dá para desfazer." actionLabel="Apagar" onConfirm={() => {}} />
             <DangerZoneRow title="Excluir conta" description="Suas revisões abertas são canceladas." actionLabel="Excluir" onConfirm={() => {}} />

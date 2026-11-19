@@ -3,6 +3,7 @@ import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, RefObject } from "react";
 import {
   Button,
+  ColorField,
   Slider,
   Input,
   Select,
@@ -369,28 +370,11 @@ export function ThemeEditor({
                 </Select>
                 {palette.map(([name, label]) => (
                   <Fragment key={name}>
-                    <label className={styles.colorRow}>
-                      <span>{tr(label)}</span>
-                      <input
-                        type="color"
-                        aria-label={tr(label)}
-                        value={hex(values[name] ?? "")}
-                        onChange={(e) => color(name, e.target.value)}
-                      />
-                      <Input
-                        key={values[name]}
-                        aria-label={`${tr(label)} ${tr("em hexadecimal")}`}
-                        defaultValue={hex(values[name] ?? "")}
-                        onBlur={(e) => {
-                          if (/^#[0-9a-f]{6}$/i.test(e.target.value))
-                            color(name, e.target.value);
-                          else e.target.value = hex(values[name] ?? "");
-                        }}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") e.currentTarget.blur();
-                        }}
-                      />
-                    </label>
+                    <ColorField
+                      label={tr(label)}
+                      value={hex(values[name] ?? "")}
+                      onChange={(next) => color(name, next)}
+                    />
                     {contrastWarnings
                       .filter((issue) => issue.foreground === name)
                       .map((issue) => (
@@ -984,31 +968,13 @@ export function ThemeEditor({
   const section = (id: string) =>
     sections.find((item) => item.id === id)?.content;
   const swatch = (name: string, label: string) => (
-    <label className={styles.siteSwatch} key={name}>
-      <span>{label}</span>
-      <span className={styles.siteSwatchRow}>
-        <input
-          type="color"
-          aria-label={label}
-          value={hex(values[name] ?? "")}
-          onChange={(e) => color(name, e.target.value)}
-        />
-        <Input
-          key={values[name]}
-          aria-label={`${label} ${tr("em hexadecimal")}`}
-          defaultValue={hex(values[name] ?? "").toUpperCase()}
-          onBlur={(e) => {
-            if (/^#[0-9a-f]{6}$/i.test(e.target.value))
-              color(name, e.target.value);
-            else e.target.value = hex(values[name] ?? "").toUpperCase();
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") e.currentTarget.blur();
-          }}
-          block
-        />
-      </span>
-    </label>
+    <div className={styles.siteSwatch} key={name}>
+      <ColorField
+        label={label}
+        value={hex(values[name] ?? "")}
+        onChange={(next) => color(name, next)}
+      />
+    </div>
   );
   if (variant === "site") {
     const radiusValue = numeric(values["--control-radius"], 8);
@@ -1045,15 +1011,13 @@ export function ThemeEditor({
                           "--chart-senary",
                         ] as const
                       ).map((name, index) => (
-                        <label key={name}>
-                          <input
-                            type="color"
-                            aria-label={`${tr("Paleta do tema, cor")} ${index + 1}`}
-                            value={hex(values[name] ?? "")}
-                            onChange={(e) => color(name, e.target.value)}
-                          />
-                          <small>{hex(values[name] ?? "").toUpperCase()}</small>
-                        </label>
+                        <ColorField
+                          key={name}
+                          appearance="swatch"
+                          label={`${tr("Paleta do tema, cor")} ${index + 1}`}
+                          value={hex(values[name] ?? "")}
+                          onChange={(next) => color(name, next)}
+                        />
                       ))}
                     </div>
                   </div>

@@ -1,0 +1,150 @@
+{
+  "id": "ColorField",
+  "description": "Color field: a swatch that opens a picker with hue, saturation and lightness, next to the editable hexadecimal value.",
+  "usage": {
+    "howToUse": [
+      "Use it wherever people pick a color: theme editors, labels, charts. The value is always `#rrggbb`.",
+      "The swatch opens the picker with hue, saturation and lightness; the field next to it takes a typed hexadecimal and checks it.",
+      "Pass the theme colors in `presets` so the usual choices are one click away."
+    ],
+    "alternatives": [
+      "A choice among a few named colors: Segmented or RadioGroup.",
+      "A token value that is not a color, such as a font or a radius: Input or Select."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves from the swatch to the hexadecimal field."
+      },
+      {
+        "keys": "`Enter` or `Space` on the swatch",
+        "action": "Opens or closes the picker."
+      },
+      {
+        "keys": "`←` `→` `↑` `↓` on a slider",
+        "action": "Changes hue, saturation or lightness."
+      },
+      {
+        "keys": "`Enter` in the field",
+        "action": "Applies the typed color."
+      },
+      {
+        "keys": "`Esc`",
+        "action": "Closes the picker."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "ColorField",
+  "selected": "Controlado",
+  "import": "import { ColorField } from '@refy-design/web';",
+  "composition": [
+    "Input",
+    "Popover",
+    "Slider"
+  ],
+  "api": [
+    {
+      "name": "ColorField",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Field name, shown above it and used as the accessible name of the swatch and the sliders."
+        },
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Controlled color in hexadecimal (`#rrggbb`)."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "DEFAULT_HEX",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Initial color (uncontrolled). Default black, #000000."
+        },
+        {
+          "name": "onChange",
+          "type": "((hex: string) => void) | undefined",
+          "required": false,
+          "description": "Called with `#rrggbb` in lowercase whenever the color changes."
+        },
+        {
+          "name": "presets",
+          "type": "readonly string[] | undefined",
+          "required": false,
+          "description": "Colors offered as one-click swatches in the picker (e.g. the theme palette)."
+        },
+        {
+          "name": "hint",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Help text below the field."
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Form field name. The form receives the accepted color as `#rrggbb`, never an invalid draft."
+        },
+        {
+          "name": "appearance",
+          "defaultValue": "\"field\"",
+          "type": "\"field\" | \"swatch\" | undefined",
+          "required": false,
+          "description": "`field` (default): label, swatch and hexadecimal input. `swatch`: only a swatch that fills the\nwidth, with the value below; `label` stays as the accessible name. For palettes in a row."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { ColorField } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ColorField>, 'label' | 'defaultValue'> = {\n    label: 'Brand color',\n    defaultValue: '#2163ad',\n  };\n  return <ColorField {...args} />;\n}"
+    },
+    {
+      "id": "Controlado",
+      "label": "Controlled",
+      "description": "",
+      "code": "import { ColorField } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [color, setColor] = useState('#0f7b5f');\n  return (\n    <div style={{ display: 'grid', gap: 'var(--space-3)', maxWidth: 320 }}>\n      <ColorField\n        label=\"Primary\"\n        value={color}\n        onChange={setColor}\n        hint=\"Used on buttons and links.\"\n      />\n      <p>Value: {color}</p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "ComPaleta",
+      "label": "With theme colors",
+      "description": "",
+      "code": "import { ColorField } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [color, setColor] = useState('#c2410c');\n  return (\n    <ColorField\n      label=\"Accent\"\n      value={color}\n      onChange={setColor}\n      presets={['#2163ad', '#0f7b5f', '#c2410c', '#7c3aed', '#111827']}\n    />\n  );\n}"
+    },
+    {
+      "id": "Paleta",
+      "label": "Swatch palette",
+      "description": "",
+      "code": "import { ColorField } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [colors, setColors] = useState(['#2163ad', '#0f7b5f', '#c2410c', '#7c3aed']);\n  return (\n    <div\n      style={{\n        display: 'grid',\n        gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',\n        gap: 'var(--space-2)',\n        maxWidth: 360,\n      }}\n    >\n      {colors.map((color, index) => (\n        <ColorField\n          key={index}\n          appearance=\"swatch\"\n          label={`Chart color ${index + 1}`}\n          value={color}\n          onChange={(next) => setColors(colors.map((c, i) => (i === index ? next : c)))}\n        />\n      ))}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "",
+      "code": "import { ColorField } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ColorField>,\n    'label' | 'defaultValue' | 'disabled'\n  > = { label: 'Locked color', defaultValue: '#6b7280', disabled: true };\n  return <ColorField {...args} />;\n}"
+    }
+  ]
+}

@@ -6,6 +6,23 @@ Todas as mudanças relevantes do refy ficam registradas aqui. O formato segue o 
 
 ## [Não publicado][Unreleased]
 
+## [1.10.0] - 2026-11-19
+
+Mobile: o `@refy-design/mobile` acompanha na 1.2.0: o BrandLogo ganha `symbol` e `height`, e o PlanCard ganha `ctaPosition`, como na web. Ficam só na web o `ColorField` e o `loop` e o `autoplay` do Coverflow.
+
+### Adicionado
+
+- `ColorField`. Campo de cor: uma amostra que abre um seletor com matiz, saturação e luminosidade, ao lado do valor hexadecimal editável. `presets` oferece as cores do tema num clique, o valor é sempre `#rrggbb` e o formulário recebe só cor aceita. O editor de tema do Playground usa o campo nos tokens de cor.
+- `loop` e `autoplay` no Coverflow. `loop` deixa o carrossel circular: avançar no último item volta ao primeiro. `autoplay` avança sozinho a cada 5 s, ou `{ interval }` a partir de 2 s, e oferece um botão de pausa. O avanço automático pausa com o ponteiro em cima, com o foco dentro, durante o toque e com a aba oculta, e nunca roda com movimento reduzido.
+- Template `route-01`, roteiro de visitas: cinco visitas do dia no mapa de bairros de Belo Horizonte. Escolher no mapa ou na lista destaca a parada nos dois, e cada visita feita muda a cor do bairro.
+- Template `inbox-01`, caixa de atendimento: lista de conversas, conversa aberta e resposta no mesmo lugar. Responder, resolver e reabrir funcionam; no celular, lista e conversa viram duas telas.
+- Página "Sem bundler" na documentação (`/docs/sem-bundler`, en `/en/docs/no-bundler`, es `/es/docs/sin-bundler`): uma página HTML solta que carrega o refy e o React do jsDelivr, o mesmo HTML que o `scripts/check-cdn.mjs` abre depois de cada release. A página agora também carrega `fonts.css` e `global.css`, e a conferência falha quando nenhuma fonte do tema carrega.
+- Atalho `refy-pagina-solta` nos plugins `refy` e `refy-local`: página HTML solta com o refy pelo CDN e o tema do refy em vez de cor e fonte escritas à mão, conferida com `refy_validate` na mesma árvore escrita em JSX.
+
+### Corrigido
+
+- BrandLogo com `markOnly` e `height`: o quadrado do monograma tem a altura de `height`; antes tinha 1,75 vez essa altura.
+
 ## [1.9.5] - 2026-11-18
 
 Mobile: o `@refy-design/mobile` não acompanha e segue na 1.1.0; nenhuma família ou propriedade nova.
@@ -320,7 +337,8 @@ Primeira versão pública.
 
 - `ContentCard` (e o nome antigo `PropertyCard`): `address`, `price` e `priceSuffix` continuam funcionando e podem sair a partir da 2.0.0. Use `subtitle`, `value` e `valueSuffix`.
 
-[Unreleased]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.5...HEAD
+[Unreleased]: https://github.com/viniciuscoimbra/refy-design/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.5...v1.10.0
 [1.9.5]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.4...v1.9.5
 [1.9.4]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.3...v1.9.4
 [1.9.3]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.2...v1.9.3

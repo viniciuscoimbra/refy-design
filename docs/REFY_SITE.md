@@ -42,7 +42,7 @@ Navegação: **Componentes → Páginas → Refy Site**. IDs e links refy-site--
 Após a aplicação, iniciar com npm run storybook e abrir:
 http://localhost:6006/?path=/story/refy-site--inicio
 
-As composições são páginas, não novas famílias de organismos. Reutilizam o catálogo real, 122 famílias, editor de temas, gráficos D3, BlockViewport, documentação e fontes. Os elementos interativos usam as APIs reais: formulário local, calendário, tabs, Accordion, diálogo, busca por teclado e navegação mobile.
+As composições são páginas, não novas famílias de organismos. Reutilizam o catálogo real, 123 famílias, editor de temas, gráficos D3, BlockViewport, documentação e fontes. Os elementos interativos usam as APIs reais: formulário local, calendário, tabs, Accordion, diálogo, busca por teclado e navegação mobile.
 
 ## Fluxo de criação
 

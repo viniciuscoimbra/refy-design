@@ -87,9 +87,20 @@ export const common = {
 export const contextMenu = {
   label: "Context menu",
 };
+export const colorField = {
+  hex: "in hexadecimal",
+  invalid: "Use a hexadecimal color such as #2163AD.",
+  hue: "Hue",
+  saturation: "Saturation",
+  lightness: "Lightness",
+  presets: "Theme colors",
+  picker: (label: string) => `${label}: color picker`,
+  open: (label: string, hex: string) => `${label}: ${hex}. Open the color picker`,
+};
 export const coverflow = {
   label: "Browse content",
   empty: "No content available.",
+  pause: "Pause automatic advance",
 };
 export const d3Chart = {
   cyclicSankey: "Sankey does not accept cycles in links.",
@@ -523,5 +534,5 @@ export const workspaceSwitcher = {
   current: (name: string) => `Current workspace: ${name}. Switch workspace`,
 };
 
-export const en = { activityTimeline, alertDialog, appShell, approvalWorkbench, avatarGroup, billingCard, breadcrumb, calendar, callout, carousel, charts, codeBlock, combobox, command, common, contextMenu, coverflow, d3Chart, datePicker, deviceFrame, fabMenu, fileUpload, geoAreaPicker, guidedTour, helpField, helpMenu, intentComposer, kanbanBoard, matrix2x2, menu, menubar, message, messageScroller, modal, multiselect, navigationMenu, notificationBell, oauthButton, otp, pagination, phoneInput, planCard, postalCodeInput, propertyActionGroup, propertyCard, propertyMedia, questionnaire, range, resizable, settingsSubnav, sidebar, spinner, splitButton, stat, swipeDeck, table, tableOfContents, tabs, timeline, topbar, trace, usageMeter, userMenu, visitSchedulePicker, voiceRecorder, wizardStepper, workspaceSwitcher };
+export const en = { activityTimeline, alertDialog, appShell, approvalWorkbench, avatarGroup, billingCard, breadcrumb, calendar, callout, carousel, charts, codeBlock, colorField, combobox, command, common, contextMenu, coverflow, d3Chart, datePicker, deviceFrame, fabMenu, fileUpload, geoAreaPicker, guidedTour, helpField, helpMenu, intentComposer, kanbanBoard, matrix2x2, menu, menubar, message, messageScroller, modal, multiselect, navigationMenu, notificationBell, oauthButton, otp, pagination, phoneInput, planCard, postalCodeInput, propertyActionGroup, propertyCard, propertyMedia, questionnaire, range, resizable, settingsSubnav, sidebar, spinner, splitButton, stat, swipeDeck, table, tableOfContents, tabs, timeline, topbar, trace, usageMeter, userMenu, visitSchedulePicker, voiceRecorder, wizardStepper, workspaceSwitcher };
 export type RefyMessages = typeof en;

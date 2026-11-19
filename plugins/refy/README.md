@@ -1,9 +1,10 @@
 # Plugin do Refy
 
-Liga o servidor MCP remoto do [Refy](https://refy.design) (`https://refy.design/mcp`) e dois atalhos ao Claude e ao Codex:
+Liga o servidor MCP remoto do [Refy](https://refy.design) (`https://refy.design/mcp`) e três atalhos ao Claude e ao Codex:
 
 - **refy-tela**: acha o componente pela necessidade, escreve a tela com a API documentada e roda a conferência do Refy no fim.
 - **refy-tema-de-site**: pega os elementos claros de um site (cores, fontes, raios e o jeito de botão, cartão, campo e selo) e gera um tema claro e escuro conferido em contraste AA, com a razão de cada escolha. Não copia a tela.
+- **refy-pagina-solta**: monta uma página HTML solta (relatório, protótipo), sem projeto React nem build, com o Refy pelo CDN e o tema do Refy em vez de cor e fonte escritas à mão.
 
 Sem conta, sem chave e sem instalar nada: o plugin não roda programa na sua máquina.
 

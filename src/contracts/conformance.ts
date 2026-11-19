@@ -301,7 +301,8 @@ export type ContractConformance = [
   Expect<Equal<GuidedTourProps, C.GuidedTourCoreProps>>,
   Expect<Equal<Omit<GuidedTourAnchorProps, "className">, C.GuidedTourAnchorCoreProps>>,
   Expect<Equal<WebGuidedTourStep, C.GuidedTourStep>>,
-  Expect<Equal<Omit<CoverflowProps<WebCoverflowItem>, "className">, C.CoverflowCoreProps>>,
+  // loop e autoplay são só da web por enquanto (packages/native/DIVERGENCIAS.md, Coverflow).
+  Expect<Equal<Omit<CoverflowProps<WebCoverflowItem>, "className" | "loop" | "autoplay">, C.CoverflowCoreProps>>,
   Expect<Equal<WebCoverflowItem, C.CoverflowItem>>,
   Expect<Equal<Pick<ApprovalWorkbenchProps, keyof C.ApprovalWorkbenchCoreProps>, C.ApprovalWorkbenchCoreProps>>,
   Expect<Equal<WebApprovalWorkbenchItem, C.ApprovalWorkbenchItem>>,

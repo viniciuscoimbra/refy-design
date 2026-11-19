@@ -1,3 +1,4 @@
 [
-  { "file": "src/components/GoogleButton/GoogleButton.tsx", "kind": "literal", "count": 4, "reason": "Cores do logotipo G do Google. É arte da marca de terceiro, exigida pelas diretrizes do Google; não é parâmetro de interface." }
+  { "file": "src/components/GoogleButton/GoogleButton.tsx", "kind": "literal", "count": 4, "reason": "Cores do logotipo G do Google. É arte da marca de terceiro, exigida pelas diretrizes do Google; não é parâmetro de interface." },
+  { "file": "src/components/ColorField/color.ts", "kind": "literal", "count": 1, "reason": "Valor inicial do seletor de cor (preto) quando nada válido chega. É o dado que o campo edita e devolve em onChange, não cor de interface." }
 ]

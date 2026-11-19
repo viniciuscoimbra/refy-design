@@ -48,7 +48,7 @@ const purposeGroups = [
   [
     "context",
     "Revelar superfície na origem e sair para a mesma origem",
-    "FabMenu Combobox Multiselect WorkspaceSwitcher UserMenu HelpMenu Menu NotificationBell Tooltip Popover HoverCard HelpField ContextMenu DatePicker Menubar NavigationMenu",
+    "FabMenu Combobox Multiselect WorkspaceSwitcher UserMenu HelpMenu Menu NotificationBell Tooltip Popover HoverCard HelpField ContextMenu DatePicker ColorField Menubar NavigationMenu",
   ],
   [
     "orientation",

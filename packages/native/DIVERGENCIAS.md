@@ -47,7 +47,7 @@ Este arquivo lista o que o nativo faz diferente da web e por quê. Ele foi escri
 
 **Fab.** Mesmo desenho; posicionar é do app, como na web. Sem `:hover`.
 
-**BrandLogo.** O ponto pulsa com `Animated`; com movimento reduzido fica parado, como na web.
+**BrandLogo.** O ponto pulsa com `Animated`; com movimento reduzido fica parado, como na web. Com `symbol`, o símbolo é SVG (`react-native-svg`) e a palavra usa a família "Manrope" em peso 800, como na web; o app registra a fonte com o expo-font, senão o sistema cai na fonte padrão. `height` fixa a altura em pt.
 
 **ScrollArea.** `maxHeight` aceita número, porcentagem e `"240px"`. Outras unidades CSS são ignoradas.
 
@@ -139,7 +139,7 @@ Este arquivo lista o que o nativo faz diferente da web e por quê. Ele foi escri
 
 **CodeBlock.** O nativo não traz área de transferência nem realce de sintaxe, para não somar dependência ao pacote: o app injeta `copyToClipboard` (ex.: expo-clipboard) e, se quiser cores, `highlight`, que devolve trechos com os mesmos nomes de token do Prism e pinta com os mesmos `--code-syntax-*` da web. Sem `copyToClipboard`, o botão copiar não aparece. O texto é selecionável.
 
-**BillingCard / PlanCard / DangerZone.** Mesmas medidas e cadeias de token. No PlanCard destacado, a borda de 2 pt faz o papel de borda + anel de 1 px da web; o degradê do topo é SVG.
+**BillingCard / PlanCard / DangerZone.** Mesmas medidas e cadeias de token. No PlanCard, `ctaPosition="bottom"` põe o botão no fim com `marginTop: "auto"`, como o `margin: auto 0 0` da web; numa linha de cartões com a mesma altura, os botões se alinham. No PlanCard destacado, a borda de 2 pt faz o papel de borda + anel de 1 px da web; o degradê do topo é SVG.
 
 **UserMenu e HelpMenu.** Compõem o Menu nativo. O atalho de teclado da web (⌘K) não aparece no toque; o item continua. `aria-describedby` fica só na web.
 
@@ -177,7 +177,7 @@ Este arquivo lista o que o nativo faz diferente da web e por quê. Ele foi escri
 
 **SwipeDeck.** Sem atalhos de teclado. O arrasto tem o mesmo limiar da web (72 pt) e fica preso a 140 pt; salvar não tem gesto e some com o cartão encolhendo. O item usa o PropertyCard nativo.
 
-**Coverflow.** Sem teclado (Home, End, setas); no lugar, os botões de anterior e próximo e o toque no cartão vizinho. `itemWidth` em pt (padrão 256, os 16rem da web). Com movimento reduzido, os cartões ficam retos e a troca é instantânea, como na web.
+**Coverflow.** Sem teclado (Home, End, setas); no lugar, os botões de anterior e próximo e o toque no cartão vizinho. `itemWidth` em pt (padrão 256, os 16rem da web). Com movimento reduzido, os cartões ficam retos e a troca é instantânea, como na web. `loop` e `autoplay` (web 1.10.0) ainda não existem no nativo: o carrossel do app é finito e só anda pelo toque.
 
 **Questionnaire.** Sem `<form>`: o botão Continuar e o "enviar" do teclado fazem o envio da pergunta.
 

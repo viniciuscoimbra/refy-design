@@ -56,7 +56,7 @@ Entradas TS/JS com erro sintático são recusadas antes da inspeção. Em CSS a 
 
 ## Pilotos de capacidades
 
-Coverflow é uma família disponível na coleção media, com API e exemplos consultáveis por component Coverflow. ConversationBlock é uma composição controlada dos organismos de conversa, com apresentações inline/Drawer no catálogo de Templates; o contrato e a coordenação assíncrona estão em docs/CAPABILITY_PILOTS.md e suas fontes copiáveis. GeoAreaPicker preserva o slot map; MapaLocal é um adapter demonstrativo D3 sem serviço geográfico. Não inferir autoplay, backend de IA ou integração de mapas/pagamentos desses exemplos.
+Coverflow é uma família disponível na coleção media, com API e exemplos consultáveis por component Coverflow; `loop` e `autoplay` são opcionais e ficam desligados por padrão (só na web). ConversationBlock é uma composição controlada dos organismos de conversa, com apresentações inline/Drawer no catálogo de Templates; o contrato e a coordenação assíncrona estão em docs/CAPABILITY_PILOTS.md e suas fontes copiáveis. GeoAreaPicker preserva o slot map; MapaLocal é um adapter demonstrativo D3 sem serviço geográfico. Não ligar autoplay sem pedido, nem inferir backend de IA ou integração de mapas/pagamentos desses exemplos.
 
 ## Autoria de organismos
 

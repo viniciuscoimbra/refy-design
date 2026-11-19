@@ -37,7 +37,7 @@ Este exemplo mostra a API, sem serviço externo. A documentação do componente 
 
 Setas/Home/End navegam com foco; Enter/Espaço seguem a ativação do Button. Arraste horizontal, cancelamento e rolagem vertical móvel têm papéis distintos. `renderItem` recebe conteúdo não interativo: evite campos, links ou botões dentro do botão do item.
 
-O piloto é finito. Não há autoplay, repetição circular, compra/propriedade de mídia, busca ou imagens embutidas. A história Capas usa SVGs demonstrativos próprios, sem álbuns ou artistas reais. [API e exemplos no pacote](../ai/components/Coverflow.json).
+Por padrão o piloto é finito e parado. `loop` liga a navegação circular, com o último item ao lado do primeiro. `autoplay` liga o avanço automático: 5 s por padrão, nunca menos de 2 s, com botão de pausa, e pausa sob o ponteiro, com foco dentro, com a aba oculta e com movimento reduzido. Os dois são só da web. Não há compra/propriedade de mídia, busca ou imagens embutidas. A história Capas usa SVGs demonstrativos próprios, sem álbuns ou artistas reais. [API e exemplos no pacote](../ai/components/Coverflow.json).
 
 A aparência herda o tema. Hooks opcionais incluem `--coverflow-item-width`, `--coverflow-item-padding`, `--coverflow-gap`, `--coverflow-angle` e `--coverflow-perspective`; fallbacks usam a fundação. O editor preserva unidades de ângulo/comprimento e rejeita valores incompatíveis. Movimento reduzido do sistema/tema é respeitado. Modo claro/escuro não altera a geometria.
 

@@ -1,6 +1,6 @@
 # Plugin refy-local
 
-Roda o servidor MCP do [Refy](https://refy.design) na sua máquina, com os atalhos **refy-tela** e **refy-tema-de-site** do plugin `refy` e mais **refy-reproduzir-tela**: só quando você pede, reproduz a tela igual ao original com componentes do Refy e extensões, e compara as duas capturas com `refy_compare` até bater.
+Roda o servidor MCP do [Refy](https://refy.design) na sua máquina, com os atalhos **refy-tela**, **refy-tema-de-site** e **refy-pagina-solta** do plugin `refy` e mais **refy-reproduzir-tela**: só quando você pede, reproduz a tela igual ao original com componentes do Refy e extensões, e compara as duas capturas com `refy_compare` até bater.
 
 Para telas e temas no dia a dia, o plugin **refy** (servidor remoto, sem instalar nada) basta. Use este no lugar dele quando quiser conferir os arquivos do projeto com o TypeScript instalado ou comparar capturas.
 
@@ -15,7 +15,7 @@ No Codex: `codex plugin add refy-local@refy` depois de adicionar o mesmo marketp
 
 ## O que o plugin roda e o que envia
 
-`npx` baixa `@refy-design/web` na versão exata do plugin (1.9.5) do registro do npm e roda o comando `refy-mcp` do pacote. Esse servidor:
+`npx` baixa `@refy-design/web` na versão exata do plugin (1.10.0) do registro do npm e roda o comando `refy-mcp` do pacote. Esse servidor:
 
 - lê o catálogo e a fundação de tokens que vêm no pacote;
 - não escreve no projeto e não chama IA; só grava a imagem de diferença do `refy_compare`, na pasta temporária do sistema;

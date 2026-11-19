@@ -1,6 +1,6 @@
 {
   "name": "@refy-design/mobile",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Componentes do Refy em React Native, com o mesmo contrato de props da web.",
   "license": "Apache-2.0",
   "author": "Vinícius Coimbra",

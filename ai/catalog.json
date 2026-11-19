@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "package": "@refy-design/web",
-  "packageVersion": "1.9.5",
-  "sourceSha256": "b4541a2cfdf2e0226ce7dbcb6614e025f8bc122b79876e096e753de76f1524f3",
+  "packageVersion": "1.10.0",
+  "sourceSha256": "e2710becfaab2af00f5629eb893e030a310d971c7fe04e3489d47224d6b50bf4",
   "collections": [
     {
       "id": "core",
@@ -14,7 +14,7 @@
         "fundação",
         "interface"
       ],
-      "count": 102
+      "count": 103
     },
     {
       "id": "media",
@@ -2552,6 +2552,49 @@
       ],
       "mobile": "com-divergencia",
       "document": "components/PostalCodeInput.json"
+    },
+    {
+      "id": "ColorField",
+      "label": "ColorField",
+      "level": "Moléculas",
+      "area": "forms",
+      "storyId": "components-molecules-colorfield--controlado",
+      "collections": [
+        "core"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "ColorField",
+      "description": "Color field: a swatch that opens a picker with hue, saturation and lightness, next to the editable hexadecimal value.",
+      "usage": [],
+      "howToUse": [
+        "Use it wherever people pick a color: theme editors, labels, charts. The value is always `#rrggbb`.",
+        "The swatch opens the picker with hue, saturation and lightness; the field next to it takes a typed hexadecimal and checks it.",
+        "Pass the theme colors in `presets` so the usual choices are one click away."
+      ],
+      "alternatives": [
+        "A choice among a few named colors: Segmented or RadioGroup.",
+        "A token value that is not a color, such as a font or a radius: Input or Select."
+      ],
+      "composition": [
+        "Input",
+        "Popover",
+        "Slider"
+      ],
+      "hooks": [
+        "--font-mono",
+        "--ink-1",
+        "--ink-3",
+        "--outline",
+        "--primary-ink",
+        "--radius-default",
+        "--space-1",
+        "--space-2",
+        "--space-3",
+        "--surface",
+        "--text-xs"
+      ],
+      "mobile": "so-web",
+      "document": "components/ColorField.json"
     },
     {
       "id": "Calendar",
@@ -5660,7 +5703,9 @@
       "howToUse": [
         "Use it to browse a finite set of covers or visual references and pick one: albums, themes, templates.",
         "Draw each item with `renderItem` using only image and text: links and buttons inside it do not work.",
-        "Selecting moves the item to the center (`onSelectionChange`); opening it is a separate step (`onActivate`)."
+        "Selecting moves the item to the center (`onSelectionChange`); opening it is a separate step (`onActivate`).",
+        "`loop` makes it circular: next on the last item goes back to the first. `autoplay` advances on its own every 5 s, or `{ interval }` from 2 s up, and offers a pause button.",
+        "`autoplay` stops while the pointer is over it, while focus is inside, with the tab hidden and with reduced motion. Without `loop`, it stops on the last item."
       ],
       "alternatives": [
         "A long list to read: a list or a grid of ContentCard.",

@@ -10,7 +10,7 @@ import { Button } from "./Button";
 export interface PlanCardProps extends PlanCardCoreProps, Omit<ViewProps, "children"> {}
 
 /** Cartão de plano: nome, preço, CTA e lista de recursos. `current` trava o CTA; `highlighted` destaca o recomendado. */
-export function PlanCard({ name, price, period, priceNote, features, checkIcon, cta, current = false, currentLabel = "Plano atual", highlighted = false, highlightLabel = "Recomendado", style, ...rest }: PlanCardProps) {
+export function PlanCard({ name, description, price, period, priceNote, features, checkIcon, cta, ctaPosition = "top", current = false, currentLabel = "Plano atual", highlighted = false, highlightLabel = "Recomendado", style, ...rest }: PlanCardProps) {
   const t = useRefy();
   const tag = current ? currentLabel : highlighted ? highlightLabel : null;
   const neutralTag = current && !highlighted;
@@ -22,6 +22,12 @@ export function PlanCard({ name, price, period, priceNote, features, checkIcon, 
   const eyebrow = t.pick<number>("--text-eyebrow", 11);
   const s5 = t.pick<number>("--space-5", 20);
   const radius = t.pick<number>("--radius-lg-token", 8);
+  // Botão no fim: numa grade de planos, os botões ficam na mesma linha (margin auto da web).
+  const action = (current || cta != null) && (
+    <View style={ctaPosition === "bottom" ? { marginTop: "auto", paddingTop: s5 } : { marginBottom: t.pick<number>("--space-4", 16) }}>
+      {current ? <Button variant="secondary" block disabled>{currentLabel}</Button> : cta}
+    </View>
+  );
   return (
     <View
       {...rest}
@@ -45,12 +51,17 @@ export function PlanCard({ name, price, period, priceNote, features, checkIcon, 
         </View>
       )}
       <View accessibilityRole="header" style={{ marginBottom: t.pick<number>("--space-3", 12) }}>{renderText(name, { color: ink1, fontSize: h5, letterSpacing: -0.015 * h5, ...t.font("--font-headline", "--weight-semi") })}</View>
+      {description != null && (
+        <View style={{ marginTop: -t.pick<number>("--space-2", 8), marginBottom: t.pick<number>("--space-3", 12) }}>
+          {renderText(description, { color: t.pick<string>("--ink-3"), fontSize: t.pick<number>("--text-sm", 13), lineHeight: Math.round(t.pick<number>("--text-sm", 13) * t.pick<number>("--leading-snug", 1.35)), ...t.font("--font-body", "--weight-regular") })}
+        </View>
+      )}
       <View style={{ flexDirection: "row", alignItems: "baseline", gap: t.pick<number>("--space-1", 4), marginBottom: t.pick<number>("--space-1", 4) }}>
         {renderText(price, { color: ink1, fontSize: h3, letterSpacing: -0.025 * h3, fontVariant: ["tabular-nums"], ...t.font("--font-headline", "--weight-semi") })}
         {period != null && renderText(period, { color: t.pick<string>("--ink-3"), fontSize: t.pick<number>("--text-sm", 13), ...t.font("--font-body", "--weight-regular") })}
       </View>
       <View style={{ minHeight: 16, marginBottom: t.pick<number>("--space-4", 16) }}>{priceNote != null && renderText(priceNote, { color: t.pick<string>("--primary-ink"), fontSize: t.pick<number>("--text-2xs", 11), ...t.font(["--interface-detail-font", "--font-mono"], "--weight-regular") })}</View>
-      {(current || cta != null) && <View style={{ marginBottom: t.pick<number>("--space-4", 16) }}>{current ? <Button variant="secondary" block disabled>{currentLabel}</Button> : cta}</View>}
+      {ctaPosition === "top" && action}
       {features && features.length > 0 && (
         <View style={{ gap: t.pick<number>("--space-2", 8) }}>
           {features.map((feature, i) => (
@@ -63,6 +74,7 @@ export function PlanCard({ name, price, period, priceNote, features, checkIcon, 
           ))}
         </View>
       )}
+      {ctaPosition === "bottom" && action}
     </View>
   );
 }

@@ -14,14 +14,15 @@ const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
 const local = JSON.parse(readFileSync(join(plugin, ".codex-plugin/plugin.json"), "utf8"));
 
 export const REMOTE_URL = "https://refy.design/mcp";
-export const REMOTE_SKILLS = ["refy-tela", "refy-tema-de-site"];
+export const REMOTE_SKILLS = ["refy-tela", "refy-tema-de-site", "refy-pagina-solta"];
 
 const REMOTE_README = `# Refy
 
-Liga o servidor MCP remoto do [Refy](https://refy.design) (\`${REMOTE_URL}\`) e dois atalhos:
+Liga o servidor MCP remoto do [Refy](https://refy.design) (\`${REMOTE_URL}\`) e três atalhos:
 
 - **refy-tela**: acha o componente pela necessidade, escreve a tela com a API documentada e confere o código com \`refy_validate\` no fim.
 - **refy-tema-de-site**: pega cores, fontes, raios e o jeito de botão, cartão, campo e selo de um site público e gera um tema claro e escuro conferido em contraste AA, com a razão de cada escolha. Não copia a tela.
+- **refy-pagina-solta**: monta uma página HTML solta, sem projeto React nem build, com o refy pelo CDN e o tema do refy em vez de cor e fonte escritas à mão, e confere a árvore com \`refy_validate\`.
 
 Sem conta, sem chave e sem instalar nada.
 

@@ -88,4 +88,4 @@ O custo foi medido por pacote instalado, não pelo tamanho do arquivo TSX. Consu
 
 A rodada local de30/10/2026 verificou interação, tipos, SSR, build, temas e integração. A comparação exata ainda registrou diferença de pintura nos botões externos do exemplo Controlado, em foco/800px; geometria e estilos medidos coincidiam. Isso permanece investigação técnica, não aprovação pixel perfect nem defeito de foco demonstrado no cartão.
 
-Não há autoplay, repetição circular ou serviço. Aprovação visual humana e ensaios assistivos são estados separados. O playbook mostra como construir e verificar a capacidade; sua existência não certifica o catálogo todo. [Maturidade e evidência](QUALITY.md).
+Autoplay e repetição circular são opcionais e ficam desligados por padrão (`autoplay`, `loop`); não há serviço. Aprovação visual humana e ensaios assistivos são estados separados. O playbook mostra como construir e verificar a capacidade; sua existência não certifica o catálogo todo. [Maturidade e evidência](QUALITY.md).

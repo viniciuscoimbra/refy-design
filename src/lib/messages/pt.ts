@@ -69,6 +69,16 @@ export const pt: RefyMessages = {
     reveal: "Revelar valor",
     hide: "Ocultar valor",
   },
+  colorField: {
+    hex: "em hexadecimal",
+    invalid: "Use uma cor hexadecimal, como #2163AD.",
+    hue: "Matiz",
+    saturation: "Saturação",
+    lightness: "Luminosidade",
+    presets: "Cores do tema",
+    picker: (label: string) => `${label}: seletor de cor`,
+    open: (label: string, hex: string) => `${label}: ${hex}. Abrir o seletor de cor`,
+  },
   combobox: {
     empty: "Nenhum resultado",
     placeholder: "Buscar…",
@@ -90,6 +100,7 @@ export const pt: RefyMessages = {
   coverflow: {
     label: "Explorar conteúdos",
     empty: "Nenhum conteúdo disponível.",
+    pause: "Pausar avanço automático",
   },
   d3Chart: {
     cyclicSankey: "Sankey não aceita ciclos nos vínculos.",
