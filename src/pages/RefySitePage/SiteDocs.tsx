@@ -16,7 +16,7 @@ import { versionsPolicy } from "./SiteVersions";
 // Docs técnica: uma página por assunto, menu da esquerda lista as páginas e o sumário da
 // direita lista as seções da página aberta. Texto curto, só o que o pacote faz hoje.
 
-export type DocTopic = "primeiros-passos" | "instalacao" | "tema-por-arquivo" | "compatibilidade" | "versoes";
+export type DocTopic = "primeiros-passos" | "instalacao" | "tema-por-arquivo" | "compatibilidade" | "versoes" | "a2ui";
 
 const appCodeFor = (label: string) => `import { Button, ThemeProvider, refySiteTheme } from "@refy-design/web";
 import "@refy-design/web/tokens.css";
@@ -275,6 +275,195 @@ function versionsPage(locale: Locale): DocPage {
   };
 }
 
+// A2UI: o pacote @refy-design/a2ui desenha mensagens A2UI 1.0 com os componentes do refy.
+// Código conferido contra packages/a2ui (index.ts, definition.ts, native.tsx e README).
+const a2uiCatalogId = "https://refy.design/a2ui/v1";
+const a2uiPieces = ["Text", "Image", "Row", "Column", "List", "Card", "Divider", "Button", "TextField", "CheckBox", "ChoicePicker", "Slider"];
+const a2uiInstallWeb = "npm install @refy-design/a2ui @a2ui/react@0.15.0 @refy-design/web react react-dom";
+const a2uiInstallNative = "npx expo install @refy-design/a2ui @refy-design/mobile react-native-svg";
+const a2uiWebCode = (comment: string) => `import { ThemeProvider } from "@refy-design/web";
+import { A2uiSurface, createRefyProcessor } from "@refy-design/a2ui";
+import "@refy-design/web/tokens.css";
+import "@refy-design/web/global.css";
+import "@refy-design/web/styles.css";
+import "@refy-design/a2ui/catalog.css";
+
+const processor = createRefyProcessor((action) => {
+  // ${comment}
+});
+
+processor.processMessages(messagesFromAgent);
+const surface = processor.model.surfacesMap.get("my-surface");
+
+export function Screen() {
+  return (
+    <ThemeProvider>
+      {surface ? <A2uiSurface surface={surface} /> : null}
+    </ThemeProvider>
+  );
+}`;
+const a2uiNativeCode = (comment: string) => `import { RefyProvider } from "@refy-design/mobile";
+import {
+  A2uiNativeSurface,
+  createRefyNativeProcessor,
+} from "@refy-design/a2ui/native";
+
+const processor = createRefyNativeProcessor((action) => {
+  // ${comment}
+});
+
+processor.processMessages(messagesFromAgent);
+const surface = processor.model.surfacesMap.get("my-surface");
+
+export function Screen() {
+  return (
+    <RefyProvider theme={appTheme}>
+      {surface ? (
+        <A2uiNativeSurface
+          surface={surface}
+          onError={(error) => report(error.code, error.message)}
+        />
+      ) : null}
+    </RefyProvider>
+  );
+}`;
+const a2uiServerCode = (comment: string) => `import { createRefyValidator } from "@refy-design/a2ui/definition";
+
+const validator = createRefyValidator();
+// ${comment}
+validator.processMessages(messagesFromAgent);`;
+
+interface A2uiText {
+  description: string;
+  sections: Record<"o-que-e" | "instalar" | "web" | "mobile" | "servidor" | "regras" | "requisitos", string>;
+  what: ReactNode; pieces: ReactNode; experimental: ReactNode;
+  web: string; native: string; peers: ReactNode;
+  webUse: ReactNode; webTheme: ReactNode; action: string;
+  nativeUse: ReactNode; onError: ReactNode; openUrl: ReactNode; metro: ReactNode;
+  server: ReactNode; serverComment: string;
+  rules: ReactNode[]; requires: ReactNode;
+}
+const a2uiText: Record<Locale, A2uiText> = {
+  pt: {
+    description: "O agente manda mensagens A2UI e o app desenha a tela com os componentes e o tema do refy, na web e no React Native.",
+    sections: { "o-que-e": "O que é", instalar: "Instalar", web: "Web", mobile: "Mobile", servidor: "Validar no servidor", regras: "Regras", requisitos: "Requisitos" },
+    what: <><code>@refy-design/a2ui</code> é um catálogo <a href="https://a2ui.org">A2UI</a> 1.0. O agente descreve a tela em mensagens A2UI; o app desenha cada peça com o componente do refy e o tema que ele já usa. Id do catálogo: <code>{a2uiCatalogId}</code>.</>,
+    pieces: <>{a2uiPieces.length} peças, com os esquemas do catálogo básico v1 do A2UI: {a2uiPieces.join(", ")}. As mesmas mensagens desenham as mesmas peças na web e no mobile.</>,
+    experimental: <>Experimental (0.x): as bibliotecas do A2UI estão fixas na 0.15.0 e a API pode mudar entre versões menores.</>,
+    web: "Web", native: "React Native (Expo)",
+    peers: <>Cada plataforma instala só o próprio renderizador: <code>@a2ui/react</code> e <code>react-dom</code> são dependências opcionais, e o app React Native não as recebe.</>,
+    webUse: <>Crie o processador, entregue a ele as mensagens do agente e desenhe a superfície dentro do <code>ThemeProvider</code>:</>,
+    webTheme: <>O A2UI 1.0 não manda tema no <code>createSurface</code>. A aparência vem do <code>ThemeProvider</code> em volta da superfície, então as mesmas mensagens seguem qualquer tema do refy e o modo claro ou escuro.</>,
+    action: "Mande a ação (nome, surfaceId, contexto resolvido) de volta ao agente.",
+    nativeUse: <>No app, o processador e a superfície vêm de <code>@refy-design/a2ui/native</code>, dentro do <code>RefyProvider</code> com o mesmo JSON de tema da web:</>,
+    onError: <>Erros da superfície vão para <code>onError</code> do <code>A2uiNativeSurface</code>, com <code>code</code> e <code>message</code>. Sem <code>onError</code>, saem no <code>console.error</code>.</>,
+    openUrl: <>A função <code>openUrl</code> abre o endereço pelo <code>Linking</code> do React Native, com os esquemas <code>https:</code>, <code>http:</code>, <code>mailto:</code> e <code>tel:</code>. Outro esquema, ou um endereço que o sistema não abre, chega como erro em <code>onError</code>.</>,
+    metro: <>A ponte lê os esquemas das peças de um arquivo do <code>@a2ui/web_core</code> que o <code>exports</code> dele não lista. O Metro resolve pelo caminho e mostra um aviso sobre isso; o aviso é esperado.</>,
+    server: <><code>@refy-design/a2ui/definition</code> tem o catálogo sem React e sem DOM. Use no servidor do app para conferir as mensagens do agente antes de elas chegarem à tela, com as mesmas regras do renderizador. Mensagem inválida lança <code>A2uiValidationError</code>.</>,
+    serverComment: "lança A2uiValidationError em mensagem inválida",
+    rules: [
+      <>Peça fora do catálogo (por exemplo <code>Video</code>) é recusada com <code>A2uiValidationError</code>, e nada é desenhado.</>,
+      <>Peças que um <code>updateComponents</code> tira da árvore ficam guardadas: o A2UI 1.0 não tem mensagem para apagar peça.</>,
+    ],
+    requires: <>Web: <code>react</code> e <code>react-dom</code> 19 ou mais, <code>@refy-design/web</code> 1.8 ou mais e <code>@a2ui/react</code> 0.15.0. Mobile: <code>react-native</code> 0.79 ou mais e <code>@refy-design/mobile</code> 1.1 ou mais.</>,
+  },
+  en: {
+    description: "The agent sends A2UI messages and the app draws the screen with refy's components and theme, on the web and in React Native.",
+    sections: { "o-que-e": "What it is", instalar: "Install", web: "Web", mobile: "Mobile", servidor: "Validate on the server", regras: "Rules", requisitos: "Requirements" },
+    what: <><code>@refy-design/a2ui</code> is an <a href="https://a2ui.org">A2UI</a> 1.0 catalog. The agent describes the screen in A2UI messages; the app draws each piece with the refy component and the theme it already uses. Catalog id: <code>{a2uiCatalogId}</code>.</>,
+    pieces: <>{a2uiPieces.length} pieces, with the A2UI basic catalog v1 schemas: {a2uiPieces.join(", ")}. The same messages draw the same pieces on the web and on mobile.</>,
+    experimental: <>Experimental (0.x): the A2UI libraries are pinned at 0.15.0 and the API may change between minor versions.</>,
+    web: "Web", native: "React Native (Expo)",
+    peers: <>Each platform installs only its own renderer: <code>@a2ui/react</code> and <code>react-dom</code> are optional peers, so a React Native app does not get them.</>,
+    webUse: <>Create the processor, hand it the agent's messages and draw the surface inside <code>ThemeProvider</code>:</>,
+    webTheme: <>A2UI 1.0 does not carry a theme in <code>createSurface</code>. The look comes from the <code>ThemeProvider</code> around the surface, so the same messages follow any refy theme and light or dark mode.</>,
+    action: "Send the action (name, surfaceId, resolved context) back to your agent.",
+    nativeUse: <>In the app, the processor and the surface come from <code>@refy-design/a2ui/native</code>, inside <code>RefyProvider</code> with the same theme JSON as the web:</>,
+    onError: <>Surface errors go to the <code>onError</code> of <code>A2uiNativeSurface</code>, with <code>code</code> and <code>message</code>. Without <code>onError</code>, they go to <code>console.error</code>.</>,
+    openUrl: <>The <code>openUrl</code> function opens the address through React Native's <code>Linking</code>, with the <code>https:</code>, <code>http:</code>, <code>mailto:</code> and <code>tel:</code> schemes. Any other scheme, or an address the system cannot open, arrives as an error in <code>onError</code>.</>,
+    metro: <>The bridge reads the piece schemas from a file of <code>@a2ui/web_core</code> that its <code>exports</code> map does not list. Metro resolves it by file path and prints a warning about it; the warning is expected.</>,
+    server: <><code>@refy-design/a2ui/definition</code> has the catalog without React or the DOM. Use it on your app's server to check the agent's messages before they reach the screen, with the same rules as the renderer. An invalid message throws <code>A2uiValidationError</code>.</>,
+    serverComment: "throws A2uiValidationError on an invalid message",
+    rules: [
+      <>A piece outside the catalog (for example <code>Video</code>) is rejected with <code>A2uiValidationError</code>, and nothing is drawn.</>,
+      <>Pieces that an <code>updateComponents</code> removes from the tree are kept: A2UI 1.0 has no message to delete a piece.</>,
+    ],
+    requires: <>Web: <code>react</code> and <code>react-dom</code> 19 or later, <code>@refy-design/web</code> 1.8 or later and <code>@a2ui/react</code> 0.15.0. Mobile: <code>react-native</code> 0.79 or later and <code>@refy-design/mobile</code> 1.1 or later.</>,
+  },
+  es: {
+    description: "El agente envía mensajes A2UI y la app dibuja la pantalla con los componentes y el tema de refy, en la web y en React Native.",
+    sections: { "o-que-e": "Qué es", instalar: "Instalar", web: "Web", mobile: "Móvil", servidor: "Validar en el servidor", regras: "Reglas", requisitos: "Requisitos" },
+    what: <><code>@refy-design/a2ui</code> es un catálogo <a href="https://a2ui.org">A2UI</a> 1.0. El agente describe la pantalla en mensajes A2UI; la app dibuja cada pieza con el componente de refy y el tema que ya usa. Id del catálogo: <code>{a2uiCatalogId}</code>.</>,
+    pieces: <>{a2uiPieces.length} piezas, con los esquemas del catálogo básico v1 de A2UI: {a2uiPieces.join(", ")}. Los mismos mensajes dibujan las mismas piezas en la web y en el móvil.</>,
+    experimental: <>Experimental (0.x): las bibliotecas de A2UI están fijadas en 0.15.0 y la API puede cambiar entre versiones menores.</>,
+    web: "Web", native: "React Native (Expo)",
+    peers: <>Cada plataforma instala solo su propio renderizador: <code>@a2ui/react</code> y <code>react-dom</code> son dependencias opcionales, y la app React Native no las recibe.</>,
+    webUse: <>Crea el procesador, pásale los mensajes del agente y dibuja la superficie dentro de <code>ThemeProvider</code>:</>,
+    webTheme: <>A2UI 1.0 no envía tema en <code>createSurface</code>. La apariencia viene del <code>ThemeProvider</code> alrededor de la superficie, así que los mismos mensajes siguen cualquier tema de refy y el modo claro u oscuro.</>,
+    action: "Envía la acción (nombre, surfaceId, contexto resuelto) de vuelta al agente.",
+    nativeUse: <>En la app, el procesador y la superficie vienen de <code>@refy-design/a2ui/native</code>, dentro de <code>RefyProvider</code> con el mismo JSON de tema de la web:</>,
+    onError: <>Los errores de la superficie van a <code>onError</code> de <code>A2uiNativeSurface</code>, con <code>code</code> y <code>message</code>. Sin <code>onError</code>, salen en <code>console.error</code>.</>,
+    openUrl: <>La función <code>openUrl</code> abre la dirección con <code>Linking</code> de React Native, con los esquemas <code>https:</code>, <code>http:</code>, <code>mailto:</code> y <code>tel:</code>. Otro esquema, o una dirección que el sistema no abre, llega como error en <code>onError</code>.</>,
+    metro: <>El puente lee los esquemas de las piezas de un archivo de <code>@a2ui/web_core</code> que su <code>exports</code> no lista. Metro lo resuelve por la ruta y muestra un aviso; el aviso es esperado.</>,
+    server: <><code>@refy-design/a2ui/definition</code> tiene el catálogo sin React y sin DOM. Úsalo en el servidor de la app para revisar los mensajes del agente antes de que lleguen a la pantalla, con las mismas reglas del renderizador. Un mensaje inválido lanza <code>A2uiValidationError</code>.</>,
+    serverComment: "lanza A2uiValidationError con un mensaje inválido",
+    rules: [
+      <>Una pieza fuera del catálogo (por ejemplo <code>Video</code>) se rechaza con <code>A2uiValidationError</code>, y no se dibuja nada.</>,
+      <>Las piezas que un <code>updateComponents</code> saca del árbol se guardan: A2UI 1.0 no tiene mensaje para borrar una pieza.</>,
+    ],
+    requires: <>Web: <code>react</code> y <code>react-dom</code> 19 o superior, <code>@refy-design/web</code> 1.8 o superior y <code>@a2ui/react</code> 0.15.0. Móvil: <code>react-native</code> 0.79 o superior y <code>@refy-design/mobile</code> 1.1 o superior.</>,
+  },
+};
+
+function a2uiPage(locale: Locale): DocPage {
+  const text = a2uiText[locale];
+  return {
+    label: "A2UI", group: "ai", description: text.description,
+    sections: Object.entries(text.sections),
+    body: (<>
+      <section id="o-que-e">
+        <h2>{text.sections["o-que-e"]}</h2>
+        <p>{text.what}</p>
+        <p>{text.pieces}</p>
+        <p>{text.experimental}</p>
+      </section>
+      <section id="instalar">
+        <h2>{text.sections.instalar}</h2>
+        <CodeBlock label={text.web} language="bash" code={a2uiInstallWeb} wrap />
+        <CodeBlock label={text.native} language="bash" code={a2uiInstallNative} wrap />
+        <p>{text.peers}</p>
+      </section>
+      <section id="web">
+        <h2>{text.sections.web}</h2>
+        <p>{text.webUse}</p>
+        <CodeBlock label="Screen.tsx" language="tsx" code={a2uiWebCode(text.action)} />
+        <p>{text.webTheme}</p>
+      </section>
+      <section id="mobile">
+        <h2>{text.sections.mobile}</h2>
+        <p>{text.nativeUse}</p>
+        <CodeBlock label="Screen.tsx" language="tsx" code={a2uiNativeCode(text.action)} />
+        <p>{text.onError}</p>
+        <p>{text.openUrl}</p>
+        <p>{text.metro}</p>
+      </section>
+      <section id="servidor">
+        <h2>{text.sections.servidor}</h2>
+        <p>{text.server}</p>
+        <CodeBlock label="server.ts" language="ts" code={a2uiServerCode(text.serverComment)} />
+      </section>
+      <section id="regras">
+        <h2>{text.sections.regras}</h2>
+        {text.rules.map((item, index) => <p key={index}>{item}</p>)}
+      </section>
+      <section id="requisitos">
+        <h2>{text.sections.requisitos}</h2>
+        <p>{text.requires}</p>
+      </section>
+    </>),
+  };
+}
+
 const pt: Record<DocTopic, DocPage> = {
   "primeiros-passos": startPage("pt"),
   instalacao: {
@@ -356,6 +545,7 @@ const pt: Record<DocTopic, DocPage> = {
     </>),
   },
   versoes: versionsPage("pt"),
+  a2ui: a2uiPage("pt"),
 };
 
 const en: Record<DocTopic, DocPage> = {
@@ -439,6 +629,7 @@ const en: Record<DocTopic, DocPage> = {
     </>),
   },
   versoes: versionsPage("en"),
+  a2ui: a2uiPage("en"),
 };
 
 const es: Record<DocTopic, DocPage> = {
@@ -522,6 +713,7 @@ const es: Record<DocTopic, DocPage> = {
     </>),
   },
   versoes: versionsPage("es"),
+  a2ui: a2uiPage("es"),
 };
 
 export const localizedDocPages: Record<Locale, Record<DocTopic, DocPage>> = { pt, en, es };
@@ -619,8 +811,11 @@ export function DocsPage({ topic, onLink }: { topic: DocTopic; onLink: (href: st
           title: docGroupLabel(locale, group),
           items: docTopics.filter((id) => pages[id].group === group).map((id) => ({ href: docHref(id), label: pages[id].label })),
         })),
-        // MCP, plugin e CLI moram em Para IAs; aqui fica só o caminho até lá.
-        { title: docGroupLabel(locale, "ai"), items: [{ href: "/para-ias", label: text.ai }] },
+        // MCP, plugin e CLI moram em Para IAs; aqui fica o caminho até lá e as páginas de IA das Docs (A2UI).
+        { title: docGroupLabel(locale, "ai"), items: [
+          { href: "/para-ias", label: text.ai },
+          ...docTopics.filter((id) => pages[id].group === "ai").map((id) => ({ href: docHref(id), label: pages[id].label })),
+        ] },
       ]}
       page={page}
       eyebrow={`${text.title} / ${docGroupLabel(locale, page.group)}`}

@@ -49,6 +49,37 @@ export function parseReleases(markdown) {
 const parse = (version) => version.split(".").map(Number);
 
 /**
+ * NATP-03: desde a 1.1.0, quando o `@refy-design/mobile` nasceu, toda versão publicada diz no resumo
+ * se o mobile acompanha e o que ficou só na web, num parágrafo que começa com "Mobile:". Devolve as
+ * versões sem essa declaração.
+ * @param {string} markdown
+ */
+export function missingMobileDeclaration(markdown) {
+  // Lê os parágrafos antes da primeira categoria direto do markdown: o parseReleases junta o resumo
+  // numa linha só, e a pontuação do parágrafo anterior não pode decidir se a linha existe.
+  const declared = new Map();
+  let version = null;
+  for (const line of markdown.split("\n")) {
+    if (line.startsWith("## ")) {
+      version = heading.exec(line)?.[1] ?? null;
+      if (version) declared.set(version, false);
+      continue;
+    }
+    if (!version) continue;
+    if (line.startsWith("### ") || line.trim().startsWith("- ")) version = null;
+    else if (line.trim().startsWith("Mobile: ")) declared.set(version, true);
+  }
+  return parseReleases(markdown)
+    .filter((release) => {
+      const [a, b] = [parse(release.version), parse("1.1.0")];
+      return a[0] > b[0] || (a[0] === b[0] && a[1] >= b[1]);
+    })
+    .filter((release) => !declared.get(release.version))
+    .map((release) => release.version);
+}
+
+
+/**
  * O que a versão significa para quem atualiza, pelo SemVer: maior quebra, menor acrescenta, correção
  * só conserta. `from` é a versão publicada anterior.
  * @param {string} version

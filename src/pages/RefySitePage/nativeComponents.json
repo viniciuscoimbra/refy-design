@@ -55,6 +55,7 @@
   "Item",
   "KanbanBoard",
   "KanbanCard",
+  "Label",
   "LineChart",
   "Marker",
   "Matrix2x2",

@@ -1,14 +1,19 @@
 import { Suspense, lazy } from "react";
 import { Segmented, Skeleton, TableOfContents } from "../../index";
 import { tr } from "../RefySitePage/i18n";
-import nativeComponents from "../RefySitePage/nativeComponents.json";
+import nativeParity from "../../catalog/native-parity.json";
 import { mobilePublished } from "../RefySitePage/packageRelease";
 import { setPlatform, usePlatform } from "../RefySitePage/platform";
 import type { DocumentationGuidanceData } from "./AccordionDocumentation";
 import styles from "./ComponentDocumentation.module.css";
 
-/** O componente existe em @refy-design/mobile e o pacote já está no npm. */
-export const hasMobile = (id: string) => mobilePublished && (nativeComponents as string[]).includes(id);
+/**
+ * A família existe em @refy-design/mobile e o pacote já está no npm. Mesma fonte do relatório
+ * de paridade (NATP-02), do ai/catalog.json e do refy_component.
+ */
+export const hasMobile = (id: string) =>
+  mobilePublished && (nativeParity.families as Record<string, string>)[id] !== undefined &&
+  (nativeParity.families as Record<string, string>)[id] !== "so-web";
 
 const MobileBody = lazy(() => import("./MobileBody"));
 

@@ -7,6 +7,7 @@
 //   node scripts/docs-sync.mjs --check          varre as superfícies e confere o registro de impacto
 //   node scripts/docs-sync.mjs record           cria ou completa docs/sync/changes/<branch>.json
 //   node scripts/docs-sync.mjs plan [--out d]   um pedido de atualização por superfície impactada
+//   node scripts/docs-sync.mjs --live           site no ar (refy.design/version.json) na versão do npm
 //
 // O valor esperado vem sempre do código (catálogo, servidor MCP, tipos dos charts, pacotes),
 // nunca de uma lista escrita à mão. Registro histórico (CHANGELOG, changelog do site, evidências,
@@ -461,7 +462,8 @@ export function writeRecord(root, ctx, map, surfaces) {
     const same = prior.por && files.every(file => prior.por.includes(file));
     entries[id] = same ? { status: prior.status, motivo: prior.motivo, por: files } : { status: 'pendente', motivo: prior.motivo ? `(antes: ${prior.motivo})` : '', por: files };
   }
-  const record = { branch: ctx.branch, base: ctx.base, changed, surfaces: entries };
+  // As ligações changelog -> site são escritas à mão e sobrevivem a cada record.
+  const record = { branch: ctx.branch, base: ctx.base, changed, surfaces: entries, ...(old.site ? { site: old.site } : {}) };
   mkdirSync(join(root, CHANGES_DIR), { recursive: true });
   writeFileSync(join(root, path), `${JSON.stringify(record, null, 2)}\n`);
   return { path, record };
@@ -532,6 +534,191 @@ ${diff.trim() || '(só texto da própria superfície mudou)'}
 }
 
 // ---------------------------------------------------------------------------------------------
+// Cobertura do site: pacote público tem página nas Docs, e o que a versão nova acrescenta está
+// escrito no site. Pedido de 18/11/2026: o A2UI saiu em 1.9.0 e 1.9.3 sem página nenhuma no site,
+// só linha no changelog, e o check passava. Pronto agora é npm, doc pt/en/es e site na mesma versão.
+
+export const SITE_COVERAGE = `${SYNC_DIR}/site-coverage.json`;
+export const DOCS_SOURCE = 'src/pages/RefySitePage/SiteDocs.tsx';
+/** Superfícies de site que todo pacote em packages/* precisa atingir no mapa de impacto. */
+export const PACKAGE_SITE_SURFACES = ['site-docs', 'site-ai', 'llms'];
+const SITE_LOCALES = ['pt', 'en', 'es'];
+const isSiteSurface = id => id.startsWith('site-') || id === 'llms';
+
+/** Pacotes publicados: a raiz e cada packages/* que não é `private`. */
+export function publicPackages(root) {
+  const out = [{ dir: '.', name: readJson(root, 'package.json').name }];
+  const dir = join(root, 'packages');
+  if (existsSync(dir))
+    for (const name of readdirSync(dir).sort()) {
+      const file = `packages/${name}/package.json`;
+      if (!existsSync(join(root, file))) continue;
+      const pkg = readJson(root, file);
+      if (!pkg.private) out.push({ dir: `packages/${name}`, name: pkg.name });
+    }
+  return out;
+}
+
+/** Pacote em packages/* cujo package.json não leva a site-docs, site-ai e llms no mapa de impacto. */
+export function packageMapProblems(packages, map, surfaces) {
+  const problems = [];
+  for (const pkg of packages.filter(p => p.dir !== '.')) {
+    const { surfaces: ids } = impactOf(`${pkg.dir}/package.json`, map, surfaces);
+    const missing = PACKAGE_SITE_SURFACES.filter(id => !ids.includes(id));
+    if (missing.length) problems.push(`${IMPACT_MAP}: ${pkg.dir}/** (${pkg.name}) não aponta para ${missing.join(', ')}; pacote publicado precisa de superfície no site`);
+  }
+  return problems;
+}
+
+/** O bloco `const pt: Record<DocTopic, DocPage> = { ... };` de cada idioma em SiteDocs.tsx. */
+function localeBlock(source, locale) {
+  const start = source.indexOf(`const ${locale}: Record<DocTopic, DocPage> = {`);
+  if (start < 0) return null;
+  const end = source.indexOf('\n};', start);
+  return source.slice(start, end < 0 ? undefined : end);
+}
+
+/** Todo pacote público tem página nas Docs, nos três idiomas, e a página fala do pacote pelo nome. */
+export function packagePageProblems(packages, coverage, docsSource) {
+  const problems = [];
+  const pages = coverage?.packages ?? {};
+  for (const pkg of packages) {
+    const topic = pages[pkg.name];
+    if (!topic) { problems.push(`${SITE_COVERAGE}: pacote público ${pkg.name} sem página nas Docs do site (packages.${pkg.name})`); continue; }
+    for (const locale of SITE_LOCALES) {
+      const block = localeBlock(docsSource, locale);
+      const key = new RegExp(`^\\s*(?:"${topic}"|${topic.replace(/[^\w]/g, '')}):`, 'm');
+      if (!block || !key.test(block)) problems.push(`${DOCS_SOURCE}: falta a página /docs/${topic} em ${locale} (pacote ${pkg.name})`);
+    }
+    if (!docsSource.includes(pkg.name)) problems.push(`${DOCS_SOURCE}: nenhuma página das Docs cita ${pkg.name}`);
+  }
+  return problems;
+}
+
+/** Seções do CHANGELOG: `## [versão]` com os itens de cada `### Tipo`. Linha continuada junta ao item. */
+export function changelogSections(text) {
+  const sections = [];
+  let section = null;
+  let kind = null;
+  for (const line of text.split('\n')) {
+    const head = line.match(/^## \[([^\]]+)\]/);
+    if (head) { section = { version: head[1], items: [] }; sections.push(section); kind = null; continue; }
+    if (!section) continue;
+    const sub = line.match(/^### (\w+)/);
+    if (sub) { kind = sub[1]; continue; }
+    if (/^- /.test(line) && kind) section.items.push({ kind, text: line.slice(2).trim() });
+    else if (/^\s+\S/.test(line) && section.items.length && kind) section.items.at(-1).text += ` ${line.trim()}`;
+  }
+  return sections;
+}
+
+const semver = v => v.split('.').map(Number);
+const newer = (a, b) => { const [x, y] = [semver(a), semver(b)]; for (let i = 0; i < 3; i++) if (x[i] !== y[i]) return x[i] > y[i]; return false; };
+
+/**
+ * Versões que ainda não foram aprovadas: [Unreleased] e toda versão acima da maior tag aprovado/v*.
+ * Sem git (árvore exportada pela promoção) não há tag: conta a versão que a promoção diz estar
+ * promovendo (DOCS_SYNC_RELEASE, passada pelo promote.mjs); sem ela, só [Unreleased].
+ */
+export function pendingVersions(sections, tags, release = null) {
+  const approved = tags.map(t => t.replace(/^aprovado\/v/, '')).filter(v => /^\d+\.\d+\.\d+$/.test(v));
+  const top = approved.reduce((max, v) => (!max || newer(v, max) ? v : max), null);
+  return sections.filter(s => s.version === 'Unreleased' || (top ? /^\d+\.\d+\.\d+$/.test(s.version) && newer(s.version, top) : s.version === release)).map(s => s.version);
+}
+
+const flat = text => text.replace(/\s+/g, ' ').trim();
+
+/** Ligações item do changelog -> trecho do site, somadas de todos os registros em docs/sync/changes. */
+export function loadSiteLinks(root) {
+  const dir = join(root, CHANGES_DIR);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter(f => f.endsWith('.json')).sort()
+    .flatMap(f => (readJson(root, `${CHANGES_DIR}/${f}`).site ?? []).map(link => ({ ...link, record: `${CHANGES_DIR}/${f}` })));
+}
+
+/**
+ * Cada item Added/Changed de versão pendente precisa de uma ligação { item, surface, pt, en, es }:
+ * `item` é um trecho do texto do item no CHANGELOG, `surface` uma superfície de site, e pt/en/es
+ * trechos que existem nos arquivos dela. `readSurface(id)` devolve o texto dos arquivos da superfície.
+ * Item que o site não mostra entra como { item, "sem site": "motivo" }, nunca calado.
+ */
+export function changelogCoverageProblems(sections, pending, links, surfaces, readSurface) {
+  const problems = [];
+  const ids = new Set(surfaces.map(s => s.id));
+  for (const section of sections.filter(s => pending.includes(s.version)))
+    for (const item of section.items.filter(i => i.kind === 'Added' || i.kind === 'Changed')) {
+      const own = links.filter(l => l.item && flat(item.text).includes(flat(l.item)));
+      const label = `CHANGELOG.md [${section.version}] ${item.kind}: "${flat(item.text).slice(0, 70)}…"`;
+      if (!own.length) { problems.push(`${label} sem trecho no site (campo "site" em docs/sync/changes/<branch>.json: item, surface, pt, en, es)`); continue; }
+      for (const link of own) {
+        // Item que não muda nada que o site mostra (formulário de issue, formato do changelog) fica
+        // fora só com motivo escrito: { item, "sem site": "por quê" }.
+        if (!link.surface && link['sem site'] !== undefined) {
+          if (flat(link['sem site']).length < 20) problems.push(`${link.record}: ${label} fora do site sem motivo ("sem site" com pelo menos 20 caracteres)`);
+          continue;
+        }
+        if (!ids.has(link.surface) || !isSiteSurface(link.surface)) { problems.push(`${link.record}: "${link.surface}" não é superfície de site (site-*, llms) para ${label}`); continue; }
+        const text = flat(readSurface(link.surface));
+        for (const locale of SITE_LOCALES) {
+          if (!link[locale]?.trim()) problems.push(`${link.record}: ${label} sem trecho em ${locale}`);
+          else if (!text.includes(flat(link[locale]))) problems.push(`${link.record}: trecho ${locale} "${link[locale]}" não está em ${link.surface} (${label})`);
+        }
+      }
+    }
+  return problems;
+}
+
+export function coverageProblems(root, map, surfaces, ctx, env = process.env) {
+  const packages = publicPackages(root);
+  const coverage = existsSync(join(root, SITE_COVERAGE)) ? readJson(root, SITE_COVERAGE) : null;
+  const problems = [...packageMapProblems(packages, map, surfaces)];
+  if (!coverage) problems.push(`${SITE_COVERAGE}: falta o arquivo de cobertura do site`);
+  problems.push(...packagePageProblems(packages, coverage, existsSync(join(root, DOCS_SOURCE)) ? readText(root, DOCS_SOURCE) : ''));
+  if (!existsSync(join(root, 'CHANGELOG.md'))) return problems;
+  let tags = [];
+  if (ctx.mode !== 'sem-git') {
+    tags = (tryGit(root, ['tag', '-l', 'aprovado/v*']) ?? '').split('\n').filter(Boolean);
+    if (!tags.length) return [...problems, 'sem tags aprovado/v* no checkout: busque as tags (git fetch --tags) para saber qual versão ainda não saiu'];
+  }
+  const sections = changelogSections(readText(root, 'CHANGELOG.md'));
+  const pending = pendingVersions(sections, tags, env.DOCS_SYNC_RELEASE || null);
+  const files = trackedFiles(root);
+  const readSurface = id => surfaceFiles(root, surfaces.find(s => s.id === id), files).filter(f => TEXT_FILE.test(f)).map(f => readText(root, f)).join('\n');
+  problems.push(...changelogCoverageProblems(sections, pending, loadSiteLinks(root), surfaces, readSurface));
+  return problems;
+}
+
+// ---------------------------------------------------------------------------------------------
+// Site no ar: a versão que refy.design declara (version.json, gerado pelo site-seo.mjs) é a do npm.
+// O proxy da nuvem bloqueia refy.design; roda no Mac ou num runner com rede.
+
+export const SITE_URL = 'https://refy.design';
+
+export async function liveProblems({ site = SITE_URL, packages, topics, fetchImpl = fetch }) {
+  const problems = [];
+  const get = async url => {
+    try { const res = await fetchImpl(url, { headers: { 'cache-control': 'no-cache' } }); return res; } catch (error) { problems.push(`${url}: ${error.message}`); return null; }
+  };
+  const res = await get(`${site}/version.json?t=${Date.now()}`);
+  const declared = res?.ok ? await res.json() : null;
+  if (res && !res.ok) problems.push(`${site}/version.json respondeu ${res.status}: o site no ar não declara versão (rode o build com site-seo.mjs)`);
+  const keyOf = { '@refy-design/web': 'web', '@refy-design/mobile': 'mobile', '@refy-design/a2ui': 'a2ui' };
+  for (const name of packages) {
+    const npm = await get(`https://registry.npmjs.org/${name}/latest`);
+    if (!npm?.ok) { if (npm) problems.push(`npm ${name}: ${npm.status}`); continue; }
+    const latest = (await npm.json()).version;
+    const key = keyOf[name] ?? name;
+    if (declared && declared[key] !== latest) problems.push(`site no ar declara ${name} ${declared[key] ?? '(nada)'}, o npm tem ${latest}: a release não está pronta`);
+  }
+  for (const topic of topics)
+    for (const prefix of ['', '/en', '/es']) {
+      const page = await get(`${site}${prefix}/docs/${topic}`);
+      if (page && !page.ok) problems.push(`${site}${prefix}/docs/${topic} respondeu ${page.status}`);
+    }
+  return problems;
+}
+
+// ---------------------------------------------------------------------------------------------
 // Comando
 
 export async function check(root, { env = process.env, log = console.log } = {}) {
@@ -547,6 +734,7 @@ export async function check(root, { env = process.env, log = console.log } = {})
     // é conferida na branch, com git; aqui ficam só os fatos.
     if (ctx.mode !== 'sem-git') problems.push(...mapProblems(root, map, surfaces));
     problems.push(...openRecords(root, ctx.mode === 'branch' ? recordPath(ctx.branch) : null));
+    if (ctx.mode !== 'erro') problems.push(...coverageProblems(root, map, surfaces, ctx, env));
     if (ctx.mode === 'erro') problems.push(ctx.error);
     else if (ctx.mode === 'branch') {
       const changed = changedFiles(root, ctx.mergeBase);
@@ -585,6 +773,16 @@ async function main(argv) {
     console.log(written.length ? `${written.length} pedidos em ${out}:\n${written.map(f => `  ${f}`).join('\n')}` : 'Nenhuma superfície impactada.');
     return 0;
   }
+  if (command === '--live' || command === 'live') {
+    const siteIndex = argv.indexOf('--site');
+    const coverage = existsSync(join(root, SITE_COVERAGE)) ? readJson(root, SITE_COVERAGE) : { packages: {} };
+    const packages = publicPackages(root).map(p => p.name);
+    const topics = [...new Set(Object.values(coverage.packages))];
+    const problems = await liveProblems({ site: siteIndex > -1 ? argv[siteIndex + 1] : SITE_URL, packages, topics });
+    if (problems.length) { console.error(`site-live reprovou: o site no ar não está na versão do npm.\n${problems.map(p => `  ${p}`).join('\n')}`); return 1; }
+    console.log(`OK: site no ar na versão do npm (${packages.join(', ')}); páginas ${topics.map(t => `/docs/${t}`).join(', ')} em pt, en e es.`);
+    return 0;
+  }
   if (command === '--check' || command === 'check' || !command) {
     const result = await check(root);
     if (!result.ok) {
@@ -593,7 +791,7 @@ async function main(argv) {
     }
     return 0;
   }
-  console.error('uso: node scripts/docs-sync.mjs [facts | --check | record | plan [--out pasta]]');
+  console.error('uso: node scripts/docs-sync.mjs [facts | --check | --live [--site url] | record | plan [--out pasta]]');
   return 1;
 }
 

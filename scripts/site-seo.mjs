@@ -203,7 +203,7 @@ ${example ? `<h2>${w.example}</h2><pre><code>${esc(example)}</code></pre>` : ""}
   add({ path: "/temas", title: `${w.themes} · refy`, description: w.themesDesc, body: `<h1>${w.themes}</h1><p>${esc(w.themesDesc)}</p>` });
   add({ path: "/temas/tipografia", title: `${w.typography} · refy`, description: w.typographyDesc, body: `<h1>${w.typography}</h1><p>${esc(w.typographyDesc)}</p>` });
   add({ path: "/para-ias", title: `${w.ai} · refy`, description: w.aiDesc, md: L === "pt" ? readFileSync("ai/instructions.md", "utf8") : undefined,
-    body: `<h1>${w.ai}</h1><p>${esc(w.aiDesc)}</p><ul>${ai.aiTopics.map((t) => link(ai.aiHref(t), ai.localizedAiPages[L][t].label)).join("")}</ul><p><a href="/llms.txt">llms.txt</a> · <a href="/llms-full.txt">llms-full.txt</a></p>` });
+    body: `<h1>${w.ai}</h1><p>${esc(w.aiDesc)}</p><ul>${ai.aiNavLinks(L).slice(1).map((l) => link(l.href, l.label)).join("")}</ul><p><a href="/llms.txt">llms.txt</a> · <a href="/llms-full.txt">llms-full.txt</a></p>` });
   for (const topic of ai.aiTopics) {
     const page = ai.localizedAiPages[L][topic];
     const html = prefixLinks(d.aiHtml[topic], L);
@@ -288,7 +288,7 @@ for (const r of routes) {
 }
 writeFileSync(join(out, "_redirects"), `${[...redirects].map(([from, to]) => `${from} ${to} 301`).join("\n")}\n${LOCALES.map((L) => `${oldAt(L, "/blocks")}/* ${at(L, "/templates")}/:splat 301`).join("\n")}\n`);
 // Arquivo com hash muda de nome a cada build: pode ficar um ano no cache. HTML revalida sempre.
-writeFileSync(join(out, "_headers"), `/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/.well-known/mcp-registry-auth\n  Content-Type: text/plain; charset=utf-8\n\n/.well-known/openai-apps-challenge\n  Content-Type: text/plain; charset=utf-8\n`);
+writeFileSync(join(out, "_headers"), `/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/version.json\n  Cache-Control: no-cache\n\n/.well-known/mcp-registry-auth\n  Content-Type: text/plain; charset=utf-8\n\n/.well-known/openai-apps-challenge\n  Content-Type: text/plain; charset=utf-8\n`);
 copyFileSync("site/og.png", join(out, "og.png"));
 // Chave pública que prova ao registro oficial de servidores MCP que refy.design publica design.refy/refy.
 mkdirSync(join(out, ".well-known"), { recursive: true });
@@ -310,7 +310,7 @@ writeFileSync(join(out, "llms.txt"), `# refy
 
 > ${homeDescription} Biblioteca React e TypeScript, licença Apache 2.0, pacote \`@refy-design/web\`.
 
-O texto completo de docs, componentes e templates está em ${SITE}/llms-full.txt. Agentes de código que já instalaram o pacote consultam o catálogo local com \`npm exec --offline -- refy-agent catalog <necessidade>\` ou pelo servidor MCP (${SITE}/para-ias/mcp).
+O texto completo de docs, componentes e templates está em ${SITE}/llms-full.txt. Agentes de código que já instalaram o pacote consultam o catálogo local com \`npm exec --offline -- refy-agent catalog <necessidade>\` ou pelo servidor MCP (${SITE}/para-ias/mcp). Para o agente montar a tela por mensagens A2UI 1.0 com os componentes do refy, veja ${SITE}/docs/a2ui (pacote \`@refy-design/a2ui\`).
 
 ${section("Docs", by("/docs/"))}
 ${section("Para IAs", by("/para-ias"))}
@@ -322,5 +322,12 @@ ${section("Templates", by("/templates/"))}
 - [Playground](${SITE}/playground): componente ao vivo, tema e código.
 ${project.projectTopics.map((t) => `- [${project.projectLabel("pt", t)}](${SITE}${project.projectHref(t)}): ${project.projectDescription("pt", t)}`).join("\n")}
 `);
+// Versão que o site publicado declara: docs-sync --live compara com o npm (release só fica pronta quando bate).
+const readPkg = (file) => JSON.parse(readFileSync(file, "utf8"));
+writeFileSync(join(out, "version.json"), `${JSON.stringify({
+  web: readPkg("package.json").version,
+  mobile: readPkg("packages/native/package.json").version,
+  a2ui: readPkg("packages/a2ui/package.json").version,
+}, null, 2)}\n`);
 writeFileSync(join(out, "llms-full.txt"), `# refy\n\n> ${homeDescription}\n\n${ptRoutes.filter((r) => r.md).map((r) => `---\nURL: ${SITE}${r.path}\n\n${r.md.trim()}\n`).join("\n")}`);
-console.log(`site-seo: ${routes.length} rotas (${LOCALES.join(", ")}), ${redirects.size} redirecionamentos, 404.html, robots.txt, sitemap.xml, llms.txt, llms-full.txt, _redirects em ${out}`);
+console.log(`site-seo: ${routes.length} rotas (${LOCALES.join(", ")}), ${redirects.size} redirecionamentos, 404.html, robots.txt, sitemap.xml, llms.txt, llms-full.txt, version.json, _redirects em ${out}`);

@@ -199,7 +199,7 @@ const copy: Record<Locale, Copy> = {
         </section>
         <section id="pull-request">
           <h2>Pull request</h2>
-          <p>Issues e pull requests abrem no repositório público refy-design. O PR traz:</p>
+          <p>Issues e pull requests abrem no repositório público refy-design. O refy é distribuído sob a <a href={`${repoUrl}/blob/main/LICENSE`} target="_blank" rel="noreferrer">licença Apache 2.0</a> desde a 1.9.4 (até a 1.9.3, MIT), e a contribuição entra sob a mesma licença. O PR traz:</p>
           <ul className={styles.projectList}>
             <li>o problema, a proposta e o impacto em exports, props, tokens e defaults;</li>
             <li>spec em <code>openspec/specs/</code> e teste, quando muda comportamento;</li>
@@ -297,7 +297,7 @@ const copy: Record<Locale, Copy> = {
         </section>
         <section id="pull-request">
           <h2>Pull request</h2>
-          <p>Issues and pull requests open in the public refy-design repository. The PR brings:</p>
+          <p>Issues and pull requests open in the public refy-design repository. refy is released under the <a href={`${repoUrl}/blob/main/LICENSE`} target="_blank" rel="noreferrer">Apache 2.0 license</a> since 1.9.4 (MIT up to 1.9.3), and a contribution comes in under the same license. The PR brings:</p>
           <ul className={styles.projectList}>
             <li>the problem, the proposal and the impact on exports, props, tokens and defaults;</li>
             <li>a spec in <code>openspec/specs/</code> and a test, when behavior changes;</li>
@@ -395,7 +395,7 @@ const copy: Record<Locale, Copy> = {
         </section>
         <section id="pull-request">
           <h2>Pull request</h2>
-          <p>Issues y pull requests se abren en el repositorio público refy-design. El PR trae:</p>
+          <p>Issues y pull requests se abren en el repositorio público refy-design. refy se distribuye con la <a href={`${repoUrl}/blob/main/LICENSE`} target="_blank" rel="noreferrer">licencia Apache 2.0</a> desde la 1.9.4 (hasta la 1.9.3, MIT), y la contribución entra con la misma licencia. El PR trae:</p>
           <ul className={styles.projectList}>
             <li>el problema, la propuesta y el impacto en exports, props, tokens y defaults;</li>
             <li>spec en <code>openspec/specs/</code> y test, cuando cambia el comportamiento;</li>

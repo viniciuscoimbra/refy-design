@@ -70,14 +70,27 @@ function WebOnPhone({ id, story }: { id: string; story?: string }) {
 }
 
 /** A ficha na aba Mobile: prévia no celular, orientações e, no pacote mobile, instalação, uso e props. */
-export default function MobileBody({ id, story, usage, webProps }: MobileDocumentationProps) {
+// Onde a orientação da web não vale no app: o texto da web continua abaixo, este aviso vem antes.
+const mobileGuidance: Record<string, { title: string; body: string }> = {
+  Label: {
+    title: "No mobile, sem htmlFor",
+    body: "O React Native não tem <label for>. Dê um nativeID ao Label e passe o mesmo valor em accessibilityLabelledBy no campo. Input, Textarea e Select já fazem isso sozinhos com a prop label.",
+  },
+};
+
+// Família cujo componente no app tem outro nome: Charts sai como LineChart, BarChart... no
+// pacote mobile; a ficha mostra o primeiro, como o refy_component faz pelo publicName.
+const nativeName: Record<string, string> = { Charts: "LineChart" };
+
+export default function MobileBody({ id: family, story, usage, webProps }: MobileDocumentationProps) {
+  const id = docs[family] ? family : nativeName[family] ?? family;
   const doc = docs[id];
   const theme = useSiteTheme();
   const mode = useResolvedMode();
   if (!doc)
     return (
       <>
-        <WebOnPhone id={id} story={story} />
+        <WebOnPhone id={family} story={story} />
         <DocumentationGuidance usage={usage} keyboard={false} />
       </>
     );
@@ -97,6 +110,11 @@ export default function MobileBody({ id, story, usage, webProps }: MobileDocumen
           <p className={styles.serviceNote}>{tr("Este componente ainda não aparece na galeria do pacote.")}</p>
         )}
       </div>
+      {mobileGuidance[family] && (
+        <Callout tone="info" title={tr(mobileGuidance[family].title)}>
+          {tr(mobileGuidance[family].body)}
+        </Callout>
+      )}
       <DocumentationGuidance usage={usage} keyboard={false} />
       <Section id="installation" title={tr("Instalação")}>
         <p>{tr("Num app Expo, instale o pacote e o react-native-svg:")}</p>

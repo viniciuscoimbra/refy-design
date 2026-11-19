@@ -55,7 +55,7 @@ const mcpText: Record<Locale, McpText> = {
     description: "O pacote web traz um servidor MCP. Com ele, o agente acha o componente pela necessidade, lê a API, confere o código e gera tema sem sair da conversa.",
     sections: { web: "Claude, ChatGPT e Gemini na web", requisitos: "Requisitos", "claude-code": "Claude Code", codex: "Codex", kiro: "Kiro", outros: "Cursor, Windsurf e VS Code", ferramentas: "Ferramentas", testar: "Testar", terminal: "Sem MCP", limites: "Limites" },
     web: <>No chat do navegador ou do celular, conecte o servidor remoto. Não precisa instalar nada nem fazer login:</>,
-    webClaude: <><strong>Claude.</strong> Em Configurações, Conectores, adicione um conector personalizado com o endereço acima e sem autenticação. Vale em todos os planos; no gratuito, cabe um conector personalizado.</>,
+    webClaude: <><strong>Claude.</strong> Em Configurações, Conectores, procure <strong>Refy Design</strong> no diretório de conectores e adicione. Ou adicione um conector personalizado com o endereço acima e sem autenticação; no plano gratuito, cabe um conector personalizado.</>,
     webChatgpt: <><strong>ChatGPT.</strong> Ative o modo de desenvolvedor nas configurações (planos Plus, Pro, Business, Enterprise e Edu, no site), crie um app com o endereço acima e autenticação nenhuma. Na conversa, ligue o refy pelo botão +.</>,
     webGemini: <><strong>Gemini.</strong> Em gemini.google.com, Configurações, Apps conectados, adicione um app personalizado com o endereço acima. Por enquanto o Google libera isso só para conta pessoal nos Estados Unidos, em inglês.</>,
     webLimit: <>O servidor remoto não lê arquivos da sua máquina: <code>refy_validate</code> recebe o código na conversa, e <code>refy_compare</code> só existe no servidor local.</>,
@@ -92,7 +92,7 @@ const mcpText: Record<Locale, McpText> = {
     description: "The web package ships an MCP server. With it, your agent finds the component by need, reads the API, checks the code and generates themes without leaving the chat.",
     sections: { web: "Claude, ChatGPT and Gemini on the web", requisitos: "Requirements", "claude-code": "Claude Code", codex: "Codex", kiro: "Kiro", outros: "Cursor, Windsurf and VS Code", ferramentas: "Tools", testar: "Try it", terminal: "Without MCP", limites: "Limits" },
     web: <>In the browser or phone chat, connect the remote server. Nothing to install and no login:</>,
-    webClaude: <><strong>Claude.</strong> In Settings, Connectors, add a custom connector with the address above and no authentication. Every plan has it; the free plan fits one custom connector.</>,
+    webClaude: <><strong>Claude.</strong> In Settings, Connectors, search for <strong>Refy Design</strong> in the connector directory and add it. Or add a custom connector with the address above and no authentication; the free plan fits one custom connector.</>,
     webChatgpt: <><strong>ChatGPT.</strong> Turn on developer mode in settings (Plus, Pro, Business, Enterprise and Edu plans, on the website), create an app with the address above and no authentication. In the chat, turn refy on from the + button.</>,
     webGemini: <><strong>Gemini.</strong> On gemini.google.com, Settings, Connected apps, add a custom app with the address above. For now Google offers it only to personal accounts in the United States, in English.</>,
     webLimit: <>The remote server does not read files on your machine: <code>refy_validate</code> takes the code from the chat, and <code>refy_compare</code> exists only in the local server.</>,
@@ -129,7 +129,7 @@ const mcpText: Record<Locale, McpText> = {
     description: "El paquete web trae un servidor MCP. Con él, tu agente encuentra el componente por necesidad, lee la API, revisa el código y genera temas sin salir de la conversación.",
     sections: { web: "Claude, ChatGPT y Gemini en la web", requisitos: "Requisitos", "claude-code": "Claude Code", codex: "Codex", kiro: "Kiro", outros: "Cursor, Windsurf y VS Code", ferramentas: "Herramientas", testar: "Probar", terminal: "Sin MCP", limites: "Límites" },
     web: <>En el chat del navegador o del celular, conecta el servidor remoto. No hay que instalar nada ni iniciar sesión:</>,
-    webClaude: <><strong>Claude.</strong> En Configuración, Conectores, agrega un conector personalizado con la dirección de arriba y sin autenticación. Está en todos los planes; en el gratuito cabe un conector personalizado.</>,
+    webClaude: <><strong>Claude.</strong> En Configuración, Conectores, busca <strong>Refy Design</strong> en el directorio de conectores y agrégalo. O agrega un conector personalizado con la dirección de arriba y sin autenticación; en el plan gratuito cabe un conector personalizado.</>,
     webChatgpt: <><strong>ChatGPT.</strong> Activa el modo de desarrollador en la configuración (planes Plus, Pro, Business, Enterprise y Edu, en el sitio web), crea una app con la dirección de arriba y sin autenticación. En la conversación, activa refy con el botón +.</>,
     webGemini: <><strong>Gemini.</strong> En gemini.google.com, Configuración, Apps conectadas, agrega una app personalizada con la dirección de arriba. Por ahora Google la ofrece solo a cuentas personales en Estados Unidos, en inglés.</>,
     webLimit: <>El servidor remoto no lee archivos de tu máquina: <code>refy_validate</code> recibe el código desde la conversación, y <code>refy_compare</code> existe solo en el servidor local.</>,
@@ -450,6 +450,8 @@ const aiText = {
 export const aiNavLinks = (locale: Locale): GuideLink[] => [
   { href: aiHref(), label: aiText[locale].overview },
   ...aiTopics.map((topic) => ({ href: aiHref(topic), label: localizedAiPages[locale][topic].label })),
+  // A2UI mora nas Docs (é um pacote), mas é para agentes: o menu de Para IAs leva até lá.
+  { href: "/docs/a2ui", label: "A2UI" },
 ];
 export const aiPagesLabel = (locale: Locale) => aiText[locale].pages;
 

@@ -3,8 +3,8 @@
   "mobileVersion": "1.1.0",
   "summary": {
     "igual": 12,
-    "com-divergencia": 92,
-    "so-web": 18
+    "com-divergencia": 93,
+    "so-web": 17
   },
   "families": {
     "Button": "igual",
@@ -117,7 +117,7 @@
     "DatePicker": "com-divergencia",
     "Direction": "so-web",
     "Item": "igual",
-    "Label": "so-web",
+    "Label": "com-divergencia",
     "Marker": "com-divergencia",
     "Menubar": "so-web",
     "Message": "com-divergencia",

@@ -57,7 +57,10 @@ export const faqFor = (tr: (text: string) => string) => [
     id: "license",
     title: tr("Posso usar em projetos comerciais?"),
     content: (
-      <p>{tr("Sim. A licença Apache 2.0 permite uso comercial. Mantenha a licença e o NOTICE junto do código, e não use o nome refy no seu produto.")}</p>
+      <>
+        <p>{tr("Sim. A licença Apache 2.0 permite uso comercial. Mantenha a licença e o NOTICE junto do código, e não use o nome refy no seu produto.")}</p>
+        <p>{tr("A Apache 2.0 vale a partir da 1.9.4. Até a 1.9.3 o refy saiu sob a licença MIT, que continua valendo para essas versões.")}</p>
+      </>
     ),
   },
   {

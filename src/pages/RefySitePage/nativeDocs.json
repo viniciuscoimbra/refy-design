@@ -620,6 +620,7 @@
       }
     ],
     "onlyWeb": [
+      "height",
       "symbol"
     ],
     "example": "<BrandLogo key={size} size={size} />",
@@ -1230,7 +1231,9 @@
         "onlyMobile": false
       }
     ],
-    "onlyWeb": [],
+    "onlyWeb": [
+      "value"
+    ],
     "example": "<Chip selected>Para você</Chip>",
     "section": "Chip"
   },
@@ -3421,6 +3424,26 @@
     "example": "<KanbanCard style={{ marginTop: 12 }} onOpen={() => {}} item={{ id: \"k1\", title: \"Conferir lote de 40 arquivos do cliente\", description: \"Separar os que têm capa desatualizada antes de cadastrar.\", meta: \"Hoje · 3 de 40\", footer: <Badge tone=\"warn\">Em andamento</Badge> }} />",
     "section": "SettingsSubnav / KanbanCard"
   },
+  "Label": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "nativeID",
+        "type": "string",
+        "required": false,
+        "onlyMobile": true
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Label>E-mail da conta</Label>",
+    "section": "Label / Divider / StatusDot"
+  },
   "LineChart": {
     "byType": false,
     "props": [
@@ -4420,7 +4443,10 @@
         "onlyMobile": false
       }
     ],
-    "onlyWeb": [],
+    "onlyWeb": [
+      "ctaPosition",
+      "description"
+    ],
     "example": "<PlanCard highlighted style={{ marginTop: 10 }} name=\"Profissional\" price=\"R$ 19\" period=\"/mês\" priceNote=\"R$ 228 cobrados por ano\" features={[\"Espaço sem limite\", \"Histórico de versões\", \"Revisões ilimitadas\"]} cta={<Button variant=\"primary\" block>Assinar</Button>} />",
     "section": "BillingCard / PlanCard / DangerZone"
   },

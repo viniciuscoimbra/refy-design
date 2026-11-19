@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "package": "@refy-design/web",
-  "packageVersion": "1.9.4",
-  "sourceSha256": "b7d680fa057b0d63245aab6754131b79724174ed23c600ea97706b9681b1d59a",
+  "packageVersion": "1.9.5",
+  "sourceSha256": "b4541a2cfdf2e0226ce7dbcb6614e025f8bc122b79876e096e753de76f1524f3",
   "collections": [
     {
       "id": "core",
@@ -7145,7 +7145,7 @@
       ],
       "composition": [],
       "hooks": [],
-      "mobile": "so-web",
+      "mobile": "com-divergencia",
       "document": "components/Label.json"
     },
     {

@@ -2,6 +2,10 @@
 
 O pacote `@refy-design/web` traz um servidor MCP (`refy-mcp`) que expõe o catálogo, a API dos componentes, a validação de uso e a geração de tema para qualquer agente compatível com o Model Context Protocol. Ele lê só o que vem no pacote instalado e o que o agente manda na chamada: não escreve no projeto e não chama modelo de IA. Fora o `npx -y` quando o pacote não está instalado, só `refy_theme_extract` com `url` acessa a rede, e só o endereço público que a pessoa passou.
 
+## Conector no Claude
+
+O servidor remoto `https://refy.design/mcp` está no diretório de conectores do Claude com o nome **Refy Design**. No Claude, em Configurações, Conectores, procure Refy Design e adicione: sem conta e sem chave. A configuração manual continua valendo: adicione um conector personalizado com o mesmo endereço e sem autenticação.
+
 ## Plugin para Claude e Codex
 
 O plugin `refy` liga o servidor remoto `https://refy.design/mcp`, sem instalar nada, e dois atalhos: `refy-tela` (busca o componente, escreve a tela e roda `refy_validate` no fim) e `refy-tema-de-site` (pega os elementos claros de um site e vira tema, sem copiar a tela). O plugin `refy-local`, do mesmo marketplace, roda o `refy-mcp` na sua máquina com `npx` e traz os mesmos atalhos mais `refy-reproduzir-tela` (só quando a pessoa pede: reproduz a tela igual ao original com Refy e extensões, e compara com `refy_compare` até bater).
@@ -36,13 +40,13 @@ claude mcp add refy -- npx --no-install refy-mcp
 Sem o pacote no projeto, o npx baixa a versão indicada. Fixe a mesma versão que o projeto usa, para o catálogo e a validação baterem com ela:
 
 ```bash
-claude mcp add refy -- npx -y -p @refy-design/web@1.9.4 refy-mcp
+claude mcp add refy -- npx -y -p @refy-design/web@1.9.5 refy-mcp
 ```
 
 Codex, no terminal:
 
 ```bash
-codex mcp add refy -- npx -y -p @refy-design/web@1.9.4 refy-mcp
+codex mcp add refy -- npx -y -p @refy-design/web@1.9.5 refy-mcp
 ```
 
 Ou em `~/.codex/config.toml`:
@@ -50,7 +54,7 @@ Ou em `~/.codex/config.toml`:
 ```toml
 [mcp_servers.refy]
 command = "npx"
-args = ["-y", "-p", "@refy-design/web@1.9.4", "refy-mcp"]
+args = ["-y", "-p", "@refy-design/web@1.9.5", "refy-mcp"]
 ```
 
 Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Cursor (`.cursor/mcp.json`), Windsurf e outros clientes que leem `mcpServers`:
@@ -58,7 +62,7 @@ Kiro (`.kiro/settings/mcp.json` no projeto ou `~/.kiro/settings/mcp.json`), Curs
 ```json
 {
   "mcpServers": {
-    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.9.4", "refy-mcp"] }
+    "refy": { "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.9.5", "refy-mcp"] }
   }
 }
 ```
@@ -68,7 +72,7 @@ VS Code usa a chave `servers`, em `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.9.4", "refy-mcp"] }
+    "refy": { "type": "stdio", "command": "npx", "args": ["-y", "-p", "@refy-design/web@1.9.5", "refy-mcp"] }
   }
 }
 ```
@@ -90,7 +94,7 @@ O servidor fala por stdio. `REFY_MCP_PROJECT` muda a pasta que `refy_validate` l
 
 Toda ferramenta é só de leitura e diz isso em `annotations` (`readOnlyHint: true`, `destructiveHint: false`); só `refy_theme_extract` sai para a rede (`openWorldHint: true`). Se o cliente ainda pedir aprovação, a regra é dele.
 
-Toda resposta traz `packageVersion`, a versão do catálogo que respondeu. No servidor local ela é a versão instalada. No remoto (`https://refy.design/mcp`), a resposta traz também `publishedVersion`, o `latest` do npm, e `warnings` quando o catálogo ainda não está publicado. O remoto carrega a versão atual e a anterior: passe `version` (ex.: `"1.9.3"`) para ler a API que o projeto instala. Versão que o servidor não tem volta como erro com a lista das disponíveis.
+Toda resposta traz `packageVersion`, a versão do catálogo que respondeu. No servidor local ela é a versão instalada. No remoto (`https://refy.design/mcp`), a resposta traz também `publishedVersion`, o `latest` do npm, e `warnings` quando o catálogo ainda não está publicado. O remoto carrega a versão atual e a anterior: passe `version` (ex.: `"1.9.4"`) para ler a API que o projeto instala. Versão que o servidor não tem volta como erro com a lista das disponíveis.
 
 Recursos: `refy://instructions`, `refy://control-choices`, `refy://theme-probe`, `refy://catalog` e `refy://component/{name}`.
 

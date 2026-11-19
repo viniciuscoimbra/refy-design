@@ -37,6 +37,12 @@ assert.equal(search.isError, false);
 console.log(`    → ${search.structuredContent.results.map((r) => r.id).join(", ")}`);
 const button = await tool("refy_component", { name: "Button" });
 assert.equal(button.structuredContent.publicName, "Button");
+// NATP-02: a ficha diz se há mobile; família só web não sugere import do pacote nativo.
+assert.equal(button.structuredContent.mobile, "igual");
+const webOnly = await tool("refy_component", { name: "Breadcrumb" });
+assert.equal(webOnly.structuredContent.mobile, "so-web");
+assert.ok(!JSON.stringify(webOnly.structuredContent).includes("@refy-design/mobile"), "Breadcrumb só web não pode sugerir @refy-design/mobile");
+console.log(`    → mobile: Button ${button.structuredContent.mobile}, Breadcrumb ${webOnly.structuredContent.mobile}`);
 const bad = await tool("refy_validate", { code: `import { Button } from '@refy-design/web';\nexport const T = () => <Button variant="big">Salvar</Button>;` });
 assert.equal(bad.structuredContent.passed, false);
 console.log(`    → recusou: ${bad.structuredContent.contract.findings.map((f) => f.message).join(" | ").slice(0, 160)}`);

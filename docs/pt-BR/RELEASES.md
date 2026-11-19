@@ -22,8 +22,9 @@ Uma versão sai quando está pronta, sem data fixa. Cada versão lista as mudan�
 
 1. O mantenedor aprova a árvore, como descrito no [GOVERNANCE.md](GOVERNANCE.md), passo 3.
 2. O commit `refy X.Y.Z` chega ao `main`.
-3. O `release.yml` cria a tag anotada `vX.Y.Z` e o release no GitHub com os pacotes anexados, e publica no npm por Trusted Publishing, com proveniência. Ninguém guarda token do npm.
+3. O `release.yml` cria a tag anotada `vX.Y.Z` e o release no GitHub com os pacotes anexados, e publica `@refy-design/web`, `@refy-design/mobile` e `@refy-design/a2ui` no npm por Trusted Publishing, cada um com a própria versão e só quando ela ainda não está no npm, com proveniência. Ninguém guarda token do npm.
 4. O site refy.design e o servidor MCP remoto passam para a versão nova.
+5. A versão só está pronta quando o npm, a documentação em inglês, português e espanhol e o refy.design mostram a mesma versão. `node scripts/docs-sync.mjs --live` compara a versão que o site no ar declara com a do npm.
 
 ## Suporte
 

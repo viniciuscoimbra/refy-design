@@ -22,8 +22,9 @@ A version ships when it is ready, not on a fixed date. Every version lists its c
 
 1. The maintainer approves the tree, as described in [GOVERNANCE.md](GOVERNANCE.md), step 3.
 2. The commit `refy X.Y.Z` reaches `main`.
-3. `release.yml` creates the annotated tag `vX.Y.Z`, the GitHub release with the packages attached, and publishes to npm through Trusted Publishing, with provenance. No person holds an npm token.
+3. `release.yml` creates the annotated tag `vX.Y.Z`, the GitHub release with the packages attached, and publishes `@refy-design/web`, `@refy-design/mobile` and `@refy-design/a2ui` to npm through Trusted Publishing, each with its own version and only when that version is not on npm yet, with provenance. No person holds an npm token.
 4. The site at refy.design and the remote MCP server move to the new version.
+5. The version is done only when npm, the documentation in English, Portuguese and Spanish, and refy.design show the same version. `node scripts/docs-sync.mjs --live` compares the version the live site declares with npm.
 
 ## Support
 

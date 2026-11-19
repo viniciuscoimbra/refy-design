@@ -1759,6 +1759,7 @@
  "Seções múltiplas via `group` — Recentes + Mais visitadas.": "Multiple sections via `group`: Recent + Most visited.",
  "Seções que revelam ou ocultam conteúdo.": "Sections that reveal or hide content.",
  "Sim. A licença Apache 2.0 permite uso comercial. Mantenha a licença e o NOTICE junto do código, e não use o nome refy no seu produto.": "Yes. The Apache 2.0 license allows commercial use. Keep the license and the NOTICE with the code, and don't use the refy name for your product.",
+ "A Apache 2.0 vale a partir da 1.9.4. Até a 1.9.3 o refy saiu sob a licença MIT, que continua valendo para essas versões.": "Apache 2.0 applies from 1.9.4 on. Up to 1.9.3 refy was released under the MIT license, which still applies to those versions.",
  "Simbolo": "Symbol",
  "Simples": "Simple",
  "Sinalização compacta de um estado, com rótulo e indicação de atividade.": "Compact signal of a state, with label and activity indicator.",
@@ -2198,5 +2199,7 @@
  "↑/↓ abrem/percorrem opções; Home/End atuam na lista aberta; Enter escolhe; Escape fecha. A digitação permanece no input.": "↑/↓ open/move through options; Home/End work in the open list; Enter picks; Escape closes. Typing stays in the input.",
  "↑/↓ e Home/End percorrem a lista aberta; Enter alterna opção; Escape/Tab fecham. Backspace com busca vazia remove a última escolha.": "↑/↓ and Home/End move through the open list; Enter toggles an option; Escape/Tab close. Backspace with an empty search removes the last choice.",
  "↑/↓ percorrem habilitados; Home/End vão às extremidades; letra busca rótulo textual; Enter/Espaço acionam; Escape/Tab fecham. Sem submenu aninhado.": "↑/↓ move through enabled items; Home/End go to the ends; a letter searches a text label; Enter/Space activate; Escape/Tab close. No nested submenus.",
- "↻ Restaurar padrão": "↻ Restore default"
+ "↻ Restaurar padrão": "↻ Restore default",
+ "No mobile, sem htmlFor": "On mobile, no htmlFor",
+ "O React Native não tem <label for>. Dê um nativeID ao Label e passe o mesmo valor em accessibilityLabelledBy no campo. Input, Textarea e Select já fazem isso sozinhos com a prop label.": "React Native has no <label for>. Give the Label a nativeID and pass the same value to accessibilityLabelledBy on the field. Input, Textarea and Select already do this on their own with the label prop."
 }

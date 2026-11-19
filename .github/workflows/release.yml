@@ -57,11 +57,12 @@ jobs:
           if [ "$MSG" = "$VERSION" ] || ! printf %s "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
             echo "Commit do main sem versão ($MSG): nada a publicar."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
           fi
-          # Pula só se a web e o A2UI desta versão já estão no npm: se a web saiu e o A2UI falhou,
-          # rodar de novo publica o que faltou.
+          # Pula só se a web, o mobile e o A2UI desta versão já estão no npm: se um saiu e outro
+          # falhou, rodar de novo publica o que faltou.
           A2UI=$(node -p "require('./packages/a2ui/package.json').version")
-          if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1 && npm view "@refy-design/a2ui@$A2UI" version >/dev/null 2>&1; then
-            echo "@refy-design/web@$VERSION e @refy-design/a2ui@$A2UI já estão no npm."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
+          MOBILE=$(node -p "require('./packages/native/package.json').version")
+          if npm view "@refy-design/web@$VERSION" version >/dev/null 2>&1 && npm view "@refy-design/mobile@$MOBILE" version >/dev/null 2>&1 && npm view "@refy-design/a2ui@$A2UI" version >/dev/null 2>&1; then
+            echo "@refy-design/web@$VERSION, @refy-design/mobile@$MOBILE e @refy-design/a2ui@$A2UI já estão no npm."; echo "PULAR=1" >> "$GITHUB_ENV"; exit 0
           fi
           # A tag é anotada pelo mantenedor, como o autoria.yml cobra. O ls-remote devolve o commit
           # da tag anotada na linha ^{}; o gh api, num 404, escreve o corpo do erro na saída.
@@ -114,6 +115,13 @@ jobs:
             echo "@refy-design/web@$VERSION já está no npm."
           else
             npx -y npm@11.6.2 publish "refy-design-web-$VERSION.tgz" --access public --provenance --loglevel verbose
+          fi
+          # O pacote mobile sai com a versão dele, pelo mesmo Trusted Publisher (ligado em 18/11/2026).
+          MOBILE=$(node -p "require('./packages/native/package.json').version")
+          if npm view "@refy-design/mobile@$MOBILE" version >/dev/null 2>&1; then
+            echo "@refy-design/mobile@$MOBILE já está no npm."
+          else
+            npx -y npm@11.6.2 publish "refy-design-mobile-$MOBILE.tgz" --access public --provenance --loglevel verbose
           fi
           # O catálogo A2UI sai com a versão dele; publica só se ela ainda não está no npm.
           A2UI=$(node -p "require('./packages/a2ui/package.json').version")

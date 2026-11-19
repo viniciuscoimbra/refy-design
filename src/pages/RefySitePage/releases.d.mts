@@ -15,3 +15,4 @@ export interface Release {
 export const changeKinds: Record<string, ChangeKind>;
 export function parseReleases(markdown: string): Release[];
 export function upgradeKind(version: string, from: string | undefined): "first" | "major" | "minor" | "patch";
+export function missingMobileDeclaration(markdown: string): string[];

@@ -4,7 +4,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { parseReleases, upgradeKind } from "../src/pages/RefySitePage/releases.mjs";
+import { missingMobileDeclaration, parseReleases, upgradeKind } from "../src/pages/RefySitePage/releases.mjs";
 import { unreleasedEntry } from "../tools/refy-agent/contribute.mjs";
 
 const changelog = readFileSync("CHANGELOG.md", "utf8");
@@ -49,4 +49,22 @@ test("toda frase de release publicada tem português e espanhol", () => {
   const missing = releases.flatMap((r) => [r.summary, ...r.changes].filter(Boolean))
     .flatMap((line) => ["pt", "es"].filter((l) => !text[l][line]).map((l) => `${l}: ${line}`));
   assert.deepEqual(missing, []);
+});
+
+// NATP-03: toda versão desde a 1.1.0 diz se o @refy-design/mobile acompanha e o que ficou só na web.
+test("versão sem declaração do mobile é recusada; com a linha passa", () => {
+  const sem = "## [1.2.0] - 2026-11-09\n\n### Added\n\n- x\n\n## [1.0.0] - 2026-11-07\n\n### Added\n\n- a\n";
+  assert.deepEqual(missingMobileDeclaration(sem), ["1.2.0"], "1.0.0 é anterior ao mobile e não precisa da linha");
+  const com = "## [1.2.0] - 2026-11-09\n\nMobile: `@refy-design/mobile` does not follow; web only: `Combobox.creatable`.\n\n### Added\n\n- x\n";
+  assert.deepEqual(missingMobileDeclaration(com), []);
+  const resumo = "## [1.6.0] - 2026-11-12\n\nFixes.\n\nMobile: follows.\n\n### Fixed\n\n- y\n";
+  assert.deepEqual(missingMobileDeclaration(resumo), [], "a linha pode vir depois de outro resumo");
+  for (const fim of ["Summary!", "Summary?", "Summary"]) {
+    assert.deepEqual(missingMobileDeclaration(`## [1.6.0] - 2026-11-12\n\n${fim}\n\nMobile: follows.\n\n### Fixed\n\n- y\n`), [], `depois de "${fim}"`);
+  }
+  assert.deepEqual(missingMobileDeclaration("## [1.6.0] - 2026-11-12\n\n### Fixed\n\n- Mobile: false positive.\n"), ["1.6.0"], "item da lista não declara");
+});
+
+test("o CHANGELOG declara o mobile em toda versão desde a 1.1.0", () => {
+  assert.deepEqual(missingMobileDeclaration(changelog), []);
 });

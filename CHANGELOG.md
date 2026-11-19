@@ -6,7 +6,25 @@ All notable changes to refy are recorded here. The format follows [Keep a Change
 
 ## [Unreleased]
 
+## [1.9.5] - 2026-11-18
+
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
+### Added
+
+- Docs page for `@refy-design/a2ui` at refy.design/docs/a2ui, in English, Portuguese and Spanish: install on the web and in React Native, the 12 pieces, validation on the server with `@refy-design/a2ui/definition`, and `onError` and `openUrl` in React Native. The Docs menu, the For AI pages, llms.txt and the sitemap link to it.
+- refy.design/version.json declares the versions of `@refy-design/web`, `@refy-design/mobile` and `@refy-design/a2ui` that the site documents.
+
+### Changed
+
+- The MCP page tells you to search for Refy Design in Claude's connector directory, besides the manual setup with the address.
+- The site says the license is Apache 2.0 from 1.9.4 and that versions up to 1.9.3 were released under MIT, in the FAQ and on the contributing page.
+- The release workflow publishes `@refy-design/mobile` to npm through Trusted Publishing, with provenance, like `@refy-design/web` and `@refy-design/a2ui` ([RELEASES.md](RELEASES.md), step 3).
+- A version is done only when npm, the documentation in English, Portuguese and Spanish, and refy.design show the same version ([RELEASES.md](RELEASES.md), step 5).
+
 ## [1.9.4] - 2026-11-18
+
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
 
 ### Added
 
@@ -21,6 +39,8 @@ All notable changes to refy are recorded here. The format follows [Keep a Change
 
 ## [1.9.3] - 2026-11-18
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Added
 
 - `@refy-design/a2ui` 0.2.0 with React Native: `@refy-design/a2ui/native` draws the same agent JSON with the same 12 pieces on `@refy-design/mobile`, using the theme of the app's `RefyProvider`. The `openUrl` function opens through `Linking`, and surface errors (refused function, link the system cannot open, invalid expression) reach the `onError` of `A2uiNativeSurface`.
@@ -31,17 +51,23 @@ All notable changes to refy are recorded here. The format follows [Keep a Change
 
 ## [1.9.2] - 2026-11-18
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Changed
 
 - The site downloads only what each page uses: GSAP stays in the home page scroll scenes and arrives after the first paint, documentation text arrives per page and per family, and the source tokens JSON left the first load. The home page in Portuguese downloads 233 KB of gzipped JavaScript instead of 287 KB, and a component page 330 KB instead of 462 KB. The look and the published packages do not change.
 
 ## [1.9.1] - 2026-11-15
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Fixed
 
 - 1.9.0 was not published to npm; everything in it is in 1.9.1.
 
 ## [1.9.0] - 2026-11-15
+
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
 
 ### Added
 
@@ -60,6 +86,8 @@ All notable changes to refy are recorded here. The format follows [Keep a Change
 
 ## [1.8.0] - 2026-11-13
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Added
 
 - Each family in the AI catalog carries `mobile`: `igual`, `com-divergencia` or `so-web`, generated from `src/catalog/native-parity.json`. Today the counts are 12, 92 and 18. `refy-agent component` and the MCP `refy_component` return the field.
@@ -72,12 +100,16 @@ All notable changes to refy are recorded here. The format follows [Keep a Change
 
 ## [1.7.0] - 2026-11-12
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Added
 
 - Each family in the AI catalog carries `maturity`, one of the four QUALITY.md states (`nao-avaliado`, `experimental`, `estavel`, `depreciado`), read from `src/catalog/maturity.json`. Today all 122 families are `nao-avaliado`. `refy-agent catalog`, `refy-agent component` and the MCP `refy_component` return the field (#16).
 - The check refuses a promoted family without the evidence its state requires, with an unknown state, an extra field or a name outside the catalog.
 
 ## [1.6.2] - 2026-11-12
+
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
 
 ### Fixed
 
@@ -87,6 +119,8 @@ All notable changes to refy are recorded here. The format follows [Keep a Change
 
 ## [1.6.1] - 2026-11-12
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Fixed
 
 - 1.6.0 never reached npm: a repository test failed in the public CI, which runs in a container where git refuses the checkout. The test now reads the folder when git does not answer. The package is the same as 1.6.0, with the fixes for issues #6 to #13.
@@ -94,6 +128,8 @@ All notable changes to refy are recorded here. The format follows [Keep a Change
 ## [1.6.0] - 2026-11-12
 
 Fixes for issues #6 to #13, opened by @iosbilario. Thank you.
+
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; web only: `Command.search`.
 
 ### Added
 
@@ -114,6 +150,8 @@ Fixes for issues #6 to #13, opened by @iosbilario. Thank you.
 
 ## [1.5.2] - 2026-11-12
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Added
 
 - `refy-local` plugin in the same marketplace: runs `refy-mcp` on your machine with `npx` (`@refy-design/web@1.5.2`) and brings `refy-tela`, `refy-tema-de-site` and `refy-reproduzir-tela`, which uses `refy_compare`.
@@ -128,6 +166,8 @@ Fixes for issues #6 to #13, opened by @iosbilario. Thank you.
 
 ## [1.5.1] - 2026-11-11
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Added
 
 - `PRIVACY.md`: what the package, the plugin and the local and remote MCP servers read, send and keep (nothing is kept).
@@ -139,6 +179,8 @@ Fixes for issues #6 to #13, opened by @iosbilario. Thank you.
 - The plugin README says what it runs and what it sends, with privacy and support. The Codex manifest gets an icon, privacy, terms and support.
 
 ## [1.5.0] - 2026-11-11
+
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
 
 ### Added
 
@@ -157,6 +199,8 @@ Fixes for issues #6 to #13, opened by @iosbilario. Thank you.
 - The README said 118 families, six MCP tools and React Native "coming soon". There are 122 families, eight tools, and `@refy-design/mobile` is on npm.
 
 ## [1.4.0] - 2026-11-10
+
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; web only: `PlanCard.ctaPosition` and `PlanCard.description`.
 
 ### Changed
 
@@ -183,17 +227,23 @@ Fixes for issues #6 to #13, opened by @iosbilario. Thank you.
 
 ## [1.3.4] - 2026-11-10
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Fixed
 
 - 1.3.3 stayed in the repository without a tag or release, because GitHub refused to create the tag through the API. The release now creates the annotated tag with git and, if that is refused, publishes with a lightweight tag, and 1.3.4 takes the content of 1.3.1 through 1.3.3 to npm.
 
 ## [1.3.3] - 2026-11-10
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Fixed
 
 - 1.3.2 stayed in the repository without a tag or release: the tag the release creates is now annotated by the maintainer and checked by the commit it points to, and 1.3.3 takes the content of 1.3.1 and 1.3.2 to npm.
 
 ## [1.3.2] - 2026-11-10
+
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
 
 ### Added
 
@@ -204,6 +254,8 @@ Fixes for issues #6 to #13, opened by @iosbilario. Thank you.
 - 1.3.1 stayed in the GitHub release only and did not reach npm. 1.3.2 brings its content to npm.
 
 ## [1.3.1] - 2026-11-10
+
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; web only: `ChipGroup`.
 
 ### Added
 
@@ -222,6 +274,8 @@ Fixes for issues #6 to #13, opened by @iosbilario. Thank you.
 
 ## [1.3.0] - 2026-11-09
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; web only: `BrandLogo.height` and `SiteFooter.externalIcon`.
+
 ### Added
 
 - Refy plugin for Claude Code, the Claude app, Cowork and Codex, installed from the repository (`/plugin marketplace add viniciuscoimbra/refy-design`, `codex plugin marketplace add viniciuscoimbra/refy-design`), with the `refy-tela`, `refy-tema-de-site` and `refy-reproduzir-tela` shortcuts. `refy.mcpb` extension for Claude Desktop chat in the release.
@@ -234,11 +288,15 @@ Fixes for issues #6 to #13, opened by @iosbilario. Thank you.
 
 ## [1.2.0] - 2026-11-09
 
+Mobile: `@refy-design/mobile` does not follow and stays at 1.1.0; no new family or property.
+
 ### Added
 
 - MCP server in the `@refy-design/web` package (`npx --no-install refy-mcp`). The agent finds the family from a need written in Portuguese, English or Spanish, reads the API, checks the code against the component contract and generates a light and dark theme with AA contrast from one color. Setup in `docs/MCP.md`.
 
 ## [1.1.0] - 2026-11-07
+
+Mobile: debuts in this version, with `@refy-design/mobile` 1.1.0.
 
 ### Added
 
@@ -262,7 +320,8 @@ First public version.
 
 - `ContentCard` (and its old name `PropertyCard`): `address`, `price` and `priceSuffix` still work and may be removed from 2.0.0 on. Use `subtitle`, `value` and `valueSuffix`.
 
-[Unreleased]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.4...HEAD
+[Unreleased]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.5...HEAD
+[1.9.5]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.4...v1.9.5
 [1.9.4]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.3...v1.9.4
 [1.9.3]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.2...v1.9.3
 [1.9.2]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.1...v1.9.2

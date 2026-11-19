@@ -37,8 +37,9 @@ function exportsOf(path, seen = new Set()) {
   return names;
 }
 
-// Provider e peças de montagem: exportados, mas não são componentes de tela.
-const internal = new Set(["RefyProvider", "RefyScope", "MIN_TOUCH", "AnchoredLayer", "IconSlot", "Label"]);
+// Provider e peças de montagem: exportados, mas não são componentes de tela. Label fica:
+// é o FieldLabel exportado como Label, par da família Label (seção no DIVERGENCIAS.md).
+const internal = new Set(["RefyProvider", "RefyScope", "MIN_TOUCH", "AnchoredLayer", "IconSlot"]);
 const list = [...new Set(exportsOf(join(src, "index")))].filter((name) => !internal.has(name) && /[a-z]/.test(name)).sort();
 
 // Props públicas de cada componente, como o TypeScript as vê. Só as declaradas pelo refy:

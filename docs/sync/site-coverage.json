@@ -1,0 +1,8 @@
+{
+  "about": "Pacote público -> página das Docs do site (/docs/<tópico>, em pt, en e es). docs-sync --check reprova pacote público (raiz ou packages/* sem private) que não está aqui, página que falta num idioma e página que não cita o pacote. O mobile não tem página própria: a Instalação troca para o conteúdo do mobile na aba Mobile, e é essa a página dele.",
+  "packages": {
+    "@refy-design/web": "instalacao",
+    "@refy-design/mobile": "instalacao",
+    "@refy-design/a2ui": "a2ui"
+  }
+}

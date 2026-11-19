@@ -5,6 +5,7 @@ import { copyFileSync, existsSync, mkdtempSync, mkdirSync, readdirSync, rmSync, 
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import {
+  changelogCoverageProblems, changelogSections, liveProblems, packageMapProblems, packagePageProblems, pendingVersions,
   check, chartTypes, resolveContext, computeFacts, globToRegExp, impactOf, parseSurface, recordProblems, scanSurfaces, scanText, sentenceAt,
 } from '../scripts/docs-sync.mjs';
 
@@ -195,4 +196,78 @@ test('fatos vêm do código: tipos D3, glob e o repositório inteiro em sincroni
   assert.deepEqual(real.mcp.remote, real.mcp.local.filter(t => t !== 'refy_compare'));
   const result = await check(process.cwd(), { env: { ...process.env, DOCS_SYNC_BASE: '', GITHUB_EVENT_NAME: '' }, log: () => {} });
   assert.deepEqual(result.problems.filter(p => !p.includes('docs/sync/changes')), []);
+});
+
+// Pedido de 18/11/2026: o A2UI saiu sem página no site e o check passava. Pronto = npm, doc e site
+// na mesma versão. Cada caso recusado vem com o vizinho que passa.
+const docsSource = (topics) => ['pt', 'en', 'es'].map(l => `const ${l}: Record<DocTopic, DocPage> = {\n${topics.map(t => `  ${t}: page("${l}"),`).join('\n')}\n};`).join('\n') + '\nimport x from "@refy-design/web"; // @refy-design/a2ui';
+
+test('cobertura: pacote público sem página nas Docs reprova; com página nos três idiomas passa', () => {
+  const packages = [{ dir: '.', name: '@refy-design/web' }, { dir: 'packages/a2ui', name: '@refy-design/a2ui' }];
+  const withPage = { packages: { '@refy-design/web': 'instalacao', '@refy-design/a2ui': 'a2ui' } };
+  assert.deepEqual(packagePageProblems(packages, withPage, docsSource(['instalacao', 'a2ui'])), []);
+  const noEntry = packagePageProblems(packages, { packages: { '@refy-design/web': 'instalacao' } }, docsSource(['instalacao']));
+  assert.equal(noEntry.length, 1);
+  assert.match(noEntry[0], /@refy-design\/a2ui sem página/);
+  // Página só em pt: en e es reprovam.
+  const ptOnly = docsSource(['instalacao']).replace('const pt: Record<DocTopic, DocPage> = {\n', 'const pt: Record<DocTopic, DocPage> = {\n  a2ui: page("pt"),\n');
+  assert.equal(packagePageProblems(packages, withPage, ptOnly).length, 2);
+});
+
+test('cobertura: pacote em packages/* precisa chegar a site-docs, site-ai e llms no mapa', () => {
+  const surfaces = ['a2ui-readme', 'readme', 'site-docs', 'site-ai', 'llms'].map(id => ({ id, files: [`x/${id}`] }));
+  const packages = [{ dir: '.', name: '@refy-design/web' }, { dir: 'packages/a2ui', name: '@refy-design/a2ui' }];
+  const old = { rules: [{ paths: ['packages/a2ui/**'], surfaces: ['a2ui-readme', 'readme'], why: 'x' }] };
+  const problems = packageMapProblems(packages, old, surfaces);
+  assert.equal(problems.length, 1);
+  assert.match(problems[0], /não aponta para site-docs, site-ai, llms/);
+  const fixed = { rules: [{ paths: ['packages/a2ui/**'], surfaces: ['a2ui-readme', 'readme', 'site-docs', 'site-ai', 'llms'], why: 'x' }] };
+  assert.deepEqual(packageMapProblems(packages, fixed, surfaces), []);
+});
+
+test('cobertura: versão pendente é [Unreleased] e o que está acima da maior tag aprovado/v*', () => {
+  const sections = changelogSections('## [Unreleased]\n\n## [1.9.4] - x\n\n## [1.9.3] - x\n\n## [1.8.0] - x\n');
+  assert.deepEqual(pendingVersions(sections, ['aprovado/v1.8.1', 'aprovado/v1.9.3'], '1.9.4'), ['Unreleased', '1.9.4']);
+  assert.deepEqual(pendingVersions(sections, ['aprovado/v1.9.4', 'aprovado/v1.9.3'], '1.9.4'), ['Unreleased']);
+  // Árvore exportada pela promoção, sem git nem tag: a versão que o promote.mjs diz promover.
+  assert.deepEqual(pendingVersions(sections, [], '1.9.4'), ['Unreleased', '1.9.4']);
+  assert.deepEqual(pendingVersions(sections, [], null), ['Unreleased']);
+});
+
+test('cobertura: Added sem trecho do site reprova; com trecho nos três idiomas passa', () => {
+  const sections = changelogSections('## [Unreleased]\n\n### Added\n\n- `@refy-design/a2ui` gets a page\n  on the site.\n\n### Fixed\n\n- Fixed thing.\n\n## [1.9.3] - x\n\n### Added\n\n- Old item.\n');
+  const surfaces = [{ id: 'site-docs' }, { id: 'readme' }];
+  const site = 'O agente manda mensagens A2UI. The agent sends A2UI messages. El agente envía mensajes A2UI.';
+  const read = () => site;
+  const pending = ['Unreleased'];
+  const none = changelogCoverageProblems(sections, pending, [], surfaces, read);
+  assert.equal(none.length, 1, 'só o Added de [Unreleased]; Fixed e versão aprovada ficam fora');
+  assert.match(none[0], /\[Unreleased\] Added: .* sem trecho no site/);
+  const link = { item: 'gets a page on the site', surface: 'site-docs', pt: 'O agente manda mensagens A2UI.', en: 'The agent sends A2UI messages.', es: 'El agente envía mensajes A2UI.', record: 'r.json' };
+  assert.deepEqual(changelogCoverageProblems(sections, pending, [link], surfaces, read), []);
+  // Trecho que o site não tem, idioma faltando e superfície que não é de site reprovam.
+  assert.equal(changelogCoverageProblems(sections, pending, [{ ...link, es: 'Otro texto.' }], surfaces, read).length, 1);
+  assert.equal(changelogCoverageProblems(sections, pending, [{ ...link, en: '' }], surfaces, read).length, 1);
+  assert.equal(changelogCoverageProblems(sections, pending, [{ ...link, surface: 'readme' }], surfaces, read).length, 1);
+  // Item que o site não mostra sai só com motivo escrito.
+  assert.equal(changelogCoverageProblems(sections, pending, [{ item: 'gets a page', 'sem site': 'curto', record: 'r' }], surfaces, read).length, 1);
+  assert.deepEqual(changelogCoverageProblems(sections, pending, [{ item: 'gets a page', 'sem site': 'Formulário de issue no GitHub, o site não mostra.', record: 'r' }], surfaces, read), []);
+});
+
+test('site-live: site no ar com versão velha reprova; na versão do npm passa', async () => {
+  const fake = (site) => async (url) => {
+    const json = (body) => ({ ok: true, status: 200, json: async () => body });
+    if (url.includes('/version.json')) return json(site);
+    if (url.includes('registry.npmjs.org/@refy-design/web/')) return json({ version: '1.9.5' });
+    if (url.includes('registry.npmjs.org/@refy-design/a2ui/')) return json({ version: '0.2.1' });
+    if (url.endsWith('/docs/a2ui')) return { ok: true, status: 200 };
+    return { ok: false, status: 404 };
+  };
+  const args = { site: 'https://refy.design', packages: ['@refy-design/web', '@refy-design/a2ui'], topics: ['a2ui'] };
+  const old = await liveProblems({ ...args, fetchImpl: fake({ web: '1.9.4', a2ui: '0.2.1' }) });
+  assert.equal(old.length, 1);
+  assert.match(old[0], /declara @refy-design\/web 1\.9\.4, o npm tem 1\.9\.5/);
+  assert.deepEqual(await liveProblems({ ...args, fetchImpl: fake({ web: '1.9.5', a2ui: '0.2.1' }) }), []);
+  // Página de pacote fora do ar reprova.
+  assert.equal((await liveProblems({ ...args, topics: ['sumiu'], fetchImpl: fake({ web: '1.9.5', a2ui: '0.2.1' }) })).length, 3);
 });
