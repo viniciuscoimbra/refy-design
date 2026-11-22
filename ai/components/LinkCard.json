@@ -1,0 +1,137 @@
+{
+  "id": "LinkCard",
+  "description": "Preview of a web address: site icon, domain, title, description and thumbnail, with the whole card as the link.",
+  "usage": {
+    "howToUse": [
+      "Pass what you already have about the page; the component never fetches the address to fill the card.",
+      "Without `favicon`, it shows the first letter of the domain instead of calling a third-party icon service.",
+      "Opens in a new tab by default and tells screen readers so."
+    ],
+    "alternatives": [
+      "A source inside a sentence: Citation.",
+      "An item with price and actions: EntityCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Focuses the card."
+      },
+      {
+        "keys": "`Enter`",
+        "action": "Opens the link."
+      }
+    ]
+  },
+  "collections": [
+    "content"
+  ],
+  "publicName": "LinkCard",
+  "selected": "Horizontal",
+  "import": "import { LinkCard } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "LinkCard",
+      "props": [
+        {
+          "name": "type",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLAnchorElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLAnchorElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLAnchorElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLAnchorElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLAnchorElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Horizontal",
+      "label": "Horizontal",
+      "description": "",
+      "code": "import { LinkCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  coverNeon: 'https://refy.design/demo/capa-neon.webp',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof LinkCard>,\n    'href' | 'title' | 'description' | 'image'\n  > = {\n    href: 'https://refy.design/docs',\n    title: 'Getting started with refy',\n    description:\n      'Install the package, wrap the app in the provider and change the whole look with one theme file.',\n    image: photos.coverNeon,\n  };\n  return <LinkCard {...args} />;\n}"
+    },
+    {
+      "id": "Vertical",
+      "label": "Vertical",
+      "description": "",
+      "code": "import { LinkCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  coverNeon: 'https://refy.design/demo/capa-neon.webp',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof LinkCard>,\n    'href' | 'title' | 'description' | 'image' | 'layout'\n  > = {\n    href: 'https://refy.design/docs',\n    title: 'Getting started with refy',\n    description:\n      'Install the package, wrap the app in the provider and change the whole look with one theme file.',\n    image: photos.coverNeon,\n    layout: 'vertical',\n  };\n  return <LinkCard {...args} />;\n}"
+    },
+    {
+      "id": "SemImagem",
+      "label": "Without image",
+      "description": "",
+      "code": "import { LinkCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof LinkCard>,\n    'href' | 'title' | 'description' | 'image' | 'siteName'\n  > = {\n    href: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl',\n    title: 'The description list element',\n    description:\n      'Install the package, wrap the app in the provider and change the whole look with one theme file.',\n    image: undefined,\n    siteName: 'MDN Web Docs',\n  };\n  return <LinkCard {...args} />;\n}"
+    }
+  ]
+}

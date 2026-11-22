@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { Avatar, Badge, Button, CodeBlock, SettingsSubnav } from "../../index";
 import type { SettingsSubnavLinkProps } from "../../index";
@@ -5,9 +6,8 @@ import { Heading, SideNav, Toc } from "./SiteCatalog";
 import styles from "./RefySitePage.module.css";
 import { htmlLang, useSiteLocale } from "./i18n";
 import type { Locale } from "./i18n";
-import changelog from "../../../CHANGELOG.md?raw";
-import changelogText from "./locales/changelog.json";
-import { parseReleases, upgradeKind } from "./releases.mjs";
+import versions from "../../catalog/versions.json";
+import { upgradeKind } from "./releases.mjs";
 import type { ChangeKind } from "./releases.mjs";
 import viniciusPhoto from "./assets/avatars/vinicius.jpg";
 
@@ -22,11 +22,22 @@ export const projectHref = (topic: ProjectTopic) => (topic === "releases" ? "/do
 
 const repoUrl = "https://github.com/viniciuscoimbra/refy-design";
 const githubEnabled = import.meta.env.VITE_REFY_GITHUB !== "off";
-export const releases = parseReleases(changelog);
 
-// O CHANGELOG é escrito em inglês; changelog.json traduz cada frase para pt e es.
-const notes: Record<Exclude<Locale, "en">, Record<string, string>> = changelogText;
-const note = (locale: Locale, text: string) => (locale === "en" ? text : notes[locale][text] ?? text);
+// O texto de cada versão (CHANGELOG.md e changelog.json) baixa só quando a página Versões abre.
+// O sumário usa a lista de versões de versions.json, que é a mesma do CHANGELOG
+// (tests/site-releases.test.mjs confere). O HTML estático chama loadReleaseNotes antes de renderizar.
+type ReleaseNotes = typeof import("./releaseNotes");
+let releaseNotes: ReleaseNotes | null = null;
+let releaseNotesLoading: Promise<ReleaseNotes> | null = null;
+export const loadReleaseNotes = () =>
+  (releaseNotesLoading ??= import("./releaseNotes").then((module) => (releaseNotes = module)));
+function useReleaseNotes() {
+  const [loaded, setLoaded] = useState(releaseNotes);
+  useEffect(() => {
+    if (!loaded) void loadReleaseNotes().then(setLoaded);
+  }, [loaded]);
+  return loaded;
+}
 
 // O CHANGELOG usa só `código` e [texto](url).
 function Inline({ text }: { text: string }) {
@@ -436,6 +447,9 @@ const releaseId = (version: string) => `v${version.replace(/\./g, "-")}`;
 function ReleasesBody({ locale }: { locale: Locale }) {
   const text = copy[locale].releases;
   const date = new Intl.DateTimeFormat(htmlLang[locale], { dateStyle: "long", timeZone: "UTC" });
+  const loaded = useReleaseNotes();
+  if (!loaded) return null;
+  const { releases, note } = loaded;
   return (
     <>
       {releases.length === 0 && <p>{text.empty}</p>}
@@ -484,7 +498,7 @@ function ReleasesBody({ locale }: { locale: Locale }) {
 
 /** Seções da página de versões, para o sumário da direita. */
 export const releaseSections = (locale: Locale): Array<[string, string]> =>
-  [...releases.map((release): [string, string] => [releaseId(release.version), release.version]), ["semver", copy[locale].releases.semverTitle]];
+  [...versions.releases.map((release): [string, string] => [releaseId(release.version), release.version]), ["semver", copy[locale].releases.semverTitle]];
 
 /** Corpo da página sem a moldura, para o HTML estático de `scripts/site-seo.mjs`. */
 export const projectBody = (locale: Locale, topic: ProjectTopic) =>

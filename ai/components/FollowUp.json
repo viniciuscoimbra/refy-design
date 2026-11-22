@@ -1,0 +1,138 @@
+{
+  "id": "FollowUp",
+  "description": "Suggested next questions after an answer; a tap sends the suggestion as the person's next message.",
+  "usage": {
+    "howToUse": [
+      "Show two to four suggestions right under the assistant's answer.",
+      "Write each one as the person would say it. When the message sent should be longer, use `{ label, message }`.",
+      "`onSelect` receives the message; your app sends it like any other message."
+    ],
+    "alternatives": [
+      "Filters that change the current view: Chip or ToggleGroup.",
+      "Actions on an item: Button or ButtonGroup."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves between suggestions."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Sends the focused suggestion."
+      }
+    ]
+  },
+  "collections": [
+    "conversation"
+  ],
+  "publicName": "FollowUp",
+  "selected": "Padrao",
+  "import": "import { FollowUp } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "FollowUp",
+      "props": [
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disables interaction."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { FollowUp } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof FollowUp>, 'suggestions' | 'onSelect'> = {\n    suggestions: [\n      'Compare with last month',\n      'Show only paid orders',\n      { label: 'Export as a table', message: 'Export these orders as a table' },\n    ],\n    onSelect: () => {},\n  };\n  const [sent, setSent] = useState<string>();\n  return (\n    <div style={{ display: 'grid', gap: 'var(--space-3)', maxWidth: 520 }}>\n      <FollowUp {...args} onSelect={setSent} />\n      <p>Sent: {sent ?? 'nothing yet'}</p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Empilhado",
+      "label": "Stacked",
+      "description": "",
+      "code": "import { FollowUp } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof FollowUp>,\n    'suggestions' | 'onSelect' | 'layout'\n  > = {\n    suggestions: [\n      'Compare with last month',\n      'Show only paid orders',\n      { label: 'Export as a table', message: 'Export these orders as a table' },\n    ],\n    onSelect: () => {},\n    layout: 'stack',\n  };\n  return <FollowUp {...args} />;\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "",
+      "code": "import { FollowUp } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof FollowUp>,\n    'suggestions' | 'onSelect' | 'disabled'\n  > = {\n    suggestions: [\n      'Compare with last month',\n      'Show only paid orders',\n      { label: 'Export as a table', message: 'Export these orders as a table' },\n    ],\n    onSelect: () => {},\n    disabled: true,\n  };\n  return <FollowUp {...args} />;\n}"
+    }
+  ]
+}

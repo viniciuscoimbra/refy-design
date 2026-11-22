@@ -1,0 +1,143 @@
+{
+  "id": "ImageGallery",
+  "description": "Grid of photos with captions; each one opens enlarged with previous and next.",
+  "usage": {
+    "howToUse": [
+      "Every photo needs `alt`: in a gallery the photo is the content.",
+      "`columns` sets the grid at full width; under 560px it drops to two columns.",
+      "`layout=\"featured\"` keeps three columns of square photos at any width, the first one two by two, with captions on the photos. Six photos close the grid with no gap.",
+      "The viewer is a dialog: focus stays inside, `Esc` closes it and focus goes back to the photo."
+    ],
+    "alternatives": [
+      "One photo at a time in the spotlight: Carousel.",
+      "Property photos with counter and full screen: PropertyMedia."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves between photos."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the focused photo."
+      },
+      {
+        "keys": "`←` `→` in the viewer",
+        "action": "Previous or next photo."
+      },
+      {
+        "keys": "`Esc`",
+        "action": "Closes the viewer."
+      }
+    ]
+  },
+  "collections": [
+    "media"
+  ],
+  "publicName": "ImageGallery",
+  "selected": "Padrao",
+  "import": "import { ImageGallery } from '@refy-design/web';",
+  "composition": [
+    "IconButton",
+    "Modal"
+  ],
+  "api": [
+    {
+      "name": "ImageGallery",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { ImageGallery } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  coverSunday: 'https://refy.design/demo/capa-domingo.webp',\n  coverPlateau: 'https://refy.design/demo/capa-planalto.webp',\n  homePenthouse: 'https://refy.design/demo/ape-cobertura.webp',\n  homeQuiet: 'https://refy.design/demo/ape-silencioso.webp',\n  homeStudio: 'https://refy.design/demo/ape-studio.webp',\n  homeBalcony: 'https://refy.design/demo/ape-varanda.webp',\n};\nconst homes = [\n  {\n    src: photos.homeBalcony,\n    alt: 'Building facade with plants on every balcony',\n    caption: 'Building',\n  },\n  {\n    src: photos.homeQuiet,\n    alt: 'Living room with large windows facing the trees',\n    caption: 'Living room',\n  },\n  {\n    src: photos.homeStudio,\n    alt: 'Living room with a gray sofa and a large plant',\n    caption: 'Lounge',\n  },\n  {\n    src: photos.homePenthouse,\n    alt: 'Balcony overlooking the sea and a coastal town',\n    caption: 'Balcony',\n  },\n  {\n    src: photos.coverSunday,\n    alt: 'Open window next to plants',\n    caption: 'Bedroom window',\n  },\n  {\n    src: photos.coverPlateau,\n    alt: 'Green field near the building',\n    caption: 'Park nearby',\n  },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof ImageGallery>, 'images' | 'label'> = {\n    images: homes,\n    label: 'Apartment photos',\n  };\n  return <ImageGallery {...args} />;\n}"
+    },
+    {
+      "id": "Destaque",
+      "label": "Featured",
+      "description": "",
+      "code": "import { ImageGallery } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  coverSunday: 'https://refy.design/demo/capa-domingo.webp',\n  coverPlateau: 'https://refy.design/demo/capa-planalto.webp',\n  homePenthouse: 'https://refy.design/demo/ape-cobertura.webp',\n  homeQuiet: 'https://refy.design/demo/ape-silencioso.webp',\n  homeStudio: 'https://refy.design/demo/ape-studio.webp',\n  homeBalcony: 'https://refy.design/demo/ape-varanda.webp',\n};\nconst homes = [\n  {\n    src: photos.homeBalcony,\n    alt: 'Building facade with plants on every balcony',\n    caption: 'Building',\n  },\n  {\n    src: photos.homeQuiet,\n    alt: 'Living room with large windows facing the trees',\n    caption: 'Living room',\n  },\n  {\n    src: photos.homeStudio,\n    alt: 'Living room with a gray sofa and a large plant',\n    caption: 'Lounge',\n  },\n  {\n    src: photos.homePenthouse,\n    alt: 'Balcony overlooking the sea and a coastal town',\n    caption: 'Balcony',\n  },\n  {\n    src: photos.coverSunday,\n    alt: 'Open window next to plants',\n    caption: 'Bedroom window',\n  },\n  {\n    src: photos.coverPlateau,\n    alt: 'Green field near the building',\n    caption: 'Park nearby',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ImageGallery>,\n    'images' | 'label' | 'layout'\n  > = { images: homes, label: 'Apartment photos', layout: 'featured' };\n  return <ImageGallery {...args} />;\n}"
+    },
+    {
+      "id": "DuasColunas",
+      "label": "Two columns, square",
+      "description": "",
+      "code": "import { ImageGallery } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  coverSunday: 'https://refy.design/demo/capa-domingo.webp',\n  coverPlateau: 'https://refy.design/demo/capa-planalto.webp',\n  homePenthouse: 'https://refy.design/demo/ape-cobertura.webp',\n  homeQuiet: 'https://refy.design/demo/ape-silencioso.webp',\n  homeStudio: 'https://refy.design/demo/ape-studio.webp',\n  homeBalcony: 'https://refy.design/demo/ape-varanda.webp',\n};\nconst homes = [\n  {\n    src: photos.homeBalcony,\n    alt: 'Building facade with plants on every balcony',\n    caption: 'Building',\n  },\n  {\n    src: photos.homeQuiet,\n    alt: 'Living room with large windows facing the trees',\n    caption: 'Living room',\n  },\n  {\n    src: photos.homeStudio,\n    alt: 'Living room with a gray sofa and a large plant',\n    caption: 'Lounge',\n  },\n  {\n    src: photos.homePenthouse,\n    alt: 'Balcony overlooking the sea and a coastal town',\n    caption: 'Balcony',\n  },\n  {\n    src: photos.coverSunday,\n    alt: 'Open window next to plants',\n    caption: 'Bedroom window',\n  },\n  {\n    src: photos.coverPlateau,\n    alt: 'Green field near the building',\n    caption: 'Park nearby',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ImageGallery>,\n    'images' | 'label' | 'columns' | 'aspectRatio'\n  > = {\n    images: homes.slice(0, 4),\n    label: 'Apartment photos',\n    columns: 2,\n    aspectRatio: 1,\n  };\n  return <ImageGallery {...args} />;\n}"
+    },
+    {
+      "id": "SemAmpliar",
+      "label": "Without viewer",
+      "description": "",
+      "code": "import { ImageGallery } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  coverSunday: 'https://refy.design/demo/capa-domingo.webp',\n  coverPlateau: 'https://refy.design/demo/capa-planalto.webp',\n  homePenthouse: 'https://refy.design/demo/ape-cobertura.webp',\n  homeQuiet: 'https://refy.design/demo/ape-silencioso.webp',\n  homeStudio: 'https://refy.design/demo/ape-studio.webp',\n  homeBalcony: 'https://refy.design/demo/ape-varanda.webp',\n};\nconst homes = [\n  {\n    src: photos.homeBalcony,\n    alt: 'Building facade with plants on every balcony',\n    caption: 'Building',\n  },\n  {\n    src: photos.homeQuiet,\n    alt: 'Living room with large windows facing the trees',\n    caption: 'Living room',\n  },\n  {\n    src: photos.homeStudio,\n    alt: 'Living room with a gray sofa and a large plant',\n    caption: 'Lounge',\n  },\n  {\n    src: photos.homePenthouse,\n    alt: 'Balcony overlooking the sea and a coastal town',\n    caption: 'Balcony',\n  },\n  {\n    src: photos.coverSunday,\n    alt: 'Open window next to plants',\n    caption: 'Bedroom window',\n  },\n  {\n    src: photos.coverPlateau,\n    alt: 'Green field near the building',\n    caption: 'Park nearby',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ImageGallery>,\n    'images' | 'label' | 'viewer' | 'columns'\n  > = { images: homes, label: 'Apartment photos', viewer: false, columns: 4 };\n  return <ImageGallery {...args} />;\n}"
+    }
+  ]
+}

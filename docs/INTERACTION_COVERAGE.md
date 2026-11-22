@@ -2,7 +2,7 @@
 
 Gerado por `node scripts/interaction-coverage.mjs` a partir das marcas `// interação: <Família>` nos specs de `tests/`. Render, tema, contraste e fonte de todas as famílias são cobertos por `tests/catalog.spec.ts`; esta tabela trata só de interação (clique, teclado, toque, foco).
 
-26 de 123 famílias têm teste de interação marcado; 97 não têm.
+38 de 135 famílias têm teste de interação marcado; 97 não têm.
 
 | Família | Teste |
 |---|---|
@@ -14,6 +14,18 @@ Gerado por `node scripts/interaction-coverage.mjs` a partir das marcas `// inter
 | Segmented | `tests/template-map-conversation.spec.ts:19` route-01: mapa e lista escolhem a mesma parada, por clique e teclado<br>`tests/template-map-conversation.spec.ts:70` inbox-01: abrir, responder, resolver e telas separadas no celular<br>`tests/template-map-conversation.spec.ts:173` inbox-01: voltar depois de resolver leva o foco a quem ficou na lista |
 | PhoneInput | `tests/native-select-state.spec.ts:28` ${example.family} native open/close and trusted keyboard selection (${mode}/${width}) |
 | ColorField | `tests/color-field.spec.ts:9` ColorField: teclado abre o seletor, sliders mudam a cor e Esc fecha (${mode}) |
+| Rating | `tests/a2ui-parity-components.spec.ts:9` Rating: setas, Home e End mudam a nota e o foco acompanha (${mode}) |
+| Quote | `tests/a2ui-parity-components.spec.ts:106` Quote: citação em bloco com autor e origem na legenda |
+| KeyValueList | `tests/a2ui-parity-components.spec.ts:116` KeyValueList: cada valor fica ligado ao rótulo numa lista de descrição com título |
+| ComparisonTable | `tests/a2ui-parity-components.spec.ts:96` ComparisonTable: marcas de sim e não têm texto para leitor de tela |
+| Agenda | `tests/a2ui-parity-components.spec.ts:89` Agenda: compromisso clicável é botão e entrega o evento |
+| EntityCard | `tests/a2ui-parity-components.spec.ts:126` EntityCard: a nota é lida inteira e as ações são botões na ordem |
+| ImageGallery | `tests/a2ui-parity-components.spec.ts:34` ImageGallery: a foto abre ampliada, as setas trocam, Esc fecha e o foco volta |
+| Video | `tests/a2ui-parity-components.spec.ts:70` Video: nada do arquivo toca antes do clique; o clique troca a capa pelo player |
+| AudioPlayer | `tests/a2ui-parity-components.spec.ts:137` AudioPlayer: total antes de carregar, tocar vira pausar e o salto de 15 s anda |
+| LinkCard | `tests/a2ui-parity-components.spec.ts:149` LinkCard: o cartão inteiro é um link que avisa da nova aba |
+| Citation | `tests/a2ui-parity-components.spec.ts:52` Citation: o foco abre a fonte e Esc fecha |
+| FollowUp | `tests/a2ui-parity-components.spec.ts:63` FollowUp: a sugestão entrega a mensagem longa ao app |
 | VisitSchedulePicker | `tests/board-revision.spec.ts:124` ${mode}/${font}: SchedulePicker em telefone com toque e múltiplos dias |
 | Menu | `tests/consumer-overlays.spec.ts:21` consumidor isolado: modal/drawer, menu, seleção e foco — ${mode}<br>`tests/core.spec.ts:31` Menu pula item bloqueado, navega, busca, seleciona e restaura foco |
 | Chip | `tests/chip-group.spec.ts:15` CHIPG-01: seleção única tem uma parada de Tab e setas movem foco e seleção<br>`tests/chip-group.spec.ts:54` CHIPG-02: seleção múltipla alterna com Space e Enter e Tab passa por cada Chip |

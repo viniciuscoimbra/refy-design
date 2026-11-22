@@ -15,6 +15,7 @@ import {
   Calendar, DatePicker, HelpField, PhoneInput, PostalCodeInput,
   Combobox, Multiselect,
   BillingCard, Carousel, CodeBlock, DangerZone, DangerZoneRow, Message, MessageScroller, PlanCard,
+  Rating, Quote, KeyValueList, ComparisonTable, Agenda, EntityCard, ImageGallery, Video, AudioPlayer, LinkCard, Citation, FollowUp,
   Table, KanbanBoard, SwipeDeck, Questionnaire, GuidedTour, GuidedTourAnchor, Coverflow, ApprovalWorkbench, Trace, LineChart, AreaChart, BarChart, DonutChart, Sparkline, VisitSchedulePicker, GeoAreaPicker, IntentComposer, FileUpload, VoiceRecorder, AlertDialog, Drawer, Timeline, EventTimeline, PropertyCard, Matrix2x2, HelpMenu, KanbanCard, NotificationBell, PropertyActionGroup, PropertyMedia, SettingsSubnav, UserMenu, WorkspaceSwitcher,
 } from "../src";
 import type { KanbanColumnItem, NotificationItem, PropertyAction } from "../src";
@@ -31,6 +32,7 @@ const progressTones: ProgressTone[] = ["primary", "neutral", "warn", "critical"]
 const statSizes: StatSize[] = ["sm", "md", "lg"];
 const providers: OAuthProvider[] = ["google", "facebook", "linkedin", "spotify", "github", "x", "apple", "microsoft"];
 const prices = [112, 119, 115, 109, 121, 104].map((y, i) => ({ x: new Date(Date.UTC(2023, 6 + i, 1)), y }));
+const demo = (file: string) => `https://refy.design/demo/${file}`;
 const money = (value: unknown) => `R$ ${Number(value).toLocaleString("pt-BR")}`;
 
 // Com `only`, a galeria mostra uma seção só: o site usa isso como prévia de um componente.
@@ -90,6 +92,7 @@ export function Gallery({ initialModalOpen = false, showToasts = true, only }: {
   const [toggle, setToggle] = useState(true);
   const [ship, setShip] = useState("pac");
   const [page, setPage] = useState(4);
+  const [rating, setRating] = useState(3);
   return (
     <OnlySection.Provider value={only}>
     <View style={{ flex: 1, backgroundColor: t.pick<string>("--bg", "--surface") }}>
@@ -571,6 +574,66 @@ export function Gallery({ initialModalOpen = false, showToasts = true, only }: {
           ]} />
           <View style={{ height: 24 }} />
           <D3Chart type="heatmap" title="Procura por horário" label="Visitas pedidas por dia e período" height={200} cells={["Seg", "Ter", "Qua", "Qui", "Sex"].flatMap((x, i) => ["Manhã", "Tarde", "Noite"].map((y, j) => ({ x, y, value: ((i + 1) * (j + 2)) % 7 })))} />
+        </Section>
+        <Section title="Rating">
+          <Rating label="Nota do restaurante" readOnly value={4.5} count={128} />
+          <Rating label="Sua nota" value={rating} onChange={setRating} size="lg" />
+        </Section>
+        <Section title="Quote">
+          <Quote author="Ana Ribeiro" source="Produto, Horizonte">Trocamos o arquivo do tema numa sexta e o app inteiro acompanhou, com botões, gráficos e e-mails.</Quote>
+          <Quote variant="pull" avatar={demo("pessoa-ana.webp")} author="Ana Ribeiro" source="Cliente desde 2021">O suporte respondeu em quatro minutos e resolveu na primeira resposta.</Quote>
+        </Section>
+        <Section title="KeyValueList">
+          <KeyValueList items={[{ label: "Pedido", value: "#48213" }, { label: "Entrega", value: "Normal", hint: "3 a 5 dias úteis" }, { label: "Pagamento", value: "Cartão final 4821" }, { label: "Total", value: "R$ 184,90" }]} />
+          <KeyValueList layout="columns" items={[{ label: "Área", value: "64 m²" }, { label: "Quartos", value: "2" }, { label: "Vaga", value: "1" }, { label: "Condomínio", value: "R$ 210", hint: "por mês" }]} />
+        </Section>
+        <Section title="ComparisonTable">
+          <ComparisonTable caption="Comparação de planos" options={["Inicial", "Time", "Empresa"]} highlight={1} rows={[
+            { feature: "Preço por mês", values: ["Grátis", "R$ 12", "R$ 29"] },
+            { feature: "Projetos", values: ["3", "Ilimitados", "Ilimitados"] },
+            { feature: "Tema próprio", values: [false, true, true] },
+            { feature: "Login único", hint: "SAML e OIDC", values: [false, false, true] },
+          ]} />
+        </Section>
+        <Section title="Agenda">
+          <Agenda label="Programação do evento" timezone="America/Sao_Paulo" onEventClick={() => {}} events={[
+            { id: "a", title: "Credenciamento e café", start: "2026-11-24T08:00:00-03:00", end: "2026-11-24T09:00:00-03:00", location: "Saguão", tone: "neutral" },
+            { id: "b", title: "Abertura", start: "2026-11-24T09:00:00-03:00", end: "2026-11-24T10:00:00-03:00", location: "Sala 1" },
+            { id: "c", title: "Oficina: telas com IA", start: "2026-11-24T10:30:00-03:00", end: "2026-11-24T12:00:00-03:00", location: "Lab 2", tone: "info" },
+            { id: "d", title: "Dia da comunidade", start: "2026-11-25", tone: "good" },
+          ]} />
+        </Section>
+        <Section title="EntityCard">
+          <EntityCard title="Bule de ferro" subtitle="Cozinha · 1,2 litro" image={demo("loja-bule.webp")} imageAlt="Bule preto sobre mesa de madeira" price="R$ 89" meta="Envio em 2 dias" badge="Novo" badgeTone="info" rating={{ value: 4.7, count: 212 }} actions={[{ label: "Comprar" }, { label: "Detalhes" }]} />
+          <EntityCard layout="horizontal" title="Dois quartos silencioso" subtitle="Savassi, Belo Horizonte" image={demo("ape-silencioso.webp")} imageAlt="Sala com janelas grandes de frente para as árvores" price="R$ 2.450/mês" meta="2 quartos · 64 m²" actions={[{ label: "Agendar visita" }]} />
+        </Section>
+        <Section title="ImageGallery">
+          <ImageGallery label="Fotos do apartamento" images={[
+            { src: demo("ape-varanda.webp"), alt: "Fachada com plantas em todas as varandas", caption: "Prédio" },
+            { src: demo("ape-silencioso.webp"), alt: "Sala com janelas grandes de frente para as árvores", caption: "Sala" },
+            { src: demo("ape-studio.webp"), alt: "Sala com sofá cinza e uma planta grande", caption: "Estar" },
+            { src: demo("ape-cobertura.webp"), alt: "Varanda de frente para o mar", caption: "Varanda" },
+          ]} />
+        </Section>
+        <Section title="Video">
+          <Video src={demo("degrade.webm")} poster={demo("degrade-capa.jpg")} title="Cores do tema em movimento" description="Seis segundos, sem som." />
+        </Section>
+        <Section title="AudioPlayer">
+          <AudioPlayer src={demo("tons.mp3")} title="Quatro tons" description="Teste de som · 10 s" artwork={demo("capa-playlist.webp")} duration={10} />
+        </Section>
+        <Section title="LinkCard">
+          <LinkCard href="https://refy.design/docs" title="Primeiros passos com o refy" description="Instale o pacote, envolva o app no provider e troque o visual inteiro com um arquivo de tema." image={demo("capa-neon.webp")} />
+          <LinkCard href="https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/dl" title="O elemento de lista de descrição" siteName="MDN Web Docs" />
+        </Section>
+        <Section title="Citation">
+          <Row>
+            <Text style={{ color: t.pick<string>("--ink-2") }}>Texto pede contraste de 4,5 para 1</Text>
+            <Citation index={1} source={{ title: "Critério de sucesso 1.4.3: Contraste mínimo", href: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html", snippet: "Texto e imagens de texto têm contraste de pelo menos 4,5:1." }} />
+          </Row>
+        </Section>
+        <Section title="FollowUp">
+          <FollowUp suggestions={["Comparar com o mês passado", "Só pedidos pagos", { label: "Exportar em tabela", message: "Exporte estes pedidos em tabela" }]} onSelect={() => {}} />
+          <FollowUp layout="stack" suggestions={["Ver fotos do prédio", "Quanto fica o condomínio?"]} onSelect={() => {}} />
         </Section>
         <Section title="Modal / Toast">
           <Button onPress={() => setModal(true)}>Abrir modal</Button>

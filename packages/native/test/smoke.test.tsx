@@ -825,3 +825,36 @@ test("D3Chart desenha as famílias da web no SVG nativo", () => {
     act(() => { tree.unmount(); });
   }
 });
+
+test("Rating escolhe no toque, desmarca no segundo toque e lê fração na leitura", () => {
+  const { Rating } = require("../src");
+  const changes: number[] = [];
+  let tree!: ReturnType<typeof create>;
+  act(() => { tree = create(<RefyProvider><Rating label="Sua nota" onChange={(v: number) => changes.push(v)} /><Rating label="Média" readOnly value={4.5} count={12} /></RefyProvider>); });
+  const radios = () => tree.root.findAll((n) => typeof n.type === "string" && n.props.accessibilityRole === "radio");
+  act(() => { radios()[3].props.onClick({}); });
+  act(() => { radios()[3].props.onClick({}); });
+  expect(changes).toEqual([4, 0]);
+  const image = tree.root.find((n) => typeof n.type === "string" && n.props.accessibilityRole === "image");
+  expect(image.props.accessibilityLabel).toBe("Média: 4,5 de 5, 12 avaliações");
+});
+
+test("FollowUp devolve a mensagem da sugestão, não o rótulo", () => {
+  const { FollowUp } = require("../src");
+  const sent: string[] = [];
+  let tree!: ReturnType<typeof create>;
+  act(() => { tree = create(<RefyProvider><FollowUp suggestions={["Só pagos", { label: "Tabela", message: "Exporte em tabela" }]} onSelect={(m: string) => sent.push(m)} /></RefyProvider>); });
+  const buttons = tree.root.findAll((n) => typeof n.type === "string" && n.props.accessibilityRole === "button");
+  act(() => { buttons[0].props.onClick({}); buttons[1].props.onClick({}); });
+  expect(sent).toEqual(["Só pagos", "Exporte em tabela"]);
+});
+
+test("Agenda agrupa por dia no fuso pedido e põe o dia todo primeiro", () => {
+  const { groupAgenda } = require("../src/components/agendaDays");
+  const days = groupAgenda([
+    { id: "tarde", title: "Tarde", start: "2026-11-25T02:30:00Z" },
+    { id: "dia", title: "Dia", start: "2026-11-24" },
+    { id: "manha", title: "Manhã", start: "2026-11-24T12:00:00Z" },
+  ], "America/Sao_Paulo");
+  expect(days.map((d: { key: string; events: { event: { id: string } }[] }) => [d.key, d.events.map((e) => e.event.id)])).toEqual([["2026-11-24", ["dia", "manha", "tarde"]]]);
+});

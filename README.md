@@ -109,7 +109,7 @@ It has 8 tools: `refy_search` finds the family for a need written in English, Po
 
 ## What is in the catalog
 
-- **Components:** 123 families (33 atoms, 64 molecules and 26 organisms), with usage, API, interactive examples and copyable code. The 532 snippets taken from the sources compile against the public API.
+- **Components:** 135 families (35 atoms, 71 molecules and 29 organisms), with usage, API, interactive examples and copyable code. The 570 snippets taken from the sources compile against the public API.
 - **Templates** (`Block` in code): full screens for a purpose, with responsive preview. [Guide](docs/BLOCKS.md).
 - **Charts:** a D3 catalog with 24 types, axes, legends, tooltip, zoom, brush and streaming. [Contracts](docs/CHARTS.md).
 - **Collections:** media, geolocation, conversation, data, collaboration, commerce, finance and content. [Collections](docs/COLLECTIONS.md).

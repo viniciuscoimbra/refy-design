@@ -123,3 +123,12 @@ test("cenas do D3Chart nativo são cópia fiel das da web", () => {
   }
   expect(readFileSync(join(root, "packages/native/src/messages/en.ts"), "utf8")).toBe(readFileSync(join(root, "src/lib/messages/en.ts"), "utf8"));
 });
+
+test("agrupamento da Agenda, leitura de vídeo e domínio são cópia fiel da web", () => {
+  const pairs: [string, string, (s: string) => string][] = [
+    ["src/components/Agenda/agendaDays.ts", "packages/native/src/components/agendaDays.ts", (s) => s.replace('"../../contracts/display"', '"@refy-design/web/contracts"')],
+    ["src/components/Video/source.ts", "packages/native/src/components/videoSource.ts", (s) => s],
+    ["src/components/LinkCard/domain.ts", "packages/native/src/components/domain.ts", (s) => s],
+  ];
+  for (const [web, native, adapt] of pairs) expect(readFileSync(join(root, native), "utf8")).toBe(adapt(readFileSync(join(root, web), "utf8")));
+});

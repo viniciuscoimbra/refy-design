@@ -1,0 +1,125 @@
+{
+  "id": "ComparisonTable",
+  "description": "Options side by side, one criterion per row, with yes and no marks and the recommended option highlighted.",
+  "usage": {
+    "howToUse": [
+      "Pass the option names in `options` and, in each row, one value per option in the same order: `true`, `false` or text.",
+      "`highlight` takes the index of the recommended option; it gets a badge and a tinted column.",
+      "Keep two to four options. On narrow screens the table scrolls sideways and the criterion column stays fixed."
+    ],
+    "alternatives": [
+      "Rows of records to sort or filter: Table.",
+      "A choice the person makes right there: ChoiceCard or PlanCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Focuses the scrollable table."
+      },
+      {
+        "keys": "`←` `→`",
+        "action": "Scrolls the columns when the table is wider than the screen."
+      }
+    ]
+  },
+  "collections": [
+    "commerce"
+  ],
+  "publicName": "ComparisonTable",
+  "selected": "Padrao",
+  "import": "import { ComparisonTable } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "ComparisonTable",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDivElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { ComparisonTable } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ComparisonTable>,\n    'caption' | 'options' | 'highlight' | 'rows'\n  > = {\n    caption: 'Plan comparison',\n    options: ['Starter', 'Team', 'Business'],\n    highlight: 1,\n    rows: [\n      { feature: 'Price per month', values: ['Free', '$ 12', '$ 29'] },\n      { feature: 'Projects', values: ['3', 'Unlimited', 'Unlimited'] },\n      { feature: 'Custom theme', values: [false, true, true] },\n      {\n        feature: 'Single sign-on',\n        hint: 'SAML and OIDC',\n        values: [false, false, true],\n      },\n      { feature: 'Support', values: ['Community', 'Email', 'Priority'] },\n    ],\n  };\n  return <ComparisonTable {...args} />;\n}"
+    },
+    {
+      "id": "SemDestaque",
+      "label": "Without recommendation",
+      "description": "",
+      "code": "import { ComparisonTable } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ComparisonTable>,\n    'caption' | 'options' | 'highlight' | 'rows'\n  > = {\n    caption: 'Plan comparison',\n    options: ['Starter', 'Team', 'Business'],\n    highlight: undefined,\n    rows: [\n      { feature: 'Price per month', values: ['Free', '$ 12', '$ 29'] },\n      { feature: 'Projects', values: ['3', 'Unlimited', 'Unlimited'] },\n      { feature: 'Custom theme', values: [false, true, true] },\n      {\n        feature: 'Single sign-on',\n        hint: 'SAML and OIDC',\n        values: [false, false, true],\n      },\n      { feature: 'Support', values: ['Community', 'Email', 'Priority'] },\n    ],\n  };\n  return <ComparisonTable {...args} />;\n}"
+    },
+    {
+      "id": "Estreita",
+      "label": "Narrow screen",
+      "description": "",
+      "code": "import { ComparisonTable } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof ComparisonTable>,\n    'caption' | 'options' | 'highlight' | 'rows'\n  > = {\n    caption: 'Plan comparison',\n    options: ['Starter', 'Team', 'Business'],\n    highlight: 1,\n    rows: [\n      { feature: 'Price per month', values: ['Free', '$ 12', '$ 29'] },\n      { feature: 'Projects', values: ['3', 'Unlimited', 'Unlimited'] },\n      { feature: 'Custom theme', values: [false, true, true] },\n      {\n        feature: 'Single sign-on',\n        hint: 'SAML and OIDC',\n        values: [false, false, true],\n      },\n      { feature: 'Support', values: ['Community', 'Email', 'Priority'] },\n    ],\n  };\n  return <ComparisonTable {...args} />;\n}"
+    }
+  ]
+}

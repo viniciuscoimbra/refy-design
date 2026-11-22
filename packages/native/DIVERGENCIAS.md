@@ -204,6 +204,28 @@ Este arquivo lista o que o nativo faz diferente da web e por quê. Ele foi escri
 
 No toque, arrastar o dedo escolhe a marca mais próxima e mostra o tooltip. Com leitor de tela, o gráfico é `adjustable`: deslizar para cima ou para baixo anda item a item e lê o valor; tocar duas vezes seleciona. A tabela "Ver dados de" abre num Collapsible nas famílias novas; `dataTable="screen-reader"` não mostra a tabela, porque o nativo não tem tabela só para leitor de tela.
 
+**Rating.** Sem setas, Home e End: cada estrela é um rádio que o leitor de tela percorre. Sem o aumento da estrela no hover.
+
+**ComparisonTable.** A coluna do critério rola junto com as opções; o RN não tem `position: sticky` dentro de `ScrollView` horizontal. Colunas com largura fixa (140 e 110 pt), no lugar da tabela que se ajusta ao texto.
+
+**Agenda.** Cartão com `title`, `from` e `to` como na web, e o local sem o ícone de alfinete. Texto fixo em português ("Dia todo", "Nada marcado"); `locale` muda só as datas. O agrupamento é o mesmo arquivo da web (`agendaDays.ts`, conferido em `parity.test.tsx`).
+
+**ImageGallery.** A foto ampliada abre numa tela cheia do `Modal` do RN com deslize lateral, no lugar do diálogo com setas do teclado. A grade cai para duas colunas abaixo de 560 pt, medida com `onLayout`. Em `layout="featured"` a grade é a da web: três colunas de fotos quadradas, a primeira em dois por dois e as legendas sobre as fotos.
+
+**Video.** O refy não traz player nativo. O toque chama `onPlay` (só no nativo), para o app tocar com expo-video ou WebView; sem ele, abre o endereço no app do YouTube, do Vimeo ou no navegador. `captions` da web não existe.
+
+**AudioPlayer.** O refy desenha os controles e o app toca: `controller` (só no nativo) liga play, pausa, pulo e o estado vindo de expo-audio ou react-native-track-player. Sem ele, tocar abre o arquivo no app do sistema. A linha do tempo pula para onde se toca e anda 15 segundos pelas ações de ajuste do leitor de tela.
+
+**LinkCard.** Abre com `Linking.openURL`, ou com o `onPress` do app. Sem `target` e `rel`. O leitor de tela lê título e site e avisa que abre no navegador.
+
+**Citation.** Sem hover: o toque abre e fecha o painel. O link "Abrir fonte" usa `Linking.openURL`.
+
+**FollowUp.** Pílulas com 40 pt e `hitSlop` até 44 pt. Texto padrão do grupo em português.
+
+**Quote.** Sem `cite`: o RN não tem o atributo.
+
+**EntityCard.** Ação com `href` abre com `Linking.openURL`. Abaixo de 420 pt o layout horizontal não volta a empilhar sozinho; escolha `layout` pela largura da tela.
+
 ## Só na web
 
 Estas peças não têm versão nativa, porque dependem de navegador, de página longa ou de mouse e teclado: Direction, Kbd, Prose, Breadcrumb, DeviceFrame, HoverCard, Menubar, NavigationMenu, Resizable, TableOfContents, AppShell, Command, Hero, Section, Sidebar, SiteFooter e Topbar. No app, a navegação vem do roteador do app (abas, pilha, gaveta) e o texto longo vem dos componentes de conteúdo.

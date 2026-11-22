@@ -42,6 +42,8 @@ async function load(locale) {
     const { familySlug } = await vite.ssrLoadModule("/src/pages/RefySitePage/SiteCatalog.tsx");
     // A Instalação mostra Web ou Mobile na tela; o HTML estático leva os dois.
     docs.renderAllPlatforms(true);
+    // O texto das versões baixa sob demanda no navegador; aqui ele entra antes de renderizar.
+    await project.loadReleaseNotes();
     return {
       catalog, blocks, collections, docs, project, ai, familySlug, localePath: i18n.localePath, home: homeSeo[locale], tr: (text) => i18n.translate(locale, text),
       projectHtml: Object.fromEntries(project.projectTopics.map((t) => [t, render(project.projectBody(locale, t))])),

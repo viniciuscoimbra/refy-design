@@ -1,0 +1,138 @@
+{
+  "id": "EntityCard",
+  "description": "One product, place, person or listing in a card: photo, badge, title, rating, price and up to three actions.",
+  "usage": {
+    "howToUse": [
+      "Fill only what the item has: every field except `title` is optional and the card closes the gaps.",
+      "The first action is the main one; keep at most three.",
+      "`layout=\"horizontal\"` puts the photo on the left for lists; on screens under 420px it stacks again.",
+      "Without `image` the card becomes compact: `category` and `badge` share the first line, as in a chat answer or a search result."
+    ],
+    "alternatives": [
+      "A property listing with real estate fields: PropertyCard.",
+      "A link to an outside page: LinkCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves between the card actions."
+      }
+    ]
+  },
+  "collections": [
+    "commerce"
+  ],
+  "publicName": "EntityCard",
+  "selected": "Produto",
+  "import": "import { EntityCard } from '@refy-design/web';",
+  "composition": [
+    "Badge",
+    "Button",
+    "Rating"
+  ],
+  "api": [
+    {
+      "name": "EntityCard",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Produto",
+      "label": "Product",
+      "description": "",
+      "code": "import { EntityCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  homeQuiet: 'https://refy.design/demo/ape-silencioso.webp',\n  shopTeapot: 'https://refy.design/demo/loja-bule.webp',\n  personClara: 'https://refy.design/demo/pessoa-clara.webp',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof EntityCard>,\n    | 'title'\n    | 'subtitle'\n    | 'image'\n    | 'imageAlt'\n    | 'price'\n    | 'meta'\n    | 'badge'\n    | 'badgeTone'\n    | 'rating'\n    | 'actions'\n  > = {\n    title: 'Cast iron teapot',\n    subtitle: 'Kitchen · 1.2 liters',\n    image: photos.shopTeapot,\n    imageAlt: 'Black teapot on a wooden table',\n    price: '$ 89',\n    meta: 'Ships in 2 days',\n    badge: 'New',\n    badgeTone: 'info',\n    rating: { value: 4.7, count: 212 },\n    actions: [{ label: 'Add to cart' }, { label: 'Details' }],\n  };\n  return <EntityCard {...args} />;\n}"
+    },
+    {
+      "id": "Horizontal",
+      "label": "Horizontal",
+      "description": "",
+      "code": "import { EntityCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  homeQuiet: 'https://refy.design/demo/ape-silencioso.webp',\n  shopTeapot: 'https://refy.design/demo/loja-bule.webp',\n  personClara: 'https://refy.design/demo/pessoa-clara.webp',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof EntityCard>,\n    | 'title'\n    | 'subtitle'\n    | 'image'\n    | 'imageAlt'\n    | 'price'\n    | 'meta'\n    | 'badge'\n    | 'badgeTone'\n    | 'rating'\n    | 'actions'\n    | 'layout'\n    | 'description'\n  > = {\n    title: 'Quiet two-bedroom',\n    subtitle: 'Savassi, Belo Horizonte',\n    image: photos.homeQuiet,\n    imageAlt: 'Living room with large windows facing the trees',\n    price: '$ 1,450 / month',\n    meta: '2 bedrooms · 64 m²',\n    badge: undefined,\n    badgeTone: 'info',\n    rating: undefined,\n    actions: [{ label: 'Schedule a visit' }, { label: 'Save' }],\n    layout: 'horizontal',\n    description: 'Bright corner unit, two blocks from the park.',\n  };\n  return <EntityCard {...args} />;\n}"
+    },
+    {
+      "id": "Compacto",
+      "label": "Compact, no photo",
+      "description": "",
+      "code": "import { EntityCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof EntityCard>,\n    | 'title'\n    | 'subtitle'\n    | 'image'\n    | 'imageAlt'\n    | 'price'\n    | 'meta'\n    | 'badge'\n    | 'badgeTone'\n    | 'rating'\n    | 'actions'\n    | 'category'\n    | 'description'\n  > = {\n    title: 'Cast iron teapot 1.2 L',\n    subtitle: undefined,\n    image: undefined,\n    imageAlt: 'Black teapot on a wooden table',\n    price: '$ 89',\n    meta: undefined,\n    badge: 'In stock',\n    badgeTone: 'success',\n    rating: { value: 4.6, count: 312 },\n    actions: [],\n    category: 'Teapots',\n    description: 'Enamelled inside, with a steel infuser and a wooden handle.',\n  };\n  return <EntityCard {...args} />;\n}"
+    },
+    {
+      "id": "Pessoa",
+      "label": "Person",
+      "description": "",
+      "code": "import { EntityCard } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  homeQuiet: 'https://refy.design/demo/ape-silencioso.webp',\n  shopTeapot: 'https://refy.design/demo/loja-bule.webp',\n  personClara: 'https://refy.design/demo/pessoa-clara.webp',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof EntityCard>,\n    | 'title'\n    | 'subtitle'\n    | 'image'\n    | 'imageAlt'\n    | 'price'\n    | 'meta'\n    | 'badge'\n    | 'badgeTone'\n    | 'rating'\n    | 'actions'\n    | 'description'\n  > = {\n    title: 'Clara Mendes',\n    subtitle: 'Design engineer',\n    image: photos.personClara,\n    imageAlt: '',\n    price: undefined,\n    meta: 'Lisbon · Available in December',\n    badge: undefined,\n    badgeTone: 'info',\n    rating: undefined,\n    actions: [{ label: 'Message' }],\n    description: 'Builds design systems and the tooling around them.',\n  };\n  return <EntityCard {...args} />;\n}"
+    }
+  ]
+}

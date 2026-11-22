@@ -1,9 +1,9 @@
 {
   "about": "Gerado por scripts/native-parity.mjs. igual: existe no mobile sem seção no DIVERGENCIAS.md; com-divergencia: existe e tem seção; so-web: não existe no mobile.",
-  "mobileVersion": "1.2.0",
+  "mobileVersion": "1.3.0",
   "summary": {
-    "igual": 12,
-    "com-divergencia": 93,
+    "igual": 13,
+    "com-divergencia": 104,
     "so-web": 18
   },
   "families": {
@@ -32,6 +32,18 @@
     "PhoneInput": "com-divergencia",
     "PostalCodeInput": "com-divergencia",
     "ColorField": "so-web",
+    "Rating": "com-divergencia",
+    "Quote": "com-divergencia",
+    "KeyValueList": "igual",
+    "ComparisonTable": "com-divergencia",
+    "Agenda": "com-divergencia",
+    "EntityCard": "com-divergencia",
+    "ImageGallery": "com-divergencia",
+    "Video": "com-divergencia",
+    "AudioPlayer": "com-divergencia",
+    "LinkCard": "com-divergencia",
+    "Citation": "com-divergencia",
+    "FollowUp": "com-divergencia",
     "Calendar": "com-divergencia",
     "VisitSchedulePicker": "com-divergencia",
     "ChoiceCard": "com-divergencia",

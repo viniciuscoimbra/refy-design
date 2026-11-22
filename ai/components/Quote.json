@@ -1,0 +1,135 @@
+{
+  "id": "Quote",
+  "description": "Quotation with author and source: a passage in the text or a testimonial in the spotlight.",
+  "usage": {
+    "howToUse": [
+      "Pass the quoted text without quotation marks; the component draws the mark in the testimonial variant.",
+      "`variant=\"block\"` sits inside an article with the line on the left; `variant=\"pull\"` is a testimonial with photo or initials.",
+      "Put the role, company or origin in `source`, so the quote can be checked."
+    ],
+    "alternatives": [
+      "A tip or warning that is not someone's words: Callout.",
+      "A chat message: Message or Bubble."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The quote does not receive focus. Screen readers read it as a block quotation with its author."
+      }
+    ]
+  },
+  "collections": [
+    "content"
+  ],
+  "publicName": "Quote",
+  "selected": "Bloco",
+  "import": "import { Quote } from '@refy-design/web';",
+  "composition": [
+    "Avatar"
+  ],
+  "api": [
+    {
+      "name": "Quote",
+      "props": [
+        {
+          "name": "cite",
+          "type": "string | undefined",
+          "required": false,
+          "description": "URL the quotation comes from (the `cite` attribute)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "The quoted text, without quotation marks: the component draws the mark."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Bloco",
+      "label": "In the text",
+      "description": "",
+      "code": "import { Quote } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Quote>, 'children' | 'author' | 'source'> = {\n    children:\n      'We changed the theme file on a Friday and the whole app followed, buttons, charts and emails included.',\n    author: 'Ana Ribeiro',\n    source: 'Product lead, Horizon',\n  };\n  return <Quote {...args} />;\n}"
+    },
+    {
+      "id": "Destaque",
+      "label": "Testimonial",
+      "description": "",
+      "code": "import { Quote } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst photos = {\n  personAna: 'https://refy.design/demo/pessoa-ana.webp',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Quote>,\n    'children' | 'author' | 'source' | 'variant' | 'avatar'\n  > = {\n    children: 'Support answered in four minutes and solved it on the first reply.',\n    author: 'Ana Ribeiro',\n    source: 'Customer since 2021',\n    variant: 'pull',\n    avatar: photos.personAna,\n  };\n  return <Quote {...args} />;\n}"
+    },
+    {
+      "id": "SemFoto",
+      "label": "Testimonial without photo",
+      "description": "",
+      "code": "import { Quote } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Quote>,\n    'children' | 'author' | 'source' | 'variant'\n  > = {\n    children:\n      'The best coffee in the neighborhood, and the staff remembers your order.',\n    author: 'Bruno Lima',\n    source: 'Review on the app',\n    variant: 'pull',\n  };\n  return <Quote {...args} />;\n}"
+    }
+  ]
+}

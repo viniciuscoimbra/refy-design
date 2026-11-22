@@ -858,6 +858,241 @@ Choose something else:
 | `←` `→` `↑` `↓` on a slider | Changes hue, saturation or lightness. |
 | `Enter` in the field | Applies the typed color. |
 | `Esc` | Closes the picker. |
+#### Rating
+
+[API and examples](../ai/components/Rating.json)
+
+How to use:
+
+- Show the score of a product, place or answer with `readOnly`, `value` and `count`. Fractions such as 4.5 fill part of a star.
+- Without `readOnly` it becomes a radio group: people pick from 1 to `max`, and clicking the chosen star again clears it.
+- Keep the number next to the stars (`showValue`) when the exact score matters; stars alone round in people's heads.
+- `showLabel` shows the label above the stars, as in a review summary; without it the label is only read aloud.
+
+Choose something else:
+
+- A score with no stars, such as an NPS or a percentage: Stat or ScoreGauge.
+- A choice among named levels: Segmented or RadioGroup.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Moves into the group, onto the chosen star. |
+| `←` `→` `↑` `↓` | Changes the rating by one star. |
+| `Home` / `End` | Goes to the lowest or highest rating. |
+#### Quote
+
+[API and examples](../ai/components/Quote.json)
+
+How to use:
+
+- Pass the quoted text without quotation marks; the component draws the mark in the testimonial variant.
+- `variant="block"` sits inside an article with the line on the left; `variant="pull"` is a testimonial with photo or initials.
+- Put the role, company or origin in `source`, so the quote can be checked.
+
+Choose something else:
+
+- A tip or warning that is not someone's words: Callout.
+- A chat message: Message or Bubble.
+
+| Key | What it does |
+|---|---|
+| — | The quote does not receive focus. Screen readers read it as a block quotation with its author. |
+#### KeyValueList
+
+[API and examples](../ai/components/KeyValueList.json)
+
+How to use:
+
+- Use `layout="rows"` for a short list in a narrow column, with the value aligned to the right.
+- Use `layout="columns"` for specs read at a glance; the grid fills the width with pairs of at least 150px.
+- Put conditions in `hint` ("per month", "includes shipping") instead of crowding the value.
+- `title` heads the list, such as "Order #48213", and names it for screen readers.
+
+Choose something else:
+
+- Many rows with sorting or filters: Table.
+- One number in the spotlight: Stat.
+
+| Key | What it does |
+|---|---|
+| — | The list does not receive focus. Screen readers announce each value with its label. |
+#### ComparisonTable
+
+[API and examples](../ai/components/ComparisonTable.json)
+
+How to use:
+
+- Pass the option names in `options` and, in each row, one value per option in the same order: `true`, `false` or text.
+- `highlight` takes the index of the recommended option; it gets a badge and a tinted column.
+- Keep two to four options. On narrow screens the table scrolls sideways and the criterion column stays fixed.
+
+Choose something else:
+
+- Rows of records to sort or filter: Table.
+- A choice the person makes right there: ChoiceCard or PlanCard.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Focuses the scrollable table. |
+| `←` `→` | Scrolls the columns when the table is wider than the screen. |
+#### Agenda
+
+[API and examples](../ai/components/Agenda.json)
+
+How to use:
+
+- Pass `start` and `end` in ISO 8601. A date with no time ("2026-11-25") is an all-day event and keeps that day in any time zone.
+- Set `timezone` when the times belong to a place, such as a conference city; otherwise the device's zone is used.
+- With `onEventClick`, each event becomes a button that opens its details.
+- `title` heads the card. With `from` and `to` ("YYYY-MM-DD"), every day of the range shows up and days without events read "Nothing scheduled".
+
+Choose something else:
+
+- Milestones and steps without clock times: Timeline.
+- Picking a date or a slot: Calendar, DatePicker or VisitSchedulePicker.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Moves between events when they are clickable. |
+| `Enter` or `Space` | Opens the focused event. |
+#### EntityCard
+
+[API and examples](../ai/components/EntityCard.json)
+
+How to use:
+
+- Fill only what the item has: every field except `title` is optional and the card closes the gaps.
+- The first action is the main one; keep at most three.
+- `layout="horizontal"` puts the photo on the left for lists; on screens under 420px it stacks again.
+- Without `image` the card becomes compact: `category` and `badge` share the first line, as in a chat answer or a search result.
+
+Choose something else:
+
+- A property listing with real estate fields: PropertyCard.
+- A link to an outside page: LinkCard.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Moves between the card actions. |
+#### ImageGallery
+
+[API and examples](../ai/components/ImageGallery.json)
+
+How to use:
+
+- Every photo needs `alt`: in a gallery the photo is the content.
+- `columns` sets the grid at full width; under 560px it drops to two columns.
+- `layout="featured"` keeps three columns of square photos at any width, the first one two by two, with captions on the photos. Six photos close the grid with no gap.
+- The viewer is a dialog: focus stays inside, `Esc` closes it and focus goes back to the photo.
+
+Choose something else:
+
+- One photo at a time in the spotlight: Carousel.
+- Property photos with counter and full screen: PropertyMedia.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Moves between photos. |
+| `Enter` or `Space` | Opens the focused photo. |
+| `←` `→` in the viewer | Previous or next photo. |
+| `Esc` | Closes the viewer. |
+#### Video
+
+[API and examples](../ai/components/Video.json)
+
+How to use:
+
+- Pass a video file or a YouTube or Vimeo address in `src`; the component detects which one.
+- YouTube opens on the cookie-free domain and Vimeo with do-not-track. Without `poster`, YouTube uses the video's own thumbnail.
+- For video files, add WebVTT `captions` whenever there is speech.
+
+Choose something else:
+
+- Audio only: AudioPlayer.
+- Several photos: ImageGallery or Carousel.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Focuses the play button. |
+| `Enter` or `Space` | Starts the video; the player controls take over from there. |
+#### AudioPlayer
+
+[API and examples](../ai/components/AudioPlayer.json)
+
+How to use:
+
+- Pass `duration` in seconds when you know it, so the total shows before the file loads.
+- The file only downloads when the person presses play (`preload="none"`).
+- Use `description` for episode, author or date; `artwork` takes a square cover.
+
+Choose something else:
+
+- Recording a voice note: VoiceRecorder.
+- Video: Video.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Moves between play, back, timeline and forward. |
+| `Enter` or `Space` | Plays or pauses. |
+| `←` `→` on the timeline | Moves one second. |
+#### LinkCard
+
+[API and examples](../ai/components/LinkCard.json)
+
+How to use:
+
+- Pass what you already have about the page; the component never fetches the address to fill the card.
+- Without `favicon`, it shows the first letter of the domain instead of calling a third-party icon service.
+- Opens in a new tab by default and tells screen readers so.
+
+Choose something else:
+
+- A source inside a sentence: Citation.
+- An item with price and actions: EntityCard.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Focuses the card. |
+| `Enter` | Opens the link. |
+#### Citation
+
+[API and examples](../ai/components/Citation.json)
+
+How to use:
+
+- Place it right after the sentence it supports, numbered in the order the sources appear.
+- Put the excerpt that backs the sentence in `snippet`, so the person checks it without leaving the page.
+- Repeat the same number when the same source supports another sentence.
+
+Choose something else:
+
+- A full preview of a page: LinkCard.
+- An explanation of a term: Tooltip or HoverCard.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Focuses the marker and opens the source. |
+| `Enter` or `Space` | Pins or closes the source. |
+| `Esc` | Closes the source. |
+#### FollowUp
+
+[API and examples](../ai/components/FollowUp.json)
+
+How to use:
+
+- Show two to four suggestions right under the assistant's answer.
+- Write each one as the person would say it. When the message sent should be longer, use `{ label, message }`.
+- `onSelect` receives the message; your app sends it like any other message.
+
+Choose something else:
+
+- Filters that change the current view: Chip or ToggleGroup.
+- Actions on an item: Button or ButtonGroup.
+
+| Key | What it does |
+|---|---|
+| `Tab` | Moves between suggestions. |
+| `Enter` or `Space` | Sends the focused suggestion. |
 #### Calendar
 
 [API and examples](../ai/components/Calendar.json)

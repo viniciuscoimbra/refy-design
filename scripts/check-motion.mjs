@@ -38,17 +38,17 @@ const purposeGroups = [
   [
     "feedback",
     "Confirmar estado do controle sem deslocar a página",
-    "Button IconButton GoogleButton OAuthButton Fab Input Textarea Select Checkbox RadioGroup Switch Segmented ToggleGroup Range Slider Otp Pagination Chip ButtonGroup SplitButton PropertyActionGroup PhoneInput PostalCodeInput ChoiceCard FileUpload SettingRow",
+    "Button IconButton GoogleButton OAuthButton Fab Input Textarea Select Checkbox RadioGroup Switch Segmented ToggleGroup Range Slider Otp Pagination Chip ButtonGroup SplitButton PropertyActionGroup PhoneInput PostalCodeInput ChoiceCard FileUpload SettingRow Rating FollowUp",
   ],
   [
     "navigation",
     "Orientar seleção e posição, mantendo conteúdo legível",
-    "Breadcrumb Tabs NavCard SettingsSubnav TableOfContents WizardStepper Calendar Carousel Coverflow PropertyMedia",
+    "Breadcrumb Tabs NavCard SettingsSubnav TableOfContents WizardStepper Calendar Carousel Coverflow PropertyMedia ImageGallery",
   ],
   [
     "context",
     "Revelar superfície na origem e sair para a mesma origem",
-    "FabMenu Combobox Multiselect WorkspaceSwitcher UserMenu HelpMenu Menu NotificationBell Tooltip Popover HoverCard HelpField ContextMenu DatePicker ColorField Menubar NavigationMenu",
+    "FabMenu Combobox Multiselect WorkspaceSwitcher UserMenu HelpMenu Menu NotificationBell Tooltip Popover HoverCard HelpField ContextMenu DatePicker ColorField Menubar NavigationMenu Citation",
   ],
   [
     "orientation",
@@ -63,12 +63,12 @@ const purposeGroups = [
   [
     "activity",
     "Indicar trabalho em curso ou progresso, não entrada decorativa",
-    "Skeleton Spinner ProgressBar StatusDot VoiceRecorder UsageMeter",
+    "Skeleton Spinner ProgressBar StatusDot VoiceRecorder UsageMeter AudioPlayer Video",
   ],
   [
     "data",
     "Manter dados legíveis e evidenciar mudança/seleção local",
-    "Charts ScoreGauge Stat Matrix2x2 EventTimeline Timeline ActivityItem Table ApprovalWorkbench Trace",
+    "Charts ScoreGauge Stat Matrix2x2 EventTimeline Timeline ActivityItem Table ApprovalWorkbench Trace KeyValueList ComparisonTable Agenda",
   ],
   [
     "conversation",
@@ -93,7 +93,7 @@ const purposeGroups = [
   [
     "stable",
     "Apresentação estável; sem efeito de entrada obrigatório",
-    "Badge Avatar BrandLogo Kbd Divider AspectRatio Bubble Direction Label Marker ScrollArea Prose AvatarGroup PersonCell Card EmptyState CodeBlock PageHeader SectionHeader StickyBar StickyFooter PlanCard BillingCard ConnectorCard DangerZone Item",
+    "Badge Avatar BrandLogo Kbd Divider AspectRatio Bubble Direction Label Marker ScrollArea Prose AvatarGroup PersonCell Card EmptyState CodeBlock PageHeader SectionHeader StickyBar StickyFooter PlanCard BillingCard ConnectorCard DangerZone Item Quote EntityCard LinkCard",
   ],
 ];
 const purposes = new Map();

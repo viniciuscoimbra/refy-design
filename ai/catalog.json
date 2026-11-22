@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "package": "@refy-design/web",
-  "packageVersion": "1.10.0",
-  "sourceSha256": "e2710becfaab2af00f5629eb893e030a310d971c7fe04e3489d47224d6b50bf4",
+  "packageVersion": "1.11.0",
+  "sourceSha256": "42469f389b6f2bf456be5ccd257a191166ce9183503208f4cf500c351427c1bd",
   "collections": [
     {
       "id": "core",
@@ -14,7 +14,7 @@
         "fundação",
         "interface"
       ],
-      "count": 103
+      "count": 104
     },
     {
       "id": "media",
@@ -31,7 +31,7 @@
         "álbuns",
         "entretenimento"
       ],
-      "count": 4
+      "count": 7
     },
     {
       "id": "geolocation",
@@ -63,7 +63,7 @@
         "assistente",
         "inteligência artificial"
       ],
-      "count": 4
+      "count": 6
     },
     {
       "id": "analytics",
@@ -95,7 +95,7 @@
         "colaboração",
         "equipe"
       ],
-      "count": 4
+      "count": 5
     },
     {
       "id": "commerce",
@@ -109,7 +109,7 @@
         "compra",
         "comércio"
       ],
-      "count": 2
+      "count": 5
     },
     {
       "id": "finance",
@@ -139,7 +139,7 @@
         "aprendizagem",
         "leitura"
       ],
-      "count": 2
+      "count": 5
     }
   ],
   "maturity": [
@@ -2595,6 +2595,659 @@
       ],
       "mobile": "so-web",
       "document": "components/ColorField.json"
+    },
+    {
+      "id": "Rating",
+      "label": "Rating",
+      "level": "Átomos",
+      "area": "forms",
+      "storyId": "components-atoms-rating--leitura",
+      "collections": [
+        "commerce"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "Rating",
+      "description": "Star rating: shows a score with fractions and the number of reviews, or lets people pick one.",
+      "usage": [],
+      "howToUse": [
+        "Show the score of a product, place or answer with `readOnly`, `value` and `count`. Fractions such as 4.5 fill part of a star.",
+        "Without `readOnly` it becomes a radio group: people pick from 1 to `max`, and clicking the chosen star again clears it.",
+        "Keep the number next to the stars (`showValue`) when the exact score matters; stars alone round in people's heads.",
+        "`showLabel` shows the label above the stars, as in a review summary; without it the label is only read aloud."
+      ],
+      "alternatives": [
+        "A score with no stars, such as an NPS or a percentage: Stat or ScoreGauge.",
+        "A choice among named levels: Segmented or RadioGroup."
+      ],
+      "composition": [],
+      "hooks": [
+        "--control-disabled-opacity",
+        "--control-focus-outline",
+        "--duration-fast",
+        "--ease-out",
+        "--ink-1",
+        "--ink-2",
+        "--ink-3",
+        "--line",
+        "--primary-ink",
+        "--radius-sm",
+        "--space-1",
+        "--space-2",
+        "--surface-container-high",
+        "--text-base",
+        "--text-sm",
+        "--text-xs",
+        "--weak",
+        "--weight-medium",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/Rating.json"
+    },
+    {
+      "id": "Quote",
+      "label": "Quote",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-quote--bloco",
+      "collections": [
+        "content"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "Quote",
+      "description": "Quotation with author and source: a passage in the text or a testimonial in the spotlight.",
+      "usage": [],
+      "howToUse": [
+        "Pass the quoted text without quotation marks; the component draws the mark in the testimonial variant.",
+        "`variant=\"block\"` sits inside an article with the line on the left; `variant=\"pull\"` is a testimonial with photo or initials.",
+        "Put the role, company or origin in `source`, so the quote can be checked."
+      ],
+      "alternatives": [
+        "A tip or warning that is not someone's words: Callout.",
+        "A chat message: Message or Bubble."
+      ],
+      "composition": [
+        "Avatar"
+      ],
+      "hooks": [
+        "--card-radius",
+        "--font-headline",
+        "--ink-1",
+        "--ink-3",
+        "--leading-relaxed",
+        "--leading-snug",
+        "--primary",
+        "--radius-lg",
+        "--space-3",
+        "--space-4",
+        "--space-6",
+        "--surface-2",
+        "--surface-container-low",
+        "--text-h4",
+        "--text-md",
+        "--text-sm",
+        "--tracking-heading",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/Quote.json"
+    },
+    {
+      "id": "KeyValueList",
+      "label": "KeyValueList",
+      "level": "Moléculas",
+      "area": "data",
+      "storyId": "components-molecules-keyvaluelist--linhas",
+      "collections": [
+        "core"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "KeyValueList",
+      "description": "Label and value pairs, such as specs, order details or contact data.",
+      "usage": [],
+      "howToUse": [
+        "Use `layout=\"rows\"` for a short list in a narrow column, with the value aligned to the right.",
+        "Use `layout=\"columns\"` for specs read at a glance; the grid fills the width with pairs of at least 150px.",
+        "Put conditions in `hint` (\"per month\", \"includes shipping\") instead of crowding the value.",
+        "`title` heads the list, such as \"Order #48213\", and names it for screen readers."
+      ],
+      "alternatives": [
+        "Many rows with sorting or filters: Table.",
+        "One number in the spotlight: Stat."
+      ],
+      "composition": [],
+      "hooks": [
+        "--font-headline",
+        "--font-mono",
+        "--ink-1",
+        "--ink-3",
+        "--interface-detail-font",
+        "--interface-label-tracking",
+        "--interface-label-transform",
+        "--line-soft",
+        "--space-2",
+        "--space-3",
+        "--space-4",
+        "--space-5",
+        "--surface-border-width",
+        "--text-eyebrow",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-uppercase",
+        "--weight-medium",
+        "--weight-regular",
+        "--weight-semi"
+      ],
+      "mobile": "igual",
+      "document": "components/KeyValueList.json"
+    },
+    {
+      "id": "ComparisonTable",
+      "label": "ComparisonTable",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-comparisontable--padrao",
+      "collections": [
+        "commerce"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "ComparisonTable",
+      "description": "Options side by side, one criterion per row, with yes and no marks and the recommended option highlighted.",
+      "usage": [],
+      "howToUse": [
+        "Pass the option names in `options` and, in each row, one value per option in the same order: `true`, `false` or text.",
+        "`highlight` takes the index of the recommended option; it gets a badge and a tinted column.",
+        "Keep two to four options. On narrow screens the table scrolls sideways and the criterion column stays fixed."
+      ],
+      "alternatives": [
+        "Rows of records to sort or filter: Table.",
+        "A choice the person makes right there: ChoiceCard or PlanCard."
+      ],
+      "composition": [],
+      "hooks": [
+        "--card-background",
+        "--card-radius",
+        "--control-focus-outline",
+        "--font-headline",
+        "--font-mono",
+        "--good-ink",
+        "--ink-1",
+        "--ink-2",
+        "--ink-3",
+        "--ink-4",
+        "--interface-detail-font",
+        "--interface-label-tracking",
+        "--interface-label-transform",
+        "--line-soft",
+        "--on-primary",
+        "--primary",
+        "--primary-ink",
+        "--primary-soft",
+        "--radius-lg",
+        "--radius-pill",
+        "--space-1",
+        "--space-2",
+        "--space-3",
+        "--space-4",
+        "--surface",
+        "--surface-border-width",
+        "--text-2xs",
+        "--text-base",
+        "--text-sm",
+        "--text-xs",
+        "--tracking-uppercase",
+        "--weight-medium",
+        "--weight-regular",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/ComparisonTable.json"
+    },
+    {
+      "id": "Agenda",
+      "label": "Agenda",
+      "level": "Organismos",
+      "area": "data",
+      "storyId": "components-organisms-agenda--padrao",
+      "collections": [
+        "operations"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "Agenda",
+      "description": "Schedule grouped by day, with start and end times, place and color for each event.",
+      "usage": [],
+      "howToUse": [
+        "Pass `start` and `end` in ISO 8601. A date with no time (\"2026-11-25\") is an all-day event and keeps that day in any time zone.",
+        "Set `timezone` when the times belong to a place, such as a conference city; otherwise the device's zone is used.",
+        "With `onEventClick`, each event becomes a button that opens its details.",
+        "`title` heads the card. With `from` and `to` (\"YYYY-MM-DD\"), every day of the range shows up and days without events read \"Nothing scheduled\"."
+      ],
+      "alternatives": [
+        "Milestones and steps without clock times: Timeline.",
+        "Picking a date or a slot: Calendar, DatePicker or VisitSchedulePicker."
+      ],
+      "composition": [],
+      "hooks": [
+        "--card-background",
+        "--card-border-width",
+        "--card-radius",
+        "--control-focus-outline",
+        "--critical",
+        "--duration-fast",
+        "--ease-out",
+        "--font-headline",
+        "--good",
+        "--info",
+        "--ink-1",
+        "--ink-2",
+        "--ink-3",
+        "--leading-tight",
+        "--line",
+        "--line-soft",
+        "--line-strong",
+        "--primary",
+        "--primary-ink",
+        "--radius-lg",
+        "--radius-md",
+        "--radius-pill",
+        "--space-1",
+        "--space-2",
+        "--space-3",
+        "--space-4",
+        "--surface",
+        "--surface-2",
+        "--surface-border-width",
+        "--surface-container",
+        "--surface-container-low",
+        "--text-2xs",
+        "--text-h4",
+        "--text-sm",
+        "--text-xs",
+        "--weak",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/Agenda.json"
+    },
+    {
+      "id": "EntityCard",
+      "label": "EntityCard",
+      "level": "Organismos",
+      "area": "content",
+      "storyId": "components-organisms-entitycard--produto",
+      "collections": [
+        "commerce"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "EntityCard",
+      "description": "One product, place, person or listing in a card: photo, badge, title, rating, price and up to three actions.",
+      "usage": [],
+      "howToUse": [
+        "Fill only what the item has: every field except `title` is optional and the card closes the gaps.",
+        "The first action is the main one; keep at most three.",
+        "`layout=\"horizontal\"` puts the photo on the left for lists; on screens under 420px it stacks again.",
+        "Without `image` the card becomes compact: `category` and `badge` share the first line, as in a chat answer or a search result."
+      ],
+      "alternatives": [
+        "A property listing with real estate fields: PropertyCard.",
+        "A link to an outside page: LinkCard."
+      ],
+      "composition": [
+        "Badge",
+        "Button",
+        "Rating"
+      ],
+      "hooks": [
+        "--card-background",
+        "--card-border-width",
+        "--card-padding",
+        "--card-radius",
+        "--card-title-size",
+        "--card-title-weight",
+        "--font-headline",
+        "--ink-1",
+        "--ink-2",
+        "--ink-3",
+        "--leading-normal",
+        "--leading-snug",
+        "--line-soft",
+        "--radius-lg",
+        "--space-1",
+        "--space-2",
+        "--space-3",
+        "--space-4",
+        "--surface",
+        "--surface-2",
+        "--surface-border-width",
+        "--surface-container-low",
+        "--text-base",
+        "--text-h5",
+        "--text-md",
+        "--text-sm",
+        "--text-xs",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/EntityCard.json"
+    },
+    {
+      "id": "ImageGallery",
+      "label": "ImageGallery",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-imagegallery--padrao",
+      "collections": [
+        "media"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "ImageGallery",
+      "description": "Grid of photos with captions; each one opens enlarged with previous and next.",
+      "usage": [],
+      "howToUse": [
+        "Every photo needs `alt`: in a gallery the photo is the content.",
+        "`columns` sets the grid at full width; under 560px it drops to two columns.",
+        "`layout=\"featured\"` keeps three columns of square photos at any width, the first one two by two, with captions on the photos. Six photos close the grid with no gap.",
+        "The viewer is a dialog: focus stays inside, `Esc` closes it and focus goes back to the photo."
+      ],
+      "alternatives": [
+        "One photo at a time in the spotlight: Carousel.",
+        "Property photos with counter and full screen: PropertyMedia."
+      ],
+      "composition": [
+        "IconButton",
+        "Modal"
+      ],
+      "hooks": [
+        "--bg",
+        "--control-focus-outline",
+        "--duration-mid",
+        "--ease-out",
+        "--font-mono",
+        "--ink-1",
+        "--ink-2",
+        "--ink-3",
+        "--interface-detail-font",
+        "--leading-snug",
+        "--primary-ink",
+        "--radius-md",
+        "--space-1",
+        "--space-2",
+        "--space-3",
+        "--space-5",
+        "--surface-2",
+        "--surface-container-low",
+        "--text-2xs",
+        "--text-sm",
+        "--text-xs",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/ImageGallery.json"
+    },
+    {
+      "id": "Video",
+      "label": "Video",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-video--arquivo",
+      "collections": [
+        "media"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "Video",
+      "description": "Video file, YouTube or Vimeo link behind a cover with a play button; nothing from the platform loads before the click.",
+      "usage": [],
+      "howToUse": [
+        "Pass a video file or a YouTube or Vimeo address in `src`; the component detects which one.",
+        "YouTube opens on the cookie-free domain and Vimeo with do-not-track. Without `poster`, YouTube uses the video's own thumbnail.",
+        "For video files, add WebVTT `captions` whenever there is speech."
+      ],
+      "alternatives": [
+        "Audio only: AudioPlayer.",
+        "Several photos: ImageGallery or Carousel."
+      ],
+      "composition": [],
+      "hooks": [
+        "--bg",
+        "--card-radius",
+        "--control-focus-outline",
+        "--duration-fast",
+        "--ease-out",
+        "--ink-1",
+        "--ink-2",
+        "--ink-3",
+        "--on-primary",
+        "--primary",
+        "--primary-ink",
+        "--radius-lg",
+        "--radius-pill",
+        "--shadow-2",
+        "--space-2",
+        "--space-3",
+        "--space-4",
+        "--space-6",
+        "--surface-container-highest",
+        "--text-sm",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/Video.json"
+    },
+    {
+      "id": "AudioPlayer",
+      "label": "AudioPlayer",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-audioplayer--padrao",
+      "collections": [
+        "media"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "AudioPlayer",
+      "description": "Audio player with play, timeline, elapsed and total time, and 15-second jumps.",
+      "usage": [],
+      "howToUse": [
+        "Pass `duration` in seconds when you know it, so the total shows before the file loads.",
+        "The file only downloads when the person presses play (`preload=\"none\"`).",
+        "Use `description` for episode, author or date; `artwork` takes a square cover."
+      ],
+      "alternatives": [
+        "Recording a voice note: VoiceRecorder.",
+        "Video: Video."
+      ],
+      "composition": [],
+      "hooks": [
+        "--card-background",
+        "--card-radius",
+        "--control-focus-outline",
+        "--font-mono",
+        "--ink-1",
+        "--ink-2",
+        "--ink-3",
+        "--interface-detail-font",
+        "--line",
+        "--line-soft",
+        "--on-primary",
+        "--primary",
+        "--primary-ink",
+        "--radius-lg",
+        "--radius-md",
+        "--radius-pill",
+        "--space-2",
+        "--space-4",
+        "--surface",
+        "--surface-2",
+        "--surface-border-width",
+        "--surface-container-high",
+        "--surface-container-low",
+        "--text-2xs",
+        "--text-sm",
+        "--text-xs",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/AudioPlayer.json"
+    },
+    {
+      "id": "LinkCard",
+      "label": "LinkCard",
+      "level": "Moléculas",
+      "area": "content",
+      "storyId": "components-molecules-linkcard--horizontal",
+      "collections": [
+        "content"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "LinkCard",
+      "description": "Preview of a web address: site icon, domain, title, description and thumbnail, with the whole card as the link.",
+      "usage": [],
+      "howToUse": [
+        "Pass what you already have about the page; the component never fetches the address to fill the card.",
+        "Without `favicon`, it shows the first letter of the domain instead of calling a third-party icon service.",
+        "Opens in a new tab by default and tells screen readers so."
+      ],
+      "alternatives": [
+        "A source inside a sentence: Citation.",
+        "An item with price and actions: EntityCard."
+      ],
+      "composition": [],
+      "hooks": [
+        "--card-background",
+        "--card-radius",
+        "--control-focus-outline",
+        "--duration-fast",
+        "--ease-out",
+        "--ink-1",
+        "--ink-3",
+        "--leading-snug",
+        "--line",
+        "--line-soft",
+        "--primary-ink",
+        "--primary-soft",
+        "--radius-lg",
+        "--radius-xs",
+        "--space-1",
+        "--space-2",
+        "--space-3",
+        "--space-4",
+        "--surface",
+        "--surface-2",
+        "--surface-border-width",
+        "--surface-container-low",
+        "--text-sm",
+        "--text-xs",
+        "--weight-bold",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/LinkCard.json"
+    },
+    {
+      "id": "Citation",
+      "label": "Citation",
+      "level": "Átomos",
+      "area": "content",
+      "storyId": "components-atoms-citation--padrao",
+      "collections": [
+        "conversation",
+        "content"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "Citation",
+      "description": "Source marker [1] inside the text; pointing, focusing or tapping shows the title, the excerpt and the link.",
+      "usage": [],
+      "howToUse": [
+        "Place it right after the sentence it supports, numbered in the order the sources appear.",
+        "Put the excerpt that backs the sentence in `snippet`, so the person checks it without leaving the page.",
+        "Repeat the same number when the same source supports another sentence."
+      ],
+      "alternatives": [
+        "A full preview of a page: LinkCard.",
+        "An explanation of a term: Tooltip or HoverCard."
+      ],
+      "composition": [],
+      "hooks": [
+        "--control-focus-outline",
+        "--duration-fast",
+        "--ease-out",
+        "--font-mono",
+        "--ink-1",
+        "--ink-2",
+        "--ink-3",
+        "--interface-detail-font",
+        "--leading-normal",
+        "--leading-snug",
+        "--line-soft",
+        "--motion-ease-enter",
+        "--motion-feedback-duration",
+        "--on-primary",
+        "--primary",
+        "--primary-ink",
+        "--radius-md",
+        "--radius-pill",
+        "--shadow-2",
+        "--space-1",
+        "--space-2",
+        "--space-3",
+        "--space-4",
+        "--surface",
+        "--surface-2",
+        "--surface-border-width",
+        "--surface-container-high",
+        "--text-2xs",
+        "--text-sm",
+        "--text-xs",
+        "--weight-regular",
+        "--weight-semi"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/Citation.json"
+    },
+    {
+      "id": "FollowUp",
+      "label": "FollowUp",
+      "level": "Moléculas",
+      "area": "actions",
+      "storyId": "components-molecules-followup--padrao",
+      "collections": [
+        "conversation"
+      ],
+      "maturity": "nao-avaliado",
+      "publicName": "FollowUp",
+      "description": "Suggested next questions after an answer; a tap sends the suggestion as the person's next message.",
+      "usage": [],
+      "howToUse": [
+        "Show two to four suggestions right under the assistant's answer.",
+        "Write each one as the person would say it. When the message sent should be longer, use `{ label, message }`.",
+        "`onSelect` receives the message; your app sends it like any other message."
+      ],
+      "alternatives": [
+        "Filters that change the current view: Chip or ToggleGroup.",
+        "Actions on an item: Button or ButtonGroup."
+      ],
+      "composition": [],
+      "hooks": [
+        "--control-border-width",
+        "--control-disabled-opacity",
+        "--control-focus-outline",
+        "--duration-fast",
+        "--ease-out",
+        "--ink-1",
+        "--ink-3",
+        "--line",
+        "--primary",
+        "--primary-ink",
+        "--primary-soft",
+        "--radius-md",
+        "--radius-pill",
+        "--space-2",
+        "--space-3",
+        "--space-4",
+        "--surface",
+        "--text-sm"
+      ],
+      "mobile": "com-divergencia",
+      "document": "components/FollowUp.json"
     },
     {
       "id": "Calendar",

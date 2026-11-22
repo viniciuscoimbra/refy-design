@@ -6,6 +6,25 @@ Todas as mudanças relevantes do refy ficam registradas aqui. O formato segue o 
 
 ## [Não publicado][Unreleased]
 
+## [1.11.0] - 2026-11-22
+
+Mobile: `@refy-design/mobile` acompanha na 1.3.0 com as mesmas doze famílias da web.
+
+### Adicionado
+
+- `Rating`. Nota em estrelas que lê fração (4,5) com o número de avaliações, ou vira um grupo de rádios para escolher a nota com as setas, `Home` e `End`. `showLabel` põe o rótulo em cima das estrelas.
+- `Quote`. Citação com autor e origem, como trecho no texto (`block`) ou depoimento com foto ou iniciais (`pull`).
+- `KeyValueList`. Pares de rótulo e valor em linhas ou numa grade de colunas, com uma nota curta embaixo de cada valor e um `title` opcional que dá nome à lista.
+- `ComparisonTable`. Opções lado a lado, um critério por linha, com marcas de sim e não lidas em voz alta, a opção recomendada em destaque e a coluna do critério parada enquanto a tabela rola.
+- `Agenda`. Cartão com os compromissos agrupados por dia, com horário, local e cor; `title` encabeça o cartão, `from` e `to` mostram os dias vazios como "Nada marcado", data sem hora vale o dia todo em qualquer fuso, e `timezone` fixa os horários num lugar.
+- `EntityCard`. Cartão de produto, lugar, pessoa ou anúncio: foto, categoria, selo, título, nota, preço, detalhes e até três ações, na vertical ou na horizontal. Sem foto, vira um cartão compacto.
+- `ImageGallery`. Grade de fotos com legenda, ou `featured`: três colunas de fotos quadradas, a primeira em dois por dois e as legendas sobre as fotos. Cada foto abre num visualizador com anterior, próxima, contador e setas do teclado.
+- `Video`. Arquivo de vídeo, YouTube ou Vimeo atrás de uma capa com botão de tocar. Nada da plataforma carrega antes do clique; o YouTube usa o domínio sem cookies e o Vimeo, não rastrear.
+- `AudioPlayer`. Player de áudio com tocar, linha do tempo, tempo decorrido e total e saltos de 15 segundos; o arquivo só baixa ao tocar.
+- `LinkCard`. Prévia de um endereço da web com ícone do site, domínio, título, descrição e miniatura. Nunca busca a página, e sem `favicon` mostra a primeira letra do domínio.
+- `Citation`. Marcador de fonte [1] dentro de uma frase; apontar, focar ou tocar mostra o título, o trecho e o link.
+- `FollowUp`. Sugestões de próxima pergunta depois de uma resposta; um toque entrega a mensagem ao app para enviar como a próxima fala da pessoa.
+
 ## [1.10.0] - 2026-11-19
 
 Mobile: o `@refy-design/mobile` acompanha na 1.2.0: o BrandLogo ganha `symbol` e `height`, e o PlanCard ganha `ctaPosition`, como na web. Ficam só na web o `ColorField` e o `loop` e o `autoplay` do Coverflow.
@@ -337,7 +356,8 @@ Primeira versão pública.
 
 - `ContentCard` (e o nome antigo `PropertyCard`): `address`, `price` e `priceSuffix` continuam funcionando e podem sair a partir da 2.0.0. Use `subtitle`, `value` e `valueSuffix`.
 
-[Unreleased]: https://github.com/viniciuscoimbra/refy-design/compare/v1.10.0...HEAD
+[Unreleased]: https://github.com/viniciuscoimbra/refy-design/compare/v1.11.0...HEAD
+[1.11.0]: https://github.com/viniciuscoimbra/refy-design/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.5...v1.10.0
 [1.9.5]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.4...v1.9.5
 [1.9.4]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.3...v1.9.4

@@ -1,0 +1,138 @@
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(var(--gallery-columns, 3), minmax(0, 1fr));
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+@media (max-width: 560px) {
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.open,
+.frame {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: var(--gallery-ratio, 4 / 3);
+  background: var(--surface-2, var(--surface-container-low));
+}
+.open {
+  cursor: zoom-in;
+}
+.open:focus-visible {
+  outline: var(--control-focus-outline, 2px solid var(--primary-ink));
+  outline-offset: 2px;
+}
+
+.thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-mid) var(--ease-out);
+}
+.open:hover .thumb {
+  transform: scale(1.03);
+}
+
+.caption {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  line-height: var(--leading-snug);
+}
+
+/* Destaque: três colunas em qualquer largura, fotos quadradas, a primeira em dois por dois e
+   as legendas sobre as fotos. Com seis fotos a grade fecha sem buraco. */
+.featured,
+.featured.gallery {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+.featured .item {
+  position: relative;
+}
+.featured .open,
+.featured .frame {
+  aspect-ratio: 1;
+}
+.featured .item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.featured .item:first-child .open,
+.featured .item:first-child .frame {
+  height: 100%;
+  aspect-ratio: auto;
+}
+.featured .caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: var(--space-5) var(--space-2) var(--space-2);
+  overflow: hidden;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: linear-gradient(to top, color-mix(in srgb, var(--ink-1) 65%, transparent), transparent);
+  color: var(--bg);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semi);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.viewer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.stage {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.full {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  background: var(--surface-2, var(--surface-container-low));
+}
+.viewerCaption {
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+.counter {
+  color: var(--ink-3);
+  font-family: var(--interface-detail-font, var(--font-mono));
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumb { transition: none; }
+  .open:hover .thumb { transform: none; }
+}

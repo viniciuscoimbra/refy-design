@@ -534,5 +534,54 @@ export const workspaceSwitcher = {
   current: (name: string) => `Current workspace: ${name}. Switch workspace`,
 };
 
-export const en = { activityTimeline, alertDialog, appShell, approvalWorkbench, avatarGroup, billingCard, breadcrumb, calendar, callout, carousel, charts, codeBlock, colorField, combobox, command, common, contextMenu, coverflow, d3Chart, datePicker, deviceFrame, fabMenu, fileUpload, geoAreaPicker, guidedTour, helpField, helpMenu, intentComposer, kanbanBoard, matrix2x2, menu, menubar, message, messageScroller, modal, multiselect, navigationMenu, notificationBell, oauthButton, otp, pagination, phoneInput, planCard, postalCodeInput, propertyActionGroup, propertyCard, propertyMedia, questionnaire, range, resizable, settingsSubnav, sidebar, spinner, splitButton, stat, swipeDeck, table, tableOfContents, tabs, timeline, topbar, trace, usageMeter, userMenu, visitSchedulePicker, voiceRecorder, wizardStepper, workspaceSwitcher };
+export const rating = {
+  value: (value: string, max: number) => `${value} out of ${max}`,
+  star: (n: number, max: number) => `${n} out of ${max} ${max === 1 ? "star" : "stars"}`,
+  reviews: (n: number, formatted: string) => `${formatted} ${n === 1 ? "review" : "reviews"}`,
+};
+export const comparisonTable = {
+  recommended: "Recommended",
+  feature: "Feature",
+  yes: "Yes",
+  no: "No",
+};
+export const agenda = {
+  label: "Agenda",
+  empty: "Nothing scheduled.",
+  allDay: "All day",
+  nothing: "Nothing scheduled",
+  range: (start: string, end: string) => `${start} to ${end}`,
+};
+export const entityCard = {
+  rating: "Rating",
+};
+export const imageGallery = {
+  open: (alt: string, n: number, total: number) => `Open photo ${n} of ${total}: ${alt}`,
+  viewer: (label: string) => `${label}, enlarged photo`,
+  counter: (n: number, total: number) => `${n} of ${total}`,
+  previous: "Previous photo",
+  next: "Next photo",
+};
+export const video = {
+  play: (title: string) => `Play video: ${title}`,
+};
+export const audioPlayer = {
+  play: (title: string) => `Play ${title}`,
+  pause: (title: string) => `Pause ${title}`,
+  back: (s: number) => `Back ${s} seconds`,
+  forward: (s: number) => `Forward ${s} seconds`,
+  position: "Position",
+  positionText: (time: string, total: string) => `${time} of ${total}`,
+};
+export const linkCard = {
+  newTab: "(opens in a new tab)",
+};
+export const citation = {
+  source: (n: number, title: string) => `Source ${n}: ${title}`,
+  open: "Open source",
+};
+export const followUp = {
+  label: "Suggestions",
+};
+export const en = { activityTimeline, alertDialog, appShell, approvalWorkbench, avatarGroup, billingCard, breadcrumb, calendar, callout, carousel, charts, codeBlock, colorField, combobox, command, common, contextMenu, coverflow, d3Chart, datePicker, deviceFrame, fabMenu, fileUpload, geoAreaPicker, guidedTour, helpField, helpMenu, intentComposer, kanbanBoard, matrix2x2, menu, menubar, message, messageScroller, modal, multiselect, navigationMenu, notificationBell, oauthButton, otp, pagination, phoneInput, planCard, postalCodeInput, propertyActionGroup, propertyCard, propertyMedia, questionnaire, range, resizable, settingsSubnav, sidebar, spinner, splitButton, stat, swipeDeck, table, tableOfContents, tabs, timeline, topbar, trace, usageMeter, userMenu, visitSchedulePicker, voiceRecorder, wizardStepper, workspaceSwitcher, rating, comparisonTable, agenda, entityCard, imageGallery, video, audioPlayer, linkCard, citation, followUp };
 export type RefyMessages = typeof en;

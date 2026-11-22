@@ -121,5 +121,17 @@
   "VisitSchedulePicker": "Selection of available days and times, with summary and time zone.",
   "VoiceRecorder": "Controlled interface for recording, pause, error and a text alternative; capture, permissions and transcription are wired by the app.",
   "WizardStepper": "The steps of a flow, with current, done and pending states.",
-  "WorkspaceSwitcher": "Selecting and searching a workspace, with management actions."
+  "WorkspaceSwitcher": "Selecting and searching a workspace, with management actions.",
+  "Agenda": "Schedule grouped by day, with start and end times, place and color for each event.",
+  "AudioPlayer": "Audio player with play, timeline, elapsed and total time, and 15-second jumps.",
+  "Citation": "Source marker [1] inside the text; pointing, focusing or tapping shows the title, the excerpt and the link.",
+  "ComparisonTable": "Options side by side, one criterion per row, with yes and no marks and the recommended option highlighted.",
+  "EntityCard": "One product, place, person or listing in a card: photo, badge, title, rating, price and up to three actions.",
+  "FollowUp": "Suggested next questions after an answer; a tap sends the suggestion as the person's next message.",
+  "ImageGallery": "Grid of photos with captions; each one opens enlarged with previous and next.",
+  "KeyValueList": "Label and value pairs, such as specs, order details or contact data.",
+  "LinkCard": "Preview of a web address: site icon, domain, title, description and thumbnail, with the whole card as the link.",
+  "Quote": "Quotation with author and source: a passage in the text or a testimonial in the spotlight.",
+  "Rating": "Star rating: shows a score with fractions and the number of reviews, or lets people pick one.",
+  "Video": "Video file, YouTube or Vimeo link behind a cover with a play button; nothing from the platform loads before the click."
 }

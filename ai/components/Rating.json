@@ -1,0 +1,162 @@
+{
+  "id": "Rating",
+  "description": "Star rating: shows a score with fractions and the number of reviews, or lets people pick one.",
+  "usage": {
+    "howToUse": [
+      "Show the score of a product, place or answer with `readOnly`, `value` and `count`. Fractions such as 4.5 fill part of a star.",
+      "Without `readOnly` it becomes a radio group: people pick from 1 to `max`, and clicking the chosen star again clears it.",
+      "Keep the number next to the stars (`showValue`) when the exact score matters; stars alone round in people's heads.",
+      "`showLabel` shows the label above the stars, as in a review summary; without it the label is only read aloud."
+    ],
+    "alternatives": [
+      "A score with no stars, such as an NPS or a percentage: Stat or ScoreGauge.",
+      "A choice among named levels: Segmented or RadioGroup."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves into the group, onto the chosen star."
+      },
+      {
+        "keys": "`←` `→` `↑` `↓`",
+        "action": "Changes the rating by one star."
+      },
+      {
+        "keys": "`Home` / `End`",
+        "action": "Goes to the lowest or highest rating."
+      }
+    ]
+  },
+  "collections": [
+    "commerce"
+  ],
+  "publicName": "Rating",
+  "selected": "Leitura",
+  "import": "import { Rating } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Rating",
+      "props": [
+        {
+          "name": "value",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Controlled rating, from 0 to `max`. Read-only accepts fractions (4.5); picking uses whole stars."
+        },
+        {
+          "name": "defaultValue",
+          "defaultValue": "0",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Initial rating (uncontrolled)."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: number) => void) | undefined",
+          "required": false,
+          "description": "Called with the chosen rating. Without it and without `readOnly`, the rating still changes internally."
+        },
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Turns off picking."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDivElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Leitura",
+      "label": "Read only",
+      "description": "",
+      "code": "import { Rating } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Rating>,\n    'label' | 'value' | 'readOnly' | 'count'\n  > = { label: 'Restaurant rating', value: 4.5, readOnly: true, count: 128 };\n  return <Rating {...args} />;\n}"
+    },
+    {
+      "id": "ComRotulo",
+      "label": "With visible label",
+      "description": "",
+      "code": "import { Rating } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Rating>,\n    'label' | 'value' | 'readOnly' | 'count' | 'showLabel'\n  > = {\n    label: 'Customer rating',\n    value: 4.6,\n    readOnly: true,\n    count: 1284,\n    showLabel: true,\n  };\n  return <Rating {...args} />;\n}"
+    },
+    {
+      "id": "Escolha",
+      "label": "Pick a rating",
+      "description": "",
+      "code": "import { Rating } from '@refy-design/web';\nimport { useState } from 'react';\nexport function Example() {\n  const [value, setValue] = useState(3);\n  return (\n    <div style={{ display: 'grid', gap: 'var(--space-2)' }}>\n      <Rating label=\"Your rating\" value={value} onChange={setValue} size=\"lg\" />\n      <p>Value: {value}</p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Tamanhos",
+      "label": "Sizes",
+      "description": "",
+      "code": "import { Rating } from '@refy-design/web';\nexport function Example() {\n  return (\n    <div style={{ display: 'grid', gap: 'var(--space-3)' }}>\n      <Rating label=\"Small\" size=\"sm\" readOnly value={3.5} count={42} />\n      <Rating label=\"Medium\" size=\"md\" readOnly value={4.2} count={1280} />\n      <Rating label=\"Large\" size=\"lg\" readOnly value={5} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Desabilitado",
+      "label": "Disabled",
+      "description": "",
+      "code": "import { Rating } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Rating>,\n    'label' | 'value' | 'readOnly' | 'count' | 'disabled'\n  > = {\n    label: 'Locked rating',\n    value: 2,\n    readOnly: false,\n    count: undefined,\n    disabled: true,\n  };\n  return <Rating {...args} />;\n}"
+    }
+  ]
+}

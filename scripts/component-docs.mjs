@@ -125,6 +125,20 @@ const canonical = (code) =>
 const title = (name) =>
   name.replace(/([a-zá-ú])([A-ZÁ-Ú])/g, "$1 $2").replaceAll("_", " ");
 
+/** `const photos = { shopTeapot: "https://refy.design/demo/loja-bule.webp", ... };` */
+function demoAssetDeclaration(fromFile, module, local) {
+  const index = resolve(fromFile, "..", module, "index.ts");
+  const text = readFileSync(index, "utf8");
+  const files = Object.fromEntries(
+    [...text.matchAll(/^import (\w+) from "\.\/([^"]+)";$/gm)].map((m) => [m[1], m[2]]),
+  );
+  const object = /export const \w+ = \{([\s\S]*?)\};/.exec(text)?.[1] ?? "";
+  const entries = [...object.matchAll(/(\w+)(?:\s*:\s*(\w+))?\s*,?/g)]
+    .filter((m) => files[m[2] ?? m[1]] && new RegExp(`\\b${local}\\.${m[1]}\\b`).test(readFileSync(fromFile, "utf8")))
+    .map((m) => `  ${m[1]}: "https://refy.design/demo/${files[m[2] ?? m[1]]}",`);
+  return `const ${local} = {\n${entries.join("\n")}\n};`;
+}
+
 async function exampleSource(sf, meta, story) {
   const imports = new Map();
   const declarations = new Map();
@@ -168,6 +182,13 @@ async function exampleSource(sf, meta, story) {
             statement.importClause?.isTypeOnly || declaration.isTypeOnly,
           );
         if (module.startsWith("@storybook/")) return;
+        // Fotos e mídia de demonstração: a story usa o arquivo do pacote do site; o exemplo
+        // mostra o endereço público em refy.design/demo, que roda fora do repositório.
+        const demoAssets = /(^|\/)blocks\/(photos|media)$/.exec(module);
+        if (demoAssets) {
+          declarations.set(local, demoAssetDeclaration(sf.fileName, module, local));
+          return;
+        }
         const target = aliased(symbol);
         if (preferred.has(target))
           return addImport(

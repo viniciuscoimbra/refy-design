@@ -123,6 +123,50 @@
     "example": "<ActivityItem actor={{ name: \"Ana Souza\" }} title=\"aceitou sua revisão\" timestamp=\"há 2 min\" description=\"Relatório anual por Plano de lançamento.\" badge={{ label: \"Revisão\", tone: \"success\" }} metadata=\"Espaço · Design\" />",
     "section": "ActivityItem / PersonCell / NavCard"
   },
+  "Agenda": {
+    "byType": false,
+    "props": [
+      {
+        "name": "events",
+        "type": "AgendaEvent[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "emptyMessage",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onEventClick",
+        "type": "((event: AgendaEvent) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "timezone",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Agenda label=\"Programação do evento\" timezone=\"America/Sao_Paulo\" onEventClick={() => {}} events={[\n  { id: \"a\", title: \"Credenciamento e café\", start: \"2026-11-24T08:00:00-03:00\", end: \"2026-11-24T09:00:00-03:00\", location: \"Saguão\", tone: \"neutral\" },\n  { id: \"b\", title: \"Abertura\", start: \"2026-11-24T09:00:00-03:00\", end: \"2026-11-24T10:00:00-03:00\", location: \"Sala 1\" },\n  { id: \"c\", title: \"Oficina: telas com IA\", start: \"2026-11-24T10:30:00-03:00\", end: \"2026-11-24T12:00:00-03:00\", location: \"Lab 2\", tone: \"info\" },\n  { id: \"d\", title: \"Dia da comunidade\", start: \"2026-11-25\", tone: \"good\" },\n]} />",
+    "section": "Agenda"
+  },
   "AlertDialog": {
     "byType": false,
     "props": [
@@ -340,6 +384,50 @@
     "onlyWeb": [],
     "example": "<AspectRatio ratio={1} style={{ maxWidth: 120, backgroundColor: t.pick<string>(\"--surface-2\"), borderRadius: 8 }} />",
     "section": "Bubble / Marker / AspectRatio / GoogleButton"
+  },
+  "AudioPlayer": {
+    "byType": false,
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "artwork",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "controller",
+        "type": "AudioPlayerController",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<AudioPlayer src={demo(\"tons.mp3\")} title=\"Quatro tons\" description=\"Teste de som · 10 s\" artwork={demo(\"capa-playlist.webp\")} duration={10} />",
+    "section": "AudioPlayer"
   },
   "Avatar": {
     "byType": false,
@@ -1346,6 +1434,26 @@
     "example": "<ChoiceCardGroup label=\"Plano\" value={plan} onChange={setPlan} columns={2}>\n  <ChoiceCard value=\"mensal\" title=\"Mensal\" description=\"Cancela quando quiser\" meta=\"R$ 9,90\" />\n  <ChoiceCard value=\"anual\" title=\"Anual\" description=\"Dois meses grátis\" meta=\"R$ 99\" />\n  <ChoiceCard value=\"vitalicio\" title=\"Vitalício\" disabled />\n</ChoiceCardGroup>",
     "section": "ChoiceCard"
   },
+  "Citation": {
+    "byType": false,
+    "props": [
+      {
+        "name": "index",
+        "type": "number",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "source",
+        "type": "CitationSource",
+        "required": true,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Citation index={1} source={{ title: \"Critério de sucesso 1.4.3: Contraste mínimo\", href: \"https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html\", snippet: \"Texto e imagens de texto têm contraste de pelo menos 4,5:1.\" }} />",
+    "section": "Citation"
+  },
   "CodeBlock": {
     "byType": false,
     "props": [
@@ -1592,6 +1700,44 @@
     "example": "<Combobox label=\"Corretor\" defaultOpen inputValue=\"an\" options={[{ value: \"ana\", label: \"Ana Souza\", description: \"CRECI 34.512\", avatar: { name: \"Ana Souza\" }, group: \"Equipe\" }, { value: \"jan\", label: \"Janaína Reis\", description: \"CRECI 18.003\", avatar: { name: \"Janaína Reis\" }, group: \"Equipe\" }, { value: \"and\", label: \"Anderson Lima\", meta: \"parceiro\", group: \"Parceiros\", lead: \"AL\" }, { value: \"x\", label: \"Banco Andrade\", group: \"Parceiros\", disabled: true }]} />",
     "section": "Combobox / Multiselect"
   },
+  "ComparisonTable": {
+    "byType": false,
+    "props": [
+      {
+        "name": "caption",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "options",
+        "type": "string[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "rows",
+        "type": "ComparisonRow[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "highlight",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "highlightLabel",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ComparisonTable caption=\"Comparação de planos\" options={[\"Inicial\", \"Time\", \"Empresa\"]} highlight={1} rows={[\n  { feature: \"Preço por mês\", values: [\"Grátis\", \"R$ 12\", \"R$ 29\"] },\n  { feature: \"Projetos\", values: [\"3\", \"Ilimitados\", \"Ilimitados\"] },\n  { feature: \"Tema próprio\", values: [false, true, true] },\n  { feature: \"Login único\", hint: \"SAML e OIDC\", values: [false, false, true] },\n]} />",
+    "section": "ComparisonTable"
+  },
   "ConnectorCard": {
     "byType": false,
     "props": [
@@ -1756,7 +1902,10 @@
         "onlyMobile": false
       }
     ],
-    "onlyWeb": [],
+    "onlyWeb": [
+      "autoplay",
+      "loop"
+    ],
     "example": "<Coverflow label=\"Arquivos em destaque\" items={[\n  { id: \"c1\", label: \"Orçamento\" }, { id: \"c2\", label: \"Cronograma\" }, { id: \"c3\", label: \"Relatório anual\" }, { id: \"c4\", label: \"Briefing\" },\n]} defaultSelectedId=\"c2\" renderItem={(item, s) => (\n  <View style={{ alignItems: \"center\", gap: 10, paddingVertical: 20 }}>\n    <Text style={{ fontSize: 28, color: t.pick<string>(\"--primary\") }}>{String(s.index + 1).padStart(2, \"0\")}</Text>\n    <Text style={{ fontWeight: \"600\", color: t.pick<string>(\"--ink-1\") }}>{item.label}</Text>\n    <Text style={{ color: t.pick<string>(\"--ink-3\") }}>{s.selected ? \"Selecionado\" : \"Selecionar\"}</Text>\n  </View>\n)} />",
     "section": "Coverflow"
   },
@@ -2360,6 +2509,86 @@
     "example": "<EmptyState title=\"Seu espaço começa com um arquivo.\" message=\"Envie o primeiro arquivo ou importe uma pasta.\" action={<Button size=\"sm\">Abrir biblioteca</Button>} />",
     "section": "EmptyState"
   },
+  "EntityCard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "actions",
+        "type": "EntityCardAction[]",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "badge",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "badgeTone",
+        "type": "EntityCardBadgeTone",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "image",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "imageAlt",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "layout",
+        "type": "EntityCardLayout",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "price",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "rating",
+        "type": "{ value: number; count?: number | undefined; }",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "subtitle",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<EntityCard title=\"Bule de ferro\" subtitle=\"Cozinha · 1,2 litro\" image={demo(\"loja-bule.webp\")} imageAlt=\"Bule preto sobre mesa de madeira\" price=\"R$ 89\" meta=\"Envio em 2 dias\" badge=\"Novo\" badgeTone=\"info\" rating={{ value: 4.7, count: 212 }} actions={[{ label: \"Comprar\" }, { label: \"Detalhes\" }]} />",
+    "section": "EntityCard"
+  },
   "EventTimeline": {
     "byType": false,
     "props": [
@@ -2637,6 +2866,44 @@
     "onlyWeb": [],
     "example": "<FileUpload multiple pickFiles={async () => [{ name: \"nota-fiscal-lote-12.pdf\", size: 182_400, type: \"application/pdf\" }]} defaultFiles={[\n  { name: \"capa-relatorio.jpg\", size: 412_000, type: \"image/jpeg\", uri: \"https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=200\" },\n  { name: \"inventario.csv\", size: 9_800, type: \"text/csv\" },\n]} />",
     "section": "FileUpload / VoiceRecorder"
+  },
+  "FollowUp": {
+    "byType": false,
+    "props": [
+      {
+        "name": "onSelect",
+        "type": "(message: string) => void",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "suggestions",
+        "type": "(string | FollowUpSuggestion)[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "layout",
+        "type": "FollowUpLayout",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<FollowUp suggestions={[\"Comparar com o mês passado\", \"Só pedidos pagos\", { label: \"Exportar em tabela\", message: \"Exporte estes pedidos em tabela\" }]} onSelect={() => {}} />",
+    "section": "FollowUp"
   },
   "GeoAreaPicker": {
     "byType": false,
@@ -3032,6 +3299,50 @@
     ],
     "example": "<IconButton key={v + s} variant={v} size={s} icon={<Plus />} accessibilityLabel={`Adicionar ${v} ${s}`} />",
     "section": "IconButton"
+  },
+  "ImageGallery": {
+    "byType": false,
+    "props": [
+      {
+        "name": "images",
+        "type": "GalleryImage[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "aspectRatio",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "columns",
+        "type": "2 | 3 | 4",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "layout",
+        "type": "ImageGalleryLayout",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "viewer",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<ImageGallery label=\"Fotos do apartamento\" images={[\n  { src: demo(\"ape-varanda.webp\"), alt: \"Fachada com plantas em todas as varandas\", caption: \"Prédio\" },\n  { src: demo(\"ape-silencioso.webp\"), alt: \"Sala com janelas grandes de frente para as árvores\", caption: \"Sala\" },\n  { src: demo(\"ape-studio.webp\"), alt: \"Sala com sofá cinza e uma planta grande\", caption: \"Estar\" },\n  { src: demo(\"ape-cobertura.webp\"), alt: \"Varanda de frente para o mar\", caption: \"Varanda\" },\n]} />",
+    "section": "ImageGallery"
   },
   "Input": {
     "byType": false,
@@ -3433,6 +3744,32 @@
     "example": "<KanbanCard style={{ marginTop: 12 }} onOpen={() => {}} item={{ id: \"k1\", title: \"Conferir lote de 40 arquivos do cliente\", description: \"Separar os que têm capa desatualizada antes de cadastrar.\", meta: \"Hoje · 3 de 40\", footer: <Badge tone=\"warn\">Em andamento</Badge> }} />",
     "section": "SettingsSubnav / KanbanCard"
   },
+  "KeyValueList": {
+    "byType": false,
+    "props": [
+      {
+        "name": "items",
+        "type": "KeyValueItem[]",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "dividers",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "layout",
+        "type": "KeyValueListLayout",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<KeyValueList items={[{ label: \"Pedido\", value: \"#48213\" }, { label: \"Entrega\", value: \"Normal\", hint: \"3 a 5 dias úteis\" }, { label: \"Pagamento\", value: \"Cartão final 4821\" }, { label: \"Total\", value: \"R$ 184,90\" }]} />",
+    "section": "KeyValueList"
+  },
   "Label": {
     "byType": false,
     "props": [
@@ -3556,6 +3893,56 @@
     "onlyWeb": [],
     "example": "<LineChart title=\"Visitas por mês\" label=\"Visitas aos imóveis nos últimos seis meses\" yTitle=\"Visitas\" xLabels={[\"Jun\", \"Ago\", \"Out\", \"Nov\"]}\n  series={[{ name: \"Santa Tereza\", data: [12, 18, 15, 24, 29, 33] }, { name: \"Floresta\", data: [8, 9, 14, 12, 16, 21], tone: \"info\" }]} />",
     "section": "LineChart / AreaChart"
+  },
+  "LinkCard": {
+    "byType": false,
+    "props": [
+      {
+        "name": "href",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "favicon",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "image",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "layout",
+        "type": "LinkCardLayout",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "siteName",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<LinkCard href=\"https://refy.design/docs\" title=\"Primeiros passos com o refy\" description=\"Instale o pacote, envolva o app no provider e troque o visual inteiro com um arquivo de tema.\" image={demo(\"capa-neon.webp\")} />",
+    "section": "LinkCard"
   },
   "Marker": {
     "byType": false,
@@ -4886,6 +5273,46 @@
     "example": "<Questionnaire onSubmit={() => {}} questions={[\n  { id: \"q1\", title: \"Como você guarda os arquivos?\", options: [{ value: \"estante\", label: \"Na estante, em pé\" }, { value: \"caixa\", label: \"Em caixas\" }, { value: \"parede\", label: \"Na parede\" }], required: true },\n  { id: \"q2\", title: \"Quantos arquivos você tem?\", description: \"Um número aproximado já ajuda.\" },\n]} />",
     "section": "Questionnaire"
   },
+  "Quote": {
+    "byType": false,
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "author",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "avatar",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "source",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "variant",
+        "type": "QuoteVariant",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "cite"
+    ],
+    "example": "<Quote author=\"Ana Ribeiro\" source=\"Produto, Horizonte\">Trocamos o arquivo do tema numa sexta e o app inteiro acompanhou, com botões, gráficos e e-mails.</Quote>",
+    "section": "Quote"
+  },
   "RadioGroup": {
     "byType": false,
     "props": [
@@ -5012,6 +5439,74 @@
     "onlyWeb": [],
     "example": "<Range label=\"Preço\" min={0} max={500} step={10} defaultValue={[80, 260]} formatValue={(v) => `R$ ${v}`} histogram={[2, 5, 9, 14, 11, 8, 6, 3, 2, 1]} ticks={[\"0\", \"250\", \"500\"]} />",
     "section": "Slider / Range"
+  },
+  "Rating": {
+    "byType": false,
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "defaultValue",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onChange",
+        "type": "((value: number) => void)",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "showValue",
+        "type": "boolean",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "size",
+        "type": "RatingSize",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": "<Rating label=\"Nota do restaurante\" readOnly value={4.5} count={128} />",
+    "section": "Rating"
   },
   "SchedulePicker": {
     "byType": false,
@@ -5437,6 +5932,26 @@
     ],
     "example": "<SettingsSubnav activeHref={subnav} onNavigate={(item) => setSubnav(item.href)} groups={[\n  { title: \"Pessoal\", items: [{ href: \"/conta\", label: \"Conta\", description: \"Perfil, senha e 2FA\" }, { href: \"/notificacoes\", label: \"Notificações\" }] },\n  { title: \"Ambiente\", items: [{ href: \"/time\", label: \"Time\" }, { href: \"/cobranca\", label: \"Cobrança\", description: \"Plano e faturas\" }] },\n]} />",
     "section": "SettingsSubnav / KanbanCard"
+  },
+  "SiteMark": {
+    "byType": false,
+    "props": [
+      {
+        "name": "site",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "favicon",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [],
+    "example": null,
+    "section": null
   },
   "Skeleton": {
     "byType": false,
@@ -6619,6 +7134,52 @@
     ],
     "example": "<UserMenu compact user={{ name: \"Ana Souza\", initials: \"AS\", seed: \"ana\" }} />",
     "section": "UserMenu / HelpMenu / NotificationBell"
+  },
+  "Video": {
+    "byType": false,
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "onlyMobile": false
+      },
+      {
+        "name": "aspectRatio",
+        "type": "number",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "onlyMobile": false
+      },
+      {
+        "name": "onPlay",
+        "type": "((source: VideoSource) => void)",
+        "required": false,
+        "onlyMobile": true
+      },
+      {
+        "name": "poster",
+        "type": "string",
+        "required": false,
+        "onlyMobile": false
+      }
+    ],
+    "onlyWeb": [
+      "captions"
+    ],
+    "example": "<Video src={demo(\"degrade.webm\")} poster={demo(\"degrade-capa.jpg\")} title=\"Cores do tema em movimento\" description=\"Seis segundos, sem som.\" />",
+    "section": "Video"
   },
   "VisitSchedulePicker": {
     "byType": false,

@@ -6,6 +6,25 @@ All notable changes to refy are recorded here. The format follows [Keep a Change
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-11-22
+
+Mobile: `@refy-design/mobile` follows at 1.3.0 with the same twelve families as the web.
+
+### Added
+
+- `Rating`. Star rating that reads fractions (4.5) with the number of reviews, or becomes a radio group to pick a score with arrows, `Home` and `End`. `showLabel` puts the label above the stars.
+- `Quote`. Quotation with author and source, as a passage in the text (`block`) or a testimonial with photo or initials (`pull`).
+- `KeyValueList`. Label and value pairs in rows or in a grid of columns, with a short note under each value and an optional `title` that names the list.
+- `ComparisonTable`. Options side by side, one criterion per row, with yes and no marks read aloud, the recommended option highlighted and the criterion column fixed while the table scrolls.
+- `Agenda`. Card with events grouped by day, with time range, place and color; `title` heads the card, `from` and `to` show the empty days as "Nothing scheduled", a date with no time is all day in any time zone, and `timezone` pins the times to a place.
+- `EntityCard`. Card for a product, place, person or listing: photo, category, badge, title, rating, price, details and up to three actions, vertical or horizontal. Without a photo it becomes a compact card.
+- `ImageGallery`. Grid of photos with captions, or `featured`: three columns of square photos, the first one two by two and captions on the photos. Each photo opens in a viewer with previous, next, counter and arrow keys.
+- `Video`. Video file, YouTube or Vimeo behind a cover with a play button. Nothing from the platform loads before the click; YouTube uses the cookie-free domain and Vimeo do-not-track.
+- `AudioPlayer`. Audio player with play, timeline, elapsed and total time and 15-second jumps; the file downloads only on play.
+- `LinkCard`. Preview of a web address with site icon, domain, title, description and thumbnail. It never fetches the page, and without `favicon` it shows the first letter of the domain.
+- `Citation`. Source marker [1] inside a sentence; pointing, focusing or tapping shows the title, the excerpt and the link.
+- `FollowUp`. Suggested next questions after an answer; a tap hands the message to the app to send as the person's next message.
+
 ## [1.10.0] - 2026-11-19
 
 Mobile: `@refy-design/mobile` follows at 1.2.0: BrandLogo gains `symbol` and `height`, and PlanCard gains `ctaPosition`, as on the web. Web only: `ColorField`, and `loop` and `autoplay` in Coverflow.
@@ -337,7 +356,8 @@ First public version.
 
 - `ContentCard` (and its old name `PropertyCard`): `address`, `price` and `priceSuffix` still work and may be removed from 2.0.0 on. Use `subtitle`, `value` and `valueSuffix`.
 
-[Unreleased]: https://github.com/viniciuscoimbra/refy-design/compare/v1.10.0...HEAD
+[Unreleased]: https://github.com/viniciuscoimbra/refy-design/compare/v1.11.0...HEAD
+[1.11.0]: https://github.com/viniciuscoimbra/refy-design/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.5...v1.10.0
 [1.9.5]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.4...v1.9.5
 [1.9.4]: https://github.com/viniciuscoimbra/refy-design/compare/v1.9.3...v1.9.4

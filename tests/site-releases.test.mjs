@@ -68,3 +68,10 @@ test("versão sem declaração do mobile é recusada; com a linha passa", () => 
 test("o CHANGELOG declara o mobile em toda versão desde a 1.1.0", () => {
   assert.deepEqual(missingMobileDeclaration(changelog), []);
 });
+
+// O sumário da página Versões sai de versions.json para o CHANGELOG ficar fora da primeira carga
+// da home (SiteProject.tsx): as duas listas precisam ser a mesma.
+test("versions.json lista as mesmas versões do CHANGELOG, na mesma ordem", () => {
+  const versions = JSON.parse(readFileSync("src/catalog/versions.json", "utf8"));
+  assert.deepEqual(versions.releases.map((r) => r.version), parseReleases(changelog).map((r) => r.version));
+});

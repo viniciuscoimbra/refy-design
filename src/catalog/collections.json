@@ -192,6 +192,40 @@
     ],
     "Coverflow": [
       "media"
+    ],
+    "Rating": [
+      "commerce"
+    ],
+    "Quote": [
+      "content"
+    ],
+    "ComparisonTable": [
+      "commerce"
+    ],
+    "Agenda": [
+      "operations"
+    ],
+    "EntityCard": [
+      "commerce"
+    ],
+    "ImageGallery": [
+      "media"
+    ],
+    "Video": [
+      "media"
+    ],
+    "AudioPlayer": [
+      "media"
+    ],
+    "LinkCard": [
+      "content"
+    ],
+    "Citation": [
+      "conversation",
+      "content"
+    ],
+    "FollowUp": [
+      "conversation"
     ]
   }
 }

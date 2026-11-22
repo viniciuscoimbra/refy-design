@@ -1,0 +1,130 @@
+.wrap {
+  overflow-x: auto;
+  max-width: 100%;
+  border: var(--surface-border-width, 1px) solid var(--line-soft);
+  border-radius: var(--card-radius, var(--radius-lg));
+  background: var(--card-background, var(--surface));
+}
+.wrap:focus-visible {
+  outline: var(--control-focus-outline, 2px solid var(--primary-ink));
+  outline-offset: 2px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: var(--surface-border-width, 1px) solid var(--line-soft);
+}
+.table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.table .corner,
+.table .feature {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--card-background, var(--surface));
+  text-align: left;
+}
+.feature {
+  min-width: 140px;
+  color: var(--ink-1);
+  font-weight: var(--weight-medium);
+}
+.hint {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+}
+
+.option {
+  vertical-align: bottom;
+  min-width: 110px;
+}
+.name {
+  display: block;
+  color: var(--ink-1);
+  font-family: var(--font-headline);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semi);
+}
+.badge {
+  display: inline-block;
+  margin-bottom: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--interface-detail-font, var(--font-mono));
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semi);
+  text-transform: var(--interface-label-transform, uppercase);
+  letter-spacing: var(--interface-label-tracking, var(--tracking-uppercase));
+  white-space: nowrap;
+}
+
+.cell {
+  color: var(--ink-2);
+}
+
+.highlight {
+  background: var(--primary-soft);
+}
+
+.yes,
+.no {
+  display: inline-flex;
+}
+.yes svg,
+.no svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.yes svg { stroke: var(--good-ink); }
+.no svg { stroke: var(--ink-4, var(--ink-3)); }
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Tela estreita: células mais justas para três ou quatro opções caberem sem rolagem. */
+@media (max-width: 560px) {
+  .table {
+    font-size: var(--text-xs);
+  }
+  .table th,
+  .table td {
+    padding: var(--space-2);
+  }
+  .feature {
+    min-width: 96px;
+  }
+  .option {
+    min-width: 64px;
+  }
+  .name {
+    font-size: var(--text-sm);
+  }
+}

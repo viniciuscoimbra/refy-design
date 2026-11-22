@@ -1,0 +1,129 @@
+{
+  "id": "AudioPlayer",
+  "description": "Audio player with play, timeline, elapsed and total time, and 15-second jumps.",
+  "usage": {
+    "howToUse": [
+      "Pass `duration` in seconds when you know it, so the total shows before the file loads.",
+      "The file only downloads when the person presses play (`preload=\"none\"`).",
+      "Use `description` for episode, author or date; `artwork` takes a square cover."
+    ],
+    "alternatives": [
+      "Recording a voice note: VoiceRecorder.",
+      "Video: Video."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves between play, back, timeline and forward."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Plays or pauses."
+      },
+      {
+        "keys": "`←` `→` on the timeline",
+        "action": "Moves one second."
+      }
+    ]
+  },
+  "collections": [
+    "media"
+  ],
+  "publicName": "AudioPlayer",
+  "selected": "Padrao",
+  "import": "import { AudioPlayer } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "AudioPlayer",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { AudioPlayer } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst media = {\n  tones: 'https://refy.design/demo/tons.mp3',\n};\nconst photos = {\n  coverPlaylist: 'https://refy.design/demo/capa-playlist.webp',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof AudioPlayer>,\n    'src' | 'title' | 'description' | 'artwork' | 'duration'\n  > = {\n    src: media.tones,\n    title: 'Four tones',\n    description: 'Sound check · 10 s',\n    artwork: photos.coverPlaylist,\n    duration: 10,\n  };\n  return <AudioPlayer {...args} />;\n}"
+    },
+    {
+      "id": "SemCapa",
+      "label": "Without artwork",
+      "description": "",
+      "code": "import { AudioPlayer } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst media = {\n  tones: 'https://refy.design/demo/tons.mp3',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof AudioPlayer>,\n    'src' | 'title' | 'description' | 'artwork' | 'duration'\n  > = {\n    src: media.tones,\n    title: 'Four tones',\n    description: 'Voice note from Bruno',\n    artwork: undefined,\n    duration: 10,\n  };\n  return <AudioPlayer {...args} />;\n}"
+    }
+  ]
+}

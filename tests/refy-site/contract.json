@@ -1022,6 +1022,78 @@
       "label": "ColorField",
       "story": "Controlado",
       "storyId": "components-molecules-colorfield--controlado"
+    },
+    {
+      "id": "Rating",
+      "label": "Rating",
+      "story": "Leitura",
+      "storyId": "components-atoms-rating--leitura"
+    },
+    {
+      "id": "Quote",
+      "label": "Quote",
+      "story": "Bloco",
+      "storyId": "components-molecules-quote--bloco"
+    },
+    {
+      "id": "KeyValueList",
+      "label": "KeyValueList",
+      "story": "Linhas",
+      "storyId": "components-molecules-keyvaluelist--linhas"
+    },
+    {
+      "id": "ComparisonTable",
+      "label": "ComparisonTable",
+      "story": "Padrao",
+      "storyId": "components-organisms-comparisontable--padrao"
+    },
+    {
+      "id": "Agenda",
+      "label": "Agenda",
+      "story": "Padrao",
+      "storyId": "components-organisms-agenda--padrao"
+    },
+    {
+      "id": "EntityCard",
+      "label": "EntityCard",
+      "story": "Produto",
+      "storyId": "components-organisms-entitycard--produto"
+    },
+    {
+      "id": "ImageGallery",
+      "label": "ImageGallery",
+      "story": "Padrao",
+      "storyId": "components-molecules-imagegallery--padrao"
+    },
+    {
+      "id": "Video",
+      "label": "Video",
+      "story": "Arquivo",
+      "storyId": "components-molecules-video--arquivo"
+    },
+    {
+      "id": "AudioPlayer",
+      "label": "AudioPlayer",
+      "story": "Padrao",
+      "storyId": "components-molecules-audioplayer--padrao"
+    },
+    {
+      "id": "LinkCard",
+      "label": "LinkCard",
+      "story": "Horizontal",
+      "storyId": "components-molecules-linkcard--horizontal"
+    },
+    {
+      "id": "Citation",
+      "label": "Citation",
+      "story": "Padrao",
+      "storyId": "components-atoms-citation--padrao"
+    },
+    {
+      "id": "FollowUp",
+      "label": "FollowUp",
+      "story": "Padrao",
+      "storyId": "components-molecules-followup--padrao"
     }
   ],
   "coverage": {

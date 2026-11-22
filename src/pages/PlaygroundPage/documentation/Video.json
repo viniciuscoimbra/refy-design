@@ -1,0 +1,137 @@
+{
+  "id": "Video",
+  "description": "Video file, YouTube or Vimeo link behind a cover with a play button; nothing from the platform loads before the click.",
+  "usage": {
+    "howToUse": [
+      "Pass a video file or a YouTube or Vimeo address in `src`; the component detects which one.",
+      "YouTube opens on the cookie-free domain and Vimeo with do-not-track. Without `poster`, YouTube uses the video's own thumbnail.",
+      "For video files, add WebVTT `captions` whenever there is speech."
+    ],
+    "alternatives": [
+      "Audio only: AudioPlayer.",
+      "Several photos: ImageGallery or Carousel."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Focuses the play button."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Starts the video; the player controls take over from there."
+      }
+    ]
+  },
+  "collections": [
+    "media"
+  ],
+  "publicName": "Video",
+  "selected": "Arquivo",
+  "import": "import { Video } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Video",
+      "props": [
+        {
+          "name": "captions",
+          "type": "{ src: string; srcLang: string; label: string; default?: boolean | undefined; }[] | undefined",
+          "required": false,
+          "description": "Captions for the video file (WebVTT). Not used for YouTube and Vimeo, which bring their own."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Content shown by the component."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Arquivo",
+      "label": "Video file",
+      "description": "",
+      "code": "import { Video } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst media = {\n  gradient: 'https://refy.design/demo/degrade.webm',\n  gradientPoster: 'https://refy.design/demo/degrade-capa.jpg',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Video>,\n    'src' | 'poster' | 'title' | 'description'\n  > = {\n    src: media.gradient,\n    poster: media.gradientPoster,\n    title: 'Theme colors in motion',\n    description: 'Six seconds, no sound.',\n  };\n  return <Video {...args} />;\n}"
+    },
+    {
+      "id": "YouTube",
+      "label": "YouTube link",
+      "description": "",
+      "code": "import { Video } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Video>,\n    'src' | 'poster' | 'title' | 'description'\n  > = {\n    src: 'https://www.youtube.com/watch?v=aqz-KE-bpKQ',\n    poster: undefined,\n    title: 'Open movie on YouTube',\n    description: 'The player loads only after the click, without cookies.',\n  };\n  return <Video {...args} />;\n}"
+    },
+    {
+      "id": "Quadrado",
+      "label": "Square",
+      "description": "",
+      "code": "import { Video } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst media = {\n  gradient: 'https://refy.design/demo/degrade.webm',\n  gradientPoster: 'https://refy.design/demo/degrade-capa.jpg',\n};\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Video>,\n    'src' | 'poster' | 'title' | 'description' | 'aspectRatio'\n  > = {\n    src: media.gradient,\n    poster: media.gradientPoster,\n    title: 'Theme colors in motion',\n    description: undefined,\n    aspectRatio: 1,\n  };\n  return <Video {...args} />;\n}"
+    }
+  ]
+}

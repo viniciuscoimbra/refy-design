@@ -1,0 +1,126 @@
+{
+  "id": "Agenda",
+  "description": "Schedule grouped by day, with start and end times, place and color for each event.",
+  "usage": {
+    "howToUse": [
+      "Pass `start` and `end` in ISO 8601. A date with no time (\"2026-11-25\") is an all-day event and keeps that day in any time zone.",
+      "Set `timezone` when the times belong to a place, such as a conference city; otherwise the device's zone is used.",
+      "With `onEventClick`, each event becomes a button that opens its details.",
+      "`title` heads the card. With `from` and `to` (\"YYYY-MM-DD\"), every day of the range shows up and days without events read \"Nothing scheduled\"."
+    ],
+    "alternatives": [
+      "Milestones and steps without clock times: Timeline.",
+      "Picking a date or a slot: Calendar, DatePicker or VisitSchedulePicker."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Moves between events when they are clickable."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Opens the focused event."
+      }
+    ]
+  },
+  "collections": [
+    "operations"
+  ],
+  "publicName": "Agenda",
+  "selected": "Padrao",
+  "import": "import { Agenda } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Agenda",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { Agenda } from '@refy-design/web';\nimport type { AgendaEvent } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst events: AgendaEvent[] = [\n  {\n    id: 'a',\n    title: 'Registration and coffee',\n    start: '2026-11-24T08:00:00-03:00',\n    end: '2026-11-24T09:00:00-03:00',\n    location: 'Main hall',\n    tone: 'neutral',\n  },\n  {\n    id: 'b',\n    title: 'Opening keynote',\n    start: '2026-11-24T09:00:00-03:00',\n    end: '2026-11-24T10:00:00-03:00',\n    location: 'Room 1',\n    description: 'Themes that change with one file',\n  },\n  {\n    id: 'c',\n    title: 'Workshop: building screens with AI',\n    start: '2026-11-24T10:30:00-03:00',\n    end: '2026-11-24T12:00:00-03:00',\n    location: 'Lab 2',\n    tone: 'info',\n  },\n  { id: 'd', title: 'Community day', start: '2026-11-25', tone: 'good' },\n  {\n    id: 'e',\n    title: 'Accessibility review',\n    start: '2026-11-25T14:00:00-03:00',\n    end: '2026-11-25T15:30:00-03:00',\n    location: 'Video call',\n    tone: 'warn',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Agenda>,\n    'events' | 'title' | 'label' | 'from' | 'to' | 'timezone'\n  > = {\n    events,\n    title: 'Conference week',\n    label: 'Conference schedule',\n    from: '2026-11-24',\n    to: '2026-11-26',\n    timezone: 'America/Sao_Paulo',\n  };\n  return <Agenda {...args} />;\n}"
+    },
+    {
+      "id": "Clicavel",
+      "label": "Clickable events",
+      "description": "",
+      "code": "import { Agenda } from '@refy-design/web';\nimport type { AgendaEvent } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nimport { useState } from 'react';\nconst events: AgendaEvent[] = [\n  {\n    id: 'a',\n    title: 'Registration and coffee',\n    start: '2026-11-24T08:00:00-03:00',\n    end: '2026-11-24T09:00:00-03:00',\n    location: 'Main hall',\n    tone: 'neutral',\n  },\n  {\n    id: 'b',\n    title: 'Opening keynote',\n    start: '2026-11-24T09:00:00-03:00',\n    end: '2026-11-24T10:00:00-03:00',\n    location: 'Room 1',\n    description: 'Themes that change with one file',\n  },\n  {\n    id: 'c',\n    title: 'Workshop: building screens with AI',\n    start: '2026-11-24T10:30:00-03:00',\n    end: '2026-11-24T12:00:00-03:00',\n    location: 'Lab 2',\n    tone: 'info',\n  },\n  { id: 'd', title: 'Community day', start: '2026-11-25', tone: 'good' },\n  {\n    id: 'e',\n    title: 'Accessibility review',\n    start: '2026-11-25T14:00:00-03:00',\n    end: '2026-11-25T15:30:00-03:00',\n    location: 'Video call',\n    tone: 'warn',\n  },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Agenda>,\n    'events' | 'title' | 'label' | 'from' | 'to' | 'timezone'\n  > = {\n    events,\n    title: 'Conference week',\n    label: 'Conference schedule',\n    from: '2026-11-24',\n    to: '2026-11-26',\n    timezone: 'America/Sao_Paulo',\n  };\n  const [picked, setPicked] = useState<string>();\n  return (\n    <div style={{ display: 'grid', gap: 'var(--space-3)' }}>\n      <Agenda {...args} onEventClick={(event) => setPicked(String(event.title))} />\n      <p>Picked: {picked ?? 'none'}</p>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "Vazia",
+      "label": "Empty",
+      "description": "",
+      "code": "import { Agenda } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof Agenda>,\n    'events' | 'title' | 'label' | 'from' | 'to' | 'timezone' | 'emptyMessage'\n  > = {\n    events: [],\n    title: 'Conference week',\n    label: 'Conference schedule',\n    from: undefined,\n    to: undefined,\n    timezone: 'America/Sao_Paulo',\n    emptyMessage: 'Nothing scheduled this week.',\n  };\n  return <Agenda {...args} />;\n}"
+    }
+  ]
+}

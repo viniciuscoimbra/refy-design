@@ -2,6 +2,18 @@
 // Roda no `npm run lint` (tsc). Não entra no build da biblioteca.
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
 type Expect<T extends true> = T;
+import type { RatingProps } from "../components/Rating/Rating";
+import type { QuoteProps } from "../components/Quote/Quote";
+import type { KeyValueListProps } from "../components/KeyValueList/KeyValueList";
+import type { ComparisonTableProps } from "../components/ComparisonTable/ComparisonTable";
+import type { AgendaProps } from "../components/Agenda/Agenda";
+import type { EntityCardProps } from "../components/EntityCard/EntityCard";
+import type { ImageGalleryProps } from "../components/ImageGallery/ImageGallery";
+import type { VideoProps } from "../components/Video/Video";
+import type { AudioPlayerProps } from "../components/AudioPlayer/AudioPlayer";
+import type { LinkCardProps } from "../components/LinkCard/LinkCard";
+import type { CitationProps } from "../components/Citation/Citation";
+import type { FollowUpProps } from "../components/FollowUp/FollowUp";
 import type * as C from "./index";
 import type { BadgeProps } from "../components/Badge/Badge";
 import type { BadgeTone as WebBadgeTone } from "../components/Badge/Badge";
@@ -341,4 +353,16 @@ export type ContractConformance = [
   Expect<Equal<Pick<VoiceRecorderProps, keyof C.VoiceRecorderCoreProps>, C.VoiceRecorderCoreProps>>,
   Expect<Equal<WebFileUploadState, C.FileUploadState>>,
   Expect<Equal<WebVoiceRecorderState, C.VoiceRecorderState>>,
+  Expect<Equal<Pick<RatingProps, keyof C.RatingCoreProps>, C.RatingCoreProps>>,
+  Expect<Equal<Pick<QuoteProps, keyof C.QuoteCoreProps>, C.QuoteCoreProps>>,
+  Expect<Equal<Pick<KeyValueListProps, keyof C.KeyValueListCoreProps>, C.KeyValueListCoreProps>>,
+  Expect<Equal<Pick<ComparisonTableProps, keyof C.ComparisonTableCoreProps>, C.ComparisonTableCoreProps>>,
+  Expect<Equal<Pick<AgendaProps, keyof C.AgendaCoreProps>, C.AgendaCoreProps>>,
+  Expect<Equal<Pick<EntityCardProps, keyof C.EntityCardCoreProps>, C.EntityCardCoreProps>>,
+  Expect<Equal<Pick<ImageGalleryProps, keyof C.ImageGalleryCoreProps>, C.ImageGalleryCoreProps>>,
+  Expect<Equal<Pick<VideoProps, keyof C.VideoCoreProps>, C.VideoCoreProps>>,
+  Expect<Equal<Pick<AudioPlayerProps, keyof C.AudioPlayerCoreProps>, C.AudioPlayerCoreProps>>,
+  Expect<Equal<Pick<LinkCardProps, keyof C.LinkCardCoreProps>, C.LinkCardCoreProps>>,
+  Expect<Equal<Pick<CitationProps, keyof C.CitationCoreProps>, C.CitationCoreProps>>,
+  Expect<Equal<Pick<FollowUpProps, keyof C.FollowUpCoreProps>, C.FollowUpCoreProps>>,
 ];

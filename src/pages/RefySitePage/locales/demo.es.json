@@ -1272,6 +1272,26 @@
     "With author": "Con autoría",
     "commented on the content review": "comentó en la revisión de contenido"
   },
+  "src/components/Agenda/Agenda.stories.tsx": {
+    "Accessibility review": "Revisión de accesibilidad",
+    "Clickable events": "Eventos clicables",
+    "Community day": "Día de la comunidad",
+    "Conference schedule": "Programa del congreso",
+    "Conference week": "Semana de la conferencia",
+    "Default": "Predeterminado",
+    "Empty": "Vacía",
+    "Lab 2": "Laboratorio 2",
+    "Main hall": "Salón principal",
+    "Nothing scheduled this week.": "Nada programado esta semana.",
+    "Opening keynote": "Charla de apertura",
+    "Picked:": "Elegido:",
+    "Registration and coffee": "Acreditación y café",
+    "Room 1": "Sala 1",
+    "Themes that change with one file": "Temas que cambian con un archivo",
+    "Video call": "Videollamada",
+    "Workshop: building screens with AI": "Taller: pantallas con IA",
+    "none": "ninguno"
+  },
   "src/components/AlertDialog/AlertDialog.stories.tsx": {
     "Interactive": "Interactivo"
   },
@@ -1328,6 +1348,13 @@
   },
   "src/components/AspectRatio/AspectRatio.stories.tsx": {
     "Interactive": "Interactivo"
+  },
+  "src/components/AudioPlayer/AudioPlayer.stories.tsx": {
+    "Default": "Predeterminado",
+    "Four tones": "Cuatro tonos",
+    "Sound check · 10 s": "Prueba de sonido · 10 s",
+    "Voice note from Bruno": "Nota de voz de Bruno",
+    "Without artwork": "Sin portada"
   },
   "src/components/Avatar/Avatar.stories.tsx": {
     "Aurora team": "Equipo Aurora",
@@ -1747,6 +1774,14 @@
     "none": "ninguna",
     "selected:": "seleccionadas:"
   },
+  "src/components/Citation/Citation.stories.tsx": {
+    ", and large text can go down to 3 to 1": ", y el texto grande puede bajar a 3 a 1",
+    "At least 18 point, or 14 point bold.": "Al menos 18 puntos, o 14 puntos en negrita.",
+    "Body text needs a contrast ratio of at least 4.5 to 1": "El texto de cuerpo necesita un contraste de al menos 4,5 a 1",
+    "Default": "Predeterminado",
+    "Inside a paragraph": "Dentro de un párrafo",
+    "Large text definition": "Definición de texto grande"
+  },
   "src/components/CodeBlock/CodeBlock.stories.tsx": {
     "API key · Production": "API key · Producción",
     "Horizontal overflow": "Desborde horizontal",
@@ -1835,6 +1870,23 @@
     "With ⌘K shortcut": "Con atajo ⌘K",
     "create start": "crear empezar",
     "repeat refresh": "repetir actualizar"
+  },
+  "src/components/ComparisonTable/ComparisonTable.stories.tsx": {
+    "Community": "Comunidad",
+    "Custom theme": "Tema propio",
+    "Default": "Predeterminado",
+    "Email": "Correo",
+    "Free": "Gratis",
+    "Narrow screen": "Pantalla estrecha",
+    "Plan comparison": "Comparación de planes",
+    "Price per month": "Precio al mes",
+    "Priority": "Prioritario",
+    "Projects": "Proyectos",
+    "SAML and OIDC": "SAML y OIDC",
+    "Single sign-on": "Inicio de sesión único",
+    "Support": "Soporte",
+    "Unlimited": "Ilimitados",
+    "Without recommendation": "Sin recomendación"
   },
   "src/components/ConnectorCard/ConnectorCard.stories.tsx": {
     "3 properties · synced 1h ago": "3 propiedades · sincronizado hace 1 h",
@@ -1969,6 +2021,35 @@
     "Run your first analysis to see the results here.": "Ejecuta el primer análisis para ver los resultados aquí.",
     "Try removing filters or changing the search. You have 12 items in total.": "Prueba quitar filtros o cambiar la búsqueda. Tienes 12 elementos en total."
   },
+  "src/components/EntityCard/EntityCard.stories.tsx": {
+    "$ 1,450 / month": "US$ 1.450 / mes",
+    "$ 89": "US$ 89",
+    "2 bedrooms · 64 m²": "2 dormitorios · 64 m²",
+    "Add to cart": "Añadir al carrito",
+    "Black teapot on a wooden table": "Tetera negra sobre una mesa de madera",
+    "Bright corner unit, two blocks from the park.": "Unidad de esquina luminosa, a dos cuadras del parque.",
+    "Builds design systems and the tooling around them.": "Construye design systems y las herramientas a su alrededor.",
+    "Cast iron teapot": "Tetera de hierro fundido",
+    "Cast iron teapot 1.2 L": "Tetera de hierro fundido 1,2 L",
+    "Compact, no photo": "Compacta, sin foto",
+    "Design engineer": "Ingeniera de diseño",
+    "Details": "Detalles",
+    "Enamelled inside, with a steel infuser and a wooden handle.": "Esmaltada por dentro, con infusor de acero y asa de madera.",
+    "Horizontal": "Horizontal",
+    "In stock": "En stock",
+    "Kitchen · 1.2 liters": "Cocina · 1,2 litros",
+    "Lisbon · Available in December": "Lisboa · Disponible en diciembre",
+    "Living room with large windows facing the trees": "Sala con ventanales hacia los árboles",
+    "Message": "Mensaje",
+    "New": "Nuevo",
+    "Person": "Persona",
+    "Product": "Producto",
+    "Quiet two-bedroom": "Dos dormitorios tranquilo",
+    "Save": "Guardar",
+    "Schedule a visit": "Agendar visita",
+    "Ships in 2 days": "Se envía en 2 días",
+    "Teapots": "Teteras"
+  },
   "src/components/EventTimeline/EventTimeline.stories.tsx": {
     "A long entry to check that the history keeps author, time, status and actions without hiding content, even when the event has many details that must be read inside a narrow widget.": "Registro extenso para comprobar que el historial conserva autoría, horario, estado y acciones sin ocultar contenido, incluso cuando el evento incluye muchos detalles que deben leerse dentro de un widget estrecho.",
     "Activity": "Actividad",
@@ -2053,6 +2134,17 @@
     "articles-of-incorporation.pdf": "contrato-social.pdf",
     "power-of-attorney.docx": "poder.docx",
     "sample-document.pdf": "documento-ejemplo.pdf"
+  },
+  "src/components/FollowUp/FollowUp.stories.tsx": {
+    "Compare with last month": "Comparar con el mes pasado",
+    "Default": "Predeterminado",
+    "Disabled": "Deshabilitado",
+    "Export as a table": "Exportar como tabla",
+    "Export these orders as a table": "Exportar estos pedidos como tabla",
+    "Sent:": "Enviado:",
+    "Show only paid orders": "Mostrar solo pedidos pagados",
+    "Stacked": "Apilado",
+    "nothing yet": "nada todavía"
   },
   "src/components/GeoAreaPicker/GeoAreaPicker.stories.tsx": {
     "Error": "Error",
@@ -2158,6 +2250,25 @@
   "src/components/IconButton/IconButton.stories.tsx": {
     "Disabled": "Deshabilitado",
     "Search": "Buscar"
+  },
+  "src/components/ImageGallery/ImageGallery.stories.tsx": {
+    "Apartment photos": "Fotos del departamento",
+    "Balcony": "Balcón",
+    "Balcony overlooking the sea and a coastal town": "Balcón con vista al mar y a un pueblo costero",
+    "Bedroom window": "Ventana del dormitorio",
+    "Building": "Edificio",
+    "Building facade with plants on every balcony": "Fachada del edificio con plantas en todos los balcones",
+    "Default": "Predeterminado",
+    "Featured": "Destacada",
+    "Green field near the building": "Césped cerca del edificio",
+    "Living room": "Sala",
+    "Living room with a gray sofa and a large plant": "Sala con sofá gris y una planta grande",
+    "Living room with large windows facing the trees": "Sala con ventanales hacia los árboles",
+    "Lounge": "Estar",
+    "Open window next to plants": "Ventana abierta junto a unas plantas",
+    "Park nearby": "Parque cercano",
+    "Two columns, square": "Dos columnas, cuadradas",
+    "Without viewer": "Sin visor"
   },
   "src/components/Input/Input.stories.tsx": {
     "Billing email": "Correo de facturación",
@@ -2273,8 +2384,34 @@
   "src/components/Kbd/Kbd.stories.tsx": {
     "Combinations": "Combinaciones"
   },
+  "src/components/KeyValueList/KeyValueList.stories.tsx": {
+    "3 to 5 business days": "3 a 5 días hábiles",
+    "Area": "Superficie",
+    "Bedrooms": "Dormitorios",
+    "Built": "Construido en",
+    "Columns": "Columnas",
+    "Condo fee": "Gastos comunes",
+    "Delivery": "Entrega",
+    "Floor": "Planta",
+    "Order": "Pedido",
+    "Order #48213": "Pedido #48213",
+    "Parking": "Estacionamiento",
+    "Payment": "Pago",
+    "Placed on": "Realizado el",
+    "Rows": "Filas",
+    "Without dividers": "Sin divisores",
+    "per month": "al mes"
+  },
   "src/components/Label/Label.stories.tsx": {
     "Interactive": "Interactivo"
+  },
+  "src/components/LinkCard/LinkCard.stories.tsx": {
+    "Getting started with refy": "Primeros pasos con refy",
+    "Horizontal": "Horizontal",
+    "Install the package, wrap the app in the provider and change the whole look with one theme file.": "Instala el paquete, envuelve la app en el provider y cambia todo el aspecto con un archivo de tema.",
+    "The description list element": "El elemento de lista de descripción",
+    "Vertical": "Vertical",
+    "Without image": "Sin imagen"
   },
   "src/components/Marker/Marker.stories.tsx": {
     "Interactive": "Interactivo"
@@ -2596,6 +2733,17 @@
   "src/components/Questionnaire/Questionnaire.stories.tsx": {
     "Interactive": "Interactivo"
   },
+  "src/components/Quote/Quote.stories.tsx": {
+    "Customer since 2021": "Cliente desde 2021",
+    "In the text": "En el texto",
+    "Product lead, Horizon": "Líder de producto, Horizon",
+    "Review on the app": "Reseña en la app",
+    "Support answered in four minutes and solved it on the first reply.": "El soporte respondió en cuatro minutos y lo resolvió en la primera respuesta.",
+    "Testimonial": "Testimonio",
+    "Testimonial without photo": "Testimonio sin foto",
+    "The best coffee in the neighborhood, and the staff remembers your order.": "El mejor café del barrio, y el equipo recuerda tu pedido.",
+    "We changed the theme file on a Friday and the whole app followed, buttons, charts and emails included.": "Cambiamos el archivo de tema un viernes y toda la app lo siguió, con botones, gráficos y correos."
+  },
   "src/components/RadioGroup/RadioGroup.stories.tsx": {
     "Billing cycle": "Ciclo de facturación",
     "Editing unavailable": "Edición no disponible",
@@ -2614,6 +2762,21 @@
     "Value range": "Rango de valores",
     "With formatting": "Con formato",
     "With histogram": "Con histograma"
+  },
+  "src/components/Rating/Rating.stories.tsx": {
+    "Customer rating": "Valoración de clientes",
+    "Disabled": "Deshabilitado",
+    "Large": "Grande",
+    "Locked rating": "Nota bloqueada",
+    "Medium": "Mediana",
+    "Pick a rating": "Elegir la nota",
+    "Read only": "Solo lectura",
+    "Restaurant rating": "Nota del restaurante",
+    "Sizes": "Tamaños",
+    "Small": "Pequeña",
+    "Value:": "Nota:",
+    "With visible label": "Con etiqueta visible",
+    "Your rating": "Tu nota"
   },
   "src/components/Resizable/Resizable.stories.tsx": {
     "Interactive": "Interactivo"
@@ -3201,6 +3364,15 @@
     "Profile": "Perfil",
     "Sign out": "Salir",
     "Team": "Equipo"
+  },
+  "src/components/Video/Video.stories.tsx": {
+    "Open movie on YouTube": "Película abierta en YouTube",
+    "Six seconds, no sound.": "Seis segundos, sin sonido.",
+    "Square": "Cuadrado",
+    "The player loads only after the click, without cookies.": "El reproductor carga solo después del clic, sin cookies.",
+    "Theme colors in motion": "Colores del tema en movimiento",
+    "Video file": "Archivo de video",
+    "YouTube link": "Enlace de YouTube"
   },
   "src/components/VisitSchedulePicker/VisitSchedulePicker.stories.tsx": {
     "30-minute slots": "Franjas de 30 min",

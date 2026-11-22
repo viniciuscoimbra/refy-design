@@ -105,7 +105,7 @@ Vite 6, React externo, tokens.css mais uma família importada pela raiz, bytes g
 |---|---:|---:|
 | tokens.css sozinho (CSS) | 7.987 | 6.803 |
 | tokens.css sem gzip | 97.856 | 53.803 |
-| JS mediano das 123 famílias | 6.489 | 1.755 |
+| JS mediano das 135 famílias | 6.489 | 1.755 |
 | Pagination (JS) | 6.179 | 985 |
 | Tabs (JS) | 7.020 | 1.804 |
 | Callout (JS) | 6.975 | 1.726 |

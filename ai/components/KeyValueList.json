@@ -1,0 +1,122 @@
+{
+  "id": "KeyValueList",
+  "description": "Label and value pairs, such as specs, order details or contact data.",
+  "usage": {
+    "howToUse": [
+      "Use `layout=\"rows\"` for a short list in a narrow column, with the value aligned to the right.",
+      "Use `layout=\"columns\"` for specs read at a glance; the grid fills the width with pairs of at least 150px.",
+      "Put conditions in `hint` (\"per month\", \"includes shipping\") instead of crowding the value.",
+      "`title` heads the list, such as \"Order #48213\", and names it for screen readers."
+    ],
+    "alternatives": [
+      "Many rows with sorting or filters: Table.",
+      "One number in the spotlight: Stat."
+    ],
+    "keyboard": [
+      {
+        "keys": "—",
+        "action": "The list does not receive focus. Screen readers announce each value with its label."
+      }
+    ]
+  },
+  "collections": [
+    "core"
+  ],
+  "publicName": "KeyValueList",
+  "selected": "Linhas",
+  "import": "import { KeyValueList } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "KeyValueList",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLDListElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLDListElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLDListElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLDListElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLDListElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Linhas",
+      "label": "Rows",
+      "description": "",
+      "code": "import { KeyValueList } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst order = [\n  { label: 'Placed on', value: 'Nov 21, 2026' },\n  { label: 'Delivery', value: 'Standard', hint: '3 to 5 business days' },\n  { label: 'Payment', value: 'Card ending in 4821' },\n  { label: 'Total', value: '$ 184.90' },\n];\nexport function Example() {\n  const args: Pick<ComponentProps<typeof KeyValueList>, 'items' | 'title'> = {\n    items: order,\n    title: 'Order #48213',\n  };\n  return <KeyValueList {...args} />;\n}"
+    },
+    {
+      "id": "Colunas",
+      "label": "Columns",
+      "description": "",
+      "code": "import { KeyValueList } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof KeyValueList>,\n    'items' | 'title' | 'layout'\n  > = {\n    items: [\n      { label: 'Area', value: '64 m²' },\n      { label: 'Bedrooms', value: '2' },\n      { label: 'Parking', value: '1 spot' },\n      { label: 'Floor', value: '7th' },\n      { label: 'Condo fee', value: '$ 210', hint: 'per month' },\n      { label: 'Built', value: '2019' },\n    ],\n    title: undefined,\n    layout: 'columns',\n  };\n  return <KeyValueList {...args} />;\n}"
+    },
+    {
+      "id": "SemLinhas",
+      "label": "Without dividers",
+      "description": "",
+      "code": "import { KeyValueList } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nconst order = [\n  { label: 'Placed on', value: 'Nov 21, 2026' },\n  { label: 'Delivery', value: 'Standard', hint: '3 to 5 business days' },\n  { label: 'Payment', value: 'Card ending in 4821' },\n  { label: 'Total', value: '$ 184.90' },\n];\nexport function Example() {\n  const args: Pick<\n    ComponentProps<typeof KeyValueList>,\n    'items' | 'title' | 'dividers'\n  > = { items: order, title: undefined, dividers: false };\n  return <KeyValueList {...args} />;\n}"
+    }
+  ]
+}

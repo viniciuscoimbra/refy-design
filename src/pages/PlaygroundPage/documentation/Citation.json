@@ -1,0 +1,124 @@
+{
+  "id": "Citation",
+  "description": "Source marker [1] inside the text; pointing, focusing or tapping shows the title, the excerpt and the link.",
+  "usage": {
+    "howToUse": [
+      "Place it right after the sentence it supports, numbered in the order the sources appear.",
+      "Put the excerpt that backs the sentence in `snippet`, so the person checks it without leaving the page.",
+      "Repeat the same number when the same source supports another sentence."
+    ],
+    "alternatives": [
+      "A full preview of a page: LinkCard.",
+      "An explanation of a term: Tooltip or HoverCard."
+    ],
+    "keyboard": [
+      {
+        "keys": "`Tab`",
+        "action": "Focuses the marker and opens the source."
+      },
+      {
+        "keys": "`Enter` or `Space`",
+        "action": "Pins or closes the source."
+      },
+      {
+        "keys": "`Esc`",
+        "action": "Closes the source."
+      }
+    ]
+  },
+  "collections": [
+    "conversation",
+    "content"
+  ],
+  "publicName": "Citation",
+  "selected": "Padrao",
+  "import": "import { Citation } from '@refy-design/web';",
+  "composition": [],
+  "api": [
+    {
+      "name": "Citation",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[] | undefined",
+          "required": false,
+          "description": "Initial value in uncontrolled state."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Extra CSS class."
+        },
+        {
+          "name": "dir",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": "The component's inline styles."
+        },
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Defines a string value that labels the current element."
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "ChangeEventHandler<HTMLSpanElement, Element> | undefined",
+          "required": false,
+          "description": "Callback called when the value changes."
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "MouseEventHandler<HTMLSpanElement> | undefined",
+          "required": false,
+          "description": "Activation callback."
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "Padrao",
+      "label": "Default",
+      "description": "",
+      "code": "import { Citation } from '@refy-design/web';\nimport type { ComponentProps } from 'react';\nexport function Example() {\n  const args: Pick<ComponentProps<typeof Citation>, 'index' | 'source'> = {\n    index: 1,\n    source: {\n      title: 'Understanding Success Criterion 1.4.3: Contrast (Minimum)',\n      href: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html',\n      snippet: 'Text and images of text have a contrast ratio of at least 4.5:1.',\n    },\n  };\n  return <Citation {...args} />;\n}"
+    },
+    {
+      "id": "NoTexto",
+      "label": "Inside a paragraph",
+      "description": "",
+      "code": "import { Citation } from '@refy-design/web';\nexport function Example() {\n  return (\n    <p style={{ maxWidth: 520 }}>\n      Body text needs a contrast ratio of at least 4.5 to 1\n      <Citation\n        index={1}\n        source={{\n          title: 'Understanding Success Criterion 1.4.3',\n          href: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html',\n          snippet: 'Text and images of text have a contrast ratio of at least 4.5:1.',\n        }}\n      />\n      , and large text can go down to 3 to 1\n      <Citation\n        index={2}\n        source={{\n          title: 'Large text definition',\n          href: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html#dfn-large-scale',\n          snippet: 'At least 18 point, or 14 point bold.',\n        }}\n      />\n      .\n    </p>\n  );\n}"
+    }
+  ]
+}

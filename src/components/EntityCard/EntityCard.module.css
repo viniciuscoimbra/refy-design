@@ -1,0 +1,130 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: var(--card-border-width, var(--surface-border-width, 1px)) solid var(--line-soft);
+  border-radius: var(--card-radius, var(--radius-lg));
+  background: var(--card-background, var(--surface));
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-2, var(--surface-container-low));
+}
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+}
+.top {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+.category {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+/* Sem foto: cartão compacto, linhas mais juntas, para listas e respostas de chat. */
+.compact .body {
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+}
+.compact .title {
+  font-size: var(--text-base);
+}
+.compact .description {
+  margin-block: var(--space-1);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--card-padding, var(--space-4));
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink-1);
+  font-family: var(--font-headline);
+  font-size: var(--card-title-size, var(--text-md));
+  font-weight: var(--card-title-weight, var(--weight-semi));
+  line-height: var(--leading-snug);
+}
+.subtitle {
+  margin: 0;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+.description {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.footer {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+}
+.price {
+  color: var(--ink-1);
+  font-family: var(--font-headline);
+  font-size: var(--text-h5);
+  font-weight: var(--weight-semi);
+  font-variant-numeric: tabular-nums;
+}
+.meta {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-2);
+}
+
+.horizontal {
+  flex-direction: row;
+}
+.horizontal .media {
+  flex: 0 0 38%;
+  max-width: 220px;
+  aspect-ratio: auto;
+  min-height: 140px;
+}
+
+@media (max-width: 420px) {
+  .horizontal {
+    flex-direction: column;
+  }
+  .horizontal .media {
+    flex: none;
+    max-width: none;
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
+}
+.compact .price {
+  font-size: var(--text-sm);
+}

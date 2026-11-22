@@ -109,7 +109,7 @@ Tiene 8 herramientas: `refy_search` encuentra la familia por la necesidad escrit
 
 ## Qué hay en el catálogo
 
-- **Componentes:** 123 familias (33 átomos, 64 moléculas y 26 organismos), con uso, API, ejemplos interactivos y código para copiar. Los 532 fragmentos tomados de las fuentes compilan contra la API pública.
+- **Componentes:** 135 familias (35 átomos, 71 moléculas y 29 organismos), con uso, API, ejemplos interactivos y código para copiar. Los 570 fragmentos tomados de las fuentes compilan contra la API pública.
 - **Plantillas** (`Block` en el código): pantallas completas por finalidad, con vista previa responsive. [Guía](docs/BLOCKS.md).
 - **Charts:** catálogo D3 con 24 tipos, ejes, leyendas, tooltip, zoom, brush y streaming. [Contratos](docs/CHARTS.md).
 - **Colecciones:** medios, geolocalización, conversación, datos, colaboración, comercio, finanzas y contenido. [Colecciones](docs/COLLECTIONS.md).

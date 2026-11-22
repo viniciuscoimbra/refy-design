@@ -136,6 +136,18 @@ export type Conformance = [
   // Gráfico: toda chave nativa tem o tipo da família line/area da web.
   Expect<ChartKeysMatch>,
   Expect<Equal<NativeChart["type"], Extract<WebChart["type"], "line" | "area">>>,
+  Expect<Implements<N.RatingProps, Core.RatingCoreProps>>,
+  Expect<Implements<N.QuoteProps, Core.QuoteCoreProps>>,
+  Expect<Implements<N.KeyValueListProps, Core.KeyValueListCoreProps>>,
+  Expect<Implements<N.ComparisonTableProps, Core.ComparisonTableCoreProps>>,
+  Expect<Implements<N.AgendaProps, Core.AgendaCoreProps>>,
+  Expect<Implements<N.EntityCardProps, Core.EntityCardCoreProps>>,
+  Expect<Implements<N.ImageGalleryProps, Core.ImageGalleryCoreProps>>,
+  Expect<Implements<N.VideoProps, Core.VideoCoreProps>>,
+  Expect<Implements<N.AudioPlayerProps, Core.AudioPlayerCoreProps>>,
+  Expect<Implements<N.LinkCardProps, Core.LinkCardCoreProps>>,
+  Expect<Implements<N.CitationProps, Core.CitationCoreProps>>,
+  Expect<Implements<N.FollowUpProps, Core.FollowUpCoreProps>>,
 ];
 
 // Controle negativo: um tipo divergente reprova.

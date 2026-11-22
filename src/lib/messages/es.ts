@@ -533,4 +533,53 @@ export const es: RefyMessages = {
     empty: "Ningún entorno",
     current: (name: string) => `Espacio actual: ${name}. Cambiar espacio`,
   },
+  rating: {
+    value: (value: string, max: number) => `${value} de ${max}`,
+    star: (n: number, max: number) => `${n} de ${max} ${max === 1 ? "estrella" : "estrellas"}`,
+    reviews: (n: number, formatted: string) => `${formatted} ${n === 1 ? "reseña" : "reseñas"}`,
+  },
+  comparisonTable: {
+    recommended: "Recomendado",
+    feature: "Criterio",
+    yes: "Sí",
+    no: "No",
+  },
+  agenda: {
+    label: "Agenda",
+    empty: "Nada programado.",
+    allDay: "Todo el día",
+    nothing: "Nada programado",
+    range: (start: string, end: string) => `${start} a ${end}`,
+  },
+  entityCard: {
+    rating: "Valoración",
+  },
+  imageGallery: {
+    open: (alt: string, n: number, total: number) => `Abrir foto ${n} de ${total}: ${alt}`,
+    viewer: (label: string) => `${label}, foto ampliada`,
+    counter: (n: number, total: number) => `${n} de ${total}`,
+    previous: "Foto anterior",
+    next: "Foto siguiente",
+  },
+  video: {
+    play: (title: string) => `Reproducir video: ${title}`,
+  },
+  audioPlayer: {
+    play: (title: string) => `Reproducir ${title}`,
+    pause: (title: string) => `Pausar ${title}`,
+    back: (s: number) => `Retroceder ${s} segundos`,
+    forward: (s: number) => `Avanzar ${s} segundos`,
+    position: "Posición",
+    positionText: (time: string, total: string) => `${time} de ${total}`,
+  },
+  linkCard: {
+    newTab: "(se abre en otra pestaña)",
+  },
+  citation: {
+    source: (n: number, title: string) => `Fuente ${n}: ${title}`,
+    open: "Abrir fuente",
+  },
+  followUp: {
+    label: "Sugerencias",
+  },
 };

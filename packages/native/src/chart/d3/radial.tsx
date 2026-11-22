@@ -1,4 +1,4 @@
-import { en } from "../../messages/en";
+import { d3Chart as enD3Chart } from "../../messages/en";
 import type { RefyMessages } from "../../messages/en";
 import { arc, pie, lineRadial, curveLinearClosed } from "d3-shape";
 import { scaleLinear } from "d3-scale";
@@ -9,7 +9,7 @@ export function radialScene(
   props: D3ChartProps,
   layout: ChartLayout,
   hidden: string[],
-  text: RefyMessages["d3Chart"] = en.d3Chart,
+  text: RefyMessages["d3Chart"] = enD3Chart,
 ): ChartScene {
   const { width: w, height: h, top: t, bottom: b, left: l, right: r } = layout;
   const cx = (l + w - r) / 2,
